@@ -1,0 +1,11 @@
+{
+    "Header" : {
+        "Type" : "Base",
+        "Name" : "PurpleFloor"
+    },
+    "Data" : {
+        "File" : "rsrc/PurpleFloor.bmp",
+        "Rows" : 2,
+        "Columns" : 9
+    }
+}

@@ -1,0 +1,15 @@
+﻿---
+BasedOnStyle: Mozilla
+AlignConsecutiveMacros: 'true'
+AlignConsecutiveAssignments: 'true'
+AlignConsecutiveDeclarations: 'true'
+AlignEscapedNewlines: Left
+AlignOperands: 'true'
+AlignTrailingComments: 'true'
+BreakBeforeBraces: Attach
+ColumnLimit: '120'
+IncludeBlocks: Regroup
+IndentWidth: '4'
+TabWidth: '4'
+
+...

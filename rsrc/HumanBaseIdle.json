@@ -1,0 +1,35 @@
+{
+  "Header": {
+    "Type": "ObjectAnimation",
+    "Name": "HumanBase"
+  },
+  "Data": {
+    "File" : "rsrc/HumanBaseIdle.png",
+    "Animations" : [
+      {
+        "Name" : "HumanIdleSouth",
+        "Column" : 0,
+        "Row" : 0,
+        "Length" : 2
+      },
+      {
+        "Name" : "HumanIdleEast",
+        "Column" : 0,
+        "Row" : 1,
+        "Length" : 2
+      },
+      {
+        "Name" : "HumanIdleNorth",
+        "Column" : 0,
+        "Row" : 2,
+        "Length" : 2
+      },
+      {
+        "Name" : "HumanIdleWest",
+        "Column" : 0,
+        "Row" : 3,
+        "Length" : 2
+      }
+    ]
+  }
+}
