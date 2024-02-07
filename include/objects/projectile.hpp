@@ -1,18 +1,18 @@
 #pragma once
 #include <SDL3/SDL.h>
-#include <graphics/structures.hpp>
+#include <graphics/animatedTexture.hpp>
 
 namespace Objects {
 class Projectile {
   public:
-    Projectile(const Graphics::BaseTexture& base, SDL_Renderer* renderer);
+    Projectile(Graphics::AnimatedTexture* texture, SDL_Renderer* renderer);
     void draw();
+
   private:
   protected:
-    SDL_Texture*  mTexture;
-    SDL_Renderer* mRenderer;
-    SDL_FRect     mCurrentViewport;
-    SDL_FRect     mCurrentPosition;
-    float mAngle;
+    SDL_Renderer*              mRenderer;
+    Graphics::AnimatedTexture* mTexture;
+    SDL_FRect                  mCurrentPosition;
+    float                      mAngle;
 };
 }

@@ -91,7 +91,7 @@ Engine::setPlayerAction(Objects::ObjectAction action) {
 
 void
 Engine::mainLoop() {
-    mProjectile = std::make_unique<Objects::Projectile>(mGraphics->getBaseTexture("Fireball"), pRenderer);
+    mProjectile = std::make_unique<Objects::Projectile>(mGraphics->getAnimatedTexture("Fireball"), pRenderer);
 
 
     SDL_FRect lightPos = {10,10,100,100};

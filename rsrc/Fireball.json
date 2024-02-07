@@ -6,15 +6,14 @@
     "Height": 8
   },
   "Data": {
-    "File" : "rsrc/Fireball.png",
-    "Animations" : [
+    "File": "rsrc/Fireball.png",
+    "Animations": [
       {
-        "Name" : "Fireball",
-        "Column" : 0,
-        "Row" : 0,
-        "Length" : 4
+        "Name": "Fireball",
+        "Column": 0,
+        "Row": 0,
+        "Length": 4
       }
     ]
-  }
   }
 }
