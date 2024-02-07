@@ -1,13 +1,20 @@
 {
   "Header": {
-    "Type": "Base",
+    "Type": "ObjectAnimation",
     "Name": "Fireball",
     "Width": 8,
     "Height": 8
   },
   "Data": {
-    "File": "rsrc/Fireball.png",
-    "Rows": 1,
-    "Columns": 4
+    "File" : "rsrc/Fireball.png",
+    "Animations" : [
+      {
+        "Name" : "Fireball",
+        "Column" : 0,
+        "Row" : 0,
+        "Length" : 4
+      }
+    ]
+  }
   }
 }
