@@ -13,5 +13,6 @@ class Projectile {
     SDL_Renderer* mRenderer;
     SDL_FRect     mCurrentViewport;
     SDL_FRect     mCurrentPosition;
+    float mAngle;
 };
 }
