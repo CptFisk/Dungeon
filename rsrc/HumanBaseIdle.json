@@ -1,7 +1,9 @@
 {
   "Header": {
     "Type": "ObjectAnimation",
-    "Name": "HumanBase"
+    "Name": "HumanBase",
+    "Width" : 16,
+    "Height" : 16
   },
   "Data": {
     "File" : "rsrc/HumanBaseIdle.png",

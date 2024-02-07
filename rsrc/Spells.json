@@ -1,0 +1,19 @@
+{
+  "Header": {
+    "Type": "ObjectAnimation",
+    "Name": "Spells",
+    "Width" : 8,
+    "Height" : 8
+  },
+  "Data": {
+    "File" : "rsrc/Spells.png",
+    "Animations" : [
+      {
+        "Name" : "Fireball",
+        "Column" : 0,
+        "Row" : 0,
+        "Length" : 4
+      }
+    ]
+  }
+}

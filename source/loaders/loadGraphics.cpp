@@ -50,10 +50,10 @@ Graphics::loadBaseTiles(const Engine::HeaderJSON& header,
     // Generating viewports
     for (int row = 0; row < jsonData.Rows; row++) {
         for (int col = 0; col < jsonData.Columns; col++) {
-            base.Views.push_back(SDL_FRect{ 16 * static_cast<float>(col),
-                                            16 * static_cast<float>(row),
-                                            16,
-                                            16 });
+            base.Views.push_back(SDL_FRect{ static_cast<float>(header.Width) * static_cast<float>(col),
+                                            static_cast<float>(header.Height) * static_cast<float>(row),
+                                            static_cast<float>(header.Width),
+                                            static_cast<float>(header.Height) });
         }
     }
     if (mBaseTextures.find(header.Name) == mBaseTextures.end()) {
@@ -80,10 +80,10 @@ Graphics::loadObjectAnimation(const Engine::HeaderJSON& header,
             AnimatedTexture* animation = new AnimatedTexture(loadImage(jsonData.File));
             for (int i = 0; i < data.Length; i++) {
                 animation->addViewport(
-                  SDL_FRect{ 16 * static_cast<float>(data.Column + i),
-                             16 * static_cast<float>(data.Row),
-                             16,
-                             16 });
+                  SDL_FRect{ static_cast<float>(header.Width) * static_cast<float>(data.Column + i),
+                             static_cast<float>(header.Height) * static_cast<float>(data.Row),
+                             static_cast<float>(header.Width),
+                             static_cast<float>(header.Height) });
             };
             mAnimatedTextures[data.Name] = animation;
         }

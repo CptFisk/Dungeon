@@ -1,7 +1,9 @@
 {
     "Header" : {
         "Type" : "Base",
-        "Name" : "PurpleFloor"
+        "Name" : "PurpleFloor",
+        "Width" : 16,
+        "Height" : 16
     },
     "Data" : {
         "File" : "rsrc/PurpleFloor.bmp",
