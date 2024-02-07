@@ -53,7 +53,7 @@ Graphics::loadBaseTiles(const Engine::HeaderJSON& header,
             base.Views.push_back(SDL_FRect{ static_cast<float>(header.Width) * static_cast<float>(col),
                                             static_cast<float>(header.Height) * static_cast<float>(row),
                                             static_cast<float>(header.Width),
-                                            static_cast<float>(header.Height) });
+                                            static_cast<float>(header.Height)});
         }
     }
     if (mBaseTextures.find(header.Name) == mBaseTextures.end()) {

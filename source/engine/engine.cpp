@@ -91,7 +91,7 @@ Engine::setPlayerAction(Objects::ObjectAction action) {
 
 void
 Engine::mainLoop() {
-    mProjectile = std::make_unique<Objects::Projectile>(nullptr, pRenderer);
+    mProjectile = std::make_unique<Objects::Projectile>(mGraphics->getBaseTexture("Fireball"), pRenderer);
 
 
     SDL_FRect lightPos = {10,10,100,100};
@@ -125,6 +125,7 @@ Engine::mainLoop() {
         mLevel->drawLevel();
 
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
+        mProjectile->draw();
         addDarkness();
         SDL_RenderTexture(pRenderer, mGraphics->getTexture("Circle"), nullptr, &lightPos);
         present();
@@ -155,9 +156,11 @@ void
 Engine::calculateScale() {
     int width, height;
     SDL_GetWindowSizeInPixels(pWindow, &width, &height);
-    // The goal is to have 16 by 12 squares
-    mScaleX = static_cast<float>(width) / 16.0f;
-    mScaleY = static_cast<float>(height) / 12.0f;
+    const float squaresX = 16.0; //Numbers of square in x-direction
+    const float squareY = 12.0; //Numbers of square in y-direction
+    const float pixelSize = 16.0;
+    mScaleX = (static_cast<float>(width) / squaresX) / pixelSize;
+    mScaleY = (static_cast<float>(height) / squareY) / pixelSize;
 }
 
 }
