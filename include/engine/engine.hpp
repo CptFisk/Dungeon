@@ -9,7 +9,7 @@
 #include <timer.hpp>
 #include <utility>
 #include <world/level.hpp>
-#include <objects/objects.hpp>
+#include <objects/include.hpp>
 
 namespace Engine {
 class Engine {
@@ -55,6 +55,7 @@ class Engine {
     std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>> mEvents;
     std::list<std::tuple<std::function<void(int)>, Timer>>                 mProcessing;
 
+    std::unique_ptr<Objects::Projectile> mProjectile;
     SDL_Window*   pWindow;
     SDL_Renderer* pRenderer;
 

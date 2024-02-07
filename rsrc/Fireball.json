@@ -1,0 +1,13 @@
+{
+  "Header": {
+    "Type": "Base",
+    "Name": "Fireball",
+    "Width": 8,
+    "Height": 8
+  },
+  "Data": {
+    "File": "rsrc/Fireball.png",
+    "Rows": 0,
+    "Columns": 4
+  }
+}

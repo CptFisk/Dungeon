@@ -6,7 +6,7 @@
         "Height" : 16
     },
     "Data" : {
-        "File" : "rsrc/PurpleFloor.bmp",
+        "File" : "rsrc/floor.bmp",
         "Rows" : 2,
         "Columns" : 9
     }
