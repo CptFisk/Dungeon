@@ -1,8 +1,5 @@
 #pragma once
-#include <engine/actionmgr.hpp>
-#include <engine/initializer.hpp>
-#include <engine/interrupt.hpp>
-#include <engine/sdl.hpp>
+#include <engine/include.hpp>
 #include <graphics/graphics.hpp>
 #include <list>
 #include <memory>
@@ -12,6 +9,7 @@
 #include <timer.hpp>
 #include <utility>
 #include <world/level.hpp>
+#include <objects/objects.hpp>
 
 namespace Engine {
 class Engine {

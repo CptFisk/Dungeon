@@ -25,6 +25,8 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/loaders/loadGraphics.cpp
         ${CMAKE_SOURCE_DIR}/source/utility/file.cpp
         ${CMAKE_SOURCE_DIR}/source/player/player.cpp
+        ${CMAKE_SOURCE_DIR}/source/objects/projectile.cpp
+
 )
 
 target_include_directories(

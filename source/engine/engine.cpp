@@ -91,6 +91,9 @@ Engine::setPlayerAction(Objects::ObjectAction action) {
 
 void
 Engine::mainLoop() {
+    SDL_Texture* f = mGraphics->getAnimatedTexture("Fireball")->getTexture();
+    SDL_FRect* v = mGraphics->getAnimatedTexture("Fireball")->getViewport();
+    SDL_FRect firePos = {100,100,25,25};
     SDL_FRect lightPos = {10,10,100,100};
     SDL_Event event;
     while (mRun) {
@@ -122,6 +125,7 @@ Engine::mainLoop() {
         mLevel->drawLevel();
 
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
+        SDL_RenderTexture(pRenderer, f, v, &firePos);
         addDarkness();
         SDL_RenderTexture(pRenderer, mGraphics->getTexture("Circle"), nullptr, &lightPos);
         present();
