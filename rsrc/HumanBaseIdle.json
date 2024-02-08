@@ -12,25 +12,29 @@
         "Name" : "HumanIdleSouth",
         "Column" : 0,
         "Row" : 0,
-        "Length" : 2
+        "Length" : 2,
+        "Ticks" : 3
       },
       {
         "Name" : "HumanIdleEast",
         "Column" : 0,
         "Row" : 1,
-        "Length" : 2
+        "Length" : 2,
+        "Ticks" : 3
       },
       {
         "Name" : "HumanIdleNorth",
         "Column" : 0,
         "Row" : 2,
-        "Length" : 2
+        "Length" : 2,
+        "Ticks" : 3
       },
       {
         "Name" : "HumanIdleWest",
         "Column" : 0,
         "Row" : 3,
-        "Length" : 2
+        "Length" : 2,
+        "Ticks" : 3
       }
     ]
   }

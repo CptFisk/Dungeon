@@ -12,7 +12,8 @@
         "Name": "Fireball",
         "Column": 0,
         "Row": 0,
-        "Length": 4
+        "Length": 4,
+        "Ticks": 1
       }
     ]
   }

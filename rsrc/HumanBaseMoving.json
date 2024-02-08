@@ -12,25 +12,29 @@
         "Name" : "HumanMovingSouth",
         "Column" : 0,
         "Row" : 0,
-        "Length" : 2
+        "Length" : 2,
+        "Ticks" : 3
       },
       {
         "Name" : "HumanMovingEast",
         "Column" : 0,
         "Row" : 1,
-        "Length" : 2
+        "Length" : 2,
+        "Ticks" : 3
       },
       {
         "Name" : "HumanMovingNorth",
         "Column" : 0,
         "Row" : 2,
-        "Length" : 2
+        "Length" : 2,
+        "Ticks" : 3
       },
       {
         "Name" : "HumanMovingWest",
         "Column" : 0,
         "Row" : 3,
-        "Length" : 2
+        "Length" : 2,
+        "Ticks" : 3
       }
     ]
   }
