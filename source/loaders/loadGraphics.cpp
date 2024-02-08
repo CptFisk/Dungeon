@@ -26,10 +26,12 @@ Graphics::loadGraphics(const std::string& folderPath) {
         } catch (const std::exception& e) {
             std::cerr << "No header found: " << e.what() << std::endl;
         }
-        if (header.Type == "Base") {
+        if (header.Type == "Base")
             loadBaseTiles(header, jsonString);
-        } else if (header.Type == "ObjectAnimation")
+        else if (header.Type == "ObjectAnimation")
             loadObjectAnimation(header, jsonString);
+        else if (header.Type == "GeneratedObject")
+            loadObjectGeneration(header, jsonString);
     }
 }
 
@@ -87,6 +89,30 @@ Graphics::loadObjectAnimation(const Engine::HeaderJSON& header,
             };
             mAnimatedTextures[data.Name] = animation;
         }
+    }
+}
+
+void
+Graphics::loadObjectGeneration(const Engine::HeaderJSON& header, const std::string& jsonString) {
+    std::vector<GeneratedObjectJSON> jsonData;
+    try {
+        jsonData =
+          json::parse(jsonString)[nlohmann::json::json_pointer("/Data")]
+            .get<std::vector<GeneratedObjectJSON>>();
+    } catch (const std::exception& e) {
+        std::cerr << e.what();
+        throw std::runtime_error(e.what());
+    }
+    for(const auto& data : jsonData){
+        generateCircle(data.Name,
+                       header.Height,
+                       data.Red1,
+                       data.Red2,
+                       data.Green1,
+                       data.Green2,
+                       data.Blue1,
+                       data.Blue2,
+    data.Alpha);
     }
 }
 

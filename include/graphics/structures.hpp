@@ -34,6 +34,17 @@ struct AnimationObjectJSON {
     int         Ticks;  //Number of seconds for each texture *100ms
 };
 
+struct GeneratedObjectJSON{
+    std::string Name;
+    int Red1;
+    int Red2;
+    int Green1;
+    int Green2;
+    int Blue1;
+    int Blue2;
+    int Alpha;
+};
+
 struct AnimationDataJSON {
     std::string                      File;
     std::vector<AnimationObjectJSON> Animations;
@@ -42,5 +53,6 @@ struct AnimationDataJSON {
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(BaseTextureJSON, File, Rows, Columns)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationObjectJSON, Name, Column, Row, Length, Ticks)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationDataJSON, File, Animations)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GeneratedObjectJSON, Name, Red1, Red2, Green1, Green2, Blue1, Blue2)
 
 }

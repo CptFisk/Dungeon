@@ -39,6 +39,7 @@ class Graphics {
     void         loadGraphics(const std::string& folderPath);
     void         loadBaseTiles(const Engine::HeaderJSON& header, const std::string& jsonString);
     void         loadObjectAnimation(const Engine::HeaderJSON& header, const std::string& jsonString);
+    void         loadObjectGeneration(const Engine::HeaderJSON& header, const std::string& jsonString);
 
   private:
     float& mScaleX;

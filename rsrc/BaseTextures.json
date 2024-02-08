@@ -1,0 +1,19 @@
+{
+  "Header": {
+    "Type": "GeneratedObject",
+    "Name": "",
+    "Width": 16,
+    "Height": 16
+  },
+  "Data" : [
+    {
+      "Name" : "RedCircle",
+      "Red1" : 251,
+      "Red2" : 226,
+      "Green1" :255,
+      "Green2" :230,
+      "Blue1" : 226,
+      "Blue2" : 203
+    }
+  ]
+}
