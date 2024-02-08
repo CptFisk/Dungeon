@@ -23,13 +23,13 @@ Graphics::generateCircle(const std::string& name,   // Name of texture
     int centerAlpha = 255;
     int edgeAlpha   = 0;
 
-    int startR = 251;
-    int startG = 255;
-    int startB = 226;
+    int startR = r1;
+    int startG = g1;
+    int startB = b1;
 
-    int endR = 226;
-    int endG = 230;
-    int endB = 203;
+    int endR = r2;
+    int endG = g2;
+    int endB = b2;
 
     for (int y = 0; y < radius * 2; ++y) {
         for (int x = 0; x < radius * 2; ++x) {
