@@ -10,8 +10,13 @@ Projectile::Projectile(Graphics::AnimatedTexture* texture, SDL_Renderer* rendere
 
 void
 Projectile::draw() {
-    SDL_RenderTextureRotated(mRenderer, mTexture->getTexture(), mTexture->getViewport(), &mCurrentPosition, mAngle, nullptr, SDL_FLIP_NONE);
+    SDL_RenderTextureRotated(mRenderer, mTexture->getTexture(), mTexture->getViewport(), &mCurrentPosition, 0, nullptr, SDL_FLIP_NONE);
     mAngle += 5;
-
 }
+
+void
+Projectile::update() {
+    mTexture->nextViewport();
+}
+
 }

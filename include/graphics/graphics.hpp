@@ -29,6 +29,7 @@ class Graphics {
     BaseTexture      getBaseTexture(const std::string& name);
     AnimatedTexture* getAnimatedTexture(const std::string& name);
 
+    void updateAnimatedTexture();
   protected:
     SDL_Texture* loadImage(const std::string& filename);
     void         loadGraphics(const std::string& folderPath);

@@ -1,7 +1,7 @@
 #include <chrono>
 #include <engine/interrupt.hpp>
-#include <thread>
 #include <iostream>
+#include <thread>
 
 namespace Engine {
 Interrupt::Interrupt(const long& time, bool& execute)
@@ -11,8 +11,8 @@ Interrupt::Interrupt(const long& time, bool& execute)
 void
 Interrupt::execute() {
     while (mExecute) {
-        for (auto& func : mFunctions) {
-            func();
+        for (auto& function : mFunctions) {
+            function();
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(mTime));
     }

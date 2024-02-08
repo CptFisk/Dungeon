@@ -10,6 +10,13 @@ Graphics::Graphics(SDL_Renderer* renderer, float& scaleX, float& scaleY)
     loadGraphics("rsrc");
 }
 
+void
+Graphics::updateAnimatedTexture() {
+    for(auto &[name, texture] : mAnimatedTextures){
+        texture->nextViewport();
+    }
+}
+
 Graphics::~Graphics() {
     for (auto [name, texture] : mTextures) {
         SDL_DestroyTexture(texture);

@@ -42,13 +42,6 @@ Player::updateReferences() {
 }
 
 void
-Player::updateAnimation() {
-    for (auto& texture : mTextures) {
-        texture.second->nextViewport();
-    }
-}
-
-void
 Player::setAction(Objects::ObjectAction action) {
     mAction = action;
     updateReferences();

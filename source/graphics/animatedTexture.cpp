@@ -5,14 +5,14 @@ AnimatedTexture::AnimatedTexture()
   : mView(0)
   , mTexture(nullptr) {}
 
-AnimatedTexture::AnimatedTexture(SDL_Texture* texture)
+AnimatedTexture::AnimatedTexture(SDL_Texture* texture, const int& ticks)
   : mTexture(texture)
-  , mView(0) {}
+  , mView(0)
+  , mAnimationTicks(ticks) {}
 
 AnimatedTexture::~AnimatedTexture() {
     SDL_DestroyTexture(mTexture); // Cleaning
 }
-
 
 SDL_Texture*
 AnimatedTexture::getTexture() {
@@ -32,9 +32,9 @@ AnimatedTexture::addViewport(const SDL_FRect& view) {
 
 void
 AnimatedTexture::nextViewport() {
-    if(mView < (mViewports.size() - 1)){
+    if (mView < (mViewports.size() - 1)) {
         mView++;
-    }else{
+    } else {
         mView = 0;
     }
     mCurrentViewport = mViewports[mView];

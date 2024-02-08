@@ -69,7 +69,7 @@ Engine::startup() {
     pPlayerView     = mPlayer->getPlayerViewport();
     pPlayerPosition = mPlayer->getPlayerPosition();
     // Bind animation for player to
-    mInterrupts[300]->addFunction([&]() { mPlayer->updateAnimation(); });
+    mInterrupts[100]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
     addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); });
 }
@@ -82,6 +82,7 @@ Engine::terminate() {
 void
 Engine::movePlayer(Directions direction) {
     mPlayer->move(direction);
+
 }
 
 void
@@ -93,31 +94,30 @@ void
 Engine::mainLoop() {
     mProjectile = std::make_unique<Objects::Projectile>(mGraphics->getAnimatedTexture("Fireball"), pRenderer);
 
-
-    SDL_FRect lightPos = {10,10,100,100};
+    SDL_FRect lightPos = { 10, 10, 100, 100 };
     SDL_Event event;
     while (mRun) {
         SDL_RenderClear(pRenderer);
-        while(SDL_PollEvent(&event)){
+        while (SDL_PollEvent(&event)) {
             bool accepted = true;
 
-            for(auto &handler : mEventWatcher){
-                if(!handler(&event)){
+            for (auto& handler : mEventWatcher) {
+                if (!handler(&event)) {
                     accepted = false;
                     break;
                 }
             }
 
-            if(accepted && mEvents.find(event.type) != mEvents.end()){
+            if (accepted && mEvents.find(event.type) != mEvents.end()) {
                 auto handlers = mEvents[event.type];
-                for(auto &handler : handlers){
-                    if(!handler(&event))
+                for (auto& handler : handlers) {
+                    if (!handler(&event))
                         break;
                 }
             }
         }
 
-        for(auto& [handler, timer] : mProcessing){
+        for (auto& [handler, timer] : mProcessing) {
             handler(timer.getTicks());
             timer.start();
         }
@@ -156,11 +156,11 @@ void
 Engine::calculateScale() {
     int width, height;
     SDL_GetWindowSizeInPixels(pWindow, &width, &height);
-    const float squaresX = 16.0; //Numbers of square in x-direction
-    const float squareY = 12.0; //Numbers of square in y-direction
+    const float squaresX  = 16.0; // Numbers of square in x-direction
+    const float squareY   = 12.0; // Numbers of square in y-direction
     const float pixelSize = 16.0;
-    mScaleX = (static_cast<float>(width) / squaresX) / pixelSize;
-    mScaleY = (static_cast<float>(height) / squareY) / pixelSize;
+    mScaleX               = (static_cast<float>(width) / squaresX) / pixelSize;
+    mScaleY               = (static_cast<float>(height) / squareY) / pixelSize;
 }
 
 }

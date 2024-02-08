@@ -1,8 +1,10 @@
 #pragma once
-#include <vector>
 #include <functional>
-namespace Engine{
-class Interrupt{
+#include <memory>
+#include <vector>
+
+namespace Engine {
+class Interrupt {
   public:
     Interrupt(const long int& time, bool& execute);
     void execute();
@@ -10,8 +12,8 @@ class Interrupt{
 
   protected:
   private:
-    bool &mExecute;
-    long int mTime;
+    bool&                                             mExecute;
+    long int                                          mTime;
     std::vector<std::function<void()>> mFunctions;
 };
 }

@@ -17,7 +17,6 @@ class Player {
     SDL_FRect*    getPlayerPosition();
 
     void addAnimatedTexture(Objects::ObjectAction action, Directions direction, Graphics::AnimatedTexture* texture);
-    void updateAnimation();
 
     void setAction(Objects::ObjectAction action);
     void setDirection(Directions direction);
