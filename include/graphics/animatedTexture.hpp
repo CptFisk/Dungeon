@@ -12,7 +12,7 @@ class AnimatedTexture {
     SDL_Texture*            getTexture();
     SDL_FRect*              getViewport();
     void                    addViewport(const SDL_FRect& view);
-    void                    nextViewport();
+    void                    updateTexture();
     [[nodiscard]] SDL_FRect getViewport() const;
     SDL_Texture*            mTexture;
 

@@ -77,7 +77,7 @@ Graphics::loadObjectAnimation(const Engine::HeaderJSON& header,
     }
     for (const auto& data : jsonData.Animations) {
         if(mAnimatedTextures.find(data.Name) == mAnimatedTextures.end()){
-            AnimatedTexture* animation = new AnimatedTexture(loadImage(jsonData.File));
+            AnimatedTexture* animation = new AnimatedTexture(loadImage(jsonData.File), data.Ticks);
             for (int i = 0; i < data.Length; i++) {
                 animation->addViewport(
                   SDL_FRect{ static_cast<float>(header.Width) * static_cast<float>(data.Column + i),

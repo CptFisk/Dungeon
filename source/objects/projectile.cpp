@@ -14,9 +14,5 @@ Projectile::draw() {
     mAngle += 5;
 }
 
-void
-Projectile::update() {
-    mTexture->nextViewport();
-}
 
 }

@@ -7,7 +7,6 @@ class Projectile {
   public:
     Projectile(Graphics::AnimatedTexture* texture, SDL_Renderer* renderer);
     void draw();
-    void update();
 
   private:
   protected:

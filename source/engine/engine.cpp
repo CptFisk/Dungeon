@@ -34,7 +34,7 @@ Engine::getActionManager() {
 void
 Engine::startup() {
     // Starting interrupts
-    mThreads.push_back(spawnInterrupt(100));
+    mThreads.push_back(spawnInterrupt(10));
     mThreads.push_back(spawnInterrupt(300));
     mThreads.push_back(spawnInterrupt(500));
     mThreads.push_back(spawnInterrupt(1000));
@@ -69,7 +69,7 @@ Engine::startup() {
     pPlayerView     = mPlayer->getPlayerViewport();
     pPlayerPosition = mPlayer->getPlayerPosition();
     // Bind animation for player to
-    mInterrupts[100]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
+    mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
     addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); });
 }

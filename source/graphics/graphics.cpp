@@ -13,7 +13,7 @@ Graphics::Graphics(SDL_Renderer* renderer, float& scaleX, float& scaleY)
 void
 Graphics::updateAnimatedTexture() {
     for(auto &[name, texture] : mAnimatedTextures){
-        texture->nextViewport();
+        texture->updateTexture();
     }
 }
 

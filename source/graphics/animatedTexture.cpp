@@ -34,13 +34,19 @@ AnimatedTexture::addViewport(const SDL_FRect& view) {
 }
 
 void
-AnimatedTexture::nextViewport() {
-    if (mView < (mViewports.size() - 1)) {
-        mView++;
-    } else {
-        mView = 0;
+AnimatedTexture::updateTexture(){
+    if(mCurrentTicks > mTicks) {
+        if (mView < (mViewports.size() - 1)) {
+            mView++;
+        } else {
+            mView = 0;
+        }
+        mCurrentViewport = mViewports[mView];
+        mCurrentTicks = 0;
+    }else{
+        mCurrentTicks++;
     }
-    mCurrentViewport = mViewports[mView];
+
 }
 
 SDL_FRect
