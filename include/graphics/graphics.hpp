@@ -19,17 +19,21 @@ class Graphics {
                                     const Uint8&       g,
                                     const Uint8&       b,
                                     const Uint8&       a);
-    void             generateCircle(const std::string& name,
-                                    const float&       radius,
-                                    const Uint8&       r,
-                                    const Uint8&       g,
-                                    const Uint8&       b,
-                                    const Uint8&       a);
+    void             generateCircle(const std::string& name,   // Name of texture
+                                    const float&       radius, // Radius
+                                    const Uint8&       r1,     // Start red color
+                                    const Uint8&       r2,     // End red color
+                                    const Uint8&       g1,     // Start green color
+                                    const Uint8&       g2,     // End green color
+                                    const Uint8&       b1,     // Start blue color
+                                    const Uint8&       b2,     // End blue color
+                                    const Uint8&       a);           // Alpha channel
     SDL_Texture*     getTexture(const std::string& name);
     BaseTexture      getBaseTexture(const std::string& name);
     AnimatedTexture* getAnimatedTexture(const std::string& name);
 
     void updateAnimatedTexture();
+
   protected:
     SDL_Texture* loadImage(const std::string& filename);
     void         loadGraphics(const std::string& folderPath);

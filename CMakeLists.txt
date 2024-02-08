@@ -19,6 +19,7 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/engine/actionmgr.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/handlers.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/graphics.cpp
+        ${CMAKE_SOURCE_DIR}/source/graphics/generateObjects.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/loadImage.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/animatedTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/world/level.cpp

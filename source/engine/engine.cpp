@@ -49,9 +49,6 @@ Engine::startup() {
 
     mLevel->generateLevel(mGraphics->getBaseTexture("PurpleFloor"));
 
-    mGraphics->generateCircle("Circle", 16, 247, 111, 29, 64);
-    mGraphics->generateSquare("Darkness", 1, 1, 0, 0, 0, 128);
-
     // Binding player data
     mPlayer->addAnimatedTexture(Objects::Idle, Directions::North, mGraphics->getAnimatedTexture("HumanIdleNorth"));
     mPlayer->addAnimatedTexture(Objects::Idle, Directions::East, mGraphics->getAnimatedTexture("HumanIdleEast"));
