@@ -19,7 +19,8 @@ class AnimatedTexture {
   private:
   protected:
     int                    mView;
-    int                    mAnimationTicks;
+    const int              mTicks;
+    int                    mCurrentTicks;
     SDL_FRect              mCurrentViewport;
     std::vector<SDL_FRect> mViewports;
 };

@@ -3,12 +3,15 @@
 namespace Graphics {
 AnimatedTexture::AnimatedTexture()
   : mView(0)
+  , mTicks(0)
+  , mCurrentTicks(0)
   , mTexture(nullptr) {}
 
 AnimatedTexture::AnimatedTexture(SDL_Texture* texture, const int& ticks)
   : mTexture(texture)
   , mView(0)
-  , mAnimationTicks(ticks) {}
+  , mCurrentTicks(0)
+  , mTicks(ticks) {}
 
 AnimatedTexture::~AnimatedTexture() {
     SDL_DestroyTexture(mTexture); // Cleaning

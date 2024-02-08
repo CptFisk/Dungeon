@@ -27,25 +27,20 @@ struct BaseTextureJSON {
 };
 
 struct AnimationObjectJSON {
-    std::string           Name;   // Animation name
-    int                   Column; // Start column in sheet
-    int                   Row;    // Start row in sheet
-    int                   Length; // Number of sprites to be read
+    std::string Name;   // Animation name
+    int         Column; // Start column in sheet
+    int         Row;    // Start row in sheet
+    int         Length; // Number of sprites to be read
+    int         Ticks;  //Number of seconds for each texture *100ms
 };
 
 struct AnimationDataJSON {
-    std::string                    File;
+    std::string                      File;
     std::vector<AnimationObjectJSON> Animations;
 };
 
-
-
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(BaseTextureJSON, File, Rows, Columns)
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationObjectJSON,
-                                   Name,
-                                   Column,
-                                   Row,
-                                   Length)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationObjectJSON, Name, Column, Row, Length, Ticks)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationDataJSON, File, Animations)
 
 }
