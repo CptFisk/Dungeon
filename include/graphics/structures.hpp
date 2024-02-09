@@ -1,12 +1,18 @@
 #pragma once
 #include <SDL3/SDL.h>
-#include <nlohmann/json.hpp>
 #include <objects/objects.hpp>
 #include <stdexcept>
 #include <utility>
 #include <vector>
+#include <macros.hpp>
 
 namespace Graphics {
+
+DEFINE_ENUM_AND_JSON_SERIALIZATION(GeneratedObject,
+                                   CIRCLE,
+                                   SQUARE
+)
+
 struct BaseTexture {
     SDL_Texture*           Texture;
     std::vector<SDL_FRect> Views;

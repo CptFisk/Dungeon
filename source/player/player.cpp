@@ -5,7 +5,7 @@ Player::Player(const float& scaleX, const float& scaleY)
   : mPlayerPosition(100, 100, 16.0 * scaleX, 16.0 * scaleY)
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)
-  , mAction(Objects::Moving)
+  , mAction(Objects::MOVING)
   , mDirection(South)
   , mMomentum(0.0) {}
 
@@ -69,7 +69,7 @@ Player::move(Directions direction) {
             mPlayerPosition.x -= 3;
             break;
     }
-    mAction    = Objects::Moving;
+    mAction    = Objects::MOVING;
     mDirection = direction;
     updateReferences();
 }
