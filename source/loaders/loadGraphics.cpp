@@ -17,7 +17,6 @@ Graphics::loadGraphics(const std::string& folderPath) {
     // Process all the meta-data
     std::vector<BaseTexture> textures;
     for (const auto& file : files) {
-        bool              correctType;
         const std::string jsonString = Utility::getFileContent(file.string());
         try {
             header = json::parse(jsonString)[nlohmann::json::json_pointer("/Header")].get<Engine::HeaderJSON>();
@@ -76,7 +75,7 @@ Graphics::loadObjectAnimation(const Engine::HeaderJSON& header, const std::strin
     }
     for (const auto& data : jsonData.Animations) {
         if (mAnimatedTextures.find(data.Name) == mAnimatedTextures.end()) {
-            AnimatedTexture* animation = new AnimatedTexture(loadImage(jsonData.File), data.Ticks);
+            auto animation = new AnimatedTexture(loadImage(jsonData.File), data.Ticks);
             for (int i = 0; i < data.Length; i++) {
                 animation->addViewport(
                   SDL_FRect{ static_cast<float>(header.Width) * static_cast<float>(data.Column + i),
@@ -103,7 +102,7 @@ Graphics::loadObjectGeneration(const Engine::HeaderJSON& header, const std::stri
         switch (data.Shape) {
             case CIRCLE:
                 generateCircle(data.Name,
-                               header.Height,
+                               static_cast<float>(header.Height),
                                data.Red1,
                                data.Red2,
                                data.Green1,

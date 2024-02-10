@@ -3,6 +3,40 @@
 
 namespace Graphics {
 void
+Graphics::generateSquare(const std::string& name,
+                         const int&         width,
+                         const int&         height,
+                         const Uint8&       r,
+                         const Uint8&       g,
+                         const Uint8&       b,
+                         const Uint8&       a) {
+    auto surface = SDL_CreateSurface(width, height, SDL_PIXELFORMAT_RGBA32);
+    if (surface == nullptr) {
+        std::cerr << SDL_GetError() << std::endl;
+    }
+
+    if (SDL_FillSurfaceRect(surface, nullptr, SDL_MapRGB(surface->format, r, g, b)) != 0)
+        std::cerr << SDL_GetError() << std::endl;
+    auto square = SDL_CreateTextureFromSurface(pRenderer, surface);
+    if (square == nullptr)
+        std::cerr << SDL_GetError() << std::endl;
+    if (SDL_SetTextureBlendMode(square, SDL_BLENDMODE_BLEND) != 0)
+        std::cerr << SDL_GetError() << std::endl;
+    if (SDL_SetTextureAlphaMod(square, a) != 0)
+        std::cerr << SDL_GetError() << std::endl;
+    SDL_DestroySurface(surface);
+
+    if (SDL_RenderTexture(pRenderer, square, nullptr, nullptr) != 0)
+        std::cerr << SDL_GetError();
+    mTextures[name] = square;
+}
+
+SDL_Texture*
+Graphics::getTexture(const std::string& name) {
+    return mTextures[name];
+}
+
+void
 Graphics::generateCircle(const std::string& name,   // Name of texture
                          const float&       radius, // Radius
                          const Uint8&       r1,     // Start red color

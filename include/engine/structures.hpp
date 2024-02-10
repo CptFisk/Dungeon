@@ -4,6 +4,12 @@
 #include <string>
 
 namespace Engine {
+struct Scale {
+    float ScaleX;
+    float ScaleY;
+};
+
+
 #define HEADER_TYPES(DO) \
     DO(BASE_TEXTURE)     \
     DO(ANIMATED_TEXTURE) \

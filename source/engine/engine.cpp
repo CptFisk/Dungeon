@@ -1,5 +1,6 @@
 #include <SDL_image.h>
 #include <engine/engine.hpp>
+#include <iostream>
 #include <utility/file.hpp>
 
 namespace Engine {
@@ -11,8 +12,7 @@ Engine::Engine()
   , pPlayerPosition(nullptr)
   , pPlayerTexture(nullptr)
   , pPlayerView(nullptr)
-  , mScaleX(0.0f)
-  , mScaleY(0.0f)
+  , mScale{}
   , mRun(true)
   , mActionManager(std::make_unique<ActionManager>()) {}
 
@@ -43,9 +43,10 @@ Engine::startup() {
     mInitHandler->startup();
     calculateScale();
     // Generate graphics
-    mGraphics = std::make_shared<Graphics::Graphics>(pRenderer, mScaleX, mScaleY);
-    mLevel    = std::make_shared<Level>(pRenderer);
-    mPlayer   = std::make_unique<Player::Player>(mScaleX, mScaleY);
+    mGraphics = std::make_shared<Graphics::Graphics>(pRenderer, mScale);
+    mGraphics->init();
+    mLevel  = std::make_shared<Level>(pRenderer);
+    mPlayer = std::make_unique<Player::Player>(mScale);
 
     mLevel->generateLevel(mGraphics->getBaseTexture("PurpleFloor"));
 
@@ -79,7 +80,6 @@ Engine::terminate() {
 void
 Engine::movePlayer(Directions direction) {
     mPlayer->move(direction);
-
 }
 
 void
@@ -89,7 +89,9 @@ Engine::setPlayerAction(Objects::ObjectAction action) {
 
 void
 Engine::mainLoop() {
-    mProjectile = std::make_unique<Objects::Projectile>(mGraphics->getAnimatedTexture("Fireball"), pRenderer);
+
+    mProjectile = std::make_unique<Objects::Projectile>(
+      mGraphics->getAnimatedTexture("Fireball"), pRenderer, mGraphics->getTexture("RedCircle"));
 
     SDL_FRect lightPos = { 10, 10, 100, 100 };
     SDL_Event event;
@@ -123,15 +125,15 @@ Engine::mainLoop() {
 
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         mProjectile->draw();
-        addDarkness();
-        SDL_RenderTexture(pRenderer, mGraphics->getTexture("Circle"), nullptr, &lightPos);
+        // addDarkness();
         present();
     }
 }
 
 void
 Engine::addDarkness() {
-    SDL_RenderTexture(pRenderer, mGraphics->getTexture("Darkness"), nullptr, nullptr);
+    if (SDL_RenderTexture(pRenderer, mGraphics->getTexture("RedCircle"), nullptr, nullptr) != 0)
+        std::cout << SDL_GetError() << std::endl;
 }
 
 std::thread
@@ -156,8 +158,8 @@ Engine::calculateScale() {
     const float squaresX  = 16.0; // Numbers of square in x-direction
     const float squareY   = 12.0; // Numbers of square in y-direction
     const float pixelSize = 16.0;
-    mScaleX               = (static_cast<float>(width) / squaresX) / pixelSize;
-    mScaleY               = (static_cast<float>(height) / squareY) / pixelSize;
+    mScale.ScaleX         = (static_cast<float>(width) / squaresX) / pixelSize;
+    mScale.ScaleY         = (static_cast<float>(height) / squareY) / pixelSize;
 }
 
 }

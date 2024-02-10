@@ -5,11 +5,12 @@
 #include <map>
 #include <objects/objects.hpp>
 #include <utility>
+#include <engine/structures.hpp>
 
 namespace Player {
 class Player {
   public:
-    Player(const float& scaleX, const float& scaleY);
+    Player(const Engine::Scale& scale);
     ~Player();
 
     SDL_Texture** getPlayerTexture();

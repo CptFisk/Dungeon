@@ -3,11 +3,9 @@
 #include <iostream>
 
 namespace Graphics {
-Graphics::Graphics(SDL_Renderer* renderer, float& scaleX, float& scaleY)
+Graphics::Graphics(SDL_Renderer* renderer, Engine::Scale& scale)
   : pRenderer(renderer)
-  , mScaleX(scaleX)
-  , mScaleY(scaleY) {
-    loadGraphics("rsrc");
+  , mScale(scale){
 }
 
 void
@@ -28,25 +26,8 @@ Graphics::~Graphics() {
 }
 
 void
-Graphics::generateSquare(const std::string& name,
-                         const int&         width,
-                         const int&         height,
-                         const Uint8&       r,
-                         const Uint8&       g,
-                         const Uint8&       b,
-                         const Uint8&       a) {
-    auto surface = SDL_CreateSurface(width, height, SDL_PIXELFORMAT_RGBA32);
-    SDL_FillSurfaceRect(surface, nullptr, SDL_MapRGB(surface->format, r, g, b));
-    auto square = SDL_CreateTextureFromSurface(pRenderer, surface);
-    SDL_SetTextureBlendMode(square, SDL_BLENDMODE_BLEND);
-    SDL_SetTextureAlphaMod(square, a);
-    SDL_DestroySurface(surface);
-    mTextures[name] = square;
-}
-
-SDL_Texture*
-Graphics::getTexture(const std::string& name) {
-    return mTextures[name];
+Graphics::init() {
+    loadGraphics("rsrc");
 }
 
 BaseTexture

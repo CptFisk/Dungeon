@@ -40,8 +40,7 @@ class Engine {
 
   private:
     bool  mRun;
-    float mScaleX;
-    float mScaleY;
+    Scale mScale;
 
     std::unique_ptr<InitHandler>        mInitHandler;
     std::unique_ptr<Player::Player>     mPlayer;

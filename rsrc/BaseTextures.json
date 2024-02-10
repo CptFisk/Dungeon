@@ -7,7 +7,7 @@
   },
   "Data" : [
     {
-      "Name" : "RedCircle",
+      "Name" : "WhiteCircle",
       "Shape" : "Circle",
       "Red1" : 251,
       "Red2" : 226,
@@ -15,10 +15,21 @@
       "Green2" :230,
       "Blue1" : 226,
       "Blue2" : 203,
-      "Alpha" : 0
+      "Alpha" : 50
     },
     {
-      "Name" : "Shadow90",
+      "Name" : "RedCircle",
+      "Shape" : "Circle",
+      "Red1" : 255,
+      "Red2" : 255,
+      "Green1" :143,
+      "Green2" :143,
+      "Blue1" : 23,
+      "Blue2" : 23,
+      "Alpha" : 50
+    },
+    {
+      "Name" : "Shadow",
       "Shape" : "Square",
       "Red1" : 0,
       "Red2" : 0,
@@ -26,7 +37,7 @@
       "Green2" :0,
       "Blue1" : 0,
       "Blue2" : 0,
-      "Alpha" : 0
+      "Alpha" : 50
     }
   ]
 }

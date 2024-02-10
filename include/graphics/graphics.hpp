@@ -10,8 +10,9 @@
 namespace Graphics {
 class Graphics {
   public:
-    Graphics(SDL_Renderer* renderer, float& scaleX, float& scaleY);
+    Graphics(SDL_Renderer* renderer, Engine::Scale& scale);
     ~Graphics();
+    void init();
     void             generateSquare(const std::string& name,
                                     const int&         width,
                                     const int&         height,
@@ -42,8 +43,7 @@ class Graphics {
     void         loadObjectGeneration(const Engine::HeaderJSON& header, const std::string& jsonString);
 
   private:
-    float& mScaleX;
-    float& mScaleY;
+    Engine::Scale& mScale;
 
     std::unordered_map<std::string, AnimatedTexture*> mAnimatedTextures;
     std::unordered_map<std::string, BaseTexture>      mBaseTextures;
