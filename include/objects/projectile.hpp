@@ -3,17 +3,25 @@
 #include <graphics/animatedTexture.hpp>
 
 namespace Objects {
+struct ProjectileStruct {
+    Graphics::AnimatedTexture* Projectile;
+    SDL_Texture*               Lightning;
+    float                      Angle;
+    int                        Duration;
+};
+
 class Projectile {
   public:
-    Projectile(Graphics::AnimatedTexture* texture, SDL_Renderer* renderer, SDL_Texture* lightning = nullptr);
+    Projectile(const ProjectileStruct& setup, SDL_Renderer* renderer);
     void draw();
 
   private:
   protected:
-    SDL_Renderer*              pRenderer;
-    Graphics::AnimatedTexture* pProjectile;
-    SDL_Texture*               pLightning;
-    SDL_FRect                  mCurrentPosition;
-    float                      mAngle;
+    SDL_Renderer*              pRenderer;        // Reference to renderer
+    Graphics::AnimatedTexture* pProjectile;      // Reference to animated texture
+    SDL_Texture*               pLightning;       // Reference to the lightning, if it exists
+    SDL_FRect                  mCurrentPosition; // Current position of the projectile
+    float                      mAngle;           // Rotation angle
+    int                        mDuration;        // Number of ticks, destroyed on 0
 };
 }

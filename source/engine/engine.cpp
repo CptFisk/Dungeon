@@ -90,8 +90,10 @@ Engine::setPlayerAction(Objects::ObjectAction action) {
 void
 Engine::mainLoop() {
 
-    mProjectile = std::make_unique<Objects::Projectile>(
-      mGraphics->getAnimatedTexture("Fireball"), pRenderer, mGraphics->getTexture("RedCircle"));
+    Objects::ProjectileStruct setup{
+        mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), 0, 1000
+    };
+    mProjectile = std::make_unique<Objects::Projectile>(setup, pRenderer);
 
     SDL_FRect lightPos = { 10, 10, 100, 100 };
     SDL_Event event;
@@ -125,14 +127,14 @@ Engine::mainLoop() {
 
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         mProjectile->draw();
-        // addDarkness();
+        addDarkness();
         present();
     }
 }
 
 void
 Engine::addDarkness() {
-    if (SDL_RenderTexture(pRenderer, mGraphics->getTexture("RedCircle"), nullptr, nullptr) != 0)
+    if (SDL_RenderTexture(pRenderer, mGraphics->getTexture("Shadow"), nullptr, nullptr) != 0)
         std::cout << SDL_GetError() << std::endl;
 }
 
