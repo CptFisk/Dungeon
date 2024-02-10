@@ -1,6 +1,6 @@
 {
   "Header": {
-    "Type": "ObjectAnimation",
+    "Type": "AnimatedTexture",
     "Name": "HumanBase",
     "Width" : 16,
     "Height" : 16

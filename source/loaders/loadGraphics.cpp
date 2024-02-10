@@ -20,15 +20,14 @@ Graphics::loadGraphics(const std::string& folderPath) {
         const std::string jsonString = Utility::getFileContent(file.string());
         try {
             header = json::parse(jsonString)[nlohmann::json::json_pointer("/Header")].get<Engine::HeaderJSON>();
-            header.Type == "Base" ? correctType = true : correctType = false;
         } catch (const std::exception& e) {
             std::cerr << "No header found: " << e.what() << std::endl;
         }
-        if (header.Type == "Base")
+        if (header.Type == Engine::BASE_TEXTURE)
             loadBaseTiles(header, jsonString);
-        else if (header.Type == "ObjectAnimation")
+        else if (header.Type == Engine::ANIMATED_TEXTURE)
             loadObjectAnimation(header, jsonString);
-        else if (header.Type == "GeneratedObject")
+        else if (header.Type == Engine::GENERATED_TEXTURE)
             loadObjectGeneration(header, jsonString);
     }
 }

@@ -1,6 +1,6 @@
 {
   "Header": {
-    "Type": "ObjectAnimation",
+    "Type": "AnimatedTexture",
     "Name": "Fireball",
     "Width": 8,
     "Height": 8

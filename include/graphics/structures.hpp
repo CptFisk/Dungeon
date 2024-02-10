@@ -4,14 +4,16 @@
 #include <stdexcept>
 #include <utility>
 #include <vector>
-#include <macros.hpp>
 
 namespace Graphics {
 
-DEFINE_ENUM_AND_JSON_SERIALIZATION(GeneratedObject,
-                                   CIRCLE,
-                                   SQUARE
-)
+#define GENERATED_SHAPES(DO) \
+    DO(CIRCLE)                  \
+    DO(SQUARE)
+#define MAKE_GENERATED_SHAPES(VAR) VAR,
+enum GeneratedShapes {GENERATED_SHAPES(MAKE_GENERATED_SHAPES)};
+NLOHMANN_JSON_SERIALIZE_ENUM(GeneratedShapes, {{CIRCLE, "Circle"}, {SQUARE, "Square"}})
+
 
 struct BaseTexture {
     SDL_Texture*           Texture;
@@ -42,6 +44,7 @@ struct AnimationObjectJSON {
 
 struct GeneratedObjectJSON{
     std::string Name;
+    GeneratedShapes Shape;
     int Red1;
     int Red2;
     int Green1;

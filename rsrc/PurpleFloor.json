@@ -1,6 +1,6 @@
 {
     "Header" : {
-        "Type" : "Base",
+        "Type" : "BaseTexture",
         "Name" : "PurpleFloor",
         "Width" : 16,
         "Height" : 16
