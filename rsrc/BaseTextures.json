@@ -8,12 +8,25 @@
   "Data" : [
     {
       "Name" : "RedCircle",
+      "Shape" : "Circle",
       "Red1" : 251,
       "Red2" : 226,
       "Green1" :255,
       "Green2" :230,
       "Blue1" : 226,
-      "Blue2" : 203
+      "Blue2" : 203,
+      "Alpha" : 0
+    },
+    {
+      "Name" : "Shadow90",
+      "Shape" : "Square",
+      "Red1" : 0,
+      "Red2" : 0,
+      "Green1" :0,
+      "Green2" :0,
+      "Blue1" : 0,
+      "Blue2" : 0,
+      "Alpha" : 0
     }
   ]
 }

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <utility/file.hpp>
+#include <utility/scale.hpp>
 
 using json = nlohmann::json;
 
@@ -23,12 +24,17 @@ Graphics::loadGraphics(const std::string& folderPath) {
         } catch (const std::exception& e) {
             std::cerr << "No header found: " << e.what() << std::endl;
         }
-        if (header.Type == Engine::BASE_TEXTURE)
-            loadBaseTiles(header, jsonString);
-        else if (header.Type == Engine::ANIMATED_TEXTURE)
-            loadObjectAnimation(header, jsonString);
-        else if (header.Type == Engine::GENERATED_TEXTURE)
-            loadObjectGeneration(header, jsonString);
+        switch (header.Type) {
+            case Engine::BASE_TEXTURE:
+                loadBaseTiles(header, jsonString);
+                break;
+            case Engine::ANIMATED_TEXTURE:
+                loadObjectAnimation(header, jsonString);
+                break;
+            case Engine::GENERATED_TEXTURE:
+                loadObjectGeneration(header, jsonString);
+                break;
+        }
     }
 }
 
@@ -94,8 +100,28 @@ Graphics::loadObjectGeneration(const Engine::HeaderJSON& header, const std::stri
         throw std::runtime_error(e.what());
     }
     for (const auto& data : jsonData) {
-        generateCircle(
-          data.Name, header.Height, data.Red1, data.Red2, data.Green1, data.Green2, data.Blue1, data.Blue2, data.Alpha);
+        switch (data.Shape) {
+            case CIRCLE:
+                generateCircle(data.Name,
+                               header.Height,
+                               data.Red1,
+                               data.Red2,
+                               data.Green1,
+                               data.Green2,
+                               data.Blue1,
+                               data.Blue2,
+                               Utility::Scale<Uint8>(data.Alpha, 0, 100, 0, 255));
+                break;
+            case SQUARE:
+                generateSquare(data.Name,
+                               header.Width,
+                               header.Height,
+                               data.Red1,
+                               data.Green1,
+                               data.Blue1,
+                               Utility::Scale<Uint8>(data.Alpha, 0, 100, 0, 255));
+                break;
+        }
     }
 }
 

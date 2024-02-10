@@ -62,6 +62,6 @@ struct AnimationDataJSON {
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(BaseTextureJSON, File, Rows, Columns)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationObjectJSON, Name, Column, Row, Length, Ticks)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationDataJSON, File, Animations)
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GeneratedObjectJSON, Name, Red1, Red2, Green1, Green2, Blue1, Blue2)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GeneratedObjectJSON, Name, Shape, Red1, Red2, Green1, Green2, Blue1, Blue2)
 
 }
