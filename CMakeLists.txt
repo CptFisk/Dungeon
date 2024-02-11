@@ -25,6 +25,7 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/world/level.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadGraphics.cpp
         ${CMAKE_SOURCE_DIR}/source/utility/file.cpp
+        ${CMAKE_SOURCE_DIR}/source/utility/calculateVector.cpp
         ${CMAKE_SOURCE_DIR}/source/player/player.cpp
         ${CMAKE_SOURCE_DIR}/source/objects/projectile.cpp
 

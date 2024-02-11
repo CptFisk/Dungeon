@@ -1,5 +1,6 @@
-#include <iostream>
 #include <objects/projectile.hpp>
+#include <utility/calculateVector.hpp>
+
 namespace Objects {
 
 Projectile::Projectile(const Objects::ProjectileStruct& setup, SDL_Renderer* renderer)
@@ -7,11 +8,13 @@ Projectile::Projectile(const Objects::ProjectileStruct& setup, SDL_Renderer* ren
   , pLightning(setup.Lightning)
   , pRenderer(renderer)
   , mDuration(setup.Duration)
-  , mCurrentPosition{ 100, 100, 18, 18 } {}
+  , mVelocity(setup.Velocity)
+  , mAngle(setup.Angle)
+  , mCurrentPosition{ 100, 100, 18, 18 }
+  , mLightningPosition{ 84, 84, 50, 50 } {}
 
 void
 Projectile::draw() {
-    SDL_FRect d = { 84, 84, 50, 50 };
     SDL_RenderTextureRotated(pRenderer,
                              pProjectile->getTexture(),
                              pProjectile->getViewport(),
@@ -20,10 +23,17 @@ Projectile::draw() {
                              nullptr,
                              SDL_FLIP_NONE);
     if (pLightning != nullptr) {
-        if (SDL_RenderTexture(pRenderer, pLightning, nullptr, &d) != 0)
-            std::cout << SDL_GetError() << std::endl;
+        SDL_RenderTexture(pRenderer, pLightning, nullptr, &mLightningPosition);
     }
-    mAngle += 5;
+    // Move to new position
+    float deltaX;
+    float deltaY;
+    Utility::calculateVector(45.0, mVelocity, deltaX, deltaY);
+
+    mCurrentPosition.x += deltaX;
+    mCurrentPosition.y += deltaY;
+    mLightningPosition.x += deltaX;
+    mLightningPosition.y += deltaY;
 }
 
 }

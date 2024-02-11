@@ -91,7 +91,7 @@ void
 Engine::mainLoop() {
 
     Objects::ProjectileStruct setup{
-        mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), 0, 1000
+        mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), 0, 1000, 1.0
     };
     mProjectile = std::make_unique<Objects::Projectile>(setup, pRenderer);
 
