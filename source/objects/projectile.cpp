@@ -1,5 +1,5 @@
 #include <objects/projectile.hpp>
-#include <utility/calculateVector.hpp>
+#include <utility/trigonometry.hpp>
 
 namespace Objects {
 

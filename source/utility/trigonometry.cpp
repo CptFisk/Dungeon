@@ -1,5 +1,5 @@
-#include <utility/calculateVector.hpp>
 #include <cmath>
+#include <utility/trigonometry.hpp>
 
 namespace Utility{
 void calculateVector(const float& angle, const float& velocity, float &x, float &y){
