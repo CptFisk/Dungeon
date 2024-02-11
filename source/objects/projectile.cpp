@@ -13,6 +13,8 @@ Projectile::Projectile(const Objects::ProjectileStruct& setup, SDL_Renderer* ren
   , mCurrentPosition{ 100, 100, 18, 18 }
   , mLightningPosition{ 84, 84, 50, 50 } {}
 
+Projectile::~Projectile() {}
+
 void
 Projectile::draw() {
     SDL_RenderTextureRotated(pRenderer,
@@ -25,6 +27,11 @@ Projectile::draw() {
     if (pLightning != nullptr) {
         SDL_RenderTexture(pRenderer, pLightning, nullptr, &mLightningPosition);
     }
+
+}
+
+void
+Projectile::move() {
     // Move to new position
     float deltaX;
     float deltaY;
@@ -34,6 +41,11 @@ Projectile::draw() {
     mCurrentPosition.y += deltaY;
     mLightningPosition.x += deltaX;
     mLightningPosition.y += deltaY;
+}
+
+int
+Projectile::getNewDuration() {
+    return mDuration--;
 }
 
 }

@@ -93,7 +93,7 @@ Engine::mainLoop() {
     Objects::ProjectileStruct setup{
         mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), 0, 1000, 1.0
     };
-    mProjectile = std::make_unique<Objects::Projectile>(setup, pRenderer);
+    mProjectile.push_back(new Objects::Projectile(setup, pRenderer));
 
     SDL_FRect lightPos = { 10, 10, 100, 100 };
     SDL_Event event;
@@ -126,7 +126,6 @@ Engine::mainLoop() {
         mLevel->drawLevel();
 
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
-        mProjectile->draw();
         addDarkness();
         present();
     }

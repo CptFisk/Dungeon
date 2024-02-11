@@ -13,12 +13,13 @@ struct ProjectileStruct {
 
 class Projectile {
   public:
-    Projectile(const ProjectileStruct& setup, SDL_Renderer* renderer);
-    void draw();
+    Projectile(const ProjectileStruct& setup, SDL_Renderer* renderer); // Constructor
+    ~Projectile();
 
+    void draw();                                                       // Draw the object
+    int  getNewDuration();                                             // Calculate and return the new duration
   private:
-    void calculatePosition();
-
+    void move(); // All functions related to movement
   protected:
     SDL_Renderer*              pRenderer;          // Reference to renderer
     Graphics::AnimatedTexture* pProjectile;        // Reference to animated texture
