@@ -26,7 +26,7 @@
       "Green2" :143,
       "Blue1" : 23,
       "Blue2" : 23,
-      "Alpha" : 50
+      "Alpha" : 70
     },
     {
       "Name" : "Shadow",
@@ -37,7 +37,7 @@
       "Green2" :0,
       "Blue1" : 0,
       "Blue2" : 0,
-      "Alpha" : 50
+      "Alpha" : 30
     }
   ]
 }
