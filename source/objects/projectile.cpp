@@ -27,6 +27,7 @@ Projectile::draw() {
     if (pLightning != nullptr) {
         SDL_RenderTexture(pRenderer, pLightning, nullptr, &mLightningPosition);
     }
+    move();
 
 }
 

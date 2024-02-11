@@ -18,8 +18,8 @@ Engine::Engine()
 
 Engine::~Engine() {
     mInitHandler->shutdown();
-    //Clear projectiles
-    for(auto& projectile: mProjectiles){
+    // Clear projectiles
+    for (auto& projectile : mProjectiles) {
         delete projectile;
     }
     // De-spawn all threads
@@ -94,7 +94,7 @@ void
 Engine::mainLoop() {
 
     Objects::ProjectileStruct setup{
-        mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), 0, 1000, 1.0
+        mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), 0, 100, 5
     };
     mProjectiles.push_back(new Objects::Projectile(setup, pRenderer));
 
@@ -130,7 +130,21 @@ Engine::mainLoop() {
 
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         addDarkness();
+        projectiles();
         present();
+    }
+}
+
+void
+Engine::projectiles() {
+    for (auto it = mProjectiles.begin(); it != mProjectiles.end();) {
+        if ((*it)->getNewDuration() < 0) {
+            delete *it;
+            it = mProjectiles.erase(it);
+        } else {
+            (*it)->draw();
+            ++it;
+        }
     }
 }
 

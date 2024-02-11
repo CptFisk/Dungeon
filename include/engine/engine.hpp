@@ -33,8 +33,9 @@ class Engine {
 
   protected:
     void present();
-    void calculateScale(); // Calculate the scale of each tile to match screen
-                           // dimensions
+    void calculateScale(); // Calculate the scale of each tile to match screen dimensions
+    void projectiles();
+
     void        addDarkness();
     std::thread spawnInterrupt(const long& time); // Spawn a thread
 
@@ -52,7 +53,7 @@ class Engine {
     std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>> mEvents;
     std::list<std::tuple<std::function<void(int)>, Timer>>                 mProcessing;
 
-    std::vector<Objects::Projectile*> mProjectiles;  //All projectiles
+    std::vector<Objects::Projectile*> mProjectiles; // All projectiles
     SDL_Window*                       pWindow;
     SDL_Renderer*                     pRenderer;
 
