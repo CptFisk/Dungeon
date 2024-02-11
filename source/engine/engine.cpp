@@ -18,7 +18,10 @@ Engine::Engine()
 
 Engine::~Engine() {
     mInitHandler->shutdown();
-
+    //Clear projectiles
+    for(auto& projectile: mProjectiles){
+        delete projectile;
+    }
     // De-spawn all threads
     for (auto& thread : mThreads) {
         thread.join();
@@ -93,7 +96,7 @@ Engine::mainLoop() {
     Objects::ProjectileStruct setup{
         mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), 0, 1000, 1.0
     };
-    mProjectile.push_back(new Objects::Projectile(setup, pRenderer));
+    mProjectiles.push_back(new Objects::Projectile(setup, pRenderer));
 
     SDL_FRect lightPos = { 10, 10, 100, 100 };
     SDL_Event event;

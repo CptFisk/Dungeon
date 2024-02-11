@@ -52,7 +52,7 @@ class Engine {
     std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>> mEvents;
     std::list<std::tuple<std::function<void(int)>, Timer>>                 mProcessing;
 
-    std::vector<Objects::Projectile*> mProjectile;  //All projectiles
+    std::vector<Objects::Projectile*> mProjectiles;  //All projectiles
     SDL_Window*                       pWindow;
     SDL_Renderer*                     pRenderer;
 
