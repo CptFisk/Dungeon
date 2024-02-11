@@ -22,6 +22,12 @@ calculateAngle(const float& x1, const float& y1, const float& x2, const float& y
     auto deltaY = y2 - y1;
 
     auto angleRadians = atan2(deltaY, deltaX);
-    return angleRadians* 180 / M_PI;
+    auto angleDegrees = angleRadians * 180 / M_PI;
+
+    // Convert negative angles to positive equivalent
+    if (angleDegrees < 0)
+        angleDegrees += 360;
+
+    return angleDegrees;
 }
 }

@@ -2,6 +2,7 @@
 #include <engine/engine.hpp>
 #include <iostream>
 #include <utility/file.hpp>
+#include <utility/trigonometry.hpp>
 
 namespace Engine {
 
