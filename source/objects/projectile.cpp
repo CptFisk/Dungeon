@@ -19,7 +19,7 @@ Projectile::Projectile(const Objects::ProjectileStruct& setup,
                         16.0f * scale.ScaleX,
                         16.0f * scale.ScaleY } {}
 
-Projectile::~Projectile() {}
+Projectile::~Projectile() = default;
 
 void
 Projectile::draw() {
