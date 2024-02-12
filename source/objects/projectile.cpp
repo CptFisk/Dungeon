@@ -39,14 +39,12 @@ Projectile::draw() {
 void
 Projectile::move() {
     // Move to new position
-    float deltaX;
-    float deltaY;
-    Utility::calculateVector(mAngle, mVelocity, deltaX, deltaY);
+    auto delta = Utility::calculateVector(mAngle, mVelocity, mCurrentPosition.x, mCurrentPosition.y);
 
-    mCurrentPosition.x += deltaX;
-    mCurrentPosition.y += deltaY;
-    mLightningPosition.x += deltaX;
-    mLightningPosition.y += deltaY;
+    mCurrentPosition.x += delta.first;
+    mCurrentPosition.y += delta.second;
+    mLightningPosition.x += delta.first;
+    mLightningPosition.y += delta.second;
 }
 
 int
