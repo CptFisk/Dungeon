@@ -36,7 +36,7 @@ Projectile::move() {
     // Move to new position
     float deltaX;
     float deltaY;
-    Utility::calculateVector(45.0, mVelocity, deltaX, deltaY);
+    Utility::calculateVector(mAngle, mVelocity, deltaX, deltaY);
 
     mCurrentPosition.x += deltaX;
     mCurrentPosition.y += deltaY;

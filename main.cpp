@@ -9,6 +9,7 @@ main() {
     engine.getActionManager().registerKeyboardAction("PlayerEast", SDLK_d);
     engine.getActionManager().registerKeyboardAction("PlayerSouth", SDLK_s);
     engine.getActionManager().registerKeyboardAction("PlayerWest", SDLK_a);
+    engine.getActionManager().registerMouseAction("Click", SDL_BUTTON_LEFT);
 
     engine.queueProcessHandler([&](Uint32) {
         if (engine.getActionManager().isActionPressed("PlayerNorth")) {
@@ -36,6 +37,14 @@ main() {
             !engine.getActionManager().isActionPressed("PlayerSouth") &&
             !engine.getActionManager().isActionPressed("PlayerWest")) {
             engine.setPlayerAction(Objects::ObjectAction::IDLE);
+        }
+    });
+
+    engine.queueProcessHandler([&](Uint32) {
+        if (engine.getActionManager().isActionPressed("Click")) {
+            float mouseX, mouseY;
+            SDL_GetMouseState(&mouseX, &mouseY);
+            engine.click(mouseX, mouseY);
         }
     });
 

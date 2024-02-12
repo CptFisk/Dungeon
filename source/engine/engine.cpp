@@ -82,6 +82,20 @@ Engine::terminate() {
 }
 
 void
+Engine::click(const float& x, const float& y) {
+    std::pair<float, float> player(pPlayerPosition->x, pPlayerPosition->y);
+    std::pair<float, float> mouse(x, y);
+
+    auto angle = Utility::calculateAngle(player, mouse);
+
+    Objects::ProjectileStruct setup{
+        mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), angle, 100, 5.0
+    };
+
+    mProjectiles.push_back(new Objects::Projectile(setup, pRenderer));
+}
+
+void
 Engine::movePlayer(Directions direction) {
     mPlayer->move(direction);
 }
@@ -102,6 +116,8 @@ Engine::mainLoop() {
     SDL_FRect lightPos = { 10, 10, 100, 100 };
     SDL_Event event;
     while (mRun) {
+        mFPSTimer.start();
+
         SDL_RenderClear(pRenderer);
         while (SDL_PollEvent(&event)) {
             bool accepted = true;
@@ -133,6 +149,10 @@ Engine::mainLoop() {
         addDarkness();
         projectiles();
         present();
+
+        auto ticks = mFPSTimer.getTicks();
+        if (ticks < 1000.0 / 60)
+            SDL_Delay((1000.0 / 60) - ticks);
     }
 }
 

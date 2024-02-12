@@ -26,7 +26,7 @@ class Engine {
     void queueEventHandler(Uint32 evenType, std::function<bool(SDL_Event*)> handler); // Add event in queue
     void queueProcessHandler(std::function<void(int)> handler);                       // Add process to handle in queue
     void terminate();
-
+    void click(const float& x, const float& y); // Mouse click
     // Player movement
     void movePlayer(Directions direction);
     void setPlayerAction(Objects::ObjectAction action);
@@ -56,6 +56,8 @@ class Engine {
     std::vector<Objects::Projectile*> mProjectiles; // All projectiles
     SDL_Window*                       pWindow;
     SDL_Renderer*                     pRenderer;
+
+    Timer mFPSTimer; // To lock fps
 
     // Threads and interrupts
     std::vector<std::thread>                       mThreads;
