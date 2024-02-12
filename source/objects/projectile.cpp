@@ -14,8 +14,8 @@ Projectile::Projectile(const Objects::ProjectileStruct& setup,
   , mVelocity(setup.Velocity)
   , mAngle(setup.Angle)
   , mCurrentPosition{ playerPosition.first, playerPosition.first, 8.0f * scale.ScaleX, 8.0f * scale.ScaleY }
-  , mLightningPosition{ playerPosition.first + ((8.0f * scale.ScaleX) / 2) - ((16.0f * scale.ScaleX) / 2),
-                        playerPosition.second + ((8.0f * scale.ScaleY) / 2) - ((16.0f * scale.ScaleY) / 2),
+  , mLightningPosition{ playerPosition.first + (((8.0f * scale.ScaleX) / 2) - ((16.0f * scale.ScaleX) / 2)),
+                        playerPosition.second + (((8.0f * scale.ScaleY) / 2) - ((16.0f * scale.ScaleY) / 2)),
                         16.0f * scale.ScaleX,
                         16.0f * scale.ScaleY } {}
 
