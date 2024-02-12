@@ -92,7 +92,7 @@ Engine::click(const float& x, const float& y) {
         mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), angle, 100, 5.0
     };
 
-    mProjectiles.push_back(new Objects::Projectile(setup, pRenderer));
+    mProjectiles.push_back(new Objects::Projectile(setup, player, mScale, pRenderer));
 }
 
 void
@@ -111,7 +111,8 @@ Engine::mainLoop() {
     Objects::ProjectileStruct setup{
         mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), 0, 100, 5
     };
-    mProjectiles.push_back(new Objects::Projectile(setup, pRenderer));
+    std::pair<float, float> playerPosition = { pPlayerPosition->x, pPlayerPosition->y };
+    mProjectiles.push_back(new Objects::Projectile(setup, playerPosition, mScale, pRenderer));
 
     SDL_FRect lightPos = { 10, 10, 100, 100 };
     SDL_Event event;

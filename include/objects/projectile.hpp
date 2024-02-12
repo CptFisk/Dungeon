@@ -1,6 +1,8 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include <engine/structures.hpp>
 #include <graphics/animatedTexture.hpp>
+#include <utility>
 
 namespace Objects {
 struct ProjectileStruct {
@@ -13,11 +15,11 @@ struct ProjectileStruct {
 
 class Projectile {
   public:
-    Projectile(const ProjectileStruct& setup, SDL_Renderer* renderer); // Constructor
+    Projectile(const ProjectileStruct& setup, const std::pair<float,float> playerPosition, const Engine::Scale scale, SDL_Renderer* renderer); // Constructor
     ~Projectile();
 
-    void draw();                                                       // Draw the object
-    int  getNewDuration();                                             // Calculate and return the new duration
+    void draw();           // Draw the object
+    int  getNewDuration(); // Calculate and return the new duration
   private:
     void move(); // All functions related to movement
   protected:

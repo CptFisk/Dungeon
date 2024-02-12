@@ -11,6 +11,10 @@ namespace Utility{
  */
 void calculateVector(const float& angle, const float& velocity, float &x, float &y);
 
+/***
+ * @brief Calculate the angle between 2 points in a coordinate system
+ * @return The angle
+ */
 float calculateAngle(const std::pair<float,float>& p1,const std::pair<float,float>& p2);
 float calculateAngle(const float& x1, const float& y1, const float& x2, const float& y2);
 }

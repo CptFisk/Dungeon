@@ -3,15 +3,21 @@
 
 namespace Objects {
 
-Projectile::Projectile(const Objects::ProjectileStruct& setup, SDL_Renderer* renderer)
+Projectile::Projectile(const Objects::ProjectileStruct& setup,
+                       const std::pair<float, float>    playerPosition,
+                       const Engine::Scale              scale,
+                       SDL_Renderer*                    renderer)
   : pProjectile(setup.Projectile)
   , pLightning(setup.Lightning)
   , pRenderer(renderer)
   , mDuration(setup.Duration)
   , mVelocity(setup.Velocity)
   , mAngle(setup.Angle)
-  , mCurrentPosition{ 100, 100, 18, 18 }
-  , mLightningPosition{ 84, 84, 50, 50 } {}
+  , mCurrentPosition{ playerPosition.first, playerPosition.first, 8.0f * scale.ScaleX, 8.0f * scale.ScaleY }
+  , mLightningPosition{ playerPosition.first + ((8.0f * scale.ScaleX) / 2) - ((16.0f * scale.ScaleX) / 2),
+                        playerPosition.second + ((8.0f * scale.ScaleY) / 2) - ((16.0f * scale.ScaleY) / 2),
+                        16.0f * scale.ScaleX,
+                        16.0f * scale.ScaleY } {}
 
 Projectile::~Projectile() {}
 
@@ -28,7 +34,6 @@ Projectile::draw() {
         SDL_RenderTexture(pRenderer, pLightning, nullptr, &mLightningPosition);
     }
     move();
-
 }
 
 void
