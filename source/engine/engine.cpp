@@ -106,7 +106,6 @@ Engine::setPlayerAction(Objects::ObjectAction action) {
 void
 Engine::mainLoop() {
     std::pair<float, float> playerPosition = { pPlayerPosition->x, pPlayerPosition->y };
-    mProjectiles.push_back(new Objects::Projectile(setup, playerPosition, mScale, pRenderer));
 
     SDL_FRect lightPos = { 10, 10, 100, 100 };
     SDL_Event event;

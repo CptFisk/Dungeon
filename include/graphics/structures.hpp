@@ -8,12 +8,11 @@
 namespace Graphics {
 
 #define GENERATED_SHAPES(DO) \
-    DO(CIRCLE)                  \
+    DO(CIRCLE)               \
     DO(SQUARE)
 #define MAKE_GENERATED_SHAPES(VAR) VAR,
-enum GeneratedShapes {GENERATED_SHAPES(MAKE_GENERATED_SHAPES)};
-NLOHMANN_JSON_SERIALIZE_ENUM(GeneratedShapes, {{CIRCLE, "Circle"}, {SQUARE, "Square"}})
-
+enum GeneratedShapes { GENERATED_SHAPES(MAKE_GENERATED_SHAPES) };
+NLOHMANN_JSON_SERIALIZE_ENUM(GeneratedShapes, { { CIRCLE, "Circle" }, { SQUARE, "Square" } })
 
 struct BaseTexture {
     SDL_Texture*           Texture;
@@ -28,10 +27,14 @@ struct BaseTexture {
     }
 };
 
-struct BaseTextureJSON {
-    std::string File;
-    int         Rows;
-    int         Columns;
+struct BaseObjectJSON {
+    std::string File;   // File to be loaded
+    std::string Name;   // Name of file
+    int         Column; // Start column in sheet
+    int         Row;    // Start row in sheet
+    int         Length; // Number of sprites to be read
+    int         Height; // Height of texture
+    int         Width;  // Width of texture
 };
 
 struct AnimationObjectJSON {
@@ -39,29 +42,57 @@ struct AnimationObjectJSON {
     int         Column; // Start column in sheet
     int         Row;    // Start row in sheet
     int         Length; // Number of sprites to be read
-    int         Ticks;  //Number of seconds for each texture *100ms
+    int         Ticks;  // Number of seconds for each texture *100ms
+    int         Width;  // Width of texture
+    int         Height; // Height of texture
 };
 
-struct GeneratedObjectJSON{
-    std::string Name;
+struct GeneratedObjectJSON {
+    std::string     Name;
     GeneratedShapes Shape;
-    int Red1;
-    int Red2;
-    int Green1;
-    int Green2;
-    int Blue1;
-    int Blue2;
-    int Alpha;
+    int             Red1;
+    int             Red2;
+    int             Green1;
+    int             Green2;
+    int             Blue1;
+    int             Blue2;
+    int             Alpha;
+    int             Height; // Height of texture
+    int             Width;  // Width of texture
+};
+
+struct BaseTextureDataJSON {
+    std::vector<BaseObjectJSON> Objects;
 };
 
 struct AnimationDataJSON {
     std::string                      File;
-    std::vector<AnimationObjectJSON> Animations;
+    std::vector<AnimationObjectJSON> Objects;
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(BaseTextureJSON, File, Rows, Columns)
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationObjectJSON, Name, Column, Row, Length, Ticks)
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationDataJSON, File, Animations)
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GeneratedObjectJSON, Name, Shape, Red1, Red2, Green1, Green2, Blue1, Blue2, Alpha)
+struct GeneratedDataJSON{
+    std::vector<GeneratedObjectJSON> Objects;
+};
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(BaseObjectJSON, File, Name, Column, Row, Length, Height, Width)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationObjectJSON, Name, Column, Row, Length, Ticks, Height, Width)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GeneratedObjectJSON,
+                                   Name,
+                                   Shape,
+                                   Red1,
+                                   Red2,
+                                   Green1,
+                                   Green2,
+                                   Blue1,
+                                   Blue2,
+                                   Alpha,
+                                   Height,
+                                   Width)
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(BaseTextureDataJSON, Objects)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationDataJSON, File, Objects)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GeneratedDataJSON, Objects)
+
+
 
 }

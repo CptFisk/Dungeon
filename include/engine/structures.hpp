@@ -23,11 +23,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(HeaderTypes,
 
 struct HeaderJSON {
     HeaderTypes Type;
-    std::string Name;
-    int         Width;
-    int         Height;
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(HeaderJSON, Type, Name, Width, Height)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(HeaderJSON, Type)
 
 }

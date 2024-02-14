@@ -1,19 +1,18 @@
 {
   "Header": {
-    "Type": "AnimatedTexture",
-    "Name": "Fireball",
-    "Width": 8,
-    "Height": 8
+    "Type": "AnimatedTexture"
   },
   "Data": {
     "File": "rsrc/Fireball.png",
-    "Animations": [
+    "Objects": [
       {
         "Name": "Fireball",
-        "Column": 0,
-        "Row": 0,
+        "Column": 1,
+        "Row": 1,
         "Length": 4,
-        "Ticks": 1
+        "Ticks": 1,
+        "Width": 8,
+        "Height": 8
       }
     ]
   }
