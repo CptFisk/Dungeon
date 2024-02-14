@@ -13,7 +13,7 @@ Projectile::Projectile(const Objects::ProjectileStruct& setup,
   , mDuration(setup.Duration)
   , mVelocity(setup.Velocity)
   , mAngle(setup.Angle)
-  , mCurrentPosition{ playerPosition.first, playerPosition.first, 8.0f * scale.ScaleX, 8.0f * scale.ScaleY }
+  , mCurrentPosition{ playerPosition.first, playerPosition.second, 8.0f * scale.ScaleX, 8.0f * scale.ScaleY }
   , mLightningPosition{ playerPosition.first + (((8.0f * scale.ScaleX) / 2) - ((16.0f * scale.ScaleX) / 2)),
                         playerPosition.second + (((8.0f * scale.ScaleY) / 2) - ((16.0f * scale.ScaleY) / 2)),
                         16.0f * scale.ScaleX,
@@ -23,6 +23,7 @@ Projectile::~Projectile() = default;
 
 void
 Projectile::draw() {
+
     SDL_RenderTextureRotated(pRenderer,
                              pProjectile->getTexture(),
                              pProjectile->getViewport(),
@@ -30,8 +31,9 @@ Projectile::draw() {
                              mAngle,
                              nullptr,
                              SDL_FLIP_NONE);
+
     if (pLightning != nullptr) {
-        SDL_RenderTexture(pRenderer, pLightning, nullptr, &mLightningPosition);
+        //SDL_RenderTexture(pRenderer, pLightning, nullptr, &mLightningPosition);
     }
     move();
 }

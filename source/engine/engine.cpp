@@ -105,10 +105,6 @@ Engine::setPlayerAction(Objects::ObjectAction action) {
 
 void
 Engine::mainLoop() {
-
-    Objects::ProjectileStruct setup{
-        mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), 0, 100, 5
-    };
     std::pair<float, float> playerPosition = { pPlayerPosition->x, pPlayerPosition->y };
     mProjectiles.push_back(new Objects::Projectile(setup, playerPosition, mScale, pRenderer));
 

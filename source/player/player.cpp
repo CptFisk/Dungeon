@@ -57,16 +57,16 @@ void
 Player::move(Directions direction) {
     switch (direction) {
         case North:
-            mPlayerPosition.y -= 1;
+            mPlayerPosition.y -= 3;
             break;
         case East:
-            mPlayerPosition.x += 1;
+            mPlayerPosition.x += 3;
             break;
         case South:
-            mPlayerPosition.y += 1;
+            mPlayerPosition.y += 3;
             break;
         case West:
-            mPlayerPosition.x -= 1;
+            mPlayerPosition.x -= 3;
             break;
     }
     mAction    = Objects::MOVE;
