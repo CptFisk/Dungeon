@@ -31,10 +31,7 @@ Graphics::generateSquare(const std::string& name,
     mTextures[name] = square;
 }
 
-SDL_Texture*
-Graphics::getTexture(const std::string& name) {
-    return mTextures[name];
-}
+
 
 void
 Graphics::generateCircle(const std::string& name,   // Name of texture

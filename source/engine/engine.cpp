@@ -51,7 +51,7 @@ Engine::startup() {
     mGraphics->init();
     mLevel  = std::make_shared<Level>(pRenderer);
     mPlayer = std::make_unique<Player::Player>(mScale);
-
+    mEnergy = std::make_unique<Player::Energy>(mScale, mGraphics->getBaseTexture("Energy"), pRenderer);
     mLevel->generateLevel(mGraphics->getBaseTexture("PurpleFloor"));
 
     // Binding player data
@@ -144,7 +144,7 @@ Engine::mainLoop() {
         addDarkness();
         projectiles();
         particles();
-
+        mEnergy->draw();
         present();
 
         auto ticks = mFPSTimer.getTicks();

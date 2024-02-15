@@ -5,6 +5,7 @@
 #include <memory>
 #include <objects/include.hpp>
 #include <objects/particle.hpp>
+#include <player/energy.hpp>
 #include <player/player.hpp>
 #include <string>
 #include <thread>
@@ -45,10 +46,11 @@ class Engine {
     bool  mRun;
     Scale mScale;
 
-    std::unique_ptr<InitHandler>        mInitHandler;
-    std::unique_ptr<Player::Player>     mPlayer;
-    std::shared_ptr<Graphics::Graphics> mGraphics;
-    std::shared_ptr<Level>              mLevel;
+    std::unique_ptr<InitHandler>         mInitHandler;
+    std::unique_ptr<Player::Player>      mPlayer;
+    std::shared_ptr<Graphics::Graphics>  mGraphics;
+    std::shared_ptr<Level>               mLevel;
+    std::unique_ptr<Player::Energy> mEnergy;
     // Events
     std::unique_ptr<ActionManager>             mActionManager;
     std::list<std::function<bool(SDL_Event*)>> mEventWatcher; // List of all event to watch for
@@ -58,8 +60,8 @@ class Engine {
     std::vector<Objects::Projectile*>  mProjectiles; // All projectiles
     std::shared_ptr<Objects::Particle> mParticles;
 
-    SDL_Window*                        pWindow;
-    SDL_Renderer*                      pRenderer;
+    SDL_Window*   pWindow;
+    SDL_Renderer* pRenderer;
 
     Timer mFPSTimer; // To lock fps
 

@@ -12,7 +12,7 @@ class Graphics {
   public:
     Graphics(SDL_Renderer* renderer, Engine::Scale& scale);
     ~Graphics();
-    void init();
+    void             init();
     void             generateSquare(const std::string& name,
                                     const int&         width,
                                     const int&         height,

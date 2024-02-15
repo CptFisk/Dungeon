@@ -5,22 +5,26 @@
 namespace Graphics {
 Graphics::Graphics(SDL_Renderer* renderer, Engine::Scale& scale)
   : pRenderer(renderer)
-  , mScale(scale){
-}
+  , mScale(scale) {}
 
 void
 Graphics::updateAnimatedTexture() {
-    for(auto &[name, texture] : mAnimatedTextures){
+    for (auto& [name, texture] : mAnimatedTextures) {
         texture->updateTexture();
     }
 }
 
 Graphics::~Graphics() {
+    // Cleaning
     for (auto [name, texture] : mTextures) {
         SDL_DestroyTexture(texture);
     }
 
-    for (auto &[name, obj] : mAnimatedTextures) {
+    for (auto [name, texture] : mBaseTextures) {
+        SDL_DestroyTexture(texture.Texture);
+    }
+
+    for (auto& [name, obj] : mAnimatedTextures) {
         delete obj;
     }
 }
@@ -28,6 +32,17 @@ Graphics::~Graphics() {
 void
 Graphics::init() {
     loadGraphics("rsrc");
+}
+
+SDL_Texture*
+Graphics::getTexture(const std::string& name) {
+    if (mTextures.find(name) != mTextures.end())
+        return mTextures[name];
+    if (mBaseTextures.find(name) != mBaseTextures.end())
+        return mBaseTextures[name].Texture;
+    if (mAnimatedTextures.find(name) != mAnimatedTextures.end())
+        return mAnimatedTextures[name]->mTexture;
+    return nullptr;
 }
 
 BaseTexture
