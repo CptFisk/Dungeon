@@ -23,7 +23,10 @@ Projectile::~Projectile() = default;
 
 void
 Projectile::draw() {
-    SDL_RenderPoint(pRenderer, 100.0,100.0);
+    if (pLightning != nullptr) {
+        SDL_RenderTexture(pRenderer, pLightning, nullptr, &mLightningPosition);
+    }
+
     SDL_RenderTextureRotated(pRenderer,
                              pProjectile->getTexture(),
                              pProjectile->getViewport(),
@@ -32,9 +35,7 @@ Projectile::draw() {
                              nullptr,
                              SDL_FLIP_NONE);
 
-    if (pLightning != nullptr) {
-        //SDL_RenderTexture(pRenderer, pLightning, nullptr, &mLightningPosition);
-    }
+
     move();
 }
 
