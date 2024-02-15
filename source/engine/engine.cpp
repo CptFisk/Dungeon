@@ -70,7 +70,8 @@ Engine::startup() {
     pPlayerTexture  = mPlayer->getPlayerTexture();
     pPlayerView     = mPlayer->getPlayerViewport();
     pPlayerPosition = mPlayer->getPlayerPosition();
-    // Bind animation for player to
+    mParticles      = std::make_shared<Objects::Particle>(mGraphics->getTexture("FAE2C3"), pRenderer, 100, 3, 5);
+    // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
     addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); });
@@ -86,14 +87,11 @@ Engine::click(const float& x, const float& y) {
     std::pair<float, float> player(pPlayerPosition->x, pPlayerPosition->y);
     auto                    angle = Utility::calculateAngle(pPlayerPosition->x, pPlayerPosition->y, x, y);
 
-    Objects::ProjectileStruct setup{ mGraphics->getAnimatedTexture("Fireball"),
-                                     mGraphics->getTexture("RedCircle"),
-                                     mGraphics->getTexture("FAE2C3"),
-                                     angle,
-                                     100,
-                                     5.0 };
+    Objects::ProjectileStruct setup{
+        mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), angle, 100, 5.0
+    };
 
-    mProjectiles.push_back(new Objects::Projectile(setup, player, mScale, pRenderer));
+    mProjectiles.push_back(new Objects::Projectile(setup, player, mScale, pRenderer, mParticles));
 }
 
 void
@@ -145,6 +143,8 @@ Engine::mainLoop() {
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         addDarkness();
         projectiles();
+        particles();
+
         present();
 
         auto ticks = mFPSTimer.getTicks();
@@ -164,6 +164,11 @@ Engine::projectiles() {
             ++it;
         }
     }
+}
+
+void
+Engine::particles() {
+    mParticles->draw();
 }
 
 void

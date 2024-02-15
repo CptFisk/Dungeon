@@ -4,6 +4,7 @@
 #include <list>
 #include <memory>
 #include <objects/include.hpp>
+#include <objects/particle.hpp>
 #include <player/player.hpp>
 #include <string>
 #include <thread>
@@ -35,6 +36,7 @@ class Engine {
     void present();
     void calculateScale(); // Calculate the scale of each tile to match screen dimensions
     void projectiles();
+    void particles();
 
     void        addDarkness();
     std::thread spawnInterrupt(const long& time); // Spawn a thread
@@ -53,9 +55,11 @@ class Engine {
     std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>> mEvents;
     std::list<std::tuple<std::function<void(int)>, Timer>>                 mProcessing;
 
-    std::vector<Objects::Projectile*> mProjectiles; // All projectiles
-    SDL_Window*                       pWindow;
-    SDL_Renderer*                     pRenderer;
+    std::vector<Objects::Projectile*>  mProjectiles; // All projectiles
+    std::shared_ptr<Objects::Particle> mParticles;
+
+    SDL_Window*                        pWindow;
+    SDL_Renderer*                      pRenderer;
 
     Timer mFPSTimer; // To lock fps
 

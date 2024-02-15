@@ -10,18 +10,20 @@ class Particle {
     };
 
   public:
-    Particle(SDL_Texture* texture, SDL_Renderer* renderer, const int& duration, const float& size);
+    Particle(SDL_Texture* texture, SDL_Renderer* renderer, const int& duration, const float& size, const int& velocity);
     ~Particle();
 
-    void addParticle(const float& x, const float& y); // Position for particle
-    void draw();                                      // Draw particles
+    void addParticle(const std::pair<float, float>& position); // Position for particle
+    void draw();                                               // Draw particles
   protected:
+    void randomPosition(SDL_FRect& rect);
+
   private:
-    int                         mDuration;  // Duration for particles
-    float                       mSize;      // Size for all particles
+    const int                   mDuration; // Duration for particles
+    const int                   mVelocity;
+    const float                 mSize;      // Size for all particles
     std::vector<ParticleStruct> mParticles; // Vector containing all particles
     SDL_Renderer*               pRenderer;
     SDL_Texture*                pTexture;
-
 };
 }

@@ -1,4 +1,5 @@
 #include <objects/projectile.hpp>
+#include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
 
 namespace Objects {
@@ -6,9 +7,10 @@ namespace Objects {
 Projectile::Projectile(const Objects::ProjectileStruct& setup,
                        const std::pair<float, float>    playerPosition,
                        const Engine::Scale              scale,
-                       SDL_Renderer*                    renderer)
+                       SDL_Renderer*                    renderer,
+                       std::shared_ptr<Particle>        particle)
   : pProjectile(setup.Projectile)
-  , mParticle(setup.Particle, renderer, 10, 20)
+  , mParticle(particle)
   , pLightning(setup.Lightning)
   , pRenderer(renderer)
   , mDuration(setup.Duration)
@@ -18,12 +20,18 @@ Projectile::Projectile(const Objects::ProjectileStruct& setup,
   , mLightningPosition{ playerPosition.first + (((8.0f * scale.ScaleX) / 2) - ((16.0f * scale.ScaleX) / 2)),
                         playerPosition.second + (((8.0f * scale.ScaleY) / 2) - ((16.0f * scale.ScaleY) / 2)),
                         16.0f * scale.ScaleX,
-                        16.0f * scale.ScaleY } {}
+                        16.0f * scale.ScaleY } {
+    mParticleEnabled = particle != nullptr ? true : false;
+}
 
 Projectile::~Projectile() = default;
 
 void
 Projectile::draw() {
+    if (mParticleEnabled && (rand() % PARTICLE_CHANCE == 1)) {
+        mParticle->addParticle(Utility::getFRectCenter(mCurrentPosition));
+    }
+
     if (pLightning != nullptr) {
         SDL_RenderTexture(pRenderer, pLightning, nullptr, &mLightningPosition);
     }
@@ -35,9 +43,6 @@ Projectile::draw() {
                              mAngle,
                              nullptr,
                              SDL_FLIP_NONE);
-
-    mParticle.addParticle(mLightningPosition.x, mLightningPosition.y);
-    mParticle.draw();
     move();
 }
 
