@@ -23,7 +23,7 @@ Projectile::~Projectile() = default;
 
 void
 Projectile::draw() {
-
+    SDL_RenderPoint(pRenderer, 100.0,100.0);
     SDL_RenderTextureRotated(pRenderer,
                              pProjectile->getTexture(),
                              pProjectile->getViewport(),

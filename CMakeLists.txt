@@ -29,6 +29,7 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/player/player.cpp
         ${CMAKE_SOURCE_DIR}/source/player/energy.cpp
         ${CMAKE_SOURCE_DIR}/source/objects/projectile.cpp
+        ${CMAKE_SOURCE_DIR}/source/objects/particle.cpp
 
 )
 
