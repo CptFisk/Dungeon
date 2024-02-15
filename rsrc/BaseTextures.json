@@ -42,6 +42,19 @@
         "Blue1": 0,
         "Blue2": 0,
         "Alpha": 30
+      },
+      {
+        "Name": "FAE2C3",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 250,
+        "Red2": 250,
+        "Green1": 226,
+        "Green2": 226,
+        "Blue1": 195,
+        "Blue2": 195,
+        "Alpha": 80
       }
     ]
   }

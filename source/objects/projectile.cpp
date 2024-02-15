@@ -8,6 +8,7 @@ Projectile::Projectile(const Objects::ProjectileStruct& setup,
                        const Engine::Scale              scale,
                        SDL_Renderer*                    renderer)
   : pProjectile(setup.Projectile)
+  , mParticle(setup.Particle, renderer, 10, 20)
   , pLightning(setup.Lightning)
   , pRenderer(renderer)
   , mDuration(setup.Duration)
@@ -35,7 +36,8 @@ Projectile::draw() {
                              nullptr,
                              SDL_FLIP_NONE);
 
-
+    mParticle.addParticle(mLightningPosition.x, mLightningPosition.y);
+    mParticle.draw();
     move();
 }
 

@@ -41,7 +41,7 @@ main() {
     });
 
     engine.queueProcessHandler([&](Uint32) {
-        if (engine.getActionManager().isActionPressed("Click")) {
+        if (engine.getActionManager().isActionRising("Click")) {
             float mouseX, mouseY;
             SDL_GetMouseState(&mouseX, &mouseY);
             engine.click(mouseX, mouseY);
