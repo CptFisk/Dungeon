@@ -27,6 +27,7 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/utility/file.cpp
         ${CMAKE_SOURCE_DIR}/source/utility/trigonometry.cpp
         ${CMAKE_SOURCE_DIR}/source/player/player.cpp
+        ${CMAKE_SOURCE_DIR}/source/player/energy.cpp
         ${CMAKE_SOURCE_DIR}/source/objects/projectile.cpp
 
 )
