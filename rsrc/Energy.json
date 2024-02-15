@@ -1,0 +1,54 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/Energy.png",
+        "Name": "EnergyLeft",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Energy.png",
+        "Name": "EnergyMiddleFull",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Energy.png",
+        "Name": "EnergyMiddleEmpty",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Energy.png",
+        "Name": "EnergyRightFull",
+        "Row": 1,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Energy.png",
+        "Name": "EnergyRightEmpty",
+        "Row": 1,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
