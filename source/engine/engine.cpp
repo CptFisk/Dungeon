@@ -50,7 +50,7 @@ Engine::startup() {
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer, mScale);
     mGraphics->init();
-    mLevel  = std::make_shared<Level>(pRenderer);
+    mLevel  = std::make_shared<Level>(pRenderer, mScale);
     mPlayer = std::make_unique<Player::Player>(mScale);
     mEnergy = std::make_unique<Player::Energy>(mScale, mGraphics->getBaseTexture("Energy"), pRenderer);
     mLevel->generateLevel(mGraphics->getBaseTexture("PurpleFloor"));
@@ -76,6 +76,7 @@ Engine::startup() {
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
     addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); });
+    SDL_SetRenderDrawColor(pRenderer, 0, 0, 24, SDL_ALPHA_OPAQUE);
 }
 
 void
@@ -144,10 +145,10 @@ Engine::mainLoop() {
         mLevel->drawLevel();
 
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
-        addDarkness();
         projectiles();
         particles();
         SDL_RenderTexture(pRenderer, f.Texture, &f.Views[0], &mWall);
+        addDarkness();
         present();
 
         auto ticks = mFPSTimer.getTicks();

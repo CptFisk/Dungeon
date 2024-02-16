@@ -2,7 +2,7 @@
 #include <world/level.hpp>
 
 namespace Engine {
-Level::Level(SDL_Renderer* renderer) : pRenderer(renderer){}
+Level::Level(SDL_Renderer* renderer, const Engine::Scale& scale) : pRenderer(renderer), mScale(scale){}
 Level::~Level() {}
 
 void
@@ -11,8 +11,8 @@ Level::generateLevel(const Graphics::BaseTexture& base) {
     std::mt19937       gen(rd());
 
     int pos = 0;
-    for (int y = 0; y < 12; y++) {
-        for (int x = 0; x < 16; x++) {
+    for (int y = 1; y < 11; y++) {
+        for (int x = 1; x < 15; x++) {
             // Selecting random time
             std::uniform_int_distribution<int> distribution(
               0, base.Views.size() - 1);
