@@ -109,6 +109,7 @@ Engine::setPlayerAction(Objects::ObjectAction action) {
 void
 Engine::mainLoop() {
     std::pair<float, float> playerPosition = { pPlayerPosition->x, pPlayerPosition->y };
+    auto f = mGraphics->getBaseTexture("PurpleWallNorth");
 
     SDL_FRect lightPos = { 10, 10, 100, 100 };
     SDL_Event event;
@@ -146,8 +147,7 @@ Engine::mainLoop() {
         addDarkness();
         projectiles();
         particles();
-        SDL_RenderTexture(pRenderer, mGraphics->getTexture("FF0000"), nullptr, pPlayerPosition);
-        SDL_RenderTexture(pRenderer, mGraphics->getTexture("FAE2C3"), nullptr, &mWall);
+        SDL_RenderTexture(pRenderer, f.Texture, &f.Views[0], &mWall);
         present();
 
         auto ticks = mFPSTimer.getTicks();
