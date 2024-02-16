@@ -11,8 +11,8 @@ Level::generateLevel(const Graphics::BaseTexture& base) {
     std::mt19937       gen(rd());
 
     int pos = 0;
-    for (int y = 0; y < 12; y++) {
-        for (int x = 0; x < 16; x++) {
+    for (int y = 1; y < 11; y++) {
+        for (int x = 1; x < 15; x++) {
             // Selecting random time
             std::uniform_int_distribution<int> distribution(
               0, base.Views.size() - 1);
@@ -29,7 +29,7 @@ Level::generateLevel(const Graphics::BaseTexture& base) {
 
 void
 Level::drawLevel() {
-    for(int i = 0; i < 192; i++){
+    for(int i = 0; i < 140; i++){
         SDL_RenderTexture(pRenderer, mMap[i].Texture, &mMap[i].View, &mMap[i].Position);
     }
 }
