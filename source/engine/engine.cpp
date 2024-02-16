@@ -110,7 +110,7 @@ Engine::setPlayerAction(Objects::ObjectAction action) {
 void
 Engine::mainLoop() {
     std::pair<float, float> playerPosition = { pPlayerPosition->x, pPlayerPosition->y };
-    auto f = mGraphics->getBaseTexture("PurpleWallNorth");
+    auto f = mGraphics->getBaseTexture("PurpleWallEast");
 
     SDL_FRect lightPos = { 10, 10, 100, 100 };
     SDL_Event event;
@@ -147,7 +147,9 @@ Engine::mainLoop() {
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         particles();
-        SDL_RenderTexture(pRenderer, f.Texture, &f.Views[0], &mWall);
+        if(SDL_RenderTexture(pRenderer, f.Texture, &f.Views[0], &mWall) != 0){
+            std::cout << SDL_GetError() << std::endl;
+        }
         addDarkness();
         present();
 
