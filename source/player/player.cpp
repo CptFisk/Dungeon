@@ -2,7 +2,7 @@
 
 namespace Player {
 Player::Player(const Engine::Scale& scale)
-  : mPlayerPosition(100, 100, 16.0 * scale.ScaleX, 16.0 * scale.ScaleY)
+  : mPlayerPosition(400, 400, 16.0 * scale.ScaleX, 16.0 * scale.ScaleY)
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)
   , mAction(Objects::MOVE)

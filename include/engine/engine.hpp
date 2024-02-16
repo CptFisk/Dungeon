@@ -46,13 +46,13 @@ class Engine {
     bool  mRun;
     Scale mScale;
 
-    SDL_FRect mWall = {16,16,50,50};
+    SDL_FRect mWall = { 16, 16, 50, 50 };
 
-    std::unique_ptr<InitHandler>         mInitHandler;
-    std::unique_ptr<Player::Player>      mPlayer;
-    std::shared_ptr<Graphics::Graphics>  mGraphics;
-    std::shared_ptr<Level>               mLevel;
-    std::unique_ptr<Player::Energy> mEnergy;
+    std::unique_ptr<InitHandler>        mInitHandler;
+    std::unique_ptr<Player::Player>     mPlayer;
+    std::shared_ptr<Graphics::Graphics> mGraphics;
+    std::shared_ptr<Level>              mLevel;
+    std::unique_ptr<Player::Energy>     mEnergy;
     // Events
     std::unique_ptr<ActionManager>             mActionManager;
     std::list<std::function<bool(SDL_Event*)>> mEventWatcher; // List of all event to watch for
