@@ -46,6 +46,8 @@ class Engine {
     bool  mRun;
     Scale mScale;
 
+    SDL_FRect mWall = {300,200,150,150};
+
     std::unique_ptr<InitHandler>         mInitHandler;
     std::unique_ptr<Player::Player>      mPlayer;
     std::shared_ptr<Graphics::Graphics>  mGraphics;

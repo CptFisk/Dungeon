@@ -2,6 +2,7 @@
 #include <engine/engine.hpp>
 #include <iostream>
 #include <utility/file.hpp>
+#include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
 
 namespace Engine {
@@ -96,7 +97,8 @@ Engine::click(const float& x, const float& y) {
 
 void
 Engine::movePlayer(Directions direction) {
-    mPlayer->move(direction);
+    if (!Utility::isColliding(*pPlayerPosition, mWall, direction))
+        mPlayer->move(direction);
 }
 
 void
@@ -144,7 +146,8 @@ Engine::mainLoop() {
         addDarkness();
         projectiles();
         particles();
-        mEnergy->draw();
+        SDL_RenderTexture(pRenderer, mGraphics->getTexture("FF0000"), nullptr, pPlayerPosition);
+        SDL_RenderTexture(pRenderer, mGraphics->getTexture("FAE2C3"), nullptr, &mWall);
         present();
 
         auto ticks = mFPSTimer.getTicks();
