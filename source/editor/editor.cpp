@@ -14,6 +14,7 @@ Editor::Editor()
   , mFont(nullptr)
   , mRun(true)
   , mMapLoaded(true)
+  , mShowProjectHeader(false)
   , mLevelHeader{}
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
@@ -52,6 +53,11 @@ Editor::mainLoop() {
     SDL_FRect    dstRect   = { 100.0, 100.0, surface->w, surface->h };
 
     while (mRun) {
+        SDL_SetRenderDrawColor(pRenderer,
+                               mLevelHeader.BackgroundRed,
+                               mLevelHeader.BackgroundGreen,
+                               mLevelHeader.BackgroundBlue,
+                               SDL_ALPHA_OPAQUE);
         ImGui::NewFrame();
         mFPSTimer.start();
 
@@ -83,6 +89,8 @@ Editor::mainLoop() {
 
         SDL_RenderTexture(pRenderer, texture, NULL, &dstRect);
         uiMenu();
+        uiProjectHeader();
+
         ImGui::ShowDemoWindow();
         present();
 

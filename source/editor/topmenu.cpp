@@ -14,7 +14,7 @@ Editor::uiMenu() {
         }
         if (ImGui::BeginMenu("Project", mMapLoaded)) {
             if(ImGui::MenuItem("Level settings")){
-
+                mShowProjectHeader = true;
             }
             ImGui::EndMenu();
         }

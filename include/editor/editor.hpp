@@ -26,6 +26,7 @@ class Editor {
 
   protected:
     void uiMenu();
+    void uiProjectHeader();
     void present();
 
   private:
@@ -43,6 +44,9 @@ class Editor {
     SDL_Window*   pWindow;
     SDL_Renderer* pRenderer;
     TTF_Font*     mFont;
+
+    //Bits
+    bool mShowProjectHeader;
 
     Level::LevelHeader mLevelHeader;
 };

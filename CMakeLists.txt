@@ -56,6 +56,7 @@ else ()
             ${CMAKE_SOURCE_DIR}/editor.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/editor.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/topmenu.cpp
+            ${CMAKE_SOURCE_DIR}/source/editor/projectheader.cpp
     )
 endif ()
 
