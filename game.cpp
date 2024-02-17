@@ -1,6 +1,7 @@
 #include <engine/engine.hpp>
 #include <iostream>
 #include <imgui.h>
+#include <common/handlers.hpp>
 
 int
 main() {
@@ -51,10 +52,10 @@ main() {
         }
     });
 
-    engine.queueEventHandler(SDL_EVENT_QUIT, [&](SDL_Event*) {
+    Common::queueEventHandler(SDL_EVENT_QUIT,[&](SDL_Event*) {
         engine.terminate();
         return true;
-    });
+    },engine.getEvents());
 
     engine.startup();
     try {

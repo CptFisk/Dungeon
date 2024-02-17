@@ -37,6 +37,16 @@ Engine::getActionManager() {
     return *mActionManager;
 }
 
+std::list<std::function<bool(SDL_Event*)>>&
+Engine::getEventList() {
+    return mEventWatcher;
+}
+
+std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>&
+Engine::getEvents() {
+    return mEvents;
+}
+
 void
 Engine::startup() {
     // Starting interrupts

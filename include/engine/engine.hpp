@@ -24,9 +24,10 @@ class Engine {
 
     Common::ActionManager& getActionManager();
 
-    std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEventList(); // Get the list of events
+    std::list<std::function<bool(SDL_Event*)>>& getEventList(); // Get the list of events
+    std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEvents();    //Get the list of events
 
-    void queueEventHandler(Uint32 evtype, std::function<bool(SDL_Event*)> handler); // Add event in queue
+    // Add event in queue
     void queueProcessHandler(std::function<void(int)> handler);                       // Add process to handle in queue
     void terminate();
     void click(const float& x, const float& y); // Mouse click
