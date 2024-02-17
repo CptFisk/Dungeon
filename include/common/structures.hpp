@@ -3,7 +3,7 @@
 #include <objects/objects.hpp>
 #include <string>
 
-namespace Engine {
+namespace Common{
 struct Scale {
     float ScaleX;
     float ScaleY;

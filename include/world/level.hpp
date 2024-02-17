@@ -3,7 +3,7 @@
 #include <graphics/structures.hpp>
 #include <string>
 #include <unordered_map>
-#include <engine/structures.hpp>
+#include <common/structures.hpp>
 
 namespace Engine {
 class Level {
@@ -14,7 +14,7 @@ class Level {
     };
 
   public:
-    Level(SDL_Renderer* renderer, const Engine::Scale& scale);
+    Level(SDL_Renderer* renderer, const Common::Scale& scale);
     ~Level();
     void generateLevel(const Graphics::BaseTexture& base);
     void drawLevel();
@@ -22,7 +22,7 @@ class Level {
   protected:
   private:
     Base mMap[192];
-    Engine::Scale mScale;
+    Common::Scale mScale;
     SDL_Renderer* pRenderer;
 };
 }

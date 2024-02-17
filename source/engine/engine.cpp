@@ -8,7 +8,7 @@
 namespace Engine {
 
 Engine::Engine()
-  : mInitHandler(std::make_unique<InitHandler>())
+  : mInitHandler(std::make_unique<Common::InitHandler>())
   , pWindow(nullptr)
   , pRenderer(nullptr)
   , pPlayerPosition(nullptr)
@@ -44,7 +44,7 @@ Engine::startup() {
     mThreads.push_back(spawnInterrupt(500));
     mThreads.push_back(spawnInterrupt(1000));
 
-    mInitHandler->addInitializer(std::make_shared<SDLInitializer>(&pWindow, &pRenderer));
+    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer));
     mInitHandler->startup();
     calculateScale();
     // Generate graphics

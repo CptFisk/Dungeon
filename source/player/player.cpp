@@ -1,7 +1,7 @@
 #include <player/player.hpp>
 
 namespace Player {
-Player::Player(const Engine::Scale& scale)
+Player::Player(const Common::Scale& scale)
   : mPlayerPosition(400, 400, 16.0 * scale.ScaleX, 16.0 * scale.ScaleY)
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)

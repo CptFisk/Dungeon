@@ -1,5 +1,7 @@
 #include <iostream>
+#include <editor/editor.hpp>
 
 int main(){
-    return 0;
+    Editor::Editor editor;
+    editor.startup();
 }

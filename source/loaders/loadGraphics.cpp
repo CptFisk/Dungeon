@@ -1,4 +1,4 @@
-#include <engine/structures.hpp>
+#include <common/structures.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <graphics/graphics.hpp>
 #include <graphics/structures.hpp>
@@ -13,24 +13,24 @@ namespace Graphics {
 void
 Graphics::loadGraphics(const std::string& folderPath) {
     auto               files = Utility::getFiles(folderPath, ".json");
-    Engine::HeaderJSON header;
+    Common::HeaderJSON header;
     // Process all the meta-data
     std::vector<BaseTexture> textures;
     for (const auto& file : files) {
         const std::string jsonString = Utility::getFileContent(file.string());
         try {
-            header = json::parse(jsonString)[nlohmann::json::json_pointer("/Header")].get<Engine::HeaderJSON>();
+            header = json::parse(jsonString)[nlohmann::json::json_pointer("/Header")].get<Common::HeaderJSON>();
         } catch (const std::exception& e) {
             std::cerr << "No header found: " << e.what() << std::endl;
         }
         switch (header.Type) {
-            case Engine::BASE_TEXTURE:
+            case Common::BASE_TEXTURE:
                 loadBaseTiles(header, jsonString);
                 break;
-            case Engine::ANIMATED_TEXTURE:
+            case Common::ANIMATED_TEXTURE:
                 loadObjectAnimation(header, jsonString);
                 break;
-            case Engine::GENERATED_TEXTURE:
+            case Common::GENERATED_TEXTURE:
                 loadObjectGeneration(header, jsonString);
                 break;
         }
@@ -38,7 +38,7 @@ Graphics::loadGraphics(const std::string& folderPath) {
 }
 
 void
-Graphics::loadBaseTiles(const Engine::HeaderJSON& header, const std::string& jsonString) {
+Graphics::loadBaseTiles(const Common::HeaderJSON& header, const std::string& jsonString) {
     BaseTextureDataJSON jsonData;
     try {
         jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<BaseTextureDataJSON>();
@@ -61,7 +61,7 @@ Graphics::loadBaseTiles(const Engine::HeaderJSON& header, const std::string& jso
 }
 
 void
-Graphics::loadObjectAnimation(const Engine::HeaderJSON& header, const std::string& jsonString) {
+Graphics::loadObjectAnimation(const Common::HeaderJSON& header, const std::string& jsonString) {
     AnimationDataJSON jsonData;
     try {
         jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<AnimationDataJSON>();
@@ -84,7 +84,7 @@ Graphics::loadObjectAnimation(const Engine::HeaderJSON& header, const std::strin
 }
 
 void
-Graphics::loadObjectGeneration(const Engine::HeaderJSON& header, const std::string& jsonString) {
+Graphics::loadObjectGeneration(const Common::HeaderJSON& header, const std::string& jsonString) {
     GeneratedDataJSON jsonData;
     try {
         jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<GeneratedDataJSON>();

@@ -1,8 +1,8 @@
-#include <engine/sdl.hpp>
+#include <common/sdl.hpp>
 #include <SDL3_image/SDL_image.h>
 #include <iostream>
 
-namespace Engine{
+namespace Common{
 SDLInitializer::SDLInitializer(SDL_Window** window, SDL_Renderer** render) :pWindow(window), pRenderer(render){}
 
 void

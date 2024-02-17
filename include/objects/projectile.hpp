@@ -1,6 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
-#include <engine/structures.hpp>
+#include <common/structures.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <memory>
 #include <objects/particle.hpp>
@@ -21,7 +21,7 @@ class Projectile {
   public:
     Projectile(const ProjectileStruct&       setup,
                const std::pair<float, float> playerPosition,
-               const Engine::Scale           scale,
+               const Common::Scale           scale,
                SDL_Renderer*                 renderer,
                std::shared_ptr<Particle>     particle); // Constructor
     ~Projectile();

@@ -2,7 +2,7 @@
 #include <vector>
 #include <memory>
 
-namespace Engine {
+namespace Common {
 
 class Initializer {
   public:

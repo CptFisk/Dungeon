@@ -1,6 +1,6 @@
-#include <engine/initializer.hpp>
+#include "common/initializer.hpp"
 
-namespace Engine{
+namespace Common{
 void
 InitHandler::addInitializer(std::shared_ptr<Initializer> init) {
     mInitializers.push_back(init);

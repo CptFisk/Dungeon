@@ -45,9 +45,9 @@ class Engine {
 
   private:
     bool  mRun;
-    Scale mScale;
+    Common::Scale mScale;
 
-    std::unique_ptr<InitHandler>        mInitHandler;
+    std::unique_ptr<Common::InitHandler>        mInitHandler;
     std::unique_ptr<Player::Player>     mPlayer;
     std::shared_ptr<Graphics::Graphics> mGraphics;
     std::shared_ptr<Level>              mLevel;

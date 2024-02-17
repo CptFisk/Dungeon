@@ -6,7 +6,7 @@ namespace Objects {
 
 Projectile::Projectile(const Objects::ProjectileStruct& setup,
                        const std::pair<float, float>    playerPosition,
-                       const Engine::Scale              scale,
+                       const Common::Scale              scale,
                        SDL_Renderer*                    renderer,
                        std::shared_ptr<Particle>        particle)
   : pProjectile(setup.Projectile)

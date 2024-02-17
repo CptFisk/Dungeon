@@ -1,8 +1,9 @@
 #pragma once
-#include <engine/initializer.hpp>
+#include "common/initializer.hpp"
+
 #include <SDL3/SDL.h>
 
-namespace Engine{
+namespace Common{
     class SDLInitializer : public Initializer{
       public:
         SDLInitializer(SDL_Window** window, SDL_Renderer** render);

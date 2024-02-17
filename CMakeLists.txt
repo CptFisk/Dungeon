@@ -18,16 +18,19 @@ include(cmake/CMakeVendor.cmake)
 set(CMAKE_CXX_STANDARD 20)
 set(PROJECT_ROOT_DIR "${CMAKE_SOURCE_DIR}")
 
-
+set(
+        COMMON_FILES
+        ${CMAKE_SOURCE_DIR}/source/common/initializer.cpp
+        ${CMAKE_SOURCE_DIR}/source/common/sdl.cpp
+)
 
 if(BUILD_GAME)
 add_executable(
-        Dungeon
+        ${PROJECT_NAME}
+        ${COMMON_FILES}
         game.cpp
 
         ${CMAKE_SOURCE_DIR}/source/engine/engine.cpp
-        ${CMAKE_SOURCE_DIR}/source/engine/initializer.cpp
-        ${CMAKE_SOURCE_DIR}/source/engine/sdl.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/interrupt.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/actionmgr.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/handlers.cpp
@@ -51,7 +54,9 @@ endif()
 if(BUILD_EDITOR)
 add_executable(
         ${PROJECT_NAME}
+        ${COMMON_FILES}
         ${CMAKE_SOURCE_DIR}/editor.cpp
+        ${CMAKE_SOURCE_DIR}/source/editor/editor.cpp
 )
 endif()
 

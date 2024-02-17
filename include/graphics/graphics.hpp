@@ -1,6 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
-#include <engine/structures.hpp>
+#include <common/include.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <graphics/structures.hpp>
 #include <string>
@@ -10,7 +10,7 @@
 namespace Graphics {
 class Graphics {
   public:
-    Graphics(SDL_Renderer* renderer, Engine::Scale& scale);
+    Graphics(SDL_Renderer* renderer, Common::Scale& scale);
     ~Graphics();
     void             init();
     void             generateSquare(const std::string& name,
@@ -38,12 +38,12 @@ class Graphics {
   protected:
     SDL_Texture* loadImage(const std::string& filename);
     void         loadGraphics(const std::string& folderPath);
-    void         loadBaseTiles(const Engine::HeaderJSON& header, const std::string& jsonString);
-    void         loadObjectAnimation(const Engine::HeaderJSON& header, const std::string& jsonString);
-    void         loadObjectGeneration(const Engine::HeaderJSON& header, const std::string& jsonString);
+    void         loadBaseTiles(const Common::HeaderJSON& header, const std::string& jsonString);
+    void         loadObjectAnimation(const Common::HeaderJSON& header, const std::string& jsonString);
+    void         loadObjectGeneration(const Common::HeaderJSON& header, const std::string& jsonString);
 
   private:
-    Engine::Scale& mScale;
+    Common::Scale& mScale;
 
     std::unordered_map<std::string, AnimatedTexture*> mAnimatedTextures;
     std::unordered_map<std::string, BaseTexture>      mBaseTextures;
