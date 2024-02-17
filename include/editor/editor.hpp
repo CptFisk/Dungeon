@@ -5,6 +5,7 @@
 #include <list>
 #include <memory>
 #include <utility/timer.hpp>
+#include <level/structures.hpp>
 
 namespace Editor {
 class Editor {
@@ -24,11 +25,12 @@ class Editor {
     void terminate();
 
   protected:
+    void uiMenu();
     void present();
 
   private:
     bool mRun;
-
+    bool mMapLoaded;
     std::unique_ptr<Common::InitHandler> mInitHandler;
     // Events
     std::unique_ptr<Common::ActionManager>     mActionManager;
@@ -41,5 +43,7 @@ class Editor {
     SDL_Window*   pWindow;
     SDL_Renderer* pRenderer;
     TTF_Font*     mFont;
+
+    Level::LevelHeader mLevelHeader;
 };
 }

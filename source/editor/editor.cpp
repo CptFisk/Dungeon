@@ -1,25 +1,27 @@
-#include <common/imgui.hpp>
-#include <common/sdl.hpp>
-#include <editor/editor.hpp>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <backends/imgui_impl_sdl3.h>
 #include <backends/imgui_impl_sdlrenderer3.h>
-
+#include <common/imgui.hpp>
+#include <common/sdl.hpp>
+#include <editor/editor.hpp>
+#include <level/structures.hpp>
 
 namespace Editor {
 Editor::Editor()
   : mInitHandler(std::make_unique<Common::InitHandler>())
   , pWindow(nullptr)
   , pRenderer(nullptr)
-  ,mFont(nullptr)
-  , mRun(true),
-   mActionManager(std::make_unique<Common::ActionManager>()){}
+  , mFont(nullptr)
+  , mRun(true)
+  , mMapLoaded(true)
+  , mLevelHeader{}
+  , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Editor::~Editor() {
     mInitHandler->shutdown();
 
-    if(mFont)
-        TTF_CloseFont(mFont);   //Clean the font
+    if (mFont)
+        TTF_CloseFont(mFont); // Clean the font
 
     TTF_Quit();
     SDL_Quit();
@@ -36,18 +38,18 @@ Editor::startup() {
     mInitHandler->addInitializer(std::make_shared<Common::ImGuiInitializer>(&pWindow, &pRenderer));
     mInitHandler->startup();
 
-    //Try to load the font
+    // Try to load the font
     mFont = TTF_OpenFont("rsrc/fonts/Arial.ttf", 12);
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 }
 
 void
 Editor::mainLoop() {
-    SDL_Event event;
-    SDL_Color textColor = { 255, 255, 255 }; // White color
-    SDL_Surface* surface = TTF_RenderText_Solid(mFont, "Hello Vera!", textColor);
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(pRenderer, surface);
-    SDL_FRect dstRect = { 100.0, 100.0, surface->w, surface->h };
+    SDL_Event    event;
+    SDL_Color    textColor = { 255, 255, 255 }; // White color
+    SDL_Surface* surface   = TTF_RenderText_Solid(mFont, "Hello Vera!", textColor);
+    SDL_Texture* texture   = SDL_CreateTextureFromSurface(pRenderer, surface);
+    SDL_FRect    dstRect   = { 100.0, 100.0, surface->w, surface->h };
 
     while (mRun) {
         ImGui::NewFrame();
@@ -80,6 +82,7 @@ Editor::mainLoop() {
         }
 
         SDL_RenderTexture(pRenderer, texture, NULL, &dstRect);
+        uiMenu();
         ImGui::ShowDemoWindow();
         present();
 
