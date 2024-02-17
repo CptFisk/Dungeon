@@ -23,7 +23,23 @@ Editor::startup() {
     mInitHandler->addInitializer(std::make_shared<Common::ImGuiInitializer>(&pWindow, &pRenderer));
     mInitHandler->startup();
 
-    addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); });
+    Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
+}
+
+
+std::list<std::function<bool(SDL_Event*)>>&
+Editor::getEventList() {
+    return mEventWatcher;
+}
+
+std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>&
+Editor::getEvents() {
+    return mEvents;
+}
+
+std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&
+Editor::getProcessing() {
+    return mProcessing;
 }
 
 }
