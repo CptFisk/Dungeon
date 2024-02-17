@@ -63,6 +63,7 @@ target_include_directories(
         SDL3_image::SDL3_image
         SDL3_ttf::SDL3_ttf
         nlohmann_json::nlohmann_json
+        ${IMGUI_INCLUDE_DIRS}
 )
 
 
@@ -73,6 +74,7 @@ target_link_libraries(
         SDL3_image::SDL3_image
         SDL3_ttf::SDL3_ttf
         nlohmann_json::nlohmann_json
+        ${LIB_IMGUI}
 )
 
 file(
