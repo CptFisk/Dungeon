@@ -1,5 +1,6 @@
 #include <editor/editor.hpp>
 #include <imgui.h>
+#include <utility/file.hpp>
 
 namespace Editor {
 void
@@ -9,6 +10,9 @@ Editor::uiMenu() {
             if (ImGui::MenuItem("New project")) {
             }
             if (ImGui::MenuItem("Load project")) {
+            }
+            if(ImGui::MenuItem("Save project")){
+                Utility::writeStructToFile(&mLevelHeader, sizeof(mLevelHeader), std::string(mLevelHeader.MapName) + ".map");
             }
             ImGui::EndMenu();
         }
