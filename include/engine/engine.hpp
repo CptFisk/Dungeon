@@ -5,6 +5,7 @@
 #include <memory>
 #include <objects/include.hpp>
 #include <objects/particle.hpp>
+#include <objects/obstacle.hpp>
 #include <player/energy.hpp>
 #include <player/player.hpp>
 #include <string>
@@ -46,12 +47,11 @@ class Engine {
     bool  mRun;
     Scale mScale;
 
-    SDL_FRect mWall = { 100, 100, 50, 50 };
-
     std::unique_ptr<InitHandler>        mInitHandler;
     std::unique_ptr<Player::Player>     mPlayer;
     std::shared_ptr<Graphics::Graphics> mGraphics;
     std::shared_ptr<Level>              mLevel;
+    std::vector<Objects::Obstacle>      mObstacles; // Walls, and other annoying stuff
     std::unique_ptr<Player::Energy>     mEnergy;
     // Events
     std::unique_ptr<ActionManager>             mActionManager;

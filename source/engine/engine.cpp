@@ -77,6 +77,12 @@ Engine::startup() {
 
     addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); });
     SDL_SetRenderDrawColor(pRenderer, 0, 0, 24, SDL_ALPHA_OPAQUE);
+
+    // Make a north wall
+    SDL_FRect f = { 0, 0, 0, 0 };
+    for (int i = 0; i < 16; i++) {
+        mObstacles.push_back(Objects::Obstacle(mGraphics->getBaseTexture(("PurpleWallNorth")),f));
+    }
 }
 
 void
@@ -98,8 +104,8 @@ Engine::click(const float& x, const float& y) {
 
 void
 Engine::movePlayer(Directions direction) {
-    if (!Utility::isColliding(*pPlayerPosition, mWall, direction))
-        mPlayer->move(direction);
+    // if (!Utility::isColliding(*pPlayerPosition, mWall, direction))
+    mPlayer->move(direction);
 }
 
 void
@@ -109,10 +115,7 @@ Engine::setPlayerAction(Objects::ObjectAction action) {
 
 void
 Engine::mainLoop() {
-    std::pair<float, float> playerPosition = { pPlayerPosition->x, pPlayerPosition->y };
-    auto f = mGraphics->getBaseTexture("PurpleWallEast");
 
-    SDL_FRect lightPos = { 10, 10, 100, 100 };
     SDL_Event event;
     while (mRun) {
         mFPSTimer.start();
@@ -147,9 +150,6 @@ Engine::mainLoop() {
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         particles();
-        if(SDL_RenderTexture(pRenderer, f.Texture, &f.Views[0], &mWall) != 0){
-            std::cout << SDL_GetError() << std::endl;
-        }
         addDarkness();
         present();
 
