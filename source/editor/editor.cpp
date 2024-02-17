@@ -1,6 +1,8 @@
 #include <common/imgui.hpp>
 #include <common/sdl.hpp>
 #include <editor/editor.hpp>
+#include <SDL3_ttf/SDL_ttf.h>
+
 
 namespace Editor {
 Editor::Editor()
@@ -12,6 +14,8 @@ Editor::Editor()
 
 Editor::~Editor() {
     mInitHandler->shutdown();
+    TTF_Quit();
+    SDL_Quit();
 }
 
 Common::ActionManager&

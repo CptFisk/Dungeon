@@ -5,6 +5,7 @@
 #include <utility/file.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
+#include <SDL3_ttf/SDL_ttf.h>
 
 namespace Engine {
 
@@ -29,6 +30,7 @@ Engine::~Engine() {
     for (auto& thread : mThreads) {
         thread.join();
     }
+    TTF_Quit();
     SDL_Quit();
 }
 
