@@ -9,11 +9,16 @@ Editor::Editor()
   : mInitHandler(std::make_unique<Common::InitHandler>())
   , pWindow(nullptr)
   , pRenderer(nullptr)
+  ,mFont(nullptr)
   , mRun(true),
    mActionManager(std::make_unique<Common::ActionManager>()){}
 
 Editor::~Editor() {
     mInitHandler->shutdown();
+
+    if(mFont)
+        TTF_CloseFont(mFont);   //Clean the font
+
     TTF_Quit();
     SDL_Quit();
 }
@@ -29,13 +34,19 @@ Editor::startup() {
     mInitHandler->addInitializer(std::make_shared<Common::ImGuiInitializer>(&pWindow, &pRenderer));
     mInitHandler->startup();
 
-
+    //Try to load the font
+    mFont = TTF_OpenFont("rsrc/fonts/Arial.ttf", 12);
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 }
 
 void
 Editor::mainLoop() {
     SDL_Event event;
+    SDL_Color textColor = { 255, 255, 255 }; // White color
+    SDL_Surface* surface = TTF_RenderText_Solid(mFont, "Hello Vera!", textColor);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(pRenderer, surface);
+    SDL_FRect dstRect = { 100, 100, surface->w, surface->h };
+
     while (mRun) {
         mFPSTimer.start();
 
@@ -64,6 +75,7 @@ Editor::mainLoop() {
             timer.start();
         }
 
+        SDL_RenderTexture(pRenderer, texture, NULL, &dstRect);
         present();
 
         auto ticks = mFPSTimer.getTicks();
