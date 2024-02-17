@@ -13,14 +13,10 @@ queueEventHandler(Uint32                                                        
     list[evenType].push_back(std::move(handler));
 }
 
-}
-
-namespace Engine {
-
 void
-Engine::queueProcessHandler(std::function<void(int)> handler) {
+queueProcessHandler(std::function<void(int)> handler, std::list<std::tuple<std::function<void(int)>, Utility::Timer>>& list) {
     Utility::Timer timer;
     timer.start();
-    mProcessing.emplace_back(std::move(handler), timer);
+    list.emplace_back(std::move(handler), timer);
 }
 }

@@ -47,6 +47,11 @@ Engine::getEvents() {
     return mEvents;
 }
 
+std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&
+Engine::getProcessing() {
+    return mProcessing;
+}
+
 void
 Engine::startup() {
     // Starting interrupts

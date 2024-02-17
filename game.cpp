@@ -1,7 +1,7 @@
-#include <engine/engine.hpp>
-#include <iostream>
-#include <imgui.h>
 #include <common/handlers.hpp>
+#include <engine/engine.hpp>
+#include <imgui.h>
+#include <iostream>
 
 int
 main() {
@@ -15,47 +15,66 @@ main() {
     engine.getActionManager().registerKeyboardAction("PlayerWest", SDLK_a);
     engine.getActionManager().registerMouseAction("Click", SDL_BUTTON_LEFT);
 
-    engine.queueProcessHandler([&](Uint32) {
-        if (engine.getActionManager().isActionPressed("PlayerNorth")) {
-            engine.movePlayer(North);
-        }
-    });
-    engine.queueProcessHandler([&](Uint32) {
-        if (engine.getActionManager().isActionPressed("PlayerEast")) {
-            engine.movePlayer(East);
-        }
-    });
-    engine.queueProcessHandler([&](Uint32) {
-        if (engine.getActionManager().isActionPressed("PlayerSouth")) {
-            engine.movePlayer(South);
-        }
-    });
-    engine.queueProcessHandler([&](Uint32) {
-        if (engine.getActionManager().isActionPressed("PlayerWest")) {
-            engine.movePlayer(West);
-        }
-    });
-    engine.queueProcessHandler([&](Uint32) {
-        if (!engine.getActionManager().isActionPressed("PlayerNorth") &&
-            !engine.getActionManager().isActionPressed("PlayerEast") &&
-            !engine.getActionManager().isActionPressed("PlayerSouth") &&
-            !engine.getActionManager().isActionPressed("PlayerWest")) {
-            engine.setPlayerAction(Objects::ObjectAction::IDLE);
-        }
-    });
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (engine.getActionManager().isActionPressed("PlayerNorth")) {
+              engine.movePlayer(North);
+          }
+      },
+      engine.getProcessing());
 
-    engine.queueProcessHandler([&](Uint32) {
-        if (engine.getActionManager().isActionRising("Click")) {
-            float mouseX, mouseY;
-            SDL_GetMouseState(&mouseX, &mouseY);
-            engine.click(mouseX, mouseY);
-        }
-    });
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (engine.getActionManager().isActionPressed("PlayerEast")) {
+              engine.movePlayer(East);
+          }
+      },
+      engine.getProcessing());
 
-    Common::queueEventHandler(SDL_EVENT_QUIT,[&](SDL_Event*) {
-        engine.terminate();
-        return true;
-    },engine.getEvents());
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (engine.getActionManager().isActionPressed("PlayerSouth")) {
+              engine.movePlayer(South);
+          }
+      },
+      engine.getProcessing());
+
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (engine.getActionManager().isActionPressed("PlayerWest")) {
+              engine.movePlayer(West);
+          }
+      },
+      engine.getProcessing());
+
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (!engine.getActionManager().isActionPressed("PlayerNorth") &&
+              !engine.getActionManager().isActionPressed("PlayerEast") &&
+              !engine.getActionManager().isActionPressed("PlayerSouth") &&
+              !engine.getActionManager().isActionPressed("PlayerWest")) {
+              engine.setPlayerAction(Objects::ObjectAction::IDLE);
+          }
+      },
+      engine.getProcessing());
+
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (engine.getActionManager().isActionRising("Click")) {
+              float mouseX, mouseY;
+              SDL_GetMouseState(&mouseX, &mouseY);
+              engine.click(mouseX, mouseY);
+          }
+      },
+      engine.getProcessing());
+
+    Common::queueEventHandler(
+      SDL_EVENT_QUIT,
+      [&](SDL_Event*) {
+          engine.terminate();
+          return true;
+      },
+      engine.getEvents());
 
     engine.startup();
     try {

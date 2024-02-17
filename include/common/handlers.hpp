@@ -3,6 +3,7 @@
 #include <functional>
 #include <list>
 #include <vector>
+#include <utility/timer.hpp>
 
 namespace Common {
 /**
@@ -18,5 +19,8 @@ void
 queueEventHandler(Uint32                                                                  evtype,
                   std::function<bool(SDL_Event*)>                                         handler,
                   std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& list);
+
+void
+queueProcessHandler(std::function<void(int)> handler, std::list<std::tuple<std::function<void(int)>, Utility::Timer>>& list);
 
 }
