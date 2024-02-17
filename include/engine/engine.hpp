@@ -9,7 +9,7 @@
 #include <player/player.hpp>
 #include <string>
 #include <thread>
-#include <timer.hpp>
+#include <utility/timer.hpp>
 #include <utility>
 #include <world/level.hpp>
 
@@ -24,8 +24,9 @@ class Engine {
 
     Common::ActionManager& getActionManager();
 
-    void addEventWatcher(std::function<bool(SDL_Event*)> handler);                    // Add event to listen
-    void queueEventHandler(Uint32 evenType, std::function<bool(SDL_Event*)> handler); // Add event in queue
+    std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEventList(); // Get the list of events
+
+    void queueEventHandler(Uint32 evtype, std::function<bool(SDL_Event*)> handler); // Add event in queue
     void queueProcessHandler(std::function<void(int)> handler);                       // Add process to handle in queue
     void terminate();
     void click(const float& x, const float& y); // Mouse click
@@ -43,20 +44,20 @@ class Engine {
     std::thread spawnInterrupt(const long& time); // Spawn a thread
 
   private:
-    bool  mRun;
+    bool          mRun;
     Common::Scale mScale;
 
-    std::unique_ptr<Common::InitHandler>        mInitHandler;
-    std::unique_ptr<Player::Player>     mPlayer;
-    std::shared_ptr<Graphics::Graphics> mGraphics;
-    std::shared_ptr<Level>              mLevel;
-    std::vector<Objects::Obstacle>      mObstacles; // Walls, and other annoying stuff
-    std::unique_ptr<Player::Energy>     mEnergy;
+    std::unique_ptr<Common::InitHandler> mInitHandler;
+    std::unique_ptr<Player::Player>      mPlayer;
+    std::shared_ptr<Graphics::Graphics>  mGraphics;
+    std::shared_ptr<Level>               mLevel;
+    std::vector<Objects::Obstacle>       mObstacles; // Walls, and other annoying stuff
+    std::unique_ptr<Player::Energy>      mEnergy;
     // Events
-    std::unique_ptr<Common::ActionManager>             mActionManager;
+    std::unique_ptr<Common::ActionManager>     mActionManager;
     std::list<std::function<bool(SDL_Event*)>> mEventWatcher; // List of all event to watch for
     std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>> mEvents;
-    std::list<std::tuple<std::function<void(int)>, Timer>>                 mProcessing;
+    std::list<std::tuple<std::function<void(int)>, Utility::Timer>>        mProcessing;
 
     std::vector<Objects::Projectile*>  mProjectiles; // All projectiles
     std::shared_ptr<Objects::Particle> mParticles;
@@ -64,7 +65,7 @@ class Engine {
     SDL_Window*   pWindow;
     SDL_Renderer* pRenderer;
 
-    Timer mFPSTimer; // To lock fps
+    Utility::Timer mFPSTimer; // To lock fps
 
     // Threads and interrupts
     std::vector<std::thread>                       mThreads;

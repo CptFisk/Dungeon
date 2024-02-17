@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL3/SDL.h>
 
-namespace Engine{
+namespace Utility{
 class Timer{
   public:
     Timer() : mTicks(0){};

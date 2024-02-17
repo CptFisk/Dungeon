@@ -1,4 +1,5 @@
 #include <SDL_image.h>
+#include <common/handlers.hpp>
 #include <engine/engine.hpp>
 #include <iostream>
 #include <utility/file.hpp>
@@ -75,13 +76,14 @@ Engine::startup() {
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
-    addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); });
+    Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
+
     SDL_SetRenderDrawColor(pRenderer, 0, 0, 24, SDL_ALPHA_OPAQUE);
 
     // Make a north wall
     SDL_FRect f = { 0, 0, 0, 0 };
     for (int i = 0; i < 16; i++) {
-        mObstacles.push_back(Objects::Obstacle(mGraphics->getBaseTexture(("PurpleWallNorth")),f));
+        mObstacles.push_back(Objects::Obstacle(mGraphics->getBaseTexture(("PurpleWallNorth")), f));
     }
 }
 
@@ -150,7 +152,7 @@ Engine::mainLoop() {
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         particles();
-        //addDarkness();
+        // addDarkness();
         present();
 
         auto ticks = mFPSTimer.getTicks();

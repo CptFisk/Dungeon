@@ -1,11 +1,13 @@
 #include <engine/engine.hpp>
 
-namespace Engine {
+namespace Common {
 void
-Engine::addEventWatcher(std::function<bool(SDL_Event*)> handler) {
-    mEventWatcher.push_back(handler);
+addEventWatcher(std::function<bool(SDL_Event*)> handler, std::list<std::function<bool(SDL_Event*)>>& list) {
+    list.push_back(handler);
+}
 }
 
+namespace Engine{
 void
 Engine::queueEventHandler(Uint32 evenType, std::function<bool(SDL_Event*)> handler) {
     mEvents[evenType].push_back(std::move(handler));
@@ -13,7 +15,7 @@ Engine::queueEventHandler(Uint32 evenType, std::function<bool(SDL_Event*)> handl
 
 void
 Engine::queueProcessHandler(std::function<void(int)> handler) {
-    Timer timer;
+    Utility::Timer timer;
     timer.start();
     mProcessing.emplace_back(std::move(handler), timer);
 }
