@@ -2,6 +2,8 @@
 #include <common/sdl.hpp>
 #include <editor/editor.hpp>
 #include <SDL3_ttf/SDL_ttf.h>
+#include <backends/imgui_impl_sdl3.h>
+#include <backends/imgui_impl_sdlrenderer3.h>
 
 
 namespace Editor {
@@ -45,13 +47,15 @@ Editor::mainLoop() {
     SDL_Color textColor = { 255, 255, 255 }; // White color
     SDL_Surface* surface = TTF_RenderText_Solid(mFont, "Hello Vera!", textColor);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(pRenderer, surface);
-    SDL_FRect dstRect = { 100, 100, surface->w, surface->h };
+    SDL_FRect dstRect = { 100.0, 100.0, surface->w, surface->h };
 
     while (mRun) {
+        ImGui::NewFrame();
         mFPSTimer.start();
 
         SDL_RenderClear(pRenderer);
         while (SDL_PollEvent(&event)) {
+            ImGui_ImplSDL3_ProcessEvent(&event);
             bool accepted = true;
 
             for (auto& handler : mEventWatcher) {
@@ -76,6 +80,7 @@ Editor::mainLoop() {
         }
 
         SDL_RenderTexture(pRenderer, texture, NULL, &dstRect);
+        ImGui::ShowDemoWindow();
         present();
 
         auto ticks = mFPSTimer.getTicks();
@@ -86,6 +91,8 @@ Editor::mainLoop() {
 
 void
 Editor::present() {
+    ImGui::Render();
+    ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData());
     SDL_RenderPresent(pRenderer);
 }
 
