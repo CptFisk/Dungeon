@@ -150,7 +150,7 @@ Engine::mainLoop() {
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         particles();
-        addDarkness();
+        //addDarkness();
         present();
 
         auto ticks = mFPSTimer.getTicks();

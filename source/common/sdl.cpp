@@ -1,5 +1,6 @@
 #include <common/sdl.hpp>
 #include <SDL3_image/SDL_image.h>
+#include <SDL3_ttf/SDL_ttf.h>
 #include <iostream>
 
 namespace Common{
@@ -8,11 +9,8 @@ SDLInitializer::SDLInitializer(SDL_Window** window, SDL_Renderer** render) :pWin
 void
 SDLInitializer::startup() {
     SDL_Init(SDL_INIT_VIDEO);
-    const int IMG_INIT_EVERYTHING = IMG_INIT_JPG | IMG_INIT_PNG;
-    if (!(IMG_Init(IMG_INIT_EVERYTHING) & IMG_INIT_EVERYTHING)) {
-        printf("IMG_Init Error: %s\n", IMG_GetError());
-        SDL_Quit();
-    }
+    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
+    TTF_Init();
     Uint32 windowFlags = 0;
     Uint32 renderFlags = 0;
     windowFlags |= SDL_WINDOW_RESIZABLE;
