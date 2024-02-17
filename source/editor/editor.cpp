@@ -6,7 +6,8 @@ namespace Editor {
 Editor::Editor()
   : mInitHandler(std::make_unique<Common::InitHandler>())
   , pWindow(nullptr)
-  , pRenderer(nullptr) {}
+  , pRenderer(nullptr)
+  , mRun(true) {}
 
 Editor::~Editor() {
     mInitHandler->shutdown();
@@ -26,6 +27,49 @@ Editor::startup() {
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 }
 
+void
+Editor::mainLoop() {
+    SDL_Event event;
+    while (mRun) {
+        mFPSTimer.start();
+
+        SDL_RenderClear(pRenderer);
+        while (SDL_PollEvent(&event)) {
+            bool accepted = true;
+
+            for (auto& handler : mEventWatcher) {
+                if (!handler(&event)) {
+                    accepted = false;
+                    break;
+                }
+            }
+
+            if (accepted && mEvents.find(event.type) != mEvents.end()) {
+                auto handlers = mEvents[event.type];
+                for (auto& handler : handlers) {
+                    if (!handler(&event))
+                        break;
+                }
+            }
+        }
+
+        for (auto& [handler, timer] : mProcessing) {
+            handler(timer.getTicks());
+            timer.start();
+        }
+
+        present();
+
+        auto ticks = mFPSTimer.getTicks();
+        if (ticks < 1000.0 / 60)
+            SDL_Delay((1000.0 / 60) - ticks);
+    }
+}
+
+void
+Editor::present() {
+    SDL_RenderPresent(pRenderer);
+}
 
 std::list<std::function<bool(SDL_Event*)>>&
 Editor::getEventList() {
@@ -40,6 +84,11 @@ Editor::getEvents() {
 std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&
 Editor::getProcessing() {
     return mProcessing;
+}
+
+void
+Editor::terminate() {
+    mRun = false;
 }
 
 }

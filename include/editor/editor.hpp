@@ -20,15 +20,21 @@ class Editor {
     std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEvents();    //Get the list of events
     std::list<std::tuple<std::function<void(int)>, Utility::Timer>>& getProcessing();
 
+    void terminate();
 
   protected:
+    void present();
   private:
+    bool          mRun;
+
     std::unique_ptr<Common::InitHandler> mInitHandler;
     // Events
     std::unique_ptr<Common::ActionManager>             mActionManager;
     std::list<std::function<bool(SDL_Event*)>> mEventWatcher; // List of all event to watch for
     std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>> mEvents;
     std::list<std::tuple<std::function<void(int)>, Utility::Timer>>                 mProcessing;
+
+    Utility::Timer mFPSTimer; // To lock fps
 
     SDL_Window*   pWindow;
     SDL_Renderer* pRenderer;
