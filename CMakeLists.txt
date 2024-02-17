@@ -21,6 +21,7 @@ set(
         ${CMAKE_SOURCE_DIR}/source/common/initializer.cpp
         ${CMAKE_SOURCE_DIR}/source/common/sdl.cpp
         ${CMAKE_SOURCE_DIR}/source/common/imgui.cpp
+        ${CMAKE_SOURCE_DIR}/source/common/handlers.cpp
 )
 
 if(BUILD_GAME)
@@ -32,7 +33,6 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/engine/engine.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/interrupt.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/actionmgr.cpp
-        ${CMAKE_SOURCE_DIR}/source/engine/handlers.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/graphics.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/generateObjects.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/loadImage.cpp

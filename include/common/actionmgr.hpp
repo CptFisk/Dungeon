@@ -5,7 +5,7 @@
 #include <utility>
 #include <vector>
 
-namespace Engine {
+namespace Common {
 class ActionManager {
   public:
     void registerKeyboardAction(const std::string& name, SDL_KeyCode key);

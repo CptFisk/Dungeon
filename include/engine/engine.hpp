@@ -1,11 +1,10 @@
 #pragma once
+#include <common/include.hpp>
 #include <engine/include.hpp>
 #include <graphics/graphics.hpp>
 #include <list>
 #include <memory>
 #include <objects/include.hpp>
-#include <objects/particle.hpp>
-#include <objects/obstacle.hpp>
 #include <player/energy.hpp>
 #include <player/player.hpp>
 #include <string>
@@ -23,7 +22,7 @@ class Engine {
     void startup(); // Load all functions related to startup
     void mainLoop();
 
-    ActionManager& getActionManager();
+    Common::ActionManager& getActionManager();
 
     void addEventWatcher(std::function<bool(SDL_Event*)> handler);                    // Add event to listen
     void queueEventHandler(Uint32 evenType, std::function<bool(SDL_Event*)> handler); // Add event in queue
@@ -54,7 +53,7 @@ class Engine {
     std::vector<Objects::Obstacle>      mObstacles; // Walls, and other annoying stuff
     std::unique_ptr<Player::Energy>     mEnergy;
     // Events
-    std::unique_ptr<ActionManager>             mActionManager;
+    std::unique_ptr<Common::ActionManager>             mActionManager;
     std::list<std::function<bool(SDL_Event*)>> mEventWatcher; // List of all event to watch for
     std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>> mEvents;
     std::list<std::tuple<std::function<void(int)>, Timer>>                 mProcessing;

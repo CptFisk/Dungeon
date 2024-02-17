@@ -16,7 +16,7 @@ Engine::Engine()
   , pPlayerView(nullptr)
   , mScale{}
   , mRun(true)
-  , mActionManager(std::make_unique<ActionManager>()) {}
+  , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Engine::~Engine() {
     mInitHandler->shutdown();
@@ -31,7 +31,7 @@ Engine::~Engine() {
     SDL_Quit();
 }
 
-ActionManager&
+Common::ActionManager&
 Engine::getActionManager() {
     return *mActionManager;
 }

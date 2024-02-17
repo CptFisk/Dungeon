@@ -1,6 +1,6 @@
-#include <engine/actionmgr.hpp>
+#include <common/actionmgr.hpp>
 
-namespace Engine {
+namespace Common {
 
 void
 ActionManager::registerKeyboardAction(const std::string& name, SDL_KeyCode key) {
