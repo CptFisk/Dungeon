@@ -1,8 +1,11 @@
 #include <engine/engine.hpp>
 #include <iostream>
+#include <imgui.h>
 
 int
 main() {
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
 
     Engine::Engine engine;
     engine.getActionManager().registerKeyboardAction("PlayerNorth", SDLK_w);

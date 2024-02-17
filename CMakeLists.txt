@@ -1,15 +1,13 @@
 cmake_minimum_required(VERSION 3.26)
 
 option(BUILD_GAME "Build game" ON)
-option(BUILD_EDITOR "Build editor" OFF)
 
-if(BUILD_EDITOR)
-    project(Editor)
-    message(STATUS "Building editor")
-    set(BUILD_GAME OFF)
-else ()
+if(BUILD_GAME)
     message(STATUS "Building game")
     project(Dungeon)
+else ()
+    project(Editor)
+    message(STATUS "Building editor")
 endif ()
 
 include(ExternalProject)
@@ -22,6 +20,7 @@ set(
         COMMON_FILES
         ${CMAKE_SOURCE_DIR}/source/common/initializer.cpp
         ${CMAKE_SOURCE_DIR}/source/common/sdl.cpp
+        ${CMAKE_SOURCE_DIR}/source/common/imgui.cpp
 )
 
 if(BUILD_GAME)
@@ -49,9 +48,7 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/objects/projectile.cpp
         ${CMAKE_SOURCE_DIR}/source/objects/particle.cpp
 )
-endif()
-
-if(BUILD_EDITOR)
+else()
 add_executable(
         ${PROJECT_NAME}
         ${COMMON_FILES}
