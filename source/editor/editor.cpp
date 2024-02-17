@@ -7,7 +7,8 @@ Editor::Editor()
   : mInitHandler(std::make_unique<Common::InitHandler>())
   , pWindow(nullptr)
   , pRenderer(nullptr)
-  , mRun(true) {}
+  , mRun(true),
+   mActionManager(std::make_unique<Common::ActionManager>()){}
 
 Editor::~Editor() {
     mInitHandler->shutdown();
@@ -23,6 +24,7 @@ Editor::startup() {
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer));
     mInitHandler->addInitializer(std::make_shared<Common::ImGuiInitializer>(&pWindow, &pRenderer));
     mInitHandler->startup();
+
 
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 }
