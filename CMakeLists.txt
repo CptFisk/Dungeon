@@ -1,16 +1,29 @@
 cmake_minimum_required(VERSION 3.26)
-project(CaveMan)
 
-find_package(OpenGL REQUIRED)
+option(BUILD_GAME "Build game" ON)
+option(BUILD_EDITOR "Build editor" OFF)
+
+if(BUILD_EDITOR)
+    project(Editor)
+    message(STATUS "Building editor")
+    set(BUILD_GAME OFF)
+else ()
+    message(STATUS "Building game")
+    project(Dungeon)
+endif ()
+
 include(ExternalProject)
 include(cmake/CMakeVendor.cmake)
 
 set(CMAKE_CXX_STANDARD 20)
 set(PROJECT_ROOT_DIR "${CMAKE_SOURCE_DIR}")
 
+
+
+if(BUILD_GAME)
 add_executable(
-        CaveMan
-        main.cpp
+        Dungeon
+        game.cpp
 
         ${CMAKE_SOURCE_DIR}/source/engine/engine.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/initializer.cpp
@@ -32,8 +45,15 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/objects/obstacle.cpp
         ${CMAKE_SOURCE_DIR}/source/objects/projectile.cpp
         ${CMAKE_SOURCE_DIR}/source/objects/particle.cpp
-
 )
+endif()
+
+if(BUILD_EDITOR)
+add_executable(
+        ${PROJECT_NAME}
+        ${CMAKE_SOURCE_DIR}/editor.cpp
+)
+endif()
 
 target_include_directories(
         ${PROJECT_NAME}
@@ -41,9 +61,9 @@ target_include_directories(
         ${CMAKE_SOURCE_DIR}/include
         SDL3::SDL3
         SDL3_image::SDL3_image
+        SDL3_ttf::SDL3_ttf
         nlohmann_json::nlohmann_json
 )
-
 
 
 target_link_libraries(
@@ -51,6 +71,7 @@ target_link_libraries(
 
         SDL3::SDL3
         SDL3_image::SDL3_image
+        SDL3_ttf::SDL3_ttf
         nlohmann_json::nlohmann_json
 )
 
