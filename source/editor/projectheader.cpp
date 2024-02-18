@@ -22,6 +22,7 @@ Editor::uiProjectHeader() {
 
         if(ImGui::Button(mNewFile ? "Create" : "Save")){
                 mShowProjectHeader = false;
+                mNewFile = false;
                 mMapLoaded = true;
 
                 mLevelHeader->BackgroundRed = static_cast<float>(color[0] * 255.0f);
