@@ -2,6 +2,8 @@
 #include <cstdint>
 namespace Level {
 
+const int MAP_META_MAX = 31;
+
 enum TileType : uint8_t { Background, Obstacle };
 
 struct Tile {
@@ -27,7 +29,7 @@ struct SubFileMeta {
 };
 
 struct MapMeta {
-    SubFileMeta Data[31]; // A file can only contain 32 sub-files
+    SubFileMeta Data[MAP_META_MAX]; // A file can only contain 32 sub-files
 };
 
 struct Map {
@@ -35,5 +37,8 @@ struct Map {
     MapMeta     Meta;
     TileType*   Tiles;
 };
+
+
+void deleteMapMeta(const uint8_t& id, MapMeta* map);
 
 }

@@ -31,6 +31,8 @@ set(
         ${CMAKE_SOURCE_DIR}/source/graphics/animatedTexture.cpp
 
         ${CMAKE_SOURCE_DIR}/source/loaders/loadGraphics.cpp
+
+        ${CMAKE_SOURCE_DIR}/source/level/structures.cpp
 )
 
 set(
