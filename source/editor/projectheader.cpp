@@ -29,8 +29,9 @@ Editor::uiProjectHeader() {
                 pLevelHeader->BackgroundBlue = static_cast<float>(color[2] * 255.0f);
 
         }
-        ImGui::End();
+
     }
+    ImGui::End();
 
 }
 
