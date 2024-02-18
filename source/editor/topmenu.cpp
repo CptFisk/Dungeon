@@ -11,9 +11,9 @@ Editor::uiMenu() {
                 mShowProjectHeader = true;
                 mNewFile           = true;
 
-                delete mLevelHeader; // Clean first
-                mLevelHeader = new Level::LevelHeader{};
-                mMapMeta = new Level::MapMeta{};
+                delete pLevelHeader; // Clean first
+                pLevelHeader = new Level::LevelHeader{};
+                pMapMeta     = new Level::MapMeta{};
             }
             if (ImGui::MenuItem("Load project")) {
             }

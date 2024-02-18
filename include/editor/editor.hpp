@@ -29,6 +29,7 @@ class Editor {
     void uiMenu();
     void uiProjectHeader();
     void uiDrawGrid();
+    void uiMapMeta();
     void present();
 
     size_t getIndex(const int& x, const int& y); // Select an index in map
@@ -58,8 +59,9 @@ class Editor {
     // Bits
     bool mShowProjectHeader;
     bool mShowGrid;
+    bool mShowMapMeta;
 
-    Level::LevelHeader* mLevelHeader;
-    Level::MapMeta*     mMapMeta;
+    Level::LevelHeader* pLevelHeader;
+    Level::MapMeta*     pMapMeta;
 };
 }

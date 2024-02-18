@@ -17,10 +17,11 @@ Editor::Editor()
   , mRun(true)
   , mMapLoaded(false)
   , mShowProjectHeader(false)
+  , mShowMapMeta(false)
   , mShowGrid(true)
   , mNewFile(false)
-  , mLevelHeader(nullptr)
-  , mMapMeta(nullptr)
+  , pLevelHeader(nullptr)
+  , pMapMeta(nullptr)
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Editor::~Editor() {
@@ -71,11 +72,11 @@ Editor::mainLoop() {
     SDL_Event event;
 
     while (mRun) {
-        if (mLevelHeader)
+        if (pLevelHeader)
             SDL_SetRenderDrawColor(pRenderer,
-                                   mLevelHeader->BackgroundRed,
-                                   mLevelHeader->BackgroundGreen,
-                                   mLevelHeader->BackgroundBlue,
+                                   pLevelHeader->BackgroundRed,
+                                   pLevelHeader->BackgroundGreen,
+                                   pLevelHeader->BackgroundBlue,
                                    SDL_ALPHA_OPAQUE);
         ImGui::NewFrame();
         mFPSTimer.start();
