@@ -55,4 +55,9 @@ Graphics::getAnimatedTexture(const std::string& name) {
     return mAnimatedTextures[name];
 }
 
+void
+Graphics::addTexture(const std::string& name, SDL_Texture* texture){
+    mTextures[name] = texture;
+}
+
 }

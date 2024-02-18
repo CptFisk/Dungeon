@@ -2,10 +2,11 @@
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <common/include.hpp>
+#include <level/structures.hpp>
 #include <list>
 #include <memory>
 #include <utility/timer.hpp>
-#include <level/structures.hpp>
+#include <graphics/graphics.hpp>
 
 namespace Editor {
 class Editor {
@@ -33,9 +34,12 @@ class Editor {
   private:
     Common::Scale mScale;
 
-    bool mRun;
-    bool mMapLoaded;
+    bool                                 mRun;
+    bool                                 mMapLoaded;
     std::unique_ptr<Common::InitHandler> mInitHandler;
+    std::shared_ptr<Graphics::Graphics>  mGraphics;
+
+
     // Events
     std::unique_ptr<Common::ActionManager>     mActionManager;
     std::list<std::function<bool(SDL_Event*)>> mEventWatcher; // List of all event to watch for
@@ -47,8 +51,9 @@ class Editor {
     SDL_Window*   pWindow;
     SDL_Renderer* pRenderer;
     TTF_Font*     mFont;
+    SDL_Color     mWhite = { 255, 255, 255 }; // White color
 
-    //Bits
+    // Bits
     bool mShowProjectHeader;
     bool mShowGrid;
 

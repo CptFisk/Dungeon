@@ -43,18 +43,29 @@ Editor::startup() {
 
     Common::calculateGameScale(mScale, pWindow);
 
+    // Generate graphics
+    mGraphics = std::make_shared<Graphics::Graphics>(pRenderer, mScale);
+    mGraphics->init();
+
     // Try to load the font
     mFont = TTF_OpenFont("rsrc/fonts/Arial.ttf", 12);
+    //Generating textures
+    /*
+SDL_Surface* surface   = TTF_RenderText_Solid(mFont, "Hello Vera!", textColor);
+SDL_Texture* texture   = SDL_CreateTextureFromSurface(pRenderer, surface);
+SDL_FRect    dstRect   = { 100.0, 100.0, surface->w, surface->h };
+*/
+    /*
+    for(int x = 0; x < SDL_MAX_UINT8; x++){
+        auto surface = TTF_RenderText_Solid(mFont, std::to_string(x).c_str(), mWhite);
+    }
+     */
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 }
 
 void
 Editor::mainLoop() {
     SDL_Event    event;
-    SDL_Color    textColor = { 255, 255, 255 }; // White color
-    SDL_Surface* surface   = TTF_RenderText_Solid(mFont, "Hello Vera!", textColor);
-    SDL_Texture* texture   = SDL_CreateTextureFromSurface(pRenderer, surface);
-    SDL_FRect    dstRect   = { 100.0, 100.0, surface->w, surface->h };
 
     while (mRun) {
         SDL_SetRenderDrawColor(pRenderer,
@@ -91,7 +102,7 @@ Editor::mainLoop() {
             timer.start();
         }
 
-        SDL_RenderTexture(pRenderer, texture, NULL, &dstRect);
+        //SDL_RenderTexture(pRenderer, texture, NULL, &dstRect);
         uiDrawGrid();
         uiMenu();
         uiProjectHeader();

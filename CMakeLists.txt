@@ -24,26 +24,35 @@ set(
         ${CMAKE_SOURCE_DIR}/source/common/handlers.cpp
         ${CMAKE_SOURCE_DIR}/source/common/actionmgr.cpp
         ${CMAKE_SOURCE_DIR}/source/common/scale.cpp
+
+        ${CMAKE_SOURCE_DIR}/source/graphics/graphics.cpp
+        ${CMAKE_SOURCE_DIR}/source/graphics/generateObjects.cpp
+        ${CMAKE_SOURCE_DIR}/source/graphics/loadImage.cpp
+        ${CMAKE_SOURCE_DIR}/source/graphics/animatedTexture.cpp
+
+        ${CMAKE_SOURCE_DIR}/source/loaders/loadGraphics.cpp
+)
+
+set(
+        UTILITY_FILES
+        ${CMAKE_SOURCE_DIR}/source/utility/file.cpp
+        ${CMAKE_SOURCE_DIR}/source/utility/trigonometry.cpp
+        ${CMAKE_SOURCE_DIR}/source/utility/texture.cpp
 )
 
 if (BUILD_GAME)
     add_executable(
             ${PROJECT_NAME}
             ${COMMON_FILES}
-            game.cpp
+            ${UTILITY_FILES}
+            ${CMAKE_SOURCE_DIR}/game.cpp
 
             ${CMAKE_SOURCE_DIR}/source/engine/engine.cpp
             ${CMAKE_SOURCE_DIR}/source/engine/interrupt.cpp
 
-            ${CMAKE_SOURCE_DIR}/source/graphics/graphics.cpp
-            ${CMAKE_SOURCE_DIR}/source/graphics/generateObjects.cpp
-            ${CMAKE_SOURCE_DIR}/source/graphics/loadImage.cpp
-            ${CMAKE_SOURCE_DIR}/source/graphics/animatedTexture.cpp
             ${CMAKE_SOURCE_DIR}/source/world/level.cpp
-            ${CMAKE_SOURCE_DIR}/source/loaders/loadGraphics.cpp
-            ${CMAKE_SOURCE_DIR}/source/utility/file.cpp
-            ${CMAKE_SOURCE_DIR}/source/utility/trigonometry.cpp
-            ${CMAKE_SOURCE_DIR}/source/utility/texture.cpp
+
+
             ${CMAKE_SOURCE_DIR}/source/player/player.cpp
             ${CMAKE_SOURCE_DIR}/source/player/energy.cpp
             ${CMAKE_SOURCE_DIR}/source/objects/obstacle.cpp
@@ -54,6 +63,8 @@ else ()
     add_executable(
             ${PROJECT_NAME}
             ${COMMON_FILES}
+            ${UTILITY_FILES}
+
             ${CMAKE_SOURCE_DIR}/editor.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/editor.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/topmenu.cpp

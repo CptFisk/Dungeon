@@ -32,6 +32,8 @@ class Graphics {
     SDL_Texture*     getTexture(const std::string& name);
     BaseTexture      getBaseTexture(const std::string& name);
     AnimatedTexture* getAnimatedTexture(const std::string& name);
+    
+    void addTexture(const std::string& name, SDL_Texture* texture);
 
     void updateAnimatedTexture();
 
