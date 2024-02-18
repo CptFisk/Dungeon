@@ -3,12 +3,13 @@
 #include <objects/objects.hpp>
 #include <string>
 
-namespace Common{
+namespace Common {
 struct Scale {
-    float ScaleX;
-    float ScaleY;
+    float ScaleX;  // Scaling factor needed to archive 16x12 squares
+    float ScaleY;  // Scaling factor needed to archive 16x12 squares
+    int   WindowX; // Window size in X-direction
+    int   WindowY; // Window size in Y-direction
 };
-
 
 #define HEADER_TYPES(DO) \
     DO(BASE_TEXTURE)     \
