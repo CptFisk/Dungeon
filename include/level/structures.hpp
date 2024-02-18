@@ -21,20 +21,16 @@ struct LevelHeader {
     uint8_t MapSizeY;
 };
 
+struct LevelData{
+    uint8_t Id;
+    char Asset[31];
+};
+
 struct Level {
     LevelHeader Header;
     TileType*   Tiles;
 };
 
-Level* getNewLevel(const uint8_t maxX, const uint8_t maxY){
-    Level* level = new Level;
-    level->Header.MapSizeX = maxX;
-    level->Header.MapSizeY = maxY;
-    size_t tiles = static_cast<size_t>(maxX) * static_cast<size_t>(maxY);
-    level->Tiles = new TileType[tiles];
-
-    return level;
-}
 
 
 
