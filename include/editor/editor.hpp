@@ -27,6 +27,7 @@ class Editor {
   protected:
     void uiMenu();
     void uiProjectHeader();
+    void uiDrawGrid();
     void present();
 
   private:
@@ -49,6 +50,7 @@ class Editor {
 
     //Bits
     bool mShowProjectHeader;
+    bool mShowGrid;
 
     Level::LevelHeader mLevelHeader;
 };

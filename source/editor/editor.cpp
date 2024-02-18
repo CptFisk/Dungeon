@@ -16,6 +16,7 @@ Editor::Editor()
   , mRun(true)
   , mMapLoaded(true)
   , mShowProjectHeader(false)
+  , mShowGrid(true)
   , mLevelHeader{}
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
@@ -91,6 +92,7 @@ Editor::mainLoop() {
         }
 
         SDL_RenderTexture(pRenderer, texture, NULL, &dstRect);
+        uiDrawGrid();
         uiMenu();
         uiProjectHeader();
 
