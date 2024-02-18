@@ -31,6 +31,8 @@ class Editor {
     void uiDrawGrid();
     void present();
 
+    size_t getIndex(const int& x, const int& y);    //Select an index in map
+
   private:
     Common::Scale mScale;
 
@@ -57,6 +59,6 @@ class Editor {
     bool mShowProjectHeader;
     bool mShowGrid;
 
-    Level::LevelHeader mLevelHeader;
+    Level::LevelHeader* mLevelHeader;
 };
 }

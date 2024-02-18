@@ -10,13 +10,19 @@ Editor::uiMenu() {
             if (ImGui::MenuItem("New project")) {
                 mShowProjectHeader = true;
                 mNewFile           = true;
+
+                delete mLevelHeader; // Clean first
+                mLevelHeader = new Level::LevelHeader{};
             }
             if (ImGui::MenuItem("Load project")) {
             }
             if (ImGui::MenuItem("Save project")) {
+                /*
                 Utility::writeStructToFile(
                   &mLevelHeader, sizeof(mLevelHeader), std::string(mLevelHeader.MapName) + ".map");
+                */
             }
+
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Project", mMapLoaded)) {
