@@ -15,18 +15,23 @@ Graphics::updateAnimatedTexture() {
 }
 
 Graphics::~Graphics() {
+    int cleaned = 0;
     // Cleaning
     for (auto [name, texture] : mTextures) {
         SDL_DestroyTexture(texture);
+        cleaned++;
     }
 
     for (auto [name, texture] : mBaseTextures) {
         SDL_DestroyTexture(texture.Texture);
+        cleaned++;
     }
 
     for (auto& [name, obj] : mAnimatedTextures) {
         delete obj;
+        cleaned++;
     }
+    printf("Cleaned: %i \n", cleaned);
 }
 
 void

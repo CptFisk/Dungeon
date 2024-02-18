@@ -2,9 +2,10 @@
 #include <backends/imgui_impl_sdl3.h>
 #include <backends/imgui_impl_sdlrenderer3.h>
 #include <common/imgui.hpp>
-#include <common/sdl.hpp>
 #include <common/scale.hpp>
+#include <common/sdl.hpp>
 #include <editor/editor.hpp>
+#include <iostream>
 #include <level/structures.hpp>
 
 namespace Editor {
@@ -48,24 +49,24 @@ Editor::startup() {
     mGraphics->init();
 
     // Try to load the font
-    mFont = TTF_OpenFont("rsrc/fonts/Arial.ttf", 12);
-    //Generating textures
-    /*
-SDL_Surface* surface   = TTF_RenderText_Solid(mFont, "Hello Vera!", textColor);
-SDL_Texture* texture   = SDL_CreateTextureFromSurface(pRenderer, surface);
-SDL_FRect    dstRect   = { 100.0, 100.0, surface->w, surface->h };
-*/
-    /*
-    for(int x = 0; x < SDL_MAX_UINT8; x++){
-        auto surface = TTF_RenderText_Solid(mFont, std::to_string(x).c_str(), mWhite);
+    mFont = TTF_OpenFont("rsrc/fonts/Arial.ttf", 14);
+
+    // Generating textures
+    for (int x = 0; x < 16; x++) {
+        for (int y = 0; y < 12; y++) {
+            const std::string name    = std::to_string(x) + "," + std::to_string(y);
+            auto              surface = TTF_RenderText_Solid(mFont, name.c_str(), mWhite);
+            mGraphics->addTexture(name, SDL_CreateTextureFromSurface(pRenderer, surface));
+            SDL_DestroySurface(surface); // Cleaning
+        }
     }
-     */
+
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 }
 
 void
 Editor::mainLoop() {
-    SDL_Event    event;
+    SDL_Event event;
 
     while (mRun) {
         SDL_SetRenderDrawColor(pRenderer,
@@ -102,7 +103,7 @@ Editor::mainLoop() {
             timer.start();
         }
 
-        //SDL_RenderTexture(pRenderer, texture, NULL, &dstRect);
+        // SDL_RenderTexture(pRenderer, texture, NULL, &dstRect);
         uiDrawGrid();
         uiMenu();
         uiProjectHeader();
@@ -121,8 +122,6 @@ Editor::present() {
     ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData());
     SDL_RenderPresent(pRenderer);
 }
-
-
 
 std::list<std::function<bool(SDL_Event*)>>&
 Editor::getEventList() {
