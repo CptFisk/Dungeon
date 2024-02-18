@@ -17,11 +17,11 @@ Editor::Editor()
   , mRun(true)
   , mMapLoaded(false)
   , mShowProjectHeader(false)
-  , mShowMapMeta(false)
+  , mShowMapMeta(true)
   , mShowGrid(true)
   , mNewFile(false)
   , pLevelHeader(nullptr)
-  , pMapMeta(nullptr)
+  , pMapMeta(new Level::MapMeta{})
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Editor::~Editor() {
@@ -116,6 +116,7 @@ Editor::mainLoop() {
         // SDL_RenderTexture(pRenderer, texture, NULL, &dstRect);
         uiDrawGrid();
         uiMenu();
+        uiMapMeta();
         uiProjectHeader();
 
         present();
