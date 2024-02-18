@@ -7,13 +7,24 @@ void
 Editor::uiProjectHeader() {
     static float color[4];
     static int version;
+    static int mapX;
+    static int mapY;
     ImGuiColorEditFlags flags = ImGuiColorEditFlags_NoAlpha;
     if(!mShowProjectHeader)
         return;
     if(ImGui::Begin("Level settings", &mShowProjectHeader, ImGuiWindowFlags_AlwaysAutoResize)){
         ImGui::InputInt("Header version", &version);
+        ImGui::InputInt("Map size X", &mapX);
+        ImGui::InputInt("Map size Y", &mapY);
         ImGui::InputText("Level name", mLevelHeader.MapName, IM_ARRAYSIZE(mLevelHeader.MapName));
         ImGui::ColorPicker4("MyColor##4", (float*)&color, flags, nullptr);
+
+        if(mNewFile){
+            if(ImGui::Button("Create")){
+                mShowProjectHeader = false;
+                mMapLoaded = true;
+            }
+        }
         ImGui::End();
     }
     mLevelHeader.BackgroundRed = static_cast<float>(color[0] * 255.0f);
@@ -23,6 +34,8 @@ Editor::uiProjectHeader() {
 
     if (version >= 0 && version <= UINT8_MAX)
         mLevelHeader.HeaderVersion = static_cast<uint8_t>(version);
+    mLevelHeader.MapSizeX = static_cast<uint8_t>(mapX);
+    mLevelHeader.MapSizeY = static_cast<uint8_t>(mapY);
 }
 
 }

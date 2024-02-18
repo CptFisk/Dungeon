@@ -2,11 +2,11 @@
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <common/include.hpp>
+#include <graphics/graphics.hpp>
 #include <level/structures.hpp>
 #include <list>
 #include <memory>
 #include <utility/timer.hpp>
-#include <graphics/graphics.hpp>
 
 namespace Editor {
 class Editor {
@@ -36,9 +36,9 @@ class Editor {
 
     bool                                 mRun;
     bool                                 mMapLoaded;
+    bool                                 mNewFile; // Start of a new project
     std::unique_ptr<Common::InitHandler> mInitHandler;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
-
 
     // Events
     std::unique_ptr<Common::ActionManager>     mActionManager;

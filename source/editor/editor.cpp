@@ -15,9 +15,10 @@ Editor::Editor()
   , pRenderer(nullptr)
   , mFont(nullptr)
   , mRun(true)
-  , mMapLoaded(true)
+  , mMapLoaded(false)
   , mShowProjectHeader(false)
   , mShowGrid(true)
+  , mNewFile(false)
   , mLevelHeader{}
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
@@ -76,6 +77,8 @@ Editor::mainLoop() {
                                SDL_ALPHA_OPAQUE);
         ImGui::NewFrame();
         mFPSTimer.start();
+
+        ImGui::ShowDemoWindow();
 
         SDL_RenderClear(pRenderer);
         while (SDL_PollEvent(&event)) {
