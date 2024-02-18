@@ -30,6 +30,8 @@ class Editor {
     void present();
 
   private:
+    Common::Scale mScale;
+
     bool mRun;
     bool mMapLoaded;
     std::unique_ptr<Common::InitHandler> mInitHandler;

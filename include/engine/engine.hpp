@@ -36,7 +36,7 @@ class Engine {
 
   protected:
     void present();
-    void calculateScale(); // Calculate the scale of each tile to match screen dimensions
+
     void projectiles();
     void particles();
 

@@ -3,6 +3,7 @@
 #include <backends/imgui_impl_sdlrenderer3.h>
 #include <common/imgui.hpp>
 #include <common/sdl.hpp>
+#include <common/scale.hpp>
 #include <editor/editor.hpp>
 #include <level/structures.hpp>
 
@@ -38,6 +39,8 @@ Editor::startup() {
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer));
     mInitHandler->addInitializer(std::make_shared<Common::ImGuiInitializer>(&pWindow, &pRenderer));
     mInitHandler->startup();
+
+    Common::calculateGameScale(mScale, pWindow);
 
     // Try to load the font
     mFont = TTF_OpenFont("rsrc/fonts/Arial.ttf", 12);
@@ -106,6 +109,8 @@ Editor::present() {
     ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData());
     SDL_RenderPresent(pRenderer);
 }
+
+
 
 std::list<std::function<bool(SDL_Event*)>>&
 Editor::getEventList() {

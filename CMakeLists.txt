@@ -23,6 +23,7 @@ set(
         ${CMAKE_SOURCE_DIR}/source/common/imgui.cpp
         ${CMAKE_SOURCE_DIR}/source/common/handlers.cpp
         ${CMAKE_SOURCE_DIR}/source/common/actionmgr.cpp
+        ${CMAKE_SOURCE_DIR}/source/common/scale.cpp
 )
 
 if (BUILD_GAME)

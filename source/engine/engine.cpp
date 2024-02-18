@@ -6,6 +6,7 @@
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
 #include <SDL3_ttf/SDL_ttf.h>
+#include <common/scale.hpp>
 
 namespace Engine {
 
@@ -64,7 +65,7 @@ Engine::startup() {
 
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer));
     mInitHandler->startup();
-    calculateScale();
+    Common::calculateGameScale(mScale, pWindow);
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer, mScale);
     mGraphics->init();
@@ -215,17 +216,6 @@ Engine::spawnInterrupt(const long& time) {
 void
 Engine::present() {
     SDL_RenderPresent(pRenderer);
-}
-
-void
-Engine::calculateScale() {
-    int width, height;
-    SDL_GetWindowSizeInPixels(pWindow, &width, &height);
-    const float squaresX  = 16.0; // Numbers of square in x-direction
-    const float squareY   = 12.0; // Numbers of square in y-direction
-    const float pixelSize = 16.0;
-    mScale.ScaleX         = (static_cast<float>(width) / squaresX) / pixelSize;
-    mScale.ScaleY         = (static_cast<float>(height) / squareY) / pixelSize;
 }
 
 }
