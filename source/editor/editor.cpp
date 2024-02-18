@@ -20,6 +20,7 @@ Editor::Editor()
   , mShowGrid(true)
   , mNewFile(false)
   , mLevelHeader(nullptr)
+  , mMapMeta(nullptr)
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Editor::~Editor() {

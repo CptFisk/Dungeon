@@ -5,8 +5,8 @@ namespace Level {
 enum TileType : uint8_t { Background, Obstacle };
 
 struct Tile {
-    TileType Type;
-    uint8_t  Graphic;
+    TileType Type; // Tiletype
+    uint8_t  Id;   // Id used in SubMetaFiles
 };
 
 struct LevelHeader {

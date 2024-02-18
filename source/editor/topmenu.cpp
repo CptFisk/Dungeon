@@ -13,6 +13,7 @@ Editor::uiMenu() {
 
                 delete mLevelHeader; // Clean first
                 mLevelHeader = new Level::LevelHeader{};
+                mMapMeta = new Level::MapMeta{};
             }
             if (ImGui::MenuItem("Load project")) {
             }
