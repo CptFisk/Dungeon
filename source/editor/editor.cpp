@@ -96,7 +96,6 @@ Editor::mainLoop() {
         uiMenu();
         uiProjectHeader();
 
-        ImGui::ShowDemoWindow();
         present();
 
         auto ticks = mFPSTimer.getTicks();
