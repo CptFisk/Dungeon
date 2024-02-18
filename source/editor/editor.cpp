@@ -29,6 +29,10 @@ Editor::~Editor() {
 
     if (mFont)
         TTF_CloseFont(mFont); // Clean the font
+    if(pLevelHeader)
+        delete pLevelHeader;
+    if(pMapMeta)
+        delete pMapMeta;
 
     TTF_Quit();
     SDL_Quit();

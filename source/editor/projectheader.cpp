@@ -22,6 +22,7 @@ Editor::uiProjectHeader() {
 
         if(ImGui::Button(mNewFile ? "Create" : "Save")){
                 mShowProjectHeader = false;
+                mShowMapMeta = true;
                 mNewFile = false;
                 mMapLoaded = true;
 
