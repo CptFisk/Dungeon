@@ -17,7 +17,7 @@ Editor::Editor()
   , mRun(true)
   , mMapLoaded(false)
   , mShowProjectHeader(false)
-  , mShowMapMeta(true)
+  , mShowMapMeta(false)
   , mShowGrid(true)
   , mNewFile(false)
   , pLevelHeader(nullptr)
@@ -29,10 +29,8 @@ Editor::~Editor() {
 
     if (mFont)
         TTF_CloseFont(mFont); // Clean the font
-    if(pLevelHeader)
-        delete pLevelHeader;
-    if(pMapMeta)
-        delete pMapMeta;
+    delete pLevelHeader;
+    delete pMapMeta;
 
     TTF_Quit();
     SDL_Quit();
@@ -153,9 +151,18 @@ Editor::terminate() {
     mRun = false;
 }
 
-size_t
-Editor::getIndex(const int& x, const int& y) {
-    return 0;
+void
+Editor::click(const float& x, const float& y) {
+    std::cout << getIndex(x, y) << std::endl;
+}
+
+int
+Editor::getIndex(const float& x, const float& y) {
+    if (pLevelHeader == nullptr)
+        return size_t();
+
+    return static_cast<int>(floor((x / (16.0 * mScale.ScaleX)))) +
+           static_cast<int>(floor(y / (16.0 * mScale.ScaleY)) * pLevelHeader->MapSizeX);
 }
 
 }

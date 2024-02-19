@@ -24,7 +24,7 @@ class Editor {
     std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
 
     void terminate();
-
+    void click(const float& x, const float& y); // Click
   protected:
     void uiMenu();
     void uiProjectHeader();
@@ -32,7 +32,7 @@ class Editor {
     void uiMapMeta();
     void present();
 
-    size_t getIndex(const int& x, const int& y); // Select an index in map
+    int getIndex(const float& x, const float& y); // Select an index in map
 
   private:
     Common::Scale mScale;
