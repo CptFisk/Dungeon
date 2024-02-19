@@ -1,5 +1,7 @@
 #pragma once
 #include <cstdint>
+#include <string>
+
 namespace Level {
 
 const int MAP_META_MAX = 31;
@@ -39,6 +41,7 @@ struct Map {
 };
 
 
+void writeMapToFile(const std::string& filename, const Map& data);
 Tile** newTile(const int& x, const int& y);
 void deleteMapMeta(const uint8_t& id, MapMeta* map);
 bool addMapMeta(const char* asset, MapMeta* map);

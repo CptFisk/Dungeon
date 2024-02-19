@@ -1,7 +1,24 @@
 #include <level/structures.hpp>
 #include <cstring>
+#include <fstream>
 
 namespace Level{
+void writeMapToFile(const std::string& filename, const Map& data){
+    std::ofstream file(filename, std::ios::binary);
+    if(!file.is_open())
+        return;
+    //Write header
+    file.write(reinterpret_cast<const char*>(&data.Header), sizeof(data.Header));
+    //Write meta
+    file.write(reinterpret_cast<const char*>(&data.Meta), sizeof(data.Meta));
+    //Write tile-data
+    const int size = data.Header.MapSizeX * data.Header.MapSizeY;
+    for(int i = 0; i < size; i++){
+        file.write(reinterpret_cast<const char*>(data.Tiles[i]), sizeof(Level::Tile));
+    }
+    file.close();
+}
+
 Tile** newTile(const int& x, const int& y){
     const int size = x *y;
     Tile** map = new Tile*[x*y];
