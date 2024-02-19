@@ -30,7 +30,7 @@ Editor::Editor()
 Editor::~Editor() {
     mInitHandler->shutdown();
 
-    const int size = pLevelHeader->MapSizeX * pLevelHeader->MapSizeY;
+    const int size = pLevelHeader != nullptr ? pLevelHeader->MapSizeX * pLevelHeader->MapSizeY : 0;
     if (mFont)
         TTF_CloseFont(mFont); // Clean the font
     //Clean stuff that we need to know the size for
