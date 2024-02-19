@@ -18,10 +18,12 @@ Editor::Editor()
   , mMapLoaded(false)
   , mShowProjectHeader(false)
   , mShowMapMeta(false)
+  , mShowToolbox(false)
   , mShowGrid(true)
   , mNewFile(false)
   , pLevelHeader(nullptr)
-  , pMapMeta(new Level::MapMeta{})
+  , pMapMeta(nullptr)
+  , pTile(nullptr)
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Editor::~Editor() {
@@ -31,6 +33,7 @@ Editor::~Editor() {
         TTF_CloseFont(mFont); // Clean the font
     delete pLevelHeader;
     delete pMapMeta;
+    delete pTile;
 
     TTF_Quit();
     SDL_Quit();

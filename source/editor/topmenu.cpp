@@ -18,10 +18,12 @@ Editor::uiMenu() {
             if (ImGui::MenuItem("Load project")) {
             }
             if (ImGui::MenuItem("Save project")) {
-                /*
-                Utility::writeStructToFile(
-                  &mLevelHeader, sizeof(mLevelHeader), std::string(mLevelHeader.MapName) + ".map");
-                */
+                Level::Map map = {};
+                map.Header = *pLevelHeader;
+                map.Meta = *pMapMeta;
+                map.Tiles = pTile;
+
+                Utility::writeStructToFile(&map, sizeof(map), "hello.bin");
             }
 
             ImGui::EndMenu();

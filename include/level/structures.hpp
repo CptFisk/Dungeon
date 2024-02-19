@@ -35,10 +35,11 @@ struct MapMeta {
 struct Map {
     LevelHeader Header;
     MapMeta     Meta;
-    TileType*   Tiles;
+    Tile**   Tiles;
 };
 
 
+Tile** newTile(const int& x, const int& y);
 void deleteMapMeta(const uint8_t& id, MapMeta* map);
 bool addMapMeta(const char* asset, MapMeta* map);
 

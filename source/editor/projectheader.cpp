@@ -24,6 +24,9 @@ Editor::uiProjectHeader() {
                 mNewFile = false;
                 mMapLoaded = true;
 
+                //Clear old map if any
+                pTile = Level::newTile(pLevelHeader->MapSizeX, pLevelHeader->MapSizeY);
+
                 pLevelHeader->BackgroundRed = static_cast<float>(color[0] * 255.0f);
                 pLevelHeader->BackgroundGreen = static_cast<float>(color[1] * 255.0f);
                 pLevelHeader->BackgroundBlue = static_cast<float>(color[2] * 255.0f);

@@ -2,6 +2,14 @@
 #include <cstring>
 
 namespace Level{
+Tile** newTile(const int& x, const int& y){
+    const int size = x *y;
+    Tile** map = new Tile*[x*y];
+    for(int i = 0; i < size; i++)
+        map[i] = new Tile{};
+    return map;
+}
+
 void deleteMapMeta(const uint8_t& id, MapMeta* map){
     bool found = false;
     for(int i = 0 ; i < MAP_META_MAX; i++){

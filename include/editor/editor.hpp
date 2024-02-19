@@ -60,8 +60,10 @@ class Editor {
     bool mShowProjectHeader;
     bool mShowGrid;
     bool mShowMapMeta;
+    bool mShowToolbox;
 
     Level::LevelHeader* pLevelHeader;
     Level::MapMeta*     pMapMeta;
+    Level::Tile**       pTile;
 };
 }

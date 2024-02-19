@@ -1,11 +1,13 @@
 #include <editor/editor.hpp>
 #include <imgui.h>
+
 namespace Editor {
 void
 Editor::uiMapMeta() {
     if (!mShowMapMeta || pMapMeta == nullptr)
         return;
-    if (ImGui::Begin("Assets", &mShowMapMeta , ImGuiWindowFlags_AlwaysAutoResize)) {
+    static char asset[31];
+    if (ImGui::Begin("Assets", &mShowMapMeta, ImGuiWindowFlags_AlwaysAutoResize)) {
         ImGui::Text("Assets");
         for (int i = 0; i < 30 && pMapMeta->Data[i].Id != 0; i++) {
             ImGui::PushItemWidth(ImGui::CalcTextSize("FF").x + ImGui::GetStyle().ItemSpacing.x * 2.0f);
@@ -14,9 +16,15 @@ Editor::uiMapMeta() {
             ImGui::PopItemWidth();
             ImGui::InputText("##", pMapMeta->Data[i].Asset, IM_ARRAYSIZE(pMapMeta->Data[i].Asset));
             ImGui::SameLine();
-            if (ImGui::Button(("Delete##" + std::to_string(i)).c_str())){
+            if (ImGui::Button(("Delete##" + std::to_string(i)).c_str())) {
                 Level::deleteMapMeta(pMapMeta->Data[i].Id, pMapMeta);
             }
+        }
+        ImGui::InputText("##asset", asset, IM_ARRAYSIZE(asset));
+        ImGui::SameLine();
+        if (ImGui::Button("Add")) {
+            Level::addMapMeta(asset, pMapMeta);
+            strncpy(asset, "", sizeof(asset)); // Clearing
         }
     }
     ImGui::End();
