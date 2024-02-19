@@ -31,9 +31,9 @@ Editor::~Editor() {
 
     if (mFont)
         TTF_CloseFont(mFont); // Clean the font
+    Level::deleteTile(pTile, pLevelHeader->MapSizeX * pLevelHeader->MapSizeY);
     delete pLevelHeader;
     delete pAssets;
-    delete pTile;
 
     TTF_Quit();
     SDL_Quit();

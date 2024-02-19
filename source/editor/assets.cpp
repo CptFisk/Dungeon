@@ -17,7 +17,7 @@ Editor::uiAssets() {
             ImGui::InputText("##", pAssets->Data[i].Asset, IM_ARRAYSIZE(pAssets->Data[i].Asset));
             ImGui::SameLine();
             if (ImGui::Button(("Delete##" + std::to_string(i)).c_str())) {
-                Level::deleteAsset(pAssets->Data[i].Id, pAssets);
+                Level::removeAsset(pAssets->Data[i].Id, pAssets);
             }
         }
         ImGui::InputText("##asset", asset, IM_ARRAYSIZE(asset));

@@ -60,10 +60,10 @@ Tile**
 newTile(const int& x, const int& y);
 
 /**
- * @brief Destroy a tile object
+ * @brief Delete the tiles and free memory
  * @param tile Reference to tile object
  */
-void destroyTile(Tile** tile);
+void deleteTile(Tile** tile, const int& elements);
 
 /**
  * @brief Delete a element from the list of assets
@@ -71,7 +71,7 @@ void destroyTile(Tile** tile);
  * @param map
  */
 void
-deleteAsset(const uint8_t& id, Assets* map);
+removeAsset(const uint8_t& id, Assets* map);
 
 /**
  * @brief Add a new element to the list of assets

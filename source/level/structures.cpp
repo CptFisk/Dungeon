@@ -27,10 +27,14 @@ Tile** newTile(const int& x, const int& y){
     return map;
 }
 
-
+void deleteTile(Tile** tile, const int& elements){
+    for(int i = 0; i < elements; i++)
+        delete[] tile[i];
+    delete[] tile;
+}
 
 void
-deleteAsset(const uint8_t& id, Assets* map){
+removeAsset(const uint8_t& id, Assets* map){
     bool found = false;
     for(int i = 0 ; i < MAP_META_MAX; i++){
         if(found){
