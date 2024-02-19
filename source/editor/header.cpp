@@ -24,6 +24,7 @@ Editor::uiHeader() {
                 mNewFile = false;
                 mMapLoaded = true;
                 pTile = Level::newTile(pLevelHeader->MapSizeX, pLevelHeader->MapSizeY);
+                pVisualTile = new std::pair<SDL_Texture*, SDL_FRect>*[1*1];
 
                 pLevelHeader->BackgroundRed = static_cast<float>(color[0] * 255.0f);
                 pLevelHeader->BackgroundGreen = static_cast<float>(color[1] * 255.0f);

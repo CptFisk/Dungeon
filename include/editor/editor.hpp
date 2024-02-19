@@ -26,11 +26,11 @@ class Editor {
     void terminate();                           // Kill the editor
     void click(const float& x, const float& y); // Click
   protected:
-    void uiMenu();       // Top menu
-    void uiHeader(); // Display current open project settings
-    void uiDrawGrid();      // Draw a basic grid over the area
-    void uiAssets();       // Display the metadata related to the map
-    void present();         // Render all graphic
+    void uiMenu();     // Top menu
+    void uiHeader();   // Display current open project settings
+    void uiDrawGrid(); // Draw a basic grid over the area
+    void uiAssets();   // Display the metadata related to the map
+    void present();    // Render all graphic
 
     int getIndex(const float& x, const float& y); // Select an index in map
 
@@ -63,9 +63,9 @@ class Editor {
     bool mShowToolbox;
 
     // Map data
-    Level::Header*                     pLevelHeader;
-    Level::Assets*                     pAssets;
-    Level::Tile**                      pTile;
-    std::pair<SDL_Texture*, SDL_FRect> pVisualTile;
+    Level::Header*                       pLevelHeader;
+    Level::Assets*                       pAssets;
+    Level::Tile**                        pTile;
+    std::pair<SDL_Texture*, SDL_FRect>** pVisualTile; // Used for drawing stuff
 };
 }

@@ -17,13 +17,13 @@ Editor::uiAssets() {
             ImGui::InputText("##", pAssets->Data[i].Asset, IM_ARRAYSIZE(pAssets->Data[i].Asset));
             ImGui::SameLine();
             if (ImGui::Button(("Delete##" + std::to_string(i)).c_str())) {
-                Level::deleteMapMeta(pAssets->Data[i].Id, pAssets);
+                Level::deleteAsset(pAssets->Data[i].Id, pAssets);
             }
         }
         ImGui::InputText("##asset", asset, IM_ARRAYSIZE(asset));
         ImGui::SameLine();
         if (ImGui::Button("Add")) {
-            Level::addMapMeta(asset, pAssets);
+            Level::addAsset(asset, pAssets);
             strncpy(asset, "", sizeof(asset)); // Clearing
         }
     }

@@ -42,13 +42,44 @@ struct Map {
     Tile** Tiles;
 };
 
+/**
+ * @brief Write the current struct to a file
+ * @param filename Name of the file
+ * @param data Data structure
+ */
 void
 writeMapToFile(const std::string& filename, const Map& data);
+
+/**
+ * @breif Returns a new Tile** based on the provided size
+ * @param x Size in x
+ * @param y Size in y
+ * @return
+ */
 Tile**
 newTile(const int& x, const int& y);
+
+/**
+ * @brief Destroy a tile object
+ * @param tile Reference to tile object
+ */
+void destroyTile(Tile** tile);
+
+/**
+ * @brief Delete a element from the list of assets
+ * @param id
+ * @param map
+ */
 void
-deleteMapMeta(const uint8_t& id, Assets* map);
+deleteAsset(const uint8_t& id, Assets* map);
+
+/**
+ * @brief Add a new element to the list of assets
+ * @param asset Name of the asset
+ * @param map Reference to the map
+ * @return True if it was added
+ */
 bool
-addMapMeta(const char* asset, Assets* map);
+addAsset(const char* asset, Assets* map);
 
 }

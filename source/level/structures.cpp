@@ -27,7 +27,8 @@ Tile** newTile(const int& x, const int& y){
     return map;
 }
 
-void deleteMapMeta(const uint8_t& id, Assets* map){
+void
+deleteAsset(const uint8_t& id, Assets* map){
     bool found = false;
     for(int i = 0 ; i < MAP_META_MAX; i++){
         if(found){
@@ -42,7 +43,8 @@ void deleteMapMeta(const uint8_t& id, Assets* map){
     }
 }
 
-bool addMapMeta(const char* asset, Assets* map){
+bool
+addAsset(const char* asset, Assets* map){
     int lowest = 0;
     for(int i = 0; i < MAP_META_MAX; i++){
         if(map->Data[i].Id == 0) {
