@@ -9,7 +9,7 @@ Editor::uiMenu() {
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("New project")) {
                 mNewFile           = true;
-
+                mShowHeader        = true;
                 delete pLevelHeader; // Clean first
                 pLevelHeader = new Level::Header{};
                 pAssets      = new Level::Assets{};
@@ -26,14 +26,13 @@ Editor::uiMenu() {
         }
         if (ImGui::BeginMenu("Project", mMapLoaded)) {
             if (ImGui::MenuItem("Level settings")) {
-                mShowProjectHeader = true;
+                mShowHeader = true;
             }
-            if(ImGui::MenuItem("Assets")){
-                mShowMapMeta = true;
+            if (ImGui::MenuItem("Assets")) {
+                mShowAssets = true;
             }
             ImGui::EndMenu();
         }
-
     }
 
     ImGui::EndMainMenuBar();

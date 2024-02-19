@@ -27,6 +27,8 @@ Tile** newTile(const int& x, const int& y){
     return map;
 }
 
+
+
 void
 deleteAsset(const uint8_t& id, Assets* map){
     bool found = false;

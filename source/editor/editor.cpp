@@ -15,8 +15,8 @@ Editor::Editor()
   , mFont(nullptr)
   , mRun(true)
   , mMapLoaded(false)
-  , mShowProjectHeader(false)
-  , mShowMapMeta(false)
+  , mShowHeader(false)
+  , mShowAssets(false)
   , mShowToolbox(false)
   , mShowGrid(true)
   , mNewFile(false)
@@ -156,10 +156,37 @@ Editor::terminate() {
 
 void
 Editor::click(const float& x, const float& y) {
-    if(pTile != nullptr){
-        pTile[getIndex(x, y)]->Id = 1;
-        pTile[getIndex(x,y)]->Type = Level::Background;
+    if (pTile != nullptr) {
+        pTile[getIndex(x, y)]->Id   = 1;
+        pTile[getIndex(x, y)]->Type = Level::Background;
     }
+}
+
+std::pair<SDL_Texture*, SDL_FRect>**
+Editor::newVisualTile() {
+    // Allocate data
+    const int                            sizeX = pLevelHeader->MapSizeX;
+    const int                            sizeY = pLevelHeader->MapSizeY;
+    const int                            size  = pLevelHeader->MapSizeX * pLevelHeader->MapSizeY;
+    std::pair<SDL_Texture*, SDL_FRect>** data  = new std::pair<SDL_Texture*, SDL_FRect>* [size] {};
+    for (int y = 0; y < sizeY; y++) {
+        for (int x = 0; x < sizeX; x++) {
+            // Start to generate
+            auto xf = static_cast<float>(x);
+            auto yf = static_cast<float>(y);
+
+            data[getIndex(x, y)] = new std::pair<SDL_Texture*, SDL_FRect>(
+              nullptr,
+              SDL_FRect{
+                xf * 16.0f * mScale.ScaleX, yf * 16.0f * mScale.ScaleY, 16.0f * mScale.ScaleX, 16.0f * mScale.ScaleY });
+        }
+    }
+    return data;
+}
+
+int
+Editor::getIndex(const int& x, const int& y) {
+    return getIndex(static_cast<float>(x), static_cast<float>(y));
 }
 
 int
@@ -170,5 +197,4 @@ Editor::getIndex(const float& x, const float& y) {
     return static_cast<int>(floor((x / (16.0 * mScale.ScaleX)))) +
            static_cast<int>(floor(y / (16.0 * mScale.ScaleY)) * pLevelHeader->MapSizeX);
 }
-
 }

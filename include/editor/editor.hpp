@@ -32,8 +32,11 @@ class Editor {
     void uiAssets();   // Display the metadata related to the map
     void present();    // Render all graphic
 
-    int getIndex(const float& x, const float& y); // Select an index in map
+    // Select an index in map
+    int getIndex(const int& x, const int& y);
+    int getIndex(const float& x, const float& y);
 
+    std::pair<SDL_Texture*, SDL_FRect>** newVisualTile();
   private:
     Common::Scale mScale;
 
@@ -57,9 +60,9 @@ class Editor {
     SDL_Color     mWhite = { 255, 255, 255 }; // White color
 
     // Bits
-    bool mShowProjectHeader;
+    bool mShowHeader;
     bool mShowGrid;
-    bool mShowMapMeta;
+    bool mShowAssets;
     bool mShowToolbox;
 
     // Map data
