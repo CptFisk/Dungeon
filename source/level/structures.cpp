@@ -27,7 +27,7 @@ Tile** newTile(const int& x, const int& y){
     return map;
 }
 
-void deleteMapMeta(const uint8_t& id, MapMeta* map){
+void deleteMapMeta(const uint8_t& id, Assets* map){
     bool found = false;
     for(int i = 0 ; i < MAP_META_MAX; i++){
         if(found){
@@ -38,11 +38,11 @@ void deleteMapMeta(const uint8_t& id, MapMeta* map){
     }
     if(found){
         // Clear the last element (optional)
-        memset(&map->Data[MAP_META_MAX - 1], 0, sizeof(SubFileMeta));
+        memset(&map->Data[MAP_META_MAX - 1], 0, sizeof(Asset));
     }
 }
 
-bool addMapMeta(const char* asset, MapMeta* map){
+bool addMapMeta(const char* asset, Assets* map){
     int lowest = 0;
     for(int i = 0; i < MAP_META_MAX; i++){
         if(map->Data[i].Id == 0) {

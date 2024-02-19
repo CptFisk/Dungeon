@@ -11,26 +11,26 @@
 namespace Editor {
 class Editor {
   public:
-    Editor();
-    ~Editor();
+    Editor();  // Constructor
+    ~Editor(); // De-constructor
 
-    void startup(); // Load all functions related to startup
-    void mainLoop();
+    void startup();  // Load all functions related to startup
+    void mainLoop(); // Were all the magic happen
 
-    Common::ActionManager& getActionManager();
+    Common::ActionManager& getActionManager(); // Used when binding clicks, events
 
     std::list<std::function<bool(SDL_Event*)>>&                             getEventList(); // Get the list of events
     std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEvents();    // Get the list of events
     std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
 
-    void terminate();
+    void terminate();                           // Kill the editor
     void click(const float& x, const float& y); // Click
   protected:
-    void uiMenu();
-    void uiProjectHeader();
-    void uiDrawGrid();
-    void uiMapMeta();
-    void present();
+    void uiMenu();       // Top menu
+    void uiHeader(); // Display current open project settings
+    void uiDrawGrid();      // Draw a basic grid over the area
+    void uiAssets();       // Display the metadata related to the map
+    void present();         // Render all graphic
 
     int getIndex(const float& x, const float& y); // Select an index in map
 
@@ -62,8 +62,10 @@ class Editor {
     bool mShowMapMeta;
     bool mShowToolbox;
 
-    Level::LevelHeader* pLevelHeader;
-    Level::MapMeta*     pMapMeta;
-    Level::Tile**       pTile;
+    // Map data
+    Level::Header*                     pLevelHeader;
+    Level::Assets*                     pAssets;
+    Level::Tile**                      pTile;
+    std::pair<SDL_Texture*, SDL_FRect> pVisualTile;
 };
 }

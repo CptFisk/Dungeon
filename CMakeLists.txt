@@ -69,9 +69,9 @@ else ()
 
             ${CMAKE_SOURCE_DIR}/editor.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/editor.cpp
-            ${CMAKE_SOURCE_DIR}/source/editor/topmenu.cpp
-            ${CMAKE_SOURCE_DIR}/source/editor/projectheader.cpp
-            ${CMAKE_SOURCE_DIR}/source/editor/mapmeta.cpp
+            ${CMAKE_SOURCE_DIR}/source/editor/menu.cpp
+            ${CMAKE_SOURCE_DIR}/source/editor/header.cpp
+            ${CMAKE_SOURCE_DIR}/source/editor/assets.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/grid.cpp
     )
 endif ()

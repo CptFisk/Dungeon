@@ -4,18 +4,20 @@
 
 namespace Level {
 
-const int MAP_META_MAX = 31;
+const int MAP_META_MAX      = 31;
+const int LEVEL_HEADER_MAX  = 31;
+const int SUB_FILE_META_MAX = 31;
 
-enum TileType : uint8_t { Background, Obstacle };
+enum TileType : uint8_t { Background = 1 << 1, Obstacle = 1 << 2 };
 
 struct Tile {
     TileType Type; // Tiletype
-    uint8_t  Id;   // Id used in SubMetaFiles
+    uint8_t  Id;   // ID used in SubMetaFiles
 };
 
-struct LevelHeader {
-    uint8_t HeaderVersion; // Version of editor
-    char    MapName[31];   // Filename
+struct Header {
+    uint8_t HeaderVersion;             // Version of editor
+    char    MapName[LEVEL_HEADER_MAX]; // Filename
 
     uint8_t BackgroundRed;   // RGB colour of background
     uint8_t BackgroundGreen; // RGB colour of background
@@ -25,25 +27,28 @@ struct LevelHeader {
     uint8_t MapSizeY; // Map height
 };
 
-struct SubFileMeta {
-    uint8_t Id;        // Unique id of the file 1-32
-    char    Asset[31]; // Asset name
+struct Asset {
+    uint8_t Id;                       // Unique id of the file 1-32
+    char    Asset[SUB_FILE_META_MAX]; // Asset name
 };
 
-struct MapMeta {
-    SubFileMeta Data[MAP_META_MAX]; // A file can only contain 32 sub-files
+struct Assets {
+    Asset Data[MAP_META_MAX]; // A file can only contain 32 sub-files
 };
 
 struct Map {
-    LevelHeader Header;
-    MapMeta     Meta;
-    Tile**   Tiles;
+    Header Header;
+    Assets Meta;
+    Tile** Tiles;
 };
 
-
-void writeMapToFile(const std::string& filename, const Map& data);
-Tile** newTile(const int& x, const int& y);
-void deleteMapMeta(const uint8_t& id, MapMeta* map);
-bool addMapMeta(const char* asset, MapMeta* map);
+void
+writeMapToFile(const std::string& filename, const Map& data);
+Tile**
+newTile(const int& x, const int& y);
+void
+deleteMapMeta(const uint8_t& id, Assets* map);
+bool
+addMapMeta(const char* asset, Assets* map);
 
 }

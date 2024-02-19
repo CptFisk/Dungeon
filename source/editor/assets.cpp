@@ -3,27 +3,27 @@
 
 namespace Editor {
 void
-Editor::uiMapMeta() {
-    if (!mShowMapMeta || pMapMeta == nullptr)
+Editor::uiAssets() {
+    if (!mShowMapMeta || pAssets == nullptr)
         return;
     static char asset[31];
     if (ImGui::Begin("Assets", &mShowMapMeta, ImGuiWindowFlags_AlwaysAutoResize)) {
         ImGui::Text("Assets");
-        for (int i = 0; i < 30 && pMapMeta->Data[i].Id != 0; i++) {
+        for (int i = 0; i < 30 && pAssets->Data[i].Id != 0; i++) {
             ImGui::PushItemWidth(ImGui::CalcTextSize("FF").x + ImGui::GetStyle().ItemSpacing.x * 2.0f);
-            ImGui::InputScalar("##uint8", ImGuiDataType_U8, &pMapMeta->Data[i].Id);
+            ImGui::InputScalar("##uint8", ImGuiDataType_U8, &pAssets->Data[i].Id);
             ImGui::SameLine();
             ImGui::PopItemWidth();
-            ImGui::InputText("##", pMapMeta->Data[i].Asset, IM_ARRAYSIZE(pMapMeta->Data[i].Asset));
+            ImGui::InputText("##", pAssets->Data[i].Asset, IM_ARRAYSIZE(pAssets->Data[i].Asset));
             ImGui::SameLine();
             if (ImGui::Button(("Delete##" + std::to_string(i)).c_str())) {
-                Level::deleteMapMeta(pMapMeta->Data[i].Id, pMapMeta);
+                Level::deleteMapMeta(pAssets->Data[i].Id, pAssets);
             }
         }
         ImGui::InputText("##asset", asset, IM_ARRAYSIZE(asset));
         ImGui::SameLine();
         if (ImGui::Button("Add")) {
-            Level::addMapMeta(asset, pMapMeta);
+            Level::addMapMeta(asset, pAssets);
             strncpy(asset, "", sizeof(asset)); // Clearing
         }
     }

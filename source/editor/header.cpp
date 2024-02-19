@@ -4,7 +4,7 @@
 namespace Editor{
 
 void
-Editor::uiProjectHeader() {
+Editor::uiHeader() {
     static float color[4];
 
     ImGuiColorEditFlags flags = ImGuiColorEditFlags_NoAlpha;
@@ -23,16 +23,8 @@ Editor::uiProjectHeader() {
                 mShowMapMeta = true;
                 mNewFile = false;
                 mMapLoaded = true;
-                for(int i = 0; i < 31;i++){
-                    Level::addMapMeta("Hello world",pMapMeta);
-                }
-                //Clear old map if any
                 pTile = Level::newTile(pLevelHeader->MapSizeX, pLevelHeader->MapSizeY);
-                const int size = pLevelHeader->MapSizeX * pLevelHeader->MapSizeY;
-                for(int i=0; i < size;i++){
-                    pTile[i]->Id = 255;
-                    pTile[i]->Type = (Level::TileType)0xAA;
-                }
+
                 pLevelHeader->BackgroundRed = static_cast<float>(color[0] * 255.0f);
                 pLevelHeader->BackgroundGreen = static_cast<float>(color[1] * 255.0f);
                 pLevelHeader->BackgroundBlue = static_cast<float>(color[2] * 255.0f);

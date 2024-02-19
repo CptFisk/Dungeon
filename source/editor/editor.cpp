@@ -5,7 +5,6 @@
 #include <common/scale.hpp>
 #include <common/sdl.hpp>
 #include <editor/editor.hpp>
-#include <iostream>
 #include <level/structures.hpp>
 
 namespace Editor {
@@ -22,8 +21,9 @@ Editor::Editor()
   , mShowGrid(true)
   , mNewFile(false)
   , pLevelHeader(nullptr)
-  , pMapMeta(nullptr)
+  , pAssets(nullptr)
   , pTile(nullptr)
+  , mScale{}
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Editor::~Editor() {
@@ -32,7 +32,7 @@ Editor::~Editor() {
     if (mFont)
         TTF_CloseFont(mFont); // Clean the font
     delete pLevelHeader;
-    delete pMapMeta;
+    delete pAssets;
     delete pTile;
 
     TTF_Quit();
@@ -116,8 +116,8 @@ Editor::mainLoop() {
         // SDL_RenderTexture(pRenderer, texture, NULL, &dstRect);
         uiDrawGrid();
         uiMenu();
-        uiMapMeta();
-        uiProjectHeader();
+        uiAssets();
+        uiHeader();
 
         present();
 
@@ -156,7 +156,10 @@ Editor::terminate() {
 
 void
 Editor::click(const float& x, const float& y) {
-    std::cout << getIndex(x, y) << std::endl;
+    if(pTile != nullptr){
+        pTile[getIndex(x, y)]->Id = 1;
+        pTile[getIndex(x,y)]->Type = Level::Background;
+    }
 }
 
 int
