@@ -50,10 +50,6 @@ Editor::startup() {
     mInitHandler->startup();
 
     Common::calculateGameScale(mScale, pWindow);
-    pMapMeta->Data[0].Id = 1;
-    pMapMeta->Data[1].Id = 2;
-    pMapMeta->Data[2].Id = 3;
-    pMapMeta->Data[3].Id = 4;
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer, mScale);
     mGraphics->init();

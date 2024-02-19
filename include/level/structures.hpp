@@ -40,5 +40,6 @@ struct Map {
 
 
 void deleteMapMeta(const uint8_t& id, MapMeta* map);
+bool addMapMeta(const char* asset, MapMeta* map);
 
 }

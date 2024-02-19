@@ -16,4 +16,21 @@ void deleteMapMeta(const uint8_t& id, MapMeta* map){
         memset(&map->Data[MAP_META_MAX - 1], 0, sizeof(SubFileMeta));
     }
 }
+
+bool addMapMeta(const char* asset, MapMeta* map){
+    int lowest = 0;
+    for(int i = 0; i < MAP_META_MAX; i++){
+        if(map->Data[i].Id == 0) {
+            map->Data[i].Id = ++lowest;
+            auto len = strlen(asset);
+            strncpy(map->Data[i].Asset, asset, len);
+            map->Data[i].Asset[len] = '\0'; //Null-terminate
+            return true;
+        }else{
+            if(map->Data[i].Id > lowest)
+                lowest = map->Data[i].Id;
+        }
+    }
+    return false;
+}
 }

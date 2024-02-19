@@ -5,8 +5,7 @@ void
 Editor::uiMapMeta() {
     if (!mShowMapMeta || pMapMeta == nullptr)
         return;
-
-    if (ImGui::Begin("Assets", &mShowProjectHeader, ImGuiWindowFlags_AlwaysAutoResize)) {
+    if (ImGui::Begin("Assets", &mShowMapMeta , ImGuiWindowFlags_AlwaysAutoResize)) {
         ImGui::Text("Assets");
         for (int i = 0; i < 30 && pMapMeta->Data[i].Id != 0; i++) {
             ImGui::PushItemWidth(ImGui::CalcTextSize("FF").x + ImGui::GetStyle().ItemSpacing.x * 2.0f);
