@@ -23,15 +23,24 @@ Editor::Editor()
   , pLevelHeader(nullptr)
   , pAssets(nullptr)
   , pTile(nullptr)
+  , pVisualTile(nullptr)
   , mScale{}
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Editor::~Editor() {
     mInitHandler->shutdown();
 
+    const int size = pLevelHeader->MapSizeX * pLevelHeader->MapSizeY;
     if (mFont)
         TTF_CloseFont(mFont); // Clean the font
-    Level::deleteTile(pTile, pLevelHeader->MapSizeX * pLevelHeader->MapSizeY);
+    //Clean stuff that we need to know the size for
+    Level::deleteTile(pTile, size);
+    for(int i = 0; i < size; i ++){
+        delete[] pVisualTile[i];
+    }
+    delete[] pVisualTile;
+
+
     delete pLevelHeader;
     delete pAssets;
 
@@ -168,7 +177,8 @@ Editor::newVisualTile() {
     const int                            sizeX = pLevelHeader->MapSizeX;
     const int                            sizeY = pLevelHeader->MapSizeY;
     const int                            size  = pLevelHeader->MapSizeX * pLevelHeader->MapSizeY;
-    std::pair<SDL_Texture*, SDL_FRect>** data  = new std::pair<SDL_Texture*, SDL_FRect>* [size] {};
+
+    auto data  = new std::pair<SDL_Texture*, SDL_FRect>* [size] {};
     for (int y = 0; y < sizeY; y++) {
         for (int x = 0; x < sizeX; x++) {
             // Start to generate
