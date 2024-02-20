@@ -50,7 +50,7 @@ Graphics::getTexture(const std::string& name) {
     return nullptr;
 }
 
-BaseTexture
+typeSimpleTexture
 Graphics::getBaseTexture(const std::string& name) {
     return mBaseTextures[name];
 }

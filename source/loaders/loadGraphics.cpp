@@ -15,7 +15,7 @@ Graphics::loadGraphics(const std::string& folderPath) {
     auto               files = Utility::getFiles(folderPath, ".json");
     Common::typeHeaderJSON header;
     // Process all the meta-data
-    std::vector<BaseTexture> textures;
+    std::vector<typeSimpleTexture> textures;
     for (const auto& file : files) {
         const std::string jsonString = Utility::getFileContent(file.string());
         try {
@@ -47,7 +47,7 @@ Graphics::loadBaseTiles(const Common::typeHeaderJSON& header, const std::string&
     }
 
     for (const auto& data : jsonData.Objects) {
-        BaseTexture base;
+        typeSimpleTexture base;
         base.Texture = loadImage(data.File);
         // Generating viewports
         for (int i = 0; i < data.Length; i++) {
@@ -90,7 +90,7 @@ Graphics::loadObjectGeneration(const Common::typeHeaderJSON& header, const std::
         jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<GeneratedDataJSON>();
     } catch (const std::exception& e) {
         std::cerr << e.what();
-        throw std::runtime_error(e.what());
+        //throw std::runtime_error(e.what());
     }
     for (const auto& data : jsonData.Objects) {
         switch (data.Shape) {

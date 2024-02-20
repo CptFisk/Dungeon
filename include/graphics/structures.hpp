@@ -7,6 +7,8 @@
 
 namespace Graphics {
 
+const int TEXT_MAX_LENGTH = 31;
+
 #define GENERATED_SHAPES(DO) \
     DO(CIRCLE)               \
     DO(SQUARE)
@@ -14,7 +16,7 @@ namespace Graphics {
 enum GeneratedShapes { GENERATED_SHAPES(MAKE_GENERATED_SHAPES) };
 NLOHMANN_JSON_SERIALIZE_ENUM(GeneratedShapes, { { CIRCLE, "Circle" }, { SQUARE, "Square" } })
 
-struct BaseTexture {
+struct typeSimpleTexture {
     SDL_Texture*           Texture;
     std::vector<SDL_FRect> Views;
 
@@ -70,7 +72,7 @@ struct AnimationDataJSON {
     std::vector<AnimationObjectJSON> Objects;
 };
 
-struct GeneratedDataJSON{
+struct GeneratedDataJSON {
     std::vector<GeneratedObjectJSON> Objects;
 };
 
@@ -92,7 +94,5 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GeneratedObjectJSON,
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(BaseTextureDataJSON, Objects)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationDataJSON, File, Objects)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GeneratedDataJSON, Objects)
-
-
 
 }

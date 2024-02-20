@@ -6,7 +6,7 @@
 namespace Player {
 class Energy {
   public:
-    Energy(const Common::typeScale& scale, const Graphics::BaseTexture& baseTexture, SDL_Renderer* renderer); // Constructor
+    Energy(const Common::typeScale& scale, const Graphics::typeSimpleTexture& baseTexture, SDL_Renderer* renderer); // Constructor
     ~Energy();
 
     void draw();
@@ -15,6 +15,6 @@ class Energy {
   private:
     float                       mEnergy;
     SDL_Renderer*               pRenderer;
-    const Graphics::BaseTexture mBaseTexture;
+    const Graphics::typeSimpleTexture mBaseTexture;
 };
 }

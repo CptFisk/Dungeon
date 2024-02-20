@@ -1,7 +1,7 @@
 #include <objects/obstacle.hpp>
 
 namespace Objects {
-Obstacle::Obstacle(const Graphics::BaseTexture& base, const SDL_FRect& position)
+Obstacle::Obstacle(const Graphics::typeSimpleTexture& base, const SDL_FRect& position)
   : mBase(base)
   , mObstaclePosition(position){};
 

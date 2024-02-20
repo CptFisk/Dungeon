@@ -4,20 +4,18 @@
 
 namespace Level {
 
-const int MAP_META_MAX      = 31;
-const int LEVEL_HEADER_MAX  = 31;
-const int SUB_FILE_META_MAX = 31;
+const int TEXT_MAX_LENGTH = 31;
 
 enum TileType : uint8_t { Black = 0, Background = 1 << 1, Obstacle = 1 << 2 };
 
-struct typeTile {
+struct typeTileData {
     TileType Type; // Tiletype
     uint8_t  Id;   // ID used in SubMetaFiles
 };
 
 struct typeHeader {
     uint8_t HeaderVersion;             // Version of editor
-    char    MapName[LEVEL_HEADER_MAX]; // Filename
+    char    MapName[TEXT_MAX_LENGTH]; // Filename
 
     uint8_t BackgroundRed;   // RGB colour of background
     uint8_t BackgroundGreen; // RGB colour of background
@@ -29,17 +27,17 @@ struct typeHeader {
 
 struct typeAssetItem {
     uint8_t Id;                       // Unique id of the file 1-32
-    char    Asset[SUB_FILE_META_MAX]; // Asset name
+    char    Asset[TEXT_MAX_LENGTH]; // Asset name
 };
 
 struct typeAssets {
-    typeAssetItem Data[MAP_META_MAX]; // A file can only contain 32 sub-files
+    typeAssetItem Data[TEXT_MAX_LENGTH]; // A file can only contain 32 sub-files
 };
 
 struct typeLevelData {
     typeHeader Header;
     typeAssets Assets;
-    typeTile** Tiles;
+    typeTileData** Tiles;
 };
 
 /**
@@ -63,7 +61,7 @@ readLevelData(const std::string& filename);
  * @param y Size in y
  * @return
  */
-typeTile**
+typeTileData**
 newTile(const int& x, const int& y);
 
 /**
@@ -71,7 +69,7 @@ newTile(const int& x, const int& y);
  * @param tile Reference to tile object
  */
 void
-deleteTile(typeTile** tile, const int& elements);
+deleteTile(typeTileData** tile, const int& elements);
 
 /**
  * @brief Delete a element from the list of assets

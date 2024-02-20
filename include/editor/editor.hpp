@@ -74,7 +74,7 @@ class Editor {
     // Map data
     Level::typeHeader*                       pLevelHeader;
     Level::typeAssets*                       pAssets;
-    Level::typeTile**                        pTile;
+    Level::typeTileData**                        pTile;
     std::pair<SDL_Texture*, SDL_FRect>** pVisualTile; // Used for drawing stuff
 };
 }

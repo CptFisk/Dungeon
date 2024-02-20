@@ -17,7 +17,7 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
     // Write tile-data
     const int size = data.Header.MapSizeX * data.Header.MapSizeY;
     for (int i = 0; i < size; i++) {
-        file.write(reinterpret_cast<const char*>(data.Tiles[i]), sizeof(typeTile));
+        file.write(reinterpret_cast<const char*>(data.Tiles[i]), sizeof(typeTileData));
     }
     file.close();
 }
@@ -41,10 +41,10 @@ readLevelData(const std::string& filename) {
 
     file.seekg(headerSize + assetSize, std::ios::beg);
     int elements = header.MapSizeX * header.MapSizeY;
-    typeTile** tiles = new typeTile*[elements];
+    typeTileData** tiles = new typeTileData*[elements];
     for(int i = 0; i < elements; i++){
-        typeTile* element = new typeTile{};
-        file.read(reinterpret_cast<char*>(element), sizeof(typeTile));
+        typeTileData* element = new typeTileData{};
+        file.read(reinterpret_cast<char*>(element), sizeof(typeTileData));
         tiles[i] = element;
     }
 
@@ -57,17 +57,17 @@ readLevelData(const std::string& filename) {
     return level;
 }
 
-typeTile**
+typeTileData**
 newTile(const int& x, const int& y) {
     const int size = x * y;
-    typeTile**    map  = new typeTile*[x * y];
+    typeTileData**    map  = new typeTileData*[x * y];
     for (int i = 0; i < size; i++)
-        map[i] = new typeTile{};
+        map[i] = new typeTileData{};
     return map;
 }
 
 void
-deleteTile(typeTile** tile, const int& elements) {
+deleteTile(typeTileData** tile, const int& elements) {
     for (int i = 0; i < elements; i++)
         delete tile[i];
     delete[] tile;
@@ -76,7 +76,7 @@ deleteTile(typeTile** tile, const int& elements) {
 void
 removeAsset(const uint8_t& id, typeAssets* map) {
     bool found = false;
-    for (int i = 0; i < MAP_META_MAX; i++) {
+    for (int i = 0; i < TEXT_MAX_LENGTH; i++) {
         if (found) {
             map->Data[i - 1] = map->Data[i];
         } else if (map->Data[i].Id == id) {
@@ -85,14 +85,14 @@ removeAsset(const uint8_t& id, typeAssets* map) {
     }
     if (found) {
         // Clear the last element (optional)
-        memset(&map->Data[MAP_META_MAX - 1], 0, sizeof(typeAssetItem));
+        memset(&map->Data[TEXT_MAX_LENGTH - 1], 0, sizeof(typeAssetItem));
     }
 }
 
 bool
 addAsset(const char* asset, typeAssets* map) {
     int lowest = 0;
-    for (int i = 0; i < MAP_META_MAX; i++) {
+    for (int i = 0; i < TEXT_MAX_LENGTH; i++) {
         if (map->Data[i].Id == 0) {
             map->Data[i].Id = ++lowest;
             auto len        = strlen(asset);

@@ -6,7 +6,7 @@ Level::Level(SDL_Renderer* renderer, const Common::typeScale& scale) : pRenderer
 Level::~Level() {}
 
 void
-Level::generateLevel(const Graphics::BaseTexture& base) {
+Level::generateLevel(const Graphics::typeSimpleTexture& base) {
     std::random_device rd;
     std::mt19937       gen(rd());
 

@@ -30,7 +30,7 @@ class Graphics {
                                     const Uint8&       b2,     // End blue color
                                     const Uint8&       a);           // Alpha channel
     SDL_Texture*     getTexture(const std::string& name);
-    BaseTexture      getBaseTexture(const std::string& name);
+    typeSimpleTexture getBaseTexture(const std::string& name);
     AnimatedTexture* getAnimatedTexture(const std::string& name);
     
     void addTexture(const std::string& name, SDL_Texture* texture);
@@ -48,7 +48,7 @@ class Graphics {
     Common::typeScale& mScale;
 
     std::unordered_map<std::string, AnimatedTexture*> mAnimatedTextures;
-    std::unordered_map<std::string, BaseTexture>      mBaseTextures;
+    std::unordered_map<std::string, typeSimpleTexture>      mBaseTextures;
     std::unordered_map<std::string, SDL_Texture*>     mTextures;
     SDL_Renderer*                                     pRenderer;
 };

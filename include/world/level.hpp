@@ -16,7 +16,7 @@ class Level {
   public:
     Level(SDL_Renderer* renderer, const Common::typeScale& scale);
     ~Level();
-    void generateLevel(const Graphics::BaseTexture& base);
+    void generateLevel(const Graphics::typeSimpleTexture& base);
     void drawLevel();
 
   protected:
