@@ -41,7 +41,7 @@ struct typeBaseTextureJSON {
     int         Width;  // Width of texture
 };
 
-struct AnimationObjectJSON {
+struct typeAnimatedTextureJSON {
     std::string Name;   // Animation name
     int         Column; // Start column in sheet
     int         Row;    // Start row in sheet
@@ -71,7 +71,7 @@ struct BaseTextureDataJSON {
 
 struct AnimationDataJSON {
     std::string                      File;
-    std::vector<AnimationObjectJSON> Objects;
+    std::vector<typeAnimatedTextureJSON> Objects;
 };
 
 struct GeneratedDataJSON {
@@ -79,7 +79,7 @@ struct GeneratedDataJSON {
 };
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeBaseTextureJSON, File, Name, Column, Row, Length, Height, Width)
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationObjectJSON, Name, Column, Row, Length, Ticks, Height, Width)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeAnimatedTextureJSON, Name, Column, Row, Length, Ticks, Height, Width)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GeneratedObjectJSON,
                                    Name,
                                    Shape,
