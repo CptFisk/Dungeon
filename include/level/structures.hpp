@@ -36,7 +36,7 @@ struct typeAssets {
     typeAssetItem Data[MAP_META_MAX]; // A file can only contain 32 sub-files
 };
 
-struct typeLevel {
+struct typeLevelData {
     typeHeader Header;
     typeAssets Assets;
     typeTile** Tiles;
@@ -48,15 +48,15 @@ struct typeLevel {
  * @param data Data structure
  */
 void
-writeLevelToFile(const std::string& filename, const typeLevel& data);
+writeLevelDataToFile(const std::string& filename, const typeLevelData& data);
 
 /**
  * @brief Load a file and return a map
  * @param filename
  * @return Pointer to the map
  */
-typeLevel*
-loadLevelFile(const std::string& filename);
+typeLevelData*
+readLevelData(const std::string& filename);
 /**
  * @breif Returns a new Tile** based on the provided size
  * @param x Size in x

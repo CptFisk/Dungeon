@@ -6,7 +6,7 @@
 
 namespace Level {
 void
-writeLevelToFile(const std::string& filename, const typeLevel& data) {
+writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
     std::ofstream file(filename, std::ios::binary);
     if (!file.is_open())
         throw std::runtime_error("Cant write to file");
@@ -22,8 +22,8 @@ writeLevelToFile(const std::string& filename, const typeLevel& data) {
     file.close();
 }
 
-typeLevel*
-loadLevelFile(const std::string& filename) {
+typeLevelData*
+readLevelData(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
     if (!file)
         throw std::runtime_error("Cant load file");
@@ -49,7 +49,7 @@ loadLevelFile(const std::string& filename) {
     }
 
     //All done, generate data
-    auto level = new typeLevel;
+    auto level = new typeLevelData;
     level->Header = header;
     level->Assets = asset;
     level->Tiles = tiles;
