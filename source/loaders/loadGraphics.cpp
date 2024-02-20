@@ -85,9 +85,9 @@ Graphics::loadObjectAnimation(const Common::typeHeaderJSON& header, const std::s
 
 void
 Graphics::loadObjectGeneration(const Common::typeHeaderJSON& header, const std::string& jsonString) {
-    GeneratedDataJSON jsonData;
+    typeGeneratedTextureData jsonData;
     try {
-        jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<GeneratedDataJSON>();
+        jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<typeGeneratedTextureData>();
     } catch (const std::exception& e) {
         std::cerr << e.what();
         //throw std::runtime_error(e.what());

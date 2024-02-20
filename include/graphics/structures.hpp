@@ -74,7 +74,7 @@ struct typeAnimatedTextureData {
     std::vector<typeAnimatedTextureJSON> Objects;
 };
 
-struct GeneratedDataJSON {
+struct typeGeneratedTextureData {
     std::vector<typeGeneratedTextureJSON> Objects;
 };
 
@@ -95,6 +95,6 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeGeneratedTextureJSON,
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeBaseTextureData, Objects)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeAnimatedTextureData, File, Objects)
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GeneratedDataJSON, Objects)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeGeneratedTextureData, Objects)
 
 }
