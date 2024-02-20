@@ -24,9 +24,10 @@ class Engine {
 
     Common::ActionManager& getActionManager();
 
-    std::list<std::function<bool(SDL_Event*)>>&                             getEventList(); // Get the list of events
-    std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEvents();    // Get the list of events
-    std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
+    [[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>& getEventList(); // Get the list of events
+    [[maybe_unused]] std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>&
+    getEvents(); // Get the list of events
+    [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>& getProcessing();
 
     void terminate();
     void click(const float& x, const float& y); // Mouse click

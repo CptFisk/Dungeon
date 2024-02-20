@@ -40,7 +40,7 @@ Engine::getActionManager() {
     return *mActionManager;
 }
 
-std::list<std::function<bool(SDL_Event*)>>&
+[[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>&
 Engine::getEventList() {
     return mEventWatcher;
 }
@@ -170,7 +170,7 @@ Engine::mainLoop() {
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         particles();
-        // addDarkness();
+        addDarkness();
         present();
 
         auto ticks = mFPSTimer.getTicks();
