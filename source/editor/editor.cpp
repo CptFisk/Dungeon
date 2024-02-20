@@ -123,6 +123,7 @@ Editor::mainLoop() {
         }
 
         // SDL_RenderTexture(pRenderer, texture, NULL, &dstRect);
+        uiTiles();
         uiDrawGrid();
         uiMenu();
         uiAssets();
@@ -166,8 +167,10 @@ Editor::terminate() {
 void
 Editor::click(const float& x, const float& y) {
     if (pTile != nullptr) {
-        auto v = getClickCoords(x, y);
-        printf("x: %i | y %i \n", v.first, v.second);
+        auto index                = getIndex(getClickCoords(x, y));
+        pVisualTile[index]->first = mGraphics->getTexture("FAE2C3");
+        pTile[index]->Type        = Level::Background;
+        pTile[index]->Id          = 1;
     }
 }
 

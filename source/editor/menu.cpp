@@ -19,7 +19,7 @@ Editor::uiMenu() {
             if (ImGui::MenuItem("Save project")) {
                 Level::Map map = { *pLevelHeader, *pAssets, pTile };
 
-                Level::writeMapToFile(std::string(pLevelHeader->MapName), map);
+                Level::writeMapToFile(std::string(pLevelHeader->MapName) + ".map", map);
             }
 
             ImGui::EndMenu();

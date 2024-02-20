@@ -30,6 +30,7 @@ class Editor {
     void uiHeader();   // Display current open project settings
     void uiDrawGrid(); // Draw a basic grid over the area
     void uiAssets();   // Display the metadata related to the map
+    void uiTiles();
     void present();    // Render all graphic
 
     // Select an index in map

@@ -25,6 +25,7 @@ Editor::uiHeader() {
                 mMapLoaded = true;
                 pTile = Level::newTile(pLevelHeader->MapSizeX, pLevelHeader->MapSizeY);
                 pVisualTile = newVisualTile();  //Generate a new visual tile
+                Level::addAsset("PurpleFloor", pAssets);
 
                 pLevelHeader->BackgroundRed = static_cast<float>(color[0] * 255.0f);
                 pLevelHeader->BackgroundGreen = static_cast<float>(color[1] * 255.0f);
