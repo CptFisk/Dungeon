@@ -10,12 +10,12 @@ const int SUB_FILE_META_MAX = 31;
 
 enum TileType : uint8_t { Black = 0, Background = 1 << 1, Obstacle = 1 << 2 };
 
-struct Tile {
+struct typeTile {
     TileType Type; // Tiletype
     uint8_t  Id;   // ID used in SubMetaFiles
 };
 
-struct Header {
+struct typeHeader {
     uint8_t HeaderVersion;             // Version of editor
     char    MapName[LEVEL_HEADER_MAX]; // Filename
 
@@ -27,19 +27,19 @@ struct Header {
     uint8_t MapSizeY; // Map height
 };
 
-struct Asset {
+struct typeAssetItem {
     uint8_t Id;                       // Unique id of the file 1-32
     char    Asset[SUB_FILE_META_MAX]; // Asset name
 };
 
-struct Assets {
-    Asset Data[MAP_META_MAX]; // A file can only contain 32 sub-files
+struct typeAssets {
+    typeAssetItem Data[MAP_META_MAX]; // A file can only contain 32 sub-files
 };
 
 struct typeLevel {
-    Header Header;
-    Assets Assets;
-    Tile** Tiles;
+    typeHeader Header;
+    typeAssets Assets;
+    typeTile** Tiles;
 };
 
 /**
@@ -63,7 +63,7 @@ loadLevelFile(const std::string& filename);
  * @param y Size in y
  * @return
  */
-Tile**
+typeTile**
 newTile(const int& x, const int& y);
 
 /**
@@ -71,7 +71,7 @@ newTile(const int& x, const int& y);
  * @param tile Reference to tile object
  */
 void
-deleteTile(Tile** tile, const int& elements);
+deleteTile(typeTile** tile, const int& elements);
 
 /**
  * @brief Delete a element from the list of assets
@@ -79,7 +79,7 @@ deleteTile(Tile** tile, const int& elements);
  * @param map
  */
 void
-removeAsset(const uint8_t& id, Assets* map);
+removeAsset(const uint8_t& id, typeAssets* map);
 
 /**
  * @brief Add a new element to the list of assets
@@ -88,6 +88,6 @@ removeAsset(const uint8_t& id, Assets* map);
  * @return True if it was added
  */
 bool
-addAsset(const char* asset, Assets* map);
+addAsset(const char* asset, typeAssets* map);
 
 }

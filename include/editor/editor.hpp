@@ -72,9 +72,9 @@ class Editor {
     bool mShowToolbox;
 
     // Map data
-    Level::Header*                       pLevelHeader;
-    Level::Assets*                       pAssets;
-    Level::Tile**                        pTile;
+    Level::typeHeader*                       pLevelHeader;
+    Level::typeAssets*                       pAssets;
+    Level::typeTile**                        pTile;
     std::pair<SDL_Texture*, SDL_FRect>** pVisualTile; // Used for drawing stuff
 };
 }

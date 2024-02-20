@@ -11,8 +11,8 @@ Editor::uiMenu() {
                 mNewFile           = true;
                 mShowHeader        = true;
                 delete pLevelHeader; // Clean first
-                pLevelHeader = new Level::Header{};
-                pAssets      = new Level::Assets{};
+                pLevelHeader = new Level::typeHeader{};
+                pAssets      = new Level::typeAssets{};
             }
             if (ImGui::MenuItem("Load project")) {
             }
