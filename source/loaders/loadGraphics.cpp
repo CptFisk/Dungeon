@@ -62,9 +62,9 @@ Graphics::loadBaseTiles(const Common::typeHeaderJSON& header, const std::string&
 
 void
 Graphics::loadObjectAnimation(const Common::typeHeaderJSON& header, const std::string& jsonString) {
-    AnimationDataJSON jsonData;
+    typeAnimatedTextureData jsonData;
     try {
-        jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<AnimationDataJSON>();
+        jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<typeAnimatedTextureData>();
     } catch (const std::exception& e) {
         std::cerr << e.what();
         throw std::runtime_error(e.what());
