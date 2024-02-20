@@ -3,7 +3,7 @@
 #include <iostream>
 
 namespace Graphics {
-Graphics::Graphics(SDL_Renderer* renderer, Common::Scale& scale)
+Graphics::Graphics(SDL_Renderer* renderer, Common::typeScale& scale)
   : pRenderer(renderer)
   , mScale(scale) {}
 

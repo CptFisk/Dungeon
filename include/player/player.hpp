@@ -10,7 +10,7 @@
 namespace Player {
 class Player {
   public:
-    Player(const Common::Scale& scale);
+    Player(const Common::typeScale& scale);
     ~Player();
 
     SDL_Texture** getPlayerTexture();

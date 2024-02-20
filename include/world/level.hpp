@@ -14,7 +14,7 @@ class Level {
     };
 
   public:
-    Level(SDL_Renderer* renderer, const Common::Scale& scale);
+    Level(SDL_Renderer* renderer, const Common::typeScale& scale);
     ~Level();
     void generateLevel(const Graphics::BaseTexture& base);
     void drawLevel();
@@ -22,7 +22,7 @@ class Level {
   protected:
   private:
     Base mMap[192];
-    Common::Scale mScale;
+    Common::typeScale mScale;
     SDL_Renderer* pRenderer;
 };
 }

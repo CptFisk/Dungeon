@@ -2,7 +2,7 @@
 #include <iostream>
 
 namespace Player {
-Energy::Energy(const Common::Scale& scale, const Graphics::BaseTexture& baseTexture, SDL_Renderer* renderer)
+Energy::Energy(const Common::typeScale& scale, const Graphics::BaseTexture& baseTexture, SDL_Renderer* renderer)
   : mEnergy(100.0)
   , mBaseTexture(baseTexture)
   , pRenderer(renderer) {}

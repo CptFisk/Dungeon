@@ -44,7 +44,7 @@ class Editor {
 
     std::pair<SDL_Texture*, SDL_FRect>** newVisualTile();
   private:
-    Common::Scale mScale;
+    Common::typeScale mScale;
 
     bool                                 mRun;
     bool                                 mMapLoaded;

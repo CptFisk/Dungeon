@@ -3,5 +3,5 @@
 #include <SDL3/SDL.h>
 
 namespace Common{
-    void calculateGameScale(Scale &scale, SDL_Window* window);
+    void calculateGameScale(typeScale&scale, SDL_Window* window);
 }

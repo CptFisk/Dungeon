@@ -10,7 +10,7 @@
 namespace Graphics {
 class Graphics {
   public:
-    Graphics(SDL_Renderer* renderer, Common::Scale& scale);
+    Graphics(SDL_Renderer* renderer, Common::typeScale& scale);
     ~Graphics();
     void             init();
     void             generateSquare(const std::string& name,
@@ -40,12 +40,12 @@ class Graphics {
   protected:
     SDL_Texture* loadImage(const std::string& filename);
     void         loadGraphics(const std::string& folderPath);
-    void         loadBaseTiles(const Common::HeaderJSON& header, const std::string& jsonString);
-    void         loadObjectAnimation(const Common::HeaderJSON& header, const std::string& jsonString);
-    void         loadObjectGeneration(const Common::HeaderJSON& header, const std::string& jsonString);
+    void         loadBaseTiles(const Common::typeHeaderJSON& header, const std::string& jsonString);
+    void         loadObjectAnimation(const Common::typeHeaderJSON& header, const std::string& jsonString);
+    void         loadObjectGeneration(const Common::typeHeaderJSON& header, const std::string& jsonString);
 
   private:
-    Common::Scale& mScale;
+    Common::typeScale& mScale;
 
     std::unordered_map<std::string, AnimatedTexture*> mAnimatedTextures;
     std::unordered_map<std::string, BaseTexture>      mBaseTextures;

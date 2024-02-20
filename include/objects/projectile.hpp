@@ -21,7 +21,7 @@ class Projectile {
   public:
     Projectile(const ProjectileStruct&       setup,
                const std::pair<float, float> playerPosition,
-               const Common::Scale           scale,
+               const Common::typeScale       scale,
                SDL_Renderer*                 renderer,
                std::shared_ptr<Particle>     particle); // Constructor
     ~Projectile();

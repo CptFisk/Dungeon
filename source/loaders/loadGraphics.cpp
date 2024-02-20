@@ -13,13 +13,13 @@ namespace Graphics {
 void
 Graphics::loadGraphics(const std::string& folderPath) {
     auto               files = Utility::getFiles(folderPath, ".json");
-    Common::HeaderJSON header;
+    Common::typeHeaderJSON header;
     // Process all the meta-data
     std::vector<BaseTexture> textures;
     for (const auto& file : files) {
         const std::string jsonString = Utility::getFileContent(file.string());
         try {
-            header = json::parse(jsonString)[nlohmann::json::json_pointer("/Header")].get<Common::HeaderJSON>();
+            header = json::parse(jsonString)[nlohmann::json::json_pointer("/Header")].get<Common::typeHeaderJSON>();
         } catch (const std::exception& e) {
             std::cerr << "No header found: " << e.what() << std::endl;
         }
@@ -38,7 +38,7 @@ Graphics::loadGraphics(const std::string& folderPath) {
 }
 
 void
-Graphics::loadBaseTiles(const Common::HeaderJSON& header, const std::string& jsonString) {
+Graphics::loadBaseTiles(const Common::typeHeaderJSON& header, const std::string& jsonString) {
     BaseTextureDataJSON jsonData;
     try {
         jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<BaseTextureDataJSON>();
@@ -61,7 +61,7 @@ Graphics::loadBaseTiles(const Common::HeaderJSON& header, const std::string& jso
 }
 
 void
-Graphics::loadObjectAnimation(const Common::HeaderJSON& header, const std::string& jsonString) {
+Graphics::loadObjectAnimation(const Common::typeHeaderJSON& header, const std::string& jsonString) {
     AnimationDataJSON jsonData;
     try {
         jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<AnimationDataJSON>();
@@ -84,7 +84,7 @@ Graphics::loadObjectAnimation(const Common::HeaderJSON& header, const std::strin
 }
 
 void
-Graphics::loadObjectGeneration(const Common::HeaderJSON& header, const std::string& jsonString) {
+Graphics::loadObjectGeneration(const Common::typeHeaderJSON& header, const std::string& jsonString) {
     GeneratedDataJSON jsonData;
     try {
         jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<GeneratedDataJSON>();

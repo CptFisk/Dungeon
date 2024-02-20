@@ -2,7 +2,7 @@
 #include <world/level.hpp>
 
 namespace Engine {
-Level::Level(SDL_Renderer* renderer, const Common::Scale& scale) : pRenderer(renderer), mScale(scale){}
+Level::Level(SDL_Renderer* renderer, const Common::typeScale& scale) : pRenderer(renderer), mScale(scale){}
 Level::~Level() {}
 
 void

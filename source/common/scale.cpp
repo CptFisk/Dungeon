@@ -2,7 +2,7 @@
 
 namespace Common {
 void
-calculateGameScale(Scale& scale, SDL_Window* window) {
+calculateGameScale(typeScale& scale, SDL_Window* window) {
     int width, height;
     SDL_GetWindowSizeInPixels(window, &width, &height);
     const float squaresX  = 16.0; // Numbers of square in x-direction
