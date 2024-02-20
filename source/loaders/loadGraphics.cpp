@@ -39,9 +39,9 @@ Graphics::loadGraphics(const std::string& folderPath) {
 
 void
 Graphics::loadBaseTiles(const Common::typeHeaderJSON& header, const std::string& jsonString) {
-    BaseTextureDataJSON jsonData;
+    typeBaseTextureData jsonData;
     try {
-        jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<BaseTextureDataJSON>();
+        jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<typeBaseTextureData>();
     } catch (const std::exception& e) {
         throw std::runtime_error(e.what());
     }
