@@ -1,4 +1,5 @@
 #pragma once
+#include <SDL3/SDL.h>
 #include <cstdint>
 #include <string>
 
@@ -8,13 +9,20 @@ const int TEXT_MAX_LENGTH = 31;
 
 enum TileType : uint8_t { Black = 0, Background = 1 << 1, Obstacle = 1 << 2 };
 
+// Used inside data-file
 struct typeTileData {
     TileType Type; // Tiletype
     uint8_t  Id;   // ID used in SubMetaFiles
 };
 
+struct typeTile {
+    TileType     Type;     // Tiletype
+    SDL_FRect    Position; // Position
+    SDL_Texture* Texture;  // Reference to texture
+};
+
 struct typeHeader {
-    uint8_t HeaderVersion;             // Version of editor
+    uint8_t HeaderVersion;            // Version of editor
     char    MapName[TEXT_MAX_LENGTH]; // Filename
 
     uint8_t BackgroundRed;   // RGB colour of background
@@ -26,7 +34,7 @@ struct typeHeader {
 };
 
 struct typeAssetItem {
-    uint8_t Id;                       // Unique id of the file 1-32
+    uint8_t Id;                     // Unique id of the file 1-32
     char    Asset[TEXT_MAX_LENGTH]; // Asset name
 };
 
@@ -35,8 +43,8 @@ struct typeAssets {
 };
 
 struct typeLevelData {
-    typeHeader Header;
-    typeAssets Assets;
+    typeHeader     Header;
+    typeAssets     Assets;
     typeTileData** Tiles;
 };
 
