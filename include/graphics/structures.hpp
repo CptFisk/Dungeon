@@ -31,7 +31,7 @@ struct typeSimpleTexture {
 /***
  * @brief Used when Object is of type BASE_TEXTURE
  */
-struct BaseObjectJSON {
+struct typeBaseTextureJSON {
     std::string File;   // File to be loaded
     std::string Name;   // Name of file
     int         Column; // Start column in sheet
@@ -66,7 +66,7 @@ struct GeneratedObjectJSON {
 };
 
 struct BaseTextureDataJSON {
-    std::vector<BaseObjectJSON> Objects;
+    std::vector<typeBaseTextureJSON> Objects;
 };
 
 struct AnimationDataJSON {
@@ -78,7 +78,7 @@ struct GeneratedDataJSON {
     std::vector<GeneratedObjectJSON> Objects;
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(BaseObjectJSON, File, Name, Column, Row, Length, Height, Width)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeBaseTextureJSON, File, Name, Column, Row, Length, Height, Width)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(AnimationObjectJSON, Name, Column, Row, Length, Ticks, Height, Width)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(GeneratedObjectJSON,
                                    Name,
