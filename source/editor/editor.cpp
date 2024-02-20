@@ -67,6 +67,7 @@ Editor::startup() {
     // Try to load the font
     mFont = TTF_OpenFont("rsrc/fonts/Arial.ttf", 14);
 
+    Level::loadLevelFile("level.map");
     // Generating textures
     for (int x = 0; x < 16; x++) {
         for (int y = 0; y < 12; y++) {
