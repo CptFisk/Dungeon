@@ -29,7 +29,7 @@ Tile** newTile(const int& x, const int& y){
 
 void deleteTile(Tile** tile, const int& elements){
     for(int i = 0; i < elements; i++)
-        delete[] tile[i];
+        delete tile[i];
     delete[] tile;
 }
 

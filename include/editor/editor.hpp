@@ -33,8 +33,10 @@ class Editor {
     void present();    // Render all graphic
 
     // Select an index in map
-    int getIndex(const int& x, const int& y);
     int getIndex(const float& x, const float& y);
+    int getIndex(const std::pair<int,int> &coords);
+    int getIndex(const int& x, const int& y);
+
 
     std::pair<SDL_Texture*, SDL_FRect>** newVisualTile();
   private:

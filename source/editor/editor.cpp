@@ -36,7 +36,7 @@ Editor::~Editor() {
     //Clean stuff that we need to know the size for
     Level::deleteTile(pTile, size);
     for(int i = 0; i < size; i ++){
-        delete[] pVisualTile[i];
+        delete pVisualTile[i];
     }
     delete[] pVisualTile;
 
@@ -184,8 +184,9 @@ Editor::newVisualTile() {
             // Start to generate
             auto xf = static_cast<float>(x);
             auto yf = static_cast<float>(y);
+            auto index = getIndex(x,y);
 
-            data[getIndex(x, y)] = new std::pair<SDL_Texture*, SDL_FRect>(
+            data[index] = new std::pair<SDL_Texture*, SDL_FRect>(
               nullptr,
               SDL_FRect{
                 xf * 16.0f * mScale.ScaleX, yf * 16.0f * mScale.ScaleY, 16.0f * mScale.ScaleX, 16.0f * mScale.ScaleY });
@@ -195,16 +196,23 @@ Editor::newVisualTile() {
 }
 
 int
-Editor::getIndex(const int& x, const int& y) {
-    return getIndex(static_cast<float>(x), static_cast<float>(y));
+Editor::getIndex(const float& x, const float& y) {
+    return = getIndex(static_cast<int>(x), static_cast<int>(y));
 }
 
 int
-Editor::getIndex(const float& x, const float& y) {
+Editor::getIndex(const std::pair<int, int>& coords) {
+    return getIndex(coords.first, coords.second);
+}
+
+int
+Editor::getIndex(const int& x, const int& y) {
     if (pLevelHeader == nullptr)
         return size_t();
+    auto _x = static_cast<int>(x);
+    auto _y = static_cast<int>(y);
+    auto _width = static_cast<int>(pLevelHeader->MapSizeX);
 
-    return static_cast<int>(floor((x / (16.0 * mScale.ScaleX)))) +
-           static_cast<int>(floor(y / (16.0 * mScale.ScaleY)) * pLevelHeader->MapSizeX);
+    return _x + _y * _width;
 }
 }
