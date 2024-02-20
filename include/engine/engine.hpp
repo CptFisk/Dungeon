@@ -52,7 +52,6 @@ class Engine {
     std::unique_ptr<Player::Player>      mPlayer;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
     std::shared_ptr<Level>               mLevel;
-    std::vector<Objects::Obstacle>       mObstacles; // Walls, and other annoying stuff
     std::unique_ptr<Player::Energy>      mEnergy;
     // Events
     std::unique_ptr<Common::ActionManager>     mActionManager;

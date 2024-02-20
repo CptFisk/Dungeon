@@ -97,13 +97,7 @@ Engine::startup() {
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 
     SDL_SetRenderDrawColor(pRenderer, 0, 0, 24, SDL_ALPHA_OPAQUE);
-
-    // Make a north wall
-    SDL_FRect f = { 0, 0, 0, 0 };
-    for (int i = 0; i < 16; i++) {
-        mObstacles.push_back(Objects::Obstacle(mGraphics->getBaseTexture(("PurpleWallNorth")), f));
     }
-}
 
 void
 Engine::terminate() {
