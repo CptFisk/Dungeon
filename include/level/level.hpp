@@ -10,7 +10,7 @@ class Level {
     Level(SDL_Renderer* renderer);
     ~Level(); // Cleaning
 
-    void loadLevel(const std::string& filename);
+    bool loadLevel(const std::string& filename);
     bool movement(const SDL_FRect& other);  //Check if movement is allowed, or if it collides with other objects
 
   protected:
