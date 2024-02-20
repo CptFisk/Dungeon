@@ -28,7 +28,9 @@ struct typeSimpleTexture {
         }
     }
 };
-
+/***
+ * @brief Used when Object is of type BASE_TEXTURE
+ */
 struct BaseObjectJSON {
     std::string File;   // File to be loaded
     std::string Name;   // Name of file

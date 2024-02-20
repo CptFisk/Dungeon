@@ -16,14 +16,14 @@ struct typeScale {
     DO(ANIMATED_TEXTURE) \
     DO(GENERATED_TEXTURE)
 #define MAKE_HEADER_TYPES(VAR) VAR,
-enum TextureType { HEADER_TYPES(MAKE_HEADER_TYPES) };
-NLOHMANN_JSON_SERIALIZE_ENUM(TextureType,
+enum typeObjectType { HEADER_TYPES(MAKE_HEADER_TYPES) };
+NLOHMANN_JSON_SERIALIZE_ENUM(typeObjectType,
                              { { BASE_TEXTURE, "BaseTexture" },
                                { ANIMATED_TEXTURE, "AnimatedTexture" },
                                { GENERATED_TEXTURE, "GeneratedTexture" } })
 
 struct typeHeaderJSON {
-    TextureType Type;
+    typeObjectType Type;
 };
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeHeaderJSON, Type)
