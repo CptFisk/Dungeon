@@ -1,6 +1,7 @@
 #include <SDL3_ttf/SDL_ttf.h>
 #include <backends/imgui_impl_sdl3.h>
 #include <backends/imgui_impl_sdlrenderer3.h>
+#include <cmath>
 #include <common/imgui.hpp>
 #include <common/scale.hpp>
 #include <common/sdl.hpp>
@@ -33,13 +34,12 @@ Editor::~Editor() {
     const int size = pLevelHeader != nullptr ? pLevelHeader->MapSizeX * pLevelHeader->MapSizeY : 0;
     if (mFont)
         TTF_CloseFont(mFont); // Clean the font
-    //Clean stuff that we need to know the size for
+    // Clean stuff that we need to know the size for
     Level::deleteTile(pTile, size);
-    for(int i = 0; i < size; i ++){
+    for (int i = 0; i < size; i++) {
         delete pVisualTile[i];
     }
     delete[] pVisualTile;
-
 
     delete pLevelHeader;
     delete pAssets;
@@ -166,25 +166,25 @@ Editor::terminate() {
 void
 Editor::click(const float& x, const float& y) {
     if (pTile != nullptr) {
-        pTile[getIndex(x, y)]->Id   = 1;
-        pTile[getIndex(x, y)]->Type = Level::Background;
+        auto v = getClickCoords(x, y);
+        printf("x: %i | y %i \n", v.first, v.second);
     }
 }
 
 std::pair<SDL_Texture*, SDL_FRect>**
 Editor::newVisualTile() {
     // Allocate data
-    const int                            sizeX = pLevelHeader->MapSizeX;
-    const int                            sizeY = pLevelHeader->MapSizeY;
-    const int                            size  = pLevelHeader->MapSizeX * pLevelHeader->MapSizeY;
+    const int sizeX = pLevelHeader->MapSizeX;
+    const int sizeY = pLevelHeader->MapSizeY;
+    const int size  = pLevelHeader->MapSizeX * pLevelHeader->MapSizeY;
 
-    auto data  = new std::pair<SDL_Texture*, SDL_FRect>* [size] {};
+    auto data = new std::pair<SDL_Texture*, SDL_FRect>* [size] {};
     for (int y = 0; y < sizeY; y++) {
         for (int x = 0; x < sizeX; x++) {
             // Start to generate
-            auto xf = static_cast<float>(x);
-            auto yf = static_cast<float>(y);
-            auto index = getIndex(x,y);
+            auto xf    = static_cast<float>(x);
+            auto yf    = static_cast<float>(y);
+            auto index = getIndex(x, y);
 
             data[index] = new std::pair<SDL_Texture*, SDL_FRect>(
               nullptr,
@@ -197,7 +197,7 @@ Editor::newVisualTile() {
 
 int
 Editor::getIndex(const float& x, const float& y) {
-    return = getIndex(static_cast<int>(x), static_cast<int>(y));
+    return getIndex(static_cast<int>(x), static_cast<int>(y));
 }
 
 int
@@ -209,10 +209,18 @@ int
 Editor::getIndex(const int& x, const int& y) {
     if (pLevelHeader == nullptr)
         return size_t();
-    auto _x = static_cast<int>(x);
-    auto _y = static_cast<int>(y);
+    auto _x     = static_cast<int>(x);
+    auto _y     = static_cast<int>(y);
     auto _width = static_cast<int>(pLevelHeader->MapSizeX);
 
     return _x + _y * _width;
+}
+
+std::pair<int, int>
+Editor::getClickCoords(const float& x, const float& y) {
+
+    auto _x = std::floor(static_cast<float>(x) / (16.0f * mScale.ScaleX));
+    auto _y = std::floor(static_cast<float>(y) / (16.0f * mScale.ScaleY));
+    return std::make_pair(_x, _y);
 }
 }
