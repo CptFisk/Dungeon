@@ -26,6 +26,7 @@ set(
         ${CMAKE_SOURCE_DIR}/source/common/actionmgr.cpp
         ${CMAKE_SOURCE_DIR}/source/common/scale.cpp
         ${CMAKE_SOURCE_DIR}/source/common/math.cpp
+        ${CMAKE_SOURCE_DIR}/source/common/sdl.cpp
 
         ${CMAKE_SOURCE_DIR}/source/graphics/graphics.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/generateObjects.cpp

@@ -2,7 +2,7 @@
 #include <backends/imgui_impl_sdl3.h>
 #include <backends/imgui_impl_sdlrenderer3.h>
 #include <cmath>
-#include <common/imgui.hpp>
+#include <common/initializer/imgui.hpp>
 #include <common/math.hpp>
 #include <common/scale.hpp>
 #include <common/sdl.hpp>
@@ -191,10 +191,7 @@ Editor::newVisualTile() {
             auto yf    = static_cast<float>(y);
             auto index = Common::getIndex(x, y, pLevelHeader);
 
-            data[index] = new std::pair<SDL_Texture*, SDL_FRect>(
-              nullptr,
-              SDL_FRect{
-                xf * 16.0f * mScale.ScaleX, yf * 16.0f * mScale.ScaleY, 16.0f * mScale.ScaleX, 16.0f * mScale.ScaleY });
+            data[index] = new std::pair<SDL_Texture*, SDL_FRect>(nullptr, Common::newSDL_FRect(x, y, mScale));
         }
     }
     return data;
