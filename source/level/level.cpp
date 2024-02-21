@@ -2,13 +2,15 @@
 #include <common/sdl.hpp>
 #include <iostream>
 #include <level/level.hpp>
+#include <graphics/graphics.hpp>
 
 namespace Level {
 
-Level::Level(SDL_Renderer* renderer, const Common::typeScale& scale)
+Level::Level(SDL_Renderer* renderer, const Common::typeScale& scale, std::shared_ptr<Graphics::Graphics> graphics)
   : pRenderer(renderer)
   , mScale(scale)
   , mHeader{}
+  , mGraphics(std::move(graphics))
   , pTiles(nullptr) {}
 
 Level::~Level() {
