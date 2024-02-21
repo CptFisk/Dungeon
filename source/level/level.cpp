@@ -8,7 +8,7 @@ Level::Level(SDL_Renderer* renderer)
   , pTiles(nullptr) {}
 
 Level::~Level() {
-    const int size = mHeader.SizeX * mHeader.SizeY;
+    const int size = mHeader.Level.SizeX * mHeader.Level.SizeY;
     if (pTiles != nullptr)
         deleteTile(pTiles, size);
 }
@@ -17,7 +17,7 @@ bool
 Level::loadLevel(const std::string& filename) {
     auto data          = readLevelData(filename);
     mHeader            = data->Header; // Catch header
-    const int size     = data->Header.SizeX * data->Header.SizeY;
+    const int size     = data->Header.Level.SizeX * data->Header.Level.SizeY;
     int       elements = 0; //Number of elements that have a tile
 
     // Calculating how many elements is actually a tile

@@ -94,7 +94,7 @@ Editor::mainLoop() {
         ImGui::NewFrame();
         mFPSTimer.start();
 
-        //ImGui::ShowDemoWindow();
+        // ImGui::ShowDemoWindow();
 
         SDL_RenderClear(pRenderer);
         while (SDL_PollEvent(&event)) {
@@ -171,7 +171,7 @@ Editor::click(const float& x, const float& y) {
         pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
         pTile[index]->Type        = Level::BACKGROUND;
         pTile[index]->Id          = 1;
-        pLevelHeader->Level.Types[Level::BACKGROUND]++;
+        pLevelHeader->Level.Types[(Level::BACKGROUND)-1]++;
     }
 }
 
