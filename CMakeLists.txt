@@ -18,9 +18,10 @@ set(PROJECT_ROOT_DIR "${CMAKE_SOURCE_DIR}")
 
 set(
         COMMON_FILES
-        ${CMAKE_SOURCE_DIR}/source/common/initializer.cpp
-        ${CMAKE_SOURCE_DIR}/source/common/sdl.cpp
-        ${CMAKE_SOURCE_DIR}/source/common/imgui.cpp
+        ${CMAKE_SOURCE_DIR}/source/common/initializer/initializer.cpp
+        ${CMAKE_SOURCE_DIR}/source/common/initializer/sdl.cpp
+        ${CMAKE_SOURCE_DIR}/source/common/initializer/imgui.cpp
+
         ${CMAKE_SOURCE_DIR}/source/common/handlers.cpp
         ${CMAKE_SOURCE_DIR}/source/common/actionmgr.cpp
         ${CMAKE_SOURCE_DIR}/source/common/scale.cpp

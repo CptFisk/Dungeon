@@ -1,4 +1,4 @@
-#include <common/sdl.hpp>
+#include <common/initializer/sdl.hpp>
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <iostream>

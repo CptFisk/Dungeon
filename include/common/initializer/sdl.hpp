@@ -1,5 +1,5 @@
 #pragma once
-#include "common/initializer.hpp"
+#include <common/initializer/initializer.hpp>
 
 #include <SDL3/SDL.h>
 

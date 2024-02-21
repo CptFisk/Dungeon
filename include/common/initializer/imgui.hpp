@@ -1,6 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
-#include <common/initializer.hpp>
+#include <common/initializer/initializer.hpp>
 #include <imgui.h>
 
 

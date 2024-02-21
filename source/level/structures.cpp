@@ -31,8 +31,6 @@ readLevelData(const std::string& filename) {
     typeAssets asset  = {};
     file.read(reinterpret_cast<char*>(&header), sizeof(typeHeader));
     file.read(reinterpret_cast<char*>(&asset), sizeof(typeAssets));
-    // Determine size of tiles
-    file.seekg(0, std::ios::end);
 
     int  elements = header.Level.SizeX * header.Level.SizeY;
     auto tiles    = new typeTileData*[elements];
