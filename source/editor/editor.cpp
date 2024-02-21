@@ -31,7 +31,7 @@ Editor::Editor()
 Editor::~Editor() {
     mInitHandler->shutdown();
 
-    const int size = pLevelHeader != nullptr ? pLevelHeader->MapSizeX * pLevelHeader->MapSizeY : 0;
+    const int size = pLevelHeader != nullptr ? pLevelHeader->SizeX * pLevelHeader->SizeY : 0;
     if (mFont)
         TTF_CloseFont(mFont); // Clean the font
     // Clean stuff that we need to know the size for
@@ -88,9 +88,9 @@ Editor::mainLoop() {
     while (mRun) {
         if (pLevelHeader)
             SDL_SetRenderDrawColor(pRenderer,
-                                   pLevelHeader->BackgroundRed,
-                                   pLevelHeader->BackgroundGreen,
-                                   pLevelHeader->BackgroundBlue,
+                                   pLevelHeader->Color.BackgroundRed,
+                                   pLevelHeader->Color.BackgroundGreen,
+                                   pLevelHeader->Color.BackgroundBlue,
                                    SDL_ALPHA_OPAQUE);
         ImGui::NewFrame();
         mFPSTimer.start();
@@ -169,8 +169,8 @@ void
 Editor::click(const float& x, const float& y) {
     if (pTile != nullptr) {
         auto index                = getIndex(getClickCoords(x, y));
-        pVisualTile[index]->first = mGraphics->getTexture("FAE2C3");
-        pTile[index]->Type        = Level::Background;
+        pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
+        pTile[index]->Type        = Level::BACKGROUND;
         pTile[index]->Id          = 1;
     }
 }
@@ -178,9 +178,9 @@ Editor::click(const float& x, const float& y) {
 std::pair<SDL_Texture*, SDL_FRect>**
 Editor::newVisualTile() {
     // Allocate data
-    const int sizeX = pLevelHeader->MapSizeX;
-    const int sizeY = pLevelHeader->MapSizeY;
-    const int size  = pLevelHeader->MapSizeX * pLevelHeader->MapSizeY;
+    const int sizeX = pLevelHeader->SizeX;
+    const int sizeY = pLevelHeader->SizeY;
+    const int size  = pLevelHeader->SizeX * pLevelHeader->SizeY;
 
     auto data = new std::pair<SDL_Texture*, SDL_FRect>* [size] {};
     for (int y = 0; y < sizeY; y++) {
@@ -215,7 +215,7 @@ Editor::getIndex(const int& x, const int& y) {
         return size_t();
     auto _x     = static_cast<int>(x);
     auto _y     = static_cast<int>(y);
-    auto _width = static_cast<int>(pLevelHeader->MapSizeX);
+    auto _width = static_cast<int>(pLevelHeader->SizeX);
 
     return _x + _y * _width;
 }

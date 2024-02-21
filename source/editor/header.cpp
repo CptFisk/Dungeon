@@ -12,8 +12,8 @@ Editor::uiHeader() {
         return;
     if(ImGui::Begin("Level settings", &mShowHeader, ImGuiWindowFlags_AlwaysAutoResize)){
         ImGui::InputScalar("Header version", ImGuiDataType_U8, &pLevelHeader->HeaderVersion);
-        ImGui::InputScalar("Map size X", ImGuiDataType_U8, &pLevelHeader->MapSizeX);
-        ImGui::InputScalar("Map size Y", ImGuiDataType_U8, &pLevelHeader->MapSizeY);
+        ImGui::InputScalar("Map size X", ImGuiDataType_U8, &pLevelHeader->SizeX);
+        ImGui::InputScalar("Map size Y", ImGuiDataType_U8, &pLevelHeader->SizeY);
         ImGui::InputText("Level name", pLevelHeader->MapName, IM_ARRAYSIZE(pLevelHeader->MapName));
         ImGui::ColorPicker4("MyColor##4", (float*)&color, flags, nullptr);
 
@@ -23,13 +23,13 @@ Editor::uiHeader() {
                 mShowAssets = true;
                 mNewFile = false;
                 mMapLoaded = true;
-                pTile = Level::newTileData(pLevelHeader->MapSizeX, pLevelHeader->MapSizeY);
+                pTile = Level::newTileData(pLevelHeader->SizeX, pLevelHeader->SizeY);
                 pVisualTile = newVisualTile();  //Generate a new visual tile
                 Level::addAsset("PurpleFloor", pAssets);
 
-                pLevelHeader->BackgroundRed = static_cast<float>(color[0] * 255.0f);
-                pLevelHeader->BackgroundGreen = static_cast<float>(color[1] * 255.0f);
-                pLevelHeader->BackgroundBlue = static_cast<float>(color[2] * 255.0f);
+                pLevelHeader->Color.BackgroundRed = static_cast<float>(color[0] * 255.0f);
+                pLevelHeader->Color.BackgroundGreen = static_cast<float>(color[1] * 255.0f);
+                pLevelHeader->Color.BackgroundBlue = static_cast<float>(color[2] * 255.0f);
 
         }
 

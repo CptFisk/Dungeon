@@ -25,12 +25,14 @@ struct typeHeader {
     uint8_t HeaderVersion;            // Version of editor
     char    MapName[TEXT_MAX_LENGTH]; // Filename
 
-    uint8_t BackgroundRed;   // RGB colour of background
-    uint8_t BackgroundGreen; // RGB colour of background
-    uint8_t BackgroundBlue;  // RGB colour of background
+    struct Color {
+        uint8_t BackgroundRed;   // RGB colour of background
+        uint8_t BackgroundGreen; // RGB colour of background
+        uint8_t BackgroundBlue;  // RGB colour of background
+    }Color;
 
-    uint8_t MapSizeX; // Map width
-    uint8_t MapSizeY; // Map height
+    uint8_t SizeX; // Map width
+    uint8_t SizeY; // Map height
 };
 
 struct typeAssetItem {
