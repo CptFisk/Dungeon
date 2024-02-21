@@ -6,6 +6,7 @@
 namespace Level {
 
 const int TEXT_MAX_LENGTH = 31;
+const int TILE_TYPE_VARIATIONS = 7;
 
 enum TileType : uint8_t { BLANK, BACKGROUND, OBSTACLE };
 
@@ -34,7 +35,7 @@ struct typeHeader {
     struct Level {
         uint8_t  SizeX;    // Map width
         uint8_t  SizeY;    // Map height
-        uint16_t Types[7]; // How many times each tiletype occurs
+        uint16_t Types[TILE_TYPE_VARIATIONS]; // How many times each tiletype occurs
     } Level;
 };
 

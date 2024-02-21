@@ -199,32 +199,10 @@ Editor::newVisualTile() {
     return data;
 }
 
-int
-Editor::getIndex(const float& x, const float& y) {
-    return getIndex(static_cast<int>(x), static_cast<int>(y));
-}
-
-int
-Editor::getIndex(const std::pair<int, int>& coords) {
-    return getIndex(coords.first, coords.second);
-}
-
-int
-Editor::getIndex(const int& x, const int& y) {
-    if (pLevelHeader == nullptr)
-        return size_t();
-    auto _x     = static_cast<int>(x);
-    auto _y     = static_cast<int>(y);
-    auto _width = static_cast<int>(pLevelHeader->Level.SizeX);
-
-    return _x + _y * _width;
-}
 
 std::pair<int, int>
 Editor::getClickCoords(const float& x, const float& y) {
 
-    auto _x = std::floor(static_cast<float>(x) / (16.0f * mScale.ScaleX));
-    auto _y = std::floor(static_cast<float>(y) / (16.0f * mScale.ScaleY));
-    return std::make_pair(_x, _y);
+
 }
 }

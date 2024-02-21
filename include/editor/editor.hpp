@@ -33,15 +33,6 @@ class Editor {
     void uiTiles();
     void present();    // Render all graphic
 
-    // Select an index in map
-    int getIndex(const float& x, const float& y);
-    int getIndex(const std::pair<int,int> &coords);
-    int getIndex(const int& x, const int& y);
-
-    //Return the coordinates that you click on
-    std::pair<int,int> getClickCoords(const float& x, const float& y);
-
-
     std::pair<SDL_Texture*, SDL_FRect>** newVisualTile();
   private:
     Common::typeScale mScale;

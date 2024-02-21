@@ -17,15 +17,18 @@ bool
 Level::loadLevel(const std::string& filename) {
     auto data          = readLevelData(filename);
     mHeader            = data->Header; // Catch header
-    const int size     = data->Header.Level.SizeX * data->Header.Level.SizeY;
-    int       elements = 0; //Number of elements that have a tile
 
-    // Calculating how many elements is actually a tile
-    for (int i = 0; i < size; i++) {
-        if (data->Tiles[i]->Type != BLANK)
-            elements++;
+    int       elements = 0; //Number of elements that have a tile
+    for(unsigned short Type : data->Header.Level.Types)
+        elements += Type;
+
+    pTiles = new typeTile* [elements] {}; // Allocating
+    int item = 0;
+    for(int y = 0; y < data->Header.Level.SizeY; y++){
+        for(int x = 0; x < data->Header.Level.SizeX; x++){
+            //std::cout << data->Tiles[]
+        }
     }
-    pTiles = new typeTile* [size] {}; // Allocating
 
     delete data;
 
