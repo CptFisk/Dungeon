@@ -58,7 +58,7 @@ readLevelData(const std::string& filename) {
 }
 
 typeTileData**
-newTile(const int& x, const int& y) {
+newTileData(const int& x, const int& y) {
     const int size = x * y;
     typeTileData**    map  = new typeTileData*[x * y];
     for (int i = 0; i < size; i++)
@@ -69,6 +69,12 @@ newTile(const int& x, const int& y) {
 void
 deleteTile(typeTileData** tile, const int& elements) {
     for (int i = 0; i < elements; i++)
+        delete tile[i];
+    delete[] tile;
+}
+
+void deleteTile(typeTile** tile, const int& elements){
+    for(int i = 0; i < elements; i++)
         delete tile[i];
     delete[] tile;
 }

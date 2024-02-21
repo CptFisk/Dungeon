@@ -23,7 +23,7 @@ Editor::uiHeader() {
                 mShowAssets = true;
                 mNewFile = false;
                 mMapLoaded = true;
-                pTile = Level::newTile(pLevelHeader->MapSizeX, pLevelHeader->MapSizeY);
+                pTile = Level::newTileData(pLevelHeader->MapSizeX, pLevelHeader->MapSizeY);
                 pVisualTile = newVisualTile();  //Generate a new visual tile
                 Level::addAsset("PurpleFloor", pAssets);
 

@@ -70,7 +70,7 @@ readLevelData(const std::string& filename);
  * @return
  */
 typeTileData**
-newTile(const int& x, const int& y);
+newTileData(const int& x, const int& y);
 
 /**
  * @brief Delete the tiles and free memory
@@ -78,6 +78,8 @@ newTile(const int& x, const int& y);
  */
 void
 deleteTile(typeTileData** tile, const int& elements);
+void
+deleteTile(typeTile** tile, const int& elements);
 
 /**
  * @brief Delete a element from the list of assets
