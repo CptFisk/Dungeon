@@ -172,6 +172,7 @@ Editor::click(const float& x, const float& y) {
         pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
         pTile[index]->Type        = Level::BACKGROUND;
         pTile[index]->Id          = 1;
+        pLevelHeader->Level.Types[Level::BACKGROUND]++;
     }
 }
 
