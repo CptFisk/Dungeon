@@ -1,5 +1,5 @@
 #pragma once
 
 namespace Graphics{
-    class Graphics{};
+    class Graphics;
 }

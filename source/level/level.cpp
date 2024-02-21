@@ -1,8 +1,8 @@
 #include <common/math.hpp>
 #include <common/sdl.hpp>
+#include <graphics/graphics.hpp>
 #include <iostream>
 #include <level/level.hpp>
-#include <graphics/graphics.hpp>
 
 namespace Level {
 
@@ -35,7 +35,9 @@ Level::loadLevel(const std::string& filename) {
         for (int x = 0; x < data->Header.Level.SizeX; x++) {
             switch (data->Tiles[Common::getIndex(x, y, &data->Header)]->Type) {
                 case BACKGROUND:
-                    pTiles[item++] = new typeTile{ BACKGROUND, Common::newSDL_FRect(x, y, mScale), nullptr };
+                    pTiles[item++] = new typeTile{ BACKGROUND,
+                                                   Common::newSDL_FRect(x, y, mScale),
+                                                   mGraphics->getTexture("PurpleFloor") };
                     break;
                 case OBSTACLE:
                     break;
