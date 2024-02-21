@@ -94,7 +94,7 @@ Editor::mainLoop() {
         ImGui::NewFrame();
         mFPSTimer.start();
 
-        ImGui::ShowDemoWindow();
+        //ImGui::ShowDemoWindow();
 
         SDL_RenderClear(pRenderer);
         while (SDL_PollEvent(&event)) {
