@@ -2,6 +2,7 @@
 #include <common/include.hpp>
 #include <engine/include.hpp>
 #include <graphics/graphics.hpp>
+#include <level/level.hpp>
 #include <list>
 #include <memory>
 #include <objects/include.hpp>
@@ -50,7 +51,7 @@ class Engine {
     std::unique_ptr<Common::InitHandler> mInitHandler;
     std::unique_ptr<Player::Player>      mPlayer;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
-
+    std::unique_ptr<Level::Level>        mLevel;
     std::unique_ptr<Player::Energy>      mEnergy;
     // Events
     std::unique_ptr<Common::ActionManager>     mActionManager;

@@ -1,8 +1,8 @@
 #include <cstring>
 #include <fstream>
+#include <iostream>
 #include <level/structures.hpp>
 #include <stdexcept>
-#include <iostream>
 
 namespace Level {
 void
@@ -33,26 +33,20 @@ readLevelData(const std::string& filename) {
     file.read(reinterpret_cast<char*>(&asset), sizeof(typeAssets));
     // Determine size of tiles
     file.seekg(0, std::ios::end);
-    std::streampos headerSize = sizeof(typeHeader);
-    std::streampos assetSize  = sizeof(typeAssets);
 
-    auto remaining = file.tellg();
-    auto data = remaining - headerSize - assetSize; // Calculate size
-
-    file.seekg(headerSize + assetSize, std::ios::beg);
-    int elements = header.MapSizeX * header.MapSizeY;
-    typeTileData** tiles = new typeTileData*[elements];
-    for(int i = 0; i < elements; i++){
-        typeTileData* element = new typeTileData{};
+    int  elements = header.MapSizeX * header.MapSizeY;
+    auto tiles    = new typeTileData*[elements];
+    for (int i = 0; i < elements; i++) {
+        auto element = new typeTileData{};
         file.read(reinterpret_cast<char*>(element), sizeof(typeTileData));
         tiles[i] = element;
     }
 
-    //All done, generate data
-    auto level = new typeLevelData;
+    // All done, generate data
+    auto level    = new typeLevelData;
     level->Header = header;
     level->Assets = asset;
-    level->Tiles = tiles;
+    level->Tiles  = tiles;
 
     return level;
 }
@@ -60,7 +54,7 @@ readLevelData(const std::string& filename) {
 typeTileData**
 newTileData(const int& x, const int& y) {
     const int size = x * y;
-    typeTileData**    map  = new typeTileData*[x * y];
+    auto      map  = new typeTileData*[x * y];
     for (int i = 0; i < size; i++)
         map[i] = new typeTileData{};
     return map;
@@ -73,8 +67,9 @@ deleteTile(typeTileData** tile, const int& elements) {
     delete[] tile;
 }
 
-void deleteTile(typeTile** tile, const int& elements){
-    for(int i = 0; i < elements; i++)
+void
+deleteTile(typeTile** tile, const int& elements) {
+    for (int i = 0; i < elements; i++)
         delete tile[i];
     delete[] tile;
 }
@@ -98,16 +93,15 @@ removeAsset(const uint8_t& id, typeAssets* map) {
 bool
 addAsset(const char* asset, typeAssets* map) {
     int lowest = 0;
-    for (int i = 0; i < TEXT_MAX_LENGTH; i++) {
-        if (map->Data[i].Id == 0) {
-            map->Data[i].Id = ++lowest;
-            auto len        = strlen(asset);
-            strncpy(map->Data[i].Asset, asset, len);
-            map->Data[i].Asset[len] = '\0'; // Null-terminate
-            return true;
+    for (auto& item : map->Data) {
+        if (item.Id == 0) {
+            item.Id  = ++lowest;
+            auto len = strlen(asset);
+            strncpy(item.Asset, asset, len);
+            item.Asset[len] = '\0';
         } else {
-            if (map->Data[i].Id > lowest)
-                lowest = map->Data[i].Id;
+            if (item.Id > lowest)
+                lowest = item.Id;
         }
     }
     return false;

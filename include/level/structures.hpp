@@ -7,7 +7,7 @@ namespace Level {
 
 const int TEXT_MAX_LENGTH = 31;
 
-enum TileType : uint8_t { Black = 0, Background = 1 << 1, Obstacle = 1 << 2 };
+enum TileType : uint8_t { BLANK = 0, BACKGROUND = 1 << 1, OBSTACLE = 1 << 2 };
 
 // Used inside data-file
 struct typeTileData {

@@ -16,6 +16,9 @@ Level::~Level() {
 bool
 Level::loadLevel(const std::string& filename) {
     auto data = readLevelData(filename);
+    mHeader = data->Header;
+    delete data;
+
     //Do something fun here
 }
 }

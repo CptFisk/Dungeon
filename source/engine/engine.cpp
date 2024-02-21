@@ -1,12 +1,12 @@
+#include <SDL3_ttf/SDL_ttf.h>
 #include <SDL_image.h>
 #include <common/handlers.hpp>
+#include <common/scale.hpp>
 #include <engine/engine.hpp>
 #include <iostream>
 #include <utility/file.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
-#include <SDL3_ttf/SDL_ttf.h>
-#include <common/scale.hpp>
 
 namespace Engine {
 
@@ -70,9 +70,11 @@ Engine::startup() {
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer, mScale);
     mGraphics->init();
 
+    mLevel  = std::make_unique<Level::Level>(pRenderer);
+    mLevel->loadLevel("level.map");
     mPlayer = std::make_unique<Player::Player>(mScale);
-    mEnergy = std::make_unique<Player::Energy>(mScale, mGraphics->getBaseTexture("Energy"), pRenderer);
 
+    mEnergy = std::make_unique<Player::Energy>(mScale, mGraphics->getBaseTexture("Energy"), pRenderer);
 
     // Binding player data
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::North, mGraphics->getAnimatedTexture("HumanIdleNorth"));
@@ -97,7 +99,7 @@ Engine::startup() {
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 
     SDL_SetRenderDrawColor(pRenderer, 0, 0, 24, SDL_ALPHA_OPAQUE);
-    }
+}
 
 void
 Engine::terminate() {
@@ -158,7 +160,6 @@ Engine::mainLoop() {
             handler(timer.getTicks());
             timer.start();
         }
-
 
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
