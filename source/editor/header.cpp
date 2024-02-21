@@ -12,8 +12,8 @@ Editor::uiHeader() {
         return;
     if(ImGui::Begin("Level settings", &mShowHeader, ImGuiWindowFlags_AlwaysAutoResize)){
         ImGui::InputScalar("Header version", ImGuiDataType_U8, &pLevelHeader->HeaderVersion);
-        ImGui::InputScalar("Map size X", ImGuiDataType_U8, &pLevelHeader->SizeX);
-        ImGui::InputScalar("Map size Y", ImGuiDataType_U8, &pLevelHeader->SizeY);
+        ImGui::InputScalar("Map size X", ImGuiDataType_U8, &pLevelHeader->Level.SizeX);
+        ImGui::InputScalar("Map size Y", ImGuiDataType_U8, &pLevelHeader->Level.SizeY);
         ImGui::InputText("Level name", pLevelHeader->MapName, IM_ARRAYSIZE(pLevelHeader->MapName));
         ImGui::ColorPicker4("MyColor##4", (float*)&color, flags, nullptr);
 
@@ -23,7 +23,7 @@ Editor::uiHeader() {
                 mShowAssets = true;
                 mNewFile = false;
                 mMapLoaded = true;
-                pTile = Level::newTileData(pLevelHeader->SizeX, pLevelHeader->SizeY);
+                pTile = Level::newTileData(pLevelHeader->Level.SizeX, pLevelHeader->Level.SizeY);
                 pVisualTile = newVisualTile();  //Generate a new visual tile
                 Level::addAsset("PurpleFloor", pAssets);
 

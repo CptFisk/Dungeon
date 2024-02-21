@@ -31,7 +31,7 @@ Editor::Editor()
 Editor::~Editor() {
     mInitHandler->shutdown();
 
-    const int size = pLevelHeader != nullptr ? pLevelHeader->SizeX * pLevelHeader->SizeY : 0;
+    const int size = pLevelHeader != nullptr ? pLevelHeader->Level.SizeX * pLevelHeader->Level.SizeY : 0;
     if (mFont)
         TTF_CloseFont(mFont); // Clean the font
     // Clean stuff that we need to know the size for
@@ -178,9 +178,9 @@ Editor::click(const float& x, const float& y) {
 std::pair<SDL_Texture*, SDL_FRect>**
 Editor::newVisualTile() {
     // Allocate data
-    const int sizeX = pLevelHeader->SizeX;
-    const int sizeY = pLevelHeader->SizeY;
-    const int size  = pLevelHeader->SizeX * pLevelHeader->SizeY;
+    const int sizeX = pLevelHeader->Level.SizeX;
+    const int sizeY = pLevelHeader->Level.SizeY;
+    const int size  = pLevelHeader->Level.SizeX * pLevelHeader->Level.SizeY;
 
     auto data = new std::pair<SDL_Texture*, SDL_FRect>* [size] {};
     for (int y = 0; y < sizeY; y++) {
@@ -215,7 +215,7 @@ Editor::getIndex(const int& x, const int& y) {
         return size_t();
     auto _x     = static_cast<int>(x);
     auto _y     = static_cast<int>(y);
-    auto _width = static_cast<int>(pLevelHeader->SizeX);
+    auto _width = static_cast<int>(pLevelHeader->Level.SizeX);
 
     return _x + _y * _width;
 }

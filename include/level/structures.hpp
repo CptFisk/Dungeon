@@ -7,7 +7,7 @@ namespace Level {
 
 const int TEXT_MAX_LENGTH = 31;
 
-enum TileType : uint8_t { BLANK = 0, BACKGROUND = 1 << 1, OBSTACLE = 1 << 2 };
+enum TileType : uint8_t { BLANK, BACKGROUND, OBSTACLE };
 
 // Used inside data-file
 struct typeTileData {
@@ -29,10 +29,13 @@ struct typeHeader {
         uint8_t BackgroundRed;   // RGB colour of background
         uint8_t BackgroundGreen; // RGB colour of background
         uint8_t BackgroundBlue;  // RGB colour of background
-    }Color;
+    } Color;
 
-    uint8_t SizeX; // Map width
-    uint8_t SizeY; // Map height
+    struct Level {
+        uint8_t  SizeX;    // Map width
+        uint8_t  SizeY;    // Map height
+        uint16_t Types[7]; // How many times each tiletype occurs
+    } Level;
 };
 
 struct typeAssetItem {

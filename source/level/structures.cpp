@@ -15,7 +15,7 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
     // Write meta
     file.write(reinterpret_cast<const char*>(&data.Assets), sizeof(data.Assets));
     // Write tile-data
-    const int size = data.Header.SizeX * data.Header.SizeY;
+    const int size = data.Header.Level.SizeX * data.Header.Level.SizeY;
     for (int i = 0; i < size; i++) {
         file.write(reinterpret_cast<const char*>(data.Tiles[i]), sizeof(typeTileData));
     }
@@ -34,7 +34,7 @@ readLevelData(const std::string& filename) {
     // Determine size of tiles
     file.seekg(0, std::ios::end);
 
-    int  elements = header.SizeX * header.SizeY;
+    int  elements = header.Level.SizeX * header.Level.SizeY;
     auto tiles    = new typeTileData*[elements];
     for (int i = 0; i < elements; i++) {
         auto element = new typeTileData{};
