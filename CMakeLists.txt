@@ -52,8 +52,7 @@ if (BUILD_GAME)
             ${CMAKE_SOURCE_DIR}/source/engine/engine.cpp
             ${CMAKE_SOURCE_DIR}/source/engine/interrupt.cpp
 
-            ${CMAKE_SOURCE_DIR}/source/world/level.cpp
-
+            ${CMAKE_SOURCE_DIR}/source/level/level.cpp
 
             ${CMAKE_SOURCE_DIR}/source/player/player.cpp
             ${CMAKE_SOURCE_DIR}/source/player/energy.cpp

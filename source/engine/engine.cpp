@@ -69,10 +69,10 @@ Engine::startup() {
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer, mScale);
     mGraphics->init();
-    mLevel  = std::make_shared<Level>(pRenderer, mScale);
+
     mPlayer = std::make_unique<Player::Player>(mScale);
     mEnergy = std::make_unique<Player::Energy>(mScale, mGraphics->getBaseTexture("Energy"), pRenderer);
-    mLevel->generateLevel(mGraphics->getBaseTexture("PurpleFloor"));
+
 
     // Binding player data
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::North, mGraphics->getAnimatedTexture("HumanIdleNorth"));
@@ -159,7 +159,6 @@ Engine::mainLoop() {
             timer.start();
         }
 
-        mLevel->drawLevel();
 
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();

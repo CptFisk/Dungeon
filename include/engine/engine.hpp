@@ -11,7 +11,6 @@
 #include <thread>
 #include <utility/timer.hpp>
 #include <utility>
-#include <world/level.hpp>
 
 namespace Engine {
 class Engine {
@@ -51,7 +50,7 @@ class Engine {
     std::unique_ptr<Common::InitHandler> mInitHandler;
     std::unique_ptr<Player::Player>      mPlayer;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
-    std::shared_ptr<Level>               mLevel;
+
     std::unique_ptr<Player::Energy>      mEnergy;
     // Events
     std::unique_ptr<Common::ActionManager>     mActionManager;
