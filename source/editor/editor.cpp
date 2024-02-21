@@ -3,6 +3,7 @@
 #include <backends/imgui_impl_sdlrenderer3.h>
 #include <cmath>
 #include <common/imgui.hpp>
+#include <common/math.hpp>
 #include <common/scale.hpp>
 #include <common/sdl.hpp>
 #include <editor/editor.hpp>
@@ -167,7 +168,7 @@ Editor::terminate() {
 void
 Editor::click(const float& x, const float& y) {
     if (pTile != nullptr) {
-        auto index                = getIndex(getClickCoords(x, y));
+        auto index                = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
         pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
         pTile[index]->Type        = Level::BACKGROUND;
         pTile[index]->Id          = 1;
@@ -188,7 +189,7 @@ Editor::newVisualTile() {
             // Start to generate
             auto xf    = static_cast<float>(x);
             auto yf    = static_cast<float>(y);
-            auto index = getIndex(x, y);
+            auto index = Common::getIndex(x, y, pLevelHeader);
 
             data[index] = new std::pair<SDL_Texture*, SDL_FRect>(
               nullptr,
@@ -197,12 +198,5 @@ Editor::newVisualTile() {
         }
     }
     return data;
-}
-
-
-std::pair<int, int>
-Editor::getClickCoords(const float& x, const float& y) {
-
-
 }
 }
