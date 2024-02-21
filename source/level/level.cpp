@@ -1,10 +1,11 @@
+#include <common/math.hpp>
+#include <common/sdl.hpp>
 #include <iostream>
 #include <level/level.hpp>
-#include <common/math.hpp>
 
 namespace Level {
 
-Level::Level(SDL_Renderer* renderer,const Common::typeScale &scale)
+Level::Level(SDL_Renderer* renderer, const Common::typeScale& scale)
   : pRenderer(renderer)
   , mScale(scale)
   , mHeader{}
@@ -27,18 +28,12 @@ Level::loadLevel(const std::string& filename) {
         elements += Type;
     pTiles = new typeTile* [elements] {}; // Allocating
 
-    int item = 0; //Keep track of current position
+    int item = 0; // Keep track of current position
     for (int y = 0; y < data->Header.Level.SizeY; y++) {
         for (int x = 0; x < data->Header.Level.SizeX; x++) {
-            switch(data->Tiles[Common::getIndex(x,y, &data->Header)]->Type){
+            switch (data->Tiles[Common::getIndex(x, y, &data->Header)]->Type) {
                 case BACKGROUND:
-                    /*
-                    pTiles[item++] = new typeTile{
-                        BACKGROUND,
-                          SDL_FRect {,0,0,0},
-                          nullptr
-                    };
-                     */
+                    pTiles[item++] = new typeTile{ BACKGROUND, Common::newSDL_FRect(x, y, mScale), nullptr };
                     break;
                 case OBSTACLE:
                     break;

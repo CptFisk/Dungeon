@@ -1,5 +1,4 @@
 #include <SDL3_ttf/SDL_ttf.h>
-#include <SDL_image.h>
 #include <common/handlers.hpp>
 #include <common/scale.hpp>
 #include <engine/engine.hpp>
