@@ -99,7 +99,6 @@ Editor::mainLoop() {
                                    pLevelHeader->Color.BackgroundBlue,
                                    SDL_ALPHA_OPAQUE);
         ImGui_ImplSDLRenderer3_NewFrame();
-    ImGui:
         ImGui_ImplSDL3_NewFrame();
         ImGui::NewFrame();
         mFPSTimer.start();
@@ -205,19 +204,19 @@ Editor::click(const float& x, const float& y) {
         switch (mMouse) {
             case TEXTURE:
                 if (pTile[index]->Type == Level::BLANK) {
-                    pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
-                    pTile[index]->Type        = Level::BACKGROUND;
-                    pTile[index]->Id          = 1;
+                    pVisualTile[index]->Texture = mGraphics->getTexture("PurpleFloor");
+                    pTile[index]->Type          = Level::BACKGROUND;
+                    pTile[index]->Id            = 1;
                     pLevelHeader->Level.Types[(Level::BACKGROUND)-1]++;
                 } else if (pTile[index]->Type == Level::BACKGROUND) {
-                    pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
+                    pVisualTile[index]->Texture = mGraphics->getTexture("PurpleFloor");
                 }
                 break;
             case REMOVE:
                 if (pTile[index]->Type == Level::BACKGROUND) {
-                    pVisualTile[index]->first = nullptr;
-                    pTile[index]->Type        = Level::BLANK;
-                    pTile[index]->Id          = 0;
+                    pVisualTile[index]->Texture = nullptr;
+                    pTile[index]->Type          = Level::BLANK;
+                    pTile[index]->Id            = 0;
                     pLevelHeader->Level.Types[(Level::BACKGROUND)-1]--;
                 }
                 break;
@@ -228,22 +227,19 @@ Editor::click(const float& x, const float& y) {
     }
 }
 
-std::pair<SDL_Texture*, SDL_FRect>**
+Editor::typeVisualTile**
 Editor::newVisualTile() {
     // Allocate data
     const int sizeX = pLevelHeader->Level.SizeX;
     const int sizeY = pLevelHeader->Level.SizeY;
     const int size  = pLevelHeader->Level.SizeX * pLevelHeader->Level.SizeY;
 
-    auto data = new std::pair<SDL_Texture*, SDL_FRect>* [size] {};
+    auto data = new Editor::typeVisualTile* [size] {};
     for (int y = 0; y < sizeY; y++) {
         for (int x = 0; x < sizeX; x++) {
-            // Start to generate
-            auto xf    = static_cast<float>(x);
-            auto yf    = static_cast<float>(y);
             auto index = Common::getIndex(x, y, pLevelHeader);
-
-            data[index] = new std::pair<SDL_Texture*, SDL_FRect>(nullptr, Common::newSDL_FRect(x, y, mScale));
+            data[index] =
+              new Editor::typeVisualTile(Common::newSDL_FRect(x,y,mScale));
         }
     }
     return data;

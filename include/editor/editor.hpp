@@ -4,6 +4,7 @@
 #include <common/include.hpp>
 #include <editor/structures.hpp>
 #include <graphics/graphics.hpp>
+#include <graphics/structures.hpp>
 #include <level/structures.hpp>
 #include <list>
 #include <memory>
@@ -28,11 +29,11 @@ class Editor {
     void terminate();                           // Kill the editor
     void click(const float& x, const float& y); // Click
   protected:
-    void displayElement(const std::string& element);
-    void hideElement(const std::string& element);
-    void hideAllElements();
-    bool isElementVisible(const std::string& element);
-    bool clickOnUi(const float& x, const float& y);
+    void        displayElement(const std::string& element);
+    void        hideElement(const std::string& element);
+    void        hideAllElements();
+    bool        isElementVisible(const std::string& element);
+    bool        clickOnUi(const float& x, const float& y);
     static bool isOverlap(const float& value, const float& low, const float& high);
 
     void uiMenu();     // Top menu
@@ -42,8 +43,6 @@ class Editor {
     void uiMouse();
     void uiTiles();
     void present(); // Render all graphic
-
-    std::pair<SDL_Texture*, SDL_FRect>** newVisualTile();
 
   private:
     Common::typeScale mScale;
@@ -87,9 +86,19 @@ class Editor {
     bool                                                   mHideAllWindows; // True if all elements should be hidden
 
     // Map data
-    Level::typeHeader*                   pLevelHeader;
-    Level::typeAssets*                   pAssets;
-    Level::typeTileData**                pTile;
-    std::pair<SDL_Texture*, SDL_FRect>** pVisualTile; // Used for drawing stuff
+    Level::typeHeader*    pLevelHeader;
+    Level::typeAssets*    pAssets;
+    Level::typeTileData** pTile;
+    struct typeVisualTile {
+        SDL_Texture* Texture;
+        SDL_FRect    Position;
+        SDL_FRect    Viewport;
+        typeVisualTile(const SDL_FRect& position)
+          : Texture(nullptr)
+          , Viewport(SDL_FRect{ 0.0f, 0.0f, 0.0f, 0.0f })
+          , Position(position) {}
+    }** pVisualTile;
+
+    typeVisualTile** newVisualTile();
 };
 }

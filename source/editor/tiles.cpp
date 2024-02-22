@@ -9,8 +9,8 @@ Editor::uiTiles() {
     for (int y = 0; y < pLevelHeader->Level.SizeY; y++) {
         for (int x = 0; x < pLevelHeader->Level.SizeX; x++) {
             int index = Common::getIndex(x,y, pLevelHeader);
-            if(pVisualTile[index]->first != nullptr){
-                SDL_RenderTexture(pRenderer, pVisualTile[index]->first, nullptr, &pVisualTile[index]->second);
+            if(pVisualTile[index]->Texture != nullptr){
+                SDL_RenderTexture(pRenderer, pVisualTile[index]->Texture, &pVisualTile[index]->Viewport, &pVisualTile[index]->Position);
             }
         }
     }
