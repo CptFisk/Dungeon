@@ -25,10 +25,10 @@ Level::loadLevel(const std::string& filename) {
     mHeader        = data->Header; // Catch header
     const int size = data->Header.Level.SizeX * data->Header.Level.SizeY;
 
-    int elements = 0; // Number of elements that have a tile
+    mElements = 0; // Number of elements that have a tile
     for (unsigned short Type : data->Header.Level.Types)
-        elements += Type;
-    pTiles = new typeTile* [elements] {}; // Allocating
+        mElements  += Type;
+    pTiles = new typeTile* [mElements] {}; // Allocating
 
     int item = 0; // Keep track of current position
     for (int y = 0; y < data->Header.Level.SizeY; y++) {
@@ -47,8 +47,16 @@ Level::loadLevel(const std::string& filename) {
         }
     }
 
+    printf("%i\n", item);
     delete data;
 
-    // Do something fun here
+}
+
+void Level::draw() {
+    if(pTiles != nullptr){
+        for(int i = 0; i < mElements ; i++){
+            SDL_RenderTexture(pRenderer,pTiles[i]->Texture, &pTiles[i]->Viewport, &pTiles[i]->Position);
+        }
+    }
 }
 }

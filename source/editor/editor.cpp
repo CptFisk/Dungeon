@@ -169,10 +169,12 @@ void
 Editor::click(const float& x, const float& y) {
     if (pTile != nullptr) {
         auto index                = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
-        pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
-        pTile[index]->Type        = Level::BACKGROUND;
-        pTile[index]->Id          = 1;
-        pLevelHeader->Level.Types[(Level::BACKGROUND)-1]++;
+        if (pTile[index]->Type == Level::BLANK) {
+            pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
+            pTile[index]->Type = Level::BACKGROUND;
+            pTile[index]->Id   = 1;
+            pLevelHeader->Level.Types[(Level::BACKGROUND)-1]++;
+        }
     }
 }
 

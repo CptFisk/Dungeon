@@ -16,6 +16,8 @@ class Level {
     void loadLevel(const std::string& filename);
     bool movement(const SDL_FRect& other); // Check if movement is allowed, or if it collides with other objects
 
+    void draw();
+
   protected:
   private:
     // Graphical stuff
@@ -28,6 +30,7 @@ class Level {
     // Level data
     typeHeader mHeader;
     typeTile** pTiles;
+    int        mElements;   //Number of elements that exist in pTiles
 };
 
 }

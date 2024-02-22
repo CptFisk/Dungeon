@@ -159,7 +159,7 @@ Engine::mainLoop() {
             handler(timer.getTicks());
             timer.start();
         }
-
+        mLevel->draw();
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         particles();
