@@ -200,7 +200,7 @@ Editor::terminate() {
 
 void
 Editor::click(const float& x, const float& y) {
-    if (pTile != nullptr || clickOnUi(x, y)) {
+    if (pTile != nullptr && !clickOnUi(x, y)) {
         auto index = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
         switch (mMouse) {
             case TEXTURE:
