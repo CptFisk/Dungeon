@@ -8,9 +8,9 @@ Editor::uiHeader() {
     static float color[4];
 
     ImGuiColorEditFlags flags = ImGuiColorEditFlags_NoAlpha;
-    if(!mShowHeader || pLevelHeader == nullptr)
+    if(pLevelHeader == nullptr)
         return;
-    if(ImGui::Begin("Level settings", &mShowHeader, ImGuiWindowFlags_AlwaysAutoResize)){
+    if(ImGui::Begin("Level settings", &mWindowOpen["Header"], ImGuiWindowFlags_AlwaysAutoResize)){
         ImGui::InputScalar("Header version", ImGuiDataType_U8, &pLevelHeader->HeaderVersion);
         ImGui::InputScalar("Map size X", ImGuiDataType_U8, &pLevelHeader->Level.SizeX);
         ImGui::InputScalar("Map size Y", ImGuiDataType_U8, &pLevelHeader->Level.SizeY);
@@ -19,8 +19,6 @@ Editor::uiHeader() {
 
 
         if(ImGui::Button(mNewFile ? "Create" : "Save")){
-            mShowHeader  = false;
-                mShowAssets = true;
                 mNewFile = false;
                 mMapLoaded = true;
                 pTile = Level::newTileData(pLevelHeader->Level.SizeX, pLevelHeader->Level.SizeY);

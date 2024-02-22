@@ -8,8 +8,6 @@ Editor::uiMenu() {
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("New project")) {
-                mNewFile           = true;
-                mShowHeader        = true;
                 delete pLevelHeader; // Clean first
                 pLevelHeader = new Level::typeHeader{};
                 pAssets      = new Level::typeAssets{};
@@ -26,10 +24,10 @@ Editor::uiMenu() {
         }
         if (ImGui::BeginMenu("Project", mMapLoaded)) {
             if (ImGui::MenuItem("Level settings")) {
-                mShowHeader = true;
+
             }
             if (ImGui::MenuItem("Assets")) {
-                mShowAssets = true;
+
             }
             ImGui::EndMenu();
         }

@@ -17,16 +17,13 @@ Editor::Editor()
   , mFont(nullptr)
   , mRun(true)
   , mMapLoaded(false)
-  , mShowHeader(false)
-  , mShowAssets(false)
-  , mShowToolbox(false)
-  , mShowGrid(true)
   , mNewFile(false)
   , pLevelHeader(nullptr)
   , pAssets(nullptr)
   , pTile(nullptr)
   , pVisualTile(nullptr)
   , mScale{}
+  ,mHideAllWindows(false)
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Editor::~Editor() {
@@ -85,6 +82,7 @@ Editor::startup() {
     mElements["Grid"] = [this](){uiDrawGrid();};
     mElements["Header"] = [this](){uiHeader();};
     mElements["Assets"] = [this](){uiAssets();};
+    displayElement("Top");
 }
 
 void
@@ -98,10 +96,11 @@ Editor::mainLoop() {
                                    pLevelHeader->Color.BackgroundGreen,
                                    pLevelHeader->Color.BackgroundBlue,
                                    SDL_ALPHA_OPAQUE);
+        ImGui_ImplSDLRenderer3_NewFrame();
+        ImGui:ImGui_ImplSDL3_NewFrame();
         ImGui::NewFrame();
         mFPSTimer.start();
 
-        // ImGui::ShowDemoWindow();
 
         SDL_RenderClear(pRenderer);
         while (SDL_PollEvent(&event)) {
@@ -129,12 +128,38 @@ Editor::mainLoop() {
             timer.start();
         }
 
-        // SDL_RenderTexture(pRenderer, texture, NULL, &dstRect);
-        uiTiles();
-        uiDrawGrid();
-        uiMenu();
-        uiAssets();
-        uiHeader();
+        //Draw all visible elements
+        for(const auto& element : mVisibleElements)
+            element();
+        if(mHideAllWindows){
+            mVisibleElements.clear();
+            mWindows.clear();
+            mHideAllWindows = false;
+            for(auto& [name, flag] : mWindowOpen)
+                flag = false;
+        }else{
+            for(const auto& element : mElementsToHide){
+                auto it = mElements.find(element);
+                if(it != mElements.end())
+                    mVisibleElements.erase(it->second);
+                if(mWindows.find(element) != mWindows.end())
+                    mWindows.erase(it->first);
+            }
+            mElementsToHide.clear();
+            for(auto &[name,flag] : mWindowOpen){
+                if(!flag)
+                    mVisibleElements.erase(mElements.find(name)->second);
+            }
+        }
+
+        //Adding new items that should be visible next scan
+        for(const auto& element : mElementsToShow){
+            auto it = mElements.find(element);
+            if(mElements.find(element) != mElements.end())
+                mVisibleElements.insert(it->second);
+            mWindowOpen[element] = true;
+        }
+        mElementsToShow.clear();
 
         present();
 

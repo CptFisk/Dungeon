@@ -4,10 +4,10 @@
 namespace Editor {
 void
 Editor::uiAssets() {
-    if (!mShowAssets|| pAssets == nullptr)
+    if (pAssets == nullptr)
         return;
     static char asset[31];
-    if (ImGui::Begin("Assets", &mShowAssets, ImGuiWindowFlags_AlwaysAutoResize)) {
+    if (ImGui::Begin("Assets", &mWindowOpen["Assets"], ImGuiWindowFlags_AlwaysAutoResize)) {
         ImGui::Text("Assets");
         for (int i = 0; i < 30 && pAssets->Data[i].Id != 0; i++) {
             ImGui::PushItemWidth(ImGui::CalcTextSize("FF").x + ImGui::GetStyle().ItemSpacing.x * 2.0f);
