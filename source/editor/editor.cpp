@@ -79,6 +79,12 @@ Editor::startup() {
     }
 
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
+
+    mElements["Top"] = [this](){uiMenu();};
+    mElements["Tiles"] = [this](){uiTiles();};
+    mElements["Grid"] = [this](){uiDrawGrid();};
+    mElements["Header"] = [this](){uiHeader();};
+    mElements["Assets"] = [this](){uiAssets();};
 }
 
 void
