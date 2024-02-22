@@ -160,7 +160,7 @@ Editor::mainLoop() {
             mWindowOpen[element] = true;
         }
         mElementsToShow.clear();
-
+        uiTiles();
         present();
 
         auto ticks = mFPSTimer.getTicks();

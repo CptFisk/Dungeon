@@ -5,7 +5,7 @@ void
 Editor::uiDrawGrid() {
     const int maxX = SDL_MAX_UINT8;
     const int maxY = SDL_MAX_UINT8;
-    SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+    SDL_SetRenderDrawColor(pRenderer, 0,0, 0, SDL_ALPHA_OPAQUE);
     const float lineHeight = SDL_MAX_UINT8 * 16.0 * mScale.ScaleY;
     const float lineWidth  = SDL_MAX_UINT8 * 16 * mScale.ScaleX;
 

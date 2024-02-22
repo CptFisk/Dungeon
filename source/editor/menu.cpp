@@ -11,6 +11,7 @@ Editor::uiMenu() {
                 delete pLevelHeader; // Clean first
                 pLevelHeader = new Level::typeHeader{};
                 pAssets      = new Level::typeAssets{};
+                displayElement("Header");
             }
             if (ImGui::MenuItem("Load project")) {
             }
@@ -24,11 +25,16 @@ Editor::uiMenu() {
         }
         if (ImGui::BeginMenu("Project", mMapLoaded)) {
             if (ImGui::MenuItem("Level settings")) {
-
+                displayElement("Header");
             }
             if (ImGui::MenuItem("Assets")) {
-
+                displayElement("Assets");
             }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Display")){
+            if(ImGui::MenuItem("Grid"))
+                displayElement("Grid");
             ImGui::EndMenu();
         }
     }
