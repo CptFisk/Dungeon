@@ -5,7 +5,7 @@
 
 namespace Level {
 
-const int TEXT_MAX_LENGTH = 31;
+const int TEXT_MAX_LENGTH      = 31;
 const int TILE_TYPE_VARIATIONS = 7;
 
 enum TileType : uint8_t { BLANK, BACKGROUND, OBSTACLE };
@@ -20,6 +20,12 @@ struct typeTile {
     TileType     Type;     // Tiletype
     SDL_FRect    Position; // Position
     SDL_Texture* Texture;  // Reference to texture
+    SDL_FRect    Viewport; // Viewport
+    typeTile(TileType type, SDL_FRect position, std::pair<SDL_Texture*, SDL_FRect> texture)
+      : Type(type)
+      , Position(position)
+      , Texture(texture.first)
+      , Viewport(texture.second) {}
 };
 
 struct typeHeader {
@@ -33,8 +39,8 @@ struct typeHeader {
     } Color;
 
     struct Level {
-        uint8_t  SizeX;    // Map width
-        uint8_t  SizeY;    // Map height
+        uint8_t  SizeX;                       // Map width
+        uint8_t  SizeY;                       // Map height
         uint16_t Types[TILE_TYPE_VARIATIONS]; // How many times each tiletype occurs
     } Level;
 };
