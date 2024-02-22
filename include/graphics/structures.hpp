@@ -21,6 +21,8 @@ struct typeSimpleTexture {
     std::vector<SDL_FRect> Views;
 
     std::pair<SDL_Texture*, SDL_FRect> operator[](size_t n) const {
+        if(n == -1)
+            return {Texture, Views[rand() % Views.size()]};
         if (n < Views.size()) {
             return { Texture, Views[n] };
         } else {
