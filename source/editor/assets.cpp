@@ -27,7 +27,7 @@ Editor::uiAssets() {
             strncpy(asset, "", sizeof(asset)); // Clearing
         }
     }
-    ImGui::End();
     mWindows["Assets"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
+    ImGui::End();
 }
 }

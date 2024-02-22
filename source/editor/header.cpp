@@ -31,8 +31,11 @@ Editor::uiHeader() {
         }
 
     }
+    mWindows["Header"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
     ImGui::End();
-    mWindows["Level settings"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
+
+    if(!mWindowOpen["Header"])
+        hideElement("Header");
 }
 
 }

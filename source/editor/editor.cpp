@@ -204,7 +204,10 @@ Editor::click(const float& x, const float& y) {
         switch (mMouse) {
             case TEXTURE:
                 if (pTile[index]->Type == Level::BLANK) {
-                    pVisualTile[index]->Texture = mGraphics->getTexture("PurpleFloor");
+                    auto simpleTexture = mGraphics->getBaseTexture("PurpleFloor");
+                    pVisualTile[index]->Texture = simpleTexture.Texture;
+                    pVisualTile[index]->Viewport = simpleTexture[-1].second;
+
                     pTile[index]->Type          = Level::BACKGROUND;
                     pTile[index]->Id            = 1;
                     pLevelHeader->Level.Types[(Level::BACKGROUND)-1]++;
