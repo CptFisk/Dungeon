@@ -6,6 +6,7 @@
 #include <level/structures.hpp>
 #include <list>
 #include <memory>
+#include <set>
 #include <utility/timer.hpp>
 
 namespace Editor {
@@ -31,9 +32,10 @@ class Editor {
     void uiDrawGrid(); // Draw a basic grid over the area
     void uiAssets();   // Display the metadata related to the map
     void uiTiles();
-    void present();    // Render all graphic
+    void present(); // Render all graphic
 
     std::pair<SDL_Texture*, SDL_FRect>** newVisualTile();
+
   private:
     Common::typeScale mScale;
 
@@ -62,10 +64,27 @@ class Editor {
     bool mShowAssets;
     bool mShowToolbox;
 
+    // Windows
+    struct typeWindowCovering {
+        ImVec2 Position;
+        ImVec2 Size;
+    };
+    struct typeElementsCompare {
+        bool operator()(const std::function<void()>& lhs, const std::function<void()>& rhs) const {
+            return lhs.target_type().hash_code() < rhs.target_type().hash_code());
+        }
+    };
+    std::unordered_map<std::string, typeWindowCovering>    mWindows; // Contains the position and sizes of all windows
+    std::unordered_map<std::string, bool>                  mWindowOpen; // True if a window is open
+    std::vector<std::string>                               mElementsToHide;
+    std::vector<std::string>                               mElementsToShow;
+    std::unordered_map<std::string, std::function<void()>> mElements; // Contain all graphical elements
+    std::set<std::function<void()>, typeElementsCompare>   mVisibleElements;
+
     // Map data
-    Level::typeHeader*                       pLevelHeader;
-    Level::typeAssets*                       pAssets;
-    Level::typeTileData**                        pTile;
+    Level::typeHeader*                   pLevelHeader;
+    Level::typeAssets*                   pAssets;
+    Level::typeTileData**                pTile;
     std::pair<SDL_Texture*, SDL_FRect>** pVisualTile; // Used for drawing stuff
 };
 }
