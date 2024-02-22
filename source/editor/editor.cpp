@@ -83,6 +83,7 @@ Editor::startup() {
     mElements["Grid"]   = [this]() { uiDrawGrid(); };
     mElements["Header"] = [this]() { uiHeader(); };
     mElements["Assets"] = [this]() { uiAssets(); };
+    mElements["Mouse"]  = [this]() { uiMouse(); };
     displayElement("Top");
 }
 

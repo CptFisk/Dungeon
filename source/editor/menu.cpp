@@ -35,6 +35,8 @@ Editor::uiMenu() {
         if (ImGui::BeginMenu("Display")){
             if(ImGui::MenuItem("Grid"))
                 displayElement("Grid");
+            if(ImGui::MenuItem("Mouse"))
+                displayElement("Mouse");
             ImGui::EndMenu();
         }
     }
