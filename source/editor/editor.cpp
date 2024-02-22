@@ -23,7 +23,8 @@ Editor::Editor()
   , pTile(nullptr)
   , pVisualTile(nullptr)
   , mScale{}
-  ,mHideAllWindows(false)
+  , mHideAllWindows(false)
+  , mMouse(DEFAULT)
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Editor::~Editor() {
@@ -77,11 +78,11 @@ Editor::startup() {
 
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 
-    mElements["Top"] = [this](){uiMenu();};
-    mElements["Tiles"] = [this](){uiTiles();};
-    mElements["Grid"] = [this](){uiDrawGrid();};
-    mElements["Header"] = [this](){uiHeader();};
-    mElements["Assets"] = [this](){uiAssets();};
+    mElements["Top"]    = [this]() { uiMenu(); };
+    mElements["Tiles"]  = [this]() { uiTiles(); };
+    mElements["Grid"]   = [this]() { uiDrawGrid(); };
+    mElements["Header"] = [this]() { uiHeader(); };
+    mElements["Assets"] = [this]() { uiAssets(); };
     displayElement("Top");
 }
 
@@ -97,10 +98,10 @@ Editor::mainLoop() {
                                    pLevelHeader->Color.BackgroundBlue,
                                    SDL_ALPHA_OPAQUE);
         ImGui_ImplSDLRenderer3_NewFrame();
-        ImGui:ImGui_ImplSDL3_NewFrame();
+    ImGui:
+        ImGui_ImplSDL3_NewFrame();
         ImGui::NewFrame();
         mFPSTimer.start();
-
 
         SDL_RenderClear(pRenderer);
         while (SDL_PollEvent(&event)) {
@@ -128,34 +129,34 @@ Editor::mainLoop() {
             timer.start();
         }
 
-        //Draw all visible elements
-        for(const auto& element : mVisibleElements)
+        // Draw all visible elements
+        for (const auto& element : mVisibleElements)
             element();
-        if(mHideAllWindows){
+        if (mHideAllWindows) {
             mVisibleElements.clear();
             mWindows.clear();
             mHideAllWindows = false;
-            for(auto& [name, flag] : mWindowOpen)
+            for (auto& [name, flag] : mWindowOpen)
                 flag = false;
-        }else{
-            for(const auto& element : mElementsToHide){
+        } else {
+            for (const auto& element : mElementsToHide) {
                 auto it = mElements.find(element);
-                if(it != mElements.end())
+                if (it != mElements.end())
                     mVisibleElements.erase(it->second);
-                if(mWindows.find(element) != mWindows.end())
+                if (mWindows.find(element) != mWindows.end())
                     mWindows.erase(it->first);
             }
             mElementsToHide.clear();
-            for(auto &[name,flag] : mWindowOpen){
-                if(!flag)
+            for (auto& [name, flag] : mWindowOpen) {
+                if (!flag)
                     mVisibleElements.erase(mElements.find(name)->second);
             }
         }
 
-        //Adding new items that should be visible next scan
-        for(const auto& element : mElementsToShow){
+        // Adding new items that should be visible next scan
+        for (const auto& element : mElementsToShow) {
             auto it = mElements.find(element);
-            if(mElements.find(element) != mElements.end())
+            if (mElements.find(element) != mElements.end())
                 mVisibleElements.insert(it->second);
             mWindowOpen[element] = true;
         }
@@ -199,11 +200,11 @@ Editor::terminate() {
 void
 Editor::click(const float& x, const float& y) {
     if (pTile != nullptr || clickOnUi(x, y)) {
-        auto index                = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
+        auto index = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
         if (pTile[index]->Type == Level::BLANK) {
             pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
-            pTile[index]->Type = Level::BACKGROUND;
-            pTile[index]->Id   = 1;
+            pTile[index]->Type        = Level::BACKGROUND;
+            pTile[index]->Id          = 1;
             pLevelHeader->Level.Types[(Level::BACKGROUND)-1]++;
         }
     }

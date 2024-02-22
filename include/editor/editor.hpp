@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <common/include.hpp>
+#include <editor/structures.hpp>
 #include <graphics/graphics.hpp>
 #include <level/structures.hpp>
 #include <list>
@@ -64,6 +65,7 @@ class Editor {
     SDL_Renderer* pRenderer;
     TTF_Font*     mFont;
     SDL_Color     mWhite = { 255, 255, 255 }; // White color
+    Mouse         mMouse;
 
     // Windows
     struct typeWindowCovering {
@@ -81,7 +83,7 @@ class Editor {
     std::vector<std::string>                               mElementsToShow;
     std::unordered_map<std::string, std::function<void()>> mElements; // Contain all graphical elements
     std::set<std::function<void()>, typeElementsCompare>   mVisibleElements;
-    bool                                                   mHideAllWindows; //True if all elements should be hidden
+    bool                                                   mHideAllWindows; // True if all elements should be hidden
 
     // Map data
     Level::typeHeader*                   pLevelHeader;
