@@ -10,6 +10,9 @@ Editor::uiMenu() {
             if (ImGui::MenuItem("New project")) {
                 delete pLevelHeader; // Clean first
                 pLevelHeader = new Level::typeHeader{};
+                pLevelHeader->Level.SizeX = 16;
+                pLevelHeader->Level.SizeY = 12;
+                pLevelHeader->HeaderVersion = 1;
                 pAssets      = new Level::typeAssets{};
                 displayElement("Header");
             }

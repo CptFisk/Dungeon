@@ -28,5 +28,6 @@ Editor::uiAssets() {
         }
     }
     ImGui::End();
+    mWindows["Assets"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
 }
 }

@@ -32,7 +32,7 @@ Editor::uiHeader() {
 
     }
     ImGui::End();
-
+    mWindows["Level settings"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
 }
 
 }

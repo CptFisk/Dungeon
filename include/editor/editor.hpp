@@ -33,7 +33,7 @@ class Editor {
     void hideAllElements();
     bool isElementVisible(const std::string& element);
     bool clickOnUi(const float& x, const float& y);
-    bool isOverlap(const float& value, const float& low, const float& high);
+    static bool isOverlap(const float& value, const float& low, const float& high);
 
     void uiMenu();     // Top menu
     void uiHeader();   // Display current open project settings

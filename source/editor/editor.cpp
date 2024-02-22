@@ -203,7 +203,7 @@ Editor::click(const float& x, const float& y) {
     if (pTile != nullptr || clickOnUi(x, y)) {
         auto index = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
         switch (mMouse) {
-            case BACKGROUND:
+            case TEXTURE:
                 if (pTile[index]->Type == Level::BLANK) {
                     pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
                     pTile[index]->Type        = Level::BACKGROUND;
