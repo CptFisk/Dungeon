@@ -202,13 +202,28 @@ void
 Editor::click(const float& x, const float& y) {
     if (pTile != nullptr || clickOnUi(x, y)) {
         auto index = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
-        if (pTile[index]->Type == Level::BLANK && mMouse == BACKGROUND) {
-            pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
-            pTile[index]->Type        = Level::BACKGROUND;
-            pTile[index]->Id          = 1;
-            pLevelHeader->Level.Types[(Level::BACKGROUND)-1]++;
-        }else if(pTile[index]->Type == Level::BACKGROUND){
-            pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
+        switch (mMouse) {
+            case BACKGROUND:
+                if (pTile[index]->Type == Level::BLANK) {
+                    pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
+                    pTile[index]->Type        = Level::BACKGROUND;
+                    pTile[index]->Id          = 1;
+                    pLevelHeader->Level.Types[(Level::BACKGROUND)-1]++;
+                } else if (pTile[index]->Type == Level::BACKGROUND) {
+                    pVisualTile[index]->first = mGraphics->getTexture("PurpleFloor");
+                }
+                break;
+            case REMOVE:
+                if (pTile[index]->Type == Level::BACKGROUND) {
+                    pVisualTile[index]->first = nullptr;
+                    pTile[index]->Type        = Level::BLANK;
+                    pTile[index]->Id          = 0;
+                    pLevelHeader->Level.Types[(Level::BACKGROUND)-1]--;
+                }
+                break;
+            default:
+            case DEFAULT:
+                break;
         }
     }
 }
