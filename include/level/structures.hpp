@@ -8,12 +8,11 @@ namespace Level {
 const int TEXT_MAX_LENGTH      = 31;
 const int TILE_TYPE_VARIATIONS = 7;
 
-enum TileType : uint8_t { BLANK, BACKGROUND, OBSTACLE };
-
+enum TileType : uint8_t { BLANK = 0, BACKGROUND = 1 << 1, OBSTACLE = 1 << 2 };
 // Used inside data-file
 struct typeTileData {
-    TileType Type; // Tiletype
-    uint8_t  Id;   // ID used in SubMetaFiles
+    uint8_t Type; // Tiletype
+    uint8_t Id;   // ID used in SubMetaFiles
 };
 
 struct typeTile {

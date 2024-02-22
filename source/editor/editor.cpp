@@ -208,9 +208,9 @@ Editor::click(const float& x, const float& y) {
                     pVisualTile[index]->Texture = simpleTexture.Texture;
                     pVisualTile[index]->Viewport = simpleTexture[-1].second;
 
-                    pTile[index]->Type          = Level::BACKGROUND;
+                    pTile[index]->Type          |= Level::BACKGROUND;
                     pTile[index]->Id            = 1;
-                    pLevelHeader->Level.Types[(Level::BACKGROUND)-1]++;
+                    pLevelHeader->Level.Types[0]++;
                 } else if (pTile[index]->Type == Level::BACKGROUND) {
                     pVisualTile[index]->Texture = mGraphics->getTexture("PurpleFloor");
                 }
@@ -220,7 +220,7 @@ Editor::click(const float& x, const float& y) {
                     pVisualTile[index]->Texture = nullptr;
                     pTile[index]->Type          = Level::BLANK;
                     pTile[index]->Id            = 0;
-                    pLevelHeader->Level.Types[(Level::BACKGROUND)-1]--;
+                    pLevelHeader->Level.Types[0]--;
                 }
                 break;
             default:
