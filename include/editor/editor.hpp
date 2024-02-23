@@ -100,5 +100,11 @@ class Editor {
     }** pVisualTile;
 
     typeVisualTile** newVisualTile();
+    struct comparePair{
+        bool operator()(const std::pair<int, int>& lhs, const std::pair<int, int>& rhs) const {
+            return (lhs.first + lhs.second) < (rhs.first + rhs.second);
+        }
+    };
+    std::set<std::pair<int,int>,comparePair> mLevelCoords; //A list of coordinates that is used
 };
 }

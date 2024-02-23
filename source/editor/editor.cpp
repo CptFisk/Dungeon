@@ -200,17 +200,20 @@ Editor::terminate() {
 void
 Editor::click(const float& x, const float& y) {
     if (pTile != nullptr && !clickOnUi(x, y)) {
+        auto ix = static_cast<int>(x);
+        auto iy = static_cast<int>(y);
+
         auto index = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
         switch (mMouse) {
             case TEXTURE:
                 if (pTile[index]->Type == Level::BLANK) {
-                    auto simpleTexture = mGraphics->getBaseTexture("PurpleFloor");
-                    pVisualTile[index]->Texture = simpleTexture.Texture;
+                    auto simpleTexture           = mGraphics->getBaseTexture("PurpleFloor");
+                    pVisualTile[index]->Texture  = simpleTexture.Texture;
                     pVisualTile[index]->Viewport = simpleTexture[-1].second;
 
-                    pTile[index]->Type          |= Level::BACKGROUND;
-                    pTile[index]->Id            = 1;
-                    pLevelHeader->Level.Types[0]++;
+                    pTile[index]->Type |= Level::BACKGROUND;
+                    pTile[index]->Id = 1;
+                    mLevelCoords.emplace(ix, iy);
                 } else if (pTile[index]->Type == Level::BACKGROUND) {
                     pVisualTile[index]->Texture = mGraphics->getTexture("PurpleFloor");
                 }
@@ -220,7 +223,10 @@ Editor::click(const float& x, const float& y) {
                     pVisualTile[index]->Texture = nullptr;
                     pTile[index]->Type          = Level::BLANK;
                     pTile[index]->Id            = 0;
-                    pLevelHeader->Level.Types[0]--;
+
+                    auto it = mLevelCoords.find(std::make_pair(ix, iy));
+                    if (it != mLevelCoords.end())
+                        mLevelCoords.erase(it);
                 }
                 break;
             default:
@@ -240,9 +246,8 @@ Editor::newVisualTile() {
     auto data = new Editor::typeVisualTile* [size] {};
     for (int y = 0; y < sizeY; y++) {
         for (int x = 0; x < sizeX; x++) {
-            auto index = Common::getIndex(x, y, pLevelHeader);
-            data[index] =
-              new Editor::typeVisualTile(Common::newSDL_FRect(x,y,mScale));
+            auto index  = Common::getIndex(x, y, pLevelHeader);
+            data[index] = new Editor::typeVisualTile(Common::newSDL_FRect(x, y, mScale));
         }
     }
     return data;

@@ -38,9 +38,9 @@ struct typeHeader {
     } Color;
 
     struct Level {
-        uint8_t  SizeX;                       // Map width
-        uint8_t  SizeY;                       // Map height
-        uint16_t Types[TILE_TYPE_VARIATIONS]; // How many times each tiletype occurs
+        uint8_t  SizeX;    // Map width
+        uint8_t  SizeY;    // Map height
+        uint16_t Elements; // Number of active tiles
     } Level;
 };
 
