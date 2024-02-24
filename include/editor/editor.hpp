@@ -99,12 +99,22 @@ class Editor {
           , Position(position) {}
     }** pVisualTile;
 
+    struct typeVisualTileType {
+        SDL_Texture* Texture;
+        SDL_FRect    Position;
+        typeVisualTileType(SDL_Texture* texture, const SDL_FRect position)
+          : Texture(texture)
+          , Position(position) {}
+    }** pVisualTileType;
+
     typeVisualTile** newVisualTile();
-    struct comparePair{
+    typeVisualTileType** newVisualTileType();
+
+    struct comparePair {
         bool operator()(const std::pair<int, int>& lhs, const std::pair<int, int>& rhs) const {
             return (lhs.first + lhs.second) < (rhs.first + rhs.second);
         }
     };
-    std::set<std::pair<int,int>,comparePair> mLevelCoords; //A list of coordinates that is used
+    std::set<std::pair<int, int>, comparePair> mLevelCoords; // A list of coordinates that is used
 };
 }

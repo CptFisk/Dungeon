@@ -252,4 +252,22 @@ Editor::newVisualTile() {
     }
     return data;
 }
+
+Editor::typeVisualTileType**
+Editor::newVisualTileType() {
+    const int sizeX = pLevelHeader->Level.SizeX;
+    const int sizeY = pLevelHeader->Level.SizeY;
+    const int size  = pLevelHeader->Level.SizeX * pLevelHeader->Level.SizeY;
+
+    auto data = new Editor::typeVisualTileType* [size] {};
+    for (int y = 0; y < sizeY; y++) {
+        for (int x = 0; x < sizeX; x++) {
+            auto index  = Common::getIndex(x, y, pLevelHeader);
+            data[index] = new Editor::typeVisualTileType(nullptr, Common::newSDL_FRect(x, y, mScale));
+        }
+    }
+    return data;
+}
+
+
 }
