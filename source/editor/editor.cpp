@@ -37,8 +37,11 @@ Editor::~Editor() {
     Level::deleteTile(pTile, size);
     for (int i = 0; i < size; i++) {
         delete pVisualTile[i];
+        delete pVisualTile[i];
     }
     delete[] pVisualTile;
+    delete[] pVisualTileType;
+
 
     delete pLevelHeader;
     delete pAssets;
