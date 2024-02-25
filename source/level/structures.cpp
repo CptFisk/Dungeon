@@ -39,7 +39,7 @@ readLevelData(const std::string& filename) {
         file.read(reinterpret_cast<char*>(element), sizeof(typeTileData));
         tiles[i] = element;
     }
-
+    file.close();
     // All done, generate data
     auto level    = new typeLevelData;
     level->Header = header;
