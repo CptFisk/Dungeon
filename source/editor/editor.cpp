@@ -22,6 +22,7 @@ Editor::Editor()
   , pAssets(nullptr)
   , pTile(nullptr)
   , pVisualTile(nullptr)
+  , pVisualTileType(nullptr)
   , mScale{}
   , mHideAllWindows(false)
   , mMouse(DEFAULT)
@@ -41,7 +42,6 @@ Editor::~Editor() {
     }
     delete[] pVisualTile;
     delete[] pVisualTileType;
-
 
     delete pLevelHeader;
     delete pAssets;
@@ -180,7 +180,7 @@ Editor::present() {
     SDL_RenderPresent(pRenderer);
 }
 
-std::list<std::function<bool(SDL_Event*)>>&
+[[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>&
 Editor::getEventList() {
     return mEventWatcher;
 }
@@ -214,26 +214,32 @@ Editor::click(const float& x, const float& y) {
                     pVisualTile[index]->Texture  = simpleTexture.Texture;
                     pVisualTile[index]->Viewport = simpleTexture[-1].second;
 
-                    pTile[index]->Type |= Level::BACKGROUND;
+                    pTile[index]->Type |= Level::TEXTURE;
                     pTile[index]->Id = 1;
                     mLevelCoords.emplace(ix, iy);
-                } else if (pTile[index]->Type == Level::BACKGROUND) {
+                } else if (pTile[index]->Type == Level::TEXTURE) {
                     pVisualTile[index]->Texture = mGraphics->getTexture("PurpleFloor");
                 }
                 break;
             case REMOVE:
-                if (pTile[index]->Type == Level::BACKGROUND) {
-                    pVisualTile[index]->Texture = nullptr;
-                    pTile[index]->Type          = Level::BLANK;
-                    pTile[index]->Id            = 0;
-
+                pVisualTile[index]->Texture     = nullptr;
+                pVisualTileType[index]->Texture = nullptr;
+                pTile[index]->Type              = Level::BLANK;
+                pTile[index]->Id                = 0;
+                {
                     auto it = mLevelCoords.find(std::make_pair(ix, iy));
                     if (it != mLevelCoords.end())
                         mLevelCoords.erase(it);
                 }
                 break;
-            default:
+            case OBSTACLE:
+                pTile[index]->Type |= Level::OBSTACLE;
+                pVisualTileType[index]->Texture = mGraphics->getTexture("1D35FA");
+                mLevelCoords.emplace(ix, iy);
+                break;
+
             case DEFAULT:
+            default:
                 break;
         }
     }
@@ -271,6 +277,5 @@ Editor::newVisualTileType() {
     }
     return data;
 }
-
 
 }

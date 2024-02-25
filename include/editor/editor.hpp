@@ -22,19 +22,20 @@ class Editor {
 
     Common::ActionManager& getActionManager(); // Used when binding clicks, events
 
-    std::list<std::function<bool(SDL_Event*)>>&                             getEventList(); // Get the list of events
-    std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEvents();    // Get the list of events
-    std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
+    [[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>& getEventList(); // Get the list of events
+    [[maybe_unused]] std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>&
+    getEvents(); // Get the list of events
+    [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>& getProcessing();
 
     void terminate();                           // Kill the editor
     void click(const float& x, const float& y); // Click
   protected:
-    void        displayElement(const std::string& element);
-    void        hideElement(const std::string& element);
-    void        hideAllElements();
-    bool        isElementVisible(const std::string& element);
-    bool        clickOnUi(const float& x, const float& y);
-    static bool isOverlap(const float& value, const float& low, const float& high);
+    [[maybe_unused]] void        displayElement(const std::string& element);
+    [[maybe_unused]] void        hideElement(const std::string& element);
+    [[maybe_unused]] void        hideAllElements();
+    [[maybe_unused]] bool        isElementVisible(const std::string& element);
+    [[maybe_unused]] bool        clickOnUi(const float& x, const float& y);
+    [[maybe_unused]] static bool isOverlap(const float& value, const float& low, const float& high);
 
     void uiMenu();     // Top menu
     void uiHeader();   // Display current open project settings
@@ -93,7 +94,7 @@ class Editor {
         SDL_Texture* Texture;
         SDL_FRect    Position;
         SDL_FRect    Viewport;
-        typeVisualTile(const SDL_FRect& position)
+        explicit typeVisualTile(const SDL_FRect& position)
           : Texture(nullptr)
           , Viewport(SDL_FRect{ 0.0f, 0.0f, 0.0f, 0.0f })
           , Position(position) {}
@@ -107,7 +108,7 @@ class Editor {
           , Position(position) {}
     }** pVisualTileType;
 
-    typeVisualTile** newVisualTile();
+    typeVisualTile**     newVisualTile();
     typeVisualTileType** newVisualTileType();
 
     struct comparePair {

@@ -1,0 +1,22 @@
+{
+  "Header": {
+    "Type": "GeneratedTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "Name": "1D35FA",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 34,
+        "Red2": 34,
+        "Green1": 163,
+        "Green2": 163,
+        "Blue1": 250,
+        "Blue2": 250,
+        "Alpha": 50
+      }
+    ]
+  }
+}

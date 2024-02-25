@@ -1,5 +1,5 @@
 #pragma once
 
 namespace Editor {
-enum Mouse { DEFAULT, REMOVE, TEXTURE, BACKGROUND, OBSTACLE};
+enum Mouse { DEFAULT, REMOVE, TEXTURE, OBSTACLE};
 }

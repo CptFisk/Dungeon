@@ -9,11 +9,11 @@ Editor::uiMenu() {
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("New project")) {
                 delete pLevelHeader; // Clean first
-                pLevelHeader = new Level::typeHeader{};
-                pLevelHeader->Level.SizeX = 16;
-                pLevelHeader->Level.SizeY = 12;
+                pLevelHeader                = new Level::typeHeader{};
+                pLevelHeader->Level.SizeX   = 16;
+                pLevelHeader->Level.SizeY   = 12;
                 pLevelHeader->HeaderVersion = 1;
-                pAssets      = new Level::typeAssets{};
+                pAssets                     = new Level::typeAssets{};
                 displayElement("Header");
             }
             if (ImGui::MenuItem("Load project")) {
@@ -35,15 +35,18 @@ Editor::uiMenu() {
             }
             ImGui::EndMenu();
         }
-        if (ImGui::BeginMenu("Display")){
-            if(ImGui::MenuItem("Grid"))
+        if (ImGui::BeginMenu("Display")) {
+            if (ImGui::MenuItem("Grid"))
                 displayElement("Grid");
-            if(ImGui::MenuItem("Mouse"))
+            if (ImGui::MenuItem("Mouse"))
                 displayElement("Mouse");
             ImGui::EndMenu();
         }
     }
 
+    auto status = "Used: " + std::to_string(mLevelCoords.size());
+    ImGui::SameLine(ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize(status.c_str()).x);
+    ImGui::Text(status.c_str());
     ImGui::EndMainMenuBar();
 }
 }

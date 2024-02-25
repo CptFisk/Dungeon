@@ -34,9 +34,9 @@ Level::loadLevel(const std::string& filename) {
     for (int y = 0; y < data->Header.Level.SizeY; y++) {
         for (int x = 0; x < data->Header.Level.SizeX; x++) {
             switch (data->Tiles[Common::getIndex(x, y, &data->Header)]->Type) {
-                case BACKGROUND:
+                case TEXTURE:
                     pTiles[item++] = new typeTile(
-                      BACKGROUND, Common::newSDL_FRect(x, y, mScale), mGraphics->getBaseTexture("PurpleFloor")[-1]);
+                      TEXTURE, Common::newSDL_FRect(x, y, mScale), mGraphics->getBaseTexture("PurpleFloor")[-1]);
                     break;
                 case OBSTACLE:
                     break;

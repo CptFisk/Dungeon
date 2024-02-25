@@ -23,9 +23,9 @@ Editor::uiMouse() {
         ImGui::SeparatorText("Graphical");
         BUTTON_COLOR(DEFAULT, None)
         BUTTON_COLOR(REMOVE, Remove)
-        BUTTON_COLOR(TEXTURE, Texture)
+
         ImGui::SeparatorText("Tiletype");
-        BUTTON_COLOR(BACKGROUND, Background)
+        BUTTON_COLOR(TEXTURE, Texture)
         BUTTON_COLOR(OBSTACLE, Obstacle)
         mWindows["Mouse"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::End();

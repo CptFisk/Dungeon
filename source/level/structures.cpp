@@ -97,6 +97,7 @@ addAsset(const char* asset, typeAssets* map) {
             auto len = strlen(asset);
             strncpy(item.Asset, asset, len);
             item.Asset[len] = '\0';
+            break;
         } else {
             if (item.Id > lowest)
                 lowest = item.Id;
