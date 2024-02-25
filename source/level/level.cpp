@@ -25,24 +25,19 @@ Level::loadLevel(const std::string& filename) {
     mHeader        = data->Header; // Catch header
     const int size = data->Header.Level.SizeX * data->Header.Level.SizeY;
 
-    mElements = 0; // Number of elements that have a tile
-    for (unsigned short Type : data->Header.Level.Types)
-        mElements  += Type;
+    mElements = data->Header.Level.Elements;
     pTiles = new typeTile* [mElements] {}; // Allocating
 
     int item = 0; // Keep track of current position
     for (int y = 0; y < data->Header.Level.SizeY; y++) {
         for (int x = 0; x < data->Header.Level.SizeX; x++) {
-            switch (data->Tiles[Common::getIndex(x, y, &data->Header)]->Type) {
-                case TEXTURE:
-                    pTiles[item++] = new typeTile(
-                      TEXTURE, Common::newSDL_FRect(x, y, mScale), mGraphics->getBaseTexture("PurpleFloor")[-1]);
-                    break;
-                case OBSTACLE:
-                    break;
-                case BLANK:
-                default:
-                    break;
+            //Shall texture be added
+            if((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & TEXTURE) != 0){
+                pTiles[item++] = new typeTile(
+                  TEXTURE, Common::newSDL_FRect(x, y, mScale), mGraphics->getBaseTexture("PurpleFloor")[-1]);
+            }
+            if((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & OBSTACLE) != 0){
+                mObstacle.push_back(Common::newSDL_FRect(x,y,mScale));
             }
         }
     }
