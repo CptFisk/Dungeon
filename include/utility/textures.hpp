@@ -16,4 +16,7 @@ bool isOverlapping(const SDL_FRect& rect1, const SDL_FRect& rect2);
 bool
 isColliding(const SDL_FRect& rect1, const SDL_FRect& rect2, Directions direction);
 
+bool
+isAdjacent(const SDL_FRect& rect1, const SDL_FRect& rect2);
+
 }

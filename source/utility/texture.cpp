@@ -32,4 +32,10 @@ isColliding(const SDL_FRect& rect1, const SDL_FRect& rect2, Directions direction
     }
     return isOverlapping(tmp, rect2);
 }
+
+bool
+isAdjacent(const SDL_FRect& rect1, const SDL_FRect& rect2) {
+    return (rect1.x == rect2.x && rect1.y == rect2.y && rect1.h == rect2.h) ||
+           (rect1.y == rect2.y && rect1.x == rect2.x && rect1.w == rect2.w);
+}
 }
