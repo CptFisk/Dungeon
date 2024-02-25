@@ -19,6 +19,7 @@ Editor::uiMenu() {
             if (ImGui::MenuItem("Load project")) {
             }
             if (ImGui::MenuItem("Save project")) {
+                pLevelHeader->Level.Elements = mLevelCoords.size();
                 Level::typeLevelData map = { *pLevelHeader, *pAssets, pTile };
 
                 Level::writeLevelDataToFile(std::string(pLevelHeader->MapName) + ".map", map);
