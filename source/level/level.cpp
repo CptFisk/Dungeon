@@ -12,7 +12,8 @@ Level::Level(SDL_Renderer* renderer, const Common::typeScale& scale, std::shared
   , mScale(scale)
   , mHeader{}
   , mGraphics(std::move(graphics))
-  , pTiles(nullptr) {}
+  , pTiles(nullptr)
+  , mElements(0) {}
 
 Level::~Level() {
     const int size = mHeader.Level.SizeX * mHeader.Level.SizeY;
@@ -24,34 +25,42 @@ void
 Level::loadLevel(const std::string& filename) {
     auto data      = readLevelData(filename);
     mHeader        = data->Header; // Catch header
-    const int size = data->Header.Level.SizeX * data->Header.Level.SizeY;
 
     mElements = data->Header.Level.Elements;
-    pTiles = new typeTile* [mElements] {}; // Allocating
+    pTiles    = new typeTile* [mElements] {}; // Allocating
     std::vector<SDL_FRect> obstacle;
-    int item = 0; // Keep track of current position
+    int                    item = 0; // Keep track of current position
     for (int y = 0; y < data->Header.Level.SizeY; y++) {
         for (int x = 0; x < data->Header.Level.SizeX; x++) {
-            //Shall texture be added
-            if((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & TEXTURE) != 0){
+            // Shall texture be added
+            if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & TEXTURE) != 0) {
                 pTiles[item++] = new typeTile(
                   TEXTURE, Common::newSDL_FRect(x, y, mScale), mGraphics->getBaseTexture("PurpleFloor")[-1]);
             }
-            if((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & OBSTACLE) != 0){
-                obstacle.push_back(Common::newSDL_FRect(x,y,mScale));
+            if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & OBSTACLE) != 0) {
+                obstacle.push_back(Common::newSDL_FRect(x, y, mScale));
             }
         }
     }
 
     mObstacle = Utility::optimizeSDL_FRect(obstacle);
     delete data;
-
 }
 
-void Level::draw() {
-    if(pTiles != nullptr){
-        for(int i = 0; i < mElements ; i++){
-            SDL_RenderTexture(pRenderer,pTiles[i]->Texture, &pTiles[i]->Viewport, &pTiles[i]->Position);
+bool
+Level::movement(const SDL_FRect& other, const Directions& direction) {
+    for (const auto& obstacle : mObstacle) {
+        if (Utility::isColliding(other, obstacle, direction))
+            return false;
+    }
+    return true;
+}
+
+void
+Level::draw() {
+    if (pTiles != nullptr) {
+        for (int i = 0; i < mElements; i++) {
+            SDL_RenderTexture(pRenderer, pTiles[i]->Texture, &pTiles[i]->Viewport, &pTiles[i]->Position);
         }
     }
 }

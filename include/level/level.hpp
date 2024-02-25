@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <global.hpp>
 
 namespace Level {
 class Level {
@@ -14,7 +15,12 @@ class Level {
     ~Level(); // Cleaning
 
     void loadLevel(const std::string& filename);
-    bool movement(const SDL_FRect& other); // Check if movement is allowed, or if it collides with other objects
+    /**
+     * @breif Check if movement is allowed, or if it collides with other objects
+     * @param other Object to check with
+     * @return true = movement allowed
+     */
+    bool movement(const SDL_FRect& other, const Directions& direction);
 
     void draw();
 
