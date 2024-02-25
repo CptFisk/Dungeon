@@ -205,7 +205,8 @@ Editor::click(const float& x, const float& y) {
     if (pTile != nullptr && !clickOnUi(x, y)) {
         auto ix = static_cast<int>(x);
         auto iy = static_cast<int>(y);
-
+        auto coord = Common::getClickCoords(x,y, mScale);
+        printf("x: %i | y %i\n", coord.first, coord.second);
         auto index = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
         switch (mMouse) {
             case TEXTURE:

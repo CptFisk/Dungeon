@@ -113,7 +113,9 @@ class Editor {
 
     struct comparePair {
         bool operator()(const std::pair<int, int>& lhs, const std::pair<int, int>& rhs) const {
-            return (lhs.first + lhs.second) < (rhs.first + rhs.second);
+            if (lhs.first < rhs.first) return true;
+            if (lhs.first > rhs.first) return false;
+            return lhs.second < rhs.second;
         }
     };
     std::set<std::pair<int, int>, comparePair> mLevelCoords; // A list of coordinates that is used

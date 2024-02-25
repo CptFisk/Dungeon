@@ -43,7 +43,7 @@ Level::loadLevel(const std::string& filename) {
         }
     }
 
-    mObstacle = Utility::optimizeSDL_FRect(obstacle);
+    mObstacle =obstacle;
     delete data;
 }
 
