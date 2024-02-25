@@ -3,6 +3,7 @@
 #include <graphics/graphics.hpp>
 #include <iostream>
 #include <level/level.hpp>
+#include <utility/textures.hpp>
 
 namespace Level {
 
@@ -27,7 +28,7 @@ Level::loadLevel(const std::string& filename) {
 
     mElements = data->Header.Level.Elements;
     pTiles = new typeTile* [mElements] {}; // Allocating
-
+    std::vector<SDL_FRect> obstacle;
     int item = 0; // Keep track of current position
     for (int y = 0; y < data->Header.Level.SizeY; y++) {
         for (int x = 0; x < data->Header.Level.SizeX; x++) {
@@ -37,12 +38,12 @@ Level::loadLevel(const std::string& filename) {
                   TEXTURE, Common::newSDL_FRect(x, y, mScale), mGraphics->getBaseTexture("PurpleFloor")[-1]);
             }
             if((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & OBSTACLE) != 0){
-                mObstacle.push_back(Common::newSDL_FRect(x,y,mScale));
+                obstacle.push_back(Common::newSDL_FRect(x,y,mScale));
             }
         }
     }
 
-    printf("%i\n", item);
+    mObstacle = Utility::optimizeSDL_FRect(obstacle);
     delete data;
 
 }
