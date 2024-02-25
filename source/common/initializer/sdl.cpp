@@ -4,7 +4,7 @@
 #include <iostream>
 
 namespace Common{
-SDLInitializer::SDLInitializer(SDL_Window** window, SDL_Renderer** render) :pWindow(window), pRenderer(render){}
+SDLInitializer::SDLInitializer(SDL_Window** window, SDL_Renderer** render, const std::string& title) :pWindow(window), pRenderer(render), mTitle(title){}
 
 void
 SDLInitializer::startup() {
@@ -17,7 +17,7 @@ SDLInitializer::startup() {
     renderFlags |= SDL_RENDERER_ACCELERATED;
     renderFlags |= SDL_RENDERER_PRESENTVSYNC;
 
-    *pWindow   = SDL_CreateWindow("", 800, 600, windowFlags);
+    *pWindow   = SDL_CreateWindow(mTitle.c_str(), 800, 600, windowFlags);
     *pRenderer = SDL_CreateRenderer(*pWindow, nullptr, renderFlags);
 }
 
