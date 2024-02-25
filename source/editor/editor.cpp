@@ -235,7 +235,6 @@ Editor::click(const float& x, const float& y) {
             case OBSTACLE:
                 pTile[index]->Type |= Level::OBSTACLE;
                 pVisualTileType[index]->Texture = mGraphics->getTexture("1D35FA");
-                mLevelCoords.emplace(ix, iy);
                 break;
 
             case DEFAULT:
