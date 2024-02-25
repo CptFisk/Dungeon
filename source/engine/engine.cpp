@@ -62,7 +62,7 @@ Engine::startup() {
     mThreads.push_back(spawnInterrupt(500));
     mThreads.push_back(spawnInterrupt(1000));
 
-    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer));
+    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, "Veras adventure"));
     mInitHandler->startup();
     Common::calculateGameScale(mScale, pWindow);
     // Generate graphics
