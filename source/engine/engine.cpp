@@ -119,8 +119,8 @@ Engine::click(const float& x, const float& y) {
 
 void
 Engine::movePlayer(Directions direction) {
-    // if (!Utility::isColliding(*pPlayerPosition, mWall, direction))
-    mPlayer->move(direction);
+    if (mLevel->movement(*pPlayerPosition, direction))
+        mPlayer->move(direction);
 }
 
 void

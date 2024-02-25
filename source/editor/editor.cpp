@@ -216,7 +216,7 @@ Editor::click(const float& x, const float& y) {
 
                     pTile[index]->Type |= Level::TEXTURE;
                     pTile[index]->Id = 1;
-                    mLevelCoords.emplace(ix, iy);
+                    mLevelCoords.emplace(Common::getClickCoords(x,y, mScale));
                 } else if (pTile[index]->Type == Level::TEXTURE) {
                     pVisualTile[index]->Texture = mGraphics->getTexture("PurpleFloor");
                 }
@@ -227,7 +227,7 @@ Editor::click(const float& x, const float& y) {
                 pTile[index]->Type              = Level::BLANK;
                 pTile[index]->Id                = 0;
                 {
-                    auto it = mLevelCoords.find(std::make_pair(ix, iy));
+                    auto it = mLevelCoords.find( Common::getClickCoords(x,y, mScale));
                     if (it != mLevelCoords.end())
                         mLevelCoords.erase(it);
                 }
