@@ -76,16 +76,16 @@ Engine::startup() {
     //mEnergy = std::make_unique<Player::Energy>(mScale, mGraphics->getBaseTexture("Energy"), pRenderer);
 
     // Binding player data
-    /*
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::North, mGraphics->getAnimatedTexture("HumanIdleNorth"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::East, mGraphics->getAnimatedTexture("HumanIdleEast"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::South, mGraphics->getAnimatedTexture("HumanIdleSouth"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::West, mGraphics->getAnimatedTexture("HumanIdleWest"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::North, mGraphics->getAnimatedTexture("HumanMovingNorth"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::East, mGraphics->getAnimatedTexture("HumanMovingEast"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::South, mGraphics->getAnimatedTexture("HumanMovingSouth"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::West, mGraphics->getAnimatedTexture("HumanMovingWest"));
-*/
+
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::North, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleNorth"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::East, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleEast"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::South, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleSouth"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::West, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleWest"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::North, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingNorth"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::East, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingEast"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::South, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingSouth"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::West, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingWest"));
+
     mPlayer->setDirection(South);
     mPlayer->setAction(Objects::ObjectAction::IDLE);
 

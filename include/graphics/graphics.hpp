@@ -8,6 +8,7 @@
 #include <typeindex>
 #include <unordered_map>
 #include <vector>
+#include <iostream>
 
 namespace Graphics {
 class Graphics {
@@ -42,8 +43,9 @@ class Graphics {
         auto it = mGraphics.find(name);
         if (it != mGraphics.end()) {
             try {
-                return std::any_cast<T>(it->first);
+                return std::any_cast<T>(it->second.Texture);
             } catch (const std::bad_any_cast& e) {
+                std::cerr << name << std::endl;
                 throw std::runtime_error(e.what());
             }
         } else
@@ -68,11 +70,10 @@ class Graphics {
     void addTexture(const std::string& name, T texture, TextureTypes type) {
         auto it = mGraphics.find(name);
         if (it == mGraphics.end()) {
-            // mGraphics[name] = typeTextureInfo(texture, type);
             mGraphics[name] = { texture, type };
         }
         if (type == ANIMATED_TEXTURE)
-            mAnimatedTextures.push_back(std::any_cast<AnimatedTexture*>(&texture));
+            mAnimatedTextures.push_back(std::any_cast<AnimatedTexture*>(texture));
     }
 };
 }
