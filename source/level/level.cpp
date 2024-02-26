@@ -62,7 +62,7 @@ void
 Level::draw() {
     if (pTiles != nullptr) {
         for (int i = 0; i < mElements; i++) {
-            SDL_RenderTexture(pRenderer, pTiles[i]->Texture, &pTiles[i]->Viewport, &pTiles[i]->Position);
+            //SDL_RenderTexture(pRenderer, pTiles[i]->Texture, &pTiles[i]->Viewport, &pTiles[i]->Position);
         }
     }
 }

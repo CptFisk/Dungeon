@@ -92,7 +92,7 @@ Engine::startup() {
     pPlayerTexture  = mPlayer->getPlayerTexture();
     pPlayerView     = mPlayer->getPlayerViewport();
     pPlayerPosition = mPlayer->getPlayerPosition();
-    //mParticles      = std::make_shared<Objects::Particle>(mGraphics->getTexture("FAE2C3"), pRenderer, 100, 3, 5);
+    mParticles      = std::make_shared<Objects::Particle>(mGraphics->getTexture<SDL_Texture*>("FAE2C3"), pRenderer, 100, 3, 5);
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
