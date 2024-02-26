@@ -42,14 +42,14 @@ Graphics::generateCircle(const std::string& name,   // Name of texture
                          const Uint8&       b1,     // Start blue color
                          const Uint8&       b2,     // End blue color
                          const Uint8&       a) {
-    auto surface = SDL_CreateSurface(radius * 2, radius * 2, SDL_PIXELFORMAT_RGBA32);
+    auto surface = SDL_CreateSurface(static_cast<int>(radius) * 2, static_cast<int>(radius) * 2, SDL_PIXELFORMAT_RGBA32);
     // Surface check
     if (!surface) {
         std::cerr << "SDL_CreateRGBSurface failed: " << SDL_GetError() << std::endl;
     }
 
-    int centerX     = radius;
-    int centerY     = radius;
+    int centerX     = static_cast<int>(radius);
+    int centerY     = static_cast<int>(radius);
     int centerAlpha = 255;
     int edgeAlpha   = 0;
 
@@ -61,17 +61,17 @@ Graphics::generateCircle(const std::string& name,   // Name of texture
     int endG = g2;
     int endB = b2;
 
-    for (int y = 0; y < radius * 2; ++y) {
-        for (int x = 0; x < radius * 2; ++x) {
-            float distance = std::hypot(x - centerX, y - centerY);
+    for (int y = 0; y < static_cast<int>(radius * 2); ++y) {
+        for (int x = 0; x < static_cast<int>(radius * 2); ++x) {
+            auto distance = static_cast<float>(std::hypot(x - centerX, y - centerY));
 
             // Check if the pixel is within the circle
             if (distance <= radius) {
                 // Interpolate alpha linearly between centerAlpha and edgeAlpha
-                Uint8 alpha = static_cast<Uint8>(centerAlpha + (edgeAlpha - centerAlpha) * (distance / radius));
-                Uint8 red   = static_cast<Uint8>(startR + (endR - startR) * (distance / radius));
-                Uint8 green = static_cast<Uint8>(startG + (endG - startG) * (distance / radius));
-                Uint8 blue  = static_cast<Uint8>(startB + (endB - startB) * (distance / radius));
+                auto alpha = static_cast<Uint8>(static_cast<float>(centerAlpha + (edgeAlpha - centerAlpha)) * (distance / radius));
+                auto red   = static_cast<Uint8>(static_cast<float>(startR + (endR - startR)) * (distance / radius));
+                auto green = static_cast<Uint8>(static_cast<float>(startG + (endG - startG)) * (distance / radius));
+                auto blue  = static_cast<Uint8>(static_cast<float>(startB + (endB - startB)) * (distance / radius));
 
                 auto pixel      = (Uint8*)surface->pixels + y * surface->pitch + x * surface->format->BytesPerPixel;
                 *(Uint32*)pixel = SDL_MapRGBA(surface->format, red, green, blue, alpha);
