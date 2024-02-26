@@ -29,7 +29,6 @@ Graphics::generateSquare(const std::string& name,
     if (SDL_RenderTexture(pRenderer, squareTexture, nullptr, nullptr) != 0)
         std::cerr << SDL_GetError();
     addTexture<SDL_Texture*>(name, squareTexture, GENERATED_TEXTURE);
-    SDL_DestroySurface(surface);
 }
 
 void
