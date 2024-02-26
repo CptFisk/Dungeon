@@ -39,30 +39,4 @@ Graphics::init() {
     loadGraphics("rsrc");
 }
 
-SDL_Texture*
-Graphics::getTexture(const std::string& name) {
-    if (mTextures.find(name) != mTextures.end())
-        return mTextures[name];
-    if (mBaseTextures.find(name) != mBaseTextures.end())
-        return mBaseTextures[name].Texture;
-    if (mAnimatedTextures.find(name) != mAnimatedTextures.end())
-        return mAnimatedTextures[name]->mTexture;
-    return nullptr;
-}
-
-typeSimpleTexture
-Graphics::getBaseTexture(const std::string& name) {
-    return mBaseTextures[name];
-}
-
-AnimatedTexture*
-Graphics::getAnimatedTexture(const std::string& name) {
-    return mAnimatedTextures[name];
-}
-
-void
-Graphics::addTexture(const std::string& name, SDL_Texture* texture){
-    mTextures[name] = texture;
-}
-
 }

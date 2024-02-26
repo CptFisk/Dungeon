@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include <any>
 #include <common/include.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <graphics/structures.hpp>
@@ -12,28 +13,43 @@ class Graphics {
   public:
     Graphics(SDL_Renderer* renderer, Common::typeScale& scale);
     ~Graphics();
-    void             init();
-    void             generateSquare(const std::string& name,
-                                    const int&         width,
-                                    const int&         height,
-                                    const Uint8&       r,
-                                    const Uint8&       g,
-                                    const Uint8&       b,
-                                    const Uint8&       a);
-    void             generateCircle(const std::string& name,   // Name of texture
-                                    const float&       radius, // Radius
-                                    const Uint8&       r1,     // Start red color
-                                    const Uint8&       r2,     // End red color
-                                    const Uint8&       g1,     // Start green color
-                                    const Uint8&       g2,     // End green color
-                                    const Uint8&       b1,     // Start blue color
-                                    const Uint8&       b2,     // End blue color
-                                    const Uint8&       a);           // Alpha channel
-    SDL_Texture*     getTexture(const std::string& name);
-    typeSimpleTexture getBaseTexture(const std::string& name);
-    AnimatedTexture* getAnimatedTexture(const std::string& name);
-    
-    void addTexture(const std::string& name, SDL_Texture* texture);
+    void              init();
+    void              generateSquare(const std::string& name,
+                                     const int&         width,
+                                     const int&         height,
+                                     const Uint8&       r,
+                                     const Uint8&       g,
+                                     const Uint8&       b,
+                                     const Uint8&       a);
+    void              generateCircle(const std::string& name,   // Name of texture
+                                     const float&       radius, // Radius
+                                     const Uint8&       r1,     // Start red color
+                                     const Uint8&       r2,     // End red color
+                                     const Uint8&       g1,     // Start green color
+                                     const Uint8&       g2,     // End green color
+                                     const Uint8&       b1,     // Start blue color
+                                     const Uint8&       b2,     // End blue color
+                                     const Uint8&       a);           // Alpha channel
+
+    template<typename T>
+    void addTexture(const std::string& name, T texture) {
+        auto it = mGraphics.find(name);
+        if (it == mGraphics.end())
+            mGraphics[name] = texture;
+    }
+
+    template<typename T>
+    T getTexture(const std::string& name) {
+        auto it = mGraphics.find(name);
+        if (it != mGraphics.end()) {
+            try {
+                return std::any_cast<T>(it->second);
+            } catch (const std::bad_any_cast& e) {
+                throw std::runtime_error(e.what());
+            }
+        } else
+            throw std::out_of_range(name);
+    }
 
     void updateAnimatedTexture();
 
@@ -45,11 +61,11 @@ class Graphics {
     void         loadObjectGeneration(const Common::typeHeaderJSON& header, const std::string& jsonString);
 
   private:
-    Common::typeScale& mScale;
-
-    std::unordered_map<std::string, AnimatedTexture*> mAnimatedTextures;
-    std::unordered_map<std::string, typeSimpleTexture>      mBaseTextures;
-    std::unordered_map<std::string, SDL_Texture*>     mTextures;
-    SDL_Renderer*                                     pRenderer;
+    Common::typeScale&                                 mScale;
+    std::unordered_map<std::string, std::any>          mGraphics;
+    std::unordered_map<std::string, AnimatedTexture*>  mAnimatedTextures;
+    std::unordered_map<std::string, typeSimpleTexture> mBaseTextures;
+    std::unordered_map<std::string, SDL_Texture*>      mTextures;
+    SDL_Renderer*                                      pRenderer;
 };
 }
