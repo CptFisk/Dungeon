@@ -9,7 +9,7 @@ class AnimatedTexture {
     AnimatedTexture(SDL_Texture* texture, const int& ticks);
     ~AnimatedTexture();
 
-    SDL_Texture*            getTexture();
+    SDL_Texture*            getTexture() const;
     SDL_FRect*              getViewport();
     void                    addViewport(const SDL_FRect& view);
     void                    updateTexture();

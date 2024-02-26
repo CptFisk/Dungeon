@@ -60,17 +60,19 @@ class Graphics {
     void         loadObjectGeneration(const Common::typeHeaderJSON& header, const std::string& jsonString);
 
   private:
-    Common::typeScale&                        mScale;
-    std::unordered_map<std::string,typeTextureInfo> mGraphics; // Storage for all textures
-    SDL_Renderer*                             pRenderer;
-
+    Common::typeScale&                               mScale;
+    std::unordered_map<std::string, typeTextureInfo> mGraphics; // Storage for all textures
+    SDL_Renderer*                                    pRenderer;
+    std::vector<AnimatedTexture*>            mAnimatedTextures;
     template<typename T>
     void addTexture(const std::string& name, T texture, TextureTypes type) {
         auto it = mGraphics.find(name);
         if (it == mGraphics.end()) {
             // mGraphics[name] = typeTextureInfo(texture, type);
-            mGraphics[name] = {texture, type};
+            mGraphics[name] = { texture, type };
         }
+        if (type == ANIMATED_TEXTURE)
+            mAnimatedTextures.push_back(std::any_cast<AnimatedTexture*>(&texture));
     }
 };
 }

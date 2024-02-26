@@ -9,11 +9,11 @@ Graphics::Graphics(SDL_Renderer* renderer, Common::typeScale& scale)
 
 void
 Graphics::updateAnimatedTexture() {
-    /*
-    for (auto& [name, texture] : mAnimatedTextures) {
+
+    for (auto& texture : mAnimatedTextures) {
         texture->updateTexture();
     }
-     */
+
 }
 
 Graphics::~Graphics() {
