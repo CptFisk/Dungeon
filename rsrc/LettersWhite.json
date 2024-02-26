@@ -1,0 +1,18 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/LettersWhite.png",
+        "Name": "LettersWhite",
+        "Row": 1,
+        "Column": 1,
+        "Length": 20,
+        "Height": 8,
+        "Width": 8
+      }
+    ]
+  }
+}
