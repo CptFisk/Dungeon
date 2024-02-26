@@ -34,10 +34,10 @@ Level::loadLevel(const std::string& filename) {
         for (int x = 0; x < data->Header.Level.SizeX; x++) {
             // Shall texture be added
             if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & TEXTURE) != 0) {
-                /*
+
                 pTiles[item++] = new typeTile(
-                  TEXTURE, Common::newSDL_FRect(x, y, mScale), mGraphics->getBaseTexture("PurpleFloor")[-1]);
-                  */
+                  TEXTURE, Common::newSDL_FRect(x, y, mScale), mGraphics->getTexture<Graphics::typeSimpleTexture>("PurpleFloor")[-1]);
+
             }
             if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & OBSTACLE) != 0) {
                 obstacle.push_back(Common::newSDL_FRect(x, y, mScale));
@@ -62,7 +62,7 @@ void
 Level::draw() {
     if (pTiles != nullptr) {
         for (int i = 0; i < mElements; i++) {
-            //SDL_RenderTexture(pRenderer, pTiles[i]->Texture, &pTiles[i]->Viewport, &pTiles[i]->Position);
+            SDL_RenderTexture(pRenderer, pTiles[i]->Texture, &pTiles[i]->Viewport, &pTiles[i]->Position);
         }
     }
 }

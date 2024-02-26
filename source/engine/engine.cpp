@@ -110,13 +110,13 @@ void
 Engine::click(const float& x, const float& y) {
     std::pair<float, float> player(pPlayerPosition->x, pPlayerPosition->y);
     auto                    angle = Utility::calculateAngle(pPlayerPosition->x, pPlayerPosition->y, x, y);
-    /*
+
     Objects::ProjectileStruct setup{
-        mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), angle, 100, 5.0
+        mGraphics->getTexture<Graphics::AnimatedTexture*>("Fireball"), mGraphics->getTexture<SDL_Texture*>("RedCircle"), angle, 100, 5.0
     };
 
     mProjectiles.push_back(new Objects::Projectile(setup, player, mScale, pRenderer, mParticles));
-     */
+
 }
 
 void
@@ -194,10 +194,8 @@ Engine::particles() {
 
 void
 Engine::addDarkness() {
-    /*
-    if (SDL_RenderTexture(pRenderer, mGraphics->getTexture("Shadow"), nullptr, nullptr) != 0)
+    if (SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("Shadow"), nullptr, nullptr) != 0)
         std::cout << SDL_GetError() << std::endl;
-        */
 }
 
 std::thread
