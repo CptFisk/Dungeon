@@ -16,9 +16,8 @@ Level::Level(SDL_Renderer* renderer, const Common::typeScale& scale, std::shared
   , mElements(0) {}
 
 Level::~Level() {
-    const int size = mHeader.Level.SizeX * mHeader.Level.SizeY;
     if (pTiles != nullptr)
-        deleteTile(pTiles, size);
+        deleteTile(pTiles, mElements);
 }
 
 void

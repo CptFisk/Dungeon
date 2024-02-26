@@ -47,7 +47,7 @@ Graphics::loadBaseTiles(const Common::typeHeaderJSON& header, const std::string&
     }
 
     for (const auto& data : jsonData.Objects) {
-        typeSimpleTexture base;
+        typeSimpleTexture base ={};
         base.Texture = loadImage(data.File);
         // Generating viewports
         for (int i = 0; i < data.Length; i++) {

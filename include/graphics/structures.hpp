@@ -16,7 +16,7 @@ const int TEXT_MAX_LENGTH = 31;
 enum GeneratedShapes { GENERATED_SHAPES(MAKE_GENERATED_SHAPES) };
 NLOHMANN_JSON_SERIALIZE_ENUM(GeneratedShapes, { { CIRCLE, "Circle" }, { SQUARE, "Square" } })
 
-enum TextureTypes { SIMPLE_TEXTURE ,ANIMATED_TEXTURE, GENERATED_TEXTURE };
+enum TextureTypes { SIMPLE_TEXTURE, ANIMATED_TEXTURE, GENERATED_TEXTURE };
 
 struct typeSimpleTexture {
     SDL_Texture*           Texture;
@@ -84,18 +84,7 @@ struct typeGeneratedTextureData {
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeBaseTextureJSON, File, Name, Column, Row, Length, Height, Width)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeAnimatedTextureJSON, Name, Column, Row, Length, Ticks, Height, Width)
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeGeneratedTextureJSON,
-                                   Name,
-                                   Shape,
-                                   Red1,
-                                   Red2,
-                                   Green1,
-                                   Green2,
-                                   Blue1,
-                                   Blue2,
-                                   Alpha,
-                                   Height,
-                                   Width)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeGeneratedTextureJSON, Name, Shape, Red1, Red2, Green1, Green2, Blue1, Blue2, Alpha, Height, Width)
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeBaseTextureData, Objects)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeAnimatedTextureData, File, Objects)

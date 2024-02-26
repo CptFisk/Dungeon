@@ -16,22 +16,19 @@ Graphics::updateAnimatedTexture() {
 }
 
 Graphics::~Graphics() {
-    int cleaned = 0;
     for (auto& [name, data] : mGraphics) {
         switch (data.Type) {
             case ANIMATED_TEXTURE: {
-                auto obj = getTexture<AnimatedTexture>(name);
+                delete getTexture<AnimatedTexture*>(name);
             } break;
             case GENERATED_TEXTURE:
                 SDL_DestroyTexture(getTexture<SDL_Texture*>(name));
                 break;
             case SIMPLE_TEXTURE:
-
+                SDL_DestroyTexture(getTexture<typeSimpleTexture>(name).Texture);
                 break;
         }
     }
-
-    printf("Cleaned: %i \n", cleaned);
 }
 
 void
