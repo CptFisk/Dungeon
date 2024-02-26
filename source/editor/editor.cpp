@@ -233,6 +233,10 @@ Editor::click(const float& x, const float& y) {
                         mLevelCoords.erase(it);
                 }
                 break;
+            case WALL:
+                pTile[index]->Type |= Level::WALL;
+                pVisualTileType[index]->Texture = mGraphics->getTexture("87ED17");
+                break;
             case OBSTACLE:
                 pTile[index]->Type |= Level::OBSTACLE;
                 pVisualTileType[index]->Texture = mGraphics->getTexture("1D35FA");

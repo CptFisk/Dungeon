@@ -26,6 +26,7 @@ Editor::uiMouse() {
 
         ImGui::SeparatorText("Tiletype");
         BUTTON_COLOR(TEXTURE, Texture)
+        BUTTON_COLOR(WALL, Wall)
         BUTTON_COLOR(OBSTACLE, Obstacle)
         mWindows["Mouse"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::End();

@@ -16,6 +16,19 @@
         "Blue1": 250,
         "Blue2": 250,
         "Alpha": 50
+      },
+      {
+        "Name": "87ED17",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 135,
+        "Red2": 135,
+        "Green1": 237,
+        "Green2": 237,
+        "Blue1": 23,
+        "Blue2": 23,
+        "Alpha": 50
       }
     ]
   }
