@@ -73,9 +73,10 @@ Engine::startup() {
     mLevel->loadLevel("level.map");
     mPlayer = std::make_unique<Player::Player>(mScale);
 
-    mEnergy = std::make_unique<Player::Energy>(mScale, mGraphics->getBaseTexture("Energy"), pRenderer);
+    //mEnergy = std::make_unique<Player::Energy>(mScale, mGraphics->getBaseTexture("Energy"), pRenderer);
 
     // Binding player data
+    /*
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::North, mGraphics->getAnimatedTexture("HumanIdleNorth"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::East, mGraphics->getAnimatedTexture("HumanIdleEast"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::South, mGraphics->getAnimatedTexture("HumanIdleSouth"));
@@ -84,14 +85,14 @@ Engine::startup() {
     mPlayer->addAnimatedTexture(Objects::MOVE, Directions::East, mGraphics->getAnimatedTexture("HumanMovingEast"));
     mPlayer->addAnimatedTexture(Objects::MOVE, Directions::South, mGraphics->getAnimatedTexture("HumanMovingSouth"));
     mPlayer->addAnimatedTexture(Objects::MOVE, Directions::West, mGraphics->getAnimatedTexture("HumanMovingWest"));
-
+*/
     mPlayer->setDirection(South);
     mPlayer->setAction(Objects::ObjectAction::IDLE);
 
     pPlayerTexture  = mPlayer->getPlayerTexture();
     pPlayerView     = mPlayer->getPlayerViewport();
     pPlayerPosition = mPlayer->getPlayerPosition();
-    mParticles      = std::make_shared<Objects::Particle>(mGraphics->getTexture("FAE2C3"), pRenderer, 100, 3, 5);
+    //mParticles      = std::make_shared<Objects::Particle>(mGraphics->getTexture("FAE2C3"), pRenderer, 100, 3, 5);
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
@@ -109,12 +110,13 @@ void
 Engine::click(const float& x, const float& y) {
     std::pair<float, float> player(pPlayerPosition->x, pPlayerPosition->y);
     auto                    angle = Utility::calculateAngle(pPlayerPosition->x, pPlayerPosition->y, x, y);
-
+    /*
     Objects::ProjectileStruct setup{
         mGraphics->getAnimatedTexture("Fireball"), mGraphics->getTexture("RedCircle"), angle, 100, 5.0
     };
 
     mProjectiles.push_back(new Objects::Projectile(setup, player, mScale, pRenderer, mParticles));
+     */
 }
 
 void
@@ -192,8 +194,10 @@ Engine::particles() {
 
 void
 Engine::addDarkness() {
+    /*
     if (SDL_RenderTexture(pRenderer, mGraphics->getTexture("Shadow"), nullptr, nullptr) != 0)
         std::cout << SDL_GetError() << std::endl;
+        */
 }
 
 std::thread

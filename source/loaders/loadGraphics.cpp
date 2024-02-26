@@ -56,7 +56,7 @@ Graphics::loadBaseTiles(const Common::typeHeaderJSON& header, const std::string&
                                             static_cast<float>(data.Width),
                                             static_cast<float>(data.Height) });
         }
-        mBaseTextures[data.Name] = base;
+        //mBaseTextures[data.Name] = base;
     }
 }
 
@@ -70,7 +70,7 @@ Graphics::loadObjectAnimation(const Common::typeHeaderJSON& header, const std::s
         throw std::runtime_error(e.what());
     }
     for (const auto& data : jsonData.Objects) {
-        if (mAnimatedTextures.find(data.Name) == mAnimatedTextures.end()) {
+        if (mGraphics.find(data.Name) == mGraphics.end()) {
             auto animation = new AnimatedTexture(loadImage(jsonData.File), data.Ticks);
             for (int i = 0; i < data.Length; i++) {
                 animation->addViewport(SDL_FRect{ static_cast<float>(data.Width * data.Column *i),
@@ -78,7 +78,7 @@ Graphics::loadObjectAnimation(const Common::typeHeaderJSON& header, const std::s
                                                   static_cast<float>(data.Width),
                                                   static_cast<float>(data.Height) });
             };
-            mAnimatedTextures[data.Name] = animation;
+            //mAnimatedTextures[data.Name] = animation;
         }
     }
 }

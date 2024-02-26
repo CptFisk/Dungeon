@@ -16,13 +16,15 @@ const int TEXT_MAX_LENGTH = 31;
 enum GeneratedShapes { GENERATED_SHAPES(MAKE_GENERATED_SHAPES) };
 NLOHMANN_JSON_SERIALIZE_ENUM(GeneratedShapes, { { CIRCLE, "Circle" }, { SQUARE, "Square" } })
 
+enum TextureTypes { SIMPLE_TEXTURE ,ANIMATED_TEXTURE, GENERATED_TEXTURE };
+
 struct typeSimpleTexture {
     SDL_Texture*           Texture;
     std::vector<SDL_FRect> Views;
 
     std::pair<SDL_Texture*, SDL_FRect> operator[](size_t n) const {
-        if(n == -1)
-            return {Texture, Views[rand() % Views.size()]};
+        if (n == -1)
+            return { Texture, Views[rand() % Views.size()] };
         if (n < Views.size()) {
             return { Texture, Views[n] };
         } else {
@@ -67,12 +69,12 @@ struct typeGeneratedTextureJSON {
     int             Width;  // Width of texture
 };
 
-  struct typeBaseTextureData {
+struct typeBaseTextureData {
     std::vector<typeBaseTextureJSON> Objects;
 };
 
 struct typeAnimatedTextureData {
-    std::string                      File;
+    std::string                          File;
     std::vector<typeAnimatedTextureJSON> Objects;
 };
 

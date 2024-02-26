@@ -17,21 +17,20 @@ Graphics::generateSquare(const std::string& name,
 
     if (SDL_FillSurfaceRect(surface, nullptr, SDL_MapRGB(surface->format, r, g, b)) != 0)
         std::cerr << SDL_GetError() << std::endl;
-    auto square = SDL_CreateTextureFromSurface(pRenderer, surface);
-    if (square == nullptr)
+    auto squareTexture = SDL_CreateTextureFromSurface(pRenderer, surface);
+    if (squareTexture == nullptr)
         std::cerr << SDL_GetError() << std::endl;
-    if (SDL_SetTextureBlendMode(square, SDL_BLENDMODE_BLEND) != 0)
+    if (SDL_SetTextureBlendMode(squareTexture, SDL_BLENDMODE_BLEND) != 0)
         std::cerr << SDL_GetError() << std::endl;
-    if (SDL_SetTextureAlphaMod(square, a) != 0)
+    if (SDL_SetTextureAlphaMod(squareTexture, a) != 0)
         std::cerr << SDL_GetError() << std::endl;
     SDL_DestroySurface(surface);
 
-    if (SDL_RenderTexture(pRenderer, square, nullptr, nullptr) != 0)
+    if (SDL_RenderTexture(pRenderer, squareTexture, nullptr, nullptr) != 0)
         std::cerr << SDL_GetError();
-    mTextures[name] = square;
+    addTexture<SDL_Texture*>(name, squareTexture, GENERATED_TEXTURE);
+    SDL_DestroySurface(surface);
 }
-
-
 
 void
 Graphics::generateCircle(const std::string& name,   // Name of texture
@@ -88,6 +87,6 @@ Graphics::generateCircle(const std::string& name,   // Name of texture
     }
 
     SDL_DestroySurface(surface);
-    mTextures[name] = circleTexture;
+    addTexture<SDL_Texture*>(name, circleTexture, GENERATED_TEXTURE);
 }
 }
