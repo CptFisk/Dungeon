@@ -32,7 +32,7 @@ class Level {
     SDL_Renderer*                       pRenderer; // Reference to the renderer
 
     std::vector<SDL_FRect> mObstacle; // Things that you cant walk over
-
+    std::vector<SDL_FRect> mWalls;
     // Level data
     typeHeader mHeader;
     typeTile** pTiles;
