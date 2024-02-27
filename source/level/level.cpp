@@ -54,7 +54,7 @@ Level::loadLevel(const std::string& filename) {
 
 bool
 Level::movement(const SDL_FRect& other, const Directions& direction) {
-    for (const auto& obstacle : mWalls){
+    for (const auto& obstacle : mWalls) {
         if (Utility::isColliding(other, obstacle, direction))
             return false;
     }
@@ -63,6 +63,8 @@ Level::movement(const SDL_FRect& other, const Directions& direction) {
 
 void
 Level::draw() {
+    SDL_SetRenderDrawColor(
+      pRenderer, mHeader.Color.BackgroundRed, mHeader.Color.BackgroundGreen, mHeader.Color.BackgroundBlue, SDL_ALPHA_OPAQUE);
     if (pTiles != nullptr) {
         for (int i = 0; i < mElements; i++) {
             SDL_RenderTexture(pRenderer, pTiles[i]->Texture, &pTiles[i]->Viewport, &pTiles[i]->Position);
