@@ -30,7 +30,7 @@ Editor::uiDrawGrid() {
         for (int x = 0; x < 16; x++) {
 
             const std::string name    = std::to_string(x) + "," + std::to_string(y);
-            auto              texture = mGraphics->getTexture(name);
+            auto              texture = mGraphics->getTexture<SDL_Texture*>(name);
             int               height;
             int               width;
 

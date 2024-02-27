@@ -61,6 +61,16 @@ class Graphics {
             throw std::out_of_range(name);
     }
 
+    template<typename T>
+    void addTexture(const std::string& name, T texture, TextureTypes type) {
+        auto it = mGraphics.find(name);
+        if (it == mGraphics.end()) {
+            mGraphics[name] = { texture, type };
+        }
+        if (type == ANIMATED_TEXTURE)
+            mAnimatedTextures.push_back(std::any_cast<AnimatedTexture*>(texture));
+    }
+
     void updateAnimatedTexture();
 
   protected:
@@ -75,14 +85,6 @@ class Graphics {
     std::unordered_map<std::string, typeTextureInfo> mGraphics; // Storage for all textures
     SDL_Renderer*                                    pRenderer;
     std::vector<AnimatedTexture*>                    mAnimatedTextures;
-    template<typename T>
-    void addTexture(const std::string& name, T texture, TextureTypes type) {
-        auto it = mGraphics.find(name);
-        if (it == mGraphics.end()) {
-            mGraphics[name] = { texture, type };
-        }
-        if (type == ANIMATED_TEXTURE)
-            mAnimatedTextures.push_back(std::any_cast<AnimatedTexture*>(texture));
-    }
+
 };
 }

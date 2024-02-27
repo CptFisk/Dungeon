@@ -74,7 +74,7 @@ Editor::startup() {
         for (int y = 0; y < 12; y++) {
             const std::string name    = std::to_string(x) + "," + std::to_string(y);
             auto              surface = TTF_RenderText_Solid(mFont, name.c_str(), mWhite);
-            mGraphics->addTexture(name, SDL_CreateTextureFromSurface(pRenderer, surface));
+            mGraphics->addTexture<SDL_Texture*>(name, SDL_CreateTextureFromSurface(pRenderer, surface), Graphics::SDL_TEXTURE);
             SDL_DestroySurface(surface); // Cleaning
         }
     }
@@ -211,7 +211,7 @@ Editor::click(const float& x, const float& y) {
         switch (mMouse) {
             case TEXTURE:
                 if (pTile[index]->Type == Level::BLANK) {
-                    auto simpleTexture           = mGraphics->getBaseTexture("PurpleFloor");
+                    auto simpleTexture           = mGraphics->getTexture<Graphics::typeSimpleTexture>("PurpleFloor");
                     pVisualTile[index]->Texture  = simpleTexture.Texture;
                     pVisualTile[index]->Viewport = simpleTexture[-1].second;
 
@@ -219,7 +219,8 @@ Editor::click(const float& x, const float& y) {
                     pTile[index]->Id = 1;
                     mLevelCoords.emplace(Common::getClickCoords(x,y, mScale));
                 } else if (pTile[index]->Type == Level::TEXTURE) {
-                    pVisualTile[index]->Texture = mGraphics->getTexture("PurpleFloor");
+
+                    pVisualTile[index]->Texture = mGraphics->getTexture<Graphics::typeSimpleTexture>("PurpleFloor").Texture;
                 }
                 break;
             case REMOVE:
@@ -235,11 +236,11 @@ Editor::click(const float& x, const float& y) {
                 break;
             case WALL:
                 pTile[index]->Type |= Level::WALL;
-                pVisualTileType[index]->Texture = mGraphics->getTexture("87ED17");
+                pVisualTileType[index]->Texture = mGraphics->getTexture<SDL_Texture*>("87ED17");
                 break;
             case OBSTACLE:
                 pTile[index]->Type |= Level::OBSTACLE;
-                pVisualTileType[index]->Texture = mGraphics->getTexture("1D35FA");
+                pVisualTileType[index]->Texture =mGraphics->getTexture<SDL_Texture*>("1D35FA");
                 break;
 
             case DEFAULT:

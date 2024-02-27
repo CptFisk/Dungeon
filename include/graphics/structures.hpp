@@ -16,7 +16,7 @@ const int TEXT_MAX_LENGTH = 31;
 enum GeneratedShapes { GENERATED_SHAPES(MAKE_GENERATED_SHAPES) };
 NLOHMANN_JSON_SERIALIZE_ENUM(GeneratedShapes, { { CIRCLE, "Circle" }, { SQUARE, "Square" } })
 
-enum TextureTypes { TEXT, SIMPLE_TEXTURE, ANIMATED_TEXTURE, GENERATED_TEXTURE };
+enum TextureTypes { SDL_TEXTURE, TEXT, SIMPLE_TEXTURE, ANIMATED_TEXTURE, GENERATED_TEXTURE };
 
 /**
  * @brief Used for text and strings that have been generated

@@ -18,6 +18,9 @@ Graphics::updateAnimatedTexture() {
 Graphics::~Graphics() {
     for (auto& [name, data] : mGraphics) {
         switch (data.Type) {
+            case SDL_TEXTURE:
+                SDL_DestroyTexture(getTexture<SDL_Texture*>(name));
+                break;
             case TEXT:
                 SDL_DestroyTexture(getTexture<typeTextTexture>(name).Texture);
                 break;
