@@ -134,7 +134,9 @@ void
 Engine::mainLoop() {
 
     SDL_Event event;
-    auto obj = mGraphics->generateText("ABC123", 1.0f);
+    auto obj = mGraphics->generateText("ABC123", 20.0f, 20.0f);
+    obj.Dimensions.x = 200;
+    obj.Dimensions.y = 200;
     while (mRun) {
         mFPSTimer.start();
 
@@ -166,7 +168,7 @@ Engine::mainLoop() {
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         particles();
-        SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("abc123"), nullptr, &obj.Dimensions);
+        SDL_RenderTexture(pRenderer, obj.Texture, nullptr, &obj.Dimensions);
         addDarkness();
 
         present();

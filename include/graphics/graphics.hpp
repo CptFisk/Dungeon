@@ -33,7 +33,14 @@ class Graphics {
                         const Uint8&       b2,     // End blue color
                         const Uint8&       a);           // Alpha channel
 
-    typeTextTexture generateText(std::string text, const float& height);
+    /**
+     * @brief Generate a text as texture
+     * @param text Text to be generated
+     * @param width Width of each letter
+     * @param height Height of each letter
+     * @return
+     */
+    typeTextTexture generateText(std::string text, const float& width, const float& height);
 
     struct typeTextureInfo {
         std::any     Texture;
