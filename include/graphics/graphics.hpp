@@ -33,7 +33,7 @@ class Graphics {
                         const Uint8&       b2,     // End blue color
                         const Uint8&       a);           // Alpha channel
 
-    SDL_Texture* generateText(std::string text, const float& height);
+    typeTextTexture generateText(std::string text, const float& height);
 
     struct typeTextureInfo {
         std::any     Texture;

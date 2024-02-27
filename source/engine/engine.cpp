@@ -167,7 +167,7 @@ Engine::mainLoop() {
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         particles();
-        SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("AB"), nullptr, &dest);
+        SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("abc123"), nullptr, &dest);
         addDarkness();
 
         present();
