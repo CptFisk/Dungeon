@@ -80,7 +80,7 @@ Engine::startup() {
                                                pRenderer,
                                                mScale,
                                                mGraphics->getTexture<Graphics::AnimatedTexture*>("Heart"),
-                                               mGraphics->getTexture<Graphics::typeSimpleTexture>(""));
+                                               mGraphics->getTexture<Graphics::typeSimpleTexture>("NumbersWhite"));
     // mEnergy = std::make_unique<Player::Energy>(mScale, mGraphics->getBaseTexture("Energy"), pRenderer);
 
     // Binding player data
