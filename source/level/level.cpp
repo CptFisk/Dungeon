@@ -54,7 +54,7 @@ Level::loadLevel(const std::string& filename) {
 
 bool
 Level::movement(const SDL_FRect& other, const Directions& direction) {
-    for (const auto& obstacle : mWalls {
+    for (const auto& obstacle : mWalls){
         if (Utility::isColliding(other, obstacle, direction))
             return false;
     }
