@@ -14,9 +14,9 @@
         "Width": 8
       },
       {
-        "File": "rsrc/LettersWhite.png",
+        "File": "rsrc/NumbersWhite.png",
         "Name": "NumbersWhite",
-        "Row": 2,
+        "Row": 1,
         "Column": 1,
         "Length": 10,
         "Height": 8,

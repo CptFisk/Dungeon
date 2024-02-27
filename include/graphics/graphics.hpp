@@ -84,7 +84,8 @@ class Graphics {
     Common::typeScale&                               mScale;
     std::unordered_map<std::string, typeTextureInfo> mGraphics; // Storage for all textures
     SDL_Renderer*                                    pRenderer;
-    std::vector<AnimatedTexture*>                    mAnimatedTextures;
+
+    std::vector<AnimatedTexture*>                    mAnimatedTextures; //Textures that should be updated cyclic
 
 };
 }

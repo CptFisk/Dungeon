@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 #include <common/scale.hpp>
 #include <graphics/animatedTexture.hpp>
+#include <graphics/structures.hpp>
 
 namespace Player {
 class Health {
@@ -14,17 +15,24 @@ class Health {
      * @param scale Game scale factor
      * @param texture Texture
      */
-    Health(bool& visible, int& health, SDL_Renderer* renderer, Common::typeScale& scale, Graphics::AnimatedTexture* texture);
+    Health(bool&                              visible,
+           int&                               health,
+           SDL_Renderer*                      renderer,
+           Common::typeScale&                 scale,
+           Graphics::AnimatedTexture*         texture,
+           Graphics::typeSimpleTexture numbers);
     void draw();
 
   protected:
   private:
-    const SDL_FRect            mPosition;     // Position of heart icon
-    bool&                      mVisible;      // If the UI should be visible
-    int&                       mHealth;       // Players current health
-    Common::typeScale&         mScale;        // Game scale
-    Graphics::AnimatedTexture* pHeartTexture; // Texture for the heart icon
+    const SDL_FRect    mPosition; // Position of heart icon
+    bool&              mVisible;  // If the UI should be visible
+    int&               mHealth;   // Players current health
+    Common::typeScale& mScale;    // Game scale
 
-    SDL_Renderer* pRenderer;    //Reference to renderer
+    Graphics::AnimatedTexture*     pHeartTexture; // Texture for the heart icon
+    Graphics::typeSimpleTexture & mNumbers;    // Textures for numbers
+
+    SDL_Renderer* pRenderer; // Reference to renderer
 };
 }

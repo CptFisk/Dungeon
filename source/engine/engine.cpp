@@ -75,8 +75,12 @@ Engine::startup() {
     mLevel->loadLevel("level.map");
     mPlayer = std::make_unique<Player::Player>(mScale);
 
-    mHealth = std::make_unique<Player::Health>(
-      mVisibleUI, mPlayerHealth, pRenderer, mScale, mGraphics->getTexture<Graphics::AnimatedTexture*>("Heart"));
+    mHealth = std::make_unique<Player::Health>(mVisibleUI,
+                                               mPlayerHealth,
+                                               pRenderer,
+                                               mScale,
+                                               mGraphics->getTexture<Graphics::AnimatedTexture*>("Heart"),
+                                               mGraphics->getTexture<Graphics::typeSimpleTexture>(""));
     // mEnergy = std::make_unique<Player::Energy>(mScale, mGraphics->getBaseTexture("Energy"), pRenderer);
 
     // Binding player data
