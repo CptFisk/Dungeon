@@ -7,7 +7,7 @@
 #include <memory>
 #include <objects/include.hpp>
 #include <player/energy.hpp>
-#include <player/health.hpp>
+#include <player/indicator.hpp>
 #include <player/player.hpp>
 #include <string>
 #include <thread>
@@ -53,8 +53,7 @@ class Engine {
     std::unique_ptr<Player::Player>      mPlayer;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
     std::unique_ptr<Level::Level>        mLevel;
-    std::unique_ptr<Player::Energy>      mEnergy;
-    std::unique_ptr<Player::Health>      mHealth;
+    std::unique_ptr<Player::Indicator>   mHealth;
 
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;

@@ -1,0 +1,19 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File" : "rsrc/Bolt.png",
+    "Objects" : [
+      {
+        "Name" : "Bolt",
+        "Column" : 1,
+        "Row" : 1,
+        "Length" : 26,
+        "Ticks" : 5,
+        "Width" : 16,
+        "Height" : 16
+      }
+    ]
+  }
+}

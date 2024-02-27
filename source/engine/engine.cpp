@@ -75,16 +75,14 @@ Engine::startup() {
     mLevel->loadLevel("level.map");
     mPlayer = std::make_unique<Player::Player>(mScale);
 
-    mHealth = std::make_unique<Player::Health>(mVisibleUI,
+    mHealth = std::make_unique<Player::Indicator>(mVisibleUI,
                                                mPlayerHealth,
                                                pRenderer,
                                                mScale,
-                                               mGraphics->getTexture<Graphics::AnimatedTexture*>("Heart"),
+                                               mGraphics->getTexture<Graphics::AnimatedTexture*>("Bolt"),
                                                mGraphics->getTexture<Graphics::typeSimpleTexture>("NumbersWhite"));
-    // mEnergy = std::make_unique<Player::Energy>(mScale, mGraphics->getBaseTexture("Energy"), pRenderer);
 
     // Binding player data
-
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::North, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleNorth"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::East, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleEast"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::South, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleSouth"));
@@ -141,9 +139,6 @@ void
 Engine::mainLoop() {
 
     SDL_Event event;
-    auto      obj    = mGraphics->generateText("ABC123", 20.0f, 20.0f);
-    obj.Dimensions.x = 200;
-    obj.Dimensions.y = 200;
     while (mRun) {
         mFPSTimer.start();
 
