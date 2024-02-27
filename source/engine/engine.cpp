@@ -178,7 +178,7 @@ Engine::mainLoop() {
 
         auto ticks = mFPSTimer.getTicks();
         if (ticks < 1000.0 / 60)
-            SDL_Delay((1000.0 / 60) - ticks);
+            SDL_Delay((1000 / 60) - ticks);
     }
 }
 
@@ -202,10 +202,8 @@ Engine::particles() {
 
 void
 Engine::addDarkness() {
-
     if (SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("Shadow"), nullptr, nullptr) != 0)
         std::cout << SDL_GetError() << std::endl;
-
 }
 
 std::thread
