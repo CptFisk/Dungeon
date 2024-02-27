@@ -16,7 +16,7 @@ const int TEXT_MAX_LENGTH = 31;
 enum GeneratedShapes { GENERATED_SHAPES(MAKE_GENERATED_SHAPES) };
 NLOHMANN_JSON_SERIALIZE_ENUM(GeneratedShapes, { { CIRCLE, "Circle" }, { SQUARE, "Square" } })
 
-enum TextureTypes { SIMPLE_TEXTURE, ANIMATED_TEXTURE, GENERATED_TEXTURE };
+enum TextureTypes { SDL_TEXTURE, SIMPLE_TEXTURE, ANIMATED_TEXTURE, GENERATED_TEXTURE };
 
 struct typeSimpleTexture {
     SDL_Texture*           Texture;

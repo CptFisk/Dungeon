@@ -134,7 +134,7 @@ void
 Engine::mainLoop() {
 
     SDL_Event event;
-    mGraphics->generateText("ABC", 1.0f);
+    mGraphics->generateText("ABC123", 1.0f);
     SDL_FRect dest = {30,30,256,64};
     while (mRun) {
         mFPSTimer.start();

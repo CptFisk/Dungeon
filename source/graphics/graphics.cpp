@@ -18,6 +18,9 @@ Graphics::updateAnimatedTexture() {
 Graphics::~Graphics() {
     for (auto& [name, data] : mGraphics) {
         switch (data.Type) {
+            case SDL_TEXTURE:
+                SDL_DestroyTexture(getTexture<SDL_Texture*>(name));
+                break;
             case ANIMATED_TEXTURE: {
                 delete getTexture<AnimatedTexture*>(name);
             } break;
@@ -36,12 +39,16 @@ Graphics::init() {
     loadGraphics("rsrc");
 }
 
-void
+SDL_Texture*
 Graphics::generateText(std::string text, const float& height) {
     // Calculate sizes
-    const auto length = text.length();
-    const auto w      = static_cast<int>(length) * static_cast<int>(8.0f * mScale.ScaleX);
-    const auto h      = static_cast<int>(8.0 * mScale.ScaleY);
+    const auto textureName = "text" + text;
+    if(mGraphics.find(textureName) != mGraphics.end())
+        return getTexture<SDL_Texture*>(textureName);
+
+    const auto length      = text.length();
+    const auto w           = static_cast<int>(length) * static_cast<int>(8.0f * mScale.ScaleX);
+    const auto h           = static_cast<int>(8.0 * mScale.ScaleY);
     // Allocating a texture with correct size
     auto texture = SDL_CreateTexture(pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, w, h);
     // Set render target to texture instead of screen
@@ -67,10 +74,10 @@ Graphics::generateText(std::string text, const float& height) {
         }
         destination.x = static_cast<float>(pos++) * 8.0f * mScale.ScaleX;
         SDL_RenderTexture(pRenderer, alphabet, &selector, &destination);
-
     }
     SDL_SetRenderTarget(pRenderer, nullptr); // Reset render target
-    addTexture<SDL_Texture*>("AB", texture, SIMPLE_TEXTURE);
+    addTexture<SDL_Texture*>(textureName, texture, SDL_TEXTURE);
+    return texture;
 }
 
 }

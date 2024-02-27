@@ -4,11 +4,11 @@
 #include <common/include.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <graphics/structures.hpp>
+#include <iostream>
 #include <string>
 #include <typeindex>
 #include <unordered_map>
 #include <vector>
-#include <iostream>
 
 namespace Graphics {
 class Graphics {
@@ -33,7 +33,7 @@ class Graphics {
                         const Uint8&       b2,     // End blue color
                         const Uint8&       a);           // Alpha channel
 
-    void generateText(std::string text, const float& height);
+    SDL_Texture* generateText(std::string text, const float& height);
 
     struct typeTextureInfo {
         std::any     Texture;
@@ -67,7 +67,7 @@ class Graphics {
     Common::typeScale&                               mScale;
     std::unordered_map<std::string, typeTextureInfo> mGraphics; // Storage for all textures
     SDL_Renderer*                                    pRenderer;
-    std::vector<AnimatedTexture*>            mAnimatedTextures;
+    std::vector<AnimatedTexture*>                    mAnimatedTextures;
     template<typename T>
     void addTexture(const std::string& name, T texture, TextureTypes type) {
         auto it = mGraphics.find(name);
