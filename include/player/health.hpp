@@ -15,23 +15,24 @@ class Health {
      * @param scale Game scale factor
      * @param texture Texture
      */
-    Health(bool&                              visible,
-           int&                               health,
-           SDL_Renderer*                      renderer,
-           Common::typeScale&                 scale,
-           Graphics::AnimatedTexture*         texture,
-           Graphics::typeSimpleTexture numbers);
+    Health(bool&                       visible,
+           int&                        health,
+           SDL_Renderer*               renderer,
+           Common::typeScale&          scale,
+           Graphics::AnimatedTexture*  texture,
+           const Graphics::typeSimpleTexture& numbers);
     void draw();
 
   protected:
   private:
-    const SDL_FRect    mPosition; // Position of heart icon
-    bool&              mVisible;  // If the UI should be visible
-    int&               mHealth;   // Players current health
-    Common::typeScale& mScale;    // Game scale
+    const SDL_FRect    mPositionHeart;     // Position of heart icon
+    const SDL_FRect    mPositionNumber[3]; // Position for numbers
+    bool&              mVisible;           // If the UI should be visible
+    int&               mHealth;            // Players current health
+    Common::typeScale& mScale;             // Game scale
 
-    Graphics::AnimatedTexture*     pHeartTexture; // Texture for the heart icon
-    Graphics::typeSimpleTexture & mNumbers;    // Textures for numbers
+    Graphics::AnimatedTexture*   pHeartTexture; // Texture for the heart icon
+    Graphics::typeSimpleTexture mNumbers;      // Textures for numbers
 
     SDL_Renderer* pRenderer; // Reference to renderer
 };
