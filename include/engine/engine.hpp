@@ -7,6 +7,7 @@
 #include <memory>
 #include <objects/include.hpp>
 #include <player/energy.hpp>
+#include <player/health.hpp>
 #include <player/player.hpp>
 #include <string>
 #include <thread>
@@ -24,10 +25,9 @@ class Engine {
 
     Common::ActionManager& getActionManager();
 
-    [[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>& getEventList(); // Get the list of events
-    [[maybe_unused]] std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>&
-    getEvents(); // Get the list of events
-    [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>& getProcessing();
+    [[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>&                             getEventList(); // Get the list of events
+    [[maybe_unused]] std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEvents();    // Get the list of events
+    [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
 
     void terminate();
     void click(const float& x, const float& y); // Mouse click
@@ -46,6 +46,7 @@ class Engine {
 
   private:
     bool              mRun;
+    bool              mVisibleUI;
     Common::typeScale mScale;
 
     std::unique_ptr<Common::InitHandler> mInitHandler;
@@ -53,9 +54,11 @@ class Engine {
     std::shared_ptr<Graphics::Graphics>  mGraphics;
     std::unique_ptr<Level::Level>        mLevel;
     std::unique_ptr<Player::Energy>      mEnergy;
+    std::unique_ptr<Player::Health>      mHealth;
+
     // Events
-    std::unique_ptr<Common::ActionManager>     mActionManager;
-    std::list<std::function<bool(SDL_Event*)>> mEventWatcher; // List of all event to watch for
+    std::unique_ptr<Common::ActionManager>                                 mActionManager;
+    std::list<std::function<bool(SDL_Event*)>>                             mEventWatcher; // List of all event to watch for
     std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>> mEvents;
     std::list<std::tuple<std::function<void(int)>, Utility::Timer>>        mProcessing;
 
@@ -75,6 +78,7 @@ class Engine {
     SDL_Texture** pPlayerTexture;
     SDL_FRect**   pPlayerView;
     SDL_FRect*    pPlayerPosition;
+    int           mPlayerHealth;
 };
 
 }

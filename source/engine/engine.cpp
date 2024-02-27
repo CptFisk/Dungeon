@@ -18,6 +18,8 @@ Engine::Engine()
   , pPlayerView(nullptr)
   , mScale{}
   , mRun(true)
+  , mVisibleUI(true)
+  , mPlayerHealth(100)
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Engine::~Engine() {
@@ -73,7 +75,9 @@ Engine::startup() {
     mLevel->loadLevel("level.map");
     mPlayer = std::make_unique<Player::Player>(mScale);
 
-    //mEnergy = std::make_unique<Player::Energy>(mScale, mGraphics->getBaseTexture("Energy"), pRenderer);
+    mHealth = std::make_unique<Player::Health>(
+      mVisibleUI, mPlayerHealth, pRenderer, mScale, mGraphics->getTexture<Graphics::AnimatedTexture*>("Heart"));
+    // mEnergy = std::make_unique<Player::Energy>(mScale, mGraphics->getBaseTexture("Energy"), pRenderer);
 
     // Binding player data
 
@@ -116,7 +120,6 @@ Engine::click(const float& x, const float& y) {
     };
 
     mProjectiles.push_back(new Objects::Projectile(setup, player, mScale, pRenderer, mParticles));
-
 }
 
 void
@@ -134,7 +137,7 @@ void
 Engine::mainLoop() {
 
     SDL_Event event;
-    auto obj = mGraphics->generateText("ABC123", 20.0f, 20.0f);
+    auto      obj    = mGraphics->generateText("ABC123", 20.0f, 20.0f);
     obj.Dimensions.x = 200;
     obj.Dimensions.y = 200;
     while (mRun) {
@@ -168,7 +171,7 @@ Engine::mainLoop() {
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         particles();
-        SDL_RenderTexture(pRenderer, obj.Texture, nullptr, &obj.Dimensions);
+        mHealth->draw();
         addDarkness();
 
         present();

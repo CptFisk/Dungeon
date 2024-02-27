@@ -2,14 +2,14 @@
 
 namespace Player {
 Player::Player(const Common::typeScale& scale)
-  : mPlayerPosition(400, 400, 16.0 * scale.ScaleX, 16.0 * scale.ScaleY)
+  : mPlayerPosition(400, 400, 16.0f * scale.ScaleX, 16.0f * scale.ScaleY)
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)
   , mAction(Objects::MOVE)
   , mDirection(South)
   , mMomentum(0.0) {}
 
-Player::~Player() {}
+Player::~Player() = default;
 
 SDL_FRect*
 Player::getPlayerPosition() {
