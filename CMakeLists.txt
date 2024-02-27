@@ -58,6 +58,7 @@ if (BUILD_GAME)
             ${CMAKE_SOURCE_DIR}/source/level/level.cpp
 
             ${CMAKE_SOURCE_DIR}/source/player/player.cpp
+            ${CMAKE_SOURCE_DIR}/source/player/health.cpp
             ${CMAKE_SOURCE_DIR}/source/player/energy.cpp
             ${CMAKE_SOURCE_DIR}/source/objects/obstacle.cpp
             ${CMAKE_SOURCE_DIR}/source/objects/projectile.cpp
