@@ -33,6 +33,8 @@ class Graphics {
                         const Uint8&       b2,     // End blue color
                         const Uint8&       a);           // Alpha channel
 
+    void generateText(const std::string& text, const float& height);
+
     struct typeTextureInfo {
         std::any     Texture;
         TextureTypes Type;

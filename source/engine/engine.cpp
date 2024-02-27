@@ -134,6 +134,8 @@ void
 Engine::mainLoop() {
 
     SDL_Event event;
+    mGraphics->generateText("Hej", 8.0f);
+    SDL_FRect dest = {30,30,128,64};
     while (mRun) {
         mFPSTimer.start();
 
@@ -165,7 +167,9 @@ Engine::mainLoop() {
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         particles();
+        SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("AB"), nullptr, &dest);
         addDarkness();
+
         present();
 
         auto ticks = mFPSTimer.getTicks();

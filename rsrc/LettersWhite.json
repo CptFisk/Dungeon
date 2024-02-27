@@ -12,6 +12,15 @@
         "Length": 20,
         "Height": 8,
         "Width": 8
+      },
+      {
+        "File": "rsrc/LettersWhite.png",
+        "Name": "NumbersWhite",
+        "Row": 2,
+        "Column": 1,
+        "Length": 10,
+        "Height": 8,
+        "Width": 8
       }
     ]
   }
