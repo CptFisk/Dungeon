@@ -41,11 +41,12 @@ Graphics::init() {
 
 typeTextTexture
 Graphics::generateText(std::string text, const float& height) {
-    // Calculate sizes
+    // //Change string to upper-case
+    std::transform(text.begin(), text.end(), text.begin(), [](unsigned char c) { return std::toupper(c); });
     const auto textureName = "text" + text;
     if (mGraphics.find(textureName) != mGraphics.end())
         return getTexture<typeTextTexture>(textureName);
-
+    // Calculate sizes
     const auto length = text.length();
     const auto w      = static_cast<int>(length) * static_cast<int>(8.0f * mScale.ScaleX);
     const auto h      = static_cast<int>(8.0 * mScale.ScaleY);
@@ -54,9 +55,6 @@ Graphics::generateText(std::string text, const float& height) {
     // Set render target to texture instead of screen
     SDL_SetRenderTarget(pRenderer, texture);
     auto alphabet = getTexture<typeSimpleTexture>("LettersWhite").Texture;
-
-    // Case the string to lowercase
-    std::transform(text.begin(), text.end(), text.begin(), [](unsigned char c) { return std::toupper(c); });
 
     int       pos         = 0;
     SDL_FRect selector    = { 0, 0, 8.0f, 8.0f };
