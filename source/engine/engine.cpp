@@ -20,6 +20,7 @@ Engine::Engine()
   , mRun(true)
   , mVisibleUI(true)
   , mPlayerHealth(100)
+  , mPlayerEnergy(50)
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Engine::~Engine() {
@@ -78,6 +79,13 @@ Engine::startup() {
     mHealth = std::make_unique<Player::Indicator>(mVisibleUI,
                                                   mPlayerHealth,
                                                   32.0f,
+                                                  pRenderer,
+                                                  mScale,
+                                                  mGraphics->getTexture<Graphics::AnimatedTexture*>("Heart"),
+                                                  mGraphics->getTexture<Graphics::typeSimpleTexture>("NumbersWhite"));
+    mEnergy = std::make_unique<Player::Indicator>(mVisibleUI,
+                                                  mPlayerEnergy,
+                                                  16.0f,
                                                   pRenderer,
                                                   mScale,
                                                   mGraphics->getTexture<Graphics::AnimatedTexture*>("Bolt"),
@@ -172,8 +180,9 @@ Engine::mainLoop() {
         projectiles();
         particles();
         addDarkness();
+        //Draw UI-elements
         mHealth->draw();
-
+        mEnergy->draw();
         present();
 
         auto ticks = mFPSTimer.getTicks();

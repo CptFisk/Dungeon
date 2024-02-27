@@ -54,6 +54,7 @@ class Engine {
     std::shared_ptr<Graphics::Graphics>  mGraphics;
     std::unique_ptr<Level::Level>        mLevel;
     std::unique_ptr<Player::Indicator>   mHealth;
+    std::unique_ptr<Player::Indicator>   mEnergy;
 
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;
@@ -78,6 +79,7 @@ class Engine {
     SDL_FRect**   pPlayerView;
     SDL_FRect*    pPlayerPosition;
     int           mPlayerHealth;
+    int           mPlayerEnergy;
 };
 
 }
