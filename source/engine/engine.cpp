@@ -76,11 +76,12 @@ Engine::startup() {
     mPlayer = std::make_unique<Player::Player>(mScale);
 
     mHealth = std::make_unique<Player::Indicator>(mVisibleUI,
-                                               mPlayerHealth,
-                                               pRenderer,
-                                               mScale,
-                                               mGraphics->getTexture<Graphics::AnimatedTexture*>("Bolt"),
-                                               mGraphics->getTexture<Graphics::typeSimpleTexture>("NumbersWhite"));
+                                                  mPlayerHealth,
+                                                  32.0f,
+                                                  pRenderer,
+                                                  mScale,
+                                                  mGraphics->getTexture<Graphics::AnimatedTexture*>("Bolt"),
+                                                  mGraphics->getTexture<Graphics::typeSimpleTexture>("NumbersWhite"));
 
     // Binding player data
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::North, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleNorth"));

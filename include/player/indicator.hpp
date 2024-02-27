@@ -11,16 +11,18 @@ class Indicator {
      * @brief Constructor for health icon and numbers
      * @param visible Shall UI be visible
      * @param value Current health
+     * @param distance Distance from bottom of screen
      * @param renderer Pointer to renderer
      * @param scale Game scale factor
      * @param texture Texture
      */
     Indicator(bool&                              visible,
-           int&                               value,
-           SDL_Renderer*                      renderer,
-           Common::typeScale&                 scale,
-           Graphics::AnimatedTexture*         texture,
-           const Graphics::typeSimpleTexture& numbers);
+              int&                               value,
+              const float&                       distance,
+              SDL_Renderer*                      renderer,
+              Common::typeScale&                 scale,
+              Graphics::AnimatedTexture*         texture,
+              const Graphics::typeSimpleTexture& numbers);
     void draw();
 
   protected:
