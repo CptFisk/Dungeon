@@ -171,8 +171,8 @@ Engine::mainLoop() {
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         particles();
-        mHealth->draw();
         addDarkness();
+        mHealth->draw();
 
         present();
 
@@ -202,8 +202,10 @@ Engine::particles() {
 
 void
 Engine::addDarkness() {
+
     if (SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("Shadow"), nullptr, nullptr) != 0)
         std::cout << SDL_GetError() << std::endl;
+
 }
 
 std::thread
