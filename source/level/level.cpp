@@ -38,6 +38,9 @@ Level::loadLevel(const std::string& filename) {
                   TEXTURE, Common::newSDL_FRect(x, y, mScale), mGraphics->getTexture<Graphics::typeSimpleTexture>("PurpleFloor")[-1]);
 
             }
+            if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & WALL) != 0) {
+                obstacle.push_back(Common::newSDL_FRect(x, y, mScale));
+            }
             if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & OBSTACLE) != 0) {
                 obstacle.push_back(Common::newSDL_FRect(x, y, mScale));
             }
