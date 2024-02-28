@@ -5,6 +5,7 @@
 #include <level/level.hpp>
 #include <list>
 #include <memory>
+#include <monster/include.hpp>
 #include <objects/include.hpp>
 #include <player/indicator.hpp>
 #include <player/player.hpp>
@@ -79,6 +80,9 @@ class Engine {
     SDL_FRect*    pPlayerPosition;
     int           mPlayerHealth;
     int           mPlayerEnergy;
+
+    // Monster blueprints
+    std::unordered_map<Monster::Monsters, Monster::BaseMonster*> mMonsters;
 };
 
 }

@@ -25,6 +25,10 @@ Engine::Engine()
 
 Engine::~Engine() {
     mInitHandler->shutdown();
+    //Kill all cute monsters
+    for(auto &[name, monster] : mMonsters)
+        delete monster; //Kill the baby
+
     // Clear projectiles
     for (auto& projectile : mProjectiles) {
         delete projectile;
@@ -100,6 +104,9 @@ Engine::startup() {
     mPlayer->addAnimatedTexture(Objects::MOVE, Directions::East, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingEast"));
     mPlayer->addAnimatedTexture(Objects::MOVE, Directions::South, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingSouth"));
     mPlayer->addAnimatedTexture(Objects::MOVE, Directions::West, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingWest"));
+
+    // Adding a slime
+    mMonsters[Monster::SLIME] = new Monster::Slime(50, 3.0f);
 
     mPlayer->setDirection(South);
     mPlayer->setAction(Objects::ObjectAction::IDLE);
@@ -180,7 +187,7 @@ Engine::mainLoop() {
         projectiles();
         particles();
         addDarkness();
-        //Draw UI-elements
+        // Draw UI-elements
         mHealth->draw();
         mEnergy->draw();
         present();
