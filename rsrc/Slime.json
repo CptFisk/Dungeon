@@ -6,7 +6,7 @@
     "File" : "rsrc/Slime.png",
     "Objects" : [
       {
-        "Name" : "Slime,
+        "Name" : "Slime",
         "Column" : 1,
         "Row" : 1,
         "Length" : 2,
