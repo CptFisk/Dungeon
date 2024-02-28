@@ -13,6 +13,9 @@ class Slime : public BaseMonster {
 
   protected:
   private:
+    int       mTicks; // Current ticks
+    const int IDLE;
+    const int MOVE;
 };
 
 }
