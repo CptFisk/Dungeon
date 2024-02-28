@@ -65,6 +65,7 @@ if (BUILD_GAME)
             ${CMAKE_SOURCE_DIR}/source/objects/particle.cpp
 
             ${CMAKE_SOURCE_DIR}/source/monster/monster.cpp
+            ${CMAKE_SOURCE_DIR}/source/monster/slime.cpp
     )
 else ()
     add_executable(
