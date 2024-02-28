@@ -7,7 +7,7 @@ BaseMonster::BaseMonster(const int& health, const float& velocity)
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)
   , mAction(Objects::IDLE)
-  , mDirection(South) {}
+  , mDirection(SOUTH) {}
 
 BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   : mHealth(other.mHealth)
