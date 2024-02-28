@@ -4,17 +4,12 @@
 namespace Monster {
 class Slime : public BaseMonster {
   public:
-    Slime(const int& health, const float& velocity);
+    Slime(const int& health, const float& velocity, SDL_FRect* playerPosition);
     ~Slime();
 
-    BaseMonster * spawn() const override{
-        return new Slime(*this);
-    }
+    BaseMonster* spawn(const float& x, const float& y) const override;
 
-    void move(Directions direction) override {
-        mMonsterPosition.x += 2.0f;
-        mMonsterPosition.y += 2.0f;
-    }
+    void move(Directions direction) override;
 
   protected:
   private:

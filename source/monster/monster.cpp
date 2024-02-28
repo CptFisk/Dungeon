@@ -1,11 +1,12 @@
 #include <monster/monster.hpp>
 
 namespace Monster {
-BaseMonster::BaseMonster(const int& health, const float& velocity)
+BaseMonster::BaseMonster(const int& health, const float& velocity, SDL_FRect* playerPosition)
   : mHealth(health)
   , mVelocity(velocity)
   , pCurrentTexture(nullptr)
   , pCurrentViewport(nullptr)
+  , pPlayerPosition(playerPosition)
   , mAction(Objects::IDLE)
   , mDirection(SOUTH) {}
 
@@ -16,7 +17,8 @@ BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   , mTextures(other.mTextures)
   , mMonsterPosition({ 100.0f, 100.0f, 32.0f, 32.0f })
   , pCurrentTexture(other.pCurrentTexture)
-  , pCurrentViewport(other.pCurrentViewport) {}
+  , pCurrentViewport(other.pCurrentViewport)
+  , pPlayerPosition(other.pPlayerPosition) {}
 
 BaseMonster::~BaseMonster() = default;
 

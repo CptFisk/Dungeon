@@ -13,11 +13,11 @@ struct typeMonsterData {
 
 class BaseMonster {
   public:
-    BaseMonster(const int& health, const float& velocity);
+    BaseMonster(const int& health, const float& velocity, SDL_FRect* playerPosition);
     BaseMonster(const BaseMonster& other);
     ~BaseMonster();
 
-    virtual BaseMonster* spawn() const = 0;
+    virtual BaseMonster* spawn(const float& x, const float& y) const = 0;
 
     bool damage(const int& damage);
 
@@ -29,7 +29,6 @@ class BaseMonster {
     virtual void move(Directions direction) = 0;
 
     typeMonsterData getMonster();
-
 
   private:
   protected:
@@ -45,6 +44,7 @@ class BaseMonster {
     SDL_FRect    mMonsterPosition;
     SDL_Texture* pCurrentTexture;
     SDL_FRect*   pCurrentViewport;
+    SDL_FRect*   pPlayerPosition;
 
     void updateReferences();
 };

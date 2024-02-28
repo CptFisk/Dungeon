@@ -42,4 +42,11 @@ calculateAngle(const T& x1, const T& y1, const T& x2, const T& y2) {
     return static_cast<T>(angleDegrees);
 }
 
+template<typename T>
+std::pair<T, T>
+calculateMovement(const T& x1, const T& y1, const T& x2, const T& y2, const float& velocity) {
+    auto angle = calculateAngle(x1, y1, x2, y2);
+    return calculateVector(angle, velocity, x2, y2);
+}
+
 }

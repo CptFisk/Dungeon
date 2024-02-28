@@ -105,12 +105,6 @@ Engine::startup() {
     mPlayer->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingSouth"));
     mPlayer->addAnimatedTexture(Objects::MOVE, Directions::WEST, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingWest"));
 
-    // Adding a slime
-    mMonsters[Monster::SLIME] = new Monster::Slime(50, 3.0f);
-
-    mMonsters[Monster::SLIME]->addAnimatedTexture(
-      Objects::IDLE, Directions::ALL, mGraphics->getTexture<Graphics::AnimatedTexture*>("Slime"));
-
     mPlayer->setDirection(SOUTH);
     mPlayer->setAction(Objects::ObjectAction::IDLE);
 
@@ -123,7 +117,10 @@ Engine::startup() {
 
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 
-    SDL_SetRenderDrawColor(pRenderer, 0, 0, 24, SDL_ALPHA_OPAQUE);
+    // Adding a slime
+    mMonsters[Monster::SLIME] = new Monster::Slime(50, 0.5f, pPlayerPosition);
+    mMonsters[Monster::SLIME]->addAnimatedTexture(
+      Objects::IDLE, Directions::ALL, mGraphics->getTexture<Graphics::AnimatedTexture*>("Slime"));
 }
 
 void
@@ -156,7 +153,7 @@ Engine::setPlayerAction(Objects::ObjectAction action) {
 
 void
 Engine::mainLoop() {
-    auto slime = mMonsters[Monster::SLIME]->spawn();
+    auto slime = mMonsters[Monster::SLIME]->spawn(500,500);
 
     SDL_Event event;
     while (mRun) {
