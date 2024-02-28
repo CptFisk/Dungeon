@@ -6,7 +6,6 @@
 #include <list>
 #include <memory>
 #include <objects/include.hpp>
-#include <player/energy.hpp>
 #include <player/indicator.hpp>
 #include <player/player.hpp>
 #include <string>
