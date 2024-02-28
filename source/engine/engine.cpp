@@ -194,6 +194,7 @@ Engine::mainLoop() {
         // Draw UI-elements
         mHealth->draw();
         mEnergy->draw();
+        slime->move(NORTH);
         SDL_RenderTexture(pRenderer, slime->getMonster().Texture, slime->getMonster().Viewport, slime->getMonster().Position);
         present();
 

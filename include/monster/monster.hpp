@@ -17,7 +17,7 @@ class BaseMonster {
     BaseMonster(const BaseMonster& other);
     ~BaseMonster();
 
-    BaseMonster* spawn() const;
+    virtual BaseMonster* spawn() const = 0;
 
     bool damage(const int& damage);
 
@@ -26,10 +26,13 @@ class BaseMonster {
     void setAction(Objects::ObjectAction action);
     void setDirection(Directions direction);
 
+    virtual void move(Directions direction) = 0;
+
     typeMonsterData getMonster();
 
-  protected:
+
   private:
+  protected:
     const float mVelocity;
     int         mHealth; // Monster health
 
