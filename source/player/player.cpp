@@ -5,7 +5,7 @@ Player::Player(const Common::typeScale& scale)
   : mPlayerPosition(400, 400, 16.0f * scale.ScaleX, 16.0f * scale.ScaleY)
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)
-  , mAction(Objects::MOVE)
+  , mAction(Objects::IDLE)
   , mDirection(South)
   , mMomentum(0.0) {}
 

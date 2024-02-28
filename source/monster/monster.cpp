@@ -3,7 +3,11 @@
 namespace Monster {
 BaseMonster::BaseMonster(const int& health, const float& velocity)
   : mHealth(health)
-  , mVelocity(velocity) {}
+  , mVelocity(velocity)
+  , mCurrentTexture(nullptr)
+  , mCurrentViewport(nullptr)
+  , mAction(Objects::IDLE)
+  , mDirection(South) {}
 
 BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   : mHealth(other.mHealth)
