@@ -25,9 +25,9 @@ Engine::Engine()
 
 Engine::~Engine() {
     mInitHandler->shutdown();
-    //Kill all cute monsters
-    for(auto &[name, monster] : mMonsters)
-        delete monster; //Kill the baby
+    // Kill all cute monsters
+    for (auto& [name, monster] : mMonsters)
+        delete monster; // Kill the baby
 
     // Clear projectiles
     for (auto& projectile : mProjectiles) {
@@ -108,6 +108,9 @@ Engine::startup() {
     // Adding a slime
     mMonsters[Monster::SLIME] = new Monster::Slime(50, 3.0f);
 
+    mMonsters[Monster::SLIME]->addAnimatedTexture(
+      Objects::IDLE, Directions::ALL, mGraphics->getTexture<Graphics::AnimatedTexture*>("Slime"));
+
     mPlayer->setDirection(SOUTH);
     mPlayer->setAction(Objects::ObjectAction::IDLE);
 
@@ -153,6 +156,7 @@ Engine::setPlayerAction(Objects::ObjectAction action) {
 
 void
 Engine::mainLoop() {
+    auto slime = mMonsters[Monster::SLIME]->spawn();
 
     SDL_Event event;
     while (mRun) {
@@ -190,6 +194,7 @@ Engine::mainLoop() {
         // Draw UI-elements
         mHealth->draw();
         mEnergy->draw();
+        SDL_RenderTexture(pRenderer, slime->getMonster().Texture, slime->getMonster().Viewport, slime->getMonster().Position);
         present();
 
         auto ticks = mFPSTimer.getTicks();

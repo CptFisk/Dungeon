@@ -35,7 +35,7 @@ class Player {
     float mMomentum;
     // Pointer that SDL_Render refer to
     SDL_FRect    mPlayerPosition;
-    SDL_Texture* mCurrentTexture;
-    SDL_FRect*   mCurrentViewport;
+    SDL_Texture* pCurrentTexture;
+    SDL_FRect*   pCurrentViewport;
 };
 }

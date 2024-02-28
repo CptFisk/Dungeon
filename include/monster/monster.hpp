@@ -4,6 +4,13 @@
 #include <graphics/animatedTexture.hpp>
 
 namespace Monster {
+
+struct typeMonsterData {
+    SDL_Texture* Texture;
+    SDL_FRect*   Viewport;
+    SDL_FRect*   Position;
+};
+
 class BaseMonster {
   public:
     BaseMonster(const int& health, const float& velocity);
@@ -19,6 +26,8 @@ class BaseMonster {
     void setAction(Objects::ObjectAction action);
     void setDirection(Directions direction);
 
+    typeMonsterData getMonster();
+
   protected:
   private:
     const float mVelocity;
@@ -31,8 +40,8 @@ class BaseMonster {
 
     // Pointer that SDL_Render refer to
     SDL_FRect    mMonsterPosition;
-    SDL_Texture* mCurrentTexture;
-    SDL_FRect*   mCurrentViewport;
+    SDL_Texture* pCurrentTexture;
+    SDL_FRect*   pCurrentViewport;
 
     void updateReferences();
 };

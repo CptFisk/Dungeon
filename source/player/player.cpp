@@ -3,8 +3,8 @@
 namespace Player {
 Player::Player(const Common::typeScale& scale)
   : mPlayerPosition(400, 400, 16.0f * scale.ScaleX, 16.0f * scale.ScaleY)
-  , mCurrentTexture(nullptr)
-  , mCurrentViewport(nullptr)
+  , pCurrentTexture(nullptr)
+  , pCurrentViewport(nullptr)
   , mAction(Objects::IDLE)
   , mDirection(SOUTH)
   , mMomentum(0.0) {}
@@ -18,27 +18,27 @@ Player::getPlayerPosition() {
 
 SDL_Texture**
 Player::getPlayerTexture() {
-    return &mCurrentTexture;
+    return &pCurrentTexture;
 }
 
 SDL_FRect**
 Player::getPlayerViewport() {
-    return &mCurrentViewport;
+    return &pCurrentViewport;
 }
 
 void
 Player::addAnimatedTexture(Objects::ObjectAction action, Directions direction, Graphics::AnimatedTexture* texture) {
     mTextures[{ action, direction }] = texture;
-    if (mCurrentTexture == nullptr || mCurrentViewport == nullptr) {
-        mCurrentTexture  = texture->mTexture;
-        mCurrentViewport = texture->getViewport();
+    if (pCurrentTexture == nullptr || pCurrentViewport == nullptr) {
+        pCurrentTexture  = texture->mTexture;
+        pCurrentViewport = texture->getViewport();
     }
 }
 
 void
 Player::updateReferences() {
-    mCurrentTexture  = mTextures[{ mAction, mDirection }]->getTexture();
-    mCurrentViewport = mTextures[{ mAction, mDirection }]->getViewport();
+    pCurrentTexture  = mTextures[{ mAction, mDirection }]->getTexture();
+    pCurrentViewport = mTextures[{ mAction, mDirection }]->getViewport();
 }
 
 void

@@ -4,14 +4,19 @@ namespace Monster {
 BaseMonster::BaseMonster(const int& health, const float& velocity)
   : mHealth(health)
   , mVelocity(velocity)
-  , mCurrentTexture(nullptr)
-  , mCurrentViewport(nullptr)
+  , pCurrentTexture(nullptr)
+  , pCurrentViewport(nullptr)
   , mAction(Objects::IDLE)
   , mDirection(SOUTH) {}
 
 BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   : mHealth(other.mHealth)
-  , mVelocity(other.mVelocity) {}
+  , mVelocity(other.mVelocity)
+  , mAction(other.mAction)
+  , mTextures(other.mTextures)
+  , mMonsterPosition({ 100.0f, 100.0f, 50.0f, 50.0f })
+  , pCurrentTexture(other.pCurrentTexture)
+  , pCurrentViewport(other.pCurrentViewport) {}
 
 BaseMonster::~BaseMonster() = default;
 
@@ -29,17 +34,31 @@ BaseMonster::damage(const int& damage) {
 
 void
 BaseMonster::addAnimatedTexture(Objects::ObjectAction action, Directions direction, Graphics::AnimatedTexture* texture) {
-    mTextures[{ action, direction }] = texture;
-    if (mCurrentTexture == nullptr || mCurrentViewport == nullptr) {
-        mCurrentTexture  = texture->mTexture;
-        mCurrentViewport = texture->getViewport();
+    if (pCurrentTexture == nullptr || pCurrentViewport == nullptr) {
+        pCurrentTexture  = texture->mTexture;
+        pCurrentViewport = texture->getViewport();
     }
+
+    if (direction == Directions::ALL) {
+        mTextures[{ action, NORTH }] = texture;
+        mTextures[{ action, EAST }]  = texture;
+        mTextures[{ action, SOUTH }] = texture;
+        mTextures[{ action, WEST }]  = texture;
+        return;
+    }
+
+    mTextures[{ action, direction }] = texture;
 }
 
 void
 BaseMonster::setDirection(Directions direction) {
     mDirection = direction;
     updateReferences();
+}
+
+typeMonsterData
+BaseMonster::getMonster() {
+    return typeMonsterData{ pCurrentTexture, pCurrentViewport, &mMonsterPosition };
 }
 
 void
@@ -50,8 +69,8 @@ BaseMonster::setAction(Objects::ObjectAction action) {
 
 void
 BaseMonster::updateReferences() {
-    mCurrentTexture  = mTextures[{ mAction, mDirection }]->getTexture();
-    mCurrentViewport = mTextures[{ mAction, mDirection }]->getViewport();
+    pCurrentTexture  = mTextures[{ mAction, mDirection }]->getTexture();
+    pCurrentViewport = mTextures[{ mAction, mDirection }]->getViewport();
 }
 
 }
