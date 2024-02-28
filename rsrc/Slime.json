@@ -1,0 +1,19 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File" : "rsrc/Slime.png",
+    "Objects" : [
+      {
+        "Name" : "Slime,
+        "Column" : 1,
+        "Row" : 1,
+        "Length" : 2,
+        "Ticks" : 30,
+        "Width" : 16,
+        "Height" : 16
+      }
+    ]
+  }
+}
