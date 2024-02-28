@@ -17,16 +17,16 @@ bool
 isColliding(const SDL_FRect& rect1, const SDL_FRect& rect2, Directions direction) {
     SDL_FRect tmp = rect1;
     switch (direction) {
-        case North:
+        case NORTH:
             tmp.y -= 3.0f;
             break;
-        case East:
+        case EAST:
             tmp.x += 3.0f;
             break;
-        case South:
+        case SOUTH:
             tmp.y += 3.0f;
             break;
-        case West:
+        case WEST:
             tmp.x -= 3.0f;
             break;
     }

@@ -96,19 +96,19 @@ Engine::startup() {
                                                   mGraphics->getTexture<Graphics::typeSimpleTexture>("NumbersWhite"));
 
     // Binding player data
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::North, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleNorth"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::East, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleEast"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::South, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleSouth"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::West, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleWest"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::North, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingNorth"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::East, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingEast"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::South, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingSouth"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::West, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingWest"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::NORTH, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleNorth"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::EAST, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleEast"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleSouth"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::WEST, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleWest"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::NORTH, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingNorth"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::EAST, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingEast"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingSouth"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::WEST, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingWest"));
 
     // Adding a slime
     mMonsters[Monster::SLIME] = new Monster::Slime(50, 3.0f);
 
-    mPlayer->setDirection(South);
+    mPlayer->setDirection(SOUTH);
     mPlayer->setAction(Objects::ObjectAction::IDLE);
 
     pPlayerTexture  = mPlayer->getPlayerTexture();

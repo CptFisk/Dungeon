@@ -6,7 +6,7 @@ Player::Player(const Common::typeScale& scale)
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)
   , mAction(Objects::IDLE)
-  , mDirection(South)
+  , mDirection(SOUTH)
   , mMomentum(0.0) {}
 
 Player::~Player() = default;
@@ -56,16 +56,16 @@ Player::setDirection(Directions direction) {
 void
 Player::move(Directions direction) {
     switch (direction) {
-        case North:
+        case NORTH:
             mPlayerPosition.y -= 3;
             break;
-        case East:
+        case EAST:
             mPlayerPosition.x += 3;
             break;
-        case South:
+        case SOUTH:
             mPlayerPosition.y += 3;
             break;
-        case West:
+        case WEST:
             mPlayerPosition.x -= 3;
             break;
     }
