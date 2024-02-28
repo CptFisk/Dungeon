@@ -120,7 +120,9 @@ Engine::startup() {
     // Adding a slime
     mMonsters[Monster::SLIME] = new Monster::Slime(50, 0.5f, pPlayerPosition);
     mMonsters[Monster::SLIME]->addAnimatedTexture(
-      Objects::IDLE, Directions::ALL, mGraphics->getTexture<Graphics::AnimatedTexture*>("Slime"));
+      Objects::IDLE, Directions::ALL, mGraphics->getTexture<Graphics::AnimatedTexture*>("SlimeIdle"));
+    mMonsters[Monster::SLIME]->addAnimatedTexture(
+      Objects::MOVE, Directions::ALL, mGraphics->getTexture<Graphics::AnimatedTexture*>("SlimeMoving"));
 }
 
 void

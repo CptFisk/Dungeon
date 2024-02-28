@@ -16,6 +16,7 @@ BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   , mAction(other.mAction)
   , mTextures(other.mTextures)
   , mMonsterPosition({ 100.0f, 100.0f, 32.0f, 32.0f })
+  , mDirection(SOUTH)
   , pCurrentTexture(other.pCurrentTexture)
   , pCurrentViewport(other.pCurrentViewport)
   , pPlayerPosition(other.pPlayerPosition) {}

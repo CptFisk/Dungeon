@@ -17,8 +17,10 @@ Slime::spawn(const float& x, const float& y) const {
 
 void
 Slime::move(Directions direction) {
+    mAction = Objects::MOVE;
     auto angle = Utility::calculateMovement(mMonsterPosition.x, mMonsterPosition.y, pPlayerPosition->x, pPlayerPosition->y, mVelocity);
     mMonsterPosition.x += angle.first;
     mMonsterPosition.y += angle.second;
+    updateReferences();
 }
 }
