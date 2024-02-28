@@ -155,7 +155,10 @@ Engine::setPlayerAction(Objects::ObjectAction action) {
 
 void
 Engine::mainLoop() {
-    auto slime = mMonsters[Monster::SLIME]->spawn(500,500);
+    // Spawn some slime
+    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(100, 100));
+    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 500));
+    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 50));
 
     SDL_Event event;
     while (mRun) {
@@ -187,14 +190,14 @@ Engine::mainLoop() {
         }
         mLevel->draw();
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
-        projectiles();
-        particles();
+        drawProjectiles();
+        drawParticles();
+        drawMonsters();
         addDarkness();
         // Draw UI-elements
         mHealth->draw();
         mEnergy->draw();
-        slime->move(NORTH);
-        SDL_RenderTexture(pRenderer, slime->getMonster().Texture, slime->getMonster().Viewport, slime->getMonster().Position);
+
         present();
 
         auto ticks = mFPSTimer.getTicks();
@@ -204,7 +207,7 @@ Engine::mainLoop() {
 }
 
 void
-Engine::projectiles() {
+Engine::drawProjectiles() {
     for (auto it = mProjectiles.begin(); it != mProjectiles.end();) {
         if ((*it)->getNewDuration() < 0) {
             delete *it;
@@ -217,7 +220,15 @@ Engine::projectiles() {
 }
 
 void
-Engine::particles() {
+Engine::drawMonsters() {
+    for(auto &monster : mActiveMonsters){
+        auto data = monster->getMonster();
+        SDL_RenderTexture(pRenderer, data.Texture, data.Viewport, data.Position);
+    }
+}
+
+void
+Engine::drawParticles() {
     mParticles->draw();
 }
 

@@ -56,6 +56,7 @@ BaseMonster::setDirection(Directions direction) {
 
 typeMonsterData
 BaseMonster::getMonster() {
+    move();
     return typeMonsterData{ pCurrentTexture, pCurrentViewport, &mMonsterPosition };
 }
 

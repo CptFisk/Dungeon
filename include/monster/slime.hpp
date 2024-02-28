@@ -8,10 +8,9 @@ class Slime : public BaseMonster {
     ~Slime();
 
     BaseMonster* spawn(const float& x, const float& y) const override;
-
-    void move(Directions direction) override;
-
+    void move() override;
   protected:
+
   private:
     int       mTicks; // Current ticks
     const int IDLE;

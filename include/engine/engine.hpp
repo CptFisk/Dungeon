@@ -37,9 +37,9 @@ class Engine {
 
   protected:
     void present();
-
-    void projectiles();
-    void particles();
+    void drawMonsters();
+    void drawProjectiles();
+    void drawParticles();
 
     void        addDarkness();
     std::thread spawnInterrupt(const long& time); // Spawn a thread
@@ -83,6 +83,7 @@ class Engine {
 
     // Monster blueprints
     std::unordered_map<Monster::Monsters, Monster::BaseMonster*> mMonsters;
+    std::vector<Monster::BaseMonster*>                           mActiveMonsters;
 };
 
 }
