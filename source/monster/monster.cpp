@@ -2,7 +2,7 @@
 
 namespace Monster {
 BaseMonster::BaseMonster(const int& health, const float& velocity, SDL_FRect* playerPosition)
-  : mInflictDamadge(true)
+  : mInflictDamage(true)
   , mHealth(health)
   , mVelocity(velocity)
   , pCurrentTexture(nullptr)
