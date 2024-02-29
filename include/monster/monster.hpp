@@ -26,7 +26,7 @@ class BaseMonster {
     void setAction(Objects::ObjectAction action);
     void setDirection(Directions direction);
 
-    virtual void move() = 0;
+    virtual void interact() = 0;
 
     typeMonsterData getMonster();
 

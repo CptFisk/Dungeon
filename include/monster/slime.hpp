@@ -8,7 +8,7 @@ class Slime : public BaseMonster {
     ~Slime();
 
     BaseMonster* spawn(const float& x, const float& y) const override;
-    void move() override;
+    void interact() override;
   protected:
 
   private:

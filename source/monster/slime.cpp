@@ -20,7 +20,7 @@ Slime::spawn(const float& x, const float& y) const {
 }
 
 void
-Slime::move() {
+Slime::interact() {
     if (mAction == Objects::IDLE) {
         if (mTicks++ > IDLE) {
             mAction = Objects::MOVE;
