@@ -2,7 +2,8 @@
 
 namespace Monster {
 BaseMonster::BaseMonster(const int& health, const float& velocity, SDL_FRect* playerPosition)
-  : mHealth(health)
+  : mInflictDamadge(true)
+  , mHealth(health)
   , mVelocity(velocity)
   , pCurrentTexture(nullptr)
   , pCurrentViewport(nullptr)
@@ -24,10 +25,15 @@ BaseMonster::BaseMonster(const Monster::BaseMonster& other)
 BaseMonster::~BaseMonster() = default;
 
 bool
-BaseMonster::damage(const int& damage) {
+BaseMonster::damageMonster(const int& damage) {
     if (mHealth -= damage <= 0)
         return true;
     return false;
+}
+
+bool
+BaseMonster::inflictDamage() const {
+    return mInflictDamage;
 }
 
 void
