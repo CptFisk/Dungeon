@@ -29,7 +29,7 @@ Projectile::~Projectile() = default;
 void
 Projectile::draw() {
     if (mParticleEnabled && (rand() % PARTICLE_CHANCE == 1)) {
-        mParticle->addParticle(Utility::getFRectCenter(mCurrentPosition));
+        mParticle->addParticle(mCurrentPosition);
     }
 
     if (pLightning != nullptr) {

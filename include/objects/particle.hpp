@@ -13,7 +13,7 @@ class Particle {
     Particle(SDL_Texture* texture, SDL_Renderer* renderer, const int& duration, const float& size, const int& velocity);
     ~Particle();
 
-    void addParticle(const std::pair<float, float>& position); // Position for particle
+    void addParticle(const SDL_FRect& position); // Position for particle
     void draw();                                               // Draw particles
   protected:
     void randomPosition(SDL_FRect& rect);

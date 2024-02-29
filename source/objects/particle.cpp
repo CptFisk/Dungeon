@@ -18,8 +18,10 @@ Particle::~Particle() {
 }
 
 void
-Particle::addParticle(const std::pair<float, float>& position) {
-    mParticles.push_back(ParticleStruct{ SDL_FRect{ position.first, position.second, mSize, mSize }, mDuration });
+Particle::addParticle(const SDL_FRect& position) {
+    const auto x = position.x + (position.w / 2.0f);
+    const auto y = position.y + (position.h / 2.0f);
+    mParticles.push_back(ParticleStruct{ SDL_FRect{ x, y, mSize, mSize }, mDuration });
 }
 
 void
