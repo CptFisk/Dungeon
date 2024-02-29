@@ -17,20 +17,20 @@ class Player {
     SDL_FRect**   getPlayerViewport();
     SDL_FRect*    getPlayerPosition();
 
-    void addAnimatedTexture(Objects::ObjectAction action, Directions direction, Graphics::AnimatedTexture* texture);
+    void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
 
-    void setAction(Objects::ObjectAction action);
+    void setAction(Objects::State action);
     void setDirection(Directions direction);
 
     void move(Directions direction);
 
   private:
-    Objects::ObjectAction mAction; // What are we doing
+    Objects::State        mAction; // What are we doing
     Directions            mDirection; // The direction we are facing
     void                  updateReferences();
 
   protected:
-    std::map<std::pair<Objects::ObjectAction, Directions>, Graphics::AnimatedTexture*> mTextures;
+    std::map<std::pair<Objects::State, Directions>, Graphics::AnimatedTexture*> mTextures;
 
     float mMomentum;
     // Pointer that SDL_Render refer to

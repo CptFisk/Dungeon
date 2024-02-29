@@ -29,9 +29,9 @@ class BaseMonster {
      */
     bool inflictDamage() const;
 
-    void addAnimatedTexture(Objects::ObjectAction action, Directions direction, Graphics::AnimatedTexture* texture);
+    void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
 
-    void setAction(Objects::ObjectAction action);
+    void setAction(Objects::State action);
     void setDirection(Directions direction);
 
     virtual void interact() = 0;
@@ -44,10 +44,10 @@ class BaseMonster {
     const float mVelocity;
     int         mHealth; // Monster health
 
-    Objects::ObjectAction mAction;    // What are we doing
+    Objects::State        mAction;    // What are we doing
     Directions            mDirection; // The direction we are facing
 
-    std::map<std::pair<Objects::ObjectAction, Directions>, Graphics::AnimatedTexture*> mTextures;
+    std::map<std::pair<Objects::State, Directions>, Graphics::AnimatedTexture*> mTextures;
 
     // Pointer that SDL_Render refer to
     SDL_FRect    mMonsterPosition;

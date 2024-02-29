@@ -33,7 +33,7 @@ class Engine {
     void click(const float& x, const float& y); // Mouse click
     // Player movement
     void movePlayer(Directions direction);
-    void setPlayerAction(Objects::ObjectAction action);
+    void setPlayerAction(Objects::State action);
 
   protected:
     void present();

@@ -35,7 +35,7 @@ BaseMonster::inflictDamage() const {
 }
 
 void
-BaseMonster::addAnimatedTexture(Objects::ObjectAction action, Directions direction, Graphics::AnimatedTexture* texture) {
+BaseMonster::addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture) {
     if (pCurrentTexture == nullptr || pCurrentViewport == nullptr) {
         pCurrentTexture  = texture->mTexture;
         pCurrentViewport = texture->getViewport();
@@ -65,7 +65,7 @@ BaseMonster::getMonster() {
 }
 
 void
-BaseMonster::setAction(Objects::ObjectAction action) {
+BaseMonster::setAction(Objects::State action) {
     mAction = action;
     updateReferences();
 }

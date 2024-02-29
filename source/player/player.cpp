@@ -27,7 +27,7 @@ Player::getPlayerViewport() {
 }
 
 void
-Player::addAnimatedTexture(Objects::ObjectAction action, Directions direction, Graphics::AnimatedTexture* texture) {
+Player::addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture) {
     mTextures[{ action, direction }] = texture;
     if (pCurrentTexture == nullptr || pCurrentViewport == nullptr) {
         pCurrentTexture  = texture->mTexture;
@@ -42,7 +42,7 @@ Player::updateReferences() {
 }
 
 void
-Player::setAction(Objects::ObjectAction action) {
+Player::setAction(Objects::State action) {
     mAction = action;
     updateReferences();
 }

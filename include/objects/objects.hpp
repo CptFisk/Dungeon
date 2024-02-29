@@ -8,7 +8,7 @@ namespace Objects {
     DO(DEAD)
 
 #define MAKE_OBJECT_ACTION(VAR) VAR,
-enum ObjectAction { OBJECT_ACTION(MAKE_OBJECT_ACTION) };
-NLOHMANN_JSON_SERIALIZE_ENUM(ObjectAction, { { IDLE, "Idle" }, { MOVE, "MOVE" }, { ATTACK, "ATTACK" } })
+enum State { OBJECT_ACTION(MAKE_OBJECT_ACTION) };
+NLOHMANN_JSON_SERIALIZE_ENUM(State, { { IDLE, "Idle" }, { MOVE, "MOVE" }, { ATTACK, "ATTACK" } })
 
 }

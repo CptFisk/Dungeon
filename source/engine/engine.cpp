@@ -106,7 +106,7 @@ Engine::startup() {
     mPlayer->addAnimatedTexture(Objects::MOVE, Directions::WEST, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingWest"));
 
     mPlayer->setDirection(SOUTH);
-    mPlayer->setAction(Objects::ObjectAction::IDLE);
+    mPlayer->setAction(Objects::State::IDLE);
 
     pPlayerTexture  = mPlayer->getPlayerTexture();
     pPlayerView     = mPlayer->getPlayerViewport();
@@ -149,7 +149,7 @@ Engine::movePlayer(Directions direction) {
 }
 
 void
-Engine::setPlayerAction(Objects::ObjectAction action) {
+Engine::setPlayerAction(Objects::State action) {
     mPlayer->setAction(action);
 }
 
