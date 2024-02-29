@@ -19,16 +19,16 @@ class BaseMonster {
 
     virtual BaseMonster* spawn(const float& x, const float& y) const = 0;
     /**
-     * @brief Deal damadge to the monster.
+     * @brief Deal damage to the monster.
      * @param damage
-     * @return
      */
-    bool damageMonster(const int& damage);
+    void damageMonster(const int& damage);
     /**
      * @brief Return the status of mInflictDamage
      * @return True means that the monster can hurt you
      */
     bool inflictDamage() const;
+
     void addAnimatedTexture(Objects::ObjectAction action, Directions direction, Graphics::AnimatedTexture* texture);
 
     void setAction(Objects::ObjectAction action);

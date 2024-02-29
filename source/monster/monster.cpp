@@ -24,11 +24,9 @@ BaseMonster::BaseMonster(const Monster::BaseMonster& other)
 
 BaseMonster::~BaseMonster() = default;
 
-bool
+void
 BaseMonster::damageMonster(const int& damage) {
-    if (mHealth -= damage <= 0)
-        return true;
-    return false;
+    mHealth -= damage;
 }
 
 bool
