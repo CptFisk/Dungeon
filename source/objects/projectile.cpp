@@ -4,7 +4,7 @@
 
 namespace Objects {
 
-Projectile::Projectile(const Objects::ProjectileStruct& setup,
+Projectile::Projectile(const Objects::typeProjectileStruct& setup,
                        const std::pair<float, float>    playerPosition,
                        const Common::typeScale          scale,
                        SDL_Renderer*                    renderer,

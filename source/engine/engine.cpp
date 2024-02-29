@@ -135,7 +135,7 @@ Engine::click(const float& x, const float& y) {
     std::pair<float, float> player(pPlayerPosition->x, pPlayerPosition->y);
     auto                    angle = Utility::calculateAngle(pPlayerPosition->x, pPlayerPosition->y, x, y);
 
-    Objects::ProjectileStruct setup{
+    Objects::typeProjectileStruct setup{
         mGraphics->getTexture<Graphics::AnimatedTexture*>("Fireball"), mGraphics->getTexture<SDL_Texture*>("RedCircle"), angle, 100, 5.0
     };
 

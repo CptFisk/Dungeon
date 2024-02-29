@@ -7,7 +7,7 @@
 #include <utility>
 
 namespace Objects {
-struct ProjectileStruct {
+struct typeProjectileStruct {
     Graphics::AnimatedTexture* Projectile; // Projectile texture
     SDL_Texture*               Lightning;  // Lightning texture
     float                      Angle;      // Travel angle
@@ -19,7 +19,7 @@ class Projectile {
     const int PARTICLE_CHANCE = 3; // Chance that a particle spawn
 
   public:
-    Projectile(const ProjectileStruct&       setup,
+    Projectile(const typeProjectileStruct&       setup,
                const std::pair<float, float> playerPosition,
                const Common::typeScale       scale,
                SDL_Renderer*                 renderer,
