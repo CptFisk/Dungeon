@@ -29,6 +29,13 @@ Level::loadLevel(const std::string& filename) {
     pTiles    = new typeTile* [mElements] {}; // Allocating
     std::vector<SDL_FRect> obstacle;
     std::vector<SDL_FRect> wall;
+    const auto             sizeX = static_cast<float>(data->Header.Level.SizeX) * 16.0f;
+    const auto             sizeY = static_cast<float>(data->Header.Level.SizeY) * 16.0f;
+    // Generate walls
+    obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, 16.0f, (sizeY * mScale.ScaleY) + 32.0f });                // Left wall
+    obstacle.push_back(SDL_FRect{ sizeX * mScale.ScaleX, -16.0f, 16.0f, (sizeY * mScale.ScaleY) + 32.0f }); // Right wall
+    obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, sizeX * mScale.ScaleX, 16.0f });                          // Top wall
+    obstacle.push_back(SDL_FRect{ -16.0f, (sizeY * mScale.ScaleY), sizeX * mScale.ScaleX, 16.0 });          // Bottom wall
 
     int item = 0; // Keep track of current position
     for (int y = 0; y < data->Header.Level.SizeY; y++) {
@@ -54,7 +61,11 @@ Level::loadLevel(const std::string& filename) {
 
 bool
 Level::movement(const SDL_FRect& other, const Directions& direction) {
-    for (const auto& obstacle : mWalls) {
+    for (const auto& wall : mWalls) {
+        if (Utility::isColliding(other, wall, direction))
+            return false;
+    }
+    for (const auto& obstacle : mObstacle) {
         if (Utility::isColliding(other, obstacle, direction))
             return false;
     }
