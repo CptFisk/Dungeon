@@ -252,8 +252,7 @@ Engine::drawParticles() {
 
 void
 Engine::addDarkness() {
-    if (SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("Shadow"), nullptr, nullptr) != 0)
-        std::cout << SDL_GetError() << std::endl;
+    SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("Shadow"), nullptr, nullptr);
 }
 
 std::thread
