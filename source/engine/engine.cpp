@@ -123,6 +123,8 @@ Engine::startup() {
       Objects::IDLE, Directions::ALL, mGraphics->getTexture<Graphics::AnimatedTexture*>("SlimeIdle"));
     mMonsters[Monster::SLIME]->addAnimatedTexture(
       Objects::MOVE, Directions::ALL, mGraphics->getTexture<Graphics::AnimatedTexture*>("SlimeMoving"));
+    mMonsters[Monster::SLIME]->addAnimatedTexture(
+      Objects::DEAD, Directions::ALL, mGraphics->getTexture<Graphics::AnimatedTexture*>("SlimeDead"));
 }
 
 void
