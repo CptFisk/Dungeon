@@ -5,10 +5,10 @@
 namespace Objects {
 
 Projectile::Projectile(const Objects::typeProjectileStruct& setup,
-                       const std::pair<float, float>    playerPosition,
-                       const Common::typeScale          scale,
-                       SDL_Renderer*                    renderer,
-                       std::shared_ptr<Particle>        particle)
+                       const std::pair<float, float>        playerPosition,
+                       const Common::typeScale              scale,
+                       SDL_Renderer*                        renderer,
+                       std::shared_ptr<Particle>            particle)
   : pProjectile(setup.Projectile)
   , mParticle(particle)
   , pLightning(setup.Lightning)
@@ -16,7 +16,10 @@ Projectile::Projectile(const Objects::typeProjectileStruct& setup,
   , mDuration(setup.Duration)
   , mVelocity(setup.Velocity)
   , mAngle(setup.Angle)
-  , mCurrentPosition{ playerPosition.first, playerPosition.second, 8.0f * scale.ScaleX, 8.0f * scale.ScaleY }
+  , mCurrentPosition{ playerPosition.first + (4.0f *scale.ScaleX),
+                      playerPosition.second +(4.0f * scale.ScaleY),
+                      8.0f * scale.ScaleX,
+                      8.0f * scale.ScaleY }
   , mLightningPosition{ playerPosition.first + (((8.0f * scale.ScaleX) / 2) - ((16.0f * scale.ScaleX) / 2)),
                         playerPosition.second + (((8.0f * scale.ScaleY) / 2) - ((16.0f * scale.ScaleY) / 2)),
                         16.0f * scale.ScaleX,
@@ -36,13 +39,8 @@ Projectile::draw() {
         SDL_RenderTexture(pRenderer, pLightning, nullptr, &mLightningPosition);
     }
 
-    SDL_RenderTextureRotated(pRenderer,
-                             pProjectile->getTexture(),
-                             pProjectile->getViewport(),
-                             &mCurrentPosition,
-                             mAngle,
-                             nullptr,
-                             SDL_FLIP_NONE);
+    SDL_RenderTextureRotated(
+      pRenderer, pProjectile->getTexture(), pProjectile->getViewport(), &mCurrentPosition, mAngle, nullptr, SDL_FLIP_NONE);
     move();
 }
 

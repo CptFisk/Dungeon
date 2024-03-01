@@ -132,14 +132,14 @@ Engine::terminate() {
 
 void
 Engine::click(const float& x, const float& y) {
-    std::pair<float, float> player(pPlayerPosition->x, pPlayerPosition->y);
-    auto                    angle = Utility::calculateAngle(pPlayerPosition->x, pPlayerPosition->y, x, y);
+    auto player = Utility::getFRectCenter(*pPlayerPosition);
+    auto angle  = Utility::calculateAngle(player.first, player.second, x, y);
 
     Objects::typeProjectileStruct setup{
         mGraphics->getTexture<Graphics::AnimatedTexture*>("Fireball"), mGraphics->getTexture<SDL_Texture*>("RedCircle"), angle, 100, 5.0
     };
 
-    mProjectiles.push_back(new Objects::Projectile(setup, player, mScale, pRenderer, mParticles));
+    mProjectiles.push_back(new Objects::Projectile(setup, { pPlayerPosition->x, pPlayerPosition->y }, mScale, pRenderer, mParticles));
 }
 
 void
@@ -221,7 +221,7 @@ Engine::drawProjectiles() {
 
 void
 Engine::drawMonsters() {
-    for(auto &monster : mActiveMonsters){
+    for (auto& monster : mActiveMonsters) {
         auto data = monster->getMonster();
         SDL_RenderTexture(pRenderer, data.Texture, data.Viewport, data.Position);
     }
