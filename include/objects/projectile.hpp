@@ -19,15 +19,17 @@ class Projectile {
     const int PARTICLE_CHANCE = 3; // Chance that a particle spawn
 
   public:
-    Projectile(const typeProjectileStruct&       setup,
+    Projectile(const typeProjectileStruct&   setup,
                const std::pair<float, float> playerPosition,
                const Common::typeScale       scale,
                SDL_Renderer*                 renderer,
                std::shared_ptr<Particle>     particle); // Constructor
     ~Projectile();
 
-    void draw();           // Draw the object
-    int  getNewDuration(); // Calculate and return the new duration
+    SDL_FRect* getPosition(); // Returns a pointer to the current position
+
+    void       draw();              // Draw the object
+    int        getNewDuration();    // Calculate and return the new duration
   private:
     void move(); // All functions related to movement
   protected:

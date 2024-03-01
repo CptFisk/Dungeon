@@ -21,9 +21,9 @@ Slime::spawn(const float& x, const float& y) const {
 
 void
 Slime::interact() {
-    if (mAction == Objects::IDLE) {
+    if (mState == Objects::IDLE) {
         if (mTicks++ > IDLE) {
-            mAction = Objects::MOVE;
+            mState  = Objects::MOVE;
             mTicks  = 0;
         }
     } else {
@@ -31,7 +31,7 @@ Slime::interact() {
         mMonsterPosition.x += angle.first;
         mMonsterPosition.y += angle.second;
         if(mTicks++ > MOVE){
-            mAction = Objects::IDLE;
+            mState = Objects::IDLE;
             mTicks = 0;
         }
         updateReferences();

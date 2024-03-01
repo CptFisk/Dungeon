@@ -190,7 +190,7 @@ Engine::mainLoop() {
         }
         mLevel->draw();
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
-        drawProjectiles();
+        projectiles();
         drawParticles();
         drawMonsters();
         addDarkness();
@@ -207,14 +207,32 @@ Engine::mainLoop() {
 }
 
 void
-Engine::drawProjectiles() {
+Engine::projectiles() {
     for (auto it = mProjectiles.begin(); it != mProjectiles.end();) {
-        if ((*it)->getNewDuration() < 0) {
-            delete *it;
-            it = mProjectiles.erase(it);
-        } else {
-            (*it)->draw();
-            ++it;
+        bool removed = false;
+        // Check monster for collision
+        for (auto it2 = mActiveMonsters.begin(); it2 != mActiveMonsters.end();) {
+            if (Utility::isOverlapping(*(*it)->getPosition(), *(*it2)->getPosition())) {
+                delete *it;                  // Free memory
+                it = mProjectiles.erase(it); // Move iterator
+                (*it2)->damageMonster(30);
+                if ((*it2)->getState() == Objects::DEAD) {
+                    delete *it2;
+                    mActiveMonsters.erase(it2);
+                }
+                removed = true;
+                break;
+            } else
+                ++it2;
+        }
+        if (!removed) {
+            if ((*it)->getNewDuration() < 0) {
+                delete *it;
+                it = mProjectiles.erase(it);
+            } else {
+                (*it)->draw();
+                ++it;
+            }
         }
     }
 }

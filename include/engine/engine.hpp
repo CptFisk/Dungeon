@@ -38,8 +38,12 @@ class Engine {
   protected:
     void present();
     void drawMonsters();
-    void drawProjectiles();
+    /**
+     * @brief Draw projectiles, check if they collide with something
+     */
+    void projectiles();
     void drawParticles();
+
 
     void        addDarkness();
     std::thread spawnInterrupt(const long& time); // Spawn a thread

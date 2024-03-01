@@ -37,15 +37,17 @@ class BaseMonster {
     virtual void interact() = 0;
 
     typeMonsterData getMonster();
+    SDL_FRect*      getPosition();
+    Objects::State  getState() const;
 
   private:
   protected:
-    bool        mInflictDamage;    //Monster can inflict damage
+    bool        mInflictDamage; // Monster can inflict damage
     const float mVelocity;
     int         mHealth; // Monster health
 
-    Objects::State        mAction;    // What are we doing
-    Directions            mDirection; // The direction we are facing
+    Objects::State mState;     // What are we doing
+    Directions     mDirection; // The direction we are facing
 
     std::map<std::pair<Objects::State, Directions>, Graphics::AnimatedTexture*> mTextures;
 

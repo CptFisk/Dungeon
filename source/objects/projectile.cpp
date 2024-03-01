@@ -29,6 +29,11 @@ Projectile::Projectile(const Objects::typeProjectileStruct& setup,
 
 Projectile::~Projectile() = default;
 
+SDL_FRect*
+Projectile::getPosition() {
+    return &mCurrentPosition;
+}
+
 void
 Projectile::draw() {
     if (mParticleEnabled && (rand() % PARTICLE_CHANCE == 1)) {

@@ -8,13 +8,13 @@ BaseMonster::BaseMonster(const int& health, const float& velocity, SDL_FRect* pl
   , pCurrentTexture(nullptr)
   , pCurrentViewport(nullptr)
   , pPlayerPosition(playerPosition)
-  , mAction(Objects::IDLE)
+  , mState(Objects::IDLE)
   , mDirection(SOUTH) {}
 
 BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   : mHealth(other.mHealth)
   , mVelocity(other.mVelocity)
-  , mAction(other.mAction)
+  , mState(other.mState)
   , mTextures(other.mTextures)
   , mMonsterPosition({ 100.0f, 100.0f, 32.0f, 32.0f })
   , mDirection(SOUTH)
@@ -27,6 +27,8 @@ BaseMonster::~BaseMonster() = default;
 void
 BaseMonster::damageMonster(const int& damage) {
     mHealth -= damage;
+    if(mHealth < 0)
+        mState = Objects::DEAD;
 }
 
 bool
@@ -64,16 +66,26 @@ BaseMonster::getMonster() {
     return typeMonsterData{ pCurrentTexture, pCurrentViewport, &mMonsterPosition };
 }
 
+SDL_FRect*
+BaseMonster::getPosition(){
+    return &mMonsterPosition;
+}
+
 void
 BaseMonster::setAction(Objects::State action) {
-    mAction = action;
+    mState = action;
     updateReferences();
+}
+
+Objects::State
+BaseMonster::getState() const {
+    return mState;
 }
 
 void
 BaseMonster::updateReferences() {
-    pCurrentTexture  = mTextures[{ mAction, mDirection }]->getTexture();
-    pCurrentViewport = mTextures[{ mAction, mDirection }]->getViewport();
+    pCurrentTexture  = mTextures[{ mState, mDirection }]->getTexture();
+    pCurrentViewport = mTextures[{ mState, mDirection }]->getViewport();
 }
 
 }
