@@ -6,6 +6,7 @@
 #include <utility/file.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
+#define GET_ANIMATED(VAR) mGraphics->getTexture<Graphics::AnimatedTexture*>(VAR)
 
 namespace Engine {
 
@@ -85,25 +86,25 @@ Engine::startup() {
                                                   32.0f,
                                                   pRenderer,
                                                   mScale,
-                                                  mGraphics->getTexture<Graphics::AnimatedTexture*>("Heart"),
+                                                  GET_ANIMATED("Heart"),
                                                   mGraphics->getTexture<Graphics::typeSimpleTexture>("NumbersWhite"));
     mEnergy = std::make_unique<Player::Indicator>(mVisibleUI,
                                                   mPlayerEnergy,
                                                   16.0f,
                                                   pRenderer,
                                                   mScale,
-                                                  mGraphics->getTexture<Graphics::AnimatedTexture*>("Bolt"),
+                                                  GET_ANIMATED("Bolt"),
                                                   mGraphics->getTexture<Graphics::typeSimpleTexture>("NumbersWhite"));
 
     // Binding player data
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::NORTH, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleNorth"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::EAST, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleEast"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleSouth"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::WEST, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanIdleWest"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::NORTH, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingNorth"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::EAST, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingEast"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingSouth"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::WEST, mGraphics->getTexture<Graphics::AnimatedTexture*>("HumanMovingWest"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::NORTH, GET_ANIMATED("HumanIdleNorth"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::EAST, GET_ANIMATED("HumanIdleEast"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, GET_ANIMATED("HumanIdleSouth"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::WEST, GET_ANIMATED("HumanIdleWest"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("HumanMovingNorth"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("HumanMovingEast"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, GET_ANIMATED("HumanMovingSouth"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::WEST, GET_ANIMATED("HumanMovingWest"));
 
     mPlayer->setDirection(SOUTH);
     mPlayer->setAction(Objects::State::IDLE);
@@ -119,12 +120,9 @@ Engine::startup() {
 
     // Adding a slime
     mMonsters[Monster::SLIME] = new Monster::Slime(50, 0.5f, pPlayerPosition);
-    mMonsters[Monster::SLIME]->addAnimatedTexture(
-      Objects::IDLE, Directions::ALL, mGraphics->getTexture<Graphics::AnimatedTexture*>("SlimeIdle"));
-    mMonsters[Monster::SLIME]->addAnimatedTexture(
-      Objects::MOVE, Directions::ALL, mGraphics->getTexture<Graphics::AnimatedTexture*>("SlimeMoving"));
-    mMonsters[Monster::SLIME]->addAnimatedTexture(
-      Objects::DEAD, Directions::ALL, mGraphics->getTexture<Graphics::AnimatedTexture*>("SlimeDead"));
+    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::IDLE, Directions::ALL, GET_ANIMATED ("SlimeIdle"));
+    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::MOVE, Directions::ALL, GET_ANIMATED ("SlimeMoving"));
+    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DEAD, Directions::ALL, GET_ANIMATED("SlimeDead"));
 }
 
 void
