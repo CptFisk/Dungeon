@@ -5,6 +5,7 @@ namespace Objects {
     DO(IDLE)              \
     DO(MOVE)              \
     DO(ATTACK)            \
+    DO(DYING)             \
     DO(DEAD)
 
 #define MAKE_OBJECT_ACTION(VAR) VAR,

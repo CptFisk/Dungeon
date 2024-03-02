@@ -5,11 +5,13 @@ BaseMonster::BaseMonster(const int& health, const float& velocity, SDL_FRect* pl
   : mInflictDamage(true)
   , mHealth(health)
   , mVelocity(velocity)
+  , mTicks(0)
   , pCurrentTexture(nullptr)
   , pCurrentViewport(nullptr)
   , pPlayerPosition(playerPosition)
   , mState(Objects::IDLE)
-  , mDirection(SOUTH) {}
+  , mDirection(SOUTH)
+  , DEATH_ANIMATION(100) {}
 
 BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   : mHealth(other.mHealth)
@@ -18,17 +20,22 @@ BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   , mTextures(other.mTextures)
   , mMonsterPosition({ 100.0f, 100.0f, 32.0f, 32.0f })
   , mDirection(SOUTH)
+  , mInflictDamage(0)
   , pCurrentTexture(other.pCurrentTexture)
   , pCurrentViewport(other.pCurrentViewport)
-  , pPlayerPosition(other.pPlayerPosition) {}
+  , pPlayerPosition(other.pPlayerPosition)
+  , mTicks(0)
+  , DEATH_ANIMATION(100) {}
 
 BaseMonster::~BaseMonster() = default;
 
 void
 BaseMonster::damageMonster(const int& damage) {
     mHealth -= damage;
-    if(mHealth < 0)
-        mState = Objects::DEAD;
+    if (mHealth < 0) {
+        mState = Objects::DYING;
+        updateReferences();
+    }
 }
 
 bool
@@ -67,7 +74,7 @@ BaseMonster::getMonster() {
 }
 
 SDL_FRect*
-BaseMonster::getPosition(){
+BaseMonster::getPosition() {
     return &mMonsterPosition;
 }
 
@@ -78,7 +85,12 @@ BaseMonster::setAction(Objects::State action) {
 }
 
 Objects::State
-BaseMonster::getState() const {
+BaseMonster::getState() {
+    if (mState == Objects::DYING) {
+        printf("%i | %i\n", mTicks, DEATH_ANIMATION);
+        if (mTicks++ > DEATH_ANIMATION)
+            mState = Objects::DEAD;
+    }
     return mState;
 }
 

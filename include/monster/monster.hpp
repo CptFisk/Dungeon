@@ -38,13 +38,16 @@ class BaseMonster {
 
     typeMonsterData getMonster();
     SDL_FRect*      getPosition();
-    Objects::State  getState() const;
+    Objects::State  getState();
 
   private:
   protected:
-    bool        mInflictDamage; // Monster can inflict damage
     const float mVelocity;
-    int         mHealth; // Monster health
+    int         mTicks;
+    const int   DEATH_ANIMATION;
+
+    bool mInflictDamage; // Monster can inflict damage
+    int  mHealth;        // Monster health
 
     Objects::State mState;     // What are we doing
     Directions     mDirection; // The direction we are facing

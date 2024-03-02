@@ -26,7 +26,7 @@ Slime::interact() {
             mState  = Objects::MOVE;
             mTicks  = 0;
         }
-    } else {
+    }else if(mState == Objects::MOVE){
         auto angle = Utility::calculateMovement(mMonsterPosition.x, mMonsterPosition.y, pPlayerPosition->x, pPlayerPosition->y, mVelocity);
         mMonsterPosition.x += angle.first;
         mMonsterPosition.y += angle.second;

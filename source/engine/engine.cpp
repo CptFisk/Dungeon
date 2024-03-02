@@ -122,7 +122,8 @@ Engine::startup() {
     mMonsters[Monster::SLIME] = new Monster::Slime(50, 0.5f, pPlayerPosition);
     mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::IDLE, Directions::ALL, GET_ANIMATED ("SlimeIdle"));
     mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::MOVE, Directions::ALL, GET_ANIMATED ("SlimeMoving"));
-    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DEAD, Directions::ALL, GET_ANIMATED("SlimeDead"));
+    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DYING, Directions::ALL, GET_ANIMATED("SlimeDead"));
+    //mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DEAD, Directions::ALL, GET_ANIMATED("SlimeDead"));
 }
 
 void
@@ -158,8 +159,8 @@ void
 Engine::mainLoop() {
     // Spawn some slime
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(100, 100));
-    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 500));
-    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 50));
+    //mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 500));
+    //mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 50));
 
     SDL_Event event;
     while (mRun) {
@@ -193,7 +194,7 @@ Engine::mainLoop() {
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         drawParticles();
-        drawMonsters();
+        monsters();
         addDarkness();
         // Draw UI-elements
         mHealth->draw();
@@ -217,10 +218,7 @@ Engine::projectiles() {
                 delete *it;                  // Free memory
                 it = mProjectiles.erase(it); // Move iterator
                 (*it2)->damageMonster(30);
-                if ((*it2)->getState() == Objects::DEAD) {
-                    delete *it2;
-                    mActiveMonsters.erase(it2);
-                }
+
                 removed = true;
                 break;
             } else
@@ -239,10 +237,15 @@ Engine::projectiles() {
 }
 
 void
-Engine::drawMonsters() {
-    for (auto& monster : mActiveMonsters) {
-        auto data = monster->getMonster();
-        SDL_RenderTexture(pRenderer, data.Texture, data.Viewport, data.Position);
+Engine::monsters() {
+    for(auto it = mActiveMonsters.begin(); it != mActiveMonsters.end();){
+        if((*it)->getState() == Objects::DEAD){
+            it = mActiveMonsters.erase(it);
+        }else{
+            const auto data = (*it)->getMonster();
+            SDL_RenderTexture(pRenderer, data.Texture, data.Viewport, data.Position);
+            ++it;
+        }
     }
 }
 
