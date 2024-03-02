@@ -2,6 +2,7 @@
 #include <common/include.hpp>
 #include <engine/include.hpp>
 #include <graphics/graphics.hpp>
+#include <graphics/numbers.hpp>
 #include <level/level.hpp>
 #include <list>
 #include <memory>
@@ -88,6 +89,9 @@ class Engine {
     // Monster blueprints
     std::unordered_map<Monster::Monsters, Monster::BaseMonster*> mMonsters;
     std::vector<Monster::BaseMonster*>                           mActiveMonsters;
+
+    //Visible numbers
+    std::vector<Graphics::Number> mNumbers; //Visible numbers
 };
 
 }

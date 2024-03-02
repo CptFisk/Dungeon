@@ -31,6 +31,7 @@ set(
         ${CMAKE_SOURCE_DIR}/source/graphics/graphics.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/generateObjects.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/loadImage.cpp
+        ${CMAKE_SOURCE_DIR}/source/graphics/numbers.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/animatedTexture.cpp
 
         ${CMAKE_SOURCE_DIR}/source/loaders/loadGraphics.cpp
@@ -43,6 +44,7 @@ set(
         ${CMAKE_SOURCE_DIR}/source/utility/file.cpp
         ${CMAKE_SOURCE_DIR}/source/utility/trigonometry.cpp
         ${CMAKE_SOURCE_DIR}/source/utility/texture.cpp
+        ${CMAKE_SOURCE_DIR}/source/utility/math.cpp
 )
 
 if (BUILD_GAME)

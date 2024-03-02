@@ -48,11 +48,11 @@ class Graphics {
     };
 
     template<typename T>
-    T getTexture(const std::string& name) {
+    T& getTexture(const std::string& name) {
         auto it = mGraphics.find(name);
         if (it != mGraphics.end()) {
             try {
-                return std::any_cast<T>(it->second.Texture);
+                return std::any_cast<T&>(it->second.Texture);
             } catch (const std::bad_any_cast& e) {
                 std::cerr << name << std::endl;
                 throw std::runtime_error(e.what());
@@ -85,7 +85,6 @@ class Graphics {
     std::unordered_map<std::string, typeTextureInfo> mGraphics; // Storage for all textures
     SDL_Renderer*                                    pRenderer;
 
-    std::vector<AnimatedTexture*>                    mAnimatedTextures; //Textures that should be updated cyclic
-
+    std::vector<AnimatedTexture*> mAnimatedTextures; // Textures that should be updated cyclic
 };
 }

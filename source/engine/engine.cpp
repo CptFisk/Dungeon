@@ -1,11 +1,12 @@
 #include <SDL3_ttf/SDL_ttf.h>
 #include <common/handlers.hpp>
+#include <common/numbers.hpp>
 #include <common/scale.hpp>
 #include <engine/engine.hpp>
-#include <iostream>
 #include <utility/file.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
+
 #define GET_ANIMATED(VAR) mGraphics->getTexture<Graphics::AnimatedTexture*>(VAR)
 
 namespace Engine {
@@ -120,10 +121,10 @@ Engine::startup() {
 
     // Adding a slime
     mMonsters[Monster::SLIME] = new Monster::Slime(50, 0.5f, pPlayerPosition);
-    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::IDLE, Directions::ALL, GET_ANIMATED ("SlimeIdle"));
-    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::MOVE, Directions::ALL, GET_ANIMATED ("SlimeMoving"));
+    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::IDLE, Directions::ALL, GET_ANIMATED("SlimeIdle"));
+    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::MOVE, Directions::ALL, GET_ANIMATED("SlimeMoving"));
     mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DYING, Directions::ALL, GET_ANIMATED("SlimeDead"));
-    //mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DEAD, Directions::ALL, GET_ANIMATED("SlimeDead"));
+    // mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DEAD, Directions::ALL, GET_ANIMATED("SlimeDead"));
 }
 
 void
@@ -162,8 +163,6 @@ Engine::mainLoop() {
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 500));
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 50));
 
-    auto number = mGraphics->getTexture<Graphics::typeSimpleTexture>("NumbersWhite");
-    SDL_FRect pos = {50.0f,50.0f, 16.0f,16.0f};
 
     SDL_Event event;
     while (mRun) {
@@ -202,7 +201,8 @@ Engine::mainLoop() {
         // Draw UI-elements
         mHealth->draw();
         mEnergy->draw();
-        SDL_RenderTexture(pRenderer, number.Texture, &number.Views[0], &pos);
+
+
         present();
 
         auto ticks = mFPSTimer.getTicks();
@@ -241,10 +241,10 @@ Engine::projectiles() {
 
 void
 Engine::monsters() {
-    for(auto it = mActiveMonsters.begin(); it != mActiveMonsters.end();){
-        if((*it)->getState() == Objects::DEAD){
+    for (auto it = mActiveMonsters.begin(); it != mActiveMonsters.end();) {
+        if ((*it)->getState() == Objects::DEAD) {
             it = mActiveMonsters.erase(it);
-        }else{
+        } else {
             const auto data = (*it)->getMonster();
             SDL_RenderTexture(pRenderer, data.Texture, data.Viewport, data.Position);
             ++it;
