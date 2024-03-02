@@ -18,8 +18,8 @@ struct typeNumbersData {
  * @param value Value to be displayed
  * @param visibility Number of ticks it should be visible
  * @param texture Texture (font)
- * @param size Size of each number, scale is added automatically
- * @param scale Current scale on the screen
+ * @param gameScale Current scale on the screen
+ * @param (optional) Scaling of texture, 1.0f = 8px;
  */
 class Number {
   public:
@@ -27,8 +27,8 @@ class Number {
            const int&               value,
            const int&               visibility,
            typeSimpleTexture&       texture,
-           const float&             size,
-           const Common::typeScale& scale);
+           const Common::typeScale& gameScale,
+           const float&             scale = 1.0f);
 
     Number& operator=(const Number& other);
 
@@ -40,7 +40,7 @@ class Number {
     int       mTicks;    // Current ticks
     const int MAX_TICKS; // Maximum ticks
 
-    SDL_Texture*                pTexture;   // Reference to "font"
+    SDL_Texture*                                  pTexture;   // Reference to "font"
     std::vector<std::pair<SDL_FRect, SDL_FRect*>> mPositions; // Contains a position and  viewport
 };
 }

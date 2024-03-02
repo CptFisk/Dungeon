@@ -148,7 +148,6 @@ Engine::mainLoop() {
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(100, 100));
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 500));
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 50));
-    mNumbers.push_back(Graphics::Number({ 50.0, 50.0 }, 50, 100, GET_SIMPLE("NumbersWhite"), 8.0, mScale));
 
     SDL_Event event;
     while (mRun) {
@@ -204,10 +203,13 @@ Engine::projectiles() {
         // Check monster for collision
         for (auto it2 = mActiveMonsters.begin(); it2 != mActiveMonsters.end();) {
             if (Utility::isOverlapping(*(*it)->getPosition(), *(*it2)->getPosition())) {
+                const auto damage = (*it)->getDamage();
                 delete *it;                  // Free memory
                 it = mProjectiles.erase(it); // Move iterator
-                (*it2)->damageMonster(30);
-
+                (*it2)->damageMonster(damage);
+                // Display the damage
+                mNumbers.push_back(Graphics::Number(
+                  { (*it2)->getPosition()->x, (*it2)->getPosition()->y }, damage, 100, GET_SIMPLE("NumbersWhite"),  mScale, 0.5f));
                 removed = true;
                 break;
             } else
