@@ -72,7 +72,7 @@ Engine::startup() {
     mInitHandler->startup();
     Common::calculateGameScale(mScale, pWindow);
     //Setup perspective
-    mPerspective = std::make_shared<Common::Perspective>(pRenderer);
+    mPerspective = std::make_unique<Common::Perspective>(pRenderer);
 
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer, mScale);
