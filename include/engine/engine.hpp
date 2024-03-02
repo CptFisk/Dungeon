@@ -39,11 +39,11 @@ class Engine {
   protected:
     void present();
     void monsters();
-    /**
-     * @brief Draw projectiles, check if they collide with something
-     */
     void projectiles();
+
     void drawParticles();
+    void drawNumbers();
+
 
 
     void        addDarkness();

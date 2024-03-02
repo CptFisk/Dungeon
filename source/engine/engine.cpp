@@ -6,8 +6,6 @@
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
 
-
-
 namespace Engine {
 
 Engine::Engine()
@@ -81,20 +79,10 @@ Engine::startup() {
     mLevel->loadLevel("level.map");
     mPlayer = std::make_unique<Player::Player>(mScale);
 
-    mHealth = std::make_unique<Player::Indicator>(mVisibleUI,
-                                                  mPlayerHealth,
-                                                  32.0f,
-                                                  pRenderer,
-                                                  mScale,
-                                                  GET_ANIMATED("Heart"),
-                                                  GET_SIMPLE("NumbersWhite"));
-    mEnergy = std::make_unique<Player::Indicator>(mVisibleUI,
-                                                  mPlayerEnergy,
-                                                  16.0f,
-                                                  pRenderer,
-                                                  mScale,
-                                                  GET_ANIMATED("Bolt"),
-                                                  GET_SIMPLE("NumbersWhite"));
+    mHealth = std::make_unique<Player::Indicator>(
+      mVisibleUI, mPlayerHealth, 32.0f, pRenderer, mScale, GET_ANIMATED("Heart"), GET_SIMPLE("NumbersWhite"));
+    mEnergy = std::make_unique<Player::Indicator>(
+      mVisibleUI, mPlayerEnergy, 16.0f, pRenderer, mScale, GET_ANIMATED("Bolt"), GET_SIMPLE("NumbersWhite"));
 
     // Binding player data
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::NORTH, GET_ANIMATED("HumanIdleNorth"));
@@ -160,7 +148,7 @@ Engine::mainLoop() {
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(100, 100));
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 500));
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 50));
-
+    mNumbers.push_back(Graphics::Number({ 50.0, 50.0 }, 50, 100, GET_SIMPLE("NumbersWhite"), 8.0, mScale));
 
     SDL_Event event;
     while (mRun) {
@@ -199,7 +187,7 @@ Engine::mainLoop() {
         // Draw UI-elements
         mHealth->draw();
         mEnergy->draw();
-
+        drawNumbers();
 
         present();
 
@@ -253,6 +241,21 @@ Engine::monsters() {
 void
 Engine::drawParticles() {
     mParticles->draw();
+}
+
+void
+Engine::drawNumbers() {
+    for (auto it = mNumbers.begin(); it != mNumbers.end();) {
+        if ((*it).expired())
+            it = mNumbers.erase(it);
+        else {
+            auto data = (*it).getNumber();
+            for (const auto& [position, viewport] : data.Visuals) {
+                SDL_RenderTexture(pRenderer, data.Texture, viewport, &position);
+            }
+            ++it;
+        }
+    }
 }
 
 void
