@@ -11,7 +11,7 @@ BaseMonster::BaseMonster(const int& health, const float& velocity, SDL_FRect* pl
   , pPlayerPosition(playerPosition)
   , mState(Objects::IDLE)
   , mDirection(SOUTH)
-  , DEATH_ANIMATION(100) {}
+  , DEATH_ANIMATION(20) {}
 
 BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   : mHealth(other.mHealth)
@@ -25,7 +25,7 @@ BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   , pCurrentViewport(other.pCurrentViewport)
   , pPlayerPosition(other.pPlayerPosition)
   , mTicks(0)
-  , DEATH_ANIMATION(100) {}
+  , DEATH_ANIMATION(20) {}
 
 BaseMonster::~BaseMonster() = default;
 
