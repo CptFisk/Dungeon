@@ -5,11 +5,11 @@
   "Data": {
     "Objects": [
       {
-        "File": "rsrc/PurpleFloor.bmp",
+        "File": "rsrc/PurpleFloor.png",
         "Name": "PurpleFloor",
         "Row": 1,
         "Column": 1,
-        "Length": 20,
+        "Length": 30,
         "Height": 16,
         "Width": 16
       }
