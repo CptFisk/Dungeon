@@ -162,6 +162,9 @@ Engine::mainLoop() {
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 500));
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 50));
 
+    auto number = mGraphics->getTexture<Graphics::typeSimpleTexture>("NumbersWhite");
+    SDL_FRect pos = {50.0f,50.0f, 16.0f,16.0f};
+
     SDL_Event event;
     while (mRun) {
         mFPSTimer.start();
@@ -199,7 +202,7 @@ Engine::mainLoop() {
         // Draw UI-elements
         mHealth->draw();
         mEnergy->draw();
-
+        SDL_RenderTexture(pRenderer, number.Texture, &number.Views[0], &pos);
         present();
 
         auto ticks = mFPSTimer.getTicks();
