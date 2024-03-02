@@ -19,17 +19,18 @@ class Projectile {
     const int PARTICLE_CHANCE = 3; // Chance that a particle spawn
 
   public:
-    Projectile(const typeProjectileStruct&   setup,
+    Projectile(const typeProjectileStruct&    setup,
                const std::pair<float, float>& playerPosition,
                const Common::typeScale&       scale,
-               SDL_Renderer*                 renderer,
-               std::shared_ptr<Particle>     particle); // Constructor
+               SDL_Renderer*                  renderer,
+               std::shared_ptr<Particle>      particle); // Constructor
     ~Projectile();
 
     SDL_FRect* getPosition(); // Returns a pointer to the current position
 
-    void       draw();              // Draw the object
-    int        getNewDuration();    // Calculate and return the new duration
+    void draw();           // Draw the object
+    int  getNewDuration(); // Calculate and return the new duration
+    int getDamage() const;
   private:
     void move(); // All functions related to movement
   protected:
@@ -38,10 +39,11 @@ class Projectile {
     SDL_Texture*               pLightning;         // Reference to the lightning, if it exists
     SDL_FRect                  mCurrentPosition;   // Current position of the projectile
     SDL_FRect                  mLightningPosition; // Current position of light (if used)
-    float                      mAngle;             // Rotation angle
-    const float                mVelocity;          // Velocity
-    int                        mDuration;          // Number of ticks, destroyed on 0
-    std::shared_ptr<Particle>  mParticle;          // Reference to the particle engine
-    bool                       mParticleEnabled;   // If particle was enabled
+    int                        mDamage;
+    float                      mAngle;           // Rotation angle
+    const float                mVelocity;        // Velocity
+    int                        mDuration;        // Number of ticks, destroyed on 0
+    std::shared_ptr<Particle>  mParticle;        // Reference to the particle engine
+    bool                       mParticleEnabled; // If particle was enabled
 };
 }

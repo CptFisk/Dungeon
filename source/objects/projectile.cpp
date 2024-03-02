@@ -16,6 +16,7 @@ Projectile::Projectile(const Objects::typeProjectileStruct& setup,
   , mDuration(setup.Duration)
   , mVelocity(setup.Velocity)
   , mAngle(setup.Angle)
+  , mDamage(50)
   , mCurrentPosition{ playerPosition.first + (4.0f *scale.ScaleX),
                       playerPosition.second +(4.0f * scale.ScaleY),
                       8.0f * scale.ScaleX,
@@ -63,6 +64,11 @@ Projectile::move() {
 int
 Projectile::getNewDuration() {
     return mDuration--;
+}
+
+int
+Projectile::getDamage() const{
+    return mDamage;
 }
 
 }
