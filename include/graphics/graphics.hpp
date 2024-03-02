@@ -10,6 +10,10 @@
 #include <unordered_map>
 #include <vector>
 
+#define GET_ANIMATED(VAR) mGraphics->getTexture<Graphics::AnimatedTexture*>(VAR)
+#define GET_SIMPLE(VAR) mGraphics->getTexture<Graphics::typeSimpleTexture>(VAR)
+#define GET_SDL(VAR) mGraphics->getTexture<SDL_Texture*>(VAR)
+
 namespace Graphics {
 class Graphics {
   public:

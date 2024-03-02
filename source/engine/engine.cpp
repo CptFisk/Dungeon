@@ -1,13 +1,12 @@
 #include <SDL3_ttf/SDL_ttf.h>
 #include <common/handlers.hpp>
-#include <common/numbers.hpp>
 #include <common/scale.hpp>
 #include <engine/engine.hpp>
 #include <utility/file.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
 
-#define GET_ANIMATED(VAR) mGraphics->getTexture<Graphics::AnimatedTexture*>(VAR)
+
 
 namespace Engine {
 
@@ -88,14 +87,14 @@ Engine::startup() {
                                                   pRenderer,
                                                   mScale,
                                                   GET_ANIMATED("Heart"),
-                                                  mGraphics->getTexture<Graphics::typeSimpleTexture>("NumbersWhite"));
+                                                  GET_SIMPLE("NumbersWhite"));
     mEnergy = std::make_unique<Player::Indicator>(mVisibleUI,
                                                   mPlayerEnergy,
                                                   16.0f,
                                                   pRenderer,
                                                   mScale,
                                                   GET_ANIMATED("Bolt"),
-                                                  mGraphics->getTexture<Graphics::typeSimpleTexture>("NumbersWhite"));
+                                                  GET_SIMPLE("NumbersWhite"));
 
     // Binding player data
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::NORTH, GET_ANIMATED("HumanIdleNorth"));
@@ -113,7 +112,7 @@ Engine::startup() {
     pPlayerTexture  = mPlayer->getPlayerTexture();
     pPlayerView     = mPlayer->getPlayerViewport();
     pPlayerPosition = mPlayer->getPlayerPosition();
-    mParticles      = std::make_shared<Objects::Particle>(mGraphics->getTexture<SDL_Texture*>("FAE2C3"), pRenderer, 100, 3, 5);
+    mParticles      = std::make_shared<Objects::Particle>(GET_SDL("FAE2C3"), pRenderer, 100, 3, 5);
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
@@ -124,7 +123,6 @@ Engine::startup() {
     mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::IDLE, Directions::ALL, GET_ANIMATED("SlimeIdle"));
     mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::MOVE, Directions::ALL, GET_ANIMATED("SlimeMoving"));
     mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DYING, Directions::ALL, GET_ANIMATED("SlimeDead"));
-    // mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DEAD, Directions::ALL, GET_ANIMATED("SlimeDead"));
 }
 
 void
