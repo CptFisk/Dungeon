@@ -71,6 +71,9 @@ Engine::startup() {
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, "Veras adventure"));
     mInitHandler->startup();
     Common::calculateGameScale(mScale, pWindow);
+    //Setup perspective
+    mPerspective = std::make_shared<Common::Perspective>(pRenderer);
+
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer, mScale);
     mGraphics->init();
