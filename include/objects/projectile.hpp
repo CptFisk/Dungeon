@@ -20,8 +20,8 @@ class Projectile {
 
   public:
     Projectile(const typeProjectileStruct&   setup,
-               const std::pair<float, float> playerPosition,
-               const Common::typeScale       scale,
+               const std::pair<float, float>& playerPosition,
+               const Common::typeScale&       scale,
                SDL_Renderer*                 renderer,
                std::shared_ptr<Particle>     particle); // Constructor
     ~Projectile();
