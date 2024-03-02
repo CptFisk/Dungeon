@@ -159,8 +159,8 @@ void
 Engine::mainLoop() {
     // Spawn some slime
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(100, 100));
-    //mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 500));
-    //mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 50));
+    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 500));
+    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 50));
 
     SDL_Event event;
     while (mRun) {
