@@ -77,7 +77,7 @@ Engine::startup() {
     mPerspective = std::make_unique<Common::Perspective>(pRenderer);
 
     // Generate graphics
-    mGraphics = std::make_shared<Graphics::Graphics>(pRenderer, mScale);
+    mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
 
     mLevel = std::make_unique<Level::Level>(pRenderer,  mGraphics);

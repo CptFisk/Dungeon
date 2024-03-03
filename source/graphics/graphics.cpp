@@ -3,9 +3,8 @@
 #include <iostream>
 
 namespace Graphics {
-Graphics::Graphics(SDL_Renderer* renderer, Common::typeScale& scale)
-  : pRenderer(renderer)
-  , mScale(scale) {}
+Graphics::Graphics(SDL_Renderer* renderer)
+  : pRenderer(renderer) {}
 
 void
 Graphics::updateAnimatedTexture() {
@@ -51,8 +50,8 @@ Graphics::generateText(std::string text, const float& width, const float& height
         return getTexture<typeTextTexture>(textureName);
     // Calculate sizes
     const auto length = text.length();
-    const auto w      = static_cast<int>(length) * static_cast<int>(width * mScale.ScaleX);
-    const auto h      = static_cast<int>(height * mScale.ScaleY);
+    const auto w      = static_cast<int>(length) * static_cast<int>(width);
+    const auto h      = static_cast<int>(height);
 
     auto texture = SDL_CreateTexture(pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, w, h);
 
@@ -66,9 +65,9 @@ Graphics::generateText(std::string text, const float& width, const float& height
 
     int       pos         = 0;
     SDL_FRect selector    = { 0, 0, 8.0f, 8.0f };
-    SDL_FRect destination = { 0, 0, width * mScale.ScaleX, height * mScale.ScaleY };
+    SDL_FRect destination = { 0, 0, width, height };
     for (const auto& c : text) {
-        destination.x = static_cast<float>(pos++) * width * mScale.ScaleX;
+        destination.x = static_cast<float>(pos++) * width ;
         if ((int)c > 0x40 && (int)c < 0x91) {
             selector.x = static_cast<float>((int)c - (0x41)) * 8.0f;
             SDL_RenderTexture(pRenderer, alphabet, &selector, &destination);

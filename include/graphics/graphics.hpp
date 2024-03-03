@@ -17,7 +17,7 @@
 namespace Graphics {
 class Graphics {
   public:
-    Graphics(SDL_Renderer* renderer, Common::typeScale& scale);
+    Graphics(SDL_Renderer* renderer);
     ~Graphics();
     void init();
     void generateSquare(const std::string& name,
@@ -85,7 +85,6 @@ class Graphics {
     void         loadObjectGeneration(const Common::typeHeaderJSON& header, const std::string& jsonString);
 
   private:
-    Common::typeScale&                               mScale;
     std::unordered_map<std::string, typeTextureInfo> mGraphics; // Storage for all textures
     SDL_Renderer*                                    pRenderer;
 
