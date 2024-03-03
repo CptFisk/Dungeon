@@ -71,7 +71,7 @@ Engine::startup() {
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, "Veras adventure"));
     mInitHandler->startup();
     Common::calculateGameScale(mScale, pWindow);
-    //Setup perspective
+    // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer);
 
     // Generate graphics
@@ -152,6 +152,8 @@ Engine::mainLoop() {
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 500));
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 50));
 
+    auto      center  = SDL_FRect{ 100.0f, 100.0f, 16.0f, 16.0f };
+    auto      texture = GET_SDL("FAE2C3");
     SDL_Event event;
     while (mRun) {
         mFPSTimer.start();
@@ -190,12 +192,13 @@ Engine::mainLoop() {
         mHealth->draw();
         mEnergy->draw();
         drawNumbers();
+        mPerspective->render(texture, nullptr, center);
 
         present();
 
         auto ticks = mFPSTimer.getTicks();
-        if (ticks < 1000.0 / 60)
-            SDL_Delay((1000 / 60) - ticks);
+        if (ticks < 1000.0 / 60.0)
+            SDL_Delay((1000 / 60.0) - ticks);
     }
 }
 
@@ -212,7 +215,7 @@ Engine::projectiles() {
                 (*it2)->damageMonster(damage);
                 // Display the damage
                 mNumbers.push_back(Graphics::Number(
-                  { (*it2)->getPosition()->x, (*it2)->getPosition()->y }, damage, 100, GET_SIMPLE("NumbersWhite"),  mScale, 0.5f));
+                  { (*it2)->getPosition()->x, (*it2)->getPosition()->y }, damage, 100, GET_SIMPLE("NumbersWhite"), mScale, 0.5f));
                 removed = true;
                 break;
             } else

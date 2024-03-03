@@ -8,7 +8,7 @@ class Perspective {
   public:
     Perspective(SDL_Renderer* renderer);
 
-    void Render(SDL_Texture* texture, SDL_FRect viewport, SDL_FRect destination);
+    void render(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect destination);
 
   private:
   protected:
