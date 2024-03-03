@@ -78,7 +78,7 @@ Engine::startup() {
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer, mScale);
     mGraphics->init();
 
-    mLevel = std::make_unique<Level::Level>(pRenderer, mScale, mGraphics);
+    mLevel = std::make_unique<Level::Level>(pRenderer,  mGraphics);
     mLevel->loadLevel("level.map");
     mPlayer = std::make_unique<Player::Player>(mScale);
 
@@ -183,6 +183,7 @@ Engine::mainLoop() {
             timer.start();
         }
         mLevel->draw();
+        /*
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         drawParticles();
@@ -193,7 +194,7 @@ Engine::mainLoop() {
         mEnergy->draw();
         drawNumbers();
         mPerspective->render(texture, nullptr, &center);
-
+        */
         present();
 
         auto ticks = mFPSTimer.getTicks();

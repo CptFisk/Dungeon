@@ -11,7 +11,7 @@
 namespace Level {
 class Level {
   public:
-    Level(SDL_Renderer* renderer, const Common::typeScale& scale, std::shared_ptr<Graphics::Graphics> graphics);
+    Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics);
     ~Level(); // Cleaning
 
     void loadLevel(const std::string& filename);
@@ -28,7 +28,6 @@ class Level {
   private:
     // Graphical stuff
     std::shared_ptr<Graphics::Graphics> mGraphics;
-    Common::typeScale                   mScale;
     SDL_Renderer*                       pRenderer; // Reference to the renderer
 
     std::vector<SDL_FRect> mObstacle; // Things that you cant walk over

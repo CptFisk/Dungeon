@@ -7,9 +7,8 @@
 
 namespace Level {
 
-Level::Level(SDL_Renderer* renderer, const Common::typeScale& scale, std::shared_ptr<Graphics::Graphics> graphics)
+Level::Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics)
   : pRenderer(renderer)
-  , mScale(scale)
   , mHeader{}
   , mGraphics(std::move(graphics))
   , pTiles(nullptr)
@@ -32,11 +31,12 @@ Level::loadLevel(const std::string& filename) {
     const auto             sizeX = static_cast<float>(data->Header.Level.SizeX) * 16.0f;
     const auto             sizeY = static_cast<float>(data->Header.Level.SizeY) * 16.0f;
     // Generate walls
+    /*
     obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, 16.0f, (sizeY * mScale.ScaleY) + 32.0f });                // Left wall
     obstacle.push_back(SDL_FRect{ sizeX * mScale.ScaleX, -16.0f, 16.0f, (sizeY * mScale.ScaleY) + 32.0f }); // Right wall
     obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, sizeX * mScale.ScaleX, 16.0f });                          // Top wall
     obstacle.push_back(SDL_FRect{ -16.0f, (sizeY * mScale.ScaleY), sizeX * mScale.ScaleX, 16.0 });          // Bottom wall
-
+    */
     int item = 0; // Keep track of current position
     for (int y = 0; y < data->Header.Level.SizeY; y++) {
         for (int x = 0; x < data->Header.Level.SizeX; x++) {
@@ -44,13 +44,13 @@ Level::loadLevel(const std::string& filename) {
             if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & TEXTURE) != 0) {
 
                 pTiles[item++] = new typeTile(
-                  TEXTURE, Common::newSDL_FRect(x, y, mScale), mGraphics->getTexture<Graphics::typeSimpleTexture>("PurpleFloor")[-1]);
+                  TEXTURE, Common::newSDL_FRect(x, y), GET_SIMPLE("PurpleFloor")[-1]);
             }
             if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & WALL) != 0) {
-                wall.push_back(Common::newSDL_FRect(x, y, mScale));
+                wall.push_back(Common::newSDL_FRect(x, y));
             }
             if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & OBSTACLE) != 0) {
-                obstacle.push_back(Common::newSDL_FRect(x, y, mScale));
+                obstacle.push_back(Common::newSDL_FRect(x, y));
             }
         }
     }
