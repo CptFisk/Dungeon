@@ -71,6 +71,8 @@ Engine::startup() {
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, "Veras adventure"));
     mInitHandler->startup();
     Common::calculateGameScale(mScale, pWindow);
+    //FIX THIS
+    SDL_SetRenderScale(pRenderer, mScale.ScaleX, mScale.ScaleY);
     // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer);
 
