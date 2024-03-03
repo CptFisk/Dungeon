@@ -18,7 +18,7 @@ BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   , mVelocity(other.mVelocity)
   , mState(other.mState)
   , mTextures(other.mTextures)
-  , mMonsterPosition({ 100.0f, 100.0f, 32.0f, 32.0f })
+  , mMonsterPosition{  }
   , mDirection(SOUTH)
   , mInflictDamage(0)
   , pCurrentTexture(other.pCurrentTexture)

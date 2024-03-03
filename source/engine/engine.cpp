@@ -150,9 +150,9 @@ Engine::setPlayerAction(Objects::State action) {
 void
 Engine::mainLoop() {
     // Spawn some slime
-    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(100, 100));
-    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 500));
-    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(500, 50));
+    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(16, 16));
+    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(32, 32));
+    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(48, 48));
 
     auto      center  = SDL_FRect{ 100.0f, 100.0f, 16.0f, 16.0f };
     auto      texture = GET_SDL("FAE2C3");
@@ -185,11 +185,12 @@ Engine::mainLoop() {
             timer.start();
         }
         mLevel->draw();
+        monsters();
         /*
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         drawParticles();
-        monsters();
+
         addDarkness();
         // Draw UI-elements
 

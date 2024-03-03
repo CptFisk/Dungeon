@@ -16,6 +16,8 @@ Slime::spawn(const float& x, const float& y) const {
     auto obj                = new Slime(*this);
     obj->mMonsterPosition.x = x;
     obj->mMonsterPosition.y = y;
+    obj->mMonsterPosition.w = SLIME_WIDTH;
+    obj->mMonsterPosition.h = SLIME_HEIGHT;
     return obj;
 }
 
