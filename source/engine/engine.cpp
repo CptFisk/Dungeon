@@ -85,9 +85,9 @@ Engine::startup() {
     mPlayer = std::make_unique<Player::Player>(mScale);
 
     mHealth = std::make_unique<Player::Indicator>(
-      mVisibleUI, mPlayerHealth, 32.0f, pRenderer, mScale, GET_ANIMATED("Heart"), GET_SIMPLE("NumbersWhite"));
+      mVisibleUI, mPlayerHealth, 32.0f, pRenderer,  GET_ANIMATED("Heart"), GET_SIMPLE("NumbersWhite"));
     mEnergy = std::make_unique<Player::Indicator>(
-      mVisibleUI, mPlayerEnergy, 16.0f, pRenderer, mScale, GET_ANIMATED("Bolt"), GET_SIMPLE("NumbersWhite"));
+      mVisibleUI, mPlayerEnergy, 16.0f, pRenderer,  GET_ANIMATED("Bolt"), GET_SIMPLE("NumbersWhite"));
 
     // Binding player data
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::NORTH, GET_ANIMATED("HumanIdleNorth"));
@@ -192,11 +192,12 @@ Engine::mainLoop() {
         monsters();
         addDarkness();
         // Draw UI-elements
-        mHealth->draw();
-        mEnergy->draw();
+
         drawNumbers();
         mPerspective->render(texture, nullptr, &center);
         */
+        mHealth->draw();
+        mEnergy->draw();
         present();
 
         auto ticks = mFPSTimer.getTicks();

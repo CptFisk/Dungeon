@@ -20,7 +20,6 @@ class Indicator {
               int&                               value,
               const float&                       distance,
               SDL_Renderer*                      renderer,
-              Common::typeScale&                 scale,
               Graphics::AnimatedTexture*         texture,
               const Graphics::typeSimpleTexture& numbers);
     void draw();
@@ -31,7 +30,6 @@ class Indicator {
     const SDL_FRect    mPositionNumber[3]; // Position for numbers
     bool&              mVisible;           // If the UI should be visible
     int&               mValue;             // Players current health
-    Common::typeScale& mScale;             // Game scale
 
     Graphics::AnimatedTexture*  pIconTexture; // Texture for the icon
     Graphics::typeSimpleTexture mNumbers;     // Textures for numbers
