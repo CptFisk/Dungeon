@@ -192,7 +192,7 @@ Engine::mainLoop() {
         mHealth->draw();
         mEnergy->draw();
         drawNumbers();
-        mPerspective->render(texture, nullptr, center);
+        mPerspective->render(texture, nullptr, &center);
 
         present();
 
@@ -240,7 +240,7 @@ Engine::monsters() {
             it = mActiveMonsters.erase(it);
         } else {
             const auto data = (*it)->getMonster();
-            SDL_RenderTexture(pRenderer, data.Texture, data.Viewport, data.Position);
+            mPerspective->render(data.Texture, data.Viewport, data.Position);
             ++it;
         }
     }

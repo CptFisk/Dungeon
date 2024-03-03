@@ -5,11 +5,8 @@ Perspective::Perspective(SDL_Renderer* renderer)
   : pRenderer(renderer) {}
 
 void
-Perspective::render(SDL_Texture* texture, SDL_FRect *viewport, SDL_FRect destination) {
-    static int x = 0;
-    SDL_FRect dest = destination;
-    dest.x += x++;
-    dest.y += x;
+Perspective::render(SDL_Texture* texture, SDL_FRect *viewport, SDL_FRect* destination) {
+    SDL_FRect dest = *destination;
     SDL_RenderTexture(pRenderer, texture, viewport, &dest);
 }
 }
