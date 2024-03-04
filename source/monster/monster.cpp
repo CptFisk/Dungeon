@@ -87,7 +87,6 @@ BaseMonster::setAction(Objects::State action) {
 Objects::State
 BaseMonster::getState() {
     if (mState == Objects::DYING) {
-        printf("%i | %i\n", mTicks, DEATH_ANIMATION);
         if (mTicks++ > DEATH_ANIMATION)
             mState = Objects::DEAD;
     }

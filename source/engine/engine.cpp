@@ -125,8 +125,10 @@ Engine::terminate() {
 
 void
 Engine::click(const float& x, const float& y) {
+    const auto scaledX = x / mScale.ScaleX;
+    const auto scaledY = y / mScale.ScaleY;
     auto player = Utility::getFRectCenter(*pPlayerPosition);
-    auto angle  = Utility::calculateAngle(player.first, player.second, x, y);
+    auto angle  = Utility::calculateAngle(player.first, player.second, scaledX, scaledY);
     mPlayerEnergy -= 3;
 
     Objects::typeProjectileStruct setup{
@@ -156,7 +158,7 @@ Engine::mainLoop() {
 
     auto      center  = SDL_FRect{ 100.0f, 100.0f, 16.0f, 16.0f };
     auto      texture = GET_SDL("FAE2C3");
-    ;
+
     while (mRun) {
         mFPSTimer.start();
 
@@ -188,8 +190,8 @@ Engine::mainLoop() {
         monsters();
 
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
-        /*
         projectiles();
+        /*
         drawParticles();
 
         addDarkness();

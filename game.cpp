@@ -59,8 +59,6 @@ main() {
     Common::queueProcessHandler(
       [&](Uint32) {
           if (engine.getActionManager().isActionRising("Click")) {
-              printf("%f %f\n", engine.mEvent.button.x, engine.mEvent.button.y);
-
               float mouseX, mouseY;
               SDL_GetMouseState(&mouseX, &mouseY);
               engine.click(mouseX, mouseY);
