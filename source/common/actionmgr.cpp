@@ -1,5 +1,5 @@
 #include <common/actionmgr.hpp>
-
+#include <iostream>
 namespace Common {
 
 void
@@ -28,6 +28,7 @@ ActionManager::eventHandler(SDL_Event* event) {
             }
             break;
         case SDL_EVENT_MOUSE_BUTTON_DOWN:
+            std::cout << event->button.x << " " << event->button.y << std::endl;
             for (auto& [name, key] : mMouse) {
                 if (key == event->button.button)
                     mActive[name] = true;

@@ -82,7 +82,7 @@ Engine::startup() {
 
     mLevel = std::make_unique<Level::Level>(pRenderer,  mGraphics);
     mLevel->loadLevel("level.map");
-    mPlayer = std::make_unique<Player::Player>(mScale);
+    mPlayer = std::make_unique<Player::Player>();
 
     mHealth = std::make_unique<Player::Indicator>(
       mVisibleUI, mPlayerHealth, 32.0f, pRenderer,  GET_ANIMATED("Heart"), GET_SIMPLE("NumbersWhite"));
@@ -156,25 +156,25 @@ Engine::mainLoop() {
 
     auto      center  = SDL_FRect{ 100.0f, 100.0f, 16.0f, 16.0f };
     auto      texture = GET_SDL("FAE2C3");
-    SDL_Event event;
+    ;
     while (mRun) {
         mFPSTimer.start();
 
         SDL_RenderClear(pRenderer);
-        while (SDL_PollEvent(&event)) {
+        while (SDL_PollEvent(&mEvent)) {
             bool accepted = true;
 
             for (auto& handler : mEventWatcher) {
-                if (!handler(&event)) {
+                if (!handler(&mEvent)) {
                     accepted = false;
                     break;
                 }
             }
 
-            if (accepted && mEvents.find(event.type) != mEvents.end()) {
-                auto handlers = mEvents[event.type];
+            if (accepted && mEvents.find(mEvent.type) != mEvents.end()) {
+                auto handlers = mEvents[mEvent.type];
                 for (auto& handler : handlers) {
-                    if (!handler(&event))
+                    if (!handler(&mEvent))
                         break;
                 }
             }
@@ -186,8 +186,9 @@ Engine::mainLoop() {
         }
         mLevel->draw();
         monsters();
-        /*
+
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
+        /*
         projectiles();
         drawParticles();
 

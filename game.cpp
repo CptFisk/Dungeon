@@ -49,10 +49,8 @@ main() {
 
     Common::queueProcessHandler(
       [&](Uint32) {
-          if (!engine.getActionManager().isActionPressed("PlayerNorth") &&
-              !engine.getActionManager().isActionPressed("PlayerEast") &&
-              !engine.getActionManager().isActionPressed("PlayerSouth") &&
-              !engine.getActionManager().isActionPressed("PlayerWest")) {
+          if (!engine.getActionManager().isActionPressed("PlayerNorth") && !engine.getActionManager().isActionPressed("PlayerEast") &&
+              !engine.getActionManager().isActionPressed("PlayerSouth") && !engine.getActionManager().isActionPressed("PlayerWest")) {
               engine.setPlayerAction(Objects::State::IDLE);
           }
       },
@@ -61,6 +59,8 @@ main() {
     Common::queueProcessHandler(
       [&](Uint32) {
           if (engine.getActionManager().isActionRising("Click")) {
+              printf("%f %f\n", engine.mEvent.button.x, engine.mEvent.button.y);
+
               float mouseX, mouseY;
               SDL_GetMouseState(&mouseX, &mouseY);
               engine.click(mouseX, mouseY);

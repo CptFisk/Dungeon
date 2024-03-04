@@ -1,8 +1,8 @@
 #include <player/player.hpp>
 
 namespace Player {
-Player::Player(const Common::typeScale& scale)
-  : mPlayerPosition(400, 400, 16.0f * scale.ScaleX, 16.0f * scale.ScaleY)
+Player::Player()
+  : mPlayerPosition(16.0, 16.0f, 16.0f, 16.0f)
   , pCurrentTexture(nullptr)
   , pCurrentViewport(nullptr)
   , mAction(Objects::IDLE)

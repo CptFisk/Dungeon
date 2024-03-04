@@ -31,20 +31,19 @@ Level::loadLevel(const std::string& filename) {
     const auto             sizeX = static_cast<float>(data->Header.Level.SizeX) * 16.0f;
     const auto             sizeY = static_cast<float>(data->Header.Level.SizeY) * 16.0f;
     // Generate walls
-    /*
-    obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, 16.0f, (sizeY * mScale.ScaleY) + 32.0f });                // Left wall
-    obstacle.push_back(SDL_FRect{ sizeX * mScale.ScaleX, -16.0f, 16.0f, (sizeY * mScale.ScaleY) + 32.0f }); // Right wall
-    obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, sizeX * mScale.ScaleX, 16.0f });                          // Top wall
-    obstacle.push_back(SDL_FRect{ -16.0f, (sizeY * mScale.ScaleY), sizeX * mScale.ScaleX, 16.0 });          // Bottom wall
-    */
+
+    obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, 16.0f, sizeY + 32.0f });        // Left wall
+    obstacle.push_back(SDL_FRect{ sizeX, -16.0f, 16.0f, sizeY + 32.0f }); // Right wall
+    obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, sizeX, 16.0f });        // Top wall
+    obstacle.push_back(SDL_FRect{ -16.0f, sizeY, sizeX, 16.0 });          // Bottom wall
+
     int item = 0; // Keep track of current position
     for (int y = 0; y < data->Header.Level.SizeY; y++) {
         for (int x = 0; x < data->Header.Level.SizeX; x++) {
             // Shall texture be added
             if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & TEXTURE) != 0) {
 
-                pTiles[item++] = new typeTile(
-                  TEXTURE, Common::newSDL_FRect(x, y), GET_SIMPLE("PurpleFloor")[-1]);
+                pTiles[item++] = new typeTile(TEXTURE, Common::newSDL_FRect(x, y), GET_SIMPLE("PurpleFloor")[-1]);
             }
             if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & WALL) != 0) {
                 wall.push_back(Common::newSDL_FRect(x, y));

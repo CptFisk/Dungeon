@@ -35,6 +35,7 @@ class Engine {
     // Player movement
     void movePlayer(Directions direction);
     void setPlayerAction(Objects::State action);
+    SDL_Event         mEvent;
 
   protected:
     void present();
@@ -44,8 +45,6 @@ class Engine {
     void drawParticles();
     void drawNumbers();
 
-
-
     void        addDarkness();
     std::thread spawnInterrupt(const long& time); // Spawn a thread
 
@@ -53,6 +52,7 @@ class Engine {
     bool              mRun;
     bool              mVisibleUI;
     Common::typeScale mScale;
+
 
     std::unique_ptr<Common::InitHandler> mInitHandler;
     std::unique_ptr<Player::Player>      mPlayer;
@@ -91,8 +91,8 @@ class Engine {
     std::unordered_map<Monster::Monsters, Monster::BaseMonster*> mMonsters;
     std::vector<Monster::BaseMonster*>                           mActiveMonsters;
 
-    //Visible numbers
-    std::vector<Graphics::Number> mNumbers; //Visible numbers
+    // Visible numbers
+    std::vector<Graphics::Number> mNumbers; // Visible numbers
 };
 
 }
