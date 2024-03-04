@@ -6,7 +6,6 @@ namespace Objects {
 
 Projectile::Projectile(const Objects::typeProjectileStruct& setup,
                        const std::pair<float, float>&        playerPosition,
-                       const Common::typeScale&              scale,
                        SDL_Renderer*                        renderer,
                        std::shared_ptr<Particle>            particle)
   : pProjectile(setup.Projectile)
@@ -17,14 +16,14 @@ Projectile::Projectile(const Objects::typeProjectileStruct& setup,
   , mVelocity(setup.Velocity)
   , mAngle(setup.Angle)
   , mDamage(50)
-  , mCurrentPosition{ playerPosition.first + (4.0f *scale.ScaleX),
-                      playerPosition.second +(4.0f * scale.ScaleY),
-                      8.0f * scale.ScaleX,
-                      8.0f * scale.ScaleY }
-  , mLightningPosition{ playerPosition.first + (((8.0f * scale.ScaleX) / 2) - ((16.0f * scale.ScaleX) / 2)),
-                        playerPosition.second + (((8.0f * scale.ScaleY) / 2) - ((16.0f * scale.ScaleY) / 2)),
-                        16.0f * scale.ScaleX,
-                        16.0f * scale.ScaleY } {
+  , mCurrentPosition{ playerPosition.first + (4.0f),
+                      playerPosition.second +(4.0f),
+                      8.0f,
+                      8.0f}
+  , mLightningPosition{ playerPosition.first + ((8.0f / 2.0f) - (16.0f / 2.0f)),
+                        playerPosition.second + ((8.0f / 2.0f) - (16.0f / 2.0f)),
+                        16.0f,
+                        16.0f} {
     mParticleEnabled = particle != nullptr ? true : false;
 }
 

@@ -71,7 +71,7 @@ Engine::startup() {
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, "Veras adventure"));
     mInitHandler->startup();
     Common::calculateGameScale(mScale, pWindow);
-    //FIX THIS
+    // FIX THIS
     SDL_SetRenderScale(pRenderer, mScale.ScaleX, mScale.ScaleY);
     // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer);
@@ -80,14 +80,14 @@ Engine::startup() {
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
 
-    mLevel = std::make_unique<Level::Level>(pRenderer,  mGraphics);
+    mLevel = std::make_unique<Level::Level>(pRenderer, mGraphics);
     mLevel->loadLevel("level.map");
     mPlayer = std::make_unique<Player::Player>();
 
-    mHealth = std::make_unique<Player::Indicator>(
-      mVisibleUI, mPlayerHealth, 32.0f, pRenderer,  GET_ANIMATED("Heart"), GET_SIMPLE("NumbersWhite"));
-    mEnergy = std::make_unique<Player::Indicator>(
-      mVisibleUI, mPlayerEnergy, 16.0f, pRenderer,  GET_ANIMATED("Bolt"), GET_SIMPLE("NumbersWhite"));
+    mHealth =
+      std::make_unique<Player::Indicator>(mVisibleUI, mPlayerHealth, 32.0f, pRenderer, GET_ANIMATED("Heart"), GET_SIMPLE("NumbersWhite"));
+    mEnergy =
+      std::make_unique<Player::Indicator>(mVisibleUI, mPlayerEnergy, 16.0f, pRenderer, GET_ANIMATED("Bolt"), GET_SIMPLE("NumbersWhite"));
 
     // Binding player data
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::NORTH, GET_ANIMATED("HumanIdleNorth"));
@@ -127,15 +127,15 @@ void
 Engine::click(const float& x, const float& y) {
     const auto scaledX = x / mScale.ScaleX;
     const auto scaledY = y / mScale.ScaleY;
-    auto player = Utility::getFRectCenter(*pPlayerPosition);
-    auto angle  = Utility::calculateAngle(player.first, player.second, scaledX, scaledY);
+    auto       player  = Utility::getFRectCenter(*pPlayerPosition);
+    auto       angle   = Utility::calculateAngle(player.first, player.second, scaledX, scaledY);
     mPlayerEnergy -= 3;
 
     Objects::typeProjectileStruct setup{
         mGraphics->getTexture<Graphics::AnimatedTexture*>("Fireball"), mGraphics->getTexture<SDL_Texture*>("RedCircle"), angle, 100, 5.0
     };
 
-    mProjectiles.push_back(new Objects::Projectile(setup, { pPlayerPosition->x, pPlayerPosition->y }, mScale, pRenderer, mParticles));
+    mProjectiles.push_back(new Objects::Projectile(setup, { pPlayerPosition->x, pPlayerPosition->y }, pRenderer, mParticles));
 }
 
 void
@@ -156,8 +156,8 @@ Engine::mainLoop() {
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(32, 32));
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(48, 48));
 
-    auto      center  = SDL_FRect{ 100.0f, 100.0f, 16.0f, 16.0f };
-    auto      texture = GET_SDL("FAE2C3");
+    auto center  = SDL_FRect{ 100.0f, 100.0f, 16.0f, 16.0f };
+    auto texture = GET_SDL("FAE2C3");
 
     while (mRun) {
         mFPSTimer.start();
