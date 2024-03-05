@@ -59,6 +59,7 @@ struct typeLevelData {
     typeTileData** Tiles;
 };
 
+
 /**
  * @brief Write the current struct to a file
  * @param filename Name of the file

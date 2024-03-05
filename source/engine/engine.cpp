@@ -131,9 +131,7 @@ Engine::click(const float& x, const float& y) {
     auto       angle   = Utility::calculateAngle(player.first, player.second, scaledX, scaledY);
     mPlayerEnergy -= 3;
 
-    Objects::typeProjectileStruct setup{
-        mGraphics->getTexture<Graphics::AnimatedTexture*>("Fireball"), mGraphics->getTexture<SDL_Texture*>("RedCircle"), angle, 100, 5.0
-    };
+    Objects::typeProjectileStruct setup{ GET_ANIMATED("Fireball"), GET_SDL("RedCircle"), angle, 100, 5.0 };
 
     mProjectiles.push_back(new Objects::Projectile(setup, { pPlayerPosition->x, pPlayerPosition->y }, pRenderer, mParticles));
 }
@@ -207,6 +205,7 @@ void
 Engine::projectiles() {
     for (auto it = mProjectiles.begin(); it != mProjectiles.end();) {
         bool removed = false;
+        (*it)->move();  //Move it
         // Check monster for collision
         for (auto it2 = mActiveMonsters.begin(); it2 != mActiveMonsters.end();) {
             if (Utility::isOverlapping(*(*it)->getPosition(), *(*it2)->getPosition())) {
@@ -227,7 +226,6 @@ Engine::projectiles() {
                 delete *it;
                 it = mProjectiles.erase(it);
             } else {
-                (*it)->draw();
                 ++it;
             }
         }
@@ -249,7 +247,13 @@ Engine::monsters() {
 
 void
 Engine::drawParticles() {
-    mParticles->draw();
+    for (const auto& projectile : mProjectiles) {
+        const auto lightning = projectile->getLightning();
+        const auto object = projectile->getProjectile();
+        if(lightning.Texture != nullptr)
+            mPerspective->render(lightning.Texture, lightning.Viewport, lightning.Position);
+        mPerspective->renderRotated(object.Texture, object.Viewport, object.Position, object.Angle);
+    }
 }
 
 void

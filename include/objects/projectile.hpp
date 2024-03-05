@@ -27,11 +27,13 @@ class Projectile {
 
     SDL_FRect* getPosition(); // Returns a pointer to the current position
 
-    void draw();           // Draw the object
-    int  getNewDuration(); // Calculate and return the new duration
-    int getDamage() const;
-  private:
+    int                        getNewDuration(); // Calculate and return the new duration
+    int                        getDamage() const;
+    Common::typeDrawData       getLightning();  // Return draw data for lightning
+    Common::typeDrawDataAngled getProjectile(); // Return draw data for the projectile
+
     void move(); // All functions related to movement
+  private:
   protected:
     SDL_Renderer*              pRenderer;          // Reference to renderer
     Graphics::AnimatedTexture* pProjectile;        // Reference to animated texture

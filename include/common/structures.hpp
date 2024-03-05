@@ -12,6 +12,13 @@ struct typeDrawData{
     SDL_FRect* Position;
 };
 
+struct typeDrawDataAngled{
+    SDL_Texture* Texture;
+    SDL_FRect* Viewport;
+    SDL_FRect* Position;
+    const float Angle;
+};
+
 struct typeScale {
     float ScaleX;  // Scaling factor needed to archive 16x12 squares
     float ScaleY;  // Scaling factor needed to archive 16x12 squares
