@@ -2,11 +2,13 @@
 
 namespace Common {
 Perspective::Perspective(SDL_Renderer* renderer)
-  : pRenderer(renderer) {}
+  : pRenderer(renderer)
+  , mOffset{} {}
 
 void
-Perspective::render(SDL_Texture* texture, SDL_FRect *viewport, SDL_FRect* destination) {
+Perspective::render(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* destination) {
     SDL_FRect dest = *destination;
+    dest.x += mOffset.first;
     SDL_RenderTexture(pRenderer, texture, viewport, &dest);
 }
 

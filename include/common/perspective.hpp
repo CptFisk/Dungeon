@@ -10,6 +10,10 @@ class Perspective {
 
     void render(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* destination);
     void renderRotated(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* destination, const float& angle);
+
+    void t(){
+        mOffset.first += 0.5;
+    }
   private:
   protected:
     std::pair<float, float> mOffset;

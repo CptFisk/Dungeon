@@ -185,7 +185,7 @@ Engine::mainLoop() {
         }
         // Apply background color
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
-
+        mPerspective->t();
         drawLevel();
         monsters();
 
