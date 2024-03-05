@@ -44,6 +44,7 @@ class Engine {
 
     void drawParticles();
     void drawNumbers();
+    void drawLevel();
 
     void        addDarkness();
     std::thread spawnInterrupt(const long& time); // Spawn a thread
@@ -53,7 +54,7 @@ class Engine {
     bool              mVisibleUI;
     Common::typeScale mScale;
 
-    
+
     struct{
         Uint8 Red;
         Uint8 Green;

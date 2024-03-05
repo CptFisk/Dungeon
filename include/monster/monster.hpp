@@ -5,12 +5,6 @@
 
 namespace Monster {
 
-struct typeMonsterData {
-    SDL_Texture* Texture;
-    SDL_FRect*   Viewport;
-    SDL_FRect*   Position;
-};
-
 class BaseMonster {
   public:
     BaseMonster(const int& health, const float& velocity, SDL_FRect* playerPosition);
@@ -36,7 +30,7 @@ class BaseMonster {
 
     virtual void interact() = 0;
 
-    typeMonsterData getMonster();
+    Common::typeDrawData getMonster();
     SDL_FRect*      getPosition();
     Objects::State  getState();
 

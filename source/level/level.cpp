@@ -79,12 +79,15 @@ Level::movement(const SDL_FRect& other, const Directions& direction) {
     return true;
 }
 
-void
-Level::draw() {
-    if (pTiles != nullptr) {
-        for (int i = 0; i < mElements; i++) {
-            SDL_RenderTexture(pRenderer, pTiles[i]->Texture, &pTiles[i]->Viewport, &pTiles[i]->Position);
-        }
+std::vector<Common::typeDrawData>
+Level::getLevel() {
+    if(pTiles != nullptr){
+        std::vector<Common::typeDrawData> data;
+        for(int i = 0; i < mElements; i++)
+            data.emplace_back(pTiles[i]->Texture, &pTiles[i]->Viewport, &pTiles[i]->Position);
+        return data;
     }
+    return std::vector<Common::typeDrawData>{};
 }
+
 }

@@ -2,8 +2,16 @@
 #include <nlohmann/json.hpp>
 #include <objects/objects.hpp>
 #include <string>
+#include <SDL3/SDL.h>
 
 namespace Common {
+
+struct typeDrawData{
+    SDL_Texture* Texture;
+    SDL_FRect* Viewport;
+    SDL_FRect* Position;
+};
+
 struct typeScale {
     float ScaleX;  // Scaling factor needed to archive 16x12 squares
     float ScaleY;  // Scaling factor needed to archive 16x12 squares

@@ -186,7 +186,7 @@ Engine::mainLoop() {
         // Apply background color
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
 
-        mLevel->draw();
+        drawLevel();
         monsters();
 
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
@@ -265,6 +265,12 @@ Engine::drawNumbers() {
             }
             ++it;
         }
+    }
+}
+
+void Engine::drawLevel() {
+    for(const auto& tile : mLevel->getLevel()){
+        mPerspective->render(tile.Texture, tile.Viewport, tile.Position);
     }
 }
 

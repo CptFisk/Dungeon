@@ -67,10 +67,10 @@ BaseMonster::setDirection(Directions direction) {
     updateReferences();
 }
 
-typeMonsterData
+Common::typeDrawData
 BaseMonster::getMonster() {
     interact();
-    return typeMonsterData{ pCurrentTexture, pCurrentViewport, &mMonsterPosition };
+    return Common::typeDrawData{ pCurrentTexture, pCurrentViewport, &mMonsterPosition };
 }
 
 SDL_FRect*

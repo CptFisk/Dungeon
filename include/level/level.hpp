@@ -1,6 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
-#include <common/scale.hpp>
+#include <common/structures.hpp>
 #include <global.hpp>
 #include <graphicsForward.hpp>
 #include <level/structures.hpp>
@@ -9,6 +9,7 @@
 #include <vector>
 
 namespace Level {
+
 class Level {
   public:
     Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics, Uint8& red, Uint8& green, Uint8& blue);
@@ -22,7 +23,7 @@ class Level {
      */
     bool movement(const SDL_FRect& other, const Directions& direction);
 
-    void draw();
+    std::vector<Common::typeDrawData> getLevel();   //Return all draw data
 
   protected:
   private:
