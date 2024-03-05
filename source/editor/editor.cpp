@@ -62,8 +62,10 @@ Editor::startup() {
     mInitHandler->startup();
 
     Common::calculateGameScale(mScale, pWindow);
+    SDL_SetRenderScale(pRenderer, mScale.ScaleX, mScale.ScaleY);
+
     // Generate graphics
-    mGraphics = std::make_shared<Graphics::Graphics>(pRenderer, mScale);
+    mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
 
     // Try to load the font
@@ -261,7 +263,7 @@ Editor::newVisualTile() {
     for (int y = 0; y < sizeY; y++) {
         for (int x = 0; x < sizeX; x++) {
             auto index  = Common::getIndex(x, y, pLevelHeader);
-            data[index] = new Editor::typeVisualTile(Common::newSDL_FRect(x, y, mScale));
+            data[index] = new Editor::typeVisualTile(Common::newSDL_FRect(x, y));
         }
     }
     return data;
@@ -277,7 +279,7 @@ Editor::newVisualTileType() {
     for (int y = 0; y < sizeY; y++) {
         for (int x = 0; x < sizeX; x++) {
             auto index  = Common::getIndex(x, y, pLevelHeader);
-            data[index] = new Editor::typeVisualTileType(nullptr, Common::newSDL_FRect(x, y, mScale));
+            data[index] = new Editor::typeVisualTileType(nullptr, Common::newSDL_FRect(x, y));
         }
     }
     return data;
