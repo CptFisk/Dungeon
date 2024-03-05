@@ -62,7 +62,6 @@ Editor::startup() {
     mInitHandler->startup();
 
     Common::calculateGameScale(mScale, pWindow);
-    SDL_SetRenderScale(pRenderer, mScale.ScaleX, mScale.ScaleY);
 
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
@@ -205,9 +204,9 @@ Editor::terminate() {
 void
 Editor::click(const float& x, const float& y) {
     if (pTile != nullptr && !clickOnUi(x, y)) {
-        auto ix = static_cast<int>(x);
-        auto iy = static_cast<int>(y);
-        auto coord = Common::getClickCoords(x,y, mScale);
+        auto ix    = static_cast<int>(x);
+        auto iy    = static_cast<int>(y);
+        auto coord = Common::getClickCoords(x, y, mScale);
         printf("x: %i | y %i\n", coord.first, coord.second);
         auto index = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
         switch (mMouse) {
@@ -219,7 +218,7 @@ Editor::click(const float& x, const float& y) {
 
                     pTile[index]->Type |= Level::TEXTURE;
                     pTile[index]->Id = 1;
-                    mLevelCoords.emplace(Common::getClickCoords(x,y, mScale));
+                    mLevelCoords.emplace(Common::getClickCoords(x, y, mScale));
                 } else if (pTile[index]->Type == Level::TEXTURE) {
 
                     pVisualTile[index]->Texture = mGraphics->getTexture<Graphics::typeSimpleTexture>("PurpleFloor").Texture;
@@ -231,7 +230,7 @@ Editor::click(const float& x, const float& y) {
                 pTile[index]->Type              = Level::BLANK;
                 pTile[index]->Id                = 0;
                 {
-                    auto it = mLevelCoords.find( Common::getClickCoords(x,y, mScale));
+                    auto it = mLevelCoords.find(Common::getClickCoords(x, y, mScale));
                     if (it != mLevelCoords.end())
                         mLevelCoords.erase(it);
                 }
@@ -242,7 +241,7 @@ Editor::click(const float& x, const float& y) {
                 break;
             case OBSTACLE:
                 pTile[index]->Type |= Level::OBSTACLE;
-                pVisualTileType[index]->Texture =mGraphics->getTexture<SDL_Texture*>("1D35FA");
+                pVisualTileType[index]->Texture = mGraphics->getTexture<SDL_Texture*>("1D35FA");
                 break;
 
             case DEFAULT:
@@ -279,7 +278,7 @@ Editor::newVisualTileType() {
     for (int y = 0; y < sizeY; y++) {
         for (int x = 0; x < sizeX; x++) {
             auto index  = Common::getIndex(x, y, pLevelHeader);
-            data[index] = new Editor::typeVisualTileType(nullptr, Common::newSDL_FRect(x, y));
+            data[index] = new Editor::typeVisualTileType(nullptr, Common::newSDL_FRectScaled(x, y, mScale));
         }
     }
     return data;
