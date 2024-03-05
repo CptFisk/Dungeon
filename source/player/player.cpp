@@ -2,7 +2,7 @@
 
 namespace Player {
 Player::Player()
-  : mPlayerPosition(16.0, 16.0f, 16.0f, 16.0f)
+  : mPlayerPosition(16.0f, 16.0f, 16.0f, 16.0f)
   , pCurrentTexture(nullptr)
   , pCurrentViewport(nullptr)
   , mAction(Objects::IDLE)
@@ -57,22 +57,22 @@ float
 Player::move(Directions direction) {
     switch (direction) {
         case NORTH:
-            mPlayerPosition.y -= 3;
+            mPlayerPosition.y -= 0.5f;
             break;
         case EAST:
-            mPlayerPosition.x += 3;
+            mPlayerPosition.x += 0.5f;
             break;
         case SOUTH:
-            mPlayerPosition.y += 3;
+            mPlayerPosition.y += 0.5f;
             break;
         case WEST:
-            mPlayerPosition.x -= 3;
+            mPlayerPosition.x -= 0.5f;
             break;
     }
     mAction    = Objects::MOVE;
     mDirection = direction;
     updateReferences();
-    return 3.0f;
+    return 0.5f;
 }
 
 }

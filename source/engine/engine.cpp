@@ -154,6 +154,7 @@ Engine::mainLoop() {
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(32, 32));
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(48, 48));
 
+    mPerspective->center(pPlayerPosition->x, pPlayerPosition->y);
     while (mRun) {
         mFPSTimer.start();
 
@@ -184,6 +185,9 @@ Engine::mainLoop() {
         // Apply background color
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
         drawLevel();
+
+        mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition);   //Draw our cute hero
+
         monsters();
 
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);

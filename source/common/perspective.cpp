@@ -3,13 +3,13 @@
 namespace Common {
 Perspective::Perspective(SDL_Renderer* renderer)
   : pRenderer(renderer)
-  , mOffset{} {}
+  , mOffset{0.0f,0.0f} {}
 
 void
 Perspective::render(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position) {
     SDL_FRect dest = *position;
-    dest.x += mOffset.first;
-    dest.y += mOffset.second;
+    dest.x += mOffset.x;
+    dest.y += mOffset.y;
     SDL_RenderTexture(pRenderer, texture, viewport, &dest);
 }
 
@@ -22,20 +22,26 @@ void
 Perspective::move(Directions direction, const float& velocity) {
     switch(direction){
         case NORTH:
-            mOffset.second += velocity;
+            mOffset.y += velocity;
             break;
         case EAST:
-            mOffset.first -= velocity;
+            mOffset.x -= velocity;
             break;
         case SOUTH:
-            mOffset.second -= velocity;
+            mOffset.y -= velocity;
             break;
         case WEST:
-            mOffset.first += velocity;
+            mOffset.x += velocity;
             break;
         default:
             break;
     }
+}
+
+void
+Perspective::center(const float& x, const float& y) {
+    mOffset.x = x;
+    mOffset.y = y;
 }
 
 }
