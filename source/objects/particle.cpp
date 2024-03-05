@@ -2,16 +2,14 @@
 #include <objects/particle.hpp>
 
 namespace Objects {
-Particle::Particle(SDL_Texture*  texture,
-                   SDL_Renderer* renderer,
-                   const int&    duration,
-                   const float&  size,
-                   const int&    velocity)
+Particle::Particle(SDL_Texture* texture, SDL_Renderer* renderer, const int& duration, const float& size, const float& velocity)
   : pTexture(texture)
   , pRenderer(renderer)
   , mDuration(duration)
   , mVelocity(velocity)
-  , mSize(size) {}
+  , mSize(size)
+  , gen(rd())
+  , mDist(-size, size) {}
 
 Particle::~Particle() {
     mParticles.clear();
@@ -41,8 +39,8 @@ Particle::draw() {
 
 void
 Particle::randomPosition(SDL_FRect& rect) {
-    auto x = std::rand() % mVelocity - (mVelocity / 2);
-    auto y = std::rand() % mVelocity - (mVelocity / 2);
+    auto x = mDist(gen);
+    auto y = mDist(gen);
     rect.x += x;
     rect.y += y;
 }

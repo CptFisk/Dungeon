@@ -105,7 +105,7 @@ Engine::startup() {
     pPlayerTexture  = mPlayer->getPlayerTexture();
     pPlayerView     = mPlayer->getPlayerViewport();
     pPlayerPosition = mPlayer->getPlayerPosition();
-    mParticles      = std::make_shared<Objects::Particle>(GET_SDL("FAE2C3"), pRenderer, 100, 3, 5);
+    mParticles      = std::make_shared<Objects::Particle>(GET_SDL("FAE2C3"), pRenderer, 100, 0.5f, 0.5f);
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
@@ -191,10 +191,9 @@ Engine::mainLoop() {
 
         SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
-        /*
         drawParticles();
-
         addDarkness();
+        /*
         // Draw UI-elements
 
         drawNumbers();
