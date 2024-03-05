@@ -264,7 +264,7 @@ Engine::drawNumbers() {
         else {
             auto data = (*it).getNumber();
             for (const auto& [position, viewport] : data.Visuals) {
-                SDL_RenderTexture(pRenderer, data.Texture, viewport, &position);
+                mPerspective->render(pRenderer, data.Texture, viewport, &position);
             }
             ++it;
         }
