@@ -12,6 +12,6 @@ Perspective::render(SDL_Texture* texture, SDL_FRect *viewport, SDL_FRect* destin
 
 void
 Perspective::renderRotated(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* destination, const float& angle) {
-
+    SDL_RenderTextureRotated(pRenderer, texture, viewport, destination, angle, nullptr, SDL_FLIP_NONE);
 }
 }
