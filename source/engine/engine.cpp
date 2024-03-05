@@ -141,7 +141,7 @@ Engine::click(const float& x, const float& y) {
 void
 Engine::movePlayer(Directions direction) {
     if (mLevel->movement(*pPlayerPosition, direction))
-        mPlayer->move(direction);
+        mPerspective->move(direction, mPlayer->move(direction));
 }
 
 void
@@ -185,7 +185,6 @@ Engine::mainLoop() {
         }
         // Apply background color
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
-        mPerspective->t();
         drawLevel();
         monsters();
 
@@ -268,8 +267,9 @@ Engine::drawNumbers() {
     }
 }
 
-void Engine::drawLevel() {
-    for(const auto& tile : mLevel->getLevel()){
+void
+Engine::drawLevel() {
+    for (const auto& tile : mLevel->getLevel()) {
         mPerspective->render(tile.Texture, tile.Viewport, tile.Position);
     }
 }

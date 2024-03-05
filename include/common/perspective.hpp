@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 #include <common/scale.hpp>
 #include <utility>
+#include <global.hpp>
 
 namespace Common {
 class Perspective {
@@ -10,10 +11,7 @@ class Perspective {
 
     void render(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* destination);
     void renderRotated(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* destination, const float& angle);
-
-    void t(){
-        mOffset.first += 0.5;
-    }
+    void move(Directions direction, const float& velocity); //Move the camera
   private:
   protected:
     std::pair<float, float> mOffset;

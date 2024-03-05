@@ -22,7 +22,7 @@ class Player {
     void setAction(Objects::State action);
     void setDirection(Directions direction);
 
-    void move(Directions direction);
+    float move(Directions direction);
 
   private:
     Objects::State        mAction; // What are we doing

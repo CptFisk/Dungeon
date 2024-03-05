@@ -53,7 +53,7 @@ Player::setDirection(Directions direction) {
     updateReferences();
 }
 
-void
+float
 Player::move(Directions direction) {
     switch (direction) {
         case NORTH:
@@ -72,6 +72,7 @@ Player::move(Directions direction) {
     mAction    = Objects::MOVE;
     mDirection = direction;
     updateReferences();
+    return 3.0f;
 }
 
 }
