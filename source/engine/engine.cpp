@@ -191,7 +191,7 @@ Engine::mainLoop() {
         monsters();
 
         projectiles();
-        drawParticles();
+        drawProjectiles();
         addDarkness();
         drawNumbers();
         mHealth->draw();
@@ -249,7 +249,7 @@ Engine::monsters() {
 }
 
 void
-Engine::drawParticles() {
+Engine::drawProjectiles() {
     for (const auto& projectile : mProjectiles) {
         const auto lightning = projectile->getLightning();
         const auto object = projectile->getProjectile();

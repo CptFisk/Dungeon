@@ -42,7 +42,7 @@ class Engine {
     void monsters();
     void projectiles();
 
-    void drawParticles();
+    void drawProjectiles();
     void drawNumbers();
     void drawLevel();
 
