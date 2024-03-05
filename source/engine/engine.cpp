@@ -263,8 +263,8 @@ Engine::drawNumbers() {
             it = mNumbers.erase(it);
         else {
             auto data = (*it).getNumber();
-            for (const auto& [position, viewport] : data.Visuals) {
-                mPerspective->render(pRenderer, data.Texture, viewport, &position);
+            for ( auto& [position, viewport] : data.Visuals) {
+                mPerspective->render(data.Texture, viewport, &position);
             }
             ++it;
         }

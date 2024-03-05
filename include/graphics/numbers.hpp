@@ -31,7 +31,7 @@ class Number {
     Number& operator=(const Number& other);
 
     bool            expired(); // Returns true if the element have expired and should be removed
-    typeNumbersData getNumber() const;
+    typeNumbersData getNumber();
 
   private:
   protected:

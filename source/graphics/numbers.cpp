@@ -15,10 +15,7 @@ Number::Number(std::pair<float, float>      position,
     for (const auto& number : numbers) {
         auto& posX = position.first;
         auto& posY = position.second;
-        mPositions.emplace_back(SDL_FRect{ posX + (static_cast<float>(pos++) * 8.0f * scale),
-                                           posY,
-                                           8.0f * scale,
-                                           8.0f * scale},
+        mPositions.emplace_back(SDL_FRect{ posX + (static_cast<float>(pos++) * 8.0f * scale), posY, 8.0f * scale, 8.0f * scale },
                                 &texture.Views[number]);
     }
 }
@@ -36,7 +33,7 @@ Number::expired() {
 }
 
 typeNumbersData
-Number::getNumber() const {
+Number::getNumber() {
     return { pTexture, mPositions };
 }
 
