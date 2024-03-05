@@ -190,7 +190,6 @@ Engine::mainLoop() {
 
         monsters();
 
-        SDL_RenderTexture(pRenderer, *pPlayerTexture, *pPlayerView, pPlayerPosition);
         projectiles();
         drawParticles();
         addDarkness();
