@@ -53,6 +53,12 @@ class Engine {
     bool              mVisibleUI;
     Common::typeScale mScale;
 
+    
+    struct{
+        Uint8 Red;
+        Uint8 Green;
+        Uint8 Blue;
+    }Background;
 
     std::unique_ptr<Common::InitHandler> mInitHandler;
     std::unique_ptr<Player::Player>      mPlayer;

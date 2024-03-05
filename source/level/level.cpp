@@ -7,8 +7,11 @@
 
 namespace Level {
 
-Level::Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics)
+Level::Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics, Uint8& red, Uint8& green, Uint8& blue)
   : pRenderer(renderer)
+  , mRed(red)
+  , mGreen(green)
+  , mBlue(blue)
   , mHeader{}
   , mGraphics(std::move(graphics))
   , pTiles(nullptr)
@@ -30,12 +33,17 @@ Level::loadLevel(const std::string& filename) {
     std::vector<SDL_FRect> wall;
     const auto             sizeX = static_cast<float>(data->Header.Level.SizeX) * 16.0f;
     const auto             sizeY = static_cast<float>(data->Header.Level.SizeY) * 16.0f;
-    // Generate walls
 
-    obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, 16.0f, sizeY + 32.0f });        // Left wall
-    obstacle.push_back(SDL_FRect{ sizeX, -16.0f, 16.0f, sizeY + 32.0f }); // Right wall
-    obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, sizeX, 16.0f });        // Top wall
-    obstacle.push_back(SDL_FRect{ -16.0f, sizeY, sizeX, 16.0 });          // Bottom wall
+    //Set background colors
+   mRed = mHeader.Color.BackgroundRed;
+   mGreen = mHeader.Color.BackgroundGreen;
+   mBlue = mHeader.Color.BackgroundBlue;
+
+    // Generate walls
+    obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, 16.0f, sizeY + 32.0f }); // Left wall
+    obstacle.push_back(SDL_FRect{ sizeX, -16.0f, 16.0f, sizeY + 32.0f });  // Right wall
+    obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, sizeX, 16.0f });         // Top wall
+    obstacle.push_back(SDL_FRect{ -16.0f, sizeY, sizeX, 16.0 });           // Bottom wall
 
     int item = 0; // Keep track of current position
     for (int y = 0; y < data->Header.Level.SizeY; y++) {

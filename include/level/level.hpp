@@ -1,17 +1,17 @@
 #pragma once
 #include <SDL3/SDL.h>
 #include <common/scale.hpp>
+#include <global.hpp>
 #include <graphicsForward.hpp>
 #include <level/structures.hpp>
 #include <memory>
 #include <string>
 #include <vector>
-#include <global.hpp>
 
 namespace Level {
 class Level {
   public:
-    Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics);
+    Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics, Uint8& red, Uint8& green, Uint8& blue);
     ~Level(); // Cleaning
 
     void loadLevel(const std::string& filename);
@@ -26,6 +26,10 @@ class Level {
 
   protected:
   private:
+    Uint8& mRed;   // Reference to engine->Background->Red
+    Uint8& mGreen; // Reference to engine->Background->Green
+    Uint8& mBlue;  // Reference to engine->Background->Blue
+
     // Graphical stuff
     std::shared_ptr<Graphics::Graphics> mGraphics;
     SDL_Renderer*                       pRenderer; // Reference to the renderer
@@ -35,7 +39,7 @@ class Level {
     // Level data
     typeHeader mHeader;
     typeTile** pTiles;
-    int        mElements;   //Number of elements that exist in pTiles
+    int        mElements; // Number of elements that exist in pTiles
 };
 
 }

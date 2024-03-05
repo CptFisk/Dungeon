@@ -80,7 +80,7 @@ Engine::startup() {
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
 
-    mLevel = std::make_unique<Level::Level>(pRenderer, mGraphics);
+    mLevel = std::make_unique<Level::Level>(pRenderer, mGraphics, Background.Red, Background.Green, Background.Blue);
     mLevel->loadLevel("level.map");
     mPlayer = std::make_unique<Player::Player>();
 
@@ -156,7 +156,6 @@ Engine::mainLoop() {
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(32, 32));
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(48, 48));
 
-
     while (mRun) {
         mFPSTimer.start();
 
@@ -214,8 +213,8 @@ Engine::projectiles() {
                 it = mProjectiles.erase(it); // Move iterator
                 (*it2)->damageMonster(damage);
                 // Display the damage
-                mNumbers.push_back(Graphics::Number(
-                  { (*it2)->getPosition()->x, (*it2)->getPosition()->y }, damage, 100, GET_SIMPLE("NumbersWhite"), 0.5f));
+                mNumbers.push_back(
+                  Graphics::Number({ (*it2)->getPosition()->x, (*it2)->getPosition()->y }, damage, 100, GET_SIMPLE("NumbersWhite"), 0.5f));
                 removed = true;
                 break;
             } else
