@@ -154,7 +154,7 @@ Engine::mainLoop() {
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(32, 32));
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(48, 48));
 
-    mPerspective->center(pPlayerPosition->x, pPlayerPosition->y);
+    mPerspective->center(pPlayerPosition->x - 8.0f, pPlayerPosition->y - 8.0f);
     while (mRun) {
         mFPSTimer.start();
 
