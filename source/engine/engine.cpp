@@ -156,8 +156,6 @@ Engine::mainLoop() {
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(32, 32));
     mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(48, 48));
 
-    auto center  = SDL_FRect{ 100.0f, 100.0f, 16.0f, 16.0f };
-    auto texture = GET_SDL("FAE2C3");
 
     while (mRun) {
         mFPSTimer.start();
@@ -193,12 +191,7 @@ Engine::mainLoop() {
         projectiles();
         drawParticles();
         addDarkness();
-        /*
-        // Draw UI-elements
-
         drawNumbers();
-        mPerspective->render(texture, nullptr, &center);
-        */
         mHealth->draw();
         mEnergy->draw();
         present();
@@ -222,7 +215,7 @@ Engine::projectiles() {
                 (*it2)->damageMonster(damage);
                 // Display the damage
                 mNumbers.push_back(Graphics::Number(
-                  { (*it2)->getPosition()->x, (*it2)->getPosition()->y }, damage, 100, GET_SIMPLE("NumbersWhite"), mScale, 0.5f));
+                  { (*it2)->getPosition()->x, (*it2)->getPosition()->y }, damage, 100, GET_SIMPLE("NumbersWhite"), 0.5f));
                 removed = true;
                 break;
             } else

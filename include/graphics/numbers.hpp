@@ -18,7 +18,6 @@ struct typeNumbersData {
  * @param value Value to be displayed
  * @param visibility Number of ticks it should be visible
  * @param texture Texture (font)
- * @param gameScale Current scale on the screen
  * @param (optional) Scaling of texture, 1.0f = 8px;
  */
 class Number {
@@ -27,7 +26,6 @@ class Number {
            const int&               value,
            const int&               visibility,
            typeSimpleTexture&       texture,
-           const Common::typeScale& gameScale,
            const float&             scale = 1.0f);
 
     Number& operator=(const Number& other);

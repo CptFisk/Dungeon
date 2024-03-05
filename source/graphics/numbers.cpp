@@ -5,7 +5,6 @@ Number::Number(std::pair<float, float>      position,
                const int&                   value,
                const int&                   visibility,
                Graphics::typeSimpleTexture& texture,
-               const Common::typeScale&     gameScale,
                const float&                 scale)
   : mTicks(0)
   , MAX_TICKS(visibility)
@@ -16,10 +15,10 @@ Number::Number(std::pair<float, float>      position,
     for (const auto& number : numbers) {
         auto& posX = position.first;
         auto& posY = position.second;
-        mPositions.emplace_back(SDL_FRect{ posX + (static_cast<float>(pos++) * 8.0f * scale * gameScale.ScaleX),
+        mPositions.emplace_back(SDL_FRect{ posX + (static_cast<float>(pos++) * 8.0f * scale),
                                            posY,
-                                           8.0f * scale * gameScale.ScaleX,
-                                           8.0f * scale * gameScale.ScaleY },
+                                           8.0f * scale,
+                                           8.0f * scale},
                                 &texture.Views[number]);
     }
 }
