@@ -183,6 +183,9 @@ Engine::mainLoop() {
             handler(timer.getTicks());
             timer.start();
         }
+        // Apply background color
+        SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
+
         mLevel->draw();
         monsters();
 
