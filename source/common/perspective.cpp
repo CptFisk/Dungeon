@@ -6,16 +6,16 @@ Perspective::Perspective(SDL_Renderer* renderer)
   , mOffset{} {}
 
 void
-Perspective::render(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* destination) {
-    SDL_FRect dest = *destination;
+Perspective::render(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position) {
+    SDL_FRect dest = *position;
     dest.x += mOffset.first;
     dest.y += mOffset.second;
     SDL_RenderTexture(pRenderer, texture, viewport, &dest);
 }
 
 void
-Perspective::renderRotated(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* destination, const float& angle) {
-    SDL_RenderTextureRotated(pRenderer, texture, viewport, destination, angle, nullptr, SDL_FLIP_NONE);
+Perspective::renderRotated(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position, const float& angle) {
+    SDL_RenderTextureRotated(pRenderer, texture, viewport, position, angle, nullptr, SDL_FLIP_NONE);
 }
 
 void
