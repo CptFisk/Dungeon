@@ -90,6 +90,8 @@ removeAsset(const uint8_t& id, typeAssets* map) {
 
 bool
 addAsset(const char* asset, typeAssets* map) {
+    if(strlen(asset) == 0)
+        return false;
     int lowest = 0;
     for (auto& item : map->Data) {
         if (item.Id == 0) {
@@ -97,7 +99,7 @@ addAsset(const char* asset, typeAssets* map) {
             auto len = strlen(asset);
             strncpy(item.Asset, asset, len);
             item.Asset[len] = '\0';
-            break;
+            return true;
         } else {
             if (item.Id > lowest)
                 lowest = item.Id;

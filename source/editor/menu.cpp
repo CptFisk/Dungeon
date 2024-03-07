@@ -41,6 +41,8 @@ Editor::uiMenu() {
                 displayElement("Grid");
             if (ImGui::MenuItem("Mouse"))
                 displayElement("Mouse");
+            if(ImGui::MenuItem("Textures"))
+                displayElement("Textures");
             ImGui::EndMenu();
         }
     }
