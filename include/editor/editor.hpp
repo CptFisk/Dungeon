@@ -54,6 +54,9 @@ class Editor {
     std::unique_ptr<Common::InitHandler> mInitHandler;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
 
+    std::vector<std::string> mTextures;        // All textures that we can use
+    std::string              mSelectedTexture; // The selected texture
+
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;
     std::list<std::function<bool(SDL_Event*)>>                             mEventWatcher; // List of all event to watch for

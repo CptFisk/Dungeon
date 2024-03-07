@@ -3,17 +3,15 @@
 namespace Editor{
 void
 Editor::uiTexture() {
-    ImGui::ShowDemoWindow();
-
     if (ImGui::Begin("Textures", &mWindowOpen["Textures"], ImGuiWindowFlags_AlwaysAutoResize)) {
         static int currentItem;
 
-        std::vector<std::string> elements = {"Hello", "World"};
         if(ImGui::BeginListBox("##Textures")){
-            for(int i = 0; i < elements.size(); i++){
+            for(int i = 0; i < mTextures.size(); i++){
                 const bool selected = (currentItem == i);
-                if(ImGui::Selectable(elements[i].c_str(), selected)){
+                if(ImGui::Selectable(mTextures[i].c_str(), selected)){
                     currentItem = i;
+                    mSelectedTexture = mTextures[i];
                 }
                 if(selected)
                     ImGui::SetItemDefaultFocus();
