@@ -105,16 +105,16 @@ addAsset(const char* asset, typeAssets* map) {
                 lowest = item.Id;
         }
     }
-    return -1
+    return -1;
 }
 
-bool
+int
 existAsset(const char* asset, typeAssets* map){
     for(const auto& item : map->Data){
         if(strcmp(item.Asset, asset) == 0)
-            return true;
+            return item.Id;
     }
-    return false;
+    return -1;
 }
 
 }

@@ -93,29 +93,12 @@ deleteTile(typeTileData** tile, const int& elements);
 void
 deleteTile(typeTile** tile, const int& elements);
 
-/**
- * @brief Delete a element from the list of assets
- * @param id
- * @param map
- */
 void
-removeAsset(const uint8_t& id, typeAssets* map);
+removeAsset(const uint8_t& id, typeAssets* map);    //Delete an element from the list of assets
 
-/**
- * @brief Add a new element to the list of assets
- * @param asset Name of the asset
- * @param map Reference to the map
- * @return Asset number, -1 if element was not added
- */
 int
-addAsset(const char* asset, typeAssets* map);
+addAsset(const char* asset, typeAssets* map);   //Add a new item to the list, returns the id that was assigned
 
-/**
- * @brief Check if a item is added
- * @param asset Name of the asset
- * @param map Reference to the map
- * @return True if it exist
- */
-bool
-existAsset(const char* asset, typeAssets* map);
+int
+findAsset(const char* asset, typeAssets* map);  //Search for an asset, -1 if item don't exist
 }
