@@ -105,9 +105,9 @@ removeAsset(const uint8_t& id, typeAssets* map);
  * @brief Add a new element to the list of assets
  * @param asset Name of the asset
  * @param map Reference to the map
- * @return True if it was added
+ * @return Asset number, -1 if element was not added
  */
-bool
+int
 addAsset(const char* asset, typeAssets* map);
 
 /**
