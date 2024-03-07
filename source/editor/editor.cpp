@@ -215,21 +215,19 @@ Editor::click(const float& x, const float& y) {
         auto coord = Common::getClickCoords(x, y, mScale);
         auto index = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
         switch (mMouse) {
-            case TEXTURE:
+            case TEXTURE: {
+                // Texture stuff
+                auto simpleTexture           = GET_SIMPLE(mSelectedTexture);
+                pVisualTile[index]->Texture  = simpleTexture.Texture;
+                pVisualTile[index]->Viewport = simpleTexture[-1].second;
 
-                if (pTile[index]->Type == Level::BLANK) {
-                    auto simpleTexture           = GET_SIMPLE(mSelectedTexture);
-                    pVisualTile[index]->Texture  = simpleTexture.Texture;
-                    pVisualTile[index]->Viewport = simpleTexture[-1].second;
-
-                    pTile[index]->Type |= Level::TEXTURE;
-                    pTile[index]->Id = 1;
-                    mLevelCoords.emplace(Common::getClickCoords(x, y, mScale));
-                } else if (pTile[index]->Type == Level::TEXTURE) {
-                    auto simpleTexture           = GET_SIMPLE(mSelectedTexture);
-                    pVisualTile[index]->Texture = GET_SIMPLE(mSelectedTexture).Texture;
-                    pVisualTile[index]->Viewport = simpleTexture[-1].second;
-                }
+                pTile[index]->Type |= Level::TEXTURE;
+                const auto id = Level::findAsset(mSelectedTexture.c_str(), pAssets);
+                if (id != -1)
+                    pTile[index]->Id = id;
+                else
+                    pTile[index]->Id = Level::addAsset(mSelectedTexture.c_str(), pAssets);
+            }
                 break;
             case REMOVE:
                 pVisualTile[index]->Texture     = nullptr;
