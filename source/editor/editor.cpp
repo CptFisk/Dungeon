@@ -222,6 +222,8 @@ Editor::click(const float& x, const float& y) {
                 pVisualTile[index]->Viewport = simpleTexture[-1].second;
 
                 pTile[index]->Type |= Level::TEXTURE;
+
+                mLevelCoords.emplace(Common::getClickCoords(x, y, mScale)); //Add tile to the list
                 const auto id = Level::findAsset(mSelectedTexture.c_str(), pAssets);
                 if (id != -1)
                     pTile[index]->Id = id;
