@@ -209,12 +209,11 @@ Editor::click(const float& x, const float& y) {
         auto ix    = static_cast<int>(x);
         auto iy    = static_cast<int>(y);
         auto coord = Common::getClickCoords(x, y, mScale);
-        printf("x: %i | y %i\n", coord.first, coord.second);
         auto index = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
         switch (mMouse) {
             case TEXTURE:
                 if (pTile[index]->Type == Level::BLANK) {
-                    auto simpleTexture           = mGraphics->getTexture<Graphics::typeSimpleTexture>("PurpleFloor");
+                    auto simpleTexture           = GET_SIMPLE("PurpleFloor");
                     pVisualTile[index]->Texture  = simpleTexture.Texture;
                     pVisualTile[index]->Viewport = simpleTexture[-1].second;
 
@@ -222,8 +221,7 @@ Editor::click(const float& x, const float& y) {
                     pTile[index]->Id = 1;
                     mLevelCoords.emplace(Common::getClickCoords(x, y, mScale));
                 } else if (pTile[index]->Type == Level::TEXTURE) {
-
-                    pVisualTile[index]->Texture = mGraphics->getTexture<Graphics::typeSimpleTexture>("PurpleFloor").Texture;
+                    pVisualTile[index]->Texture = GET_SIMPLE("PurpleFloor").Texture;
                 }
                 break;
             case REMOVE:
@@ -239,11 +237,11 @@ Editor::click(const float& x, const float& y) {
                 break;
             case WALL:
                 pTile[index]->Type |= Level::WALL;
-                pVisualTileType[index]->Texture = mGraphics->getTexture<SDL_Texture*>("87ED17");
+                pVisualTileType[index]->Texture = GET_SDL("87ED17");
                 break;
             case OBSTACLE:
                 pTile[index]->Type |= Level::OBSTACLE;
-                pVisualTileType[index]->Texture = mGraphics->getTexture<SDL_Texture*>("1D35FA");
+                pVisualTileType[index]->Texture = GET_SDL("1D35FA");
                 break;
 
             case DEFAULT:

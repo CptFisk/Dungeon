@@ -110,4 +110,12 @@ removeAsset(const uint8_t& id, typeAssets* map);
 bool
 addAsset(const char* asset, typeAssets* map);
 
+/**
+ * @brief Check if a item is added
+ * @param asset Name of the asset
+ * @param map Reference to the map
+ * @return True if it exist
+ */
+bool
+existAsset(const char* asset, typeAssets* map);
 }

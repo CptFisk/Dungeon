@@ -107,4 +107,14 @@ addAsset(const char* asset, typeAssets* map) {
     }
     return false;
 }
+
+bool
+existAsset(const char* asset, typeAssets* map){
+    for(const auto& item : map->Data){
+        if(strcmp(item.Asset, asset) == 0)
+            return true;
+    }
+    return false;
+}
+
 }
