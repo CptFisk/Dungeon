@@ -18,8 +18,12 @@ Editor::uiTexture() {
             }
             ImGui::EndListBox();
         }
+        mWindows["Textures"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::End();
     }
+
+    if(!mWindowOpen["Textures"])
+        hideElement("Textures");
 
 }
 }

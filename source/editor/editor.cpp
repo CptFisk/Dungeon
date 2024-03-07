@@ -67,10 +67,14 @@ Editor::startup() {
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
 
+    mTextures = mGraphics->getAllTextureNames();
+    if (!mTextures.empty()) {
+        std::sort(mTextures.begin(), mTextures.end());
+        mSelectedTexture = mTextures[0];
+    }
     // Try to load the font
     mFont = TTF_OpenFont("rsrc/fonts/Arial.ttf", 14);
 
-    mTextures = mGraphics->getAllTextureNames();
     // Generating textures
     for (int x = 0; x < 16; x++) {
         for (int y = 0; y < 12; y++) {
@@ -212,8 +216,9 @@ Editor::click(const float& x, const float& y) {
         auto index = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
         switch (mMouse) {
             case TEXTURE:
+
                 if (pTile[index]->Type == Level::BLANK) {
-                    auto simpleTexture           = GET_SIMPLE("PurpleFloor");
+                    auto simpleTexture           = GET_SIMPLE(mSelectedTexture);
                     pVisualTile[index]->Texture  = simpleTexture.Texture;
                     pVisualTile[index]->Viewport = simpleTexture[-1].second;
 
@@ -221,7 +226,9 @@ Editor::click(const float& x, const float& y) {
                     pTile[index]->Id = 1;
                     mLevelCoords.emplace(Common::getClickCoords(x, y, mScale));
                 } else if (pTile[index]->Type == Level::TEXTURE) {
-                    pVisualTile[index]->Texture = GET_SIMPLE("PurpleFloor").Texture;
+                    auto simpleTexture           = GET_SIMPLE(mSelectedTexture);
+                    pVisualTile[index]->Texture = GET_SIMPLE(mSelectedTexture).Texture;
+                    pVisualTile[index]->Viewport = simpleTexture[-1].second;
                 }
                 break;
             case REMOVE:
