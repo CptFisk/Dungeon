@@ -109,7 +109,7 @@ addAsset(const char* asset, typeAssets* map) {
 }
 
 int
-existAsset(const char* asset, typeAssets* map){
+findAsset(const char* asset, typeAssets* map){
     for(const auto& item : map->Data){
         if(strcmp(item.Asset, asset) == 0)
             return item.Id;
