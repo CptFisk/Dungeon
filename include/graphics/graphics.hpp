@@ -11,8 +11,8 @@
 #include <vector>
 
 #define GET_ANIMATED(VAR) mGraphics->getTexture<Graphics::AnimatedTexture*>(VAR)
-#define GET_SIMPLE(VAR) mGraphics->getTexture<Graphics::typeSimpleTexture>(VAR)
-#define GET_SDL(VAR) mGraphics->getTexture<SDL_Texture*>(VAR)
+#define GET_SIMPLE(VAR)   mGraphics->getTexture<Graphics::typeSimpleTexture>(VAR)
+#define GET_SDL(VAR)      mGraphics->getTexture<SDL_Texture*>(VAR)
 
 namespace Graphics {
 class Graphics {
@@ -76,6 +76,15 @@ class Graphics {
     }
 
     void updateAnimatedTexture();
+
+    std::vector<std::string> getAllTextureNames() {
+        std::vector<std::string> names;
+        for (auto& graphic : mGraphics) {
+            if (graphic.second.Type == SIMPLE_TEXTURE)
+                names.push_back(graphic.first);
+        }
+        return names;
+    }
 
   protected:
     SDL_Texture* loadImage(const std::string& filename);

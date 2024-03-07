@@ -16,7 +16,7 @@
 namespace Editor {
 void
 Editor::uiMouse() {
-    ImGui::ShowDemoWindow();
+    //ImGui::ShowDemoWindow();
     if (ImGui::Begin("Mouse", &mWindowOpen["Mouse"], ImGuiWindowFlags_AlwaysAutoResize)) {
 
         ImVec2 buttonSize(ImGui::GetContentRegionAvail().x, 0);

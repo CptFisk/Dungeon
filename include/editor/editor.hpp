@@ -22,10 +22,9 @@ class Editor {
 
     Common::ActionManager& getActionManager(); // Used when binding clicks, events
 
-    [[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>& getEventList(); // Get the list of events
-    [[maybe_unused]] std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>&
-    getEvents(); // Get the list of events
-    [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>& getProcessing();
+    [[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>&                             getEventList(); // Get the list of events
+    [[maybe_unused]] std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEvents();    // Get the list of events
+    [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
 
     void terminate();                           // Kill the editor
     void click(const float& x, const float& y); // Click
@@ -43,7 +42,8 @@ class Editor {
     void uiAssets();   // Display the metadata related to the map
     void uiMouse();
     void uiTiles();
-    void present(); // Render all graphic
+    void uiTexture(); // All basic textures
+    void present();   // Render all graphic
 
   private:
     Common::typeScale mScale;
@@ -55,8 +55,8 @@ class Editor {
     std::shared_ptr<Graphics::Graphics>  mGraphics;
 
     // Events
-    std::unique_ptr<Common::ActionManager>     mActionManager;
-    std::list<std::function<bool(SDL_Event*)>> mEventWatcher; // List of all event to watch for
+    std::unique_ptr<Common::ActionManager>                                 mActionManager;
+    std::list<std::function<bool(SDL_Event*)>>                             mEventWatcher; // List of all event to watch for
     std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>> mEvents;
     std::list<std::tuple<std::function<void(int)>, Utility::Timer>>        mProcessing;
 
@@ -78,7 +78,7 @@ class Editor {
             return lhs.target_type().hash_code() < rhs.target_type().hash_code();
         }
     };
-    std::unordered_map<std::string, typeWindowCovering>    mWindows; // Contains the position and sizes of all windows
+    std::unordered_map<std::string, typeWindowCovering>    mWindows;    // Contains the position and sizes of all windows
     std::unordered_map<std::string, bool>                  mWindowOpen; // True if a window is open
     std::vector<std::string>                               mElementsToHide;
     std::vector<std::string>                               mElementsToShow;
@@ -113,8 +113,10 @@ class Editor {
 
     struct comparePair {
         bool operator()(const std::pair<int, int>& lhs, const std::pair<int, int>& rhs) const {
-            if (lhs.first < rhs.first) return true;
-            if (lhs.first > rhs.first) return false;
+            if (lhs.first < rhs.first)
+                return true;
+            if (lhs.first > rhs.first)
+                return false;
             return lhs.second < rhs.second;
         }
     };

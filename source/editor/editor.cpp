@@ -70,6 +70,7 @@ Editor::startup() {
     // Try to load the font
     mFont = TTF_OpenFont("rsrc/fonts/Arial.ttf", 14);
 
+    auto names = mGraphics->getAllTextureNames();
     // Generating textures
     for (int x = 0; x < 16; x++) {
         for (int y = 0; y < 12; y++) {
@@ -82,12 +83,13 @@ Editor::startup() {
 
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 
-    mElements["Top"]    = [this]() { uiMenu(); };
-    mElements["Tiles"]  = [this]() { uiTiles(); };
-    mElements["Grid"]   = [this]() { uiDrawGrid(); };
-    mElements["Header"] = [this]() { uiHeader(); };
-    mElements["Assets"] = [this]() { uiAssets(); };
-    mElements["Mouse"]  = [this]() { uiMouse(); };
+    mElements["Top"]      = [this]() { uiMenu(); };
+    mElements["Tiles"]    = [this]() { uiTiles(); };
+    mElements["Grid"]     = [this]() { uiDrawGrid(); };
+    mElements["Header"]   = [this]() { uiHeader(); };
+    mElements["Assets"]   = [this]() { uiAssets(); };
+    mElements["Mouse"]    = [this]() { uiMouse(); };
+    mElements["Textures"] = [this]() { uiTexture(); };
     displayElement("Top");
 }
 

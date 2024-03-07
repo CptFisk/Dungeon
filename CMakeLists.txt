@@ -85,6 +85,7 @@ else ()
             ${CMAKE_SOURCE_DIR}/source/editor/assets.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/grid.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/tiles.cpp
+            ${CMAKE_SOURCE_DIR}/source/editor/textures.cpp
     )
 endif ()
 
