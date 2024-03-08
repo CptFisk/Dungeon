@@ -74,7 +74,7 @@ deleteTile(typeTile** tile, const int& elements) {
 
 void
 removeAsset(const uint8_t& id, typeAssets* map) {
-
+    std::memset(map->Data[id].Asset, 0, sizeof(map->Data[id].Asset));
 }
 
 uint8_t
