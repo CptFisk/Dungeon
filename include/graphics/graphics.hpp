@@ -17,7 +17,7 @@
 namespace Graphics {
 class Graphics {
   public:
-    Graphics(SDL_Renderer* renderer);
+    explicit Graphics(SDL_Renderer* renderer);
     ~Graphics();
     void init();
     void generateSquare(const std::string& name,
