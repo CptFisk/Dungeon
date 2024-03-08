@@ -26,8 +26,8 @@ void
 Level::loadLevel(const std::string& filename) {
     auto data = readLevelData(filename);
     mHeader   = data->Header; // Catch header
-
     mElements = data->Header.Level.Elements;
+
     pTiles    = new typeTile* [mElements] {}; // Allocating
     std::vector<SDL_FRect> obstacle;
     std::vector<SDL_FRect> wall;
@@ -48,15 +48,15 @@ Level::loadLevel(const std::string& filename) {
     int item = 0; // Keep track of current position
     for (int y = 0; y < data->Header.Level.SizeY; y++) {
         for (int x = 0; x < data->Header.Level.SizeX; x++) {
+            const auto index = Common::getIndex(x, y, &data->Header);
             // Shall texture be added
-            if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & TEXTURE) != 0) {
-
-                pTiles[item++] = new typeTile(TEXTURE, Common::newSDL_FRect(x, y), GET_SIMPLE("PurpleFloor")[-1]);
+            if ((data->Tiles[index]->Type & TEXTURE) != 0) {
+                pTiles[item++] = new typeTile(TEXTURE, Common::newSDL_FRect(x, y), GET_SIMPLE(data->Assets.Data[data->Tiles[index]->Id].Asset)[-1]);
             }
-            if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & WALL) != 0) {
+            if ((data->Tiles[index]->Type & WALL) != 0) {
                 wall.push_back(Common::newSDL_FRect(x, y));
             }
-            if ((data->Tiles[Common::getIndex(x, y, &data->Header)]->Type & OBSTACLE) != 0) {
+            if ((data->Tiles[index]->Type & OBSTACLE) != 0) {
                 obstacle.push_back(Common::newSDL_FRect(x, y));
             }
         }

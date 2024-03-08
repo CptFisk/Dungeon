@@ -6,6 +6,7 @@
 namespace Level {
 
 const int TEXT_MAX_LENGTH      = 31;
+const int MAX_ASSETS = 31;
 const int TILE_TYPE_VARIATIONS = 7;
 
 enum TileType : uint8_t { BLANK = 0, TEXTURE = 1 << 0, WALL = 1 << 1, OBSTACLE = 1 << 2 };
@@ -45,12 +46,11 @@ struct typeHeader {
 };
 
 struct typeAssetItem {
-    uint8_t Id;                     // Unique id of the file 1-32
     char    Asset[TEXT_MAX_LENGTH]; // Asset name
 };
 
 struct typeAssets {
-    typeAssetItem Data[TEXT_MAX_LENGTH]; // A file can only contain 32 sub-files
+    typeAssetItem Data[MAX_ASSETS]; // A file can only contain 32 sub-files
 };
 
 struct typeLevelData {
@@ -96,9 +96,10 @@ deleteTile(typeTile** tile, const int& elements);
 void
 removeAsset(const uint8_t& id, typeAssets* map);    //Delete an element from the list of assets
 
-int
+uint8_t
 addAsset(const char* asset, typeAssets* map);   //Add a new item to the list, returns the id that was assigned
 
-int
+uint8_t
 findAsset(const char* asset, typeAssets* map);  //Search for an asset, -1 if item don't exist
+
 }

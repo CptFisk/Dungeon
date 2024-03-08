@@ -225,7 +225,7 @@ Editor::click(const float& x, const float& y) {
 
                 mLevelCoords.emplace(Common::getClickCoords(x, y, mScale)); //Add tile to the list
                 const auto id = Level::findAsset(mSelectedTexture.c_str(), pAssets);
-                if (id != -1)
+                if (id != UINT8_MAX)
                     pTile[index]->Id = id;
                 else
                     pTile[index]->Id = Level::addAsset(mSelectedTexture.c_str(), pAssets);

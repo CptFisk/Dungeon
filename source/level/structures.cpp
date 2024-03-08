@@ -74,47 +74,35 @@ deleteTile(typeTile** tile, const int& elements) {
 
 void
 removeAsset(const uint8_t& id, typeAssets* map) {
-    bool found = false;
-    for (int i = 0; i < TEXT_MAX_LENGTH; i++) {
-        if (found) {
-            map->Data[i - 1] = map->Data[i];
-        } else if (map->Data[i].Id == id) {
-            found = true;
-        }
-    }
-    if (found) {
-        // Clear the last element (optional)
-        memset(&map->Data[TEXT_MAX_LENGTH - 1], 0, sizeof(typeAssetItem));
-    }
+
 }
 
-int
+uint8_t
 addAsset(const char* asset, typeAssets* map) {
     if(strlen(asset) == 0)
-        return false;
-    int lowest = 0;
-    for (auto& item : map->Data) {
-        if (item.Id == 0) {
-            item.Id  = ++lowest;
-            auto len = strlen(asset);
-            strncpy(item.Asset, asset, len);
-            item.Asset[len] = '\0';
-            return item.Id;
-        } else {
-            if (item.Id > lowest)
-                lowest = item.Id;
+        return UINT8_MAX;
+    int position = 0;
+    for(auto& item : map->Data){
+        if(strlen(item.Asset) == 0){
+            const auto length = strlen(asset);
+            strncpy(item.Asset, asset, length);
+            item.Asset[length] = '\0';
+            return position;
         }
+        position++;
     }
-    return -1;
+    return UINT8_MAX;
 }
 
-int
+uint8_t
 findAsset(const char* asset, typeAssets* map){
+    int position = 0;
     for(const auto& item : map->Data){
         if(strcmp(item.Asset, asset) == 0)
-            return item.Id;
+            return position;
+        position++;
     }
-    return -1;
+    return UINT8_MAX;
 }
 
 }
