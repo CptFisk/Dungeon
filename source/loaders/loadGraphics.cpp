@@ -50,8 +50,8 @@ Graphics::loadBaseTiles(const Common::typeHeaderJSON& header, const std::string&
         typeSimpleTexture base ={};
         base.Texture = loadImage(data.File);
         // Generating viewports
-        for (int i = 0; i < data.Length; i++) {
-            base.Views.push_back(SDL_FRect{ static_cast<float>(data.Width * data.Column * i),
+        for (int i = 1; i <= data.Length; i++) {
+            base.Views.push_back(SDL_FRect{ static_cast<float>(data.Width * (data.Column - 1) * i),
                                             static_cast<float>(data.Height * (data.Row - 1)),
                                             static_cast<float>(data.Width),
                                             static_cast<float>(data.Height) });
@@ -72,8 +72,8 @@ Graphics::loadObjectAnimation(const Common::typeHeaderJSON& header, const std::s
     for (const auto& data : jsonData.Objects) {
         if (mGraphics.find(data.Name) == mGraphics.end()) {
             auto animation = new AnimatedTexture(loadImage(jsonData.File), data.Ticks);
-            for (int i = 0; i < data.Length; i++) {
-                animation->addViewport(SDL_FRect{ static_cast<float>(data.Width * data.Column * i),
+            for (int i = 1; i <= data.Length; i++) {
+                animation->addViewport(SDL_FRect{ static_cast<float>(data.Width * (data.Column - 1) * i),
                                                   static_cast<float>(data.Height * (data.Row - 1)),
                                                   static_cast<float>(data.Width),
                                                   static_cast<float>(data.Height) });

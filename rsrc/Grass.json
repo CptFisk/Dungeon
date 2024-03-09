@@ -96,7 +96,7 @@
       },
       {
         "File": "rsrc/Grass.png",
-        "Name": "GrassOceanSE",
+        "Name": "GrassOceanSE2",
         "Row": 3,
         "Column": 6,
         "Length": 1,
@@ -105,7 +105,7 @@
       },
       {
         "File": "rsrc/Grass.png",
-        "Name": "GrassOceanSW",
+        "Name": "GrassOceanSW2",
         "Row": 3,
         "Column": 7,
         "Length": 1,
@@ -114,7 +114,7 @@
       },
       {
         "File": "rsrc/Grass.png",
-        "Name": "GrassOceanNW",
+        "Name": "GrassOceanNW2",
         "Row": 3,
         "Column": 8,
         "Length": 1,
