@@ -121,6 +121,6 @@ file(
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-#if(WIN32)
-    #set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
-#endif()
+if(WIN32)
+    set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
+endif()
