@@ -9,6 +9,7 @@
         "Name": "LettersWhite",
         "Row": 1,
         "Column": 1,
+        "Position" : 1,
         "Length": 20,
         "Height": 8,
         "Width": 8
@@ -18,6 +19,7 @@
         "Name": "NumbersWhite",
         "Row": 1,
         "Column": 1,
+        "Position" : 1,
         "Length": 10,
         "Height": 8,
         "Width": 8

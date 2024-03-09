@@ -125,8 +125,8 @@ Engine::terminate() {
 
 void
 Engine::click(const float& x, const float& y) {
-    const auto scaledX = x / mScale.ScaleX;
-    const auto scaledY = y / mScale.ScaleY;
+    const auto scaledX = (x / mScale.ScaleX) + (mPerspective->mOffset.x / -1.0f);
+    const auto scaledY = (y / mScale.ScaleY) + (mPerspective->mOffset.y / -1.0f);
     auto       player  = Utility::getFRectCenter(*pPlayerPosition);
     auto       angle   = Utility::calculateAngle(player.first, player.second, scaledX, scaledY);
     mPlayerEnergy -= 3;
@@ -186,13 +186,13 @@ Engine::mainLoop() {
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
         drawLevel();
 
-        mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition);   //Draw our cute hero
+        mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
 
         monsters();
 
         projectiles();
         drawProjectiles();
-        addDarkness();
+        // addDarkness();
         drawNumbers();
         mHealth->draw();
         mEnergy->draw();
@@ -208,7 +208,7 @@ void
 Engine::projectiles() {
     for (auto it = mProjectiles.begin(); it != mProjectiles.end();) {
         bool removed = false;
-        (*it)->move();  //Move it
+        (*it)->move(); // Move it
         // Check monster for collision
         for (auto it2 = mActiveMonsters.begin(); it2 != mActiveMonsters.end();) {
             if (Utility::isOverlapping(*(*it)->getPosition(), *(*it2)->getPosition())) {
@@ -252,8 +252,8 @@ void
 Engine::drawProjectiles() {
     for (const auto& projectile : mProjectiles) {
         const auto lightning = projectile->getLightning();
-        const auto object = projectile->getProjectile();
-        if(lightning.Texture != nullptr)
+        const auto object    = projectile->getProjectile();
+        if (lightning.Texture != nullptr)
             mPerspective->render(lightning.Texture, lightning.Viewport, lightning.Position);
         mPerspective->renderRotated(object.Texture, object.Viewport, object.Position, object.Angle);
     }
@@ -266,7 +266,7 @@ Engine::drawNumbers() {
             it = mNumbers.erase(it);
         else {
             auto data = (*it).getNumber();
-            for ( auto& [position, viewport] : data.Visuals) {
+            for (auto& [position, viewport] : data.Visuals) {
                 mPerspective->render(data.Texture, viewport, &position);
             }
             ++it;

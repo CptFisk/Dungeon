@@ -9,6 +9,7 @@
         "Name": "PurpleWallNorth",
         "Row": 1,
         "Column": 1,
+        "Position" : 1,
         "Length": 3,
         "Height": 16,
         "Width": 16
@@ -18,6 +19,7 @@
         "Name": "PurpleWallEast",
         "Row": 2,
         "Column": 1,
+        "Position" : 1,
         "Length": 3,
         "Height": 16,
         "Width": 16
@@ -27,6 +29,7 @@
         "Name": "PurpleWallWest",
         "Row": 3,
         "Column": 1,
+        "Position" : 1,
         "Length": 3,
         "Height": 16,
         "Width": 16
@@ -36,6 +39,7 @@
         "Name": "PurpleWallSouth",
         "Row": 4,
         "Column": 1,
+        "Position" : 1,
         "Length": 3,
         "Height": 16,
         "Width": 16

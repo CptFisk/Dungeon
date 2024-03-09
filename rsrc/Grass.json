@@ -9,7 +9,16 @@
         "Name": "GrassBase",
         "Row": 1,
         "Column": 1,
-        "Length": 30,
+        "Length": 60,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassWaterNorth",
+        "Row": 2,
+        "Column": 1,
+        "Length": 60,
         "Height": 16,
         "Width": 16
       }

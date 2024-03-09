@@ -9,6 +9,7 @@
         "Name": "Energy",
         "Row": 1,
         "Column": 1,
+        "Position" : 1,
         "Length": 4,
         "Height": 16,
         "Width": 16

@@ -9,6 +9,7 @@
         "Name" : "Bolt",
         "Column" : 1,
         "Row" : 1,
+        "Position" : 1,
         "Length" : 26,
         "Ticks" : 5,
         "Width" : 16,

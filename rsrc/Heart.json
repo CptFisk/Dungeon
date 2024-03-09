@@ -9,6 +9,7 @@
         "Name" : "Heart",
         "Column" : 1,
         "Row" : 1,
+        "Position" : 1,
         "Length" : 2,
         "Ticks" : 30,
         "Width" : 16,
