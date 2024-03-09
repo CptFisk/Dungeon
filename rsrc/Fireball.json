@@ -9,7 +9,6 @@
         "Name": "Fireball",
         "Column": 1,
         "Row": 1,
-        "Position" : 1,
         "Length": 4,
         "Ticks": 1,
         "Width": 8,

@@ -15,10 +15,109 @@
       },
       {
         "File": "rsrc/Grass.png",
-        "Name": "GrassWaterNorth",
+        "Name": "GrassOceanNorth",
         "Row": 2,
         "Column": 1,
-        "Length": 60,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassOceanEast",
+        "Row": 2,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassOceanSouth",
+        "Row": 2,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassOceanWest",
+        "Row": 2,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassOceanNE",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassOceanSE",
+        "Row": 3,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassOceanSW",
+        "Row": 3,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassOceanNW",
+        "Row": 3,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassOceanNE2",
+        "Row": 3,
+        "Column": 5,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassOceanSE",
+        "Row": 3,
+        "Column": 6,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassOceanSW",
+        "Row": 3,
+        "Column": 7,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassOceanNW",
+        "Row": 3,
+        "Column": 8,
+        "Length": 1,
         "Height": 16,
         "Width": 16
       }

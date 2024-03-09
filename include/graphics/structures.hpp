@@ -48,7 +48,6 @@ struct typeBaseTextureJSON {
     std::string Name;     // Name of file
     int         Column;   // Start column in sheet
     int         Row;      // Start row in sheet
-    int         Position; // Start position
     int         Length;   // Number of sprites to be read
     int         Height;   // Height of texture
     int         Width;    // Width of texture
@@ -58,7 +57,6 @@ struct typeAnimatedTextureJSON {
     std::string Name;     // Animation name
     int         Column;   // Start column in sheet
     int         Row;      // Start row in sheet
-    int         Position; // Start position
     int         Length;   // Number of sprites to be read
     int         Ticks;    // Number of seconds for each texture *100ms
     int         Width;    // Width of texture
@@ -92,8 +90,8 @@ struct typeGeneratedTextureData {
     std::vector<typeGeneratedTextureJSON> Objects;
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeBaseTextureJSON, File, Name, Column, Row, Position, Length, Height, Width)
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeAnimatedTextureJSON, Name, Column, Row, Position, Length, Ticks, Height, Width)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeBaseTextureJSON, File, Name, Column, Row, Length, Height, Width)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeAnimatedTextureJSON, Name, Column, Row, Length, Ticks, Height, Width)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeGeneratedTextureJSON, Name, Shape, Red1, Red2, Green1, Green2, Blue1, Blue2, Alpha, Height, Width)
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeBaseTextureData, Objects)
