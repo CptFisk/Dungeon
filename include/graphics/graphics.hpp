@@ -89,9 +89,9 @@ class Graphics {
   protected:
     SDL_Texture* loadImage(const std::string& filename);
     void         loadGraphics(const std::string& folderPath);
-    void         loadBaseTiles(const Common::typeHeaderJSON& header, const std::string& jsonString);
-    void         loadObjectAnimation(const Common::typeHeaderJSON& header, const std::string& jsonString);
-    void         loadObjectGeneration(const Common::typeHeaderJSON& header, const std::string& jsonString);
+    void         loadSimpleTexture(const Common::typeHeaderJSON& header, const std::string& jsonString);
+    void         loadAnimatedTexture(const Common::typeHeaderJSON& header, const std::string& jsonString);
+    void         loadGeneratedTexture(const Common::typeHeaderJSON& header, const std::string& jsonString);
 
   private:
     std::unordered_map<std::string, typeTextureInfo> mGraphics; // Storage for all textures

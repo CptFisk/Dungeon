@@ -25,20 +25,20 @@ Graphics::loadGraphics(const std::string& folderPath) {
         }
         switch (header.Type) {
             case Common::BASE_TEXTURE:
-                loadBaseTiles(header, jsonString);
+                loadSimpleTexture(header, jsonString);
                 break;
             case Common::ANIMATED_TEXTURE:
-                loadObjectAnimation(header, jsonString);
+                loadAnimatedTexture(header, jsonString);
                 break;
             case Common::GENERATED_TEXTURE:
-                loadObjectGeneration(header, jsonString);
+                loadGeneratedTexture(header, jsonString);
                 break;
         }
     }
 }
 
 void
-Graphics::loadBaseTiles(const Common::typeHeaderJSON& header, const std::string& jsonString) {
+Graphics::loadSimpleTexture(const Common::typeHeaderJSON& header, const std::string& jsonString) {
     typeBaseTextureData jsonData;
     try {
         jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<typeBaseTextureData>();
@@ -62,7 +62,7 @@ Graphics::loadBaseTiles(const Common::typeHeaderJSON& header, const std::string&
 }
 
 void
-Graphics::loadObjectAnimation(const Common::typeHeaderJSON& header, const std::string& jsonString) {
+Graphics::loadAnimatedTexture(const Common::typeHeaderJSON& header, const std::string& jsonString) {
     typeAnimatedTextureData jsonData;
     try {
         jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<typeAnimatedTextureData>();
@@ -86,7 +86,7 @@ Graphics::loadObjectAnimation(const Common::typeHeaderJSON& header, const std::s
 }
 
 void
-Graphics::loadObjectGeneration(const Common::typeHeaderJSON& header, const std::string& jsonString) {
+Graphics::loadGeneratedTexture(const Common::typeHeaderJSON& header, const std::string& jsonString) {
     typeGeneratedTextureData jsonData;
     try {
         jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<typeGeneratedTextureData>();
