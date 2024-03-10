@@ -96,7 +96,7 @@
       },
       {
         "File": "rsrc/Grass.png",
-        "Name": "GrassOceanSE2",
+        "Name": "GrassOceanES2",
         "Row": 3,
         "Column": 6,
         "Length": 1,
@@ -118,6 +118,105 @@
         "Row": 3,
         "Column": 8,
         "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassLakeN",
+        "Row": 4,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassLakeE",
+        "Row": 4,
+        "Column": 2,
+        "Length": 2,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassLakeS",
+        "Row": 4,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassLakeW",
+        "Row": 4,
+        "Column": 5,
+        "Length": 2,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassLakeNE2",
+        "Row": 5,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassLakeES2",
+        "Row": 5,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassLakeSW2",
+        "Row": 5,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassLakeNW2",
+        "Row": 5,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassMushroom",
+        "Row": 1,
+        "Column": 2,
+        "Length": 7,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassFlowerBush",
+        "Row": 6,
+        "Column": 1,
+        "Length": 5,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassStones",
+        "Row": 7,
+        "Column": 1,
+        "Length": 3,
         "Height": 16,
         "Width": 16
       }
