@@ -15,7 +15,7 @@
       },
       {
         "File": "rsrc/Grass.png",
-        "Name": "GrassOceanNorth",
+        "Name": "GrassOceanN",
         "Row": 2,
         "Column": 1,
         "Length": 1,
@@ -24,7 +24,7 @@
       },
       {
         "File": "rsrc/Grass.png",
-        "Name": "GrassOceanEast",
+        "Name": "GrassOceanE",
         "Row": 2,
         "Column": 2,
         "Length": 1,
@@ -33,7 +33,7 @@
       },
       {
         "File": "rsrc/Grass.png",
-        "Name": "GrassOceanSouth",
+        "Name": "GrassOceanS",
         "Row": 2,
         "Column": 3,
         "Length": 1,
@@ -42,7 +42,7 @@
       },
       {
         "File": "rsrc/Grass.png",
-        "Name": "GrassOceanWest",
+        "Name": "GrassOceanW",
         "Row": 2,
         "Column": 4,
         "Length": 1,
