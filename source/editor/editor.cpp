@@ -26,7 +26,8 @@ Editor::Editor()
   , mScale{}
   , mHideAllWindows(false)
   , mMouse(DEFAULT)
-  , mActionManager(std::make_unique<Common::ActionManager>()) {}
+  , mActionManager(std::make_unique<Common::ActionManager>())
+  , mOffset(0.0, 0.0) {}
 
 Editor::~Editor() {
     mInitHandler->shutdown();
@@ -231,14 +232,13 @@ Editor::click(const float& x, const float& y) {
 
                 pTile[index]->Type |= Level::TEXTURE;
 
-                mLevelCoords.emplace(Common::getClickCoords(x, y, mScale)); //Add tile to the list
+                mLevelCoords.emplace(Common::getClickCoords(x, y, mScale)); // Add tile to the list
                 const auto id = Level::findAsset(mSelectedTexture.c_str(), pAssets);
                 if (id != UINT8_MAX)
                     pTile[index]->Id = id;
                 else
                     pTile[index]->Id = Level::addAsset(mSelectedTexture.c_str(), pAssets);
-            }
-                break;
+            } break;
             case REMOVE:
                 pVisualTile[index]->Texture     = nullptr;
                 pVisualTileType[index]->Texture = nullptr;
