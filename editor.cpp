@@ -13,6 +13,35 @@ main() {
     editor.getActionManager().registerKeyboardAction("CameraSouth", SDLK_s);
     editor.getActionManager().registerKeyboardAction("CameraWest", SDLK_a);
 
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (editor.getActionManager().isActionPressed("CameraNorth")) {
+              ;
+          }
+      },
+      editor.getProcessing());
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (editor.getActionManager().isActionPressed("CameraEast")) {
+              ;
+          }
+      },
+      editor.getProcessing());
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (editor.getActionManager().isActionPressed("CameraSouth")) {
+              ;
+          }
+      },
+      editor.getProcessing());
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (editor.getActionManager().isActionPressed("CameraWest")) {
+              ;
+          }
+      },
+      editor.getProcessing());
+
 
     Common::queueEventHandler(
       SDL_EVENT_QUIT,
