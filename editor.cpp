@@ -8,6 +8,11 @@ main() {
 
     Editor::Editor editor;
     editor.getActionManager().registerMouseAction("Click", SDL_BUTTON_LEFT);
+    editor.getActionManager().registerKeyboardAction("CameraNorth", SDLK_w);
+    editor.getActionManager().registerKeyboardAction("CameraEast", SDLK_d);
+    editor.getActionManager().registerKeyboardAction("CameraSouth", SDLK_s);
+    editor.getActionManager().registerKeyboardAction("CameraWest", SDLK_a);
+
 
     Common::queueEventHandler(
       SDL_EVENT_QUIT,
