@@ -176,6 +176,10 @@ Editor::mainLoop() {
         }
         mElementsToShow.clear();
         uiTiles();
+
+        for(auto&[texture, position] : mEdges){
+            mPerspective->render(texture, nullptr, &position);
+        }
         present();
 
         auto ticks = mFPSTimer.getTicks();

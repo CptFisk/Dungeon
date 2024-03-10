@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <common/include.hpp>
+#include <common/perspective.hpp>
 #include <editor/structures.hpp>
 #include <graphics/graphics.hpp>
 #include <graphics/structures.hpp>
@@ -10,7 +11,6 @@
 #include <memory>
 #include <set>
 #include <utility/timer.hpp>
-#include <common/perspective.hpp>
 
 namespace Editor {
 class Editor {
@@ -18,9 +18,9 @@ class Editor {
     Editor();  // Constructor
     ~Editor(); // De-constructor
 
-    void startup();  // Load all functions related to startup
-    void mainLoop(); // Were all the magic happen
-    void move(Directions direction);
+    void                   startup();  // Load all functions related to startup
+    void                   mainLoop(); // Were all the magic happen
+    void                   move(Directions direction);
     Common::ActionManager& getActionManager(); // Used when binding clicks, events
 
     [[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>&                             getEventList(); // Get the list of events
@@ -49,15 +49,14 @@ class Editor {
   private:
     Common::typeScale mScale;
 
-    bool                                 mRun;
-    bool                                 mMapLoaded;
-    bool                                 mNewFile; // Start of a new project
+    bool mRun;
+    bool mMapLoaded;
+    bool mNewFile; // Start of a new project
 
-    struct{
+    struct {
         float X;
         float Y;
-    }mOffset;
-
+    } mOffset;
 
     std::unique_ptr<Common::InitHandler> mInitHandler;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
@@ -132,6 +131,7 @@ class Editor {
             return lhs.second < rhs.second;
         }
     };
-    std::set<std::pair<int, int>, comparePair> mLevelCoords; // A list of coordinates that is used
+    std::set<std::pair<int, int>, comparePair>      mLevelCoords; // A list of coordinates that is used
+    std::vector<std::pair<SDL_Texture*, SDL_FRect>> mEdges;       // Edges for drawing area
 };
 }
