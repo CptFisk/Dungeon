@@ -10,9 +10,9 @@ Editor::uiTiles() {
         for (int x = 0; x < pLevelHeader->Level.SizeX; x++) {
             int index = Common::getIndex(x,y, pLevelHeader);
             if(pVisualTile[index]->Texture != nullptr)
-                SDL_RenderTexture(pRenderer, pVisualTile[index]->Texture, &pVisualTile[index]->Viewport, &pVisualTile[index]->Position);
+                mPerspective->render(pVisualTile[index]->Texture, &pVisualTile[index]->Viewport, &pVisualTile[index]->Position);
             if(pVisualTileType[index]->Texture != nullptr)
-                SDL_RenderTexture(pRenderer, pVisualTileType[index]->Texture, nullptr, &pVisualTileType[index]->Position);
+                mPerspective->render(pVisualTileType[index]->Texture, nullptr, &pVisualTileType[index]->Position);
         }
     }
 }

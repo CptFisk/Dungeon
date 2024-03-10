@@ -184,6 +184,11 @@ Editor::mainLoop() {
 }
 
 void
+Editor::move(Directions direction) {
+    mPerspective->move(direction, 5.0);
+}
+
+void
 Editor::present() {
     ImGui::Render();
     ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData());

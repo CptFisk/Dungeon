@@ -20,7 +20,7 @@ class Editor {
 
     void startup();  // Load all functions related to startup
     void mainLoop(); // Were all the magic happen
-
+    void move(Directions direction);
     Common::ActionManager& getActionManager(); // Used when binding clicks, events
 
     [[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>&                             getEventList(); // Get the list of events

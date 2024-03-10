@@ -16,28 +16,28 @@ main() {
     Common::queueProcessHandler(
       [&](Uint32) {
           if (editor.getActionManager().isActionPressed("CameraNorth")) {
-              ;
+              editor.move(Directions::NORTH);
           }
       },
       editor.getProcessing());
     Common::queueProcessHandler(
       [&](Uint32) {
           if (editor.getActionManager().isActionPressed("CameraEast")) {
-              ;
+              editor.move(Directions::EAST);
           }
       },
       editor.getProcessing());
     Common::queueProcessHandler(
       [&](Uint32) {
           if (editor.getActionManager().isActionPressed("CameraSouth")) {
-              ;
+              editor.move(Directions::SOUTH);
           }
       },
       editor.getProcessing());
     Common::queueProcessHandler(
       [&](Uint32) {
           if (editor.getActionManager().isActionPressed("CameraWest")) {
-              ;
+              editor.move(Directions::WEST);
           }
       },
       editor.getProcessing());
