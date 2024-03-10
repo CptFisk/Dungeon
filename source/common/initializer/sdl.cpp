@@ -4,7 +4,7 @@
 #include <iostream>
 
 namespace Common{
-SDLInitializer::SDLInitializer(SDL_Window** window, SDL_Renderer** render, std::string& title) :pWindow(window), pRenderer(render), mTitle(std::move(title)){}
+SDLInitializer::SDLInitializer(SDL_Window** window, SDL_Renderer** render, std::string title) :pWindow(window), pRenderer(render), mTitle(std::move(title)){}
 
 void
 SDLInitializer::startup() {
