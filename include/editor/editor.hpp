@@ -10,6 +10,7 @@
 #include <memory>
 #include <set>
 #include <utility/timer.hpp>
+#include <common/perspective.hpp>
 
 namespace Editor {
 class Editor {
@@ -51,8 +52,11 @@ class Editor {
     bool                                 mRun;
     bool                                 mMapLoaded;
     bool                                 mNewFile; // Start of a new project
+
+
     std::unique_ptr<Common::InitHandler> mInitHandler;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
+    std::unique_ptr<Common::Perspective> mPerspective;
 
     std::vector<std::string> mTextures;        // All textures that we can use
     std::string              mSelectedTexture; // The selected texture

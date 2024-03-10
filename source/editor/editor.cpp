@@ -63,6 +63,9 @@ Editor::startup() {
 
     Common::calculateGameScale(mScale, pWindow);
 
+    // Setup perspective
+    mPerspective = std::make_unique<Common::Perspective>(pRenderer);
+
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
