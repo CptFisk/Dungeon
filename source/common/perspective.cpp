@@ -1,9 +1,9 @@
 #include <common/perspective.hpp>
 
 namespace Common {
-Perspective::Perspective(SDL_Renderer* renderer)
+Perspective::Perspective(SDL_Renderer* renderer, float& offsetX, float& offsetY)
   : pRenderer(renderer)
-  , mOffset{ 0.0f, 0.0f } {}
+  , mOffset{ offsetX, offsetY } {}
 
 void
 Perspective::render(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position) {

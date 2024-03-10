@@ -6,7 +6,7 @@
 namespace Common {
 class Perspective {
   public:
-    Perspective(SDL_Renderer* renderer);
+    Perspective(SDL_Renderer* renderer, float &offsetX, float &offsetY);
 
     void render(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position);
     void renderRotated(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position, const float& angle);
@@ -14,15 +14,11 @@ class Perspective {
     void center(const float& x, const float& y);
 
     struct{
-        float x;
-        float y;
+        float &x;
+        float &y;
     }mOffset;
   private:
   protected:
-
-
-    typeScale               mScale; // Current scale
-
     SDL_Renderer* pRenderer;
 };
 }

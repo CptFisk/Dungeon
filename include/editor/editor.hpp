@@ -53,6 +53,11 @@ class Editor {
     bool                                 mMapLoaded;
     bool                                 mNewFile; // Start of a new project
 
+    struct{
+        float X;
+        float Y;
+    }mOffset;
+
 
     std::unique_ptr<Common::InitHandler> mInitHandler;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
