@@ -48,8 +48,9 @@ Editor::uiMenu() {
         auto status = "Used: " + std::to_string(mLevelCoords.size());
         ImGui::SameLine(ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize(status.c_str()).x);
         ImGui::Text(status.c_str());
-        ImGui::EndMainMenuBar();
         mWindows["Menu"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
+        ImGui::EndMainMenuBar();
+
     }
 }
 }

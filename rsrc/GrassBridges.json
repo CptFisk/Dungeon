@@ -1,0 +1,108 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassBridgeV1",
+        "Row": 8,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassBridgeV2",
+        "Row": 8,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassBridgeV3",
+        "Row": 8,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassBridgeV4",
+        "Row": 8,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassBridgeV5",
+        "Row": 8,
+        "Column": 5,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassBridgeV6",
+        "Row": 8,
+        "Column": 6,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassBridgeV7",
+        "Row": 8,
+        "Column": 7,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassBridgeV8",
+        "Row": 8,
+        "Column": 8,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassBridgeV9",
+        "Row": 8,
+        "Column": 9,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassBridgeV10",
+        "Row": 8,
+        "Column": 10,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassBridgeV11",
+        "Row": 8,
+        "Column": 11,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
