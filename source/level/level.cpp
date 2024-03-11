@@ -51,7 +51,7 @@ Level::loadLevel(const std::string& filename) {
             const auto index = Common::getIndex(x, y, &data->Header);
             // Shall texture be added
             if ((data->Tiles[index]->Type & TEXTURE) != 0) {
-                pTiles[item++] = new typeTile(TEXTURE, Common::newSDL_FRect(x, y), GET_SIMPLE(data->Assets.Data[data->Tiles[index]->Id].Asset)[-1]);
+                pTiles[item++] = new typeTile(TEXTURE, Common::newSDL_FRect(x, y), GET_SIMPLE(data->Assets.Data[data->Tiles[index]->Id].Assets)[-1]);
             }
             if ((data->Tiles[index]->Type & WALL) != 0) {
                 wall.push_back(Common::newSDL_FRect(x, y));

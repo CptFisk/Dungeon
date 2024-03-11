@@ -232,11 +232,11 @@ Editor::click(const float& x, const float& y) {
                 pTile[index]->Type |= Level::TEXTURE;
 
                 mLevelCoords.emplace(Common::getClickCoords(x, y, mScale)); // Add tile to the list
-                //const auto id = Level::findAsset(mSelectedTexture.c_str(), pAssets);
-                //if (id != UINT8_MAX)
-                    //pTile[index]->Id = id;
-                //else
-                    //pTile[index]->Id = Level::addAsset(mSelectedTexture.c_str(), pAssets);
+                const auto id = Level::findAsset(mSelectedTexture, pAssets);
+                if (id.has_value())
+                    pTile[index]->Id = id.value();
+                else
+                    pTile[index]->Id = Level::addAsset(mSelectedTexture.c_str(), pAssets);
             } break;
             case REMOVE:
                 pVisualTile[index]->Texture     = nullptr;

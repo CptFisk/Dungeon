@@ -3,6 +3,8 @@
 #include <iostream>
 #include <level/structures.hpp>
 #include <stdexcept>
+#include <algorithm>
+#include <limits>
 
 namespace Level {
 void
@@ -79,35 +81,20 @@ removeAsset(const uint8_t& id, typeAssets* map) {
     //std::memset(map->Data[id].Asset, 0, sizeof(map->Data[id].Asset));
 }
 
-uint8_t
-addAsset(const char* asset, typeAssets* map) {
-    /*
-    if(strlen(asset) == 0)
-        return UINT8_MAX;
-    int position = 0;
-    for(auto& item : map->Data){
-        if(strlen(item.Asset) == 0){
-            const auto length = strlen(asset);
-            strncpy(item.Asset, asset, length);
-            item.Asset[length] = '\0';
-            return position;
-        }
-        position++;
-    }
-     */
-    return UINT8_MAX;
+size_t
+addAsset(const std::string& asset, typeAssets& map) {
+    if(asset.empty())
+        return -1;
+    map.Assets.emplace_back(asset);
+    return map.Assets.size();
 }
 
-uint8_t
-findAsset(const char* asset, typeAssets* map){
-    /*
-    int position = 0;
-    for(const auto& item : map->Data){
-        if(strcmp(item.Asset, asset) == 0)
-            return position;
-        position++;
-    }*/
-    return UINT8_MAX;
+std::optional<size_t>
+findAsset(const std::string& asset, const typeAssets& map){
+    auto it = std::find(map.Assets.begin(), map.Assets.end(), asset);
+    if(it != map.Assets.end())
+        return std::distance(map.Assets.begin(), it);
+    return std::nullopt;
 }
 
 }

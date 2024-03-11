@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <optional>
 
 namespace Level {
 
@@ -46,12 +47,8 @@ struct typeHeader {
     } Level;
 };
 
-struct typeAssetItem {
-    std::string   Asset; // Asset name
-};
-
 struct typeAssets {
-    std::vector<typeAssetItem> Data; // A file can only contain 32 sub-files
+    std::vector<std::string> Assets; //Asset names
 };
 
 struct typeLevelData {
@@ -97,10 +94,10 @@ deleteTile(typeTile** tile, const int& elements);
 void
 removeAsset(const uint8_t& id, typeAssets* map);    //Delete an element from the list of assets
 
-uint8_t
-addAsset(const char* asset, typeAssets* map);   //Add a new item to the list, returns the id that was assigned
+size_t
+addAsset(const std::string& asset, typeAssets& map);   //Add a new item to the list, returns the id that was assigned
 
-uint8_t
-findAsset(const char* asset, typeAssets* map);  //Search for an asset, -1 if item don't exist
+std::optional<size_t>
+findAsset(const std::string& asset, const typeAssets& map);  //Search for an asset, -1 if item don't exist
 
 }

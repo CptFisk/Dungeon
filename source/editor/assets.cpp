@@ -9,19 +9,16 @@ Editor::uiAssets() {
 
     if (ImGui::Begin("Assets", &mWindowOpen["Assets"], ImGuiWindowFlags_AlwaysAutoResize)) {
         ImGui::Text("Assets");
-        for(auto& element : pAssets.Data){
-            ImGui::InputText("##", &element.Asset);
+        for(auto& element : pAssets.Assets){
+            ImGui::InputText("##", &element);
         }
 
         ImGui::InputText("##asset", &mStringInput);
         ImGui::SameLine();
         if (ImGui::Button("Add")) {
-            const auto exist = std::any_of(pAssets.Data.begin(), pAssets.Data.end(),
-                                 [&](const Level::typeAssetItem& item){
-                                     return item.Asset == mStringInput;
-                                 });
-            if(!exist) {
-                pAssets.Data.push_back({ mStringInput });
+            const auto exist = std::find(pAssets.Assets.begin(), pAssets.Assets.end(), mStringInput);
+            if(exist == pAssets.Assets.end()) {
+                Level::addAsset(mStringInput, pAssets);
                 mStringInput.clear();
             }
         }
