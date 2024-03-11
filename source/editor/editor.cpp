@@ -236,7 +236,7 @@ Editor::click(const float& x, const float& y) {
                 if (id.has_value())
                     pTile[index]->Id = id.value();
                 else
-                    pTile[index]->Id = Level::addAsset(mSelectedTexture.c_str(), pAssets);
+                    pTile[index]->Id = Level::addAsset(mSelectedTexture, pAssets);
             } break;
             case REMOVE:
                 pVisualTile[index]->Texture     = nullptr;
