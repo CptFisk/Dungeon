@@ -177,7 +177,7 @@ Editor::mainLoop() {
         mElementsToShow.clear();
         uiTiles();
 
-        for(auto&[texture, position] : mEdges){
+        for (auto& [texture, position] : mEdges) {
             mPerspective->render(texture, nullptr, &position);
         }
         present();
@@ -223,10 +223,7 @@ Editor::terminate() {
 void
 Editor::click(const float& x, const float& y) {
     if (pTile != nullptr && !clickOnUi(x, y)) {
-        auto ix    = static_cast<int>(x);
-        auto iy    = static_cast<int>(y);
-        auto coord = Common::getClickCoords(x, y, mScale);
-        auto index = Common::getIndex(Common::getClickCoords(x, y, mScale), pLevelHeader);
+        auto index = Common::getIndex(Common::getClickCoords(x + (mOffset.X / -1.0), y + (mOffset.Y / -1.0f), mScale), pLevelHeader);
         switch (mMouse) {
             case TEXTURE: {
                 // Texture stuff
