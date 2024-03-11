@@ -12,7 +12,9 @@ set(SDL3_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/vendor/SDL/include)
 set(SDL3_LIBRARIES ${CMAKE_BINARY_DIR}/SDL/SDL3.dll)
 
 
-set(IMGUI_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/vendor/imgui)
+set(IMGUI_INCLUDE_DIRS
+        ${CMAKE_SOURCE_DIR}/vendor/imgui
+)
 
 add_library(${LIB_IMGUI}
         STATIC
@@ -24,6 +26,7 @@ add_library(${LIB_IMGUI}
         ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_draw.cpp
         ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_tables.cpp
         ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_widgets.cpp
+        ${CMAKE_SOURCE_DIR}/vendor/imgui/misc/cpp/imgui_stdlib.cpp
 )
 
 target_include_directories(

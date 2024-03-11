@@ -19,7 +19,6 @@ Editor::Editor()
   , mMapLoaded(false)
   , mNewFile(false)
   , pLevelHeader(nullptr)
-  , pAssets(nullptr)
   , pTile(nullptr)
   , pVisualTile(nullptr)
   , pVisualTileType(nullptr)
@@ -45,7 +44,6 @@ Editor::~Editor() {
     delete[] pVisualTileType;
 
     delete pLevelHeader;
-    delete pAssets;
 
     TTF_Quit();
     SDL_Quit();
@@ -234,11 +232,11 @@ Editor::click(const float& x, const float& y) {
                 pTile[index]->Type |= Level::TEXTURE;
 
                 mLevelCoords.emplace(Common::getClickCoords(x, y, mScale)); // Add tile to the list
-                const auto id = Level::findAsset(mSelectedTexture.c_str(), pAssets);
-                if (id != UINT8_MAX)
-                    pTile[index]->Id = id;
-                else
-                    pTile[index]->Id = Level::addAsset(mSelectedTexture.c_str(), pAssets);
+                //const auto id = Level::findAsset(mSelectedTexture.c_str(), pAssets);
+                //if (id != UINT8_MAX)
+                    //pTile[index]->Id = id;
+                //else
+                    //pTile[index]->Id = Level::addAsset(mSelectedTexture.c_str(), pAssets);
             } break;
             case REMOVE:
                 pVisualTile[index]->Texture     = nullptr;

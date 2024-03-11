@@ -76,11 +76,12 @@ deleteTile(typeTile** tile, const int& elements) {
 
 void
 removeAsset(const uint8_t& id, typeAssets* map) {
-    std::memset(map->Data[id].Asset, 0, sizeof(map->Data[id].Asset));
+    //std::memset(map->Data[id].Asset, 0, sizeof(map->Data[id].Asset));
 }
 
 uint8_t
 addAsset(const char* asset, typeAssets* map) {
+    /*
     if(strlen(asset) == 0)
         return UINT8_MAX;
     int position = 0;
@@ -93,17 +94,19 @@ addAsset(const char* asset, typeAssets* map) {
         }
         position++;
     }
+     */
     return UINT8_MAX;
 }
 
 uint8_t
 findAsset(const char* asset, typeAssets* map){
+    /*
     int position = 0;
     for(const auto& item : map->Data){
         if(strcmp(item.Asset, asset) == 0)
             return position;
         position++;
-    }
+    }*/
     return UINT8_MAX;
 }
 

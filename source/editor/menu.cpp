@@ -13,16 +13,16 @@ Editor::uiMenu() {
                 pLevelHeader->Level.SizeX   = 16;
                 pLevelHeader->Level.SizeY   = 12;
                 pLevelHeader->HeaderVersion = 1;
-                pAssets                     = new Level::typeAssets{};
+                pAssets.Data.clear();   //Clear the vector, we start blank
                 displayElement("Header");
             }
             if (ImGui::MenuItem("Load project")) {
             }
             if (ImGui::MenuItem("Save project")) {
                 pLevelHeader->Level.Elements = mLevelCoords.size();
-                Level::typeLevelData map = { *pLevelHeader, *pAssets, pTile };
+                //Level::typeLevelData map = { *pLevelHeader, *pAssets, pTile };
 
-                Level::writeLevelDataToFile(std::string(pLevelHeader->MapName) + ".map", map);
+                //Level::writeLevelDataToFile(std::string(pLevelHeader->MapName) + ".map", map);
             }
 
             ImGui::EndMenu();

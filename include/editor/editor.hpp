@@ -96,10 +96,11 @@ class Editor {
     std::unordered_map<std::string, std::function<void()>> mElements; // Contain all graphical elements
     std::set<std::function<void()>, typeElementsCompare>   mVisibleElements;
     bool                                                   mHideAllWindows; // True if all elements should be hidden
+    std::string                                            mStringInput;
 
     // Map data
     Level::typeHeader*    pLevelHeader;
-    Level::typeAssets*    pAssets;
+    Level::typeAssets     pAssets;
     Level::typeTileData** pTile;
     struct typeVisualTile {
         SDL_Texture* Texture;

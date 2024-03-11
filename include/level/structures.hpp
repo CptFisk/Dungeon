@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 #include <cstdint>
 #include <string>
+#include <vector>
 
 namespace Level {
 
@@ -30,7 +31,7 @@ struct typeTile {
 
 struct typeHeader {
     uint8_t HeaderVersion;            // Version of editor
-    char    MapName[TEXT_MAX_LENGTH]; // Filename
+    char    MapName[31]; // Filename
 
     struct Color {
         uint8_t BackgroundRed;   // RGB colour of background
@@ -46,11 +47,11 @@ struct typeHeader {
 };
 
 struct typeAssetItem {
-    char    Asset[TEXT_MAX_LENGTH]; // Asset name
+    std::string   Asset; // Asset name
 };
 
 struct typeAssets {
-    typeAssetItem Data[MAX_ASSETS]; // A file can only contain 32 sub-files
+    std::vector<typeAssetItem> Data; // A file can only contain 32 sub-files
 };
 
 struct typeLevelData {
