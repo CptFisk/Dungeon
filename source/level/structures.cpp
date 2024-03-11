@@ -1,4 +1,3 @@
-#include <cstring>
 #include <fstream>
 #include <iostream>
 #include <level/structures.hpp>
@@ -14,7 +13,17 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
         throw std::runtime_error("Cant write to file");
     // Write header
     file.write(reinterpret_cast<const char*>(&data.Header), sizeof(data.Header));
-    // Write meta
+
+    //Write assets
+    const auto numAssets = data.Assets.Assets.size();
+    file.write(reinterpret_cast<const char*>(&numAssets), sizeof(numAssets));
+
+    for(const auto& asset : data.Assets.Assets){
+        const auto assetNameLength = static_cast<uint8_t>(asset.size());
+        file.write(reinterpret_cast<const char*>(&assetNameLength), sizeof(assetNameLength));   //Write length
+        file.write(asset.c_str(), assetNameLength);
+    }
+
     file.write(reinterpret_cast<const char*>(&data.Assets), sizeof(data.Assets));
     // Write tile-data
     const int size = data.Header.Level.SizeX * data.Header.Level.SizeY;
