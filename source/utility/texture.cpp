@@ -29,6 +29,9 @@ isColliding(const SDL_FRect& rect1, const SDL_FRect& rect2, Directions direction
         case WEST:
             tmp.x -= 3.0f;
             break;
+        case ALL:
+        default:
+            break;
     }
     return isOverlapping(tmp, rect2);
 }

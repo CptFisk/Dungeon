@@ -68,6 +68,9 @@ Player::move(Directions direction) {
         case WEST:
             mPlayerPosition.x -= 0.5f;
             break;
+        case ALL:
+        default:
+            break;
     }
     mAction    = Objects::MOVE;
     mDirection = direction;
