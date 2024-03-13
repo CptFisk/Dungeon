@@ -13,7 +13,7 @@ Indicator::Indicator(bool&                              visible,
   , mValue(value)
   , pRenderer(renderer)
   , pIconTexture(texture)
-  , mNumbers(numbers)
+  , mNumbers(std::move(numbers))
   , mPositionIcon(8.0f, 192 - distance, 8.0f, 8.0f)
   , mPositionNumber({ 20.0f, 192 - distance, 8.0f, 8.0f }, { 28.0f, 192 - distance, 8.0f, 8.0f }, { 36.0f, 192 - distance, 8.0f, 8.0f }) {}
 

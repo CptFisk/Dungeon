@@ -15,7 +15,7 @@ enum TileType : uint8_t { BLANK = 0, TEXTURE = 1 << 0, WALL = 1 << 1, OBSTACLE =
 // Used inside data-file
 struct typeTileData {
     uint8_t Type; // Tiletype
-    uint8_t  Id;   // ID used in SubMetaFiles
+    std::vector<uint8_t>  Id;   // Id's
 };
 
 struct typeTile {

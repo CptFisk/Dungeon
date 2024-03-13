@@ -234,15 +234,15 @@ Editor::click(const float& x, const float& y) {
                 mLevelCoords.emplace(Common::getClickCoords(x, y, mScale)); // Add tile to the list
                 const auto id = Level::findAsset(mSelectedTexture, pAssets);
                 if (id.has_value())
-                    pTile[index]->Id = id.value();
+                    pTile[index]->Id.emplace_back(id.value());
                 else
-                    pTile[index]->Id = Level::addAsset(mSelectedTexture, pAssets);
+                    pTile[index]->Id.emplace_back(Level::addAsset(mSelectedTexture, pAssets));
             } break;
             case REMOVE:
                 pVisualTile[index]->Texture     = nullptr;
                 pVisualTileType[index]->Texture = nullptr;
                 pTile[index]->Type              = Level::BLANK;
-                pTile[index]->Id                = 0;
+                pTile[index]->Id.clear();
                 {
                     auto it = mLevelCoords.find(Common::getClickCoords(x, y, mScale));
                     if (it != mLevelCoords.end())

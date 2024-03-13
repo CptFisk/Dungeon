@@ -66,7 +66,6 @@ newTileData(const int& x, const int& y) {
     auto      map  = new typeTileData*[x * y];
     for (int i = 0; i < size; i++) {
         map[i] = new typeTileData{};
-        map[i]->Id = UINT8_MAX;
     }
     return map;
 }

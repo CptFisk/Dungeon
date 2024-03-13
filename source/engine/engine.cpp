@@ -20,6 +20,8 @@ Engine::Engine()
   , mVisibleUI(true)
   , mPlayerHealth(100)
   , mPlayerEnergy(50)
+  , mEvent{}
+  , Background{}
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Engine::~Engine() {
