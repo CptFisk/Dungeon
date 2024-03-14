@@ -1,8 +1,8 @@
 #pragma once
-#include <level/structures.hpp>
-#include <utility>
 #include <common/scale.hpp>
+#include <level/file.hpp>
 #include <optional>
+#include <utility>
 
 namespace Common {
 
