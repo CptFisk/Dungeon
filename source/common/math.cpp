@@ -2,23 +2,23 @@
 
 namespace Common{
 
-int
-getIndex(const float& x, const float& y, Level::typeHeader* header){
-    return getIndex(static_cast<int>(x), static_cast<int>(y), header);
+std::optional<int>
+getIndex(const float& x, const float& y, const float& maxX){
+    return getIndex(static_cast<int>(x), static_cast<int>(y), static_cast<int>(maxX));
 }
 
-int
-getIndex(const std::pair<int, int>& coords, Level::typeHeader* header){
-    return getIndex(coords.first, coords.second, header);
+std::optional<int>
+getIndex(const std::pair<int, int>& coords, const int& maxX){
+    return getIndex(coords.first, coords.second, maxX);
 }
 
-int
-getIndex(const int& x, const int& y, Level::typeHeader* header){
-    if (header == nullptr)
-        return size_t();
+std::optional<int>
+getIndex(const int& x, const int& y, const int& maxX){
+    if (maxX == 0)
+        return std::nullopt;
     auto _x     = static_cast<int>(x);
     auto _y     = static_cast<int>(y);
-    auto _width = static_cast<int>(header->Level.SizeX);
+    auto _width = static_cast<int>(maxX);
     return _x + _y * _width;
 }
 
