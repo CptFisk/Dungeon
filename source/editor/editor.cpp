@@ -7,7 +7,7 @@
 #include <common/scale.hpp>
 #include <common/sdl.hpp>
 #include <editor/editor.hpp>
-#include <level/structures.hpp>
+#include <level/file.hpp>
 
 namespace Editor {
 Editor::Editor()
@@ -18,9 +18,9 @@ Editor::Editor()
   , mRun(true)
   , mMapLoaded(false)
   , mNewFile(false)
-  , pLevelHeader(nullptr)
-  , pTile(nullptr)
-  , pVisualTile(nullptr)
+  , fileHeader(nullptr)
+  , fileTiles(0)
+  , tiles{}
   , pVisualTileType(nullptr)
   , mScale{}
   , mHideAllWindows(false)
@@ -31,19 +31,18 @@ Editor::Editor()
 Editor::~Editor() {
     mInitHandler->shutdown();
 
-    const int size = pLevelHeader != nullptr ? pLevelHeader->Level.SizeX * pLevelHeader->Level.SizeY : 0;
+    const int size = fileHeader != nullptr ? fileHeader->Level.SizeX * fileHeader->Level.SizeY : 0;
     if (mFont)
         TTF_CloseFont(mFont); // Clean the font
+
+    fileTiles.Tiles.clear();
     // Clean stuff that we need to know the size for
-    Level::deleteTile(pTile, size);
     for (int i = 0; i < size; i++) {
-        delete pVisualTile[i];
         delete pVisualTileType[i];
     }
-    delete[] pVisualTile;
     delete[] pVisualTileType;
 
-    delete pLevelHeader;
+    delete fileHeader;
 
     TTF_Quit();
     SDL_Quit();
@@ -74,29 +73,17 @@ Editor::startup() {
         std::sort(mTextures.begin(), mTextures.end());
         mSelectedTexture = mTextures[0];
     }
-    // Try to load the font
-    mFont = TTF_OpenFont("rsrc/fonts/Arial.ttf", 14);
-
-    // Generating textures
-    for (int x = 0; x < 16; x++) {
-        for (int y = 0; y < 12; y++) {
-            const std::string name    = std::to_string(x) + "," + std::to_string(y);
-            auto              surface = TTF_RenderText_Solid(mFont, name.c_str(), mWhite);
-            mGraphics->addTexture<SDL_Texture*>(name, SDL_CreateTextureFromSurface(pRenderer, surface), Graphics::SDL_TEXTURE);
-            SDL_DestroySurface(surface); // Cleaning
-        }
-    }
 
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 
-    mElements["Top"]      = [this]() { uiMenu(); };
+    mElements["TopMenu"]  = [this]() { uiMenu(); };
     mElements["Tiles"]    = [this]() { uiTiles(); };
     mElements["Grid"]     = [this]() { uiDrawGrid(); };
     mElements["Header"]   = [this]() { uiHeader(); };
     mElements["Assets"]   = [this]() { uiAssets(); };
     mElements["Mouse"]    = [this]() { uiMouse(); };
     mElements["Textures"] = [this]() { uiTexture(); };
-    displayElement("Top");
+    displayElement("TopMenu");
 }
 
 void
@@ -104,11 +91,11 @@ Editor::mainLoop() {
     SDL_Event event;
 
     while (mRun) {
-        if (pLevelHeader)
+        if (fileHeader)
             SDL_SetRenderDrawColor(pRenderer,
-                                   pLevelHeader->Color.BackgroundRed,
-                                   pLevelHeader->Color.BackgroundGreen,
-                                   pLevelHeader->Color.BackgroundBlue,
+                                   fileHeader->Color.BackgroundRed,
+                                   fileHeader->Color.BackgroundGreen,
+                                   fileHeader->Color.BackgroundBlue,
                                    SDL_ALPHA_OPAQUE);
         ImGui_ImplSDLRenderer3_NewFrame();
         ImGui_ImplSDL3_NewFrame();
@@ -220,79 +207,70 @@ Editor::terminate() {
 
 void
 Editor::click(const float& x, const float& y) {
-    if (pTile != nullptr && !clickOnUi(x, y)) {
-        auto index = Common::getIndex(Common::getClickCoords(x + (mOffset.X / -1.0), y + (mOffset.Y / -1.0f), mScale), pLevelHeader);
-        switch (mMouse) {
-            case TEXTURE: {
-                // Texture stuff
-                auto simpleTexture           = GET_SIMPLE(mSelectedTexture);
-                pVisualTile[index]->Texture  = simpleTexture.Texture;
-                pVisualTile[index]->Viewport = simpleTexture[-1].second;
+    if (fileTiles.Size != 0 && !clickOnUi(x, y)) {
+        auto index =
+          Common::getIndex(Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale), fileHeader->Level.SizeX);
+        if (index.has_value()) {
+            const auto pos = index.value();
 
-                pTile[index]->Type |= Level::TEXTURE;
+            switch (mMouse) {
+                case TEXTURE: {
+                    // Add tile to the list
+                    mLevelCoords.emplace(Common::getClickCoords(x, y, mScale));
+                    // Fetching the texture
+                    auto simpleTexture = GET_SIMPLE(mSelectedTexture);
+                    // Add texture to tile
+                    tiles[pos].addData(simpleTexture.Texture, simpleTexture[-1].second);
+                    // Stuff that shall be added to the files
+                    fileTiles.Tiles[index.has_value()].Type |= TEXTURE;
+                    // Search if the asset have been used before
+                    const auto id = Level::File::findAsset(mSelectedTexture, fileAssets);
+                    if (id.has_value())
+                        fileTiles.Tiles[pos].Id.emplace_back(id.has_value());
+                    else
+                        fileTiles.Tiles[pos].Id.emplace_back(Level::File::addAsset(mSelectedTexture, fileAssets));
+                } break;
+                case REMOVE:
+                    tiles[pos].clear(); //Clear the vector
 
-                mLevelCoords.emplace(Common::getClickCoords(x, y, mScale)); // Add tile to the list
-                const auto id = Level::findAsset(mSelectedTexture, pAssets);
-                if (id.has_value())
-                    pTile[index]->Id.emplace_back(id.value());
-                else
-                    pTile[index]->Id.emplace_back(Level::addAsset(mSelectedTexture, pAssets));
-            } break;
-            case REMOVE:
-                pVisualTile[index]->Texture     = nullptr;
-                pVisualTileType[index]->Texture = nullptr;
-                pTile[index]->Type              = Level::BLANK;
-                pTile[index]->Id.clear();
-                {
-                    auto it = mLevelCoords.find(Common::getClickCoords(x, y, mScale));
-                    if (it != mLevelCoords.end())
-                        mLevelCoords.erase(it);
-                }
-                break;
-            case WALL:
-                pTile[index]->Type |= Level::WALL;
-                pVisualTileType[index]->Texture = GET_SDL("87ED17");
-                break;
-            case OBSTACLE:
-                pTile[index]->Type |= Level::OBSTACLE;
-                pVisualTileType[index]->Texture = GET_SDL("1D35FA");
-                break;
+                    fileTiles.Tiles[pos].Type = Level::File::BLANK;
+                    fileTiles.Tiles[pos].Id.clear();
+                    {
+                        //We need to remove the coord from the list of used coordinates.
+                        auto it = mLevelCoords.find(Common::getClickCoords(x, y, mScale));
+                        if(it != mLevelCoords.end())
+                            mLevelCoords.erase(it);
+                    }
+                    break;
 
-            case DEFAULT:
-            default:
-                break;
+                case WALL:
+                    fileTiles.Tiles[pos].Type != WALL;
+                    pVisualTileType[pos]->Texture = GET_SDL("87ED17");
+                    break;
+                case OBSTACLE:
+                    fileTiles.Tiles[pos].Type != OBSTACLE;
+                    pVisualTileType[pos]->Texture = GET_SDL("1D35FA");
+                    break;
+                case DEFAULT:
+                default:
+                    break;
+            }
         }
     }
-}
-
-Editor::typeVisualTile**
-Editor::newVisualTile() {
-    // Allocate data
-    const int sizeX = pLevelHeader->Level.SizeX;
-    const int sizeY = pLevelHeader->Level.SizeY;
-    const int size  = pLevelHeader->Level.SizeX * pLevelHeader->Level.SizeY;
-
-    auto data = new Editor::typeVisualTile* [size] {};
-    for (int y = 0; y < sizeY; y++) {
-        for (int x = 0; x < sizeX; x++) {
-            auto index  = Common::getIndex(x, y, pLevelHeader);
-            data[index] = new Editor::typeVisualTile(Common::newSDL_FRectScaled(x, y, mScale));
-        }
-    }
-    return data;
 }
 
 Editor::typeVisualTileType**
 Editor::newVisualTileType() {
-    const int sizeX = pLevelHeader->Level.SizeX;
-    const int sizeY = pLevelHeader->Level.SizeY;
-    const int size  = pLevelHeader->Level.SizeX * pLevelHeader->Level.SizeY;
+    const int sizeX = fileHeader->Level.SizeX;
+    const int sizeY = fileHeader->Level.SizeY;
+    const int size  = fileHeader->Level.SizeX * fileHeader->Level.SizeY;
 
     auto data = new Editor::typeVisualTileType* [size] {};
     for (int y = 0; y < sizeY; y++) {
         for (int x = 0; x < sizeX; x++) {
-            auto index  = Common::getIndex(x, y, pLevelHeader);
-            data[index] = new Editor::typeVisualTileType(nullptr, Common::newSDL_FRectScaled(x, y, mScale));
+            auto index  = Common::getIndex(x, y, fileHeader->Level.SizeX);
+            if(index.has_value())
+                data[index.value()] = new Editor::typeVisualTileType(nullptr, Common::newSDL_FRectScaled(x, y, mScale));
         }
     }
     return data;

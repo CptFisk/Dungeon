@@ -8,21 +8,21 @@ Editor::uiMenu() {
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("New project")) {
-                delete pLevelHeader; // Clean first
-                pLevelHeader                = new Level::typeHeader{};
-                pLevelHeader->Level.SizeX   = 16;
-                pLevelHeader->Level.SizeY   = 12;
-                pLevelHeader->HeaderVersion = 1;
-                pAssets.Assets.clear();   //Clear the vector, we start blank
+                delete fileHeader; // Clean first
+                fileHeader                = new Level::File::typeHeader{};
+                fileHeader->Level.SizeX   = 16;
+                fileHeader->Level.SizeY   = 12;
+                fileHeader->HeaderVersion = 1;
+                fileAssets.Assets.clear();   //Clear the vector, we start blank
                 displayElement("Header");
             }
             if (ImGui::MenuItem("Load project")) {
             }
             if (ImGui::MenuItem("Save project")) {
-                pLevelHeader->Level.Elements = mLevelCoords.size();
-                Level::typeLevelData map = { *pLevelHeader, pAssets, pTile };
+                fileHeader->Level.Elements = mLevelCoords.size();
+                //Level::typeLevelData map = { *pLevelHeader, pAssets, pTile };
 
-                Level::writeLevelDataToFile(std::string(pLevelHeader->MapName) + ".map", map);
+                //Level::writeLevelDataToFile(std::string(pLevelHeader->MapName) + ".map", map);
             }
 
             ImGui::EndMenu();
@@ -48,7 +48,7 @@ Editor::uiMenu() {
         auto status = "Used: " + std::to_string(mLevelCoords.size());
         ImGui::SameLine(ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize(status.c_str()).x);
         ImGui::Text(status.c_str());
-        mWindows["Menu"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
+        mWindows["TopMenu"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::EndMainMenuBar();
 
     }

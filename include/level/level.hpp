@@ -3,7 +3,7 @@
 #include <common/structures.hpp>
 #include <global.hpp>
 #include <graphicsForward.hpp>
-#include <level/structures.hpp>
+#include <level/file.hpp>
 #include <memory>
 #include <string>
 #include <vector>
@@ -38,8 +38,8 @@ class Level {
     std::vector<SDL_FRect> mObstacle; // Things that you cant walk over
     std::vector<SDL_FRect> mWalls;
     // Level data
-    typeHeader mHeader;
-    typeTile** pTiles;
+    File::typeHeader mHeader;
+    File::typeTile** pTiles;
     int        mElements; // Number of elements that exist in pTiles
 };
 

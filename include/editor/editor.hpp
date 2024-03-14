@@ -6,11 +6,12 @@
 #include <editor/structures.hpp>
 #include <graphics/graphics.hpp>
 #include <graphics/structures.hpp>
-#include <level/structures.hpp>
+#include <level/file.hpp>
 #include <list>
 #include <memory>
 #include <set>
 #include <utility/timer.hpp>
+#include <level/tile.hpp>
 
 namespace Editor {
 class Editor {
@@ -76,7 +77,6 @@ class Editor {
     SDL_Window*   pWindow;
     SDL_Renderer* pRenderer;
     TTF_Font*     mFont;
-    SDL_Color     mWhite = { 255, 255, 255 }; // White color
     Mouse         mMouse;
 
     // Windows
@@ -99,18 +99,11 @@ class Editor {
     std::string                                            mStringInput;
 
     // Map data
-    Level::typeHeader*    pLevelHeader;
-    Level::typeAssets     pAssets;
-    Level::typeTileData** pTile;
-    struct typeVisualTile {
-        SDL_Texture* Texture;
-        SDL_FRect    Position;
-        SDL_FRect    Viewport;
-        explicit typeVisualTile(const SDL_FRect& position)
-          : Texture(nullptr)
-          , Viewport(SDL_FRect{ 0.0f, 0.0f, 0.0f, 0.0f })
-          , Position(position) {}
-    }** pVisualTile;
+    Level::File::typeHeader* fileHeader;
+    Level::File::typeAssets  fileAssets; // List of all the assets that exist in the current map.
+    Level::File::typeTiles   fileTiles;  // Tiles used inside the map editor, later used for export to a file
+
+    std::vector<Level::Tile> tiles;
 
     struct typeVisualTileType {
         SDL_Texture* Texture;
@@ -120,7 +113,6 @@ class Editor {
           , Position(position) {}
     }** pVisualTileType;
 
-    typeVisualTile**     newVisualTile();
     typeVisualTileType** newVisualTileType();
 
     struct comparePair {

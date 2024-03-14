@@ -21,7 +21,8 @@ class Tile {
     [[maybe_unused]] Tile(const float& x, const float& y, const Common::typeScale& scale); // Used in editor mode
 
     [[maybe_unused]] void clear(); // Clear vector
-    size_t                addData(SDL_Texture* texture, const SDL_FRect& viewport);
+
+    size_t addData(SDL_Texture* texture, const SDL_FRect& viewport); // Add element to the vector
 
   private:
   protected:
