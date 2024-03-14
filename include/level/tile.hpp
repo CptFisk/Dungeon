@@ -13,14 +13,14 @@ class Tile {
      */
     struct tileData {
         SDL_Texture* Texture;
-        SDL_FRect    Viewport;
+        SDL_FRect*   Viewport;
     };
 
   public:
-    Tile(const float& x, const float& y);                                 // Used during gameplay
-    Tile(const float& x, const float& y, const Common::typeScale& scale); // Used in editor mode
+    [[maybe_unused]] Tile(const float& x, const float& y);                // Used during gameplay
+    [[maybe_unused]] Tile(const float& x, const float& y, const Common::typeScale& scale); // Used in editor mode
 
-    size_t addData(SDL_Texture* texture, const SDL_FRect& viewport);
+    size_t addData(SDL_Texture* texture, SDL_FRect* viewport);
 
   private:
   protected:

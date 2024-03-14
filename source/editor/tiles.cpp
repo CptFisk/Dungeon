@@ -4,6 +4,7 @@
 namespace Editor {
 void
 Editor::uiTiles() {
+    /*
     if (pVisualTile == nullptr || pLevelHeader == nullptr || pVisualTileType == nullptr)
         return;
     for (int y = 0; y < pLevelHeader->Level.SizeY; y++) {
@@ -15,5 +16,6 @@ Editor::uiTiles() {
                 mPerspective->render(pVisualTileType[index]->Texture, nullptr, &pVisualTileType[index]->Position);
         }
     }
+     */
 }
 }
