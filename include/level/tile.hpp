@@ -13,18 +13,19 @@ class Tile {
      */
     struct tileData {
         SDL_Texture* Texture;
-        SDL_FRect*   Viewport;
+        SDL_FRect    Viewport;
     };
 
   public:
-    [[maybe_unused]] Tile(const float& x, const float& y);                // Used during gameplay
+    [[maybe_unused]] Tile(const float& x, const float& y);                                 // Used during gameplay
     [[maybe_unused]] Tile(const float& x, const float& y, const Common::typeScale& scale); // Used in editor mode
 
-    size_t addData(SDL_Texture* texture, SDL_FRect* viewport);
+    [[maybe_unused]] void clear(); // Clear vector
+    size_t                addData(SDL_Texture* texture, const SDL_FRect& viewport);
 
   private:
   protected:
-    const SDL_FRect       mPosition; // The position in the grid, the position never changes
-    std::vector<tileData> mData;     // All data that belongs to the tile. This is to allow multiple layers of texture to a base tile
+    const SDL_FRect       position; // The position in the grid, the position never changes
+    std::vector<tileData> data;     // All data that belongs to the tile. This is to allow multiple layers of texture to a base tile
 };
 }
