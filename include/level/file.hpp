@@ -1,21 +1,39 @@
 #pragma once
 #include <SDL3/SDL.h>
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <vector>
-#include <optional>
 
 namespace Level {
-
-const int TEXT_MAX_LENGTH      = 31;
-const int MAX_ASSETS = 31;
-const int TILE_TYPE_VARIATIONS = 7;
-
+/**
+ * All this types is only used for generating and loading a pre-defined map file.
+ */
 enum TileType : uint8_t { BLANK = 0, TEXTURE = 1 << 0, WALL = 1 << 1, OBSTACLE = 1 << 2 };
-// Used inside data-file
+
+/**
+ * @brief Definition of a single tile. A can have multiple properties and they are each stored as a single bit in Type.
+ * @brief The element Id contains a list of all Assets that is used. Since a tile can have multiple assets linked to it.
+ */
 struct typeTileData {
-    uint8_t Type; // Tiletype
-    std::vector<uint8_t>  Id;   // Id's
+    uint8_t              Type; // Tiletype
+    std::vector<uint8_t> Id;   // Reference to assets. Drawn from bottom to top
+};
+
+/**
+ * @brief Structure used to store all the tiles and assets that each tile uses. This structure is only used when writing/loading a map file
+ * @var Size Contains the size of x*y
+ * @var Tiles Contains all the tiles.
+ */
+struct typeTiles {
+    uint16_t                  Size; // Number of tiles defined
+    std::vector<typeTileData> Tiles;
+
+    // Constructor
+    explicit typeTiles(uint16_t size)
+      : Size(size) {
+        Tiles.reserve(size);
+    }
 };
 
 struct typeTile {
@@ -31,8 +49,8 @@ struct typeTile {
 };
 
 struct typeHeader {
-    uint8_t HeaderVersion;            // Version of editor
-    char    MapName[31]; // Filename
+    uint8_t HeaderVersion; // Version of editor
+    char    MapName[31];   // Filename
 
     struct Color {
         uint8_t BackgroundRed;   // RGB colour of background
@@ -48,15 +66,14 @@ struct typeHeader {
 };
 
 struct typeAssets {
-    std::vector<std::string> Assets; //Asset names
+    std::vector<std::string> Assets; // Asset names
 };
 
 struct typeLevelData {
-    typeHeader     Header;
-    typeAssets     Assets;
-    typeTileData** Tiles;
+    typeHeader   Header;
+    typeAssets   Assets;
+    typeTileData Tiles;
 };
-
 
 /**
  * @brief Write the current struct to a file
@@ -73,31 +90,14 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data);
  */
 typeLevelData*
 readLevelData(const std::string& filename);
-/**
- * @breif Returns a new Tile** based on the provided size
- * @param x Size in x
- * @param y Size in y
- * @return
- */
-typeTileData**
-newTileData(const int& x, const int& y);
-
-/**
- * @brief Delete the tiles and free memory
- * @param tile Reference to tile object
- */
-void
-deleteTile(typeTileData** tile, const int& elements);
-void
-deleteTile(typeTile** tile, const int& elements);
 
 void
-removeAsset(const uint8_t& id, typeAssets* map);    //Delete an element from the list of assets
+removeAsset(const uint8_t& id, typeAssets& map); // Delete an element from the list of assets
 
 size_t
-addAsset(const std::string& asset, typeAssets& map);   //Add a new item to the list, returns the id that was assigned
+addAsset(const std::string& asset, typeAssets& map); // Add a new item to the list, returns the id that was assigned
 
 std::optional<size_t>
-findAsset(const std::string& asset, const typeAssets& map);  //Search for an asset, -1 if item don't exist
+findAsset(const std::string& asset, const typeAssets& map); // Search for an asset, -1 if item don't exist
 
 }

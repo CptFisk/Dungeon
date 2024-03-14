@@ -1,9 +1,9 @@
+#include <algorithm>
 #include <fstream>
 #include <iostream>
-#include <level/structures.hpp>
-#include <stdexcept>
-#include <algorithm>
+#include <level/file.hpp>
 #include <limits>
+#include <stdexcept>
 
 namespace Level {
 void
@@ -26,10 +26,12 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
 
     file.write(reinterpret_cast<const char*>(&data.Assets), sizeof(data.Assets));
     // Write tile-data
+    /*
     const int size = data.Header.Level.SizeX * data.Header.Level.SizeY;
     for (int i = 0; i < size; i++) {
         file.write(reinterpret_cast<const char*>(data.Tiles[i]), sizeof(typeTileData));
     }
+     */
     file.close();
 }
 
@@ -55,37 +57,13 @@ readLevelData(const std::string& filename) {
     auto level    = new typeLevelData;
     level->Header = header;
     level->Assets = asset;
-    level->Tiles  = tiles;
+    //level->Tiles  = tiles;
 
     return level;
 }
 
-typeTileData**
-newTileData(const int& x, const int& y) {
-    const int size = x * y;
-    auto      map  = new typeTileData*[x * y];
-    for (int i = 0; i < size; i++) {
-        map[i] = new typeTileData{};
-    }
-    return map;
-}
-
 void
-deleteTile(typeTileData** tile, const int& elements) {
-    for (int i = 0; i < elements; i++)
-        delete tile[i];
-    delete[] tile;
-}
-
-void
-deleteTile(typeTile** tile, const int& elements) {
-    for (int i = 0; i < elements; i++)
-        delete tile[i];
-    delete[] tile;
-}
-
-void
-removeAsset(const uint8_t& id, typeAssets* map) {
+removeAsset(const uint8_t& id, typeAssets& map) {
     //std::memset(map->Data[id].Asset, 0, sizeof(map->Data[id].Asset));
 }
 

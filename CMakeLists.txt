@@ -37,7 +37,7 @@ set(
 
         ${CMAKE_SOURCE_DIR}/source/loaders/loadGraphics.cpp
 
-        ${CMAKE_SOURCE_DIR}/source/level/structures.cpp
+        ${CMAKE_SOURCE_DIR}/source/level/file.cpp
         ${CMAKE_SOURCE_DIR}/source/level/tile.cpp
 )
 
