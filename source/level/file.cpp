@@ -5,7 +5,7 @@
 #include <limits>
 #include <stdexcept>
 
-namespace Level {
+namespace Level::File {
 void
 writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
     std::ofstream file(filename, std::ios::binary);

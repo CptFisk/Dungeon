@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace Level {
+namespace Level::File {
 /**
  * All this types is only used for generating and loading a pre-defined map file.
  */
