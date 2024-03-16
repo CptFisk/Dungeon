@@ -4,18 +4,9 @@
 namespace Editor {
 void
 Editor::uiTiles() {
-    /*
-    if (pVisualTile == nullptr || pLevelHeader == nullptr || pVisualTileType == nullptr)
-        return;
-    for (int y = 0; y < pLevelHeader->Level.SizeY; y++) {
-        for (int x = 0; x < pLevelHeader->Level.SizeX; x++) {
-            int index = Common::getIndex(x,y, pLevelHeader);
-            if(pVisualTile[index]->Texture != nullptr)
-                mPerspective->render(pVisualTile[index]->Texture, &pVisualTile[index]->Viewport, &pVisualTile[index]->Position);
-            if(pVisualTileType[index]->Texture != nullptr)
-                mPerspective->render(pVisualTileType[index]->Texture, nullptr, &pVisualTileType[index]->Position);
-        }
+    for(auto& [id, tile] : tiles){
+        for(auto visual : tile.getTile())
+            mPerspective->render(visual.Texture, visual.Viewport, visual.Position);
     }
-     */
 }
 }

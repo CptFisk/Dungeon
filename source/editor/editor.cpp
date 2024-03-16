@@ -222,7 +222,7 @@ Editor::click(const float& x, const float& y) {
                     // Add texture to tile
                     tiles[pos].addData(simpleTexture.Texture, simpleTexture[-1].second);
                     // Stuff that shall be added to the files
-                    fileTiles.Tiles[index.has_value()].Type |= TEXTURE;
+                    fileTiles.Tiles[pos].Type |= TEXTURE;
                     // Search if the asset have been used before
                     const auto id = Level::File::findAsset(mSelectedTexture, fileAssets);
                     if (id.has_value())

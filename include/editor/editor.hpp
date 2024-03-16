@@ -12,6 +12,7 @@
 #include <set>
 #include <utility/timer.hpp>
 #include <level/tile.hpp>
+#include <unordered_map>
 
 namespace Editor {
 class Editor {
@@ -103,7 +104,7 @@ class Editor {
     Level::File::typeAssets  fileAssets; // List of all the assets that exist in the current map.
     Level::File::typeTiles   fileTiles;  // Tiles used inside the map editor, later used for export to a file
 
-    std::vector<Level::Tile> tiles;
+    std::unordered_map<int, Level::Tile> tiles; //All tiles in the game.
 
     struct typeVisualTileType {
         SDL_Texture* Texture;

@@ -22,12 +22,18 @@ Editor::uiHeader() {
             mMapLoaded       = true;
             const auto sizeX = fileHeader->Level.SizeX;
             const auto sizeY = fileHeader->Level.SizeY;
-            const auto size = sizeX * sizeY;    //Total size
+            const auto size  = sizeX * sizeY; // Total size
 
             fileTiles = Level::File::typeTiles(size);
+            auto s    = fileTiles.Tiles.size();
             tiles.clear();
-            tiles.reserve(size);
-            pVisualTileType = newVisualTileType();
+            // Setting up all tiles
+
+            int pos = 0;
+            for(int y = 0; y < sizeY; y++){
+                for(int x = 0; x < sizeX; x++)
+                    tiles[pos++] = Level::Tile(x, y, mScale);
+            }
 
             fileHeader->Color.BackgroundRed   = static_cast<float>(color[0] * 255.0f);
             fileHeader->Color.BackgroundGreen = static_cast<float>(color[1] * 255.0f);
