@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 #include <common/scale.hpp>
 #include <vector>
+#include <common/structures.hpp>
 
 namespace Level {
 /**
@@ -17,16 +18,20 @@ class Tile {
     };
 
   public:
-    [[maybe_unused]] Tile(const float& x, const float& y);                                 // Used during gameplay
-    [[maybe_unused]] Tile(const float& x, const float& y, const Common::typeScale& scale); // Used in editor mode
+    Tile() = default;
+    [[maybe_unused]] Tile(const int& x, const int& y);                                 // Used during gameplay
+    [[maybe_unused]] Tile(const int& x, const int& y, const Common::typeScale& scale); // Used in editor mode
+    ~Tile() = default;
 
     [[maybe_unused]] void clear(); // Clear vector
 
     size_t addData(SDL_Texture* texture, const SDL_FRect& viewport); // Add element to the vector
 
+    std::vector<Common::typeDrawData> getTile();    //Return all data that should be drawn.
+
   private:
   protected:
-    const SDL_FRect       position; // The position in the grid, the position never changes
+    SDL_FRect       position; // The position in the grid, the position never changes
     std::vector<tileData> data;     // All data that belongs to the tile. This is to allow multiple layers of texture to a base tile
 };
 }
