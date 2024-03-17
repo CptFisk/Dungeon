@@ -218,6 +218,8 @@ Editor::click(const float& x, const float& y) {
                     tiles[pos].addData(simpleTexture.Texture, simpleTexture[-1].second);
                     // Stuff that shall be added to the files
                     fileTiles.Tiles[pos].Type |= TEXTURE;
+                    //Increment visual overlay
+                    visualOverlay[pos].incrementCounter();
                     // Search if the asset have been used before
                     const auto id = Level::File::findAsset(mSelectedTexture, fileAssets);
                     if (id.has_value())
@@ -230,6 +232,8 @@ Editor::click(const float& x, const float& y) {
 
                     fileTiles.Tiles[pos].Type = Level::File::BLANK;
                     fileTiles.Tiles[pos].Id.clear();
+
+                    visualOverlay[pos].resetCounter();
                     {
                         //We need to remove the coord from the list of used coordinates.
                         auto it = mLevelCoords.find(Common::getClickCoords(x, y, mScale));
