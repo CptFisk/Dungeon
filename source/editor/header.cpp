@@ -31,8 +31,11 @@ Editor::uiHeader() {
 
             int pos = 0;
             for(int y = 0; y < sizeY; y++){
-                for(int x = 0; x < sizeX; x++)
-                    tiles[pos++] = Level::Tile(x, y, mScale);
+                for(int x = 0; x < sizeX; x++) {
+                    //Generating both tiles and visual overlay
+                    tiles[pos] = Level::Tile(x, y, mScale);
+                    visualOverlay[pos++] = VisualTile(x,y,GET_SIMPLE("NumbersWhite"), mScale);
+                }
             }
 
             fileHeader->Color.BackgroundRed   = static_cast<float>(color[0] * 255.0f);
