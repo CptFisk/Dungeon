@@ -9,9 +9,12 @@ Editor::uiTiles() {
             mPerspective->render(visual.Texture, visual.Viewport, visual.Position);
     }
 
-    for(auto& [id, overlay] : visualOverlay){
-        auto data = overlay.getOverlay();
-        mPerspective->render(data.first, nullptr, &data.second);
+    for(auto& [id, element] : visualOverlay){
+        auto overlay = element.getOverlay();
+        auto number = element.getNumber();
+        mPerspective->render(overlay.first, nullptr, &overlay.second);
+        mPerspective->render(number.first, &number.second, &overlay.second);    //Position is re-used
+
     }
 }
 }

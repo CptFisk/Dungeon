@@ -25,4 +25,9 @@ void
 VisualTile::resetCounter() {
     counter = 0;
 }
+
+std::pair<SDL_Texture*, SDL_FRect>
+VisualTile::getNumber() {
+    return numbers[counter];
+}
 }

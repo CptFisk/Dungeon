@@ -14,10 +14,11 @@ class VisualTile {
     VisualTile(const int& x, const int& y, Graphics::typeSimpleTexture number, const Common::typeScale& scale);
 
     void newOverlay(SDL_Texture* overlay); // Bind a new texture as overlay
-    std::pair<SDL_Texture*, SDL_FRect> getOverlay();
+    std::pair<SDL_Texture*, SDL_FRect> getOverlay();    //Return drawing data for overlay
 
     void resetCounter();     // Reset the counter
     void incrementCounter(); // Increment the counter
+    std::pair<SDL_Texture*, SDL_FRect> getNumber(); //Return drawing data for numbers
 
   protected:
   private:
@@ -25,7 +26,6 @@ class VisualTile {
     SDL_FRect    position; // Overlay position
 
     Graphics::typeSimpleTexture numbers;
-    SDL_FRect                   numbersPosition; // Position of numbers
     int                         counter;         // Current counter
 };
 }
