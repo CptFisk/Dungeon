@@ -11,6 +11,11 @@ VisualTile::newOverlay(SDL_Texture* overlay) {
     texture = overlay;
 }
 
+std::pair<SDL_Texture*, SDL_FRect>
+VisualTile::getOverlay() {
+    return {texture, position};
+}
+
 void
 VisualTile::incrementCounter() {
     counter++;
