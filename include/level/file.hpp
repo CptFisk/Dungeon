@@ -32,7 +32,7 @@ struct typeTiles {
     // Constructor
     explicit typeTiles(uint16_t size)
       : Size(size) {
-        Tiles.reserve(size);
+        Tiles.resize(size);
     }
 };
 
