@@ -7,12 +7,13 @@
 #include <graphics/graphics.hpp>
 #include <graphics/structures.hpp>
 #include <level/file.hpp>
+#include <level/tile.hpp>
 #include <list>
 #include <memory>
 #include <set>
-#include <utility/timer.hpp>
-#include <level/tile.hpp>
 #include <unordered_map>
+#include <utility/timer.hpp>
+#include <editor/visualTile.hpp>
 
 namespace Editor {
 class Editor {
@@ -104,17 +105,8 @@ class Editor {
     Level::File::typeAssets  fileAssets; // List of all the assets that exist in the current map.
     Level::File::typeTiles   fileTiles;  // Tiles used inside the map editor, later used for export to a file
 
-    std::unordered_map<int, Level::Tile> tiles; //All tiles in the game.
-
-    struct typeVisualTileType {
-        SDL_Texture* Texture;
-        SDL_FRect    Position;
-        typeVisualTileType(SDL_Texture* texture, const SDL_FRect position)
-          : Texture(texture)
-          , Position(position) {}
-    }** pVisualTileType;
-
-    typeVisualTileType** newVisualTileType();
+    std::unordered_map<int, Level::Tile> tiles; // All tiles in the game.
+    std::unordered_map<int, VisualTile> visualOverlay;  //Overlay that display the type
 
     struct comparePair {
         bool operator()(const std::pair<int, int>& lhs, const std::pair<int, int>& rhs) const {

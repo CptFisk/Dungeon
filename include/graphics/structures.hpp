@@ -7,8 +7,6 @@
 
 namespace Graphics {
 
-const int TEXT_MAX_LENGTH = 31;
-
 #define GENERATED_SHAPES(DO) \
     DO(CIRCLE)               \
     DO(SQUARE)

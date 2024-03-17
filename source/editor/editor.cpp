@@ -21,7 +21,6 @@ Editor::Editor()
   , fileHeader(nullptr)
   , fileTiles(0)
   , tiles{}
-  , pVisualTileType(nullptr)
   , mScale{}
   , mHideAllWindows(false)
   , mMouse(DEFAULT)
@@ -36,11 +35,7 @@ Editor::~Editor() {
         TTF_CloseFont(mFont); // Clean the font
 
     fileTiles.Tiles.clear();
-    // Clean stuff that we need to know the size for
-    for (int i = 0; i < size; i++) {
-        delete pVisualTileType[i];
-    }
-    delete[] pVisualTileType;
+    visualOverlay.clear();
 
     delete fileHeader;
 
@@ -244,12 +239,12 @@ Editor::click(const float& x, const float& y) {
                     break;
 
                 case WALL:
-                    fileTiles.Tiles[pos].Type != WALL;
-                    pVisualTileType[pos]->Texture = GET_SDL("87ED17");
+                    fileTiles.Tiles[pos].Type |= WALL;
+                    visualOverlay[pos].newOverlay(GET_SDL("87ED17"));
                     break;
                 case OBSTACLE:
-                    fileTiles.Tiles[pos].Type != OBSTACLE;
-                    pVisualTileType[pos]->Texture = GET_SDL("1D35FA");
+                    fileTiles.Tiles[pos].Type |= OBSTACLE;
+                    visualOverlay[pos].newOverlay(GET_SDL("1D35FA"));
                     break;
                 case DEFAULT:
                 default:
@@ -259,21 +254,5 @@ Editor::click(const float& x, const float& y) {
     }
 }
 
-Editor::typeVisualTileType**
-Editor::newVisualTileType() {
-    const int sizeX = fileHeader->Level.SizeX;
-    const int sizeY = fileHeader->Level.SizeY;
-    const int size  = fileHeader->Level.SizeX * fileHeader->Level.SizeY;
-
-    auto data = new Editor::typeVisualTileType* [size] {};
-    for (int y = 0; y < sizeY; y++) {
-        for (int x = 0; x < sizeX; x++) {
-            auto index  = Common::getIndex(x, y, fileHeader->Level.SizeX);
-            if(index.has_value())
-                data[index.value()] = new Editor::typeVisualTileType(nullptr, Common::newSDL_FRectScaled(x, y, mScale));
-        }
-    }
-    return data;
-}
 
 }

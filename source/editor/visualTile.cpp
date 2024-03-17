@@ -1,0 +1,23 @@
+#include <common/sdl.hpp>
+#include <editor/visualTile.hpp>
+namespace Editor {
+VisualTile::VisualTile(const int& x, const int& y, Graphics::typeSimpleTexture number, const Common::typeScale& scale)
+  : texture(nullptr)
+  , position(Common::newSDL_FRectScaled(x, y, scale))
+  , numbers(number) {}
+
+void
+VisualTile::newOverlay(SDL_Texture* overlay) {
+    texture = overlay;
+}
+
+void
+VisualTile::incrementCounter() {
+    counter++;
+}
+
+void
+VisualTile::resetCounter() {
+    counter = 0;
+}
+}
