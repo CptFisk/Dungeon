@@ -99,6 +99,8 @@ class Editor {
     std::set<std::function<void()>, typeElementsCompare>   mVisibleElements;
     bool                                                   mHideAllWindows; // True if all elements should be hidden
     std::string                                            mStringInput;
+    bool showOverlay;
+    bool showNumbers;
 
     // Map data
     Level::File::typeHeader fileHeader;

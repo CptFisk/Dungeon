@@ -18,6 +18,8 @@ Editor::Editor()
   , mRun(true)
   , mMapLoaded(false)
   , mNewFile(false)
+  , showNumbers(false)
+  , showOverlay(false)
   , fileTiles(0)
   , tiles{}
   , mScale{}
@@ -206,7 +208,7 @@ Editor::click(const float& x, const float& y) {
             switch (mMouse) {
                 case TEXTURE: {
                     // Add tile to the list
-                    mLevelCoords.emplace(Common::getClickCoords(x, y, mScale));
+                    mLevelCoords.emplace(Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
                     // Fetching the texture
                     auto simpleTexture = GET_SIMPLE(mSelectedTexture);
                     // Add texture to tile
