@@ -31,5 +31,8 @@ Editor::uiMouse() {
         mWindows["Mouse"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::End();
     }
+
+    if(!mWindowOpen["Mouse"])
+        hideElement("Mouse");
 }
 }
