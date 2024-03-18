@@ -18,7 +18,6 @@ Editor::Editor()
   , mRun(true)
   , mMapLoaded(false)
   , mNewFile(false)
-  , fileHeader(nullptr)
   , fileTiles(0)
   , tiles{}
   , mScale{}
@@ -30,14 +29,11 @@ Editor::Editor()
 Editor::~Editor() {
     mInitHandler->shutdown();
 
-    const int size = fileHeader != nullptr ? fileHeader->Level.SizeX * fileHeader->Level.SizeY : 0;
     if (mFont)
         TTF_CloseFont(mFont); // Clean the font
 
     fileTiles.Tiles.clear();
     visualOverlay.clear();
-
-    delete fileHeader;
 
     TTF_Quit();
     SDL_Quit();
@@ -86,11 +82,10 @@ Editor::mainLoop() {
     SDL_Event event;
 
     while (mRun) {
-        if (fileHeader)
             SDL_SetRenderDrawColor(pRenderer,
-                                   fileHeader->Color.BackgroundRed,
-                                   fileHeader->Color.BackgroundGreen,
-                                   fileHeader->Color.BackgroundBlue,
+                                   fileHeader.Color.BackgroundRed,
+                                   fileHeader.Color.BackgroundGreen,
+                                   fileHeader.Color.BackgroundBlue,
                                    SDL_ALPHA_OPAQUE);
         ImGui_ImplSDLRenderer3_NewFrame();
         ImGui_ImplSDL3_NewFrame();
@@ -204,7 +199,7 @@ void
 Editor::click(const float& x, const float& y) {
     if (fileTiles.Size != 0 && !clickOnUi(x, y)) {
         auto index =
-          Common::getIndex(Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale), fileHeader->Level.SizeX);
+          Common::getIndex(Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale), fileHeader.Level.SizeX);
         if (index.has_value()) {
             const auto pos = index.value();
 

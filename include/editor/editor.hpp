@@ -4,6 +4,7 @@
 #include <common/include.hpp>
 #include <common/perspective.hpp>
 #include <editor/structures.hpp>
+#include <editor/visualTile.hpp>
 #include <graphics/graphics.hpp>
 #include <graphics/structures.hpp>
 #include <level/file.hpp>
@@ -13,7 +14,6 @@
 #include <set>
 #include <unordered_map>
 #include <utility/timer.hpp>
-#include <editor/visualTile.hpp>
 
 namespace Editor {
 class Editor {
@@ -101,12 +101,12 @@ class Editor {
     std::string                                            mStringInput;
 
     // Map data
-    Level::File::typeHeader* fileHeader;
-    Level::File::typeAssets  fileAssets; // List of all the assets that exist in the current map.
-    Level::File::typeTiles   fileTiles;  // Tiles used inside the map editor, later used for export to a file
+    Level::File::typeHeader fileHeader;
+    Level::File::typeAssets fileAssets; // List of all the assets that exist in the current map.
+    Level::File::typeTiles  fileTiles;  // Tiles used inside the map editor, later used for export to a file
 
-    std::unordered_map<int, Level::Tile> tiles; // All tiles in the game.
-    std::unordered_map<int, VisualTile> visualOverlay;  //Overlay that display the type
+    std::unordered_map<int, Level::Tile> tiles;         // All tiles in the game.
+    std::unordered_map<int, VisualTile>  visualOverlay; // Overlay that display the type
 
     struct comparePair {
         bool operator()(const std::pair<int, int>& lhs, const std::pair<int, int>& rhs) const {

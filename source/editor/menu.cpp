@@ -8,18 +8,17 @@ Editor::uiMenu() {
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("New project")) {
-                delete fileHeader; // Clean first
-                fileHeader                = new Level::File::typeHeader{};
-                fileHeader->Level.SizeX   = 16;
-                fileHeader->Level.SizeY   = 12;
-                fileHeader->HeaderVersion = 1;
+                fileHeader                = Level::File::typeHeader{};
+                fileHeader.Level.SizeX   = 16;
+                fileHeader.Level.SizeY   = 12;
+                fileHeader.HeaderVersion = 1;
                 fileAssets.Assets.clear();   //Clear the vector, we start blank
                 displayElement("Header");
             }
             if (ImGui::MenuItem("Load project")) {
             }
             if (ImGui::MenuItem("Save project")) {
-                fileHeader->Level.Elements = mLevelCoords.size();
+                fileHeader.Level.Elements = mLevelCoords.size();
                 //Level::typeLevelData map = { *pLevelHeader, pAssets, pTile };
 
                 //Level::writeLevelDataToFile(std::string(pLevelHeader->MapName) + ".map", map);
