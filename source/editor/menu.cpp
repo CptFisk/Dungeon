@@ -36,6 +36,10 @@ Editor::uiMenu() {
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Display")) {
+            if(ImGui::MenuItem("Overlay", nullptr, showOverlay))
+                showOverlay  = !showOverlay;
+            if(ImGui::MenuItem("Numbers", nullptr, showNumbers))
+                showNumbers  = !showNumbers;
             if (ImGui::MenuItem("Grid"))
                 displayElement("Grid");
             if (ImGui::MenuItem("Mouse"))
