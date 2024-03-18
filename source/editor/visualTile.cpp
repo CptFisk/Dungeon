@@ -13,7 +13,7 @@ VisualTile::newOverlay(SDL_Texture* overlay) {
 
 std::pair<SDL_Texture*, SDL_FRect>
 VisualTile::getOverlay() {
-    return {texture, position};
+    return { texture, position };
 }
 
 void
@@ -28,6 +28,6 @@ VisualTile::resetCounter() {
 
 std::pair<SDL_Texture*, SDL_FRect>
 VisualTile::getNumber() {
-    return numbers[counter];
+    return { numbers.Texture, numbers.Views[counter] };
 }
 }
