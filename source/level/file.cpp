@@ -29,13 +29,13 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
 
     for(const auto& tile : data.Tiles.Tiles){
         //First we write the type
-        file.write(reinterpret_cast<const char*>(tile.Type), sizeof(tile.Type));
+        file.write(reinterpret_cast<const char*>(&tile.Type), sizeof(tile.Type));
         //Write how big the array is
         const auto idLength = static_cast<uint8_t>(tile.Id.size());
-        file.write(reinterpret_cast<const char*>(idLength), sizeof(idLength));
+        file.write(reinterpret_cast<const char*>(&idLength), sizeof(idLength));
         //Writing all ID:s
         for(const auto id : tile.Id)
-            file.write(reinterpret_cast<const char*>(id), sizeof(id));
+            file.write(reinterpret_cast<const char*>(&id), sizeof(id));
     }
     file.close();
 }

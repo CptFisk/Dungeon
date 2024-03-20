@@ -12,6 +12,7 @@ Editor::uiMenu() {
                 fileHeader.Level.SizeX   = 16;
                 fileHeader.Level.SizeY   = 12;
                 fileHeader.HeaderVersion = 1;
+
                 fileAssets.Assets.clear();   //Clear the vector, we start blank
                 displayElement("Header");
             }

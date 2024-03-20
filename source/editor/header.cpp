@@ -5,7 +5,7 @@ namespace Editor {
 
 void
 Editor::uiHeader() {
-    static float color[4];
+    static float color[4] = {0.258823544, 0.501960814, 0.866666675, 0}; //Default value for water colour
 
     ImGuiColorEditFlags flags = ImGuiColorEditFlags_NoAlpha;
 
