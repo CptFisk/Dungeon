@@ -61,6 +61,11 @@ class Engine {
         Uint8 Blue;
     }Background;
 
+    struct {
+        float X;
+        float Y;
+    } offset;
+
     std::unique_ptr<Common::InitHandler> mInitHandler;
     std::unique_ptr<Player::Player>      mPlayer;
     std::shared_ptr<Graphics::Graphics>  mGraphics;

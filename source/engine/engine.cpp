@@ -76,7 +76,7 @@ Engine::startup() {
     SDL_SetRenderScale(pRenderer, mScale.ScaleX, mScale.ScaleY);
 
     // Setup perspective
-    mPerspective = std::make_unique<Common::Perspective>(pRenderer);
+    mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y);
 
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
