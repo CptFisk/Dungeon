@@ -15,20 +15,18 @@ Editor::uiTiles() {
             auto pos = Common::getIndex(x, y, fileHeader.Level.SizeX);
             if (pos.has_value()) {
                 const int index = pos.value();
-                SDL_FRect position;
                 // Draw all tiles
                 for (auto visual : tiles[index].getTile()) {
-                    position = *visual.Position;    //Save position
                     mPerspective->render(visual.Texture, visual.Viewport, visual.Position);
                 }
                 if(showOverlay) {
-                    auto overlay = visualOverlay[index].getOverlay();
-                    position = overlay.second;
-                    mPerspective->render(overlay.first, nullptr, &position);
+                    auto overlay = visualOverlay[index];
+                    mPerspective->render(overlay.getOverlay(), nullptr, &overlay.getPosition());
                 }
                 if(showNumbers) {
-                    auto number = visualOverlay[index].getNumber();
-                    mPerspective->render(number.first, &number.second, &position);
+                    auto obj = visualOverlay[index];
+                    auto number = obj.getNumber();
+                    mPerspective->render(number.first, &number.second, &obj.getPosition());
                 }
             }
         }

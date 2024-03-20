@@ -4,6 +4,7 @@ namespace Editor {
 VisualTile::VisualTile(const int& x, const int& y, Graphics::typeSimpleTexture number, const Common::typeScale& scale)
   : texture(nullptr)
   , position(Common::newSDL_FRectScaled(x, y, scale))
+  , counter(0)
   , numbers(number) {}
 
 void
@@ -11,9 +12,14 @@ VisualTile::newOverlay(SDL_Texture* overlay) {
     texture = overlay;
 }
 
-std::pair<SDL_Texture*, SDL_FRect>
+SDL_Texture *
 VisualTile::getOverlay() {
-    return { texture, position };
+    return texture;
+}
+
+SDL_FRect&
+VisualTile::getPosition(){
+    return position;
 }
 
 void
