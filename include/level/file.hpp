@@ -72,7 +72,7 @@ struct typeAssets {
 struct typeLevelData {
     typeHeader   Header;
     typeAssets   Assets;
-    typeTileData Tiles;
+    typeTiles Tiles;
 };
 
 /**
