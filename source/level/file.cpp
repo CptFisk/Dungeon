@@ -79,8 +79,7 @@ readLevelData(const std::string& filename) {
     }
     file.close();
     // Generating response
-    auto data = typeLevelData(tileSize);
-    return data;
+    return typeLevelData(header, assets, tiles);
 }
 
 size_t
