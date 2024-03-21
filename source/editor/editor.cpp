@@ -214,7 +214,7 @@ Editor::click(const float& x, const float& y) {
                     // Add texture to tile
                     tiles[pos].addData(simpleTexture.Texture, simpleTexture[-1].second);
                     // Stuff that shall be added to the files
-                    fileTiles.Tiles[pos].Type |= TEXTURE;
+                    fileTiles.Tiles[pos].Type |= Level::Files::TEXTURE;
                     //Increment visual overlay
                     visualOverlay[pos].incrementCounter();
                     // Search if the asset have been used before
@@ -240,11 +240,11 @@ Editor::click(const float& x, const float& y) {
                     break;
 
                 case WALL:
-                    fileTiles.Tiles[pos].Type |= WALL;
+                    fileTiles.Tiles[pos].Type |= Level::Files::WALL;
                     visualOverlay[pos].newOverlay(GET_SDL("87ED17"));
                     break;
                 case OBSTACLE:
-                    fileTiles.Tiles[pos].Type |= OBSTACLE;
+                    fileTiles.Tiles[pos].Type |= Level::Files::OBSTACLE;
                     visualOverlay[pos].newOverlay(GET_SDL("1D35FA"));
                     break;
                 case DEFAULT:
