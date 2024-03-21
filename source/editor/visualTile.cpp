@@ -1,5 +1,6 @@
 #include <common/sdl.hpp>
 #include <editor/visualTile.hpp>
+
 namespace Editor {
 VisualTile::VisualTile(const int& x, const int& y, Graphics::typeSimpleTexture number, const Common::typeScale& scale)
   : texture(nullptr)
