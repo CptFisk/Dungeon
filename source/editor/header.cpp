@@ -24,7 +24,6 @@ Editor::uiHeader() {
             const auto size  = sizeX * sizeY; // Total size
 
             fileTiles = Level::File::typeTiles(size);
-            auto s    = fileTiles.Tiles.size();
             tiles.clear();
             // Setting up all tiles
 
