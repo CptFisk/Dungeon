@@ -14,76 +14,87 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
     // Write header
     file.write(reinterpret_cast<const char*>(&data.Header), sizeof(data.Header));
 
-    //Write assets
+    // Write assets
     const auto numAssets = data.Assets.Assets.size();
     file.write(reinterpret_cast<const char*>(&numAssets), sizeof(numAssets));
 
-    for(const auto& asset : data.Assets.Assets){
+    for (const auto& asset : data.Assets.Assets) {
         const auto assetNameLength = static_cast<uint8_t>(asset.size());
-        file.write(reinterpret_cast<const char*>(&assetNameLength), sizeof(assetNameLength));   //Write length
+        file.write(reinterpret_cast<const char*>(&assetNameLength), sizeof(assetNameLength)); // Write length
         file.write(asset.c_str(), assetNameLength);
     }
 
-    //The tricky part, save tile data
+    // The tricky part, save tile data
     file.write(reinterpret_cast<const char*>(&data.Tiles.Size), sizeof(data.Tiles.Size));
 
-    for(const auto& tile : data.Tiles.Tiles){
-        //First we write the type
+    for (const auto& tile : data.Tiles.Tiles) {
+        // First we write the type
         file.write(reinterpret_cast<const char*>(&tile.Type), sizeof(tile.Type));
-        //Write how big the array is
+        // Write how big the array is
         const auto idLength = static_cast<uint8_t>(tile.Id.size());
         file.write(reinterpret_cast<const char*>(&idLength), sizeof(idLength));
-        //Writing all ID:s
-        for(const auto id : tile.Id)
+        // Writing all ID:s
+        for (const auto id : tile.Id)
             file.write(reinterpret_cast<const char*>(&id), sizeof(id));
     }
     file.close();
 }
 
-typeLevelData*
+Level::File::typeLevelData
 readLevelData(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
     if (!file)
         throw std::runtime_error("Cant load file");
     typeHeader header = {};
-    typeAssets asset  = {};
+    typeAssets assets;
+    // Read size, nothing special here
     file.read(reinterpret_cast<char*>(&header), sizeof(typeHeader));
-    file.read(reinterpret_cast<char*>(&asset), sizeof(typeAssets));
+    // Read the size of how many assets is stored in the file
+    size_t numberOfAssets;
+    file.read(reinterpret_cast<char*>(&numberOfAssets), sizeof(numberOfAssets));
+    for (int i = 0; i < numberOfAssets; i++) {
+        uint8_t assetLength = {};
+        file.read(reinterpret_cast<char*>(&assetLength), sizeof(assetLength));
+        char* assetName = new char[assetLength + 1]{};
+        file.read(assetName, assetLength);
+        assets.Assets.emplace_back(assetName);
+        delete[] assetName; // Clear memory
+    }
 
-    int  elements = header.Level.SizeX * header.Level.SizeY;
-    auto tiles    = new typeTileData*[elements];
-    for (int i = 0; i < elements; i++) {
-        auto element = new typeTileData{};
-        file.read(reinterpret_cast<char*>(element), sizeof(typeTileData));
-        tiles[i] = element;
+    uint16_t tileSize;
+    file.read(reinterpret_cast<char*>(&tileSize), sizeof(tileSize));
+
+    auto tiles = File::typeTiles(tileSize);
+    for (int i = 0; i < tileSize; i++) {
+        File::typeTileData tileData;
+        file.read(reinterpret_cast<char*>(&tileData), sizeof(tileData.Type));
+        uint8_t idSize;
+        file.read(reinterpret_cast<char*>(&idSize), sizeof(idSize));
+        for (int j = 0; j < idSize; j++) {
+            uint8_t id;
+            file.read(reinterpret_cast<char*>(&id), sizeof(id));
+            tileData.Id.emplace_back(id);
+        }
+        tiles.Tiles[i] = tileData;
     }
     file.close();
-    // All done, generate data
-    //auto level    = new typeLevelData;
-    //level->Header = header;
-    //evel->Assets = asset;
-    //level->Tiles  = tiles;
-
-    return nullptr;
-}
-
-void
-removeAsset(const uint8_t& id, typeAssets& map) {
-    //std::memset(map->Data[id].Asset, 0, sizeof(map->Data[id].Asset));
+    // Generating response
+    auto data = typeLevelData(tileSize);
+    return data;
 }
 
 size_t
 addAsset(const std::string& asset, typeAssets& map) {
-    if(asset.empty())
+    if (asset.empty())
         return -1;
     map.Assets.emplace_back(asset);
     return map.Assets.size();
 }
 
 std::optional<size_t>
-findAsset(const std::string& asset, const typeAssets& map){
+findAsset(const std::string& asset, const typeAssets& map) {
     auto it = std::find(map.Assets.begin(), map.Assets.end(), asset);
-    if(it != map.Assets.end())
+    if (it != map.Assets.end())
         return std::distance(map.Assets.begin(), it);
     return std::nullopt;
 }

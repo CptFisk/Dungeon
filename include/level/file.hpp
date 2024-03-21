@@ -18,6 +18,8 @@ enum TileType : uint8_t { BLANK = 0, TEXTURE = 1 << 0, WALL = 1 << 1, OBSTACLE =
 struct typeTileData {
     uint8_t              Type; // Tiletype
     std::vector<uint8_t> Id;   // Reference to assets. Drawn from bottom to top
+    typeTileData()
+      : Type(0){};
 };
 
 /**
@@ -56,13 +58,27 @@ struct typeHeader {
         uint8_t BackgroundRed;   // RGB colour of background
         uint8_t BackgroundGreen; // RGB colour of background
         uint8_t BackgroundBlue;  // RGB colour of background
+        Color()
+          : BackgroundRed(0)
+          , BackgroundGreen(0)
+          , BackgroundBlue(0){};
     } Color;
 
     struct Level {
         uint8_t  SizeX;    // Map width
         uint8_t  SizeY;    // Map height
         uint16_t Elements; // Number of active tiles
+        Level()
+          : SizeX(0)
+          , SizeY(0)
+          , Elements(0){};
     } Level;
+
+    typeHeader()
+      : HeaderVersion(0)
+      , MapName{}
+      , Color()
+      , Level(){};
 };
 
 struct typeAssets {
@@ -70,9 +86,13 @@ struct typeAssets {
 };
 
 struct typeLevelData {
-    typeHeader   Header;
-    typeAssets   Assets;
-    typeTiles Tiles;
+    typeHeader Header;
+    typeAssets Assets;
+    typeTiles  Tiles;
+    explicit typeLevelData(uint16_t size)
+      : Header()
+      , Assets()
+      , Tiles(size){};
 };
 
 /**
@@ -88,11 +108,8 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data);
  * @param filename
  * @return Pointer to the map
  */
-typeLevelData*
+typeLevelData
 readLevelData(const std::string& filename);
-
-void
-removeAsset(const uint8_t& id, typeAssets& map); // Delete an element from the list of assets
 
 size_t
 addAsset(const std::string& asset, typeAssets& map); // Add a new item to the list, returns the id that was assigned
