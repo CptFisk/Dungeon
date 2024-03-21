@@ -214,7 +214,7 @@ Editor::click(const float& x, const float& y) {
                     // Add texture to tile
                     tiles[pos].addData(simpleTexture.Texture, simpleTexture[-1].second);
                     // Stuff that shall be added to the files
-                    fileTiles.Tiles[pos].Type |= Level::Files::TEXTURE;
+                    fileTiles.Tiles[pos].Type |= Level::File::TEXTURE;
                     //Increment visual overlay
                     visualOverlay[pos].incrementCounter();
                     // Search if the asset have been used before
