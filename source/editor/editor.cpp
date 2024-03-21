@@ -240,11 +240,11 @@ Editor::click(const float& x, const float& y) {
                     break;
 
                 case WALL:
-                    fileTiles.Tiles[pos].Type |= Level::Files::WALL;
+                    fileTiles.Tiles[pos].Type |= Level::File::WALL;
                     visualOverlay[pos].newOverlay(GET_SDL("87ED17"));
                     break;
                 case OBSTACLE:
-                    fileTiles.Tiles[pos].Type |= Level::Files::OBSTACLE;
+                    fileTiles.Tiles[pos].Type |= Level::File::OBSTACLE;
                     visualOverlay[pos].newOverlay(GET_SDL("1D35FA"));
                     break;
                 case DEFAULT:
