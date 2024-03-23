@@ -33,6 +33,8 @@ class Editor {
     void terminate();                           // Kill the editor
     void click(const float& x, const float& y); // Click
   protected:
+    void loadLevel(const Level::File::typeLevelData& data);
+
     [[maybe_unused]] void        displayElement(const std::string& element);
     [[maybe_unused]] void        hideElement(const std::string& element);
     [[maybe_unused]] void        hideAllElements();
