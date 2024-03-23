@@ -220,7 +220,7 @@ Editor::click(const float& x, const float& y) {
                     // Search if the asset have been used before
                     const auto id = Level::File::findAsset(mSelectedTexture, fileAssets);
                     if (id.has_value())
-                        fileTiles.Tiles[pos].Id.emplace_back(id.has_value());
+                        fileTiles.Tiles[pos].Id.emplace_back(id.value());
                     else
                         fileTiles.Tiles[pos].Id.emplace_back(Level::File::addAsset(mSelectedTexture, fileAssets));
                 } break;
