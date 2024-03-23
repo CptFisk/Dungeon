@@ -84,10 +84,9 @@ readLevelData(const std::string& filename) {
 
 size_t
 addAsset(const std::string& asset, typeAssets& map) {
-    if (asset.empty())
-        return -1;
+    const auto size = map.Assets.size();
     map.Assets.emplace_back(asset);
-    return map.Assets.size();
+    return size;
 }
 
 std::optional<size_t>

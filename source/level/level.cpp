@@ -4,6 +4,7 @@
 #include <iostream>
 #include <level/level.hpp>
 #include <utility/textures.hpp>
+#include <algorithm>
 
 namespace Level {
 
@@ -40,43 +41,34 @@ Level::loadLevel(const std::string& filename) {
     obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, sizeX, 16.0f });         // Top wall
     obstacle.push_back(SDL_FRect{ -16.0f, sizeY, sizeX, 16.0 });           // Bottom wall
 
-    tiles.clear();          // Clear if something exist
+    tiles.clear(); // Clear if something exist
     tiles.resize(data.Header.Level.SizeX * data.Header.Level.SizeY);
     int pos = 0;
-    for(int y = 0; y < data.Header.Level.SizeY; y++){
-        for(int x = 0; x < data.Header.Level.SizeX; x++) {
-            tiles[pos] = Tile(x, y);    //Used to generate all squares
-        }
-    }
-
-
     for (int y = 0; y < data.Header.Level.SizeY; y++) {
         for (int x = 0; x < data.Header.Level.SizeX; x++) {
-            if ((data.Tiles.Tiles[pos].Type & File::TEXTURE) != 0) {
-                //for (const auto& id : data.Tiles.Tiles[pos].Id)
-                ;
-            }
+            tiles[pos++] = Tile(x, y); // Used to generate all squares
+
         }
     }
-    /*
-    int item = 0; // Keep track of current position
-    for (int y = 0; y < data->Header.Level.SizeY; y++) {
-        for (int x = 0; x < data->Header.Level.SizeX; x++) {
-            const auto index = Common::getIndex(x, y, &data->Header);
-            // Shall texture be added
-            if ((data->Tiles[index]->Type & TEXTURE) != 0) {
-                pTiles[item++] = new typeTile(TEXTURE, Common::newSDL_FRect(x, y),
-    GET_SIMPLE(data->Assets.Data[data->Tiles[index]->Id].Assets)[-1]);
-            }
-            if ((data->Tiles[index]->Type & WALL) != 0) {
-                wall.push_back(Common::newSDL_FRect(x, y));
-            }
-            if ((data->Tiles[index]->Type & OBSTACLE) != 0) {
-                obstacle.push_back(Common::newSDL_FRect(x, y));
+
+    if(tiles.size() != data.Tiles.Tiles.size())
+        throw std::runtime_error("Load file corrupted");
+
+
+    pos = 0;    //Resetting
+    for(const auto& tile : data.Tiles.Tiles){
+        if((tile.Type & File::TEXTURE) != 0){
+            //Read all assets
+            for(const auto& id : tile.Id){
+                const auto val = static_cast<int>(id);
+                const auto s = data.Assets.Assets[val];
+                auto texture =GET_SIMPLE(data.Assets.Assets[val]);    //Assets to use
+                tiles[pos].addData(texture.Texture, texture.Views[0]);
             }
         }
+        pos++;
     }
-     */
+
     walls     = wall;
     obstacles = obstacle;
 }
@@ -96,15 +88,12 @@ Level::movement(const SDL_FRect& other, const Directions& direction) {
 
 std::vector<Common::typeDrawData>
 Level::getLevel() {
-    /*
-    if (pTiles != nullptr) {
-        std::vector<Common::typeDrawData> data;
-        for (int i = 0; i < elements; i++)
-            data.emplace_back(pTiles[i]->Texture, &pTiles[i]->Viewport, &pTiles[i]->Position);
-        return data;
+    std::vector<Common::typeDrawData> data;
+    for(auto& tile: tiles){
+        for(auto& element : tile.getTile())
+            data.push_back(element);
     }
-    return std::vector<Common::typeDrawData>{};
-     */
+    return data;
 }
 
 }

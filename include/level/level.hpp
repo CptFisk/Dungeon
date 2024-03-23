@@ -7,6 +7,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <level/tile.hpp>
 
 namespace Level {
 
@@ -23,24 +24,24 @@ class Level {
      */
     bool movement(const SDL_FRect& other, const Directions& direction);
 
-    std::vector<Common::typeDrawData> getLevel();   //Return all draw data
+    std::vector<Common::typeDrawData> getLevel(); // Return all draw data
 
   protected:
   private:
-    Uint8& mRed;   // Reference to engine->Background->Red
-    Uint8& mGreen; // Reference to engine->Background->Green
-    Uint8& mBlue;  // Reference to engine->Background->Blue
+    Uint8& red;   // Reference to engine->Background->Red
+    Uint8& green; // Reference to engine->Background->Green
+    Uint8& blue;  // Reference to engine->Background->Blue
 
     // Graphical stuff
     std::shared_ptr<Graphics::Graphics> mGraphics;
     SDL_Renderer*                       pRenderer; // Reference to the renderer
 
-    std::vector<SDL_FRect> mObstacle; // Things that you cant walk over
-    std::vector<SDL_FRect> mWalls;
+    std::vector<SDL_FRect> obstacles; // Things that you cant walk over
+    std::vector<SDL_FRect> walls;
     // Level data
-    File::typeHeader mHeader;
-    File::typeTile** pTiles;
-    int        mElements; // Number of elements that exist in pTiles
+    File::typeHeader                header;
+    std::vector<Tile> tiles;
+    int                             elements; // Number of elements that exist in pTiles
 };
 
 }

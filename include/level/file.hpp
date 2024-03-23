@@ -89,10 +89,10 @@ struct typeLevelData {
     typeHeader Header;
     typeAssets Assets;
     typeTiles  Tiles;
-    explicit typeLevelData(uint16_t size)
-      : Header()
-      , Assets()
-      , Tiles(size){};
+    typeLevelData(typeHeader header, typeAssets assets, typeTiles tiles)
+      : Header(header)
+      , Assets(assets)
+      , Tiles(tiles){};
 };
 
 /**
