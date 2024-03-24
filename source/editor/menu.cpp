@@ -8,21 +8,21 @@ Editor::uiMenu() {
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("New project")) {
-                fileHeader                = Level::File::typeHeader{};
+                fileHeader               = Level::File::typeHeader{};
                 fileHeader.Level.SizeX   = 16;
                 fileHeader.Level.SizeY   = 12;
                 fileHeader.HeaderVersion = 1;
 
-                fileAssets.Assets.clear();   //Clear the vector, we start blank
+                fileAssets.Assets.clear(); // Clear the vector, we start blank
                 displayElement("Header");
             }
             if (ImGui::MenuItem("Load project")) {
-                //Right now assume we load the file level.map
-                auto data = Level::File::readLevelData("level.map");
+                // Right now assume we load the file level.map
+                loadLevel(Level::File::readLevelData("level.map"));
             }
             if (ImGui::MenuItem("Save project")) {
-                fileHeader.Level.Elements = mLevelCoords.size();
-                Level::File::typeLevelData map = { fileHeader, fileAssets,fileTiles };
+                fileHeader.Level.Elements      = mLevelCoords.size();
+                Level::File::typeLevelData map = { fileHeader, fileAssets, fileTiles };
 
                 Level::File::writeLevelDataToFile(std::string(fileHeader.MapName) + ".map", map);
             }
@@ -39,15 +39,15 @@ Editor::uiMenu() {
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Display")) {
-            if(ImGui::MenuItem("Overlay", nullptr, showOverlay))
-                showOverlay  = !showOverlay;
-            if(ImGui::MenuItem("Numbers", nullptr, showNumbers))
-                showNumbers  = !showNumbers;
+            if (ImGui::MenuItem("Overlay", nullptr, showOverlay))
+                showOverlay = !showOverlay;
+            if (ImGui::MenuItem("Numbers", nullptr, showNumbers))
+                showNumbers = !showNumbers;
             if (ImGui::MenuItem("Grid"))
                 displayElement("Grid");
             if (ImGui::MenuItem("Mouse"))
                 displayElement("Mouse");
-            if(ImGui::MenuItem("Textures"))
+            if (ImGui::MenuItem("Textures"))
                 displayElement("Textures");
             ImGui::EndMenu();
         }
@@ -56,7 +56,6 @@ Editor::uiMenu() {
         ImGui::Text(status.c_str());
         mWindows["TopMenu"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::EndMainMenuBar();
-
     }
 }
 }

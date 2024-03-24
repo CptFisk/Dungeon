@@ -21,7 +21,7 @@ Editor::Editor()
   , showNumbers(false)
   , showOverlay(false)
   , fileTiles(0)
-  , tiles{}
+  , editorTiles{}
   , mScale{}
   , mHideAllWindows(false)
   , mMouse(DEFAULT)
@@ -212,7 +212,7 @@ Editor::click(const float& x, const float& y) {
                     // Fetching the texture
                     auto simpleTexture = GET_SIMPLE(mSelectedTexture);
                     // Add texture to tile
-                    tiles[pos].addData(simpleTexture.Texture, simpleTexture[-1].second);
+                    editorTiles[pos].addData(simpleTexture.Texture, simpleTexture[-1].second);
                     // Stuff that shall be added to the files
                     fileTiles.Tiles[pos].Type |= Level::File::TEXTURE;
                     //Increment visual overlay
@@ -225,7 +225,7 @@ Editor::click(const float& x, const float& y) {
                         fileTiles.Tiles[pos].Id.emplace_back(Level::File::addAsset(mSelectedTexture, fileAssets));
                 } break;
                 case REMOVE:
-                    tiles[pos].clear(); //Clear the vector
+                    editorTiles[pos].clear(); //Clear the vector
 
                     fileTiles.Tiles[pos].Type = Level::File::BLANK;
                     fileTiles.Tiles[pos].Id.clear();

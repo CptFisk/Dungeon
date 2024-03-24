@@ -24,14 +24,14 @@ Editor::uiHeader() {
             const auto size  = sizeX * sizeY; // Total size
 
             fileTiles = Level::File::typeTiles(size);
-            tiles.clear();
+            editorTiles.clear();
             // Setting up all tiles
 
             int pos = 0;
             for(int y = 0; y < sizeY; y++){
                 for(int x = 0; x < sizeX; x++) {
                     //Generating both tiles and visual overlay
-                    tiles[pos] = Level::Tile(x, y, mScale);
+                    editorTiles[pos] = Level::Tile(x, y, mScale);
                     visualOverlay[pos++] = VisualTile(x,y,GET_SIMPLE("NumbersWhite"), mScale);
                 }
             }

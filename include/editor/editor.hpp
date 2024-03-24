@@ -109,7 +109,7 @@ class Editor {
     Level::File::typeAssets fileAssets; // List of all the assets that exist in the current map.
     Level::File::typeTiles  fileTiles;  // Tiles used inside the map editor, later used for export to a file
 
-    std::unordered_map<int, Level::Tile> tiles;         // All tiles in the game.
+    std::unordered_map<int, Level::Tile> editorTiles;         // All tiles in the game.
     std::unordered_map<int, VisualTile>  visualOverlay; // Overlay that display the type
 
     struct comparePair {

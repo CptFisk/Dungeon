@@ -16,7 +16,7 @@ Editor::uiTiles() {
             if (pos.has_value()) {
                 const int index = pos.value();
                 // Draw all tiles
-                for (auto visual : tiles[index].getTile()) {
+                for (auto visual : editorTiles[index].getTile()) {
                     mPerspective->render(visual.Texture, visual.Viewport, visual.Position);
                 }
                 if(showOverlay) {
