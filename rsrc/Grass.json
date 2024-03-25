@@ -135,7 +135,7 @@
         "Name": "GrassLakeE",
         "Row": 4,
         "Column": 2,
-        "Length": 2,
+        "Length": 1,
         "Height": 16,
         "Width": 16
       },
@@ -143,7 +143,7 @@
         "File": "rsrc/Grass.png",
         "Name": "GrassLakeS",
         "Row": 4,
-        "Column": 4,
+        "Column": 3,
         "Length": 1,
         "Height": 16,
         "Width": 16
@@ -152,8 +152,8 @@
         "File": "rsrc/Grass.png",
         "Name": "GrassLakeW",
         "Row": 4,
-        "Column": 5,
-        "Length": 2,
+        "Column": 4,
+        "Length": 1,
         "Height": 16,
         "Width": 16
       },
@@ -208,15 +208,6 @@
         "Row": 6,
         "Column": 1,
         "Length": 5,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassStones",
-        "Row": 7,
-        "Column": 1,
-        "Length": 3,
         "Height": 16,
         "Width": 16
       },
