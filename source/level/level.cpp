@@ -61,8 +61,8 @@ Level::loadLevel(const std::string& filename) {
             //Read all assets
             for(const auto& id : tile.Id){
                 const auto val = static_cast<int>(id);
-                auto texture =GET_SIMPLE(data.Assets.Assets[val]);    //Assets to use
-                tiles[pos].addData(texture.Texture, texture.Views[-1]);
+                auto texture =GET_SIMPLE(data.Assets.Assets[val])[-1];    //Assets to use
+                tiles[pos].addData(texture.first, texture.second);
             }
         }
         pos++;
