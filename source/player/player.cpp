@@ -57,16 +57,16 @@ float
 Player::move(Directions direction) {
     switch (direction) {
         case NORTH:
-            mPlayerPosition.y -= 0.5f;
+            mPlayerPosition.y -= 1.0f;
             break;
         case EAST:
-            mPlayerPosition.x += 0.5f;
+            mPlayerPosition.x += 1.0f;
             break;
         case SOUTH:
-            mPlayerPosition.y += 0.5f;
+            mPlayerPosition.y += 1.0f;
             break;
         case WEST:
-            mPlayerPosition.x -= 0.5f;
+            mPlayerPosition.x -= 1.0f;
             break;
         case ALL:
         default:
@@ -75,7 +75,7 @@ Player::move(Directions direction) {
     mAction    = Objects::MOVE;
     mDirection = direction;
     updateReferences();
-    return 0.5f;
+    return 1.0f;
 }
 
 }
