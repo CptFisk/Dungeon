@@ -7,8 +7,8 @@ void
 Editor::uiTiles() {
     const auto minX = std::max(static_cast<int>((mOffset.X / -1.0f) / (16.0f * mScale.ScaleX)), 0);
     const auto minY = std::max(static_cast<int>((mOffset.Y / -1.0f) / (16.0f * mScale.ScaleY)), 0);
-    const auto maxX = std::min(minX + 16, static_cast<int>(fileHeader.Level.SizeX));
-    const auto maxY = std::min(minY + 12, static_cast<int>(fileHeader.Level.SizeY));
+    const auto maxX = std::min(minX + 17, static_cast<int>(fileHeader.Level.SizeX));
+    const auto maxY = std::min(minY + 13, static_cast<int>(fileHeader.Level.SizeY));
 
     for (int y = minY; y < maxY; y++) {
         for (int x = minX; x < maxX; x++) {
