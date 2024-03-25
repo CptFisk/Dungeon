@@ -13,6 +13,7 @@ Graphics::loadImage(const std::string& filename) {
         std::cerr << "Can load " << filename;
         throw std::runtime_error("Cant load texture");
     }
+    SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST);
     return texture;
 }
 
