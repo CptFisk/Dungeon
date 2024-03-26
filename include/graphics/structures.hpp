@@ -25,8 +25,8 @@ struct typeTextTexture {
 };
 
 struct typeSimpleTexture {
-    SDL_Texture*                       Texture; //Texture
-    std::vector<SDL_FRect>             Views;   //Views
+    SDL_Texture*           Texture; // Texture
+    std::vector<SDL_FRect> Views;   // Views
 
     std::pair<SDL_Texture*, SDL_FRect> operator[](size_t n) const {
         if (n == -1)
@@ -37,7 +37,10 @@ struct typeSimpleTexture {
             throw std::runtime_error("Index out of bounds");
         }
     }
-    explicit typeSimpleTexture(SDL_Texture* texture) : Texture(texture){};
+    explicit typeSimpleTexture(SDL_Texture* texture)
+      : Texture(texture){};
+    typeSimpleTexture()
+      : Texture(nullptr) {}
 };
 /***
  * @brief Used when Object is of type BASE_TEXTURE
