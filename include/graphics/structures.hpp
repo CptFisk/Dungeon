@@ -40,6 +40,15 @@ struct typeSimpleTexture {
             throw std::runtime_error("Index out of bounds");
         }
     }
+    typeSimpleTexture& operator=(const typeSimpleTexture& other){
+        if(this == &other)
+            return *this;
+        Texture = other.Texture;
+        Views = other.Views;
+
+        return *this;
+    }
+
     explicit typeSimpleTexture(SDL_Texture* texture, const float& w, const float& h)
       : Texture(texture)
       , Width(w)
