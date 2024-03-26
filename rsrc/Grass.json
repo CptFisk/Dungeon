@@ -12,33 +12,6 @@
         "Length": 1,
         "Height": 16,
         "Width": 16
-      },
-      {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassMushroom",
-        "Row": 1,
-        "Column": 2,
-        "Length": 7,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassFlowerBush",
-        "Row": 6,
-        "Column": 1,
-        "Length": 5,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassStones",
-        "Row": 7,
-        "Column": 1,
-        "Length": 3,
-        "Height": 16,
-        "Width": 16
       }
     ]
   }
