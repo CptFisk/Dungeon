@@ -88,9 +88,15 @@ Level::movement(const SDL_FRect& other, const Directions& direction) {
 std::vector<Common::typeDrawData>
 Level::getLevel() {
     std::vector<Common::typeDrawData> data;
-    for(auto& tile: tiles){
-        for(auto& element : tile.getTile())
-            data.push_back(element);
+    for(int y = 0; y < 32; y++){
+        for(int x = 0; x < 32; x++){
+            auto index = Common::getIndex(x, y, 32);
+            int pos;
+            if(index.has_value())
+                pos = index.value();
+            for(auto &element : tiles[pos].getTile())
+                data.push_back(element);
+        }
     }
     return data;
 }
