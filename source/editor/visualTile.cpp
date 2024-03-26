@@ -6,7 +6,7 @@ VisualTile::VisualTile(const int& x, const int& y, Graphics::typeSimpleTexture n
   : texture(nullptr)
   , position(Common::newSDL_FRectScaled(x, y, scale))
   , counter(0)
-  , numbers(number) {}
+  , numbers(std::move(number)) {}
 
 void
 VisualTile::newOverlay(SDL_Texture* overlay) {

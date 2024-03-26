@@ -13,6 +13,8 @@ class VisualTile {
     VisualTile() = default;
     VisualTile(const int& x, const int& y, Graphics::typeSimpleTexture number, const Common::typeScale& scale);
 
+    ~VisualTile() = default;
+
     void newOverlay(SDL_Texture* overlay); // Bind a new texture as overlay
     SDL_Texture* getOverlay();    //Return drawing data for overlay
 
