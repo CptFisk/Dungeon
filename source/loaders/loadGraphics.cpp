@@ -47,8 +47,7 @@ Graphics::loadSimpleTexture(const Common::typeHeaderJSON& header, const std::str
     }
 
     for (const auto& data : jsonData.Objects) {
-        typeSimpleTexture base ={};
-        base.Texture = loadImage(data.File);
+        auto base = typeSimpleTexture(loadImage(data.File));
         // Generating viewports
         for (int i = 0; i < data.Length; i++) {
             const auto offset = (data.Column - 1) * data.Width;

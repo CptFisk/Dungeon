@@ -25,8 +25,8 @@ struct typeTextTexture {
 };
 
 struct typeSimpleTexture {
-    SDL_Texture*           Texture;
-    std::vector<SDL_FRect> Views;
+    SDL_Texture*                       Texture; //Texture
+    std::vector<SDL_FRect>             Views;   //Views
 
     std::pair<SDL_Texture*, SDL_FRect> operator[](size_t n) const {
         if (n == -1)
@@ -37,28 +37,29 @@ struct typeSimpleTexture {
             throw std::runtime_error("Index out of bounds");
         }
     }
+    explicit typeSimpleTexture(SDL_Texture* texture) : Texture(texture){};
 };
 /***
  * @brief Used when Object is of type BASE_TEXTURE
  */
 struct typeBaseTextureJSON {
-    std::string File;     // File to be loaded
-    std::string Name;     // Name of file
-    int         Column;   // Start column in sheet
-    int         Row;      // Start row in sheet
-    int         Length;   // Number of sprites to be read
-    int         Height;   // Height of texture
-    int         Width;    // Width of texture
+    std::string File;   // File to be loaded
+    std::string Name;   // Name of file
+    int         Column; // Start column in sheet
+    int         Row;    // Start row in sheet
+    int         Length; // Number of sprites to be read
+    int         Height; // Height of texture
+    int         Width;  // Width of texture
 };
 
 struct typeAnimatedTextureJSON {
-    std::string Name;     // Animation name
-    int         Column;   // Start column in sheet
-    int         Row;      // Start row in sheet
-    int         Length;   // Number of sprites to be read
-    int         Ticks;    // Number of seconds for each texture *100ms
-    int         Width;    // Width of texture
-    int         Height;   // Height of texture
+    std::string Name;   // Animation name
+    int         Column; // Start column in sheet
+    int         Row;    // Start row in sheet
+    int         Length; // Number of sprites to be read
+    int         Ticks;  // Number of seconds for each texture *100ms
+    int         Width;  // Width of texture
+    int         Height; // Height of texture
 };
 
 struct typeGeneratedTextureJSON {
