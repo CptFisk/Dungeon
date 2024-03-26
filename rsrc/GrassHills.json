@@ -1,0 +1,81 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassHillNW",
+        "Row": 8,
+        "Column": 9,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassHillN",
+        "Row": 8,
+        "Column": 10,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassHillNE",
+        "Row": 8,
+        "Column": 11,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassHillW",
+        "Row": 9,
+        "Column": 9,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassHillE",
+        "Row": 9,
+        "Column": 11,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassHillSW",
+        "Row": 10,
+        "Column": 9,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassHillS",
+        "Row": 10,
+        "Column": 10,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
+        "Name": "GrassHillSE",
+        "Row": 10,
+        "Column": 11,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
