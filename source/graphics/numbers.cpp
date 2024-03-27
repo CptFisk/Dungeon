@@ -16,7 +16,7 @@ Number::Number(std::pair<float, float>      position,
         auto& posX = position.first;
         auto& posY = position.second;
         mPositions.emplace_back(SDL_FRect{ posX + (static_cast<float>(pos++) * 8.0f * scale), posY, 8.0f * scale, 8.0f * scale },
-                                &texture.Views[number]);
+                                &texture.getView(number));
     }
 }
 
