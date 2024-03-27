@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL3/SDL.h>
 #include <common/scale.hpp>
-#include <graphics/structures.hpp>
+#include <graphics/types/simpleTexture.hpp>
 #include <memory>
 #include <utility>
 #include <vector>
