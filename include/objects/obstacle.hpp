@@ -1,5 +1,5 @@
 #pragma once
-#include <graphics/structures.hpp>
+#include <graphics/types/simpleTexture.hpp>
 namespace Objects {
 
 class Obstacle {
