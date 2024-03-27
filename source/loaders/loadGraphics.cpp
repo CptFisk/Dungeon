@@ -2,6 +2,7 @@
 #include <graphics/animatedTexture.hpp>
 #include <graphics/graphics.hpp>
 #include <graphics/structures.hpp>
+#include <graphics/types/simpleTexture.hpp>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <utility/file.hpp>
@@ -47,11 +48,11 @@ Graphics::loadSimpleTexture(const Common::typeHeaderJSON& header, const std::str
     }
 
     for (const auto& data : jsonData.Objects) {
-        auto base = typeSimpleTexture(loadImage(data.File));
+        auto base = typeSimpleTexture(loadImage(data.File), static_cast<float>(data.Width), static_cast<float>(data.Height));
         // Generating viewports
         for (int i = 0; i < data.Length; i++) {
             const auto offset = (data.Column - 1) * data.Width;
-            base.Views.push_back(SDL_FRect{ static_cast<float>(data.Width * i + offset),
+            base.addView(SDL_FRect{ static_cast<float>(data.Width * i + offset),
                                             static_cast<float>(data.Height * (data.Row - 1)),
                                             static_cast<float>(data.Width),
                                             static_cast<float>(data.Height) });
