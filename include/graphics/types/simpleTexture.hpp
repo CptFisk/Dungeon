@@ -22,6 +22,11 @@ struct typeSimpleTexture {
      * @return Reference to viewport
      */
     SDL_FRect& getView(size_t n);
+    /**
+     * @brief Add a new viewport
+     * @param view Viewport to add
+     */
+    void addView(const SDL_FRect& view);
 
     typeSimpleTexture();    //Default constructor
     explicit typeSimpleTexture(SDL_Texture* texture, const int& w, const int& h);

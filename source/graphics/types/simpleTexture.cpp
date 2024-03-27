@@ -27,6 +27,11 @@ typeSimpleTexture::getView(size_t n){
     return Views[n];
 }
 
+void
+typeSimpleTexture::addView(const SDL_FRect& view) {
+    Views.emplace_back(view);
+}
+
 typeSimpleTexture&
 typeSimpleTexture::operator=(const Graphics::typeSimpleTexture& other) {
     if (this == &other)
