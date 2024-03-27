@@ -4,6 +4,7 @@
 #include <common/include.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <graphics/structures.hpp>
+#include <graphics/types/simpleTexture.hpp>
 #include <iostream>
 #include <string>
 #include <typeindex>
