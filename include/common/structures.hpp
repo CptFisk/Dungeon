@@ -7,7 +7,7 @@
 namespace Common {
 
 /**
- * @brief Structure used when storing data that is passed to render
+ * @brief Structure used when transferring data that is passed to render
  */
 struct typeDrawData {
     SDL_Texture* Texture;  // Texture
