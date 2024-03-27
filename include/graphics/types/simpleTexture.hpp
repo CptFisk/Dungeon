@@ -16,6 +16,12 @@ struct typeSimpleTexture {
      * @param n Element to fetch
      */
     std::pair<SDL_Texture*, SDL_FRect> operator[](size_t n) const;
+    /**
+     * @brief Return a specific viewport
+     * @param n Element to fetch
+     * @return Reference to viewport
+     */
+    SDL_FRect& getView(size_t n);
 
     typeSimpleTexture();    //Default constructor
     explicit typeSimpleTexture(SDL_Texture* texture, const int& w, const int& h);

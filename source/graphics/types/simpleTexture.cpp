@@ -22,6 +22,11 @@ typeSimpleTexture::operator[](size_t n) const {
     }
 }
 
+SDL_FRect&
+typeSimpleTexture::getView(size_t n){
+    return Views[n];
+}
+
 typeSimpleTexture&
 typeSimpleTexture::operator=(const Graphics::typeSimpleTexture& other) {
     if (this == &other)
