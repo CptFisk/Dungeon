@@ -11,6 +11,11 @@ typeSimpleTexture::typeSimpleTexture(SDL_Texture* texture, const int& w, const i
   , Width(w)
   , Height(h) {}
 
+SDL_Texture*
+typeSimpleTexture::getTexture() {
+    return Texture;
+}
+
 std::pair<SDL_Texture*, SDL_FRect>
 typeSimpleTexture::operator[](size_t n) const {
     if (n == -1)
@@ -25,6 +30,11 @@ typeSimpleTexture::operator[](size_t n) const {
 SDL_FRect&
 typeSimpleTexture::getView(size_t n){
     return Views[n];
+}
+
+SDL_FRect&
+typeSimpleTexture::getRandomView() {
+    return Views[rand() % Views.size()];
 }
 
 void
