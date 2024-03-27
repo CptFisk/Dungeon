@@ -2,7 +2,7 @@
 #include <SDL3/SDL.h>
 #include <common/scale.hpp>
 #include <graphics/animatedTexture.hpp>
-#include <graphics/structures.hpp>
+#include <graphics/types/simpleTexture.hpp>
 
 namespace Player {
 class Indicator {
