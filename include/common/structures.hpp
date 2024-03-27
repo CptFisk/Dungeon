@@ -1,22 +1,43 @@
 #pragma once
+#include <SDL3/SDL.h>
 #include <nlohmann/json.hpp>
 #include <objects/objects.hpp>
 #include <string>
-#include <SDL3/SDL.h>
 
 namespace Common {
 
-struct typeDrawData{
-    SDL_Texture* Texture;
-    SDL_FRect* Viewport;
-    SDL_FRect* Position;
+/**
+ * @brief Structure used when storing data that is passed to render
+ */
+struct typeDrawData {
+    SDL_Texture* Texture;  // Texture
+    SDL_FRect*   Viewport; // Viewport
+    SDL_FRect*   Position; // Position
+
+    // Constructors
+    typeDrawData()
+      : Texture(nullptr)
+      , Viewport(nullptr)
+      , Position(nullptr){};
+    explicit typeDrawData(SDL_Texture* texture)
+      : Texture(texture)
+      , Viewport(nullptr)
+      , Position(nullptr){};
+    typeDrawData(SDL_Texture* texture, SDL_FRect* view)
+      : Texture(texture)
+      , Viewport(view)
+      , Position(nullptr){};
+    typeDrawData(SDL_Texture* texture, SDL_FRect* view, SDL_FRect* position)
+      : Texture(texture)
+      , Viewport(view)
+      , Position(position){};
 };
 
-struct typeDrawDataAngled{
+struct typeDrawDataAngled {
     SDL_Texture* Texture;
-    SDL_FRect* Viewport;
-    SDL_FRect* Position;
-    const float Angle;
+    SDL_FRect*   Viewport;
+    SDL_FRect*   Position;
+    const float  Angle;
 };
 
 struct typeScale {
