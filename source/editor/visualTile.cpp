@@ -35,6 +35,6 @@ VisualTile::resetCounter() {
 
 std::pair<SDL_Texture*, SDL_FRect>
 VisualTile::getNumber() {
-    return { numbers.Texture, numbers.Views[counter] };
+    return { numbers.Texture, numbers.getView(counter) };
 }
 }
