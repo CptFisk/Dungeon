@@ -24,40 +24,6 @@ struct typeTextTexture {
     SDL_FRect    Dimensions;
 };
 
-struct typeSimpleTexture {
-    SDL_Texture*           Texture; // Texture
-    std::vector<SDL_FRect> Views;   // Views
-
-    const float Width;  // Texture width
-    const float Height; // Texture height
-
-    std::pair<SDL_Texture*, SDL_FRect> operator[](size_t n) const {
-        if (n == -1)
-            return { Texture, Views[rand() % Views.size()] };
-        if (n < Views.size()) {
-            return { Texture, Views[n] };
-        } else {
-            throw std::runtime_error("Index out of bounds");
-        }
-    }
-    typeSimpleTexture& operator=(const typeSimpleTexture& other){
-        if(this == &other)
-            return *this;
-        Texture = other.Texture;
-        Views = other.Views;
-
-        return *this;
-    }
-
-    explicit typeSimpleTexture(SDL_Texture* texture, const float& w, const float& h)
-      : Texture(texture)
-      , Width(w)
-      , Height(h){};
-    typeSimpleTexture()
-      : Texture(nullptr)
-      , Width(0.0f)
-      , Height(0.0f) {}
-};
 /***
  * @brief Used when Object is of type BASE_TEXTURE
  */
