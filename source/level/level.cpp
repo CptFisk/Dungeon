@@ -42,11 +42,10 @@ Level::loadLevel(const std::string& filename) {
     obstacle.push_back(SDL_FRect{ -16.0f, sizeY, sizeX, 16.0 });           // Bottom wall
 
     tiles.clear(); // Clear if something exist
-    tiles.resize(data.Header.Level.SizeX * data.Header.Level.SizeY);
-    int pos = 0;
+
     for (int y = 0; y < data.Header.Level.SizeY; y++) {
         for (int x = 0; x < data.Header.Level.SizeX; x++) {
-            tiles[pos++] = Tile(x, y); // Used to generate all squares
+            tiles.emplace_back(Tile(x, y)); // Used to generate all squares
 
         }
     }
@@ -55,7 +54,7 @@ Level::loadLevel(const std::string& filename) {
         throw std::runtime_error("Load file corrupted");
 
 
-    pos = 0;    //Resetting
+    int pos = 0;    //Resetting
     for(const auto& tile : data.Tiles.Tiles){
         if((tile.Type & File::TEXTURE) != 0){
             //Read all assets

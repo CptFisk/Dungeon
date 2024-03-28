@@ -1,8 +1,8 @@
 #pragma once
 #include <SDL3/SDL.h>
 #include <common/scale.hpp>
-#include <vector>
 #include <common/structures.hpp>
+#include <vector>
 
 namespace Level {
 /**
@@ -14,24 +14,27 @@ class Tile {
      */
     struct tileData {
         SDL_Texture* Texture;
-        SDL_FRect    Viewport;
+        SDL_FRect   Viewport;
+        SDL_FRect   Position;
     };
 
   public:
-    Tile() = default;
     [[maybe_unused]] Tile(const int& x, const int& y);                                 // Used during gameplay
     [[maybe_unused]] Tile(const int& x, const int& y, const Common::typeScale& scale); // Used in editor mode
     ~Tile() = default;
 
+    Tile& operator=(const Tile& other); // Operator overload
+
     [[maybe_unused]] void clear(); // Clear vector
 
-    size_t addData(SDL_Texture* texture, const SDL_FRect& viewport); // Add element to the vector
-
-    std::vector<Common::typeDrawData> getTile();    //Return all data that should be drawn.
+    size_t addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const float& h); // Add element to the vector
+    // size_t addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const float& h, )
+    std::vector<Common::typeDrawData> getTile(); // Return all data that should be drawn.
 
   private:
   protected:
-    SDL_FRect       position; // The position in the grid, the position never changes
-    std::vector<tileData> data;     // All data that belongs to the tile. This is to allow multiple layers of texture to a base tile
+    const float                       xPos;
+    const float                       yPos;
+    std::vector<tileData> data; // All data that belongs to the tile. This is to allow multiple layers of texture to a base tile
 };
 }

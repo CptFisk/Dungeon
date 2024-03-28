@@ -3,10 +3,20 @@
 namespace Level {
 
 Tile::Tile(const int& x, const int& y)
-  : position{ static_cast<float>(x) * 16.0f, static_cast<float>(y) * 16.0f, 16.0f, 16.0f } {}
+  : xPos(static_cast<float>(x) * 16.0f)
+  , yPos(static_cast<float>(y) * 16.0f) {}
 
 Tile::Tile(const int& x, const int& y, const Common::typeScale& scale)
-  : position{ static_cast<float>(x) * 16.0f * scale.ScaleX, static_cast<float>(y) * 16.0f * scale.ScaleY, 16.0f * scale.ScaleX, 16.0f * scale.ScaleY } {}
+  : xPos(static_cast<float>(x) * 16.0f * scale.ScaleX)
+  , yPos(static_cast<float>(y) * 16.0f * scale.ScaleY) {}
+
+Tile&
+Tile::operator=(const Level::Tile& other) {
+    if (this == &other)
+        return *this;
+    data = other.data;
+    return *this;
+}
 
 void
 Tile::clear() {
@@ -14,17 +24,17 @@ Tile::clear() {
 }
 
 size_t
-Tile::addData(SDL_Texture* texture, const SDL_FRect& viewport) {
-    data.emplace_back(tileData{ texture, viewport });
+Tile::addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const float& h) {
+    data.emplace_back(texture, viewport, SDL_FRect{ xPos, yPos, w, h });
     return data.size();
 }
 
 std::vector<Common::typeDrawData>
 Tile::getTile() {
-    std::vector<Common::typeDrawData> retVal;
-    for(auto& element : data)
-        retVal.emplace_back(Common::typeDrawData{element.Texture, &element.Viewport, &position});
-    return retVal;
+    std::vector<Common::typeDrawData> ret;
+    for(auto& tile : data)
+        ret.emplace_back(tile.Texture, &tile.Viewport, &tile.Position);
+    return ret;
 }
 
 }
