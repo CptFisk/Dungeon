@@ -2,45 +2,46 @@
 #include <objects/particle.hpp>
 
 namespace Objects {
-Particle::Particle(SDL_Texture* texture, SDL_Renderer* renderer, const int& duration, const float& size, const float& velocity)
-  : pTexture(texture)
-  , pRenderer(renderer)
-  , mDuration(duration)
-  , mVelocity(velocity)
-  , mSize(size)
+Particle::Particle(SDL_Texture* texture, const int& duration, const float& size, const float& velocity)
+  : texture(texture)
+  , duration(duration)
+  , velocity(velocity)
+  , size(size)
   , gen(rd())
-  , mDist(-size, size) {}
+  , distribution(-size, size) {}
 
 Particle::~Particle() {
-    mParticles.clear();
+    particles.clear();
 }
 
 void
 Particle::addParticle(const SDL_FRect& position) {
     const auto x = position.x + (position.w / 2.0f);
     const auto y = position.y + (position.h / 2.0f);
-    mParticles.push_back(ParticleStruct{ SDL_FRect{ x, y, mSize, mSize }, mDuration });
+    particles.push_back(ParticleStruct{ SDL_FRect{ x, y, size, size }, duration });
 }
 
-void
-Particle::draw() {
-    for (auto it = mParticles.begin(); it != mParticles.end();) {
+std::vector<Common::typeDrawData>
+Particle::getDrawData() {
+    std::vector<Common::typeDrawData> data;
+    for(auto it = particles.begin(); it != particles.end();){
         if ((*it).Duration < 0) {
-            it = mParticles.erase(it);
+            it = particles.erase(it);
 
         } else {
-            SDL_RenderTexture(pRenderer, pTexture, nullptr, &(*it).Position);
-            randomPosition((*it).Position); // I LIKE TO MOVE IT MOVE IT
+            data.emplace_back(texture, nullptr, &(*it).Position);
+            randomPosition((*it).Position); // Move it around
             (*it).Duration--;               // Reduce duration
             ++it;
         }
     }
+    return data;
 }
 
 void
 Particle::randomPosition(SDL_FRect& rect) {
-    auto x = mDist(gen);
-    auto y = mDist(gen);
+    auto x = distribution(gen);
+    auto y = distribution(gen);
     rect.x += x;
     rect.y += y;
 }

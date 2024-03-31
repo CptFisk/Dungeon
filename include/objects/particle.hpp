@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 #include <vector>
 #include <random>
+#include <common/structures.hpp>
 
 namespace Objects {
 class Particle {
@@ -11,24 +12,24 @@ class Particle {
     };
 
   public:
-    Particle(SDL_Texture* texture, SDL_Renderer* renderer, const int& duration, const float& size, const float& velocity);
+    Particle(SDL_Texture* texture, const int& duration, const float& size, const float& velocity);
     ~Particle();
 
     void addParticle(const SDL_FRect& position); // Position for particle
-    void draw();                                 // Draw particles
+    std::vector<Common::typeDrawData> getDrawData();
+
   protected:
     void randomPosition(SDL_FRect& rect);
 
   private:
-    const int                   mDuration; // Duration for particles
-    const float                 mVelocity;
-    const float                 mSize;      // Size for all particles
-    std::vector<ParticleStruct> mParticles; // Vector containing all particles
-    SDL_Renderer*               pRenderer;
-    SDL_Texture*                pTexture;
+    const int                   duration; // Duration for particles
+    const float                 velocity;
+    const float                 size;      // Size for all particles
+    std::vector<ParticleStruct> particles; // Vector containing all particles
+    SDL_Texture*                texture;
 
     std::random_device rd;
     std::mt19937 gen;
-    std::uniform_real_distribution<float> mDist;
+    std::uniform_real_distribution<float> distribution;
 };
 }
