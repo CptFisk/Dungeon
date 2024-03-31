@@ -107,7 +107,7 @@ Engine::startup() {
     pPlayerTexture  = mPlayer->getPlayerTexture();
     pPlayerView     = mPlayer->getPlayerViewport();
     pPlayerPosition = mPlayer->getPlayerPosition();
-    mParticles      = std::make_shared<Objects::Particle>(GET_SDL("FAE2C3"), pRenderer, 100, 0.5f, 0.5f);
+    mParticles      = std::make_shared<Objects::Particle>(GET_SDL("FAE2C3"), 100, 0.5f, 0.5f);
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
@@ -258,6 +258,9 @@ Engine::drawProjectiles() {
         if (lightning.Texture != nullptr)
             mPerspective->render(lightning.Texture, lightning.Viewport, lightning.Position);
         mPerspective->renderRotated(object.Texture, object.Viewport, object.Position, object.Angle);
+    }
+    for(auto& projectile : mParticles->getDrawData()){
+        mPerspective->render(projectile.Texture, projectile.Viewport, projectile.Position);
     }
 }
 
