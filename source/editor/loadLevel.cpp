@@ -48,13 +48,13 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
         for (int x = 0; x < sizeX; x++) {
             const auto tile = tiles.Tiles[pos]; // To keep name short
             // Generating both tiles and visual overlay
-            editorTiles[pos]     = Level::Tile(x, y, mScale);
+            editorTiles.emplace_back(Level::Tile(x, y, mScale));
             visualOverlay[pos] = VisualTile(x, y, GET_SIMPLE("NumbersWhite"), mScale);
-            for(const auto id : tile.Id){
-                const auto val = static_cast<int>(id);
-                auto texture =GET_SIMPLE(data.Assets.Assets[val])[-1];    //Assets to use
-                editorTiles[pos].addData(texture.first, texture.second);
-                visualOverlay[pos].incrementCounter();  //Count up
+            for (const auto id : tile.Id) {
+                const auto val     = static_cast<int>(id);
+                auto       texture = GET_SIMPLE(data.Assets.Assets[val]); // Assets to use
+                editorTiles[pos].addData(texture.Texture, texture.getRandomView(), texture.Width, texture.Height, mScale);
+                visualOverlay[pos].incrementCounter(); // Count up
             }
             pos++;
         }
