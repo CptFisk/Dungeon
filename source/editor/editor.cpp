@@ -212,7 +212,7 @@ Editor::click(const float& x, const float& y) {
                     // Fetching the texture
                     auto simpleTexture = GET_SIMPLE(mSelectedTexture);
                     // Add texture to tile
-                    editorTiles[pos].addData(simpleTexture.Texture, simpleTexture.getRandomView(), simpleTexture.Width, simpleTexture.Height);
+                    editorTiles[pos].addData(simpleTexture.Texture, simpleTexture.getRandomView(), simpleTexture.Width, simpleTexture.Height, mScale);
                     // Stuff that shall be added to the files
                     fileTiles.Tiles[pos].Type |= Level::File::TEXTURE;
                     //Increment visual overlay
