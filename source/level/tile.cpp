@@ -23,16 +23,20 @@ Tile::clear() {
     data.clear();
 }
 
-size_t
+void
 Tile::addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const float& h) {
     data.emplace_back(texture, viewport, SDL_FRect{ xPos, yPos, w, h });
-    return data.size();
+}
+
+void
+Tile::addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const float& h, const Common::typeScale scale) {
+    data.emplace_back(texture, viewport, SDL_FRect{ xPos, yPos, w * scale.ScaleX, h * scale.ScaleY });
 }
 
 std::vector<Common::typeDrawData>
 Tile::getTile() {
     std::vector<Common::typeDrawData> ret;
-    for(auto& tile : data)
+    for (auto& tile : data)
         ret.emplace_back(tile.Texture, &tile.Viewport, &tile.Position);
     return ret;
 }

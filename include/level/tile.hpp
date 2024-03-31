@@ -14,8 +14,8 @@ class Tile {
      */
     struct tileData {
         SDL_Texture* Texture;
-        SDL_FRect   Viewport;
-        SDL_FRect   Position;
+        SDL_FRect    Viewport;
+        SDL_FRect    Position;
     };
 
   public:
@@ -27,14 +27,19 @@ class Tile {
 
     [[maybe_unused]] void clear(); // Clear vector
 
-    size_t addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const float& h); // Add element to the vector
-    // size_t addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const float& h, )
+    [[maybe_unused]] void addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const float& h); // Used during gameplay
+    [[maybe_unused]] void addData(SDL_Texture*            texture,
+                                  SDL_FRect               viewport,
+                                  const float&            w,
+                                  const float&            h,
+                                  const Common::typeScale scale); // Used in editor mode
+
     std::vector<Common::typeDrawData> getTile(); // Return all data that should be drawn.
 
   private:
   protected:
-    const float                       xPos;
-    const float                       yPos;
+    const float           xPos;
+    const float           yPos;
     std::vector<tileData> data; // All data that belongs to the tile. This is to allow multiple layers of texture to a base tile
 };
 }
