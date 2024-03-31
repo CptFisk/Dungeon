@@ -6,6 +6,15 @@
     "Objects": [
       {
         "File": "rsrc/Grass.png",
+        "Name": "LakeBase",
+        "Row": 1,
+        "Column": 9,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Grass.png",
         "Name": "GrassLakeN",
         "Row": 4,
         "Column": 1,
@@ -53,7 +62,7 @@
         "File": "rsrc/Grass.png",
         "Name": "GrassLakeES2",
         "Row": 5,
-        "Column": 1,
+        "Column": 2,
         "Length": 1,
         "Height": 16,
         "Width": 16
@@ -62,7 +71,7 @@
         "File": "rsrc/Grass.png",
         "Name": "GrassLakeSW2",
         "Row": 5,
-        "Column": 1,
+        "Column": 3,
         "Length": 1,
         "Height": 16,
         "Width": 16
@@ -71,7 +80,7 @@
         "File": "rsrc/Grass.png",
         "Name": "GrassLakeNW2",
         "Row": 5,
-        "Column": 1,
+        "Column": 4,
         "Length": 1,
         "Height": 16,
         "Width": 16
