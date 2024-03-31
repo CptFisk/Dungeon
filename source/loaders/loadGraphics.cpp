@@ -26,7 +26,7 @@ Graphics::loadGraphics(const std::string& folderPath) {
         }
         switch (header.Type) {
             case Common::BASE_TEXTURE:
-                loadSimpleTexture(header, jsonString);
+                loadSimpleTexture(jsonString);
                 break;
             case Common::ANIMATED_TEXTURE:
                 loadAnimatedTexture(header, jsonString);
@@ -39,7 +39,7 @@ Graphics::loadGraphics(const std::string& folderPath) {
 }
 
 void
-Graphics::loadSimpleTexture(const Common::typeHeaderJSON& header, const std::string& jsonString) {
+Graphics::loadSimpleTexture(const std::string& jsonString) {
     typeBaseTextureData jsonData;
     try {
         jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<typeBaseTextureData>();
@@ -48,7 +48,7 @@ Graphics::loadSimpleTexture(const Common::typeHeaderJSON& header, const std::str
     }
 
     for (const auto& data : jsonData.Objects) {
-        auto base = typeSimpleTexture(loadImage(data.File), static_cast<float>(data.Width), static_cast<float>(data.Height));
+        auto base = typeSimpleTexture(loadImage(data.File), data.Width, data.Height);
         // Generating viewports
         for (int i = 0; i < data.Length; i++) {
             const auto offset = (data.Column - 1) * data.Width;
