@@ -5,6 +5,9 @@
 namespace Editor {
 void
 Editor::uiTiles() {
+    if(editorTiles.empty())
+        return; //Break on empty
+
     const auto minX = std::max(static_cast<int>((mOffset.X / -1.0f) / (16.0f * mScale.ScaleX) - 16.0f), 0);
     const auto minY = std::max(static_cast<int>((mOffset.Y / -1.0f) / (16.0f * mScale.ScaleY) - 16.0f), 0);
     const auto maxX = std::min(minX + 17, static_cast<int>(fileHeader.Level.SizeX));
