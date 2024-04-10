@@ -8,10 +8,10 @@ Editor::uiTiles() {
     if(editorTiles.empty())
         return; //Break on empty
 
-    const auto minX = std::max(static_cast<int>((mOffset.X / -1.0f) / (16.0f * mScale.ScaleX) - 16.0f), 0);
-    const auto minY = std::max(static_cast<int>((mOffset.Y / -1.0f) / (16.0f * mScale.ScaleY) - 16.0f), 0);
-    const auto maxX = std::min(minX + 17, static_cast<int>(fileHeader.Level.SizeX));
-    const auto maxY = std::min(minY + 13, static_cast<int>(fileHeader.Level.SizeY));
+    const auto minX = std::max(static_cast<int>((mOffset.X / -1.0f) / (16.0f * mScale.ScaleX) - 1.0f), 0);
+    const auto minY = std::max(static_cast<int>((mOffset.Y / -1.0f) / (16.0f * mScale.ScaleY) - 1.0f), 0);
+    const auto maxX = std::min(minX + 20, static_cast<int>(fileHeader.Level.SizeX));
+    const auto maxY = std::min(minY + 16, static_cast<int>(fileHeader.Level.SizeY));
 
     std::vector<int> indices; // Contains all the tiles
 
@@ -33,6 +33,15 @@ Editor::uiTiles() {
                     auto element = editorTiles[index].getTile()[i];
                     mPerspective->render(element.Texture, element.Viewport, element.Position);
                 }
+            }
+        }
+
+        //Show overlay's
+        for(const auto& index: indices){
+            auto visual = visualOverlay[index];
+            if(showNumbers){
+                auto number = visual.getNumber();
+                mPerspective->render(number.first, &number.second, &visual.getPosition());
             }
         }
     }
