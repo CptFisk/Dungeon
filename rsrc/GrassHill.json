@@ -5,76 +5,85 @@
   "Data": {
     "Objects": [
       {
-        "File": "rsrc/Grass.png",
+        "File": "rsrc/Hills.png",
         "Name": "GrassHillNW",
-        "Row": 8,
-        "Column": 9,
+        "Row": 1,
+        "Column": 1,
         "Length": 1,
         "Height": 16,
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
+        "File": "rsrc/Hills.png",
         "Name": "GrassHillN",
-        "Row": 8,
-        "Column": 10,
+        "Row": 1,
+        "Column": 2,
         "Length": 1,
         "Height": 16,
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
+        "File": "rsrc/Hills.png",
         "Name": "GrassHillNE",
-        "Row": 8,
-        "Column": 11,
+        "Row": 1,
+        "Column": 3,
         "Length": 1,
         "Height": 16,
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
+        "File": "rsrc/Hills.png",
         "Name": "GrassHillW",
-        "Row": 9,
-        "Column": 9,
+        "Row": 2,
+        "Column": 1,
         "Length": 1,
         "Height": 16,
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
+        "File": "rsrc/Hills.png",
         "Name": "GrassHillE",
-        "Row": 9,
-        "Column": 11,
+        "Row": 2,
+        "Column": 3,
         "Length": 1,
         "Height": 16,
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
+        "File": "rsrc/Hills.png",
         "Name": "GrassHillSW",
-        "Row": 10,
-        "Column": 9,
+        "Row": 3,
+        "Column": 1,
         "Length": 1,
         "Height": 16,
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
+        "File": "rsrc/Hills.png",
         "Name": "GrassHillS",
-        "Row": 10,
-        "Column": 10,
+        "Row": 3,
+        "Column": 2,
         "Length": 1,
         "Height": 16,
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
+        "File": "rsrc/Hills.png",
         "Name": "GrassHillSE",
-        "Row": 10,
-        "Column": 11,
+        "Row": 3,
+        "Column": 3,
         "Length": 1,
         "Height": 16,
         "Width": 16
+      },
+      {
+        "File": "rsrc/Hills.png",
+        "Name": "GrassHillStairs",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 32
       }
     ]
   }
