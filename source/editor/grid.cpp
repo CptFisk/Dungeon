@@ -3,6 +3,8 @@
 namespace Editor {
 void
 Editor::uiDrawGrid() {
+    if(!showGrid)
+        return;
     // Set line color
     SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     const auto offsetX = static_cast<int>(mOffset.X);

@@ -103,6 +103,7 @@ class Editor {
     std::string                                            mStringInput;
     bool showOverlay;
     bool showNumbers;
+    bool showGrid;
 
     // Map data
     Level::File::typeHeader fileHeader;

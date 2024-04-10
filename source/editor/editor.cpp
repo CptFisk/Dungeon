@@ -20,6 +20,7 @@ Editor::Editor()
   , mNewFile(false)
   , showNumbers(false)
   , showOverlay(false)
+  , showGrid(false)
   , fileTiles(0)
   , editorTiles{}
   , mScale{}
@@ -71,7 +72,6 @@ Editor::startup() {
 
     mElements["TopMenu"]  = [this]() { uiMenu(); };
     mElements["Tiles"]    = [this]() { uiTiles(); };
-    mElements["Grid"]     = [this]() { uiDrawGrid(); };
     mElements["Header"]   = [this]() { uiHeader(); };
     mElements["Assets"]   = [this]() { uiAssets(); };
     mElements["Mouse"]    = [this]() { uiMouse(); };
@@ -157,6 +157,7 @@ Editor::mainLoop() {
         for (auto& [texture, position] : mEdges) {
             mPerspective->render(texture, nullptr, &position);
         }
+        uiDrawGrid();
         present();
 
         auto ticks = mFPSTimer.getTicks();

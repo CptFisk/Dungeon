@@ -43,8 +43,8 @@ Editor::uiMenu() {
                 showOverlay = !showOverlay;
             if (ImGui::MenuItem("Numbers", nullptr, showNumbers))
                 showNumbers = !showNumbers;
-            if (ImGui::MenuItem("Grid"))
-                displayElement("Grid");
+            if (ImGui::MenuItem("Grid", nullptr, showGrid))
+                showGrid = !showGrid;
             if (ImGui::MenuItem("Mouse"))
                 displayElement("Mouse");
             if (ImGui::MenuItem("Textures"))
