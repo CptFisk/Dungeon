@@ -5,7 +5,7 @@
   "Data": {
     "Objects": [
       {
-        "File": "rsrc/Hills.png",
+        "File": "rsrc/Hill.png",
         "Name": "GrassHillNW",
         "Row": 1,
         "Column": 1,
@@ -14,7 +14,7 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hills.png",
+        "File": "rsrc/Hill.png",
         "Name": "GrassHillN",
         "Row": 1,
         "Column": 2,
@@ -23,7 +23,7 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hills.png",
+        "File": "rsrc/Hill.png",
         "Name": "GrassHillNE",
         "Row": 1,
         "Column": 3,
@@ -32,7 +32,7 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hills.png",
+        "File": "rsrc/Hill.png",
         "Name": "GrassHillW",
         "Row": 2,
         "Column": 1,
@@ -41,7 +41,7 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hills.png",
+        "File": "rsrc/Hill.png",
         "Name": "GrassHillE",
         "Row": 2,
         "Column": 3,
@@ -50,7 +50,7 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hills.png",
+        "File": "rsrc/Hill.png",
         "Name": "GrassHillSW",
         "Row": 3,
         "Column": 1,
@@ -59,7 +59,7 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hills.png",
+        "File": "rsrc/Hill.png",
         "Name": "GrassHillS",
         "Row": 3,
         "Column": 2,
@@ -68,7 +68,7 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hills.png",
+        "File": "rsrc/Hill.png",
         "Name": "GrassHillSE",
         "Row": 3,
         "Column": 3,
@@ -77,7 +77,7 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hills.png",
+        "File": "rsrc/Hill.png",
         "Name": "GrassHillStairs",
         "Row": 3,
         "Column": 1,

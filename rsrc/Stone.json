@@ -1,0 +1,27 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/Stone.png",
+        "Name": "StoneSmall",
+        "Row": 1,
+        "Column": 4,
+        "Length": 2,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Stone.png",
+        "Name": "StoneMedium",
+        "Row": 1,
+        "Column": 1,
+        "Length": 3,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
