@@ -15,11 +15,6 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
     fileAssets = assets;
     fileTiles  = tiles;
 
-    // Creating asset list
-    for (const auto& asset : assets.Assets) {
-        fileAssets.Assets.push_back(asset);
-    }
-
     // Clear edges and then create them
     //  Position for edges
     const auto sizeX = fileHeader.Level.SizeX;
@@ -59,5 +54,6 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
             pos++;
         }
     }
+    mMapLoaded = true;
 }
 }
