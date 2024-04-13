@@ -46,7 +46,6 @@ Level::loadLevel(const std::string& filename) {
     for (int y = 0; y < data.Header.Level.SizeY; y++) {
         for (int x = 0; x < data.Header.Level.SizeX; x++) {
             tiles.emplace_back(x, y); // Used to generate all squares
-
         }
     }
 
@@ -87,9 +86,9 @@ Level::movement(const SDL_FRect& other, const Directions& direction) {
 std::vector<Common::typeDrawData>
 Level::getLevel() {
     std::vector<Common::typeDrawData> data;
-    for(int y = 0; y < 32; y++){
-        for(int x = 0; x < 32; x++){
-            auto index = Common::getIndex(x, y, 32);
+    for(int y = 0; y < 128; y++){
+        for(int x = 0; x < 128; x++){
+            auto index = Common::getIndex(x, y, header.Level.SizeX);
             int pos;
             if(index.has_value())
                 pos = index.value();

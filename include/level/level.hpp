@@ -4,10 +4,10 @@
 #include <global.hpp>
 #include <graphicsForward.hpp>
 #include <level/file.hpp>
+#include <level/tile.hpp>
 #include <memory>
 #include <string>
 #include <vector>
-#include <level/tile.hpp>
 
 namespace Level {
 
@@ -39,9 +39,9 @@ class Level {
     std::vector<SDL_FRect> obstacles; // Things that you cant walk over
     std::vector<SDL_FRect> walls;
     // Level data
-    File::typeHeader                header;
+    File::typeHeader  header;
     std::vector<Tile> tiles;
-    int                             elements; // Number of elements that exist in pTiles
+    int               elements; // Number of elements that exist in pTiles
 };
 
 }
