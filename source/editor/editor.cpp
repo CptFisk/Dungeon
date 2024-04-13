@@ -10,8 +10,10 @@
 #include <level/file.hpp>
 
 namespace Editor {
-Editor::Editor()
+Editor::Editor(const int& w, const int& h)
   : mInitHandler(std::make_unique<Common::InitHandler>())
+  , requestDimensionW(w)
+  , requestDimensionH(h)
   , pWindow(nullptr)
   , pRenderer(nullptr)
   , mFont(nullptr)
@@ -49,7 +51,7 @@ Editor::getActionManager() {
 
 void
 Editor::startup() {
-    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, "Editor"));
+    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, 1280, 1024, "Editor"));
     mInitHandler->addInitializer(std::make_shared<Common::ImGuiInitializer>(&pWindow, &pRenderer));
     mInitHandler->startup();
 
@@ -84,11 +86,8 @@ Editor::mainLoop() {
     SDL_Event event;
 
     while (mRun) {
-            SDL_SetRenderDrawColor(pRenderer,
-                                   fileHeader.Color.BackgroundRed,
-                                   fileHeader.Color.BackgroundGreen,
-                                   fileHeader.Color.BackgroundBlue,
-                                   SDL_ALPHA_OPAQUE);
+        SDL_SetRenderDrawColor(
+          pRenderer, fileHeader.Color.BackgroundRed, fileHeader.Color.BackgroundGreen, fileHeader.Color.BackgroundBlue, SDL_ALPHA_OPAQUE);
         ImGui_ImplSDLRenderer3_NewFrame();
         ImGui_ImplSDL3_NewFrame();
         ImGui::NewFrame();
@@ -213,10 +212,11 @@ Editor::click(const float& x, const float& y) {
                     // Fetching the texture
                     auto simpleTexture = GET_SIMPLE(mSelectedTexture);
                     // Add texture to tile
-                    editorTiles[pos].addData(simpleTexture.Texture, simpleTexture.getRandomView(), simpleTexture.Width, simpleTexture.Height, mScale);
+                    editorTiles[pos].addData(
+                      simpleTexture.Texture, simpleTexture.getRandomView(), simpleTexture.Width, simpleTexture.Height, mScale);
                     // Stuff that shall be added to the files
                     fileTiles.Tiles[pos].Type |= Level::File::TEXTURE;
-                    //Increment visual overlay
+                    // Increment visual overlay
                     visualOverlay[pos].incrementCounter();
                     // Search if the asset have been used before
                     const auto id = Level::File::findAsset(mSelectedTexture, fileAssets);
@@ -226,16 +226,16 @@ Editor::click(const float& x, const float& y) {
                         fileTiles.Tiles[pos].Id.emplace_back(Level::File::addAsset(mSelectedTexture, fileAssets));
                 } break;
                 case REMOVE:
-                    editorTiles[pos].clear(); //Clear the vector
+                    editorTiles[pos].clear(); // Clear the vector
 
                     fileTiles.Tiles[pos].Type = Level::File::BLANK;
                     fileTiles.Tiles[pos].Id.clear();
 
                     visualOverlay[pos].resetCounter();
                     {
-                        //We need to remove the coord from the list of used coordinates.
+                        // We need to remove the coord from the list of used coordinates.
                         auto it = mLevelCoords.find(Common::getClickCoords(x, y, mScale));
-                        if(it != mLevelCoords.end())
+                        if (it != mLevelCoords.end())
                             mLevelCoords.erase(it);
                     }
                     break;
@@ -255,6 +255,5 @@ Editor::click(const float& x, const float& y) {
         }
     }
 }
-
 
 }

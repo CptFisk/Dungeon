@@ -18,7 +18,7 @@
 namespace Editor {
 class Editor {
   public:
-    Editor();  // Constructor
+    Editor(const int& w, const int& h);  // Constructor
     ~Editor(); // De-constructor
 
     void                   startup();  // Load all functions related to startup
@@ -52,6 +52,9 @@ class Editor {
     void present();   // Render all graphic
 
   private:
+    const int requestDimensionW;    //Requested window width
+    const int requestDimensionH;    //Requested window height
+
     Common::typeScale mScale;
 
     bool mRun;
