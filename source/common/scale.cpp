@@ -8,9 +8,9 @@ calculateGameScale(typeScale& scale, SDL_Window* window) {
     const float squaresX  = 16.0; // Numbers of square in x-direction
     const float squareY   = 12.0; // Numbers of square in y-direction
     const float pixelSize = 16.0;
-    scale.ScaleX          = (static_cast<float>(width) / squaresX) / pixelSize;
-    scale.ScaleY          = (static_cast<float>(height) / squareY) / pixelSize;
-    scale.WindowX         = width;
-    scale.WindowY         = height;
+    scale.factorX         = (static_cast<float>(width) / squaresX) / pixelSize;
+    scale.factorY         = (static_cast<float>(height) / squareY) / pixelSize;
+    scale.windowWidth     = width;
+    scale.windowHeight    = height;
 }
 }

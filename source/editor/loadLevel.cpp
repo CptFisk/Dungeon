@@ -20,12 +20,12 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
     const auto sizeX = fileHeader.Level.SizeX;
     const auto sizeY = fileHeader.Level.SizeY;
 
-    const auto leftX            = -16.0f * mScale.ScaleX;
-    const auto rightX           = 16.0f * mScale.ScaleX * static_cast<float>(sizeX);
-    const auto topY             = -16.0f * mScale.ScaleY;
-    const auto bottomY          = 16.0f * mScale.ScaleY * static_cast<float>(sizeY);
-    const auto tileSizeX        = 16.0f * mScale.ScaleX;
-    const auto tileSizeY        = 16.0f * mScale.ScaleY;
+    const auto leftX            = -16.0f * mScale.factorX;
+    const auto rightX           = 16.0f * mScale.factorX * static_cast<float>(sizeX);
+    const auto topY             = -16.0f * mScale.factorY;
+    const auto bottomY          = 16.0f * mScale.factorY * static_cast<float>(sizeY);
+    const auto tileSizeX        = 16.0f * mScale.factorX;
+    const auto tileSizeY        = 16.0f * mScale.factorY;
     const auto verticalLength   = tileSizeX * (static_cast<float>(sizeY) + 2.0f);
     const auto horizontalLength = tileSizeY * (static_cast<float>(sizeX) + 2.0f);
     // Adding some visuals so we don't paint outside

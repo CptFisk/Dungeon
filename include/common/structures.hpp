@@ -40,11 +40,21 @@ struct typeDrawDataAngled {
     const float  Angle;
 };
 
+/**
+ * @brief Structure that contains all information about SDL_Window.
+ * @brief The factor X and Y is a calculated value that shall be multiplied to accomplish
+ * @brief a grid size of 16x12 squares.
+ */
 struct typeScale {
-    float ScaleX;  // Scaling factor needed to archive 16x12 squares
-    float ScaleY;  // Scaling factor needed to archive 16x12 squares
-    int   WindowX; // Window size in X-direction
-    int   WindowY; // Window size in Y-direction
+    float factorX;
+    float factorY;
+    int   windowWidth;  // Window width
+    int   windowHeight; // Window Height
+    typeScale()
+      : factorX(0.0f)
+      , factorY(0.0f)
+      , windowWidth(0)
+      , windowHeight(0) {}
 };
 
 #define HEADER_TYPES(DO) \

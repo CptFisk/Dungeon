@@ -7,8 +7,8 @@ Tile::Tile(const int& x, const int& y)
   , yPos(static_cast<float>(y) * 16.0f) {}
 
 Tile::Tile(const int& x, const int& y, const Common::typeScale& scale)
-  : xPos(static_cast<float>(x) * 16.0f * scale.ScaleX)
-  , yPos(static_cast<float>(y) * 16.0f * scale.ScaleY) {}
+  : xPos(static_cast<float>(x) * 16.0f * scale.factorX)
+  , yPos(static_cast<float>(y) * 16.0f * scale.factorY) {}
 
 Tile&
 Tile::operator=(const Level::Tile& other) {
@@ -30,7 +30,7 @@ Tile::addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const fl
 
 void
 Tile::addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const float& h, const Common::typeScale scale) {
-    data.emplace_back(texture, viewport, SDL_FRect{ xPos, yPos, w * scale.ScaleX, h * scale.ScaleY });
+    data.emplace_back(texture, viewport, SDL_FRect{ xPos, yPos, w * scale.factorX, h * scale.factorY });
 }
 
 std::vector<Common::typeDrawData>

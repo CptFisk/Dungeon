@@ -73,7 +73,7 @@ Engine::startup() {
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, "Veras adventure"));
     mInitHandler->startup();
     Common::calculateGameScale(mScale, pWindow);
-    SDL_SetRenderScale(pRenderer, static_cast<int>(mScale.ScaleX), static_cast<int>(mScale.ScaleY));
+    SDL_SetRenderScale(pRenderer, static_cast<int>(mScale.factorX), static_cast<int>(mScale.factorY));
 
     // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y);
@@ -127,8 +127,8 @@ Engine::terminate() {
 
 void
 Engine::click(const float& x, const float& y) {
-    const auto scaledX = (x / mScale.ScaleX) + (mPerspective->mOffset.x / -1.0f);
-    const auto scaledY = (y / mScale.ScaleY) + (mPerspective->mOffset.y / -1.0f);
+    const auto scaledX = (x / mScale.factorX) + (mPerspective->mOffset.x / -1.0f);
+    const auto scaledY = (y / mScale.factorY) + (mPerspective->mOffset.y / -1.0f);
     auto       player  = Utility::getFRectCenter(*pPlayerPosition);
     auto       angle   = Utility::calculateAngle(player.first, player.second, scaledX, scaledY);
     mPlayerEnergy -= 3;

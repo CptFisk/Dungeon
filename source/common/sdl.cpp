@@ -21,10 +21,10 @@ newSDL_FRectScaled(const int& x, const int&y, const typeScale& scale){
 
 SDL_FRect
 newSDL_FRectScaled(const float& x, const float&y, const typeScale& scale){
-    return SDL_FRect{ x * 16.0f * static_cast<float>(scale.ScaleX),
-                      y * 16.0f * static_cast<float>(scale.ScaleY),
-                      16.0f * scale.ScaleX,
-                      16.0f * scale.ScaleY };
+    return SDL_FRect{ x * 16.0f * static_cast<float>(scale.factorX),
+                      y * 16.0f * static_cast<float>(scale.factorY),
+                      16.0f * scale.factorX,
+                      16.0f * scale.factorY };
 }
 
 }
