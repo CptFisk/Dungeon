@@ -70,7 +70,7 @@ Engine::startup() {
     mThreads.push_back(spawnInterrupt(500));
     mThreads.push_back(spawnInterrupt(1000));
 
-    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, "Veras adventure"));
+    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, 1280, 1024, "Veras adventure"));
     mInitHandler->startup();
     Common::calculateGameScale(mScale, pWindow);
     SDL_SetRenderScale(pRenderer, static_cast<int>(mScale.factorX), static_cast<int>(mScale.factorY));
