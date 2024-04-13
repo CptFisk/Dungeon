@@ -51,7 +51,8 @@ Editor::getActionManager() {
 
 void
 Editor::startup() {
-    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, 1280, 1024, "Editor"));
+    mInitHandler->addInitializer(
+      std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, requestDimensionW, requestDimensionH, "Editor"));
     mInitHandler->addInitializer(std::make_shared<Common::ImGuiInitializer>(&pWindow, &pRenderer));
     mInitHandler->startup();
 

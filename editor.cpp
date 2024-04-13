@@ -6,7 +6,7 @@ main() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
-    Editor::Editor editor;
+    Editor::Editor editor(1280, 1024);
     editor.getActionManager().registerMouseAction("Click", SDL_BUTTON_LEFT);
     editor.getActionManager().registerKeyboardAction("CameraNorth", SDLK_w);
     editor.getActionManager().registerKeyboardAction("CameraEast", SDLK_d);
@@ -41,7 +41,6 @@ main() {
           }
       },
       editor.getProcessing());
-
 
     Common::queueEventHandler(
       SDL_EVENT_QUIT,
