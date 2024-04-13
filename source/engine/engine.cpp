@@ -47,7 +47,7 @@ Engine::getActionManager() {
     return *mActionManager;
 }
 
-[[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>&
+std::list<std::function<bool(SDL_Event*)>>&
 Engine::getEventList() {
     return mEventWatcher;
 }
