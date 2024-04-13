@@ -45,7 +45,7 @@ Level::loadLevel(const std::string& filename) {
 
     for (int y = 0; y < data.Header.Level.SizeY; y++) {
         for (int x = 0; x < data.Header.Level.SizeX; x++) {
-            tiles.emplace_back(Tile(x, y)); // Used to generate all squares
+            tiles.emplace_back(x, y); // Used to generate all squares
 
         }
     }

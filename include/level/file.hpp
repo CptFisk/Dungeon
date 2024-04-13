@@ -68,17 +68,14 @@ struct typeHeader {
         uint8_t  SizeX;    // Map width
         uint8_t  SizeY;    // Map height
         uint16_t Elements; // Number of active tiles
-        Level()
-          : SizeX(0)
-          , SizeY(0)
-          , Elements(0){};
     } Level;
-
+    /*
     typeHeader()
       : HeaderVersion(0)
       , MapName{}
       , Color()
       , Level(){};
+      */
 };
 
 struct typeAssets {
