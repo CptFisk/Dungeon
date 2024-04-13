@@ -178,7 +178,7 @@ Editor::present() {
     SDL_RenderPresent(pRenderer);
 }
 
-[[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>&
+std::list<std::function<bool(SDL_Event*)>>&
 Editor::getEventList() {
     return mEventWatcher;
 }
