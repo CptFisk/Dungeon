@@ -16,18 +16,19 @@ isOverlapping(const SDL_FRect& rect1, const SDL_FRect& rect2) {
 bool
 isColliding(const SDL_FRect& rect1, const SDL_FRect& rect2, Directions direction) {
     SDL_FRect tmp = rect1;
+    const float threshold = 1.0f;
     switch (direction) {
         case NORTH:
-            tmp.y -= 3.0f;
+            tmp.y -= threshold;
             break;
         case EAST:
-            tmp.x += 3.0f;
+            tmp.x += threshold;
             break;
         case SOUTH:
-            tmp.y += 3.0f;
+            tmp.y += threshold;
             break;
         case WEST:
-            tmp.x -= 3.0f;
+            tmp.x -= threshold;
             break;
         case ALL:
         default:
