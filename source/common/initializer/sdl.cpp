@@ -1,5 +1,4 @@
 #include <SDL3_image/SDL_image.h>
-#include <SDL3_ttf/SDL_ttf.h>
 #include <common/initializer/sdl.hpp>
 #include <iostream>
 
@@ -15,7 +14,6 @@ void
 SDLInitializer::startup() {
     SDL_Init(SDL_INIT_VIDEO);
     IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
-    TTF_Init();
     Uint32 windowFlags = 0;
     Uint32 renderFlags = 0;
     windowFlags |= SDL_WINDOW_RESIZABLE;

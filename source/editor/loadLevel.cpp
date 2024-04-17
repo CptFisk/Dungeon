@@ -50,6 +50,7 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
                 auto       texture = GET_SIMPLE(data.Assets.Assets[val]); // Assets to use
                 editorTiles[pos].addData(texture.Texture, texture.getRandomView(), texture.Width, texture.Height, mScale);
                 visualOverlay[pos].incrementCounter(); // Count up
+                mLevelCoords.emplace(x,y);
             }
             pos++;
         }

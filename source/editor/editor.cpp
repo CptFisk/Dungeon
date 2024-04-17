@@ -1,4 +1,3 @@
-#include <SDL3_ttf/SDL_ttf.h>
 #include <backends/imgui_impl_sdl3.h>
 #include <backends/imgui_impl_sdlrenderer3.h>
 #include <cmath>
@@ -16,7 +15,6 @@ Editor::Editor(const int& w, const int& h)
   , requestDimensionH(h)
   , pWindow(nullptr)
   , pRenderer(nullptr)
-  , mFont(nullptr)
   , mRun(true)
   , mMapLoaded(false)
   , mNewFile(false)
@@ -34,13 +32,10 @@ Editor::Editor(const int& w, const int& h)
 Editor::~Editor() {
     mInitHandler->shutdown();
 
-    if (mFont)
-        TTF_CloseFont(mFont); // Clean the font
 
     fileTiles.Tiles.clear();
     visualOverlay.clear();
 
-    TTF_Quit();
     SDL_Quit();
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 #include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
 #include <common/include.hpp>
 #include <common/perspective.hpp>
 #include <editor/structures.hpp>
@@ -83,7 +82,6 @@ class Editor {
 
     SDL_Window*   pWindow;
     SDL_Renderer* pRenderer;
-    TTF_Font*     mFont;
     Mouse         mMouse;
 
     // Windows
