@@ -2,6 +2,11 @@
 
 namespace Common {
 SDL_FRect
+newSDL_FRect(const std::pair<int, int>& coords){
+    return newSDL_FRect(coords.first, coords.second);
+}
+
+SDL_FRect
 newSDL_FRect(const int& x, const int& y) {
     return newSDL_FRect(static_cast<float>(x), static_cast<float>(y));
 }
