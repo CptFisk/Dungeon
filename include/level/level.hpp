@@ -14,7 +14,7 @@ namespace Level {
 class Level {
   public:
     Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics, Uint8& red, Uint8& green, Uint8& blue);
-    ~Level(); // Cleaning
+    ~Level() = default; // Cleaning
 
     void loadLevel(const std::string& filename);
     /**

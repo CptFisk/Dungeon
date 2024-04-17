@@ -1,10 +1,10 @@
+#include <algorithm>
 #include <common/math.hpp>
 #include <common/sdl.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
 #include <level/level.hpp>
 #include <utility/textures.hpp>
-#include <algorithm>
 
 namespace Level {
 
@@ -17,7 +17,7 @@ Level::Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphic
   , mGraphics(std::move(graphics))
   , elements(0) {}
 
-Level::~Level() {}
+
 
 void
 Level::loadLevel(const std::string& filename) {
@@ -49,19 +49,23 @@ Level::loadLevel(const std::string& filename) {
         }
     }
 
-    if(tiles.size() != data.Tiles.Tiles.size())
+    if (tiles.size() != data.Tiles.Tiles.size())
         throw std::runtime_error("Load file corrupted");
 
-
-    int pos = 0;    //Resetting
-    for(const auto& tile : data.Tiles.Tiles){
-        if((tile.Type & File::TEXTURE) != 0){
-            //Read all assets
-            for(const auto& id : tile.Id){
-                const auto val = static_cast<int>(id);
-                auto texture =GET_SIMPLE(data.Assets.Assets[val]);    //Assets to use
+    int pos = 0; // Resetting
+    for (const auto& tile : data.Tiles.Tiles) {
+        if ((tile.Type & File::TEXTURE) != 0) {
+            // Read all assets
+            for (const auto& id : tile.Id) {
+                const auto val     = static_cast<int>(id);
+                auto       texture = GET_SIMPLE(data.Assets.Assets[val]); // Assets to use
                 tiles[pos].addData(texture.getTexture(), texture.getRandomView(), texture.Width, texture.Height);
             }
+        }
+        if ((tile.Type & File::OBSTACLE) != 0) {
+            const auto coords = Common::getCoords(pos, data.Header.Level.SizeX, data.Header.Level.SizeY);
+            if (coords.has_value())
+                obstacle.emplace_back(Common::newSDL_FRect(coords.value()));
         }
         pos++;
     }
@@ -86,14 +90,15 @@ Level::movement(const SDL_FRect& other, const Directions& direction) {
 std::vector<Common::typeDrawData>
 Level::getLevel() {
     std::vector<Common::typeDrawData> data;
-    for(int y = 0; y < 128; y++){
-        for(int x = 0; x < 128; x++){
+    for (int y = 0; y < 128; y++) {
+        for (int x = 0; x < 128; x++) {
             auto index = Common::getIndex(x, y, header.Level.SizeX);
-            int pos;
-            if(index.has_value())
+            int  pos;
+            if (index.has_value()) {
                 pos = index.value();
-            for(auto &element : tiles[pos].getTile())
-                data.push_back(element);
+                for (auto& element : tiles[pos].getTile())
+                    data.push_back(element);
+            }
         }
     }
     return data;
