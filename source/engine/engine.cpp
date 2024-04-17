@@ -80,7 +80,7 @@ Engine::startup() {
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
 
-    mLevel = std::make_unique<Level::Level>(pRenderer, mGraphics, Background.Red, Background.Green, Background.Blue);
+    mLevel = std::make_unique<Level::Level>(pRenderer, mGraphics, Background.Red, Background.Green, Background.Blue, offset.X, offset.Y);
     mLevel->loadLevel("level.map");
     mPlayer = std::make_unique<Player::Player>();
 

@@ -2,7 +2,7 @@
 
 namespace Player {
 Player::Player()
-  : mPlayerPosition(16.0f, 16.0f, 16.0f, 16.0f)
+  : mPlayerPosition(64.0f, 50.0f, 16.0f, 16.0f)
   , pCurrentTexture(nullptr)
   , pCurrentViewport(nullptr)
   , mAction(Objects::IDLE)

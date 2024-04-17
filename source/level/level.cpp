@@ -8,11 +8,13 @@
 
 namespace Level {
 
-Level::Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics, Uint8& red, Uint8& green, Uint8& blue)
+Level::Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics, Uint8& red, Uint8& green, Uint8& blue, float& playerX, float& playerY)
   : pRenderer(renderer)
   , red(red)
   , green(green)
   , blue(blue)
+  , playerX(playerX)
+  , playerY(playerY)
   , header{}
   , mGraphics(std::move(graphics))
   , elements(0) {}
@@ -90,6 +92,8 @@ Level::movement(const SDL_FRect& other, const Directions& direction) {
 std::vector<Common::typeDrawData>
 Level::getLevel() {
     std::vector<Common::typeDrawData> data;
+    std::vector<int> indices; // Contains all the tiles
+
     for (int y = 0; y < 128; y++) {
         for (int x = 0; x < 128; x++) {
             auto index = Common::getIndex(x, y, header.Level.SizeX);

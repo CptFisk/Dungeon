@@ -13,7 +13,13 @@ namespace Level {
 
 class Level {
   public:
-    Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics, Uint8& red, Uint8& green, Uint8& blue);
+    Level(SDL_Renderer*                       renderer,
+          std::shared_ptr<Graphics::Graphics> graphics,
+          Uint8&                              red,
+          Uint8&                              green,
+          Uint8&                              blue,
+          float&                              playerX,
+          float&                              playerY);
     ~Level() = default; // Cleaning
 
     void loadLevel(const std::string& filename);
@@ -42,6 +48,9 @@ class Level {
     File::typeHeader  header;
     std::vector<Tile> tiles;
     int               elements; // Number of elements that exist in pTiles
+
+    float& playerX; //Player position X-axis
+    float& playerY; //Player position Y-axis
 };
 
 }
