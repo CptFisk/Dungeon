@@ -29,4 +29,12 @@ getClickCoords(const float& x, const float& y, const typeScale& scale){
     return std::make_pair(_x, _y);
 }
 
+std::optional<std::pair<int,int>>
+getCoords(const int& pos, const int& width, const int& height){
+    if(pos >= width* height)
+        return std::nullopt;
+    const int y = pos / height;
+    const int x = pos - (y * height);
+    return std::pair(x,y);
+}
 }

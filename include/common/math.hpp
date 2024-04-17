@@ -18,4 +18,14 @@ getIndex(const int& x, const int& y, const int& maxX);
 std::pair<int, int>
 getClickCoords(const float& x, const float& y, const typeScale& scale);
 
+/**
+ * @brief Return coordinates based index position.
+ * @brief Example: A 4x4 grid exist and you give position 5.
+ * @brief That correlate to the position x = 0, y =1.
+ * @param pos
+ * @return
+ */
+std::optional<std::pair<int,int>>
+getCoords(const int& pos, const int& width, const int& height);
+
 }
