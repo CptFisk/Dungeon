@@ -94,14 +94,30 @@ Level::getLevel() {
     std::vector<Common::typeDrawData> data;
     std::vector<int> indices; // Contains all the tiles
 
-    for (int y = 0; y < 128; y++) {
-        for (int x = 0; x < 128; x++) {
-            auto index = Common::getIndex(x, y, header.Level.SizeX);
-            int  pos;
-            if (index.has_value()) {
-                pos = index.value();
-                for (auto& element : tiles[pos].getTile())
-                    data.push_back(element);
+    //Calculate what to draw
+    const auto minX = std::max(static_cast<int>((playerX / -1.0f) / 16.0f - 3.0f), 0);
+    const auto minY = std::max(static_cast<int>((playerY / -1.0f) / 16.0f - 3.0f), 0);
+    const auto maxX = std::min(minX + 20, static_cast<int>(header.Level.SizeX));
+    const auto maxY = std::min(minY + 16, static_cast<int>(header.Level.SizeY));
+
+    for (int y = minY; y < maxY; y++) {
+        for (int x = minX; x < maxX; x++) {
+            auto pos = Common::getIndex(x, y, header.Level.SizeX);
+            if (pos.has_value()) {
+                indices.emplace_back(pos.value());
+            }
+        }
+        size_t maxSize = 0;
+        for (const auto& index : indices) {
+            maxSize = std::max(maxSize, tiles[index].getTile().size()); // Selecting the biggest value
+        }
+
+        for (int i = 0; i < maxSize; i++) {
+            for (const auto& index : indices) {
+                if (index < tiles.size() && i < tiles[index].getTile().size()) {
+                    auto element = tiles[index].getTile()[i];
+                    data.emplace_back(element.Texture, element.Viewport, element.Position);
+                }
             }
         }
     }
