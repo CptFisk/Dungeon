@@ -78,6 +78,51 @@
       },
       {
         "File": "rsrc/Hill.png",
+        "Name": "GrassHillSE",
+        "Row": 3,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Hill.png",
+        "Name": "GrassHillNE2",
+        "Row": 2,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Hill.png",
+        "Name": "GrassHillES2",
+        "Row": 1,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Hill.png",
+        "Name": "GrassHillSW2",
+        "Row": 1,
+        "Column": 5,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Hill.png",
+        "Name": "GrassHillNW2",
+        "Row": 2,
+        "Column": 5,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/Hill.png",
         "Name": "GrassHillStairs",
         "Row": 3,
         "Column": 1,

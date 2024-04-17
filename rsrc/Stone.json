@@ -6,7 +6,7 @@
     "Objects": [
       {
         "File": "rsrc/Stone.png",
-        "Name": "StoneSmall",
+        "Name": "StoneS",
         "Row": 1,
         "Column": 4,
         "Length": 2,
@@ -15,12 +15,30 @@
       },
       {
         "File": "rsrc/Stone.png",
-        "Name": "StoneMedium",
+        "Name": "StoneM",
         "Row": 1,
         "Column": 1,
         "Length": 3,
         "Height": 16,
         "Width": 16
+      },
+      {
+        "File": "rsrc/Stone.png",
+        "Name": "StoneL",
+        "Row": 2,
+        "Column": 1,
+        "Length": 2,
+        "Height": 32,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/Stone.png",
+        "Name": "StoneXL",
+        "Row": 2,
+        "Column": 3,
+        "Length": 2,
+        "Height": 32,
+        "Width": 32
       }
     ]
   }
