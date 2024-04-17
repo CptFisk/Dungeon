@@ -52,6 +52,12 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
                 visualOverlay[pos].incrementCounter(); // Count up
                 mLevelCoords.emplace(x,y);
             }
+            if((tile.Type & Level::File::WALL) != 0) {
+                visualOverlay[pos].newOverlay(GET_SDL("87ED17"));
+            }
+            if((tile.Type & Level::File::OBSTACLE) != 0) {
+                visualOverlay[pos].newOverlay(GET_SDL("1D35FA"));
+            }
             pos++;
         }
     }
