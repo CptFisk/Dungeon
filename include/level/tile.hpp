@@ -27,6 +27,7 @@ class Tile {
 
     [[maybe_unused]] void clear(); // Clear vector
 
+    [[maybe_unused]] void addData(SDL_Texture* texture, SDL_FRect viewport, const int& w, const int& h);
     [[maybe_unused]] void addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const float& h); // Used during gameplay
     [[maybe_unused]] void addData(SDL_Texture*            texture,
                                   SDL_FRect               viewport,

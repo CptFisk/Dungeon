@@ -23,6 +23,10 @@ Tile::clear() {
     data.clear();
 }
 
+void Tile::addData(SDL_Texture* texture, SDL_FRect viewport, const int& w, const int& h){
+    addData(texture, viewport, static_cast<float>(w), static_cast<float>(h));
+}
+
 void
 Tile::addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const float& h) {
     data.emplace_back(texture, viewport, SDL_FRect{ xPos, yPos, w, h });
