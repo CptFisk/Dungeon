@@ -43,6 +43,9 @@ Editor::uiTiles() {
                 auto number = visual.getNumber();
                 mPerspective->render(number.first, &number.second, &visual.getPosition());
             }
+            if(showOverlay){
+                mPerspective->render(visual.getOverlay(), nullptr, &visual.getPosition());
+            }
         }
     }
 }
