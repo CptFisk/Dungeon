@@ -69,6 +69,11 @@ Level::loadLevel(const std::string& filename) {
             if (coords.has_value())
                 obstacle.emplace_back(Common::newSDL_FRect(coords.value()));
         }
+        if ((tile.Type & File::WALL) != 0) {
+            const auto coords = Common::getCoords(pos, data.Header.Level.SizeX, data.Header.Level.SizeY);
+            if (coords.has_value())
+                wall.emplace_back(Common::newSDL_FRect(coords.value()));
+        }
         pos++;
     }
 
