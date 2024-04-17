@@ -1,4 +1,3 @@
-#include <SDL3_ttf/SDL_ttf.h>
 #include <common/handlers.hpp>
 #include <common/scale.hpp>
 #include <engine/engine.hpp>
@@ -38,7 +37,6 @@ Engine::~Engine() {
     for (auto& thread : mThreads) {
         thread.join();
     }
-    TTF_Quit();
     SDL_Quit();
 }
 
