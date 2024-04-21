@@ -29,7 +29,7 @@ class Level {
      * @return true = movement allowed
      */
     bool movement(const SDL_FRect& other, const Directions& direction);
-    bool movement(const SDL_Point& other, const Directions& direction);
+    bool movement(const SDL_FPoint& other, const Directions& direction);
 
     std::vector<Common::typeDrawData> getLevel(); // Return all draw data
 

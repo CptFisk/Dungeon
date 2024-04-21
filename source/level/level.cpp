@@ -8,7 +8,13 @@
 
 namespace Level {
 
-Level::Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics, Uint8& red, Uint8& green, Uint8& blue, float& playerX, float& playerY)
+Level::Level(SDL_Renderer*                       renderer,
+             std::shared_ptr<Graphics::Graphics> graphics,
+             Uint8&                              red,
+             Uint8&                              green,
+             Uint8&                              blue,
+             float&                              playerX,
+             float&                              playerY)
   : pRenderer(renderer)
   , red(red)
   , green(green)
@@ -18,8 +24,6 @@ Level::Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphic
   , header{}
   , mGraphics(std::move(graphics))
   , elements(0) {}
-
-
 
 void
 Level::loadLevel(const std::string& filename) {
@@ -82,8 +86,8 @@ Level::loadLevel(const std::string& filename) {
 }
 
 bool
-Level::movement(const SDL_Point& other, const Directions& direction) {
-    return movement(SDL_FRect(other.x,other.y,1.0f,1.0f), direction);
+Level::movement(const SDL_FPoint& other, const Directions& direction) {
+    return movement(SDL_FRect(other.x, other.y, 1.0f, 1.0f), direction);
 }
 
 bool
@@ -102,9 +106,9 @@ Level::movement(const SDL_FRect& other, const Directions& direction) {
 std::vector<Common::typeDrawData>
 Level::getLevel() {
     std::vector<Common::typeDrawData> data;
-    std::vector<int> indices; // Contains all the tiles
+    std::vector<int>                  indices; // Contains all the tiles
 
-    //Calculate what to draw
+    // Calculate what to draw
     const auto minX = std::max(static_cast<int>((playerX / -1.0f) / 16.0f - 3.0f), 0);
     const auto minY = std::max(static_cast<int>((playerY / -1.0f) / 16.0f - 3.0f), 0);
     const auto maxX = std::min(minX + 20, static_cast<int>(header.Level.SizeX));

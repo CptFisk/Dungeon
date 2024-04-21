@@ -73,9 +73,6 @@ Engine::startup() {
     Common::calculateGameScale(mScale, pWindow);
     SDL_SetRenderScale(pRenderer, 5.0f, 5.0f);
 
-    // Setup perspective
-    mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y);
-
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
@@ -116,6 +113,9 @@ Engine::startup() {
     mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::IDLE, Directions::ALL, GET_ANIMATED("SlimeIdle"));
     mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::MOVE, Directions::ALL, GET_ANIMATED("SlimeMoving"));
     mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DYING, Directions::ALL, GET_ANIMATED("SlimeDead"));
+
+    // Setup perspective
+    mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y, mPlayer->getPlayerCenter());
     mPlayer->spawn(10, 7);
 }
 
