@@ -4,6 +4,7 @@ option(BUILD_GAME "Build game" ON)
 
 if (BUILD_GAME)
     message(STATUS "Building game")
+    set(GAME_MODE TRUE)
     project(Dungeon)
 else ()
     project(Editor)
@@ -103,6 +104,7 @@ target_include_directories(
         SDL3_ttf::SDL3_ttf
         nlohmann_json::nlohmann_json
         ${IMGUI_INCLUDE_DIRS}
+        ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 
@@ -111,7 +113,6 @@ target_link_libraries(
 
         SDL3::SDL3
         SDL3_image::SDL3_image
-        #SDL3_ttf::SDL3_ttf
         nlohmann_json::nlohmann_json
         ${LIB_IMGUI}
 )
@@ -125,6 +126,8 @@ file(
         COPY ${RSRC}
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
 )
+
+configure_file(cmake.hpp.in cmake.hpp @ONLY)
 
 if(WIN32)
     set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
