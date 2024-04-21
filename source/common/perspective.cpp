@@ -1,9 +1,10 @@
 #include <common/perspective.hpp>
-
+#include <cmake.hpp>
 namespace Common {
-Perspective::Perspective(SDL_Renderer* renderer, float& offsetX, float& offsetY)
+Perspective::Perspective(SDL_Renderer* renderer, float& offsetX, float& offsetY, SDL_Point* playerCenter)
   : pRenderer(renderer)
-  , mOffset{ offsetX, offsetY } {}
+  , mOffset{ offsetX, offsetY }
+  , pPlayerCenter(playerCenter) {}
 
 void
 Perspective::render(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position) {
@@ -25,6 +26,9 @@ void
 Perspective::move(Directions direction, const float& velocity) {
     switch (direction) {
         case NORTH:
+#ifdef GAME_MODE
+            if(mOffset.y < 0)
+#endif
             mOffset.y += velocity;
             break;
         case EAST:
