@@ -83,7 +83,7 @@ Level::loadLevel(const std::string& filename) {
 
 bool
 Level::movement(const SDL_Point& other, const Directions& direction) {
-    return movement(SDL_FRect(other.x,other.y,16.0f,16.0f), direction);
+    return movement(SDL_FRect(other.x,other.y,1.0f,1.0f), direction);
 }
 
 bool
