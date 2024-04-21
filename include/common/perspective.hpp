@@ -6,7 +6,7 @@
 namespace Common {
 class Perspective {
   public:
-    Perspective(SDL_Renderer* renderer, float& offsetX, float& offsetY, SDL_Point* playerCenter = nullptr);
+    Perspective(SDL_Renderer* renderer, float& offsetX, float& offsetY, SDL_FPoint* playerCenter = nullptr);
 
     void render(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position);
     void renderRotated(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position, const float& angle);
@@ -22,6 +22,9 @@ class Perspective {
   private:
   protected:
     SDL_Renderer*               pRenderer;
-    [[maybe_unused]] SDL_Point* pPlayerCenter; // Only used during "game-mode"
+    [[maybe_unused]] SDL_FPoint* pPlayerCenter; // Only used during "game-mode"
+
+    static constexpr float halfX = static_cast<float>((16*16)/2);
+    static constexpr float halfY = static_cast<float>((12*16)/2);
 };
 }

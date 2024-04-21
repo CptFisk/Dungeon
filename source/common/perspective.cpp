@@ -1,7 +1,8 @@
-#include <common/perspective.hpp>
 #include <cmake.hpp>
+#include <common/perspective.hpp>
+
 namespace Common {
-Perspective::Perspective(SDL_Renderer* renderer, float& offsetX, float& offsetY, SDL_Point* playerCenter)
+Perspective::Perspective(SDL_Renderer* renderer, float& offsetX, float& offsetY, SDL_FPoint* playerCenter)
   : pRenderer(renderer)
   , mOffset{ offsetX, offsetY }
   , pPlayerCenter(playerCenter) {}
@@ -27,15 +28,20 @@ Perspective::move(Directions direction, const float& velocity) {
     switch (direction) {
         case NORTH:
 #ifdef GAME_MODE
-            if(mOffset.y < 0)
+            if (mOffset.y < 0)
 #endif
-            mOffset.y += velocity;
+                mOffset.y += velocity;
             break;
         case EAST:
             mOffset.x -= velocity;
             break;
         case SOUTH:
-            mOffset.y -= velocity;
+#ifdef GAME_MODE
+            if (mOffset.y <= 0 && pPlayerCenter->y > halfY)
+#else
+            if (mOffset.y <= 0)
+#endif
+                mOffset.y -= velocity;
             break;
         case WEST:
             mOffset.x += velocity;
