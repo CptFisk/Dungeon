@@ -60,8 +60,7 @@ Player::resetMomentum() {
 
 float
 Player::move(Directions direction) {
-    if(mMomentum <= 1.0f)
-        mMomentum += 0.1;
+    mMomentum = 1.0f;
     switch (direction) {
         case NORTH:
             mTexturePosition.y -= mMomentum;
