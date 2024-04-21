@@ -139,8 +139,7 @@ Engine::click(const float& x, const float& y) {
 
 void
 Engine::movePlayer(Directions direction) {
-    auto p = *mPlayer->getPlayerCenter();
-    if (mLevel->movement(p, direction))
+    if (mLevel->movement(*mPlayer->getPlayerCenter(), direction))
         mPerspective->move(direction, mPlayer->move(direction));
 }
 
