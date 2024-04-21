@@ -52,6 +52,7 @@ main() {
           if (!engine.getActionManager().isActionPressed("PlayerNorth") && !engine.getActionManager().isActionPressed("PlayerEast") &&
               !engine.getActionManager().isActionPressed("PlayerSouth") && !engine.getActionManager().isActionPressed("PlayerWest")) {
               engine.setPlayerAction(Objects::State::IDLE);
+              engine.resetPlayerMomentum();
           }
       },
       engine.getProcessing());

@@ -102,9 +102,9 @@ Engine::startup() {
     mPlayer->setDirection(SOUTH);
     mPlayer->setAction(Objects::State::IDLE);
 
-    pPlayerTexture  = mPlayer->getPlayerTexture();
-    pPlayerView     = mPlayer->getPlayerViewport();
-    pPlayerPosition = mPlayer->getPlayerPosition();
+    pPlayerTexture  = mPlayer->getTexture();
+    pPlayerView     = mPlayer->getTextureViewport();
+    pPlayerPosition = mPlayer->getTexturePosition();
     mParticles      = std::make_shared<Objects::Particle>(GET_SDL("FAE2C3"), 100, 0.5f, 0.5f);
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
@@ -145,6 +145,11 @@ Engine::movePlayer(Directions direction) {
 void
 Engine::setPlayerAction(Objects::State action) {
     mPlayer->setAction(action);
+}
+
+void
+Engine::resetPlayerMomentum(){
+    mPlayer->resetMomentum();
 }
 
 void

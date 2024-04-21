@@ -35,6 +35,7 @@ class Engine {
     // Player movement
     void movePlayer(Directions direction);
     void setPlayerAction(Objects::State action);
+    void resetPlayerMomentum();
     SDL_Event         mEvent;
 
   protected:

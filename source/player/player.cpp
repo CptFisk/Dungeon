@@ -2,43 +2,43 @@
 
 namespace Player {
 Player::Player()
-  : mPlayerPosition(64.0f, 50.0f, 16.0f, 16.0f)
-  , pCurrentTexture(nullptr)
-  , pCurrentViewport(nullptr)
+  : mTexturePosition(64.0f, 50.0f, 16.0f, 16.0f)
+  , mCurrentTexture(nullptr)
+  , mCurrentViewport(nullptr)
   , mAction(Objects::IDLE)
   , mDirection(SOUTH)
-  , mMomentum(0.0) {}
+  , mMomentum(0.0f) {}
 
 Player::~Player() = default;
 
 SDL_FRect*
-Player::getPlayerPosition() {
-    return &mPlayerPosition;
+Player::getTexturePosition() {
+    return &mTexturePosition;
 }
 
 SDL_Texture**
-Player::getPlayerTexture() {
-    return &pCurrentTexture;
+Player::getTexture() {
+    return &mCurrentTexture;
 }
 
 SDL_FRect**
-Player::getPlayerViewport() {
-    return &pCurrentViewport;
+Player::getTextureViewport() {
+    return &mCurrentViewport;
 }
 
 void
 Player::addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture) {
     mTextures[{ action, direction }] = texture;
-    if (pCurrentTexture == nullptr || pCurrentViewport == nullptr) {
-        pCurrentTexture  = texture->mTexture;
-        pCurrentViewport = texture->getViewport();
+    if (mCurrentTexture == nullptr || mCurrentViewport == nullptr) {
+        mCurrentTexture = texture->mTexture;
+        mCurrentViewport = texture->getViewport();
     }
 }
 
 void
 Player::updateReferences() {
-    pCurrentTexture  = mTextures[{ mAction, mDirection }]->getTexture();
-    pCurrentViewport = mTextures[{ mAction, mDirection }]->getViewport();
+    mCurrentTexture = mTextures[{ mAction, mDirection }]->getTexture();
+    mCurrentViewport = mTextures[{ mAction, mDirection }]->getViewport();
 }
 
 void
@@ -53,20 +53,27 @@ Player::setDirection(Directions direction) {
     updateReferences();
 }
 
+void
+Player::resetMomentum() {
+    mMomentum = 0.1f;
+}
+
 float
 Player::move(Directions direction) {
+    if(mMomentum <= 1.0f)
+        mMomentum += 0.1;
     switch (direction) {
         case NORTH:
-            mPlayerPosition.y -= 1.0f;
+            mTexturePosition.y -= mMomentum;
             break;
         case EAST:
-            mPlayerPosition.x += 1.0f;
+            mTexturePosition.x += mMomentum;
             break;
         case SOUTH:
-            mPlayerPosition.y += 1.0f;
+            mTexturePosition.y += mMomentum;
             break;
         case WEST:
-            mPlayerPosition.x -= 1.0f;
+            mTexturePosition.x -=mMomentum;
             break;
         case ALL:
         default:
@@ -75,7 +82,7 @@ Player::move(Directions direction) {
     mAction    = Objects::MOVE;
     mDirection = direction;
     updateReferences();
-    return 1.0f;
+    return mMomentum;
 }
 
 }

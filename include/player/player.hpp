@@ -13,14 +13,15 @@ class Player {
     Player();
     ~Player();
 
-    SDL_Texture** getPlayerTexture();
-    SDL_FRect**   getPlayerViewport();
-    SDL_FRect*    getPlayerPosition();
+    SDL_Texture** getTexture();
+    SDL_FRect**   getTextureViewport();
+    SDL_FRect*    getTexturePosition();
 
     void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
 
     void setAction(Objects::State action);
     void setDirection(Directions direction);
+    void resetMomentum();
 
     float move(Directions direction);
 
@@ -34,8 +35,8 @@ class Player {
 
     float mMomentum;
     // Pointer that SDL_Render refer to
-    SDL_FRect    mPlayerPosition;
-    SDL_Texture* pCurrentTexture;
-    SDL_FRect*   pCurrentViewport;
+    SDL_FRect    mTexturePosition;
+    SDL_Texture* mCurrentTexture;
+    SDL_FRect*   mCurrentViewport;
 };
 }
