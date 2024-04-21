@@ -29,6 +29,7 @@ class Level {
      * @return true = movement allowed
      */
     bool movement(const SDL_FRect& other, const Directions& direction);
+    bool movement(const SDL_Point& other, const Directions& direction);
 
     std::vector<Common::typeDrawData> getLevel(); // Return all draw data
 
@@ -49,8 +50,8 @@ class Level {
     std::vector<Tile> tiles;
     int               elements; // Number of elements that exist in pTiles
 
-    float& playerX; //Player position X-axis
-    float& playerY; //Player position Y-axis
+    float& playerX; // Player position X-axis
+    float& playerY; // Player position Y-axis
 };
 
 }

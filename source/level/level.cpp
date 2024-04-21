@@ -82,6 +82,11 @@ Level::loadLevel(const std::string& filename) {
 }
 
 bool
+Level::movement(const SDL_Point& other, const Directions& direction) {
+    return movement(SDL_FRect(other.x,other.y,16.0f,16.0f), direction);
+}
+
+bool
 Level::movement(const SDL_FRect& other, const Directions& direction) {
     for (const auto& wall : walls) {
         if (Utility::isColliding(other, wall, direction))

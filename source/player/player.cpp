@@ -2,7 +2,8 @@
 
 namespace Player {
 Player::Player()
-  : mTexturePosition(64.0f, 50.0f, 16.0f, 16.0f)
+  : mTexturePosition{ 0.0f, 0.0f, 16.0f, 16.0f }
+  , mPlayerCenter{}
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)
   , mAction(Objects::IDLE)
@@ -11,9 +12,25 @@ Player::Player()
 
 Player::~Player() = default;
 
+void
+Player::spawn(const int& x, const int& y) {
+    const float _x = static_cast<float>(x) * 16.0f;
+    const float _y = static_cast<float>(y) * 16.0f;
+
+    mTexturePosition.x = _x;
+    mTexturePosition.y = _y;
+    mPlayerCenter.x    = _x + 8.0f; // Offset to make dot in center of player
+    mPlayerCenter.y    = _y + 8.0f; // Offset to make dot in center of player
+}
+
 SDL_FRect*
 Player::getTexturePosition() {
     return &mTexturePosition;
+}
+
+SDL_Point*
+Player::getPlayerCenter() {
+    return &mPlayerCenter;
 }
 
 SDL_Texture**
@@ -30,15 +47,23 @@ void
 Player::addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture) {
     mTextures[{ action, direction }] = texture;
     if (mCurrentTexture == nullptr || mCurrentViewport == nullptr) {
-        mCurrentTexture = texture->mTexture;
+        mCurrentTexture  = texture->mTexture;
         mCurrentViewport = texture->getViewport();
     }
 }
 
 void
 Player::updateReferences() {
-    mCurrentTexture = mTextures[{ mAction, mDirection }]->getTexture();
+    mCurrentTexture  = mTextures[{ mAction, mDirection }]->getTexture();
     mCurrentViewport = mTextures[{ mAction, mDirection }]->getViewport();
+}
+
+void
+Player::updatePosition(const float& x, const float& y) {
+    mTexturePosition.x += x;
+    mTexturePosition.y += y;
+    mPlayerCenter.x += x;
+    mPlayerCenter.y += y;
 }
 
 void
@@ -63,16 +88,16 @@ Player::move(Directions direction) {
     mMomentum = 1.0f;
     switch (direction) {
         case NORTH:
-            mTexturePosition.y -= mMomentum;
+            updatePosition(0.0f, -mMomentum);
             break;
         case EAST:
-            mTexturePosition.x += mMomentum;
+            updatePosition(mMomentum, 0.0f);
             break;
         case SOUTH:
-            mTexturePosition.y += mMomentum;
+            updatePosition(0.0f, mMomentum);
             break;
         case WEST:
-            mTexturePosition.x -=mMomentum;
+            updatePosition(-mMomentum, 0.0f);
             break;
         case ALL:
         default:

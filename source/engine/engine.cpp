@@ -116,6 +116,7 @@ Engine::startup() {
     mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::IDLE, Directions::ALL, GET_ANIMATED("SlimeIdle"));
     mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::MOVE, Directions::ALL, GET_ANIMATED("SlimeMoving"));
     mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DYING, Directions::ALL, GET_ANIMATED("SlimeDead"));
+    mPlayer->spawn(10, 7);
 }
 
 void
@@ -138,7 +139,8 @@ Engine::click(const float& x, const float& y) {
 
 void
 Engine::movePlayer(Directions direction) {
-    //if (mLevel->movement(*pPlayerPosition, direction))
+    auto p = *mPlayer->getPlayerCenter();
+    if (mLevel->movement(p, direction))
         mPerspective->move(direction, mPlayer->move(direction));
 }
 
@@ -148,7 +150,7 @@ Engine::setPlayerAction(Objects::State action) {
 }
 
 void
-Engine::resetPlayerMomentum(){
+Engine::resetPlayerMomentum() {
     mPlayer->resetMomentum();
 }
 
@@ -262,7 +264,7 @@ Engine::drawProjectiles() {
             mPerspective->render(lightning.Texture, lightning.Viewport, lightning.Position);
         mPerspective->renderRotated(object.Texture, object.Viewport, object.Position, object.Angle);
     }
-    for(auto& projectile : mParticles->getDrawData()){
+    for (auto& projectile : mParticles->getDrawData()) {
         mPerspective->render(projectile.Texture, projectile.Viewport, projectile.Position);
     }
 }
