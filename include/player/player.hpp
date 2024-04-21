@@ -16,7 +16,7 @@ class Player {
     SDL_Texture** getTexture();
     SDL_FRect**   getTextureViewport();
     SDL_FRect*    getTexturePosition();
-    SDL_Point*    getPlayerCenter();
+    SDL_FPoint*   getPlayerCenter();
 
     /**
      * @brief Move the player to a specific grid coordinate
@@ -36,7 +36,7 @@ class Player {
     Objects::State mAction;    // What are we doing
     Directions     mDirection; // The direction we are facing
     void           updateReferences();
-    void           updatePosition(const float& x, const float& y);    //Update all data related to positioning
+    void           updatePosition(const float& x, const float& y); // Update all data related to positioning
 
   protected:
     std::map<std::pair<Objects::State, Directions>, Graphics::AnimatedTexture*> mTextures;
@@ -46,6 +46,6 @@ class Player {
     SDL_FRect    mTexturePosition;
     SDL_Texture* mCurrentTexture;
     SDL_FRect*   mCurrentViewport;
-    SDL_Point    mPlayerCenter;
+    SDL_FPoint   mPlayerCenter;
 };
 }

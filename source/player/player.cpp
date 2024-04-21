@@ -28,7 +28,7 @@ Player::getTexturePosition() {
     return &mTexturePosition;
 }
 
-SDL_Point*
+SDL_FPoint*
 Player::getPlayerCenter() {
     return &mPlayerCenter;
 }
