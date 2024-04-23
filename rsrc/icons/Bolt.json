@@ -3,7 +3,7 @@
     "Type": "AnimatedTexture"
   },
   "Data": {
-    "File" : "rsrc/Bolt.png",
+    "File" : "rsrc/icons/Bolt.png",
     "Objects" : [
       {
         "Name" : "Bolt",
