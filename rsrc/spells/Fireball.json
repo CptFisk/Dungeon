@@ -3,7 +3,7 @@
     "Type": "AnimatedTexture"
   },
   "Data": {
-    "File": "rsrc/Fireball.png",
+    "File": "rsrc/spells/Fireball.png",
     "Objects": [
       {
         "Name": "Fireball",
