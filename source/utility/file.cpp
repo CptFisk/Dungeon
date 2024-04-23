@@ -29,6 +29,7 @@ getFolders(const std::string& rootFolder) {
     std::filesystem::path              folder(rootFolder);
     std::vector<std::filesystem::path> folders;
     if (std::filesystem::exists(folder) && std::filesystem::is_directory(folder)) {
+        folders.emplace_back(rootFolder);   //Add our root to the list
         for (const auto& entry : std::filesystem::directory_iterator(folder)) {
             if (entry.is_directory())
                 folders.push_back(entry);
