@@ -5,7 +5,7 @@
   "Data": {
     "Objects": [
       {
-        "File": "rsrc/HouseRed.png",
+        "File": "rsrc/constructions/HouseRed.png",
         "Name": "HouseRedSmall1",
         "Row": 1,
         "Column": 1,
@@ -14,7 +14,7 @@
         "Height": 64
       },
       {
-        "File": "rsrc/HouseRed.png",
+        "File": "rsrc/constructions/HouseRed.png",
         "Name": "HouseRedSmall2",
         "Row": 1,
         "Column": 2,
@@ -23,7 +23,7 @@
         "Height": 64
       },
       {
-        "File": "rsrc/HouseRed.png",
+        "File": "rsrc/constructions/HouseRed.png",
         "Name": "HouseRedMedium",
         "Row": 2,
         "Column": 1,
@@ -32,7 +32,7 @@
         "Height": 64
       },
       {
-        "File": "rsrc/HouseRed.png",
+        "File": "rsrc/constructions/HouseRed.png",
         "Name": "HouseRedLarge1",
         "Row": 3,
         "Column": 1,
@@ -41,7 +41,7 @@
         "Height": 64
       },
       {
-        "File": "rsrc/HouseRed.png",
+        "File": "rsrc/constructions/HouseRed.png",
         "Name": "HouseRedLarge2",
         "Row": 4,
         "Column": 1,
