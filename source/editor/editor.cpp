@@ -211,7 +211,7 @@ Editor::click(const float& x, const float& y) {
                     editorTiles[pos].addData(
                       simpleTexture.Texture, simpleTexture.getRandomView(), simpleTexture.Width, simpleTexture.Height, mScale);
                     // Stuff that shall be added to the files
-                    fileTiles.Tiles[pos].Type |= Level::File::TEXTURE;
+                    fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::TEXTURE);
                     // Increment visual overlay
                     visualOverlay[pos].incrementCounter();
                     // Search if the asset have been used before
@@ -224,7 +224,7 @@ Editor::click(const float& x, const float& y) {
                 case REMOVE:
                     editorTiles[pos].clear(); // Clear the vector
 
-                    fileTiles.Tiles[pos].Type = Level::File::BLANK;
+                    fileTiles.Tiles[pos].Type = static_cast<uint8_t>(Level::File::TileType::BLANK);
                     fileTiles.Tiles[pos].Id.clear();
 
                     visualOverlay[pos].resetCounter();
@@ -237,11 +237,11 @@ Editor::click(const float& x, const float& y) {
                     break;
 
                 case WALL:
-                    fileTiles.Tiles[pos].Type |= Level::File::WALL;
+                    fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::WALL);
                     visualOverlay[pos].newOverlay(GET_SDL("87ED17"));
                     break;
                 case OBSTACLE:
-                    fileTiles.Tiles[pos].Type |= Level::File::OBSTACLE;
+                    fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::OBSTACLE);
                     visualOverlay[pos].newOverlay(GET_SDL("1D35FA"));
                     break;
                 case DEFAULT:

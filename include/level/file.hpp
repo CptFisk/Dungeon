@@ -9,8 +9,8 @@ namespace Level::File {
 /**
  * All this types is only used for generating and loading a pre-defined map file.
  */
-enum TileType : uint8_t { BLANK = 0, TEXTURE = 1 << 0, WALL = 1 << 1, OBSTACLE = 1 << 2 };
-
+enum class TileType : uint8_t { BLANK = 0, TEXTURE = 1 << 0, WALL = 1 << 1, OBSTACLE = 1 << 2 };
+enum class SpawnType : uint8_t { BLANK = 0, PLAYER };
 /**
  * @brief Definition of a single tile. A can have multiple properties and they are each stored as a single bit in Type.
  * @brief The element Id contains a list of all Assets that is used. Since a tile can have multiple assets linked to it.
@@ -87,9 +87,9 @@ struct typeLevelData {
     typeAssets Assets;
     typeTiles  Tiles;
     typeLevelData(typeHeader header, typeAssets assets, typeTiles tiles)
-      : Header(header)
-      , Assets(assets)
-      , Tiles(tiles){};
+      : Header(std::move(header))
+      , Assets(std::move(assets))
+      , Tiles(std::move(tiles)){};
 };
 
 /**
