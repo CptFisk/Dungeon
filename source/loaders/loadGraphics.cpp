@@ -13,6 +13,13 @@ using json = nlohmann::json;
 namespace Graphics {
 void
 Graphics::loadGraphics(const std::string& folderPath) {
+    //Fetch all the folders
+    const auto folders = Utility::getFolders(folderPath);
+    for(const auto& folder: folders){
+        //Now we fetch all the files inside that folder that match the criteria
+        const auto files = Utility::getFiles(folder.string(), ".json");
+
+    }
     auto                   files  = Utility::getFiles(folderPath, ".json");
     Common::typeHeaderJSON header = {};
     // Process all the meta-data
@@ -29,10 +36,10 @@ Graphics::loadGraphics(const std::string& folderPath) {
                 loadSimpleTexture(jsonString);
                 break;
             case Common::ANIMATED_TEXTURE:
-                loadAnimatedTexture(header, jsonString);
+                loadAnimatedTexture(jsonString);
                 break;
             case Common::GENERATED_TEXTURE:
-                loadGeneratedTexture(header, jsonString);
+                loadGeneratedTexture(jsonString);
                 break;
         }
     }
@@ -62,7 +69,7 @@ Graphics::loadSimpleTexture(const std::string& jsonString) {
 }
 
 void
-Graphics::loadAnimatedTexture(const Common::typeHeaderJSON& header, const std::string& jsonString) {
+Graphics::loadAnimatedTexture(const std::string& jsonString) {
     typeAnimatedTextureData jsonData;
     try {
         jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<typeAnimatedTextureData>();
@@ -79,14 +86,14 @@ Graphics::loadAnimatedTexture(const Common::typeHeaderJSON& header, const std::s
                                                   static_cast<float>(data.Height * (data.Row - 1)),
                                                   static_cast<float>(data.Width),
                                                   static_cast<float>(data.Height) });
-            };
+            }
             addTexture<AnimatedTexture*>(data.Name, animation, ANIMATED_TEXTURE);
         }
     }
 }
 
 void
-Graphics::loadGeneratedTexture(const Common::typeHeaderJSON& header, const std::string& jsonString) {
+Graphics::loadGeneratedTexture(const std::string& jsonString) {
     typeGeneratedTextureData jsonData;
     try {
         jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<typeGeneratedTextureData>();
