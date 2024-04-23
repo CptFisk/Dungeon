@@ -4,40 +4,11 @@
 #include <optional>
 #include <string>
 #include <vector>
+#include <level/types/tile.hpp>
+#include <level/types/spawn.hpp>
 
 namespace Level::File {
-/**
- * All this types is only used for generating and loading a pre-defined map file.
- */
-enum class TileType : uint8_t { BLANK = 0, TEXTURE = 1 << 0, WALL = 1 << 1, OBSTACLE = 1 << 2 };
-enum class SpawnType : uint8_t { BLANK = 0, PLAYER };
-/**
- * @brief Definition of a single tile. A can have multiple properties and they are each stored as a single bit in Type.
- * @brief The element Id contains a list of all Assets that is used. Since a tile can have multiple assets linked to it.
- */
-struct typeTileData {
-    uint8_t              Type; // Tiletype
-    std::vector<uint8_t> Id;   // Reference to assets. Drawn from bottom to top
-    typeTileData()
-      : Type(0){};
-};
-
-/**
- * @brief Structure used to store all the tiles and assets that each tile uses. This structure is only used when writing/loading a map file
- * @var Size Contains the size of x*y
- * @var Tiles Contains all the tiles.
- */
-struct typeTiles {
-    uint16_t                  Size; // Number of tiles defined
-    std::vector<typeTileData> Tiles;
-
-    // Constructor
-    explicit typeTiles(uint16_t size)
-      : Size(size) {
-        Tiles.resize(size);
-    }
-};
-
+/*
 struct typeTile {
     TileType     Type;     // Tiletype
     SDL_FRect    Position; // Position
@@ -49,7 +20,7 @@ struct typeTile {
       , Texture(texture.first)
       , Viewport(texture.second) {}
 };
-
+*/
 struct typeHeader {
     uint8_t HeaderVersion; // Version of editor
     char    MapName[31];   // Filename
@@ -87,7 +58,7 @@ struct typeLevelData {
     typeAssets Assets;
     typeTiles  Tiles;
     typeLevelData(typeHeader header, typeAssets assets, typeTiles tiles)
-      : Header(std::move(header))
+      : Header(header)
       , Assets(std::move(assets))
       , Tiles(std::move(tiles)){};
 };

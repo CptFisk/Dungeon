@@ -60,7 +60,7 @@ Level::loadLevel(const std::string& filename) {
 
     int pos = 0; // Resetting
     for (const auto& tile : data.Tiles.Tiles) {
-        if ((tile.Type & File::TEXTURE) != 0) {
+        if ((tile.Type & static_cast<uint8_t>(File::TileType::TEXTURE)) != 0) {
             // Read all assets
             for (const auto& id : tile.Id) {
                 const auto val     = static_cast<int>(id);
@@ -68,12 +68,12 @@ Level::loadLevel(const std::string& filename) {
                 tiles[pos].addData(texture.getTexture(), texture.getRandomView(), texture.Width, texture.Height);
             }
         }
-        if ((tile.Type & File::OBSTACLE) != 0) {
+        if ((tile.Type & static_cast<uint8_t>(File::TileType::OBSTACLE)) != 0) {
             const auto coords = Common::getCoords(pos, data.Header.Level.SizeX, data.Header.Level.SizeY);
             if (coords.has_value())
                 obstacle.emplace_back(Common::newSDL_FRect(coords.value()));
         }
-        if ((tile.Type & File::WALL) != 0) {
+        if ((tile.Type & static_cast<uint8_t>(File::TileType::WALL)) != 0) {
             const auto coords = Common::getCoords(pos, data.Header.Level.SizeX, data.Header.Level.SizeY);
             if (coords.has_value())
                 wall.emplace_back(Common::newSDL_FRect(coords.value()));
