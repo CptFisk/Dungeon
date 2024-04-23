@@ -8,19 +8,7 @@
 #include <level/types/spawn.hpp>
 
 namespace Level::File {
-/*
-struct typeTile {
-    TileType     Type;     // Tiletype
-    SDL_FRect    Position; // Position
-    SDL_Texture* Texture;  // Reference to texture
-    SDL_FRect    Viewport; // Viewport
-    typeTile(TileType type, SDL_FRect position, std::pair<SDL_Texture*, SDL_FRect> texture)
-      : Type(type)
-      , Position(position)
-      , Texture(texture.first)
-      , Viewport(texture.second) {}
-};
-*/
+
 struct typeHeader {
     uint8_t HeaderVersion; // Version of editor
     char    MapName[31];   // Filename
