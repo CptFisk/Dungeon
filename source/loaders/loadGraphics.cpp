@@ -18,30 +18,33 @@ Graphics::loadGraphics(const std::string& folderPath) {
     for(const auto& folder: folders){
         //Now we fetch all the files inside that folder that match the criteria
         const auto files = Utility::getFiles(folder.string(), ".json");
-
+        //Load all the files
+        for(const auto& file : files){
+            loadJSON(file.string());
+        }
     }
-    auto                   files  = Utility::getFiles(folderPath, ".json");
+}
+
+void
+Graphics::loadJSON(const std::string& fileName) {
     Common::typeHeaderJSON header = {};
     // Process all the meta-data
-    std::vector<typeSimpleTexture> textures;
-    for (const auto& file : files) {
-        const std::string jsonString = Utility::getFileContent(file.string());
-        try {
-            header = json::parse(jsonString)[nlohmann::json::json_pointer("/Header")].get<Common::typeHeaderJSON>();
-        } catch (const std::exception& e) {
-            std::cerr << "No header found: " << e.what() << std::endl;
-        }
-        switch (header.Type) {
-            case Common::BASE_TEXTURE:
-                loadSimpleTexture(jsonString);
-                break;
-            case Common::ANIMATED_TEXTURE:
-                loadAnimatedTexture(jsonString);
-                break;
-            case Common::GENERATED_TEXTURE:
-                loadGeneratedTexture(jsonString);
-                break;
-        }
+    const std::string jsonString = Utility::getFileContent(fileName);
+    try {
+        header = json::parse(jsonString)[nlohmann::json::json_pointer("/Header")].get<Common::typeHeaderJSON>();
+    } catch (const std::exception& e) {
+        std::cerr << "No header found: " << e.what() << std::endl;
+    }
+    switch (header.Type) {
+        case Common::BASE_TEXTURE:
+            loadSimpleTexture(jsonString);
+            break;
+        case Common::ANIMATED_TEXTURE:
+            loadAnimatedTexture(jsonString);
+            break;
+        case Common::GENERATED_TEXTURE:
+            loadGeneratedTexture(jsonString);
+            break;
     }
 }
 

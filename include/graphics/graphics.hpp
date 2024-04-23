@@ -90,6 +90,7 @@ class Graphics {
   protected:
     SDL_Texture* loadImage(const std::string& filename);
     void         loadGraphics(const std::string& folderPath);
+    void         loadJSON(const std::string& fileName); // Load a graphical JSON
     void         loadSimpleTexture(const std::string& jsonString);
     void         loadAnimatedTexture(const std::string& jsonString);
     void         loadGeneratedTexture(const std::string& jsonString);
