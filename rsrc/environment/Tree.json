@@ -5,7 +5,7 @@
   "Data": {
     "Objects": [
       {
-        "File": "rsrc/Tree.png",
+        "File": "rsrc/environment/Tree.png",
         "Name": "Tree1",
         "Row": 1,
         "Column": 1,
@@ -14,7 +14,7 @@
         "Width": 32
       },
       {
-        "File": "rsrc/Tree.png",
+        "File": "rsrc/environment/Tree.png",
         "Name": "Tree2",
         "Row": 1,
         "Column": 2,
@@ -23,7 +23,7 @@
         "Width": 32
       },
       {
-        "File": "rsrc/Tree.png",
+        "File": "rsrc/environment/Tree.png",
         "Name": "Tree3",
         "Row": 1,
         "Column": 3,
@@ -32,7 +32,7 @@
         "Width": 32
       },
       {
-        "File": "rsrc/Tree.png",
+        "File": "rsrc/environment/Tree.png",
         "Name": "Tree4",
         "Row": 1,
         "Column": 4,
@@ -41,7 +41,7 @@
         "Width": 32
       },
       {
-        "File": "rsrc/Tree.png",
+        "File": "rsrc/environment/Tree.png",
         "Name": "Tree1Half",
         "Row": 3,
         "Column": 1,
@@ -50,7 +50,7 @@
         "Width": 32
       },
       {
-        "File": "rsrc/Tree.png",
+        "File": "rsrc/environment/Tree.png",
         "Name": "Tree2Half",
         "Row": 3,
         "Column": 2,
@@ -59,7 +59,7 @@
         "Width": 32
       },
       {
-        "File": "rsrc/Tree.png",
+        "File": "rsrc/environment/Tree.png",
         "Name": "Tree3Half",
         "Row": 3,
         "Column": 3,
@@ -68,7 +68,7 @@
         "Width": 32
       },
       {
-        "File": "rsrc/Tree.png",
+        "File": "rsrc/environment/Tree.png",
         "Name": "Tree4Half",
         "Row": 3,
         "Column": 4,
@@ -77,7 +77,7 @@
         "Width": 32
       },
       {
-        "File": "rsrc/Tree.png",
+        "File": "rsrc/environment/Tree.png",
         "Name": "TreeSmall",
         "Row": 4,
         "Column": 9,
