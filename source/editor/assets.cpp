@@ -10,18 +10,18 @@ Editor::uiAssets() {
     if (ImGui::Begin("Assets", &mWindowOpen["Assets"], ImGuiWindowFlags_AlwaysAutoResize)) {
         ImGui::Text("Assets");
         for(auto& element : fileAssets.Assets){
-            ImGui::InputText("##", &element);
-        }
-
-        ImGui::InputText("##asset", &mStringInput);
-        ImGui::SameLine();
-        if (ImGui::Button("Add")) {
-            const auto exist = std::find(fileAssets.Assets.begin(), fileAssets.Assets.end(), mStringInput);
-            if(exist == fileAssets.Assets.end()) {
-                Level::File::addAsset(mStringInput, fileAssets);
-                mStringInput.clear();
+            ImGui::InputText("##", &element, ImGuiInputTextFlags_ReadOnly);
+            ImGui::SameLine();
+            if(ImGui::Button(("Delete##" + element).c_str())){
+                for(auto it = fileAssets.Assets.begin(); it != fileAssets.Assets.end(); ++it){
+                    if(*it == element){
+                        fileAssets.Assets.erase(it);
+                        break;  //Stop the loop
+                    }
+                }
             }
         }
+
     }
     mWindows["Assets"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
     ImGui::End();
