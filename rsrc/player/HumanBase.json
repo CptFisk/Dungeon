@@ -3,7 +3,7 @@
     "Type": "AnimatedTexture"
   },
   "Data": {
-    "File" : "rsrc/HumanBase.png",
+    "File" : "rsrc/player/HumanBase.png",
     "Objects" : [
       {
         "Name" : "HumanIdleNorth",
