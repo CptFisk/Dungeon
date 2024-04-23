@@ -1,0 +1,18 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/Mushroom.png",
+        "Name": "Mushroom",
+        "Row": 1,
+        "Column": 1,
+        "Length": 7,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
