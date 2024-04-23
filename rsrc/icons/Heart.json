@@ -3,7 +3,7 @@
     "Type": "AnimatedTexture"
   },
   "Data": {
-    "File" : "rsrc/Heart.png",
+    "File" : "rsrc/icons/Heart.png",
     "Objects" : [
       {
         "Name" : "Heart",
