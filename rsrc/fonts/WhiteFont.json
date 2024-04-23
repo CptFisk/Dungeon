@@ -5,7 +5,7 @@
   "Data": {
     "Objects": [
       {
-        "File": "rsrc/LettersWhite.png",
+        "File": "rsrc/fonts/LettersWhite.png",
         "Name": "LettersWhite",
         "Row": 1,
         "Column": 1,
@@ -14,7 +14,7 @@
         "Width": 8
       },
       {
-        "File": "rsrc/NumbersWhite.png",
+        "File": "rsrc/fonts/NumbersWhite.png",
         "Name": "NumbersWhite",
         "Row": 1,
         "Column": 1,
