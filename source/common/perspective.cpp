@@ -29,6 +29,8 @@ Perspective::move(Directions direction, const float& velocity) {
         case NORTH:
 #ifdef GAME_MODE
             if (mOffset.y < 0)
+#else
+            if(mOffset.y < 0)
 #endif
                 mOffset.y += velocity;
             break;
@@ -44,6 +46,11 @@ Perspective::move(Directions direction, const float& velocity) {
                 mOffset.y -= velocity;
             break;
         case WEST:
+#ifdef GAME_MODE
+
+#else
+          if(mOffset.x < 0)
+#endif
             mOffset.x += velocity;
             break;
         default:
