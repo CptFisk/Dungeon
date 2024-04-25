@@ -1,9 +1,9 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include <cmake.hpp>
 #include <common/scale.hpp>
 #include <common/structures.hpp>
 #include <vector>
-#include <cmake.hpp>
 namespace Level {
 /**
  * @brief Basic class to hold all the data related to a tile. It will hold position and all the different textures.
@@ -20,7 +20,7 @@ class Tile {
 
   public:
 #ifdef GAME_MODE
-    [[maybe_unused]] Tile(const int& x, const int& y);                                 // Used during gameplay
+    [[maybe_unused]] Tile(const int& x, const int& y); // Used during gameplay
 #endif
 #ifdef EDITOR_MODE
     [[maybe_unused]] Tile(const int& x, const int& y, const Common::typeScale& scale); // Used in editor mode
@@ -31,14 +31,17 @@ class Tile {
 
     [[maybe_unused]] void clear(); // Clear vector
 
-    [[maybe_unused]] void addData(SDL_Texture* texture, SDL_FRect viewport, const int& w, const int& h);
+#ifdef GAME_MODE
+    [[maybe_unused]] void addData(SDL_Texture* texture, SDL_FRect viewport, const int& w, const int& h);     // Used during gameplay
     [[maybe_unused]] void addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const float& h); // Used during gameplay
+#endif
+#ifdef EDITOR_MODE
     [[maybe_unused]] void addData(SDL_Texture*            texture,
                                   SDL_FRect               viewport,
                                   const float&            w,
                                   const float&            h,
                                   const Common::typeScale scale); // Used in editor mode
-
+#endif
     std::vector<Common::typeDrawData> getTile(); // Return all data that should be drawn.
 
   private:
