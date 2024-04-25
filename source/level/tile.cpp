@@ -2,14 +2,17 @@
 
 namespace Level {
 
+#ifdef GAME_MODE
 Tile::Tile(const int& x, const int& y)
   : xPos(static_cast<float>(x) * 16.0f)
   , yPos(static_cast<float>(y) * 16.0f) {}
+#endif
 
+#ifdef EDITOR_MODE
 Tile::Tile(const int& x, const int& y, const Common::typeScale& scale)
   : xPos(static_cast<float>(x) * 16.0f * scale.factorX)
   , yPos(static_cast<float>(y) * 16.0f * scale.factorY) {}
-
+#endif
 Tile&
 Tile::operator=(const Level::Tile& other) {
     if (this == &other)

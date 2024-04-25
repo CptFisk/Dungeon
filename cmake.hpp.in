@@ -1,2 +1,3 @@
 #pragma once
 #cmakedefine GAME_MODE
+#cmakedefine EDITOR_MODE

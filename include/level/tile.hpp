@@ -3,7 +3,7 @@
 #include <common/scale.hpp>
 #include <common/structures.hpp>
 #include <vector>
-
+#include <cmake.hpp>
 namespace Level {
 /**
  * @brief Basic class to hold all the data related to a tile. It will hold position and all the different textures.
@@ -19,8 +19,12 @@ class Tile {
     };
 
   public:
+#ifdef GAME_MODE
     [[maybe_unused]] Tile(const int& x, const int& y);                                 // Used during gameplay
+#endif
+#ifdef EDITOR_MODE
     [[maybe_unused]] Tile(const int& x, const int& y, const Common::typeScale& scale); // Used in editor mode
+#endif
     ~Tile() = default;
 
     Tile& operator=(const Tile& other); // Operator overload

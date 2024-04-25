@@ -8,6 +8,7 @@ if (BUILD_GAME)
     project(Dungeon)
 else ()
     project(Editor)
+    set(EDITOR_MODE TRUE)
     message(STATUS "Building editor")
 endif ()
 
