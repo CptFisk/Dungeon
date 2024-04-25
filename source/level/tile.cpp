@@ -27,7 +27,8 @@ Tile::clear() {
 }
 
 #ifdef GAME_MODE
-void Tile::addData(SDL_Texture* texture, SDL_FRect viewport, const int& w, const int& h){
+void
+Tile::addData(SDL_Texture* texture, SDL_FRect viewport, const int& w, const int& h) {
     addData(texture, viewport, static_cast<float>(w), static_cast<float>(h));
 }
 
@@ -54,7 +55,7 @@ Tile::getDrawData() {
 
 std::vector<tileData>&
 Tile::getTileData() {
-return data;
+    return data;
 }
 
 }
