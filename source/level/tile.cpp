@@ -52,4 +52,9 @@ Tile::getDrawData() {
     return ret;
 }
 
+std::vector<tileData>&
+Tile::getTileData() {
+return data;
+}
+
 }

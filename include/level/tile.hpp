@@ -6,18 +6,18 @@
 #include <vector>
 namespace Level {
 /**
+     * @brief Internal structure for the visibility of a tile
+ */
+struct tileData {
+    SDL_Texture* Texture;
+    SDL_FRect    Viewport;
+    SDL_FRect    Position;
+};
+
+/**
  * @brief Basic class to hold all the data related to a tile. It will hold position and all the different textures.
  */
 class Tile {
-    /**
-     * @brief Internal structure for the visibility of a tile
-     */
-    struct tileData {
-        SDL_Texture* Texture;
-        SDL_FRect    Viewport;
-        SDL_FRect    Position;
-    };
-
   public:
 #ifdef GAME_MODE
     [[maybe_unused]] Tile(const int& x, const int& y); // Used during gameplay
@@ -43,7 +43,7 @@ class Tile {
                                   const Common::typeScale scale); // Used in editor mode
 #endif
     std::vector<Common::typeDrawData> getDrawData(); // Return all data that should be drawn.
-
+    std::vector<tileData>&            getTileData(); // Return a reference to data
   private:
   protected:
     const float           xPos;
