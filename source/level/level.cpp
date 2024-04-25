@@ -123,13 +123,13 @@ Level::getLevel() {
         }
         size_t maxSize = 0;
         for (const auto& index : indices) {
-            maxSize = std::max(maxSize, tiles[index].getTile().size()); // Selecting the biggest value
+            maxSize = std::max(maxSize, tiles[index].getDrawData().size()); // Selecting the biggest value
         }
 
         for (int i = 0; i < maxSize; i++) {
             for (const auto& index : indices) {
-                if (index < tiles.size() && i < tiles[index].getTile().size()) {
-                    auto element = tiles[index].getTile()[i];
+                if (index < tiles.size() && i < tiles[index].getDrawData().size()) {
+                    auto element = tiles[index].getDrawData()[i];
                     data.emplace_back(element.Texture, element.Viewport, element.Position);
                 }
             }

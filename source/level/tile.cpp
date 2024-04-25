@@ -45,7 +45,7 @@ Tile::addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const fl
 #endif
 
 std::vector<Common::typeDrawData>
-Tile::getTile() {
+Tile::getDrawData() {
     std::vector<Common::typeDrawData> ret;
     for (auto& tile : data)
         ret.emplace_back(tile.Texture, &tile.Viewport, &tile.Position);

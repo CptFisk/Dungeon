@@ -42,7 +42,7 @@ class Tile {
                                   const float&            h,
                                   const Common::typeScale scale); // Used in editor mode
 #endif
-    std::vector<Common::typeDrawData> getTile(); // Return all data that should be drawn.
+    std::vector<Common::typeDrawData> getDrawData(); // Return all data that should be drawn.
 
   private:
   protected:

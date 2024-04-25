@@ -24,13 +24,13 @@ Editor::uiTiles() {
         }
         size_t maxSize = 0;
         for (const auto& index : indices) {
-            maxSize = std::max(maxSize, editorTiles[index].getTile().size()); // Selecting the biggest value
+            maxSize = std::max(maxSize, editorTiles[index].getDrawData().size()); // Selecting the biggest value
         }
 
         for (int i = 0; i < maxSize; i++) {
             for (const auto& index : indices) {
-                if (index < editorTiles.size() && i < editorTiles[index].getTile().size()) {
-                    auto element = editorTiles[index].getTile()[i];
+                if (index < editorTiles.size() && i < editorTiles[index].getDrawData().size()) {
+                    auto element = editorTiles[index].getDrawData()[i];
                     mPerspective->render(element.Texture, element.Viewport, element.Position);
                 }
             }
