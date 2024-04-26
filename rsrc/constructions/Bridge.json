@@ -44,10 +44,10 @@
         "File": "rsrc/constructions/Bridge.png",
         "Name": "BridgeExtension",
         "Row": 1,
-        "Column": 3,
+        "Column": 1,
         "Length": 1,
         "Height": 16,
-        "Width": 16
+        "Width": 32
       }
     ]
   }
