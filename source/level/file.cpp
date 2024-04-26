@@ -78,7 +78,7 @@ readLevelData(const std::string& filename) {
     }
     file.close();
     // Generating response
-    return typeLevelData{header, assets, tiles};
+    return typeLevelData{ header, assets, tiles };
 }
 
 size_t
@@ -96,10 +96,10 @@ findAsset(const std::string& asset, const typeAssets& map) {
     return std::nullopt;
 }
 
-void
+bool
 removeAsset(const std::string& assetName, typeAssets& map, Level::File::typeTiles& fileTiles) {
     // Calculate our id
-    int assetId;
+    int  assetId;
     bool found = false;
     for (auto it = map.Assets.begin(); it != map.Assets.end(); ++it) {
         if (*it == assetName) {
@@ -109,22 +109,24 @@ removeAsset(const std::string& assetName, typeAssets& map, Level::File::typeTile
             break; // Stop the loop
         }
     }
-    if(!found)
-        return;
-    //The asset was found, and we know the ID. Now we have to remove it from the
-    for(auto& tile : fileTiles.Tiles){
-        //Loop all the different id's that exist
-        for (auto it = tile.Id.begin(); it != tile.Id.end();){
-            if(*it == assetId){
+    if (!found)
+        return false;
+
+    // The asset was found, and we know the ID. Now we have to remove it from the
+    for (auto& tile : fileTiles.Tiles) {
+        // Loop all the different id's that exist
+        for (auto it = tile.Id.begin(); it != tile.Id.end();) {
+            if (*it == assetId) {
                 it = tile.Id.erase(it);
-            }else if(*it > assetId){
+            } else if (*it > assetId) {
                 --(*it);
                 ++it;
-            }else{
+            } else {
                 ++it;
             }
         }
     }
+    return true;
 }
 
 }

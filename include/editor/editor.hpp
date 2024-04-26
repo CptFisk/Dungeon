@@ -33,6 +33,7 @@ class Editor {
     void click(const float& x, const float& y); // Click
   protected:
     void loadLevel(const Level::File::typeLevelData& data);
+    void removeSpecificTexture(const std::string& name);
 
     [[maybe_unused]] void        displayElement(const std::string& element);
     [[maybe_unused]] void        hideElement(const std::string& element);

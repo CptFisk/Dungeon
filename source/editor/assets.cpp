@@ -2,6 +2,7 @@
 #include <editor/editor.hpp>
 #include <imgui.h>
 #include <misc/cpp/imgui_stdlib.h>
+#include <graphics/graphics.hpp>
 
 namespace Editor {
 void
@@ -13,7 +14,9 @@ Editor::uiAssets() {
             ImGui::InputText("##", &element, ImGuiInputTextFlags_ReadOnly);
             ImGui::SameLine();
             if (ImGui::Button(("Delete##" + element).c_str())) {
-                Level::File::removeAsset(element, fileAssets,fileTiles);
+                const auto name = element;  //We need to store it, since it will be removed
+                if(Level::File::removeAsset(name, fileAssets,fileTiles))
+                    removeSpecificTexture(name);
             }
         }
     }

@@ -1,7 +1,23 @@
 #include <editor/editor.hpp>
 #include <misc/cpp/imgui_stdlib.h>
+#include <graphics/graphics.hpp>
 
 namespace Editor{
+
+void Editor::removeSpecificTexture(const std::string& name) {
+    auto texture =  GET_SIMPLE(name).Texture;
+    for(auto &tile : editorTiles){
+        for(auto it = tile.getTileData().begin(); it != tile.getTileData().end();){
+            if((*it).Texture == texture){
+                it = tile.getTileData().erase(it);
+            }else{
+                ++it;
+            }
+        }
+    }
+}
+
+
 void
 Editor::uiTexture() {
     if (ImGui::Begin("Textures", &mWindowOpen["Textures"], ImGuiWindowFlags_AlwaysAutoResize)) {
@@ -28,6 +44,5 @@ Editor::uiTexture() {
 
     if(!mWindowOpen["Textures"])
         hideElement("Textures");
-
 }
 }
