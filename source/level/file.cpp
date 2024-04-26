@@ -2,7 +2,6 @@
 #include <fstream>
 #include <iostream>
 #include <level/file.hpp>
-#include <limits>
 #include <stdexcept>
 
 namespace Level::File {
@@ -79,7 +78,7 @@ readLevelData(const std::string& filename) {
     }
     file.close();
     // Generating response
-    return typeLevelData(header, assets, tiles);
+    return typeLevelData{header, assets, tiles};
 }
 
 size_t
@@ -95,6 +94,37 @@ findAsset(const std::string& asset, const typeAssets& map) {
     if (it != map.Assets.end())
         return std::distance(map.Assets.begin(), it);
     return std::nullopt;
+}
+
+void
+removeAsset(const std::string& assetName, typeAssets& map, Level::File::typeTiles& fileTiles) {
+    // Calculate our id
+    int assetId;
+    bool found = false;
+    for (auto it = map.Assets.begin(); it != map.Assets.end(); ++it) {
+        if (*it == assetName) {
+            assetId = static_cast<int>(std::distance(map.Assets.begin(), it));
+            map.Assets.erase(it);
+            found = true;
+            break; // Stop the loop
+        }
+    }
+    if(!found)
+        return;
+    //The asset was found, and we know the ID. Now we have to remove it from the
+    for(auto& tile : fileTiles.Tiles){
+        //Loop all the different id's that exist
+        for (auto it = tile.Id.begin(); it != tile.Id.end();){
+            if(*it == assetId){
+                it = tile.Id.erase(it);
+            }else if(*it > assetId){
+                --(*it);
+                ++it;
+            }else{
+                ++it;
+            }
+        }
+    }
 }
 
 }

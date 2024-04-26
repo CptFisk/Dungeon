@@ -13,7 +13,7 @@ Editor::uiAssets() {
             ImGui::InputText("##", &element, ImGuiInputTextFlags_ReadOnly);
             ImGui::SameLine();
             if (ImGui::Button(("Delete##" + element).c_str())) {
-                Level::File::removeAsset(element, fileAssets,editorTiles);
+                Level::File::removeAsset(element, fileAssets,fileTiles);
             }
         }
     }

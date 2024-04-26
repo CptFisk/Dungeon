@@ -4,6 +4,7 @@
 #include <optional>
 #include <string>
 #include <vector>
+#include <level/tile.hpp>
 #include <level/types/tile.hpp>
 #include <level/types/spawn.hpp>
 
@@ -65,5 +66,8 @@ addAsset(const std::string& asset, typeAssets& map); // Add a new item to the li
 
 std::optional<size_t>
 findAsset(const std::string& asset, const typeAssets& map); // Search for an asset, -1 if item don't exist
+
+void
+removeAsset(const std::string& assetName, typeAssets &map, Level::File::typeTiles& fileTiles);
 
 }
