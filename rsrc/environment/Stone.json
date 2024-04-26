@@ -39,6 +39,24 @@
         "Length": 2,
         "Height": 32,
         "Width": 32
+      },
+      {
+        "File": "rsrc/environment/Stone.png",
+        "Name": "StoneSign",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/environment/Stone.png",
+        "Name": "StoneHigh",
+        "Row": 4,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
       }
     ]
   }
