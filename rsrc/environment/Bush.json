@@ -5,8 +5,8 @@
   "Data": {
     "Objects": [
       {
-        "File": "rsrc/environment/bush.png",
-        "Name": "BuschFlower",
+        "File": "rsrc/environment/Bush.png",
+        "Name": "BushFlower",
         "Row": 1,
         "Column": 1,
         "Length": 5,
@@ -14,8 +14,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/environment/bush.png",
-        "Name": "Busch",
+        "File": "rsrc/environment/Bush.png",
+        "Name": "Bush",
         "Row": 1,
         "Column": 6,
         "Length": 1,
