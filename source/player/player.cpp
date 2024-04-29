@@ -3,6 +3,7 @@
 namespace Player {
 Player::Player()
   : mTexturePosition{ 0.0f, 0.0f, 16.0f, 16.0f }
+  , mInteraction(0.0f, 0.0f, 16.0f, 16.0f)
   , mPlayerCenter{}
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)
@@ -13,7 +14,7 @@ Player::Player()
 Player::~Player() = default;
 
 void
-Player::spawn(const int& x, const int& y) {
+Player::spawn(const int& x, const int& y, const Directions& direction) {
     const float _x = static_cast<float>(x) * 16.0f;
     const float _y = static_cast<float>(y) * 16.0f;
 
@@ -21,6 +22,7 @@ Player::spawn(const int& x, const int& y) {
     mTexturePosition.y = _y;
     mPlayerCenter.x    = _x + 8.0f; // Offset to make dot in center of player
     mPlayerCenter.y    = _y + 8.0f; // Offset to make dot in center of player
+    mDirection         = direction;
 }
 
 SDL_FRect*

@@ -23,7 +23,7 @@ class Player {
      * @param x X-coordinate
      * @param y Y-Coordinate
      */
-    void spawn(const int& x, const int& y);
+    void spawn(const int& x, const int& y, const Directions& direction = Directions::NORTH);
     void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
 
     void setAction(Objects::State action);
