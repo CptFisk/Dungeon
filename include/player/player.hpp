@@ -17,7 +17,7 @@ class Player {
     SDL_FRect**   getTextureViewport();
     SDL_FRect*    getTexturePosition();
     SDL_FPoint*   getPlayerCenter();
-
+    SDL_FRect     getInteractionArea() const;
     /**
      * @brief Move the player to a specific grid coordinate
      * @param x X-coordinate
@@ -47,5 +47,6 @@ class Player {
     SDL_Texture* mCurrentTexture;
     SDL_FRect*   mCurrentViewport;
     SDL_FPoint   mPlayerCenter;
+    SDL_FRect    mInteraction; // Small box in front of the player that is used to determine if we interact with a object
 };
 }
