@@ -36,7 +36,7 @@ class Player {
     Objects::State mAction;    // What are we doing
     Directions     mDirection; // The direction we are facing
     void           updateReferences();
-    void           updatePosition(const float& x, const float& y); // Update all data related to positioning
+    void           updatePosition(const float& x, const float& y, const Directions& direction); // Update all data related to positioning
 
   protected:
     std::map<std::pair<Objects::State, Directions>, Graphics::AnimatedTexture*> mTextures;

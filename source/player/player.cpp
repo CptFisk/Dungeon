@@ -66,11 +66,32 @@ Player::updateReferences() {
 }
 
 void
-Player::updatePosition(const float& x, const float& y) {
+Player::updatePosition(const float& x, const float& y, const Directions& direction) {
     mTexturePosition.x += x;
     mTexturePosition.y += y;
     mPlayerCenter.x += x;
     mPlayerCenter.y += y;
+
+    switch (direction) {
+        case NORTH:
+            // Move the interaction box to our top
+            mInteraction.x = mTexturePosition.x;
+            mInteraction.y = mTexturePosition.y - 16.0f;
+            break;
+        case EAST:
+            // Move the interaction box to our right
+            mInteraction.x = mTexturePosition.x + 16.0f;
+            mInteraction.y = mTexturePosition.y;
+        case SOUTH:
+            // Move the interaction box to our bottom
+            mInteraction.x = mTexturePosition.x;
+            mInteraction.y = mTexturePosition.y + 16.0f;
+        case WEST:
+            // Move the interaction box to our left
+            mInteraction.x = mTexturePosition.x - 16.0f;
+            mInteraction.y = mTexturePosition.y;
+        default:
+    }
 }
 
 void
@@ -95,16 +116,16 @@ Player::move(Directions direction) {
     mMomentum = 1.0f;
     switch (direction) {
         case NORTH:
-            updatePosition(0.0f, -mMomentum);
+            updatePosition(0.0f, -mMomentum, NORTH);
             break;
         case EAST:
-            updatePosition(mMomentum, 0.0f);
+            updatePosition(mMomentum, 0.0f, EAST);
             break;
         case SOUTH:
-            updatePosition(0.0f, mMomentum);
+            updatePosition(0.0f, mMomentum, SOUTH);
             break;
         case WEST:
-            updatePosition(-mMomentum, 0.0f);
+            updatePosition(-mMomentum, 0.0f, WEST);
             break;
         case ALL:
         default:
