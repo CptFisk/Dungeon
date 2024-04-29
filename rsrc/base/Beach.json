@@ -34,9 +34,9 @@
       {
         "File": "rsrc/base/Beach.png",
         "Name": "BeachN",
-        "Row": 1,
-        "Column":4,
-        "Length": 1,
+        "Row": 3,
+        "Column":3,
+        "Length": 3,
         "Height": 32,
         "Width": 16
       },
