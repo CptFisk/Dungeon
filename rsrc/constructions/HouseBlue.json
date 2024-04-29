@@ -1,0 +1,54 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/constructions/HouseBlue.png",
+        "Name": "HouseBlueSmall1",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Width": 48,
+        "Height": 64
+      },
+      {
+        "File": "rsrc/constructions/HouseBlue.png",
+        "Name": "HouseBlueSmall2",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Width": 48,
+        "Height": 64
+      },
+      {
+        "File": "rsrc/constructions/HouseBlue.png",
+        "Name": "HouseBlueMedium",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Width": 64,
+        "Height": 64
+      },
+      {
+        "File": "rsrc/constructions/HouseBlue.png",
+        "Name": "HouseBlueLarge1",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Width": 80,
+        "Height": 64
+      },
+      {
+        "File": "rsrc/constructions/HouseBlue.png",
+        "Name": "HouseBlueLarge2",
+        "Row": 4,
+        "Column": 1,
+        "Length": 1,
+        "Width": 80,
+        "Height": 64
+      }
+    ]
+  }
+}
