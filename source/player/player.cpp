@@ -22,7 +22,8 @@ Player::spawn(const int& x, const int& y, const Directions& direction) {
     mTexturePosition.y = _y;
     mPlayerCenter.x    = _x + 8.0f; // Offset to make dot in center of player
     mPlayerCenter.y    = _y + 8.0f; // Offset to make dot in center of player
-    mDirection         = direction;
+    updatePosition(x, y, direction);
+    mDirection = direction;
 }
 
 SDL_FRect*
