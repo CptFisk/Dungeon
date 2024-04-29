@@ -5,8 +5,44 @@
   "Data": {
     "Objects": [
       {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassOceanN",
+        "File": "rsrc/base/OceanEdge.png",
+        "Name": "OceanN",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/base/OceanEdge.png",
+        "Name": "OceanW",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/base/OceanEdge.png",
+        "Name": "OceanS",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/base/OceanEdge.png",
+        "Name": "OceanE",
+        "Row": 1,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/base/OceanEdge.png",
+        "Name": "OceanNE",
         "Row": 2,
         "Column": 1,
         "Length": 1,
@@ -14,8 +50,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassOceanE",
+        "File": "rsrc/base/OceanEdge.png",
+        "Name": "OceanES",
         "Row": 2,
         "Column": 2,
         "Length": 1,
@@ -23,8 +59,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassOceanS",
+        "File": "rsrc/base/OceanEdge.png",
+        "Name": "OceanSW",
         "Row": 2,
         "Column": 3,
         "Length": 1,
@@ -32,8 +68,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassOceanW",
+        "File": "rsrc/base/OceanEdge.png",
+        "Name": "OceanNW",
         "Row": 2,
         "Column": 4,
         "Length": 1,
@@ -41,8 +77,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassOceanNE",
+        "File": "rsrc/base/OceanEdge.png",
+        "Name": "OceanNE2",
         "Row": 3,
         "Column": 1,
         "Length": 1,
@@ -50,8 +86,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassOceanSE",
+        "File": "rsrc/base/OceanEdge.png",
+        "Name": "OceanSE2",
         "Row": 3,
         "Column": 2,
         "Length": 1,
@@ -59,8 +95,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassOceanSW",
+        "File": "rsrc/base/OceanEdge.png",
+        "Name": "OceanSW2",
         "Row": 3,
         "Column": 3,
         "Length": 1,
@@ -68,46 +104,10 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassOceanNW",
+        "File": "rsrc/base/OceanEdge.png",
+        "Name": "OceanNW2",
         "Row": 3,
         "Column": 4,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassOceanNE2",
-        "Row": 3,
-        "Column": 5,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassOceanES2",
-        "Row": 3,
-        "Column": 6,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassOceanSW2",
-        "Row": 3,
-        "Column": 7,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/Grass.png",
-        "Name": "GrassOceanNW2",
-        "Row": 3,
-        "Column": 8,
         "Length": 1,
         "Height": 16,
         "Width": 16
