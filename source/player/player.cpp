@@ -157,6 +157,7 @@ Player::move(Directions direction) {
     mAction    = Objects::MOVE;
     mDirection = direction;
     updateReferences();
+    updateInteraction();
     return mMomentum;
 }
 
