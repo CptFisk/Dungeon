@@ -36,9 +36,9 @@ Player::getPlayerCenter() {
     return &mPlayerCenter;
 }
 
-SDL_FRect
-Player::getInteractionArea() const {
-    return mInteraction;
+SDL_FRect*
+Player::getInteractionArea() {
+    return &mInteraction;
 }
 
 SDL_Texture**

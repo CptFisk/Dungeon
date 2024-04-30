@@ -4,6 +4,7 @@
 #include <utility/file.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
+#include <cmake.hpp>
 
 namespace Engine {
 
@@ -192,6 +193,10 @@ Engine::mainLoop() {
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
         drawLevel();
 
+        //Show interaction box during debug
+#ifdef DEBUG_MODE
+        mPerspective->render(GET_SDL("0000FF"), nullptr, mPlayer->getInteractionArea());
+#endif
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
 
         monsters();

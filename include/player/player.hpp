@@ -17,7 +17,7 @@ class Player {
     SDL_FRect**   getTextureViewport();
     SDL_FRect*    getTexturePosition();
     SDL_FPoint*   getPlayerCenter();
-    SDL_FRect     getInteractionArea() const;
+    SDL_FRect*    getInteractionArea();
     /**
      * @brief Move the player to a specific grid coordinate
      * @param x X-coordinate
