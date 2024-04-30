@@ -244,6 +244,16 @@ Editor::click(const float& x, const float& y) {
                     fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::OBSTACLE);
                     visualOverlay[pos].newOverlay(GET_SDL("1D35FA"));
                     break;
+                case Mouse::PLAYER_SPAWN: {
+                    auto coords    = Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale);
+                    mPlayerSpawn.x = static_cast<float>(coords.first) * 16.0f * mScale.factorX;
+                    mPlayerSpawn.y = static_cast<float>(coords.second) * 16.0f * mScale.factorY;
+                    mPlayerSpawn.w = 16.0f * mScale.factorX;
+                    mPlayerSpawn.h = 16.0f * mScale.factorY;
+                    fileHeader.Level.PlayerX = coords.first;
+                    fileHeader.Level.PlayerY = coords.second;
+                }
+                    break;
                 case Mouse::DEFAULT:
                 default:
                     break;

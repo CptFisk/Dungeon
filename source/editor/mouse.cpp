@@ -28,6 +28,7 @@ Editor::uiMouse() {
         BUTTON_COLOR(Mouse::TEXTURE, Texture)
         BUTTON_COLOR(Mouse::WALL, Wall)
         BUTTON_COLOR(Mouse::OBSTACLE, Obstacle)
+        BUTTON_COLOR(Mouse::PLAYER_SPAWN, Player spawn)
         mWindows["Mouse"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::End();
     }
