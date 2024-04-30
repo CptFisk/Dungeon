@@ -21,13 +21,13 @@ Editor::uiMouse() {
 
         ImVec2 buttonSize(ImGui::GetContentRegionAvail().x, 0);
         ImGui::SeparatorText("Graphical");
-        BUTTON_COLOR(DEFAULT, None)
-        BUTTON_COLOR(REMOVE, Remove)
+        BUTTON_COLOR(Mouse::DEFAULT, None)
+        BUTTON_COLOR(Mouse::REMOVE, Remove)
 
         ImGui::SeparatorText("Tiletype");
-        BUTTON_COLOR(TEXTURE, Texture)
-        BUTTON_COLOR(WALL, Wall)
-        BUTTON_COLOR(OBSTACLE, Obstacle)
+        BUTTON_COLOR(Mouse::TEXTURE, Texture)
+        BUTTON_COLOR(Mouse::WALL, Wall)
+        BUTTON_COLOR(Mouse::OBSTACLE, Obstacle)
         mWindows["Mouse"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::End();
     }
