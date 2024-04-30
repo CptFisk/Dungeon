@@ -78,7 +78,7 @@ readLevelData(const std::string& filename) {
     }
     file.close();
     // Generating response
-    return typeLevelData{ header, assets, tiles };
+    return typeLevelData{ header, assets, tiles, typeSpawn() };
 }
 
 size_t

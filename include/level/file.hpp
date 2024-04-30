@@ -28,6 +28,8 @@ struct typeHeader {
         uint8_t  SizeX;    // Map width
         uint8_t  SizeY;    // Map height
         uint16_t Elements; // Number of active tiles
+        uint8_t  PlayerX;
+        uint8_t  PlayerY;
     } Level;
 };
 
