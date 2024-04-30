@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.26)
 
 option(BUILD_GAME "Build game" ON)
 
-
-
 if (BUILD_GAME)
     message(STATUS "Building game")
     set(GAME_MODE TRUE)
@@ -79,6 +77,7 @@ if (BUILD_GAME)
             ${CMAKE_SOURCE_DIR}/source/objects/obstacle.cpp
             ${CMAKE_SOURCE_DIR}/source/objects/projectile.cpp
             ${CMAKE_SOURCE_DIR}/source/objects/particle.cpp
+            ${CMAKE_SOURCE_DIR}/source/objects/textbox.cpp
 
             ${CMAKE_SOURCE_DIR}/source/monster/monster.cpp
             ${CMAKE_SOURCE_DIR}/source/monster/slime.cpp
