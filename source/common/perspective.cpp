@@ -68,11 +68,11 @@ Perspective::move(Directions direction, const float& velocity) {
 void
 Perspective::center(const float& x, const float& y) {
     // First we calculate what is the center of the screen
-    const auto centerX = 8 * 16; // Half the screen (16 block in width, each block is 16*16 pixels)
-    const auto centerY = 6 * 16; // Half the screen (12 block in height, each block is 16*16 pixels)
+    constexpr auto centerX = 8 * 16; // Half the screen (16 block in width, each block is 16*16 pixels)
+    constexpr auto centerY = 6 * 16; // Half the screen (12 block in height, each block is 16*16 pixels)
 
-    mOffset.x = centerX - x;
-    mOffset.y = centerY - y;
+    mOffset.x = std::min(0.0f, centerX - x);
+    mOffset.y = std::min(0.0f, centerY - y);
 }
 
 }
