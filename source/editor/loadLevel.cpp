@@ -61,6 +61,12 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
             pos++;
         }
     }
+    //Adding player spawn
+    mPlayerSpawn.x = static_cast<float>(fileHeader.Level.PlayerX) * 16.0f * mScale.factorX;
+    mPlayerSpawn.y = static_cast<float>(fileHeader.Level.PlayerY) * 16.0f * mScale.factorY;
+    mPlayerSpawn.w = 16.0f *mScale.factorX;
+    mPlayerSpawn.h = 16.0f *mScale.factorY;
+
     mMapLoaded = true;
 }
 }

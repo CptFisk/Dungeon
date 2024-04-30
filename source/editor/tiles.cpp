@@ -48,5 +48,7 @@ Editor::uiTiles() {
             }
         }
     }
+    //Display player spawn
+    mPerspective->render(GET_SDL("0000FF"), nullptr, &mPlayerSpawn);
 }
 }

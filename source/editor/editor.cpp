@@ -27,11 +27,11 @@ Editor::Editor(const int& w, const int& h)
   , mHideAllWindows(false)
   , mMouse(DEFAULT)
   , mActionManager(std::make_unique<Common::ActionManager>())
-  , mOffset(0.0, 0.0) {}
+  , mOffset(0.0, 0.0)
+  , mPlayerSpawn{} {}
 
 Editor::~Editor() {
     mInitHandler->shutdown();
-
 
     fileTiles.Tiles.clear();
     visualOverlay.clear();

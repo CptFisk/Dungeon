@@ -126,6 +126,7 @@ class Editor {
         }
     };
     std::set<std::pair<int, int>, comparePair>      mLevelCoords; // A list of coordinates that is used
-    std::vector<std::pair<SDL_Texture*, SDL_FRect>> mEdges;       // Edges for drawing area
+    SDL_FRect                                       mPlayerSpawn;   //Area to draw the player in
+    std::vector<std::pair<SDL_Texture*, SDL_FRect>> mEdges; // Edges for drawing area
 };
 }
