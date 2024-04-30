@@ -39,10 +39,12 @@ struct typeLevelData {
     typeHeader Header;
     typeAssets Assets;
     typeTiles  Tiles;
-    typeLevelData(typeHeader header, typeAssets assets, typeTiles tiles)
+    typeSpawn  Spawns;
+    typeLevelData(typeHeader header, typeAssets assets, typeTiles tiles, typeSpawn spawns)
       : Header(header)
       , Assets(std::move(assets))
-      , Tiles(std::move(tiles)){};
+      , Tiles(std::move(tiles))
+      , Spawns(std::move(spawns)){};
 };
 
 /**
