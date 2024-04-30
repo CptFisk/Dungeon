@@ -1,3 +1,5 @@
 #pragma once
 #cmakedefine GAME_MODE
 #cmakedefine EDITOR_MODE
+#cmakedefine DEBUG_MODE
+#cmakedefine RELEASE_MODE

@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.26)
 
 option(BUILD_GAME "Build game" ON)
 
+
+
 if (BUILD_GAME)
     message(STATUS "Building game")
     set(GAME_MODE TRUE)
@@ -11,6 +13,12 @@ else ()
     set(EDITOR_MODE TRUE)
     message(STATUS "Building editor")
 endif ()
+
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    set(DEBUG_MODE TRUE)
+elseif(CMAKE_BUILD_TYPE MATCHES Release)
+    set(RELEASE_MODE TRUE)
+endif()
 
 include(ExternalProject)
 include(cmake/CMakeVendor.cmake)
