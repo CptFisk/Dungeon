@@ -103,6 +103,11 @@ Level::movement(const SDL_FRect& other, const Directions& direction) {
     return true;
 }
 
+std::pair<uint8_t, uint8_t>
+Level::getPlayerSpawn() {
+    return {header.Level.PlayerX, header.Level.PlayerY};
+}
+
 std::vector<Common::typeDrawData>
 Level::getLevel() {
     std::vector<Common::typeDrawData> data;

@@ -31,6 +31,11 @@ class Level {
     bool movement(const SDL_FRect& other, const Directions& direction);
     bool movement(const SDL_FPoint& other, const Directions& direction);
 
+    /**
+     * @brief Returns the position were the player should spawn
+     */
+    std::pair<uint8_t, uint8_t> getPlayerSpawn();
+
     std::vector<Common::typeDrawData> getLevel(); // Return all draw data
 
   protected:
