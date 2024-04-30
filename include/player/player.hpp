@@ -24,7 +24,7 @@ class Player {
      * @param y Y-Coordinate
      */
     void spawn(const uint8_t& x, const uint8_t& y, const Directions& direction = Directions::NORTH);
-    void spawn(const std::pair<uint8_t,uint8_t>& pos, const Directions& direction = Directions::NORTH); //Overload
+    void spawn(const std::pair<uint8_t, uint8_t>& pos, const Directions& direction = Directions::NORTH); // Overload
 
     void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
 
@@ -38,6 +38,7 @@ class Player {
     Objects::State mAction;    // What are we doing
     Directions     mDirection; // The direction we are facing
     void           updateReferences();
+    void           updateInteraction(); //Update interaction box
     void           updatePosition(const float& x, const float& y, const Directions& direction); // Update all data related to positioning
 
   protected:

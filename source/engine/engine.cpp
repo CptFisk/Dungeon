@@ -1,10 +1,10 @@
+#include <cmake.hpp>
 #include <common/handlers.hpp>
 #include <common/scale.hpp>
 #include <engine/engine.hpp>
 #include <utility/file.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
-#include <cmake.hpp>
 
 namespace Engine {
 
@@ -142,6 +142,8 @@ void
 Engine::movePlayer(Directions direction) {
     if (mLevel->movement(*mPlayer->getPlayerCenter(), direction))
         mPerspective->move(direction, mPlayer->move(direction));
+    else
+        mPlayer->setDirection(direction); // At least change direction
 }
 
 void
@@ -189,7 +191,7 @@ Engine::mainLoop() {
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
         drawLevel();
 
-        //Show interaction box during debug
+        // Show interaction box during debug
 #ifdef DEBUG_MODE
         mPerspective->render(GET_SDL("0000FF"), nullptr, mPlayer->getInteractionArea());
 #endif
