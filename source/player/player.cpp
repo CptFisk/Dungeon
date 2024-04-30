@@ -83,15 +83,19 @@ Player::updatePosition(const float& x, const float& y, const Directions& directi
             // Move the interaction box to our right
             mInteraction.x = mTexturePosition.x + 16.0f;
             mInteraction.y = mTexturePosition.y;
+            break;
         case SOUTH:
             // Move the interaction box to our bottom
             mInteraction.x = mTexturePosition.x;
             mInteraction.y = mTexturePosition.y + 16.0f;
+            break;
         case WEST:
             // Move the interaction box to our left
             mInteraction.x = mTexturePosition.x - 16.0f;
             mInteraction.y = mTexturePosition.y;
+            break;
         default:
+            break;
     }
 }
 
