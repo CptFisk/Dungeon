@@ -14,7 +14,12 @@ Player::Player()
 Player::~Player() = default;
 
 void
-Player::spawn(const int& x, const int& y, const Directions& direction) {
+Player::spawn(const std::pair<uint8_t,uint8_t>& pos, const Directions& direction){
+    spawn(pos.first, pos.second, direction);
+}
+
+  void
+Player::spawn(const uint8_t& x, const uint8_t& y, const Directions& direction) {
     const float _x = static_cast<float>(x) * 16.0f;
     const float _y = static_cast<float>(y) * 16.0f;
 
