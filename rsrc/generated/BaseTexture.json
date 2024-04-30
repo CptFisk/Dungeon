@@ -68,6 +68,19 @@
         "Blue1": 0,
         "Blue2": 0,
         "Alpha": 80
+      },
+      {
+        "Name": "0000FF",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 255,
+        "Red2": 255,
+        "Green1": 0,
+        "Green2": 0,
+        "Blue1": 0,
+        "Blue2": 0,
+        "Alpha": 80
       }
     ]
   }
