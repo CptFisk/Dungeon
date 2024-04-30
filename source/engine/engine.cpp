@@ -156,11 +156,7 @@ Engine::resetPlayerMomentum() {
 
 void
 Engine::mainLoop() {
-    // Spawn some slime
-    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(16, 16));
-    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(32, 32));
-    mActiveMonsters.push_back(mMonsters[Monster::SLIME]->spawn(48, 48));
-
+    mPlayer->spawn(mLevel->getPlayerSpawn());
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
     while (mRun) {
         mFPSTimer.start();
