@@ -5,7 +5,7 @@ namespace Level::File{
 /**
  * @brief Different type of spawn types
  */
-enum class SpawnType : uint8_t { BLANK = 0, PLAYER = 1 << 0, MONSTER = 1 << 1 };
+enum class SpawnType : uint8_t { BLANK = 0, MONSTER = 1 << 0 };
 
 /**
  * @brief Data that each specif spawn need's to contain
