@@ -29,6 +29,7 @@ Player::spawn(const uint8_t& x, const uint8_t& y, const Directions& direction) {
     mPlayerCenter.y    = _y + 8.0f; // Offset to make dot in center of player
     updatePosition(x, y, direction);
     mDirection = direction;
+    updateInteraction();
 }
 
 SDL_FRect*
