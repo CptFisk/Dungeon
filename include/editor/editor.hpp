@@ -17,8 +17,8 @@
 namespace Editor {
 class Editor {
   public:
-    Editor(const int& w, const int& h);  // Constructor
-    ~Editor(); // De-constructor
+    Editor(const int& w, const int& h); // Constructor
+    ~Editor();                          // De-constructor
 
     void                   startup();  // Load all functions related to startup
     void                   mainLoop(); // Were all the magic happen
@@ -52,8 +52,8 @@ class Editor {
     void present();   // Render all graphic
 
   private:
-    const int requestDimensionW;    //Requested window width
-    const int requestDimensionH;    //Requested window height
+    const int requestDimensionW; // Requested window width
+    const int requestDimensionH; // Requested window height
 
     Common::typeScale mScale;
 
@@ -103,17 +103,18 @@ class Editor {
     std::set<std::function<void()>, typeElementsCompare>   mVisibleElements;
     bool                                                   mHideAllWindows; // True if all elements should be hidden
     std::string                                            mStringInput;
-    bool showOverlay;
-    bool showNumbers;
-    bool showGrid;
+    bool                                                   showOverlay;
+    bool                                                   showNumbers;
+    bool                                                   showGrid;
 
     // Map data
     Level::File::typeHeader fileHeader;
     Level::File::typeAssets fileAssets; // List of all the assets that exist in the current map.
     Level::File::typeTiles  fileTiles;  // Tiles used inside the map editor, later used for export to a file
+    Level::File::typeSpawn  fileSpawns;
 
-    std::vector<Level::Tile> editorTiles;         // All tiles in the game.
-    std::unordered_map<int, VisualTile>  visualOverlay; // Overlay that display the type
+    std::vector<Level::Tile>            editorTiles;   // All tiles in the game.
+    std::unordered_map<int, VisualTile> visualOverlay; // Overlay that display the type
 
     struct comparePair {
         bool operator()(const std::pair<int, int>& lhs, const std::pair<int, int>& rhs) const {
