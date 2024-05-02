@@ -1,0 +1,45 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/constructions/Mailbox.png",
+        "Name": "MailboxRedEmpty",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/constructions/Mailbox.png",
+        "Name": "MailboxRedFull",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/constructions/Mailbox.png",
+        "Name": "MailboxWoodEmpty",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/constructions/Mailbox.png",
+        "Name": "MailboxWoodFull",
+        "Row": 2,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
