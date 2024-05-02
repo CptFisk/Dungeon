@@ -20,8 +20,8 @@ Player::spawn(const std::pair<uint8_t,uint8_t>& pos, const Directions& direction
 
   void
 Player::spawn(const uint8_t& x, const uint8_t& y, const Directions& direction) {
-    const float _x = static_cast<float>(x) * 16.0f;
-    const float _y = static_cast<float>(y) * 16.0f;
+    const float _x = std::max((static_cast<float>(x) * 16.0f) - 16.0f, 0.0f);   //We reduce by 16 because position is top left corner
+    const float _y = std::max((static_cast<float>(y) * 16.0f) - 16.0f, 0.0f);
 
     mTexturePosition.x = _x;
     mTexturePosition.y = _y;

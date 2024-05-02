@@ -117,7 +117,6 @@ Engine::startup() {
 
     // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y, mPlayer->getPlayerCenter());
-    mPlayer->spawn(10, 7);
 }
 
 void
@@ -158,6 +157,7 @@ Engine::resetPlayerMomentum() {
 
 void
 Engine::mainLoop() {
+    textBox = new Objects::TextBox(mGraphics->generateText("Hello world", 1.0f,1.0f),20,20);
     mPlayer->spawn(mLevel->getPlayerSpawn());
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
     while (mRun) {
