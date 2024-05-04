@@ -81,6 +81,19 @@
         "Blue1": 0,
         "Blue2": 0,
         "Alpha": 80
+      },
+      {
+        "Name": "A349A4",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 163,
+        "Red2": 255,
+        "Green1": 73,
+        "Green2": 0,
+        "Blue1": 164,
+        "Blue2": 0,
+        "Alpha": 80
       }
     ]
   }
