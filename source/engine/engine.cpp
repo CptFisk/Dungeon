@@ -197,7 +197,7 @@ Engine::mainLoop() {
         // Displaying spawn point
         const auto coords = mLevel->getPlayerSpawn();
         SDL_FRect  spawn{ coords.first * 16.0f, coords.second * 16.0f, 16.0f, 16.0f };
-        mPerspective->render(GET_SDL("0000FF"), nullptr, &spawn);
+        mPerspective->render(GET_SDL("A349A4"), nullptr, &spawn);
 #endif
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
 

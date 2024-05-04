@@ -106,6 +106,8 @@ class Engine {
 
     // Visible numbers
     std::vector<Graphics::Number> mNumbers; // Visible numbers
+
+    Objects::TextBox* textBox;
 };
 
 }
