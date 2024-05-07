@@ -45,7 +45,7 @@ class Graphics {
      * @param height Height of each letter
      * @return
      */
-    typeTextTexture generateText(std::string text, const float& width, const float& height);
+    typeTextTexture generateText(std::string text, const int& size = 8);
 
     struct typeTextureInfo {
         std::any     Texture;

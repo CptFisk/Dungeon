@@ -42,7 +42,13 @@ Graphics::init() {
 }
 
 typeTextTexture
-Graphics::generateText(std::string text, const float& width, const float& height) {
+Graphics::generateText(std::string text, const int& size) {
+    int _size; // Internal variable
+    if (size < 8.0f) {
+        std::cerr << "Size needs to be 8.0 or bigger";
+        _size = 8.0;
+    } else
+        _size = size;
     // //Change string to upper-case
     std::transform(text.begin(), text.end(), text.begin(), [](unsigned char c) { return std::toupper(c); });
     const auto textureName = "text" + text;
@@ -50,8 +56,8 @@ Graphics::generateText(std::string text, const float& width, const float& height
         return getTexture<typeTextTexture>(textureName);
     // Calculate sizes
     const auto length = text.length();
-    const auto w      = static_cast<int>(length) * static_cast<int>(width);
-    const auto h      = static_cast<int>(height);
+    const auto w      = static_cast<int>(length) * _size;
+    const auto h      = _size;
 
     auto texture = SDL_CreateTexture(pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, w, h);
 
@@ -61,18 +67,21 @@ Graphics::generateText(std::string text, const float& width, const float& height
     SDL_SetRenderTarget(pRenderer, texture);
 
     auto alphabet = getTexture<typeSimpleTexture>("LettersWhite").Texture;
-    auto numbers = getTexture<typeSimpleTexture>("NumbersWhite").Texture;
+    auto numbers  = getTexture<typeSimpleTexture>("NumbersWhite").Texture;
 
     int       pos         = 0;
     SDL_FRect selector    = { 0, 0, 8.0f, 8.0f };
-    SDL_FRect destination = { 0, 0, width, height };
+    SDL_FRect destination = { 0, 0, size, size };
     for (const auto& c : text) {
-        destination.x = static_cast<float>(pos++) * width ;
+        destination.x = static_cast<float>(pos++) * size;
         if ((int)c > 0x40 && (int)c < 0x91) {
             selector.x = static_cast<float>((int)c - (0x41)) * 8.0f;
             SDL_RenderTexture(pRenderer, alphabet, &selector, &destination);
         } else if ((int)c > 0x2F && (int)c < 0x39) {
             selector.x = static_cast<float>((int)c - (0x30)) * 8.0f;
+            SDL_RenderTexture(pRenderer, numbers, &selector, &destination);
+        } else if ((int)c == 0x20) {
+            selector.x = 200.0f;
             SDL_RenderTexture(pRenderer, numbers, &selector, &destination);
         } else {
             std::cerr << "Illegal character" << std::endl;
@@ -80,7 +89,7 @@ Graphics::generateText(std::string text, const float& width, const float& height
         }
     }
     SDL_SetRenderTarget(pRenderer, nullptr); // Reset render target
-    auto obj = typeTextTexture{ texture, SDL_FRect{ 0, 0, static_cast<float>(w), static_cast<float>(h) } };
+    auto obj = typeTextTexture{ texture, SDL_FRect{ 0, 10, static_cast<float>(w), static_cast<float>(h) } };
     addTexture<typeTextTexture>(textureName, obj, TEXT);
     return obj;
 }
