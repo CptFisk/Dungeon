@@ -209,7 +209,7 @@ Engine::mainLoop() {
         drawNumbers();
         mHealth->draw();
         mEnergy->draw();
-        auto t = textBox->mText[0];
+
         SDL_RenderTexture(pRenderer, t.Texture, nullptr, &t.Dimensions);
         present();
 
