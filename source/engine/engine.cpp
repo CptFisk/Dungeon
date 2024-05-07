@@ -157,7 +157,7 @@ Engine::resetPlayerMomentum() {
 
 void
 Engine::mainLoop() {
-    textBox = new Objects::TextBox(mGraphics->generateText("Hello world", 1.0f, 1.0f), 20, 20);
+    textBox = new Objects::TextBox(mGraphics->generateText("Hello ssss", 8), 20, 20);
     mPlayer->spawn(mLevel->getPlayerSpawn());
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
     while (mRun) {
@@ -209,12 +209,15 @@ Engine::mainLoop() {
         drawNumbers();
         mHealth->draw();
         mEnergy->draw();
+        auto t = textBox->mText[0];
+        SDL_RenderTexture(pRenderer, t.Texture, nullptr, &t.Dimensions);
         present();
 
         auto ticks = mFPSTimer.getTicks();
         if (ticks < 1000.0 / 60.0)
             SDL_Delay((1000 / 60.0) - ticks);
     }
+    delete textBox;
 }
 
 void

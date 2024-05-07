@@ -41,9 +41,7 @@ class Graphics {
     /**
      * @brief Generate a text as texture
      * @param text Text to be generated
-     * @param width Width of each letter
-     * @param height Height of each letter
-     * @return
+     * @param size Size of the text, default and min value is 8
      */
     typeTextTexture generateText(std::string text, const int& size = 8);
 
