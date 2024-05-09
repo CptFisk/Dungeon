@@ -4,6 +4,7 @@
 #include <graphics/graphics.hpp>
 #include <iostream>
 #include <level/level.hpp>
+#include <utility/math.hpp>
 #include <utility/textures.hpp>
 
 namespace Level {
@@ -16,6 +17,7 @@ Level::Level(SDL_Renderer*                       renderer,
              float&                              playerX,
              float&                              playerY)
   : pRenderer(renderer)
+  , mLevel(nullptr)
   , red(red)
   , green(green)
   , blue(blue)
@@ -59,13 +61,26 @@ Level::loadLevel(const std::string& filename) {
         throw std::runtime_error("Load file corrupted");
 
     int pos = 0; // Resetting
+    // Generating the big texture
+    mLevel =
+      SDL_CreateTexture(pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, static_cast<int>(sizeX), static_cast<int>(sizeY));
+    SDL_SetTextureBlendMode(mLevel, SDL_BLENDMODE_BLEND);
+    SDL_SetTextureAlphaMod(mLevel, 255);
+    SDL_SetRenderTarget(pRenderer, mLevel); // Set render area to the new texture
+
     for (const auto& tile : data.Tiles.Tiles) {
         if ((tile.Type & static_cast<uint8_t>(File::TileType::TEXTURE)) != 0) {
             // Read all assets
             for (const auto& id : tile.Id) {
-                const auto val     = static_cast<int>(id);
-                auto       texture = GET_SIMPLE(data.Assets.Assets[val]); // Assets to use
-                tiles[pos].addData(texture.getTexture(), texture.getRandomView(), texture.Width, texture.Height);
+                const auto val      = static_cast<int>(id);
+                auto       texture  = GET_SIMPLE(data.Assets.Assets[val]); // Assets to use
+                auto       coords   = Common::getCoords(pos, header.Level.SizeX, header.Level.SizeY).value();
+                SDL_FRect  position = { static_cast<float>(coords.first) * 16.0f, static_cast<float>(coords.second) * 16.0f, 16.0f, 16.0f };
+
+                if(SDL_RenderTexture(pRenderer, texture.Texture, &texture.getRandomView(), &position) != 0){
+                    std::cout << SDL_GetError() << std::endl;
+                }
+                // tiles[pos].addData(texture.getTexture(), texture.getRandomView(), texture.Width, texture.Height);
             }
         }
         if ((tile.Type & static_cast<uint8_t>(File::TileType::OBSTACLE)) != 0) {
@@ -80,7 +95,7 @@ Level::loadLevel(const std::string& filename) {
         }
         pos++;
     }
-
+    SDL_SetRenderTarget(pRenderer, nullptr);
     walls     = wall;
     obstacles = obstacle;
 }
@@ -105,7 +120,7 @@ Level::movement(const SDL_FRect& other, const Directions& direction) {
 
 std::pair<uint8_t, uint8_t>
 Level::getPlayerSpawn() {
-    return {header.Level.PlayerX, header.Level.PlayerY};
+    return { header.Level.PlayerX, header.Level.PlayerY };
 }
 
 std::vector<Common::typeDrawData>

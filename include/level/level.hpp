@@ -22,6 +22,8 @@ class Level {
           float&                              playerY);
     ~Level() = default; // Cleaning
 
+    SDL_Texture* mLevel; // The complete level, but as one big sprite
+
     void loadLevel(const std::string& filename);
     /**
      * @breif Check if movement is allowed, or if it collides with other objects

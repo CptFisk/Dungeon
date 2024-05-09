@@ -4,7 +4,7 @@
 
 namespace Graphics {
 Graphics::Graphics(SDL_Renderer* renderer)
-  : pRenderer(renderer) {}
+  : pRenderer(renderer){}
 
 void
 Graphics::updateAnimatedTexture() {
@@ -72,6 +72,8 @@ Graphics::generateText(std::string text, const int& size) {
     int       pos         = 0;
     SDL_FRect selector    = { 0, 0, 8.0f, 8.0f };
     SDL_FRect destination = { 0, 0, static_cast<float>(size), static_cast<float>(size) };
+
+
     for (const auto& c : text) {
         destination.x = static_cast<float>(pos++) * size;
         if ((int)c > 0x40 && (int)c < 0x91) {

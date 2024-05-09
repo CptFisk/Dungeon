@@ -189,8 +189,9 @@ Engine::mainLoop() {
         }
         // Apply background color
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
-        drawLevel();
-
+        // drawLevel();
+        SDL_FRect pos = { 0.0f, 0.0f, 2048.0f, 2048.0f };
+        mPerspective->render(mLevel->mLevel, nullptr, &pos);
         // Show interaction box during debug
 #ifdef DEBUG_MODE
         mPerspective->render(GET_SDL("0000FF"), nullptr, mPlayer->getInteractionArea());
@@ -210,7 +211,6 @@ Engine::mainLoop() {
         mHealth->draw();
         mEnergy->draw();
 
-        SDL_RenderTexture(pRenderer, t.Texture, nullptr, &t.Dimensions);
         present();
 
         auto ticks = mFPSTimer.getTicks();
