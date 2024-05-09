@@ -21,8 +21,8 @@ Level::createSegments() {
     }
 
     if (header.Level.SizeY >= segmentSizeY) {
-        segmentX   = static_cast<int>(header.Level.SizeY / segmentSizeY);
-        remainderX = header.Level.SizeY % segmentSizeY;
+        segmentY   = static_cast<int>(header.Level.SizeY / segmentSizeY);
+        remainderY = header.Level.SizeY % segmentSizeY;
     }
 
     // Creating textures and positions
