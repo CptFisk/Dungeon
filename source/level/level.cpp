@@ -49,16 +49,6 @@ Level::loadLevel(const std::string& filename) {
     obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, sizeX, 16.0f });         // Top wall
     obstacle.push_back(SDL_FRect{ -16.0f, sizeY, sizeX, 16.0 });           // Bottom wall
 
-    tiles.clear(); // Clear if something exist
-
-    for (int y = 0; y < data.Header.Level.SizeY; y++) {
-        for (int x = 0; x < data.Header.Level.SizeX; x++) {
-            tiles.emplace_back(x, y); // Used to generate all squares
-        }
-    }
-
-    if (tiles.size() != data.Tiles.Tiles.size())
-        throw std::runtime_error("Load file corrupted");
 
     int pos = 0; // Resetting
     // Generating the big texture
