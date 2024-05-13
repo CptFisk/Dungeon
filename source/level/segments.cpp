@@ -69,7 +69,11 @@ Level::addToSegment(const int& pos, const std::string& name) {
         auto coord = coords.value();
         // Calculating what segment this area belongs to
         auto index = getSegment(coord);
+        if(index == 1){
+            int a = 20;
+        }
         if (index <= mSegments.size()) {
+            //Fix this, the issue is that the position is not the same in picture as in game. Due to segmentations
             SDL_FRect destination = { static_cast<float>(coord.first) * 16.0f,
                                       static_cast<float>(coord.second) * 16.0f,
                                       static_cast<float>(texture.Width),

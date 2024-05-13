@@ -163,6 +163,7 @@ Engine::mainLoop() {
     while (mRun) {
         mFPSTimer.start();
 
+        SDL_SetRenderTarget(pRenderer, nullptr);
         SDL_RenderClear(pRenderer);
         while (SDL_PollEvent(&mEvent)) {
             bool accepted = true;
@@ -190,9 +191,8 @@ Engine::mainLoop() {
         // Apply background color
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
         // drawLevel();
-        for(auto & segment : mLevel->mSegments){
-            mPerspective->render(segment.second, nullptr, &segment.first);
-        }
+        mPerspective->render(mLevel->mSegments[0].second, nullptr, &mLevel->mSegments[1].first);
+
 
 
 
