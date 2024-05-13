@@ -43,7 +43,7 @@ class Level {
      */
     void createSegments();
     void addToSegment(const int& pos, const std::string& name);
-    size_t getSegment(const std::pair<int,int> coord);
+    size_t getSegment(const std::pair<int,int> coord) const;
 
   private:
     Uint8& red;   // Reference to engine->Background->Red
@@ -65,8 +65,8 @@ class Level {
     float& playerX; // Player position X-axis
     float& playerY; // Player position Y-axis
 
-    static const int segmentSizeX = 25;
-    static const int segmentSizeY = 25;
+    static const int segmentSizeX = 3;
+    static const int segmentSizeY = 3;
 };
 
 }

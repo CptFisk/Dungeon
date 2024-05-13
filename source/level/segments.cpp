@@ -27,7 +27,7 @@ Level::createSegments() {
     }
 
     // Creating textures and positions
-    for (int y = 0; y < segmentY; y++) {
+    for (int y = 0; y <= segmentY; y++) {
         for (int x = 0; x < segmentX; x++) {
             auto xx  = static_cast<float>(x);            // Current x-position but as float
             auto yy  = static_cast<float>(y);            // Current y-position but as float
@@ -92,7 +92,7 @@ Level::addToSegment(const int& pos, const std::string& name) {
 }
 
 size_t
-Level::getSegment(const std::pair<int, int> coord) {
+Level::getSegment(const std::pair<int, int> coord) const{
     const int indexX           = static_cast<int>(coord.first / segmentSizeX);
     const int indexY           = static_cast<int>(coord.second / segmentSizeY);
     const int numberOfSegments = static_cast<int>((header.Level.SizeX + segmentSizeX - 1) / segmentSizeX);

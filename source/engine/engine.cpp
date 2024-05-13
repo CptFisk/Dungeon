@@ -190,7 +190,10 @@ Engine::mainLoop() {
         // Apply background color
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
         // drawLevel();
-        mPerspective->render(mLevel->mSegments[0].second, nullptr, &mLevel->mSegments[0].first);
+        for(auto & segment : mLevel->mSegments){
+            mPerspective->render(segment.second, nullptr, &segment.first);
+        }
+
 
 
         // Show interaction box during debug

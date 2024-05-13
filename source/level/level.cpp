@@ -48,30 +48,29 @@ Level::loadLevel(const std::string& filename) {
     obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, sizeX, 16.0f });         // Top wall
     obstacle.push_back(SDL_FRect{ -16.0f, sizeY, sizeX, 16.0 });           // Bottom wall
 
-    int pos = 0; // Resetting
-    createSegments();   //Generate segments
+    int pos = data.Tiles.Tiles.size() - 1; // Resetting, minus one to get correct values
+    createSegments();                  // Generate segments
 
-    for (const auto& tile : data.Tiles.Tiles) {
-        if ((tile.Type & static_cast<uint8_t>(File::TileType::TEXTURE)) != 0) {
-            // Read all assets
-            for (const auto& id : tile.Id) {
-                const auto val      = static_cast<int>(id);
-                addToSegment(pos, data.Assets.Assets[val]);
-
+    //The reason for looping in reverse order is because of how items is drawn to the screen
+    for (auto it = data.Tiles.Tiles.rbegin(); it != data.Tiles.Tiles.rend(); ++it) {
+        if (((*it).Type & static_cast<uint8_t>(File::TileType::TEXTURE)) != 0) {
+            for(const auto& id : (*it).Id){
+                addToSegment(pos, data.Assets.Assets[static_cast<int>(id)]);
             }
         }
-        if ((tile.Type & static_cast<uint8_t>(File::TileType::OBSTACLE)) != 0) {
+        if (((*it).Type & static_cast<uint8_t>(File::TileType::OBSTACLE)) != 0) {
             const auto coords = Common::getCoords(pos, data.Header.Level.SizeX, data.Header.Level.SizeY);
             if (coords.has_value())
                 obstacle.emplace_back(Common::newSDL_FRect(coords.value()));
         }
-        if ((tile.Type & static_cast<uint8_t>(File::TileType::WALL)) != 0) {
+        if (((*it).Type & static_cast<uint8_t>(File::TileType::WALL)) != 0) {
             const auto coords = Common::getCoords(pos, data.Header.Level.SizeX, data.Header.Level.SizeY);
             if (coords.has_value())
                 wall.emplace_back(Common::newSDL_FRect(coords.value()));
         }
-        pos++;
+        pos--;
     }
+
     SDL_SetRenderTarget(pRenderer, nullptr);
     walls     = wall;
     obstacles = obstacle;

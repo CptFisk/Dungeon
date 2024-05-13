@@ -1,19 +1,19 @@
 #include <common/math.hpp>
 
-namespace Common{
+namespace Common {
 
 std::optional<int>
-getIndex(const float& x, const float& y, const float& maxX){
+getIndex(const float& x, const float& y, const float& maxX) {
     return getIndex(static_cast<int>(x), static_cast<int>(y), static_cast<int>(maxX));
 }
 
 std::optional<int>
-getIndex(const std::pair<int, int>& coords, const int& maxX){
+getIndex(const std::pair<int, int>& coords, const int& maxX) {
     return getIndex(coords.first, coords.second, maxX);
 }
 
 std::optional<int>
-getIndex(const int& x, const int& y, const int& maxX){
+getIndex(const int& x, const int& y, const int& maxX) {
     if (maxX == 0)
         return std::nullopt;
     auto _x     = static_cast<int>(x);
@@ -23,18 +23,18 @@ getIndex(const int& x, const int& y, const int& maxX){
 }
 
 std::pair<int, int>
-getClickCoords(const float& x, const float& y, const typeScale& scale){
+getClickCoords(const float& x, const float& y, const typeScale& scale) {
     auto _x = std::floor(static_cast<float>(x) / (16.0f * scale.factorX));
     auto _y = std::floor(static_cast<float>(y) / (16.0f * scale.factorY));
     return std::make_pair(_x, _y);
 }
 
-std::optional<std::pair<int,int>>
-getCoords(const int& pos, const int& width, const int& height){
-    if(pos >= width* height)
+std::optional<std::pair<int, int>>
+getCoords(const int& pos, const int& width, const int& height) {
+    if (pos > width * height || width == 0 || height == 0)
         return std::nullopt;
-    const int y = pos / height;
-    const int x = pos - (y * height);
-    return std::pair(x,y);
+    const int x = pos % width;
+    const int y = pos / width;
+    return std::make_pair(y, x);
 }
 }
