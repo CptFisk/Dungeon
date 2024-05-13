@@ -8,11 +8,12 @@ class TextBox{
   public:
     TextBox(const Graphics::typeTextTexture& text, const int& x, const int& y);
     TextBox(const std::vector<Graphics::typeTextTexture>& text, const int& x, const int& y);
-
-    const std::vector<Graphics::typeTextTexture> mText;
+    ~TextBox();
+    void combineTextures(const std::vector<Graphics::typeTextTexture>& texts);
   private:
   protected:
     SDL_FRect mBackground;
+    SDL_Texture* mTexture;
 
 };
 }
