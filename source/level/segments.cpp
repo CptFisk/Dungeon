@@ -36,8 +36,8 @@ Level::createSegments() {
             // Create texture
             auto texture =
               SDL_CreateTexture(pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, segmentSizeX * 16, segmentSizeY * 16);
-            SDL_SetTextureBlendMode(mLevel, SDL_BLENDMODE_BLEND);
-            SDL_SetTextureAlphaMod(mLevel, 255);
+            SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+            SDL_SetTextureAlphaMod(texture, 255);
             // Creating all segments
             mSegments.emplace_back(SDL_FRect{ xx * ssx * 16.0f, yy * ssy * 16.0f, ssx * 16.0f, ssy * 16.0f }, texture);
         }
@@ -51,8 +51,8 @@ Level::createSegments() {
 
             auto texture =
               SDL_CreateTexture(pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, remainderX * 16, remainderY * 16);
-            SDL_SetTextureBlendMode(mLevel, SDL_BLENDMODE_BLEND);
-            SDL_SetTextureAlphaMod(mLevel, 255);
+            SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+            SDL_SetTextureAlphaMod(texture, 255);
             // Creating all segments
             mSegments.emplace_back(SDL_FRect{ sx * ssx * 16.0f, static_cast<float>(y) * ssy * 16.0f, xx * 16.0f, yy * 16.0f }, texture);
         }
@@ -65,32 +65,36 @@ Level::addToSegment(const int& pos, const std::string& name) {
     auto texture = GET_SIMPLE(name);                                               // First we extract the texture
     auto coords  = Common::getCoords(pos, header.Level.SizeX, header.Level.SizeY); // Fetching coords, hopefully
 
-    if(coords.has_value()){
+    if (coords.has_value()) {
         auto coord = coords.value();
-        //Calculating what segment this area belongs to
+        // Calculating what segment this area belongs to
         auto index = getSegment(coord);
-        if(index <= mSegments.size()){
+        if (index <= mSegments.size()) {
+            SDL_FRect destination = { static_cast<float>(coord.first) * 16.0f,
+                                      static_cast<float>(coord.second) * 16.0f,
+                                      static_cast<float>(texture.Width),
+                                      static_cast<float>(texture.Height) };
+            // Change render target
+            if (SDL_SetRenderTarget(pRenderer, mSegments[index].second) != 0) {
+                std::cerr << SDL_GetError() << std::endl;
+            };
+            if(SDL_RenderTexture(pRenderer, texture.getTexture(), &texture.getRandomView(), &destination) != 0){
+                std::cerr << SDL_GetError() << std::endl;
+            }
+            SDL_SetRenderTarget(pRenderer, nullptr); // Reset renderer
 
-        }else{
+        } else {
             std::cerr << "Error in calculations";
         }
-    }else{
+    } else {
         std::cerr << "Cant translate coordinates" << std::endl;
     }
-/*
-    SDL_FRect position = { static_cast<float>(coords.first) * 16.0f, static_cast<float>(coords.second) * 16.0f, 16.0f, 16.0f };
-
-    if (SDL_RenderTexture(pRenderer, texture.Texture, &texture.getRandomView(), &position) != 0) {
-        std::cout << SDL_GetError() << std::endl;
-    }
-    // tiles[pos].addData(texture.getTexture(), texture.getRandomView(), texture.Width, texture.Height);
-    */
 }
 
 size_t
 Level::getSegment(const std::pair<int, int> coord) {
-    const int indexX = static_cast<int>(coord.first / segmentSizeX);
-    const int indexY = static_cast<int>(coord.second / segmentSizeY);
+    const int indexX           = static_cast<int>(coord.first / segmentSizeX);
+    const int indexY           = static_cast<int>(coord.second / segmentSizeY);
     const int numberOfSegments = static_cast<int>((header.Level.SizeX + segmentSizeX - 1) / segmentSizeX);
 
     return indexY * numberOfSegments + indexX;

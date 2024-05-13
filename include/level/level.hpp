@@ -20,9 +20,6 @@ class Level {
           float&                              playerX,
           float&                              playerY);
     ~Level() = default; // Cleaning
-
-    SDL_Texture* mLevel; // The complete level, but as one big sprite
-
     void loadLevel(const std::string& filename);
     /**
      * @breif Check if movement is allowed, or if it collides with other objects
@@ -38,7 +35,7 @@ class Level {
     std::pair<uint8_t, uint8_t> getPlayerSpawn();
 
     std::vector<Common::typeDrawData> getLevel(); // Return all draw data
-
+    std::vector<std::pair<SDL_FRect, SDL_Texture*>> mSegments; // Level segments (generated)
   protected:
     /**
      * @brief Split the graphic into smaller chunks and then generate graphics on them instead.
@@ -57,7 +54,7 @@ class Level {
     std::shared_ptr<Graphics::Graphics> mGraphics;
     SDL_Renderer*                       pRenderer; // Reference to the renderer
 
-    std::vector<std::pair<SDL_FRect, SDL_Texture*>> mSegments; // Level segments (generated)
+
     std::vector<SDL_FRect>                          obstacles; // Things that you cant walk over
     std::vector<SDL_FRect>                          walls;
 

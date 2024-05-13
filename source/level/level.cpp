@@ -17,7 +17,6 @@ Level::Level(SDL_Renderer*                       renderer,
              float&                              playerX,
              float&                              playerY)
   : pRenderer(renderer)
-  , mLevel(nullptr)
   , red(red)
   , green(green)
   , blue(blue)
@@ -50,9 +49,6 @@ Level::loadLevel(const std::string& filename) {
     obstacle.push_back(SDL_FRect{ -16.0f, sizeY, sizeX, 16.0 });           // Bottom wall
 
     int pos = 0; // Resetting
-
-
-
     createSegments();   //Generate segments
 
     for (const auto& tile : data.Tiles.Tiles) {
@@ -107,6 +103,7 @@ Level::getPlayerSpawn() {
 std::vector<Common::typeDrawData>
 Level::getLevel() {
     std::vector<Common::typeDrawData> data;
+    SDL_RenderTexture(pRenderer, mSegments[0].second, nullptr, &mSegments[0].first);
     /*
 
     std::vector<int>                  indices; // Contains all the tiles
