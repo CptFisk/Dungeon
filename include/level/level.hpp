@@ -40,6 +40,14 @@ class Level {
     std::vector<Common::typeDrawData> getLevel(); // Return all draw data
 
   protected:
+    /**
+     * @brief Split the graphic into smaller chunks and then generate graphics on them instead.
+     * @brief Resulting that instead of having 128x 128 pixels you only have a grid 6x 6 instead.
+     */
+    void createSegments();
+    void addToSegment(const int& pos, const std::string& name);
+    size_t getSegment(const std::pair<int,int> coord);
+
   private:
     Uint8& red;   // Reference to engine->Background->Red
     Uint8& green; // Reference to engine->Background->Green
@@ -49,14 +57,19 @@ class Level {
     std::shared_ptr<Graphics::Graphics> mGraphics;
     SDL_Renderer*                       pRenderer; // Reference to the renderer
 
-    std::vector<SDL_FRect> obstacles; // Things that you cant walk over
-    std::vector<SDL_FRect> walls;
+    std::vector<std::pair<SDL_FRect, SDL_Texture*>> mSegments; // Level segments (generated)
+    std::vector<SDL_FRect>                          obstacles; // Things that you cant walk over
+    std::vector<SDL_FRect>                          walls;
+
     // Level data
-    File::typeHeader  header;
-    int               elements; // Number of elements that exist in pTiles
+    File::typeHeader header;
+    int              elements; // Number of elements that exist in pTiles
 
     float& playerX; // Player position X-axis
     float& playerY; // Player position Y-axis
+
+    static const int segmentSizeX = 25;
+    static const int segmentSizeY = 25;
 };
 
 }

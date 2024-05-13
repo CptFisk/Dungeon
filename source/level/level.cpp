@@ -49,28 +49,19 @@ Level::loadLevel(const std::string& filename) {
     obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, sizeX, 16.0f });         // Top wall
     obstacle.push_back(SDL_FRect{ -16.0f, sizeY, sizeX, 16.0 });           // Bottom wall
 
-
     int pos = 0; // Resetting
-    // Generating the big texture
-    mLevel =
-      SDL_CreateTexture(pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, static_cast<int>(sizeX), static_cast<int>(sizeY));
-    SDL_SetTextureBlendMode(mLevel, SDL_BLENDMODE_BLEND);
-    SDL_SetTextureAlphaMod(mLevel, 255);
-    SDL_SetRenderTarget(pRenderer, mLevel); // Set render area to the new texture
+
+
+
+    createSegments();   //Generate segments
 
     for (const auto& tile : data.Tiles.Tiles) {
         if ((tile.Type & static_cast<uint8_t>(File::TileType::TEXTURE)) != 0) {
             // Read all assets
             for (const auto& id : tile.Id) {
                 const auto val      = static_cast<int>(id);
-                auto       texture  = GET_SIMPLE(data.Assets.Assets[val]); // Assets to use
-                auto       coords   = Common::getCoords(pos, header.Level.SizeX, header.Level.SizeY).value();
-                SDL_FRect  position = { static_cast<float>(coords.first) * 16.0f, static_cast<float>(coords.second) * 16.0f, 16.0f, 16.0f };
+                addToSegment(pos, data.Assets.Assets[val]);
 
-                if(SDL_RenderTexture(pRenderer, texture.Texture, &texture.getRandomView(), &position) != 0){
-                    std::cout << SDL_GetError() << std::endl;
-                }
-                // tiles[pos].addData(texture.getTexture(), texture.getRandomView(), texture.Width, texture.Height);
             }
         }
         if ((tile.Type & static_cast<uint8_t>(File::TileType::OBSTACLE)) != 0) {
@@ -116,6 +107,8 @@ Level::getPlayerSpawn() {
 std::vector<Common::typeDrawData>
 Level::getLevel() {
     std::vector<Common::typeDrawData> data;
+    /*
+
     std::vector<int>                  indices; // Contains all the tiles
 
     // Calculate what to draw
@@ -145,6 +138,7 @@ Level::getLevel() {
             }
         }
     }
+     */
     return data;
 }
 

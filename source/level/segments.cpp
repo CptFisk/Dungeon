@@ -1,5 +1,6 @@
+#include <common/math.hpp>
+#include <graphics/graphics.hpp>
 #include <level/level.hpp>
-
 namespace Level {
 void
 Level::createSegments() {
@@ -57,4 +58,42 @@ Level::createSegments() {
         }
     }
 }
+
+void
+Level::addToSegment(const int& pos, const std::string& name) {
+
+    auto texture = GET_SIMPLE(name);                                               // First we extract the texture
+    auto coords  = Common::getCoords(pos, header.Level.SizeX, header.Level.SizeY); // Fetching coords, hopefully
+
+    if(coords.has_value()){
+        auto coord = coords.value();
+        //Calculating what segment this area belongs to
+        auto index = getSegment(coord);
+        if(index <= mSegments.size()){
+
+        }else{
+            std::cerr << "Error in calculations";
+        }
+    }else{
+        std::cerr << "Cant translate coordinates" << std::endl;
+    }
+/*
+    SDL_FRect position = { static_cast<float>(coords.first) * 16.0f, static_cast<float>(coords.second) * 16.0f, 16.0f, 16.0f };
+
+    if (SDL_RenderTexture(pRenderer, texture.Texture, &texture.getRandomView(), &position) != 0) {
+        std::cout << SDL_GetError() << std::endl;
+    }
+    // tiles[pos].addData(texture.getTexture(), texture.getRandomView(), texture.Width, texture.Height);
+    */
+}
+
+size_t
+Level::getSegment(const std::pair<int, int> coord) {
+    const int indexX = static_cast<int>(coord.first / segmentSizeX);
+    const int indexY = static_cast<int>(coord.second / segmentSizeY);
+    const int numberOfSegments = static_cast<int>((header.Level.SizeX + segmentSizeX - 1) / segmentSizeX);
+
+    return indexY * numberOfSegments + indexX;
+}
+
 }
