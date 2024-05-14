@@ -26,6 +26,12 @@ Level::Level(SDL_Renderer*                       renderer,
   , mGraphics(std::move(graphics))
   , elements(0) {}
 
+Level::~Level(){
+    for(auto &[position, texture] : mSegments){
+        SDL_DestroyTexture(texture);
+    }
+}
+
 void
 Level::loadLevel(const std::string& filename) {
     auto data = File::readLevelData(filename);

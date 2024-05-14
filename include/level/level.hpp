@@ -19,7 +19,7 @@ class Level {
           Uint8&                              blue,
           float&                              playerX,
           float&                              playerY);
-    ~Level() = default; // Cleaning
+    ~Level(); // Cleaning
     void loadLevel(const std::string& filename);
     /**
      * @breif Check if movement is allowed, or if it collides with other objects
