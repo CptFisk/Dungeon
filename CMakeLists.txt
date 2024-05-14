@@ -48,7 +48,6 @@ set(
         ${CMAKE_SOURCE_DIR}/source/loaders/loadGraphics.cpp
 
         ${CMAKE_SOURCE_DIR}/source/level/file.cpp
-        ${CMAKE_SOURCE_DIR}/source/level/tile.cpp
 )
 
 set(
@@ -101,6 +100,7 @@ else ()
             ${CMAKE_SOURCE_DIR}/source/editor/grid.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/tiles.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/textures.cpp
+            ${CMAKE_SOURCE_DIR}/source/editor/tile.cpp
     )
 endif ()
 
