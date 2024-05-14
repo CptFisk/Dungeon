@@ -113,7 +113,7 @@ class Editor {
     Level::File::typeTiles  fileTiles;  // Tiles used inside the map editor, later used for export to a file
     Level::File::typeSpawn  fileSpawns;
 
-    std::vector<Level::Tile>            editorTiles;   // All tiles in the game.
+    std::vector<Tile>            editorTiles;   // All tiles in the game.
     std::unordered_map<int, VisualTile> visualOverlay; // Overlay that display the type
 
     struct comparePair {

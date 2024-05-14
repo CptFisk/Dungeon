@@ -7,7 +7,7 @@ Tile::Tile(const int& x, const int& y, const Common::typeScale& scale)
   , yPos(static_cast<float>(y) * 16.0f * scale.factorY) {}
 
 Tile&
-Tile::operator=(const Level::Tile& other) {
+Tile::operator=(const Editor::Tile& other) {
     if (this == &other)
         return *this;
     data = other.data;
