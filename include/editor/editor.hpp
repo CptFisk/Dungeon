@@ -7,7 +7,7 @@
 #include <graphics/graphics.hpp>
 #include <graphics/structures.hpp>
 #include <level/file.hpp>
-#include <level/tile.hpp>
+#include <editor/tile.hpp>
 #include <list>
 #include <memory>
 #include <set>
