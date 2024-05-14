@@ -1,6 +1,6 @@
 #pragma once
 #include <cstdint>
-
+#include <vector>
 namespace Level::File{
 /**
  * All this types is only used for generating and loading a pre-defined map file.
