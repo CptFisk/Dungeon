@@ -1,7 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
 #include <cstdint>
-#include <level/tile.hpp>
 #include <level/types/spawn.hpp>
 #include <level/types/tile.hpp>
 #include <optional>
