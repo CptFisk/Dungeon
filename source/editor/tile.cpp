@@ -1,6 +1,6 @@
 #include <editor/tile.hpp>
 
-namespace Level {
+namespace Editor {
 
 Tile::Tile(const int& x, const int& y, const Common::typeScale& scale)
   : xPos(static_cast<float>(x) * 16.0f * scale.factorX)

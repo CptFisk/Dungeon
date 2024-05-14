@@ -4,7 +4,7 @@
 #include <common/scale.hpp>
 #include <common/structures.hpp>
 #include <vector>
-namespace Level {
+namespace Editor {
 /**
  * @brief Internal structure for the visibility of a tile
  */
