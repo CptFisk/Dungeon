@@ -14,16 +14,13 @@ Level::createSegments() {
     int segmentX   = 1;
     int remainderX = 0;
     int segmentY   = 1;
-    int remainderY = 0;
 
     if (header.Level.SizeX >= segmentSizeX) {
         segmentX   = static_cast<int>(header.Level.SizeX / segmentSizeX);
         remainderX = header.Level.SizeX % segmentSizeX;
     }
-
     if (header.Level.SizeY >= segmentSizeY) {
-        segmentY   = static_cast<int>(header.Level.SizeY / segmentSizeY);
-        remainderY = header.Level.SizeY % segmentSizeY;
+        segmentY = static_cast<int>(header.Level.SizeY / segmentSizeY);
     }
 
     // Creating textures and positions
@@ -43,18 +40,24 @@ Level::createSegments() {
         }
         // Is there any remainder
         if (remainderX != 0) {
-            auto xx  = static_cast<float>(remainderX);   // Remainder but as float
-            auto yy  = static_cast<float>(remainderY);   // Remainder but as float
+            auto  xx = static_cast<float>(remainderX); // Remainder but as float
+            int remainderY;                                  // Don't assign value, we will assign it later
+            // Calculate the height we can use
+            if (segmentSizeY <= (header.Level.SizeY - (y * segmentSizeY))) {
+                remainderY = segmentSizeY;
+            } else {
+                remainderY = (header.Level.SizeY - (y * segmentSizeY));
+            }
+
             auto sx  = static_cast<float>(segmentX);     // Segments but as float
             auto ssx = static_cast<float>(segmentSizeX); // Segment size but as float
             auto ssy = static_cast<float>(segmentSizeY); // Segment size but as float
 
-            auto texture =
-              SDL_CreateTexture(pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, remainderX * 16, remainderY * 16);
+            auto texture = SDL_CreateTexture(pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, remainderX * 16,remainderY * 16);
             SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
             SDL_SetTextureAlphaMod(texture, 255);
             // Creating all segments
-            mSegments.emplace_back(SDL_FRect{ sx * ssx * 16.0f, static_cast<float>(y) * ssy * 16.0f, xx * 16.0f, yy * 16.0f }, texture);
+            mSegments.emplace_back(SDL_FRect{ sx * ssx * 16.0f, static_cast<float>(y) * ssy * 16.0f, xx * 16.0f, static_cast<float>(remainderY) * 16.0f }, texture);
         }
     }
 }
