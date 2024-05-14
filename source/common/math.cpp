@@ -35,6 +35,6 @@ getCoords(const int& pos, const int& width, const int& height) {
         return std::nullopt;
     const int x = pos % width;
     const int y = pos / width;
-    return std::make_pair(y, x);
+    return std::make_pair(x, y);
 }
 }
