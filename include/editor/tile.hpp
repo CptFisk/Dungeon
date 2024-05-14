@@ -6,7 +6,7 @@
 #include <vector>
 namespace Level {
 /**
-     * @brief Internal structure for the visibility of a tile
+ * @brief Internal structure for the visibility of a tile
  */
 struct tileData {
     SDL_Texture* Texture;
@@ -19,12 +19,7 @@ struct tileData {
  */
 class Tile {
   public:
-#ifdef GAME_MODE
-    [[maybe_unused]] Tile(const int& x, const int& y); // Used during gameplay
-#endif
-#ifdef EDITOR_MODE
-    [[maybe_unused]] Tile(const int& x, const int& y, const Common::typeScale& scale); // Used in editor mode
-#endif
+    Tile(const int& x, const int& y, const Common::typeScale& scale); // Used in editor mode
     ~Tile() = default;
 
     Tile& operator=(const Tile& other); // Operator overload
