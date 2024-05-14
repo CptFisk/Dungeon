@@ -69,20 +69,16 @@ Level::addToSegment(const int& pos, const std::string& name) {
         auto coord = coords.value();
         // Calculating what segment this area belongs to
         auto index = getSegment(coord);
-        if(index == 1){
-            int a = 20;
-        }
         if (index <= mSegments.size()) {
-            //Fix this, the issue is that the position is not the same in picture as in game. Due to segmentations
-            SDL_FRect destination = { static_cast<float>(coord.first) * 16.0f,
-                                      static_cast<float>(coord.second) * 16.0f,
-                                      static_cast<float>(texture.Width),
-                                      static_cast<float>(texture.Height) };
+            const auto x = static_cast<float>((coord.first * 16) % (segmentSizeX * 16));
+            const auto y = static_cast<float>((coord.second * 16) % (segmentSizeY * 16));
+
+            SDL_FRect destination = { x, y, static_cast<float>(texture.Width), static_cast<float>(texture.Height) };
             // Change render target
             if (SDL_SetRenderTarget(pRenderer, mSegments[index].second) != 0) {
                 std::cerr << SDL_GetError() << std::endl;
             };
-            if(SDL_RenderTexture(pRenderer, texture.getTexture(), &texture.getRandomView(), &destination) != 0){
+            if (SDL_RenderTexture(pRenderer, texture.getTexture(), &texture.getRandomView(), &destination) != 0) {
                 std::cerr << SDL_GetError() << std::endl;
             }
             SDL_SetRenderTarget(pRenderer, nullptr); // Reset renderer
@@ -96,7 +92,7 @@ Level::addToSegment(const int& pos, const std::string& name) {
 }
 
 size_t
-Level::getSegment(const std::pair<int, int> coord) const{
+Level::getSegment(const std::pair<int, int> coord) const {
     const int indexX           = static_cast<int>(coord.first / segmentSizeX);
     const int indexY           = static_cast<int>(coord.second / segmentSizeY);
     const int numberOfSegments = static_cast<int>((header.Level.SizeX + segmentSizeX - 1) / segmentSizeX);
