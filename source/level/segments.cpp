@@ -24,7 +24,7 @@ Level::createSegments() {
     }
 
     // Creating textures and positions
-    for (int y = 0; y <= segmentY; y++) {
+    for (int y = 0; y < segmentY; y++) {
         for (int x = 0; x < segmentX; x++) {
             auto xx  = static_cast<float>(x);            // Current x-position but as float
             auto yy  = static_cast<float>(y);            // Current y-position but as float

@@ -65,8 +65,8 @@ class Level {
     float& playerX; // Player position X-axis
     float& playerY; // Player position Y-axis
 
-    static const int segmentSizeX = 3;
-    static const int segmentSizeY = 3;
+    static const int segmentSizeX = 64;
+    static const int segmentSizeY = 64;
 };
 
 }
