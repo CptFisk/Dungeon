@@ -129,12 +129,10 @@ Engine::terminate() {
 
 void
 Engine::click(const float& x, const float& y) {
-    const auto scaledX = (x / mScale.factorX) + (mPerspective->mOffset.x / -1.0f);
-    const auto scaledY = (y / mScale.factorY) + (mPerspective->mOffset.y / -1.0f);
-    const auto xx = mActionManager->mouseX + (mPerspective->mOffset.x / -1.0f);
-    const auto yy = mActionManager->mouseY + (mPerspective->mOffset.y / -1.0f);
+    const auto calculatedX = mActionManager->mouseX + (mPerspective->mOffset.x / -1.0f);
+    const auto calculatedY = mActionManager->mouseY + (mPerspective->mOffset.y / -1.0f);
     auto       player  = Utility::getFRectCenter(*pPlayerPosition);
-    auto       angle   = Utility::calculateAngle(player.first, player.second, scaledX, scaledY);
+    auto       angle   = Utility::calculateAngle(player.first, player.second, calculatedX, calculatedY);
     mPlayerEnergy -= 3;
 
     Objects::typeProjectileStruct setup{ GET_ANIMATED("Fireball"), GET_SDL("RedCircle"), angle, 100, 5.0 };
