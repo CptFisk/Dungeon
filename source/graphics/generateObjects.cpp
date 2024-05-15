@@ -72,7 +72,7 @@ Graphics::generateCircle(const std::string& name,   // Name of texture
                 auto green = static_cast<Uint8>(static_cast<float>(startG + (endG - startG)) * (distance / radius));
                 auto blue  = static_cast<Uint8>(static_cast<float>(startB + (endB - startB)) * (distance / radius));
 
-                auto pixel      = (Uint8*)surface->pixels + y * surface->pitch + x * surface->format->BytesPerPixel;
+                auto pixel      = (Uint8*)surface->pixels + y * surface->pitch + x * surface->format->bytes_per_pixel;
                 *(Uint32*)pixel = SDL_MapRGBA(surface->format, red, green, blue, alpha);
             }
         }
