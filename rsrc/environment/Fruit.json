@@ -1,0 +1,18 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/environment/Fruit.png",
+        "Name": "Fruit",
+        "Row": 1,
+        "Column": 1,
+        "Length": 3,
+        "Height": 32,
+        "Width": 32
+      }
+    ]
+  }
+}
