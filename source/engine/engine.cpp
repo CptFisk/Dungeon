@@ -72,8 +72,8 @@ Engine::startup() {
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, 1280, 960, "Veras adventure"));
     mInitHandler->startup();
     Common::calculateGameScale(mScale, pWindow);
-    SDL_SetRenderScale(pRenderer, 5.0f, 5.0f);
 
+    SDL_SetRenderLogicalPresentation(pRenderer, 256, 192, SDL_LOGICAL_PRESENTATION_STRETCH, SDL_SCALEMODE_NEAREST);
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
@@ -83,7 +83,7 @@ Engine::startup() {
     mPlayer = std::make_unique<Player::Player>();
 
     mHealth =
-      std::make_unique<Player::Indicator>(mVisibleUI, mPlayerHealth, 32.0f, pRenderer, GET_ANIMATED("Heart"), GET_SIMPLE("NumbersWhite"));
+      std::make_unique<Player::Indicator>(mVisibleUI, mPlayerHealth, 36.0f, pRenderer, GET_ANIMATED("Heart"), GET_SIMPLE("NumbersWhite"));
     mEnergy =
       std::make_unique<Player::Indicator>(mVisibleUI, mPlayerEnergy, 16.0f, pRenderer, GET_ANIMATED("Bolt"), GET_SIMPLE("NumbersWhite"));
 
