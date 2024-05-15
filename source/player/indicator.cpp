@@ -14,8 +14,10 @@ Indicator::Indicator(bool&                              visible,
   , pRenderer(renderer)
   , pIconTexture(texture)
   , mNumbers(std::move(numbers))
-  , mPositionIcon(8.0f, 192 - distance, 8.0f, 8.0f)
-  , mPositionNumber({ 20.0f, 192 - distance, 8.0f, 8.0f }, { 28.0f, 192 - distance, 8.0f, 8.0f }, { 36.0f, 192 - distance, 8.0f, 8.0f }) {}
+  , mPositionIcon(8.0f, 192 - distance, 16.0f, 16.0f)
+  , mPositionNumber({ 28.0f, (192 - distance) + 4.0f, 8.0f, 8.0f },
+                    { 36.0f, (192 - distance) + 4.0f, 8.0f, 8.0f },
+                    { 44.0f, (192 - distance) + 4.0f, 8.0f, 8.0f }) {}
 
 void
 Indicator::draw() {
