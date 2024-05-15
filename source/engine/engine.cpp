@@ -131,6 +131,8 @@ void
 Engine::click(const float& x, const float& y) {
     const auto scaledX = (x / mScale.factorX) + (mPerspective->mOffset.x / -1.0f);
     const auto scaledY = (y / mScale.factorY) + (mPerspective->mOffset.y / -1.0f);
+    const auto xx = mActionManager->mouseX + (mPerspective->mOffset.x / -1.0f);
+    const auto yy = mActionManager->mouseY + (mPerspective->mOffset.y / -1.0f);
     auto       player  = Utility::getFRectCenter(*pPlayerPosition);
     auto       angle   = Utility::calculateAngle(player.first, player.second, scaledX, scaledY);
     mPlayerEnergy -= 3;
