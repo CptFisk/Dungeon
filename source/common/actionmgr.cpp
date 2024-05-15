@@ -2,6 +2,16 @@
 #include <iostream>
 namespace Common {
 
+ActionManager::ActionManager()
+  : pRenderer(nullptr)
+  , mouseX(0.0f)
+  , mouseY(0.0f) {}
+
+void
+ActionManager::bindRenderer(SDL_Renderer** renderer) {
+    pRenderer = *renderer;
+}
+
 void
 ActionManager::registerKeyboardAction(const std::string& name, SDL_Keycode key) {
     mKeyboard[name] = key;
@@ -29,8 +39,12 @@ ActionManager::eventHandler(SDL_Event* event) {
             break;
         case SDL_EVENT_MOUSE_BUTTON_DOWN:
             for (auto& [name, key] : mMouse) {
-                if (key == event->button.button)
+                if (key == event->button.button) {
                     mActive[name] = true;
+                    SDL_ConvertEventToRenderCoordinates(pRenderer, event);
+                    mouseX = event->button.x;
+                    mouseY = event->button.y;
+                }
             }
             break;
         case SDL_EVENT_MOUSE_BUTTON_UP:

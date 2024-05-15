@@ -71,9 +71,12 @@ Engine::startup() {
 
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, 1280, 960, "Veras adventure"));
     mInitHandler->startup();
+
     Common::calculateGameScale(mScale, pWindow);
 
     SDL_SetRenderLogicalPresentation(pRenderer, 256, 192, SDL_LOGICAL_PRESENTATION_STRETCH, SDL_SCALEMODE_NEAREST);
+    mActionManager->bindRenderer(&pRenderer);   //Bind the renderer
+
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
