@@ -17,7 +17,7 @@ SDLInitializer::startup() {
     Uint32 windowFlags = 0;
     Uint32 renderFlags = 0;
     windowFlags |= SDL_WINDOW_RESIZABLE;
-    renderFlags |= SDL_RENDERER_ACCELERATED;
+    //renderFlags |= SDL_RENDERER_ACCELERATED;
     renderFlags |= SDL_RENDERER_PRESENTVSYNC;
 
     *window   = SDL_CreateWindow(windowTitle.c_str(), width, height, windowFlags);
