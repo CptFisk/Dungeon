@@ -8,7 +8,7 @@
 namespace Common {
 class ActionManager {
   public:
-    void registerKeyboardAction(const std::string& name, SDL_KeyCode key);
+    void registerKeyboardAction(const std::string& name, SDL_Keycode key);
     void registerMouseAction(const std::string& name, Uint8 button);
 
     bool isActionPressed(const std::string& name);
@@ -21,7 +21,7 @@ class ActionManager {
 
   protected:
   private:
-    std::map<std::string, SDL_KeyCode> mKeyboard; // Key bindings
+    std::map<std::string, SDL_Keycode> mKeyboard; // Key bindings
     std::map<std::string, Uint8>       mMouse;    // Mouse binding
 
     std::map<std::string, bool> mActive;

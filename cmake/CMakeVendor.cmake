@@ -1,39 +1,40 @@
 message(STATUS "Vendor libs")
 set(LIB_IMGUI DearImGui)
+include(FetchContent)
 
-add_subdirectory(vendor/SDL ${CMAKE_BINARY_DIR}/SDL)
-add_subdirectory(vendor/SDL_image ${CMAKE_BINARY_DIR}/SDL_image)
-#add_subdirectory(vendor/SDL_ttf ${CMAKE_BINARY_DIR}/SDL_ttf)
-#add_subdirectory(vendor/nanosvg ${CMAKE_BINARY_DIR}/nanosvg)
-add_subdirectory(vendor/json)
+#SDL
+FetchContent_Declare(SDL URL https://github.com/libsdl-org/SDL/releases/download/prerelease-3.1.2/SDL3-3.1.2.tar.xz)
 
-
-set(SDL3_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/vendor/SDL/include)
-set(SDL3_LIBRARIES ${CMAKE_BINARY_DIR}/SDL/SDL3.dll)
-
-
-set(IMGUI_INCLUDE_DIRS
-        ${CMAKE_SOURCE_DIR}/vendor/imgui
+#SDL_Image
+FetchContent_Declare(
+        SDL_image
+        GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
+        GIT_TAG        main # release-3.0
 )
+#JSON
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
+#Imgui
+FetchContent_Declare(imgui URL https://github.com/ocornut/imgui/archive/refs/tags/v1.90.6.tar.gz)
+
+FetchContent_MakeAvailable(SDL SDL_image json imgui)
 
 add_library(${LIB_IMGUI}
         STATIC
-        ${CMAKE_SOURCE_DIR}/vendor/imgui/misc/cpp/imgui_stdlib.cpp
-        ${CMAKE_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_sdl3.cpp
-        ${CMAKE_SOURCE_DIR}/vendor/imgui/backends/imgui_impl_sdlrenderer3.cpp
-        ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui.cpp
-        ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_demo.cpp
-        ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_draw.cpp
-        ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_tables.cpp
-        ${CMAKE_SOURCE_DIR}/vendor/imgui/imgui_widgets.cpp
-        ${CMAKE_SOURCE_DIR}/vendor/imgui/misc/cpp/imgui_stdlib.cpp
+        ${imgui_SOURCE_DIR}/misc/cpp/imgui_stdlib.cpp
+        ${imgui_SOURCE_DIR}/backends/imgui_impl_sdl3.cpp
+        ${imgui_SOURCE_DIR}/backends/imgui_impl_sdlrenderer3.cpp
+        ${imgui_SOURCE_DIR}/imgui.cpp
+        ${imgui_SOURCE_DIR}/imgui_demo.cpp
+        ${imgui_SOURCE_DIR}/imgui_draw.cpp
+        ${imgui_SOURCE_DIR}/imgui_tables.cpp
+        ${imgui_SOURCE_DIR}/imgui_widgets.cpp
+        ${imgui_SOURCE_DIR}/misc/cpp/imgui_stdlib.cpp
 )
 
 target_include_directories(
         ${LIB_IMGUI}
         PRIVATE
-        ${IMGUI_INCLUDE_DIRS}
-        ${SDL3_INCLUDE_DIRS}
+        ${imgui_SOURCE_DIR}
 )
 
 target_link_libraries(

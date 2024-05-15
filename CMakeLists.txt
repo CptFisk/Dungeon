@@ -104,22 +104,22 @@ else ()
     )
 endif ()
 
+message(STATUS "SDL 3 folder: ${SDL3_SOURCE_DIR}")
+message(STATUS "SDL_Image 3 folder: ${SDL3_image_SOURCE_DIR}")
+message(STATUS "ImGui folder: ${imgui_SOURCE_DIR}")
+
 target_include_directories(
         ${PROJECT_NAME}
         PRIVATE
         ${CMAKE_SOURCE_DIR}/include
-        SDL3::SDL3
-        SDL3_image::SDL3_image
-        SDL3_ttf::SDL3_ttf
-        nlohmann_json::nlohmann_json
-        ${IMGUI_INCLUDE_DIRS}
-        ${CMAKE_CURRENT_BINARY_DIR}
+        ${imgui_SOURCE_DIR}         #ImGui folders
+        ${CMAKE_CURRENT_BINARY_DIR} #Needed for generated cmake.hpp
 )
 
 
 target_link_libraries(
         ${PROJECT_NAME}
-
+        PRIVATE
         SDL3::SDL3
         SDL3_image::SDL3_image
         nlohmann_json::nlohmann_json

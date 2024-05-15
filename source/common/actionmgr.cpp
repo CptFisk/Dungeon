@@ -3,7 +3,7 @@
 namespace Common {
 
 void
-ActionManager::registerKeyboardAction(const std::string& name, SDL_KeyCode key) {
+ActionManager::registerKeyboardAction(const std::string& name, SDL_Keycode key) {
     mKeyboard[name] = key;
 }
 
