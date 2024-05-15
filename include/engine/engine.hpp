@@ -31,7 +31,7 @@ class Engine {
     [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
 
     void terminate();
-    void click(const float& x, const float& y); // Mouse click
+    void click(); // Mouse click
     // Player movement
     void movePlayer(Directions direction);
     void setPlayerAction(Objects::State action);

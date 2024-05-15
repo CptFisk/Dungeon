@@ -128,7 +128,7 @@ Engine::terminate() {
 }
 
 void
-Engine::click(const float& x, const float& y) {
+Engine::click() {
     const auto calculatedX = mActionManager->mouseX + (mPerspective->mOffset.x / -1.0f);
     const auto calculatedY = mActionManager->mouseY + (mPerspective->mOffset.y / -1.0f);
     auto       player  = Utility::getFRectCenter(*pPlayerPosition);
