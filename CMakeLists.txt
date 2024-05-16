@@ -66,6 +66,7 @@ if (BUILD_GAME)
             ${CMAKE_SOURCE_DIR}/game.cpp
 
             ${CMAKE_SOURCE_DIR}/source/engine/engine.cpp
+            ${CMAKE_SOURCE_DIR}/source/engine/loading.cpp
             ${CMAKE_SOURCE_DIR}/source/engine/interrupt.cpp
 
             ${CMAKE_SOURCE_DIR}/source/level/level.cpp
