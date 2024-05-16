@@ -15,4 +15,7 @@ SDL_FRect
 newSDL_FRectScaled(const int& x, const int& y, const typeScale& scale);
 SDL_FRect
 newSDL_FRectScaled(const float& x, const float& y, const typeScale& scale);
+
+SDL_Texture*
+loadImage(SDL_Renderer* renderer, const std::string& filename);
 }

@@ -1,4 +1,5 @@
 #include <common/sdl.hpp>
+#include <SDL3_image/SDL_image.h>
 
 namespace Common {
 SDL_FRect
@@ -30,6 +31,16 @@ newSDL_FRectScaled(const float& x, const float&y, const typeScale& scale){
                       y * 16.0f * static_cast<float>(scale.factorY),
                       16.0f * scale.factorX,
                       16.0f * scale.factorY };
+}
+
+SDL_Texture*
+loadImage(SDL_Renderer* renderer, const std::string& filename){
+    SDL_Texture* texture = IMG_LoadTexture(renderer, filename.c_str());
+    if(texture == nullptr){
+        throw std::runtime_error("Cant load texture");
+    }
+    SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST);
+    return texture;
 }
 
 }
