@@ -58,7 +58,7 @@ Graphics::loadSimpleTexture(const std::string& jsonString) {
     }
 
     for (const auto& data : jsonData.Objects) {
-        auto base = typeSimpleTexture(loadImage(data.File), data.Width, data.Height);
+        auto base = typeSimpleTexture(Common::loadImage(pRenderer, data.File), data.Width, data.Height);
         // Generating viewports
         for (int i = 0; i < data.Length; i++) {
             const auto offset = (data.Column - 1) * data.Width;
@@ -82,7 +82,7 @@ Graphics::loadAnimatedTexture(const std::string& jsonString) {
     }
     for (const auto& data : jsonData.Objects) {
         if (mGraphics.find(data.Name) == mGraphics.end()) {
-            auto animation = new AnimatedTexture(loadImage(jsonData.File), data.Ticks);
+            auto animation = new AnimatedTexture(Common::loadImage(pRenderer,jsonData.File), data.Ticks);
             for (int i = 0; i < data.Length; i++) {
                 const auto offset = (data.Column - 1) * data.Width;
                 animation->addViewport(SDL_FRect{ static_cast<float>(data.Width * i + offset),

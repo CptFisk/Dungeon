@@ -14,6 +14,7 @@
 #include <thread>
 #include <utility/timer.hpp>
 #include <utility>
+#include <mutex>
 
 namespace Engine {
 class Engine {
@@ -33,12 +34,13 @@ class Engine {
     void terminate();
     void click(); // Mouse click
     // Player movement
-    void movePlayer(Directions direction);
-    void setPlayerAction(Objects::State action);
-    void resetPlayerMomentum();
-    SDL_Event         mEvent;
+    void      movePlayer(Directions direction);
+    void      setPlayerAction(Objects::State action);
+    void      resetPlayerMomentum();
+    SDL_Event mEvent;
 
   protected:
+    std::mutex mMutex;
     void present();
     void monsters();
     void projectiles();
@@ -55,12 +57,11 @@ class Engine {
     bool              mVisibleUI;
     Common::typeScale mScale;
 
-
-    struct{
+    struct {
         Uint8 Red;
         Uint8 Green;
         Uint8 Blue;
-    }Background;
+    } Background;
 
     struct {
         float X;
@@ -74,6 +75,7 @@ class Engine {
     std::unique_ptr<Player::Indicator>   mHealth;
     std::unique_ptr<Player::Indicator>   mEnergy;
     std::unique_ptr<Common::Perspective> mPerspective;
+    std::unique_ptr<LoadingScreen>       mLoadingScreen;
 
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;
@@ -92,7 +94,7 @@ class Engine {
     // Threads and interrupts
     std::vector<std::thread>                       mThreads;
     std::map<long int, std::shared_ptr<Interrupt>> mInterrupts;
-
+    std::thread                                    mLoading;
     // References to the player
     SDL_Texture** pPlayerTexture;
     SDL_FRect**   pPlayerView;

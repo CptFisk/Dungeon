@@ -1,15 +1,17 @@
 #pragma once
-#include <iostream>
 #include <graphics/graphics.hpp>
+#include <iostream>
+#include <mutex>
+namespace Engine {
 
-namespace Engine{
-
-class LoadingScreen{
+class LoadingScreen {
   public:
-    LoadingScreen(SDL_Renderer** renderer);
-
+    LoadingScreen(SDL_Renderer*& renderer, std::mutex& mutex);
+    void run();
   protected:
   private:
     SDL_Renderer* pRender;
+    SDL_Texture*  pLogo;
+    std::mutex& mMutex;
 };
 }

@@ -1,3 +1,5 @@
+#include "engine/loading.hpp"
+
 #include <cmake.hpp>
 #include <common/handlers.hpp>
 #include <common/scale.hpp>
@@ -71,6 +73,11 @@ Engine::startup() {
 
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, 1280, 960, "Veras adventure"));
     mInitHandler->startup();
+    mLoadingScreen = std::make_unique<LoadingScreen>(pRenderer, mMutex);
+
+    mLoading = std::thread([&]() {
+        mLoadingScreen->run();
+    });
 
     Common::calculateGameScale(mScale, pWindow);
 
@@ -163,6 +170,9 @@ Engine::mainLoop() {
     textBox = new Objects::TextBox(mGraphics->generateText("Hello ssss", 8), 20, 20);
     mPlayer->spawn(mLevel->getPlayerSpawn());
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
+
+    mLoading.join();
+
     while (mRun) {
         mFPSTimer.start();
 
