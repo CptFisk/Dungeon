@@ -289,7 +289,7 @@ Engine::drawProjectiles() {
         const auto object    = projectile->getProjectile();
         if (lightning.Texture != nullptr)
             mPerspective->render(lightning.Texture, lightning.Viewport, lightning.Position);
-        //mPerspective->renderRotated(object.Texture, object.Viewport, object.Position, object.Angle);
+        mPerspective->renderRotated(object.Texture, object.Viewport, object.Position, object.Angle);
     }
     for (auto& projectile : mParticles->getDrawData()) {
         mPerspective->render(projectile.Texture, projectile.Viewport, projectile.Position);
