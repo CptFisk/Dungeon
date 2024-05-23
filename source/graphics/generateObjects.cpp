@@ -11,7 +11,6 @@ Graphics::generateSquare(const std::string& name,
                          const Uint8&       b,
                          const Uint8&       a) {
     SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height,32, SDL_PIXELFORMAT_RGBA32);
-    //auto surface = SDL_CreateSurface(width, height, SDL_PIXELFORMAT_RGBA32);
     if (surface == nullptr) {
         std::cerr << SDL_GetError() << std::endl;
     }
@@ -42,8 +41,8 @@ Graphics::generateCircle(const std::string& name,   // Name of texture
                          const Uint8&       b1,     // Start blue color
                          const Uint8&       b2,     // End blue color
                          const Uint8&       a) {
-    /*
-    auto surface = SDL_CreateSurface(static_cast<int>(radius) * 2, static_cast<int>(radius) * 2, SDL_PIXELFORMAT_RGBA32);
+
+    auto surface = SDL_CreateRGBSurfaceWithFormat(0,static_cast<int>(radius) * 2, static_cast<int>(radius) * 2, 32, SDL_PIXELFORMAT_RGBA32);
     // Surface check
     if (!surface) {
         std::cerr << "SDL_CreateRGBSurface failed: " << SDL_GetError() << std::endl;
@@ -74,7 +73,7 @@ Graphics::generateCircle(const std::string& name,   // Name of texture
                 auto green = static_cast<Uint8>(static_cast<float>(startG + (endG - startG)) * (distance / radius));
                 auto blue  = static_cast<Uint8>(static_cast<float>(startB + (endB - startB)) * (distance / radius));
 
-                auto pixel      = (Uint8*)surface->pixels + y * surface->pitch + x * surface->format->bytes_per_pixel;
+                auto pixel      = (Uint8*)surface->pixels + y * surface->pitch + x * surface->format->BytesPerPixel;
                 *(Uint32*)pixel = SDL_MapRGBA(surface->format, red, green, blue, alpha);
             }
         }
@@ -87,8 +86,8 @@ Graphics::generateCircle(const std::string& name,   // Name of texture
         std::cerr << "SDL_CreateTextureFromSurface failed: " << SDL_GetError() << std::endl;
     }
 
-    SDL_DestroySurface(surface);
+    SDL_FreeSurface(surface);
     addTexture<SDL_Texture*>(name, circleTexture, GENERATED_TEXTURE);
-    */
+
 }
 }
