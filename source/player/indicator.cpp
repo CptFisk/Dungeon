@@ -1,7 +1,6 @@
 #include <player/indicator.hpp>
 #include <utility/math.hpp>
 
-const float tempY = 400.0f;
 namespace Player {
 Indicator::Indicator(bool&                              visible,
                      int&                               value,
