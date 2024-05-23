@@ -12,16 +12,15 @@ Perspective::render(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* p
     SDL_FRect pos = *position;
     pos.x += mOffset.x;
     pos.y += mOffset.y;
-    SDL_RenderCopyF(pRenderer, texture, nullptr, &pos);
-    // SDL_RenderTexture(pRenderer, texture, viewport, &pos);
+    SDL_RenderCopyF(pRenderer, texture, viewport, &pos);
 }
 
 void
-Perspective::renderRotated(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position, const float& angle) {
+Perspective::renderRotated(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* position, const float& angle) {
     SDL_FRect pos = *position;
     pos.x += mOffset.x;
     pos.y += mOffset.y;
-    //SDL_RenderTextureRotated(pRenderer, texture, viewport, &pos, angle, nullptr, SDL_FLIP_NONE);
+    SDL_RenderCopyExF(pRenderer, texture, viewport,&pos, angle, nullptr, SDL_FLIP_NONE);
 }
 
 void

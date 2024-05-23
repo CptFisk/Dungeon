@@ -9,7 +9,7 @@ class Perspective {
     Perspective(SDL_Renderer* renderer, float& offsetX, float& offsetY, SDL_FPoint* playerCenter = nullptr);
 
     void render(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* position);
-    void renderRotated(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position, const float& angle);
+    void renderRotated(SDL_Texture* texture,const SDL_Rect* viewport, SDL_FRect* position, const float& angle);
 
     void move(Directions direction, const float& velocity); // Move the camera
     void center(const float& x, const float& y);
