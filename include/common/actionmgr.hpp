@@ -26,8 +26,8 @@ class ActionManager {
     bool isActionFalling(const std::string& name);
 
     bool eventHandler(SDL_Event* event);
-    float mouseX;   //Mouse X coordinate
-    float mouseY;   //Mouse Y coordinate
+    int mouseX;   //Mouse X coordinate
+    int mouseY;   //Mouse Y coordinate
   protected:
   private:
     std::map<std::string, SDL_Keycode> mKeyboard; // Key bindings

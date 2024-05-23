@@ -41,7 +41,6 @@ ActionManager::eventHandler(SDL_Event* event) {
             for (auto& [name, key] : mMouse) {
                 if (key == event->button.button) {
                     mActive[name] = true;
-                    //SDL_ConvertEventToRenderCoordinates(pRenderer, event);
                     mouseX = event->button.x;
                     mouseY = event->button.y;
                 }
