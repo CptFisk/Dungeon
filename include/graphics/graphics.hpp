@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL.h>
 #include <any>
 #include <common/include.hpp>
 #include <graphics/animatedTexture.hpp>

@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL.h>
 #include <nlohmann/json.hpp>
 
 namespace Graphics {
@@ -15,7 +15,7 @@ struct typeSimpleTexture {
      * @brief Return the texture and a viewport.
      * @param n Element to fetch
      */
-    std::pair<SDL_Texture*, SDL_FRect> operator[](size_t n) const;
+    std::pair<SDL_Texture*, SDL_Rect> operator[](size_t n) const;
     /**
      * @brief Returns the texture
      * @return Pointer to the texture
@@ -25,18 +25,18 @@ struct typeSimpleTexture {
      * @brief Add a new viewport
      * @param view Viewport to add
      */
-    void       addView(const SDL_FRect& view);
+    void       addView(const SDL_Rect& view);
     /**
      * @brief Return a specific viewport
      * @param n Element to fetch
      * @return Reference to viewport
      */
-    SDL_FRect& getView(size_t n);
+    SDL_Rect& getView(size_t n);
     /**
      * @brief Returns a random viewport
      * @return Reference to viewport
      */
-    SDL_FRect& getRandomView();
+    SDL_Rect& getRandomView();
 
 
     typeSimpleTexture(); // Default constructor
@@ -44,7 +44,7 @@ struct typeSimpleTexture {
 
     typeSimpleTexture& operator=(const typeSimpleTexture& other); // Operator overload
   private:
-    std::vector<SDL_FRect> Views; // Views
+    std::vector<SDL_Rect> Views; // Views
 };
 
 }

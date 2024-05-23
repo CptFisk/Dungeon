@@ -13,13 +13,13 @@ using json = nlohmann::json;
 namespace Graphics {
 void
 Graphics::loadGraphics(const std::string& folderPath) {
-    //Fetch all the folders
+    // Fetch all the folders
     const auto folders = Utility::getFolders(folderPath);
-    for(const auto& folder: folders){
-        //Now we fetch all the files inside that folder that match the criteria
+    for (const auto& folder : folders) {
+        // Now we fetch all the files inside that folder that match the criteria
         const auto files = Utility::getFiles(folder.string(), ".json");
-        //Load all the files
-        for(const auto& file : files){
+        // Load all the files
+        for (const auto& file : files) {
             loadJSON(file.string());
         }
     }
@@ -62,10 +62,7 @@ Graphics::loadSimpleTexture(const std::string& jsonString) {
         // Generating viewports
         for (int i = 0; i < data.Length; i++) {
             const auto offset = (data.Column - 1) * data.Width;
-            base.addView(SDL_FRect{ static_cast<float>(data.Width * i + offset),
-                                            static_cast<float>(data.Height * (data.Row - 1)),
-                                            static_cast<float>(data.Width),
-                                            static_cast<float>(data.Height) });
+            base.addView(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), data.Width, (data.Height) });
         }
         addTexture<typeSimpleTexture>(data.Name, base, SIMPLE_TEXTURE);
     }
@@ -82,13 +79,10 @@ Graphics::loadAnimatedTexture(const std::string& jsonString) {
     }
     for (const auto& data : jsonData.Objects) {
         if (mGraphics.find(data.Name) == mGraphics.end()) {
-            auto animation = new AnimatedTexture(Common::loadImage(pRenderer,jsonData.File), data.Ticks);
+            auto animation = new AnimatedTexture(Common::loadImage(pRenderer, jsonData.File), data.Ticks);
             for (int i = 0; i < data.Length; i++) {
                 const auto offset = (data.Column - 1) * data.Width;
-                animation->addViewport(SDL_FRect{ static_cast<float>(data.Width * i + offset),
-                                                  static_cast<float>(data.Height * (data.Row - 1)),
-                                                  static_cast<float>(data.Width),
-                                                  static_cast<float>(data.Height) });
+                animation->addViewport(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), (data.Width), (data.Height) });
             }
             addTexture<AnimatedTexture*>(data.Name, animation, ANIMATED_TEXTURE);
         }

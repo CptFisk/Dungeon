@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL.h>
 #include <common/structures.hpp>
 #include <global.hpp>
 #include <graphics/animatedTexture.hpp>
@@ -14,7 +14,7 @@ class Player {
     ~Player();
 
     SDL_Texture** getTexture();
-    SDL_FRect**   getTextureViewport();
+    SDL_Rect**   getTextureViewport();
     SDL_FRect*    getTexturePosition();
     SDL_FPoint*   getPlayerCenter();
     SDL_FRect*    getInteractionArea();
@@ -48,7 +48,7 @@ class Player {
     // Pointer that SDL_Render refer to
     SDL_FRect    mTexturePosition;
     SDL_Texture* mCurrentTexture;
-    SDL_FRect*   mCurrentViewport;
+    SDL_Rect*   mCurrentViewport;
     SDL_FPoint   mPlayerCenter;
     SDL_FRect    mInteraction; // Small box in front of the player that is used to determine if we interact with a object
 };

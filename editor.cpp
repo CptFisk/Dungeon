@@ -1,3 +1,4 @@
+#define SDL_MAIN_HANDLED
 #include <editor/editor.hpp>
 #include <imgui.h>
 
@@ -43,7 +44,7 @@ main() {
       editor.getProcessing());
 
     Common::queueEventHandler(
-      SDL_EVENT_QUIT,
+      SDL_QUIT,
       [&](SDL_Event*) {
           editor.terminate();
           return true;
@@ -54,7 +55,7 @@ main() {
       [&](Uint32) {
           if (editor.getActionManager().isActionRising("Click")) {
               float mouseX, mouseY;
-              SDL_GetMouseState(&mouseX, &mouseY);
+              //SDL_GetMouseState(&mouseX, &mouseY);
               editor.click(mouseX, mouseY);
           }
       },

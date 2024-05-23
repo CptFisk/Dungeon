@@ -31,8 +31,8 @@ class BaseMonster {
     virtual void interact() = 0;
 
     Common::typeDrawData getMonster();
-    SDL_FRect*      getPosition();
-    Objects::State  getState();
+    SDL_FRect*           getPosition();
+    Objects::State       getState();
 
   private:
   protected:
@@ -51,7 +51,7 @@ class BaseMonster {
     // Pointer that SDL_Render refer to
     SDL_FRect    mMonsterPosition;
     SDL_Texture* pCurrentTexture;
-    SDL_FRect*   pCurrentViewport;
+    SDL_Rect*    pCurrentViewport;
     SDL_FRect*   pPlayerPosition;
 
     void updateReferences();

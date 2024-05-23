@@ -1,5 +1,5 @@
 #include <common/sdl.hpp>
-#include <SDL3_image/SDL_image.h>
+#include <SDL_image.h>
 
 namespace Common {
 SDL_FRect
@@ -39,7 +39,7 @@ loadImage(SDL_Renderer* renderer, const std::string& filename){
     if(texture == nullptr){
         throw std::runtime_error("Cant load texture");
     }
-    SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST);
+    SDL_SetTextureScaleMode(texture, SDL_ScaleModeNearest);
     return texture;
 }
 

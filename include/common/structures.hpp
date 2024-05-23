@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL.h>
 #include <nlohmann/json.hpp>
 #include <objects/objects.hpp>
 #include <string>
@@ -11,7 +11,7 @@ namespace Common {
  */
 struct typeDrawData {
     SDL_Texture* Texture;  // Texture
-    SDL_FRect*   Viewport; // Viewport
+    SDL_Rect*    Viewport; // Viewport
     SDL_FRect*   Position; // Position
 
     // Constructors
@@ -23,11 +23,11 @@ struct typeDrawData {
       : Texture(texture)
       , Viewport(nullptr)
       , Position(nullptr){};
-    typeDrawData(SDL_Texture* texture, SDL_FRect* view)
+    typeDrawData(SDL_Texture* texture, SDL_Rect* view)
       : Texture(texture)
       , Viewport(view)
       , Position(nullptr){};
-    typeDrawData(SDL_Texture* texture, SDL_FRect* view, SDL_FRect* position)
+    typeDrawData(SDL_Texture* texture, SDL_Rect* view, SDL_FRect* position)
       : Texture(texture)
       , Viewport(view)
       , Position(position){};
@@ -35,7 +35,7 @@ struct typeDrawData {
 
 struct typeDrawDataAngled {
     SDL_Texture* Texture;
-    SDL_FRect*   Viewport;
+    SDL_Rect*    Viewport;
     SDL_FRect*   Position;
     const float  Angle;
 };

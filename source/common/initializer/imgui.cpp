@@ -1,6 +1,6 @@
 #include <common/initializer/imgui.hpp>
-#include <backends/imgui_impl_sdl3.h>
-#include <backends/imgui_impl_sdlrenderer3.h>
+#include <backends/imgui_impl_sdl2.h>
+#include <backends/imgui_impl_sdlrenderer2.h>
 
 namespace Common {
 ImGuiInitializer::ImGuiInitializer(SDL_Window** window, SDL_Renderer** render)
@@ -15,16 +15,16 @@ ImGuiInitializer::startup() {
     io.ConfigFlags != ImGuiConfigFlags_NavEnableGamepad;
     ImGui::StyleColorsLight();
 
-    ImGui_ImplSDL3_InitForSDLRenderer(*pWindow, *pRenderer);
-    ImGui_ImplSDLRenderer3_Init(*pRenderer);
-    ImGui_ImplSDLRenderer3_NewFrame();
-    ImGui_ImplSDL3_NewFrame();
+    ImGui_ImplSDL2_InitForSDLRenderer(*pWindow, *pRenderer);
+    ImGui_ImplSDLRenderer2_Init(*pRenderer);
+    ImGui_ImplSDLRenderer2_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
 }
 
 void
 ImGuiInitializer::shutdown() {
-    ImGui_ImplSDLRenderer3_Shutdown();
-    ImGui_ImplSDL3_Shutdown();
+    ImGui_ImplSDLRenderer2_Shutdown();
+    ImGui_ImplSDL2_Shutdown();
     ImGui::DestroyContext();
 }
 

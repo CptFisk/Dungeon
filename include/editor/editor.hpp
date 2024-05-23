@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL.h>
 #include <common/include.hpp>
 #include <common/perspective.hpp>
 #include <editor/structures.hpp>

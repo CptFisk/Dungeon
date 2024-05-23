@@ -25,29 +25,29 @@ ActionManager::registerMouseAction(const std::string& name, Uint8 button) {
 bool
 ActionManager::eventHandler(SDL_Event* event) {
     switch (event->type) {
-        case SDL_EVENT_KEY_DOWN:
+        case SDL_KEYDOWN:
             for (auto& [name, key] : mKeyboard) {
                 if (key == event->key.keysym.sym)
                     mActive[name] = true;
             }
             break;
-        case SDL_EVENT_KEY_UP:
+        case SDL_KEYUP:
             for (auto& [name, key] : mKeyboard) {
                 if (key == event->key.keysym.sym)
                     mActive[name] = false;
             }
             break;
-        case SDL_EVENT_MOUSE_BUTTON_DOWN:
+        case SDL_MOUSEBUTTONDOWN:
             for (auto& [name, key] : mMouse) {
                 if (key == event->button.button) {
                     mActive[name] = true;
-                    SDL_ConvertEventToRenderCoordinates(pRenderer, event);
+                    //SDL_ConvertEventToRenderCoordinates(pRenderer, event);
                     mouseX = event->button.x;
                     mouseY = event->button.y;
                 }
             }
             break;
-        case SDL_EVENT_MOUSE_BUTTON_UP:
+        case SDL_MOUSEBUTTONUP:
             for (auto& [name, key] : mMouse) {
                 if (key == event->button.button)
                     mActive[name] = false;

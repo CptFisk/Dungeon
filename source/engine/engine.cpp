@@ -73,15 +73,15 @@ Engine::startup() {
 
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, 1280, 960, "Veras adventure"));
     mInitHandler->startup();
+    /*
     mLoadingScreen = std::make_unique<LoadingScreen>(pRenderer, mMutex);
 
     mLoading = std::thread([&]() {
         mLoadingScreen->run();
     });
-
+    */
     Common::calculateGameScale(mScale, pWindow);
-
-    SDL_SetRenderLogicalPresentation(pRenderer, 256, 192, SDL_LOGICAL_PRESENTATION_STRETCH, SDL_SCALEMODE_NEAREST);
+    SDL_RenderSetLogicalSize(pRenderer, 256,192);
     mActionManager->bindRenderer(&pRenderer);   //Bind the renderer
 
     // Generate graphics
@@ -171,7 +171,7 @@ Engine::mainLoop() {
     mPlayer->spawn(mLevel->getPlayerSpawn());
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
-    mLoading.join();
+    //mLoading.join();
 
     while (mRun) {
         mFPSTimer.start();
@@ -289,7 +289,7 @@ Engine::drawProjectiles() {
         const auto object    = projectile->getProjectile();
         if (lightning.Texture != nullptr)
             mPerspective->render(lightning.Texture, lightning.Viewport, lightning.Position);
-        mPerspective->renderRotated(object.Texture, object.Viewport, object.Position, object.Angle);
+        //mPerspective->renderRotated(object.Texture, object.Viewport, object.Position, object.Angle);
     }
     for (auto& projectile : mParticles->getDrawData()) {
         mPerspective->render(projectile.Texture, projectile.Viewport, projectile.Position);
@@ -314,13 +314,13 @@ Engine::drawNumbers() {
 void
 Engine::drawLevel() {
     for (const auto& tile : mLevel->getLevel()) {
-        mPerspective->render(tile.Texture, tile.Viewport, tile.Position);
+        //mPerspective->render(tile.Texture, tile.Viewport, tile.Position);
     }
 }
 
 void
 Engine::addDarkness() {
-    SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("Shadow"), nullptr, nullptr);
+    //SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("Shadow"), nullptr, nullptr);
 }
 
 std::thread

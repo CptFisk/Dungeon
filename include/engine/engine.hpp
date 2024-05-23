@@ -97,7 +97,7 @@ class Engine {
     std::thread                                    mLoading;
     // References to the player
     SDL_Texture** pPlayerTexture;
-    SDL_FRect**   pPlayerView;
+    SDL_Rect**   pPlayerView;
     SDL_FRect*    pPlayerPosition;
     int           mPlayerHealth;
     int           mPlayerEnergy;

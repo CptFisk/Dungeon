@@ -104,8 +104,8 @@ else ()
     )
 endif ()
 
-message(STATUS "SDL 3 folder: ${SDL3_SOURCE_DIR}")
-message(STATUS "SDL_Image 3 folder: ${SDL3_image_SOURCE_DIR}")
+message(STATUS "SDL 2 folder: ${SDL2_SOURCE_DIR}")
+message(STATUS "SDL_Image 2 folder: ${SDL2_image_SOURCE_DIR}")
 message(STATUS "ImGui folder: ${imgui_SOURCE_DIR}")
 
 target_include_directories(
@@ -120,8 +120,8 @@ target_include_directories(
 target_link_libraries(
         ${PROJECT_NAME}
         PRIVATE
-        SDL3::SDL3
-        SDL3_image::SDL3_image
+        SDL2::SDL2
+        SDL2_image::SDL2_image
         nlohmann_json::nlohmann_json
         ${LIB_IMGUI}
 )

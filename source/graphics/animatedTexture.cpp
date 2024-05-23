@@ -24,13 +24,13 @@ AnimatedTexture::getTexture() const{
     return mTexture;
 }
 
-SDL_FRect*
+SDL_Rect*
 AnimatedTexture::getViewport() {
     return &mCurrentViewport;
 }
 
 void
-AnimatedTexture::addViewport(const SDL_FRect& view) {
+AnimatedTexture::addViewport(const SDL_Rect& view) {
     mViewports.push_back(view);
     mCurrentViewport = mViewports.front();
 }
@@ -50,7 +50,7 @@ AnimatedTexture::updateTexture() {
     }
 }
 
-SDL_FRect
+SDL_Rect
 AnimatedTexture::getViewport() const {
     return mViewports[mView];
 }

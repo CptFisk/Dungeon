@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL.h>
 #include <cstdint>
 #include <level/types/spawn.hpp>
 #include <level/types/tile.hpp>

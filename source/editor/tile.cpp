@@ -20,7 +20,7 @@ Tile::clear() {
 }
 
 void
-Tile::addData(SDL_Texture* texture, SDL_FRect viewport, const float& w, const float& h, const Common::typeScale scale) {
+Tile::addData(SDL_Texture* texture, SDL_Rect viewport, const float& w, const float& h, const Common::typeScale& scale) {
     data.emplace_back(texture, viewport, SDL_FRect{ xPos, yPos, w * scale.factorX, h * scale.factorY });
 }
 

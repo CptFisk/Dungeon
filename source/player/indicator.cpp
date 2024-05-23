@@ -23,12 +23,13 @@ void
 Indicator::draw() {
     if (mVisible) {
         // Icon
-        SDL_RenderTexture(pRenderer, pIconTexture->getTexture(), pIconTexture->getViewport(), &mPositionIcon);
+        //SDL_RenderTexture(pRenderer, pIconTexture->getTexture(), pIconTexture->getViewport(), &mPositionIcon);
         // Numbers
         int pos = 0;
         if (mValue > 0 && mValue < 999) {
-            for (const auto& n : Utility::splitNumbers(mValue))
-                SDL_RenderTexture(pRenderer, mNumbers.Texture, &mNumbers.getView(n), &mPositionNumber[pos++]);
+            for (const auto& n : Utility::splitNumbers(mValue)) {
+                // SDL_RenderTexture(pRenderer, mNumbers.Texture, &mNumbers.getView(n), &mPositionNumber[pos++]);
+            }
         }
     }
 }

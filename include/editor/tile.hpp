@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL.h>
 #include <cmake.hpp>
 #include <common/scale.hpp>
 #include <common/structures.hpp>
@@ -10,7 +10,7 @@ namespace Editor {
  */
 struct tileData {
     SDL_Texture* Texture;
-    SDL_FRect    Viewport;
+    SDL_Rect     Viewport;
     SDL_FRect    Position;
 };
 
@@ -26,11 +26,11 @@ class Tile {
 
     [[maybe_unused]] void clear(); // Clear vector
 
-    void addData(SDL_Texture*            texture,
-                 SDL_FRect               viewport,
-                 const float&            w,
-                 const float&            h,
-                 const Common::typeScale scale); // Used in editor mode
+    void addData(SDL_Texture*             texture,
+                 SDL_Rect                 viewport,
+                 const float&             w,
+                 const float&             h,
+                 const Common::typeScale& scale); // Used in editor mode
 
     std::vector<Common::typeDrawData> getDrawData(); // Return all data that should be drawn.
     std::vector<tileData>&            getTileData(); // Return a reference to data

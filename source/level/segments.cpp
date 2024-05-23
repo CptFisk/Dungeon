@@ -81,7 +81,7 @@ Level::addToSegment(const int& pos, const std::string& name) {
             if (SDL_SetRenderTarget(pRenderer, mSegments[index].second) != 0) {
                 std::cerr << SDL_GetError() << std::endl;
             };
-            if (SDL_RenderTexture(pRenderer, texture.getTexture(), &texture.getRandomView(), &destination) != 0) {
+            if (SDL_RenderCopyF(pRenderer, texture.getTexture(), &texture.getRandomView(), &destination) != 0) {
                 std::cerr << SDL_GetError() << std::endl;
             }
             SDL_SetRenderTarget(pRenderer, nullptr); // Reset renderer

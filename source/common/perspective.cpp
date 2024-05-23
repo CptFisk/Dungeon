@@ -8,11 +8,12 @@ Perspective::Perspective(SDL_Renderer* renderer, float& offsetX, float& offsetY,
   , pPlayerCenter(playerCenter) {}
 
 void
-Perspective::render(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position) {
+Perspective::render(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* position) {
     SDL_FRect pos = *position;
     pos.x += mOffset.x;
     pos.y += mOffset.y;
-    SDL_RenderTexture(pRenderer, texture, viewport, &pos);
+    SDL_RenderCopyF(pRenderer, texture, nullptr, &pos);
+    // SDL_RenderTexture(pRenderer, texture, viewport, &pos);
 }
 
 void
@@ -20,7 +21,7 @@ Perspective::renderRotated(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect*
     SDL_FRect pos = *position;
     pos.x += mOffset.x;
     pos.y += mOffset.y;
-    SDL_RenderTextureRotated(pRenderer, texture, viewport, &pos, angle, nullptr, SDL_FLIP_NONE);
+    //SDL_RenderTextureRotated(pRenderer, texture, viewport, &pos, angle, nullptr, SDL_FLIP_NONE);
 }
 
 void
@@ -31,18 +32,18 @@ Perspective::move(Directions direction, const float& velocity) {
             if (mOffset.y < 0)
 #endif
 #ifdef EDITOR_MODE
-            if(mOffset.y < 0)
+                if (mOffset.y < 0)
 #endif
-                mOffset.y += velocity;
+                    mOffset.y += velocity;
             break;
         case EAST:
 #ifdef GAME_MODE
-            if(mOffset.x <= 0 && pPlayerCenter->x > halfX)
+            if (mOffset.x <= 0 && pPlayerCenter->x > halfX)
 #endif
 #ifdef EDITOR_MODE
 
 #endif
-            mOffset.x -= velocity;
+                mOffset.x -= velocity;
             break;
         case SOUTH:
 #ifdef GAME_MODE
@@ -54,11 +55,11 @@ Perspective::move(Directions direction, const float& velocity) {
             break;
         case WEST:
 #ifdef GAME_MODE
-        if(mOffset.x < 0)
+            if (mOffset.x < 0)
 #else
-          if(mOffset.x < 0)
+            if (mOffset.x < 0)
 #endif
-            mOffset.x += velocity;
+                mOffset.x += velocity;
             break;
         default:
             break;

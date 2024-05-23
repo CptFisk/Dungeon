@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL.h>
 #include <common/scale.hpp>
 #include <graphics/types/simpleTexture.hpp>
 #include <memory>
@@ -9,7 +9,7 @@
 namespace Graphics {
 struct typeNumbersData {
     SDL_Texture*                                  Texture; // Texture
-    std::vector<std::pair<SDL_FRect, SDL_FRect*>> Visuals; // Destination and viewport
+    std::vector<std::pair<SDL_FRect, SDL_Rect*>> Visuals; // Destination and viewport
 };
 
 /**
@@ -39,6 +39,6 @@ class Number {
     const int MAX_TICKS; // Maximum ticks
 
     SDL_Texture*                                  pTexture;   // Reference to "font"
-    std::vector<std::pair<SDL_FRect, SDL_FRect*>> mPositions; // Contains a position and  viewport
+    std::vector<std::pair<SDL_FRect, SDL_Rect*>> mPositions; // Contains a position and  viewport
 };
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL.h>
 #include <common/scale.hpp>
 #include <graphics/types/simpleTexture.hpp>
 
@@ -22,7 +22,7 @@ class VisualTile {
 
     void resetCounter();     // Reset the counter
     void incrementCounter(); // Increment the counter
-    std::pair<SDL_Texture*, SDL_FRect> getNumber(); //Return drawing data for numbers
+    std::pair<SDL_Texture*, SDL_Rect> getNumber(); //Return drawing data for numbers
 
   protected:
   private:

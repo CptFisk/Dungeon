@@ -108,7 +108,7 @@ Level::getPlayerSpawn() {
 std::vector<Common::typeDrawData>
 Level::getLevel() {
     std::vector<Common::typeDrawData> data;
-    SDL_RenderTexture(pRenderer, mSegments[0].second, nullptr, &mSegments[0].first);
+    //SDL_RenderTexture(pRenderer, mSegments[0].second, nullptr, &mSegments[0].first);
     /*
 
     std::vector<int>                  indices; // Contains all the tiles

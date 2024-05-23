@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL.h>
 #include <objects/objects.hpp>
 #include <stdexcept>
 #include <utility>

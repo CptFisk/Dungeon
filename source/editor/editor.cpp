@@ -1,5 +1,5 @@
-#include <backends/imgui_impl_sdl3.h>
-#include <backends/imgui_impl_sdlrenderer3.h>
+#include <backends/imgui_impl_sdl2.h>
+#include <backends/imgui_impl_sdlrenderer2.h>
 #include <common/initializer/imgui.hpp>
 #include <common/math.hpp>
 #include <common/scale.hpp>
@@ -82,14 +82,14 @@ Editor::mainLoop() {
     while (mRun) {
         SDL_SetRenderDrawColor(
           pRenderer, fileHeader.Color.BackgroundRed, fileHeader.Color.BackgroundGreen, fileHeader.Color.BackgroundBlue, SDL_ALPHA_OPAQUE);
-        ImGui_ImplSDLRenderer3_NewFrame();
-        ImGui_ImplSDL3_NewFrame();
+        ImGui_ImplSDLRenderer2_NewFrame();
+        ImGui_ImplSDL2_NewFrame();
         ImGui::NewFrame();
         mFPSTimer.start();
 
         SDL_RenderClear(pRenderer);
         while (SDL_PollEvent(&event)) {
-            ImGui_ImplSDL3_ProcessEvent(&event);
+            ImGui_ImplSDL2_ProcessEvent(&event);
             bool accepted = true;
 
             for (auto& handler : mEventWatcher) {
@@ -167,7 +167,7 @@ Editor::move(Directions direction) {
 void
 Editor::present() {
     ImGui::Render();
-    ImGui_ImplSDLRenderer3_RenderDrawData(ImGui::GetDrawData());
+    ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData());
     SDL_RenderPresent(pRenderer);
 }
 

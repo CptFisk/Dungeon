@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL.h>
 #include <common/structures.hpp>
 #include <global.hpp>
 #include <graphicsForward.hpp>

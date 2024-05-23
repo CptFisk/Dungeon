@@ -1,10 +1,14 @@
+#define SDL_MAIN_HANDLED
 #include <common/handlers.hpp>
 #include <engine/engine.hpp>
 #include <imgui.h>
 #include <iostream>
+#include <SDL.h>
+
+
 
 int
-main() {
+main(int argc, char* argv[]) {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
@@ -66,7 +70,7 @@ main() {
       engine.getProcessing());
 
     Common::queueEventHandler(
-      SDL_EVENT_QUIT,
+      SDL_QUIT,
       [&](SDL_Event*) {
           engine.terminate();
           return true;

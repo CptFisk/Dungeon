@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL.h>
 #include <common/scale.hpp>
 #include <global.hpp>
 
@@ -8,7 +8,7 @@ class Perspective {
   public:
     Perspective(SDL_Renderer* renderer, float& offsetX, float& offsetY, SDL_FPoint* playerCenter = nullptr);
 
-    void render(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position);
+    void render(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* position);
     void renderRotated(SDL_Texture* texture, SDL_FRect* viewport, SDL_FRect* position, const float& angle);
 
     void move(Directions direction, const float& velocity); // Move the camera

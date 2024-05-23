@@ -16,7 +16,7 @@ typeSimpleTexture::getTexture() {
     return Texture;
 }
 
-std::pair<SDL_Texture*, SDL_FRect>
+std::pair<SDL_Texture*, SDL_Rect>
 typeSimpleTexture::operator[](size_t n) const {
     if (n == -1)
         return { Texture, Views[rand() % Views.size()] };
@@ -27,18 +27,18 @@ typeSimpleTexture::operator[](size_t n) const {
     }
 }
 
-SDL_FRect&
+SDL_Rect&
 typeSimpleTexture::getView(size_t n){
     return Views[n];
 }
 
-SDL_FRect&
+SDL_Rect&
 typeSimpleTexture::getRandomView() {
     return Views[rand() % Views.size()];
 }
 
 void
-typeSimpleTexture::addView(const SDL_FRect& view) {
+typeSimpleTexture::addView(const SDL_Rect& view) {
     Views.emplace_back(view);
 }
 

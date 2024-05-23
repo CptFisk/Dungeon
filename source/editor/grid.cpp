@@ -16,12 +16,12 @@ Editor::uiDrawGrid() {
     // Draw horizontal lines
     for (int i = 0; i <= 12; i++) {
         const auto y = static_cast<float>(i) * tileY + moduloY;
-        SDL_RenderLine(pRenderer, 0.0, y, mScale.windowWidth, y);
+        SDL_RenderDrawLineF(pRenderer, 0.0f, y, mScale.windowWidth, y);
     }
     // Draw vertical lines
     for (int i = 0; i <= 16; i++) {
         const auto x = static_cast<float>(i) * tileX + moduloX;
-        SDL_RenderLine(pRenderer, x, 0.0f, x, mScale.windowWidth);
+        SDL_RenderDrawLineF(pRenderer, x, 0.0f, x, mScale.windowWidth);
     }
 }
 }

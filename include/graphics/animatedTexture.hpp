@@ -1,5 +1,5 @@
 #pragma once
-#include <SDL3/SDL.h>
+#include <SDL.h>
 #include <vector>
 
 namespace Graphics {
@@ -9,19 +9,19 @@ class AnimatedTexture {
     AnimatedTexture(SDL_Texture* texture, const int& ticks);
     ~AnimatedTexture();
 
-    SDL_Texture*            getTexture() const;
-    SDL_FRect*              getViewport();
-    void                    addViewport(const SDL_FRect& view);
-    void                    updateTexture();
-    [[nodiscard]] SDL_FRect getViewport() const;
-    SDL_Texture*            mTexture;
+    SDL_Texture*           getTexture() const;
+    SDL_Rect*              getViewport();
+    void                   addViewport(const SDL_Rect& view);
+    void                   updateTexture();
+    [[nodiscard]] SDL_Rect getViewport() const;
+    SDL_Texture*           mTexture;
 
   private:
   protected:
     int                    mView;
     const int              mTicks;
     int                    mCurrentTicks;
-    SDL_FRect              mCurrentViewport;
-    std::vector<SDL_FRect> mViewports;
+    SDL_Rect               mCurrentViewport;
+    std::vector<SDL_Rect> mViewports;
 };
 }

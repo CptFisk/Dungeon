@@ -3,14 +3,10 @@ set(LIB_IMGUI DearImGui)
 include(FetchContent)
 
 #SDL
-FetchContent_Declare(SDL URL https://github.com/libsdl-org/SDL/releases/download/prerelease-3.1.2/SDL3-3.1.2.tar.xz)
+FetchContent_Declare(SDL URL https://github.com/libsdl-org/SDL/archive/refs/tags/release-2.30.3.tar.gz)
 
 #SDL_Image
-FetchContent_Declare(
-        SDL_image
-        GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
-        GIT_TAG        main # release-3.0
-)
+FetchContent_Declare(SDL_image URL https://github.com/libsdl-org/SDL_image/archive/refs/tags/release-2.8.2.tar.gz)
 #JSON
 FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
 #Imgui
@@ -21,8 +17,8 @@ FetchContent_MakeAvailable(SDL SDL_image json imgui)
 add_library(${LIB_IMGUI}
         STATIC
         ${imgui_SOURCE_DIR}/misc/cpp/imgui_stdlib.cpp
-        ${imgui_SOURCE_DIR}/backends/imgui_impl_sdl3.cpp
-        ${imgui_SOURCE_DIR}/backends/imgui_impl_sdlrenderer3.cpp
+        ${imgui_SOURCE_DIR}/backends/imgui_impl_sdl2.cpp
+        ${imgui_SOURCE_DIR}/backends/imgui_impl_sdlrenderer2.cpp
         ${imgui_SOURCE_DIR}/imgui.cpp
         ${imgui_SOURCE_DIR}/imgui_demo.cpp
         ${imgui_SOURCE_DIR}/imgui_draw.cpp
@@ -39,6 +35,6 @@ target_include_directories(
 
 target_link_libraries(
         ${LIB_IMGUI}
-        SDL3::SDL3
+        SDL2::SDL2
 )
 

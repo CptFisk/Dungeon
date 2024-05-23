@@ -70,7 +70,7 @@ Graphics::generateText(std::string text, const int& size) {
     auto numbers  = getTexture<typeSimpleTexture>("NumbersWhite").Texture;
 
     int       pos         = 0;
-    SDL_FRect selector    = { 0, 0, 8.0f, 8.0f };
+    SDL_Rect selector    = { 0, 0, 8, 8 };
     SDL_FRect destination = { 0, 0, static_cast<float>(size), static_cast<float>(size) };
 
 
@@ -78,13 +78,13 @@ Graphics::generateText(std::string text, const int& size) {
         destination.x = static_cast<float>(pos++) * size;
         if ((int)c > 0x40 && (int)c < 0x91) {
             selector.x = static_cast<float>((int)c - (0x41)) * 8.0f;
-            SDL_RenderTexture(pRenderer, alphabet, &selector, &destination);
+            SDL_RenderCopyF(pRenderer, alphabet, &selector, &destination);
         } else if ((int)c > 0x2F && (int)c < 0x39) {
             selector.x = static_cast<float>((int)c - (0x30)) * 8.0f;
-            SDL_RenderTexture(pRenderer, numbers, &selector, &destination);
+            SDL_RenderCopyF(pRenderer, numbers, &selector, &destination);
         } else if ((int)c == 0x20) {
             selector.x = 200.0f;
-            SDL_RenderTexture(pRenderer, numbers, &selector, &destination);
+            SDL_RenderCopyF(pRenderer, numbers, &selector, &destination);
         } else {
             std::cerr << "Illegal character" << std::endl;
             break;
