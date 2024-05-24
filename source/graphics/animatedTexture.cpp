@@ -19,8 +19,8 @@ AnimatedTexture::~AnimatedTexture() {
     SDL_DestroyTexture(mTexture); // Cleaning
 }
 
-SDL_Texture*
-AnimatedTexture::getTexture() const{
+SDL_Texture*&
+AnimatedTexture::getTexture(){
     return mTexture;
 }
 
