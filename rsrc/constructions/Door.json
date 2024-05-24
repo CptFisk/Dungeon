@@ -1,0 +1,28 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/constructions/Door.png",
+    "Objects": [
+      {
+        "Name": "DoorOpen",
+        "Column": 1,
+        "Row": 1,
+        "Length": 4,
+        "Ticks": 30,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "DoorClose",
+        "Column": 1,
+        "Row": 2,
+        "Length": 4,
+        "Ticks": 30,
+        "Width": 16,
+        "Height": 16
+      }
+    ]
+  }
+}
