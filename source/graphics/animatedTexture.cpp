@@ -59,4 +59,9 @@ bool
 AnimatedTexture::done() const {
     return mView == (mViewports.size() - 1) ? true : false;
 }
+
+int
+AnimatedTexture::getTicks() const {
+    return mTicks;
+}
 }

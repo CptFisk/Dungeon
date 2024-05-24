@@ -10,12 +10,13 @@ class AnimatedTexture {
     ~AnimatedTexture();
 
     [[nodiscard]] SDL_Texture*& getTexture();
-    SDL_Rect*                  getViewport();
-    void                       addViewport(const SDL_Rect& view);
-    void                       updateTexture();
-    [[nodiscard]] SDL_Rect     getViewport() const;
+    SDL_Rect*                   getViewport();
+    void                        addViewport(const SDL_Rect& view);
+    void                        updateTexture();
+    [[nodiscard]] SDL_Rect      getViewport() const;
 
-    [[nodiscard]] bool done() const; // Animation is last frame
+    [[nodiscard]] bool done() const;     // Animation is last frame
+    [[nodiscard]] int  getTicks() const; // Return the maximum number of ticks
   private:
   protected:
     int                   mView;
