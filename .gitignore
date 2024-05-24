@@ -35,5 +35,6 @@
 .vscode/
 .vs/
 out/
+external/
 #vendor/
 .idea/
