@@ -10,7 +10,7 @@
         "Column": 1,
         "Row": 1,
         "Length": 4,
-        "Ticks": 30,
+        "Ticks": 10,
         "Width": 16,
         "Height": 16
       },
@@ -19,7 +19,7 @@
         "Column": 1,
         "Row": 2,
         "Length": 4,
-        "Ticks": 30,
+        "Ticks": 10,
         "Width": 16,
         "Height": 16
       }
