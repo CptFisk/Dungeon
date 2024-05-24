@@ -3,7 +3,7 @@
     "Type": "AnimatedTexture"
   },
   "Data": {
-    "File": "rsrc/constructions/Door.png",
+    "File": "rsrc/constructions/DoorAnimation.png",
     "Objects": [
       {
         "Name": "DoorOpenAnimation",
