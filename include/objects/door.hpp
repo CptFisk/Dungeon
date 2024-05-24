@@ -1,14 +1,23 @@
 #pragma once
+#include <common/structures.hpp>
 #include <graphics/animatedTexture.hpp>
+#include <graphics/types/simpleTexture.hpp>
 
-namespace Objects{
+namespace Objects {
 
-class Door{
+class Door {
   public:
-    Door();
+    Door(const Graphics::typeSimpleTexture& graphic, const Graphics::AnimatedTexture& animatedGraphic, bool open = false);
     ~Door();
+
+    [[nodiscard]] Common::typeDrawData& getDrawData();
+    void open(bool condition);
   protected:
   private:
-    Graphics::AnimatedTexture mGraphic;
+    bool                        mOpen; // State of door (false = closed, true = open)
+    Graphics::AnimatedTexture   mAnimatedGraphic;
+    Graphics::typeSimpleTexture mGraphic;
+
+    Common::typeDrawData mDrawData; // Used for returning the graphic
 };
 }
