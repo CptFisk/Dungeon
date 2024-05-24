@@ -60,7 +60,7 @@ void
 Player::addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture) {
     mTextures[{ action, direction }] = texture;
     if (mCurrentTexture == nullptr || mCurrentViewport == nullptr) {
-        mCurrentTexture  = texture->mTexture;
+        mCurrentTexture  = texture->getTexture();
         mCurrentViewport = texture->getViewport();
     }
 }

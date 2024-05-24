@@ -46,7 +46,7 @@ BaseMonster::inflictDamage() const {
 void
 BaseMonster::addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture) {
     if (pCurrentTexture == nullptr || pCurrentViewport == nullptr) {
-        pCurrentTexture  = texture->mTexture;
+        pCurrentTexture  = texture->getTexture();
         pCurrentViewport = texture->getViewport();
     }
 
