@@ -7,6 +7,7 @@
 #include <list>
 #include <memory>
 #include <monster/include.hpp>
+#include <mutex>
 #include <objects/include.hpp>
 #include <player/indicator.hpp>
 #include <player/player.hpp>
@@ -14,7 +15,6 @@
 #include <thread>
 #include <utility/timer.hpp>
 #include <utility>
-#include <mutex>
 
 namespace Engine {
 class Engine {
@@ -41,9 +41,9 @@ class Engine {
 
   protected:
     std::mutex mMutex;
-    void present();
-    void monsters();
-    void projectiles();
+    void       present();
+    void       monsters();
+    void       projectiles();
 
     void drawProjectiles();
     void drawNumbers();
@@ -76,6 +76,7 @@ class Engine {
     std::unique_ptr<Player::Indicator>   mEnergy;
     std::unique_ptr<Common::Perspective> mPerspective;
     std::unique_ptr<LoadingScreen>       mLoadingScreen;
+    std::unique_ptr<Objects::Door>       door;
 
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;
@@ -97,7 +98,7 @@ class Engine {
     std::thread                                    mLoading;
     // References to the player
     SDL_Texture** pPlayerTexture;
-    SDL_Rect**   pPlayerView;
+    SDL_Rect**    pPlayerView;
     SDL_FRect*    pPlayerPosition;
     int           mPlayerHealth;
     int           mPlayerEnergy;

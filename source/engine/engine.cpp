@@ -40,7 +40,7 @@ Engine::~Engine() {
     for (auto& thread : mThreads) {
         thread.join();
     }
-    SDL_Quit();
+
 }
 
 Common::ActionManager&
@@ -69,7 +69,7 @@ Engine::startup() {
     mThreads.push_back(spawnInterrupt(10));
     mThreads.push_back(spawnInterrupt(300));
     mThreads.push_back(spawnInterrupt(500));
-    mThreads.push_back(spawnInterrupt(1000));
+    mThreads.push_back(spawnInterrupt(10000));
 
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, 1280, 960, "Veras adventure"));
     mInitHandler->startup();
@@ -81,8 +81,8 @@ Engine::startup() {
     });
     */
     Common::calculateGameScale(mScale, pWindow);
-    SDL_RenderSetLogicalSize(pRenderer, 256,192);
-    mActionManager->bindRenderer(&pRenderer);   //Bind the renderer
+    SDL_RenderSetLogicalSize(pRenderer, 256, 192);
+    mActionManager->bindRenderer(&pRenderer); // Bind the renderer
 
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
@@ -127,6 +127,10 @@ Engine::startup() {
 
     // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y, mPlayer->getPlayerCenter());
+
+    door = std::make_unique<Objects::Door>(
+      SDL_FRect{ 96.0f, 480.0f, 16.0f, 16.0f }, GET_SIMPLE("Door"), GET_ANIMATED("DoorOpenAnimation"), GET_ANIMATED("DoorCloseAnimation"));
+    mInterrupts[10000]->addFunction([&](){door->interact(true);});
 }
 
 void
@@ -138,8 +142,8 @@ void
 Engine::click() {
     const auto calculatedX = mActionManager->mouseX + (mPerspective->mOffset.x / -1.0f);
     const auto calculatedY = mActionManager->mouseY + (mPerspective->mOffset.y / -1.0f);
-    auto       player  = Utility::getFRectCenter(*pPlayerPosition);
-    auto       angle   = Utility::calculateAngle(player.first, player.second, calculatedX, calculatedY);
+    auto       player      = Utility::getFRectCenter(*pPlayerPosition);
+    auto       angle       = Utility::calculateAngle(player.first, player.second, calculatedX, calculatedY);
     mPlayerEnergy -= 3;
 
     Objects::typeProjectileStruct setup{ GET_ANIMATED("Fireball"), GET_SDL("RedCircle"), angle, 100, 5.0 };
@@ -171,7 +175,7 @@ Engine::mainLoop() {
     mPlayer->spawn(mLevel->getPlayerSpawn());
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
-    //mLoading.join();
+    // mLoading.join();
 
     while (mRun) {
         mFPSTimer.start();
@@ -204,6 +208,8 @@ Engine::mainLoop() {
         // Apply background color
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
         mPerspective->render(mLevel->mSegments[0].second, nullptr, &mLevel->mSegments[0].first);
+        auto data = door->getDrawData();
+        mPerspective->render(data.Texture, data.Viewport, data.Position);
         /*
         for(auto & segment : mLevel->mSegments){
             mPerspective->render(segment.second, nullptr, &segment.first);
@@ -224,7 +230,6 @@ Engine::mainLoop() {
 
         projectiles();
         drawProjectiles();
-        // addDarkness();
         drawNumbers();
         mHealth->draw();
         mEnergy->draw();
@@ -314,13 +319,13 @@ Engine::drawNumbers() {
 void
 Engine::drawLevel() {
     for (const auto& tile : mLevel->getLevel()) {
-        //mPerspective->render(tile.Texture, tile.Viewport, tile.Position);
+        // mPerspective->render(tile.Texture, tile.Viewport, tile.Position);
     }
 }
 
 void
 Engine::addDarkness() {
-    //SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("Shadow"), nullptr, nullptr);
+    // SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("Shadow"), nullptr, nullptr);
 }
 
 std::thread
