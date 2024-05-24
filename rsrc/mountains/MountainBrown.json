@@ -5,8 +5,8 @@
   "Data": {
     "Objects": [
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillNW",
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownNW",
         "Row": 1,
         "Column": 1,
         "Length": 1,
@@ -14,8 +14,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillN",
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownN",
         "Row": 1,
         "Column": 2,
         "Length": 1,
@@ -23,8 +23,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillNE",
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownNE",
         "Row": 1,
         "Column": 3,
         "Length": 1,
@@ -32,8 +32,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillW",
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownW",
         "Row": 2,
         "Column": 1,
         "Length": 1,
@@ -41,8 +41,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillE",
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownE",
         "Row": 2,
         "Column": 3,
         "Length": 1,
@@ -50,8 +50,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillSW",
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownSW",
         "Row": 3,
         "Column": 1,
         "Length": 1,
@@ -59,8 +59,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillS",
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownS",
         "Row": 3,
         "Column": 2,
         "Length": 1,
@@ -68,8 +68,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillSE",
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownSE",
         "Row": 3,
         "Column": 3,
         "Length": 1,
@@ -77,8 +77,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillSE",
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownSE",
         "Row": 3,
         "Column": 3,
         "Length": 1,
@@ -86,8 +86,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillNE2",
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownNE2",
         "Row": 2,
         "Column": 4,
         "Length": 1,
@@ -95,8 +95,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillES2",
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownES2",
         "Row": 1,
         "Column": 4,
         "Length": 1,
@@ -104,8 +104,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillSW2",
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownSW2",
         "Row": 1,
         "Column": 5,
         "Length": 1,
@@ -113,8 +113,8 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillNW2",
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownNW2",
         "Row": 2,
         "Column": 5,
         "Length": 1,
@@ -122,13 +122,13 @@
         "Width": 16
       },
       {
-        "File": "rsrc/Hill.png",
-        "Name": "HillStairs",
-        "Row": 3,
-        "Column": 1,
+        "File": "rsrc/mountains/MountainBrown.png",
+        "Name": "MountainBrownStairs",
+        "Row": 2,
+        "Column": 2,
         "Length": 1,
-        "Height": 32,
-        "Width": 32
+        "Height": 16,
+        "Width": 16
       }
     ]
   }
