@@ -1,0 +1,27 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/constructions/Door.png",
+        "Name": "DoorOpen",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/constructions/Door.png",
+        "Name": "DoorClose",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
