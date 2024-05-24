@@ -30,12 +30,6 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
     const auto horizontalLength = tileSizeY * (static_cast<float>(sizeX) + 2.0f);
     // Adding some visuals so we don't paint outside
     mEdges.clear();
-    /*
-    mEdges.emplace_back(GET_SDL("FF0000"), SDL_FRect{ leftX, topY, tileSizeX, verticalLength });      // Left
-    mEdges.emplace_back(GET_SDL("FF0000"), SDL_FRect{ rightX, topY, tileSizeX, verticalLength });     // Right
-    mEdges.emplace_back(GET_SDL("FF0000"), SDL_FRect{ leftX, topY, horizontalLength, tileSizeY });    // top
-    mEdges.emplace_back(GET_SDL("FF0000"), SDL_FRect{ leftX, bottomY, horizontalLength, tileSizeY }); // bottom
-    */
     // Creating the map
     editorTiles.clear();
     visualOverlay.clear();
