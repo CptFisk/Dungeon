@@ -1,4 +1,3 @@
-#include <iostream>
 #include <objects/door.hpp>
 
 namespace Objects {
