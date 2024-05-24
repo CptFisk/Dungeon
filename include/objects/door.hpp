@@ -8,10 +8,13 @@
 
 namespace Objects {
 
+/**
+ * @brief Base class for a door. The class handles 2 animation and swap between them with the help of a thread.
+ * @brief The class is thread-safe
+ */
 class Door {
   public:
     Door(const SDL_FRect&             position,
-         Graphics::typeSimpleTexture& graphic,
          Graphics::AnimatedTexture*   opening,
          Graphics::AnimatedTexture*   closing,
          bool                         open = false);
@@ -28,7 +31,6 @@ class Door {
     bool                        mOpen; // State of door (false = closed, true = open)
     Graphics::AnimatedTexture*  mAnimationOpening;
     Graphics::AnimatedTexture*  mAnimationClosing;
-    Graphics::typeSimpleTexture mGraphic;
 
     Common::typeDrawData mDrawData; // Used for returning the graphic
     SDL_FRect            mPosition;

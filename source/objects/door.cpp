@@ -4,13 +4,11 @@
 namespace Objects {
 
 Door::Door(const SDL_FRect&             position,
-           Graphics::typeSimpleTexture& graphic,
            Graphics::AnimatedTexture*   opening,
            Graphics::AnimatedTexture*   closing,
            bool                         open)
   : mPosition(position)
   , mOpen(open)
-  , mGraphic(graphic)
   , mAnimationOpening(opening)
   , mAnimationClosing(closing) {
     mDrawData.Position = &mPosition;
