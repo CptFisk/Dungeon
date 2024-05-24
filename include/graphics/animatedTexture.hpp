@@ -15,8 +15,7 @@ class AnimatedTexture {
     void                       updateTexture();
     [[nodiscard]] SDL_Rect     getViewport() const;
 
-    bool done() const;  //Animation is last frame
-
+    [[nodiscard]] bool done() const; // Animation is last frame
   private:
   protected:
     int                   mView;
