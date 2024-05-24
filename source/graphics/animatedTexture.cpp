@@ -5,22 +5,26 @@ AnimatedTexture::AnimatedTexture()
   : mView(0)
   , mTicks(0)
   , mCurrentTicks(0)
+  , mCycles(0)
   , mCurrentViewport{}
-  , mTexture(nullptr) {}
+  , mTexture(nullptr)
+  , mPaused(false) {}
 
-AnimatedTexture::AnimatedTexture(SDL_Texture* texture, const int& ticks)
-  : mTexture(texture)
-  , mView(0)
+AnimatedTexture::AnimatedTexture(SDL_Texture* texture, const int& ticks, const bool& paused)
+  : mView(0)
+  , mCycles(0)
   , mCurrentTicks(0)
+  , mTexture(texture)
   , mCurrentViewport{}
-  , mTicks(ticks) {}
+  , mTicks(ticks)
+  , mPaused(paused) {}
 
 AnimatedTexture::~AnimatedTexture() {
     SDL_DestroyTexture(mTexture); // Cleaning
 }
 
 SDL_Texture*&
-AnimatedTexture::getTexture(){
+AnimatedTexture::getTexture() {
     return mTexture;
 }
 
@@ -37,17 +41,23 @@ AnimatedTexture::addViewport(const SDL_Rect& view) {
 
 void
 AnimatedTexture::updateTexture() {
-    if (mCurrentTicks > mTicks) {
+    if (mCurrentTicks > mTicks && (mPaused == false || (mPaused == true && mCycles > 0))) {
         if (mView < (mViewports.size() - 1)) {
             mView++;
         } else {
             mView = 0;
+            mCycles = std::max(0, mCycles - 1);
         }
         mCurrentViewport = mViewports[mView];
         mCurrentTicks    = 0;
     } else {
         mCurrentTicks++;
     }
+}
+
+void
+AnimatedTexture::runCycles(const int& cycles) {
+    mCycles = cycles;
 }
 
 SDL_Rect

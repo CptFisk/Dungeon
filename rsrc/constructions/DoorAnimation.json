@@ -12,7 +12,8 @@
         "Length": 4,
         "Ticks": 10,
         "Width": 16,
-        "Height": 16
+        "Height": 16,
+        "Paused" : true
       },
       {
         "Name": "DoorCloseAnimation",
@@ -21,7 +22,8 @@
         "Length": 4,
         "Ticks": 10,
         "Width": 16,
-        "Height": 16
+        "Height": 16,
+        "Paused" : true
       }
     ]
   }
