@@ -129,7 +129,7 @@ Engine::startup() {
     mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y, mPlayer->getPlayerCenter());
 
     door = std::make_unique<Objects::Door>(
-      SDL_FRect{ 96.0f, 480.0f, 16.0f, 16.0f }, GET_SIMPLE("Door"), GET_ANIMATED("DoorOpenAnimation"), GET_ANIMATED("DoorCloseAnimation"));
+      SDL_FRect{ 96.0f, 480.0f, 16.0f, 16.0f },  GET_ANIMATED("DoorOpenAnimation"), GET_ANIMATED("DoorCloseAnimation"));
     mInterrupts[10000]->addFunction([&](){door->interact(true);});
 }
 
