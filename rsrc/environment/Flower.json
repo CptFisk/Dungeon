@@ -6,19 +6,37 @@
     "Objects": [
       {
         "File": "rsrc/environment/Flower.png",
-        "Name": "FlowerMultiple",
+        "Name": "FlowerGreen",
         "Row": 1,
         "Column": 1,
-        "Length": 1,
+        "Length": 7,
         "Height": 16,
         "Width": 16
       },
       {
         "File": "rsrc/environment/Flower.png",
-        "Name": "FlowerSingle",
-        "Row": 1,
-        "Column": 2,
-        "Length": 1,
+        "Name": "FlowerYellow",
+        "Row": 2,
+        "Column": 1,
+        "Length": 7,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/environment/Flower.png",
+        "Name": "FlowerPink",
+        "Row": 3,
+        "Column": 1,
+        "Length": 7,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/environment/Flower.png",
+        "Name": "FlowerRed",
+        "Row": 4,
+        "Column": 1,
+        "Length": 7,
         "Height": 16,
         "Width": 16
       }
