@@ -6,7 +6,7 @@
     "File": "rsrc/constructions/Door.png",
     "Objects": [
       {
-        "Name": "DoorOpen",
+        "Name": "DoorOpenAnimation",
         "Column": 1,
         "Row": 1,
         "Length": 4,
@@ -15,7 +15,7 @@
         "Height": 16
       },
       {
-        "Name": "DoorClose",
+        "Name": "DoorCloseAnimation",
         "Column": 1,
         "Row": 2,
         "Length": 4,
