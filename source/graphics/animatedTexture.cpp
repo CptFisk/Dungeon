@@ -54,4 +54,9 @@ SDL_Rect
 AnimatedTexture::getViewport() const {
     return mViewports[mView];
 }
+
+bool
+AnimatedTexture::done() const {
+    return mView == (mViewports.size() - 1) ? true : false;
+}
 }
