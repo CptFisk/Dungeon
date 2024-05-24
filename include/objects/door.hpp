@@ -14,28 +14,37 @@ namespace Objects {
  */
 class Door {
   public:
-    Door(const SDL_FRect&             position,
-         Graphics::AnimatedTexture*   opening,
-         Graphics::AnimatedTexture*   closing,
-         bool                         open = false);
+    /**
+     * @brief Constructor for door
+     * @param position The destination in map
+     * @param opening Animation for door opening
+     * @param closing Animation for door closing
+     * @param open Determine the start-state of the door
+     */
+    Door(const SDL_FRect& position, Graphics::AnimatedTexture* opening, Graphics::AnimatedTexture* closing, bool open = false);
+    /**
+     * @brief De-constructor that wait for the thread to stop
+     */
     ~Door();
-
+    /**
+     * @brief Returns the draw data that can later be passed to the perspective manager
+     */
     [[nodiscard]] Common::typeDrawData& getDrawData();
     void                                interact(bool condition);
 
   protected:
-    void setOpenGraphic();
-    void setClosedGraphic();
+    void setOpenGraphic();   // Swap graphic pointers
+    void setClosedGraphic(); // Swap graphic pointers
 
   private:
-    bool                        mOpen; // State of door (false = closed, true = open)
-    Graphics::AnimatedTexture*  mAnimationOpening;
-    Graphics::AnimatedTexture*  mAnimationClosing;
+    bool                       mOpen; // State of door (false = closed, true = open)
+    Graphics::AnimatedTexture* mAnimationOpening;
+    Graphics::AnimatedTexture* mAnimationClosing;
 
     Common::typeDrawData mDrawData; // Used for returning the graphic
     SDL_FRect            mPosition;
 
-    std::mutex           mtx;
-    std::thread          mThread; // Used to swap state after animation finish
+    std::mutex  mtx;    //Lock to keep it thread-safe
+    std::thread mThread; // Used to swap state after animation finish
 };
 }
