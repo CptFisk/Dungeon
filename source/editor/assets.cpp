@@ -19,8 +19,9 @@ Editor::uiAssets() {
                     removeSpecificTexture(name);
             }
         }
+        ImGui::End();
     }
     mWindows["Assets"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
-    ImGui::End();
+
 }
 }
