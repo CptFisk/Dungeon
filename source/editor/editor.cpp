@@ -29,6 +29,7 @@ Editor::Editor(const int& w, const int& h)
   , mPlayerSpawn{} {}
 
 Editor::~Editor() {
+    mGraphics.reset();
     mInitHandler->shutdown();
 
     fileTiles.Tiles.clear();
