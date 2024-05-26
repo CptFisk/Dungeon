@@ -54,8 +54,6 @@ main() {
     Common::queueProcessHandler(
       [&](Uint32) {
           if (editor.getActionManager().isActionRising("Click")) {
-              float mouseX, mouseY;
-              //SDL_GetMouseState(&mouseX, &mouseY);
               editor.click(editor.getActionManager().mouseX, editor.getActionManager().mouseY);
           }
       },
