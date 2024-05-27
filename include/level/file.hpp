@@ -33,10 +33,6 @@ struct typeHeader {
     } Level;
 };
 
-struct typeAssets {
-    std::vector<std::string> Assets; // Asset names
-};
-
 struct typeLevelData {
     typeHeader Header;
     typeAssets Assets;
