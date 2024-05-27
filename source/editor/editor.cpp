@@ -74,6 +74,7 @@ Editor::startup() {
     mElements["Mouse"]      = [this]() { uiMouse(); };
     mElements["Textures"]   = [this]() { uiTexture(); };
     mElements["DoorsPopup"] = [this]() { uiDoorPopup(); };
+    mElements["Doors"]      = [this]() { uiDoors(); };
     displayElement("TopMenu");
 }
 
@@ -154,6 +155,7 @@ Editor::mainLoop() {
             mPerspective->render(texture, nullptr, &position);
         }
         uiDrawGrid();
+        // ImGui::ShowDemoWindow();
         present();
 
         auto ticks = mFPSTimer.getTicks();

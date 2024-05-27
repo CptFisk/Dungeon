@@ -29,8 +29,8 @@ class Editor {
     [[maybe_unused]] std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEvents();    // Get the list of events
     [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
 
-    void terminate();                           // Kill the editor
-    void click(); // Click
+    void terminate(); // Kill the editor
+    void click();     // Click
   protected:
     void loadLevel(const Level::File::typeLevelData& data);
     void removeSpecificTexture(const std::string& name);
@@ -49,6 +49,7 @@ class Editor {
     void uiAssets();   // Display the metadata related to the map
     void uiMouse();
     void uiTiles();
+    void uiDoors();
     void uiDoorPopup(); // Popup for door options
     void uiTexture();   // All basic textures
     void present();     // Render all graphic
