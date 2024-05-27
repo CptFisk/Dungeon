@@ -30,7 +30,7 @@ class Editor {
     [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
 
     void terminate();                           // Kill the editor
-    void click(const float& x, const float& y); // Click
+    void click(); // Click
   protected:
     void loadLevel(const Level::File::typeLevelData& data);
     void removeSpecificTexture(const std::string& name);
