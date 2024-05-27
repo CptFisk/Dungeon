@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <cstdint>
+#include <level/types/assets.hpp>
 #include <level/types/spawn.hpp>
 #include <level/types/tile.hpp>
 #include <level/types/doors.hpp>
