@@ -3,11 +3,11 @@
 #include <common/include.hpp>
 #include <common/perspective.hpp>
 #include <editor/structures.hpp>
+#include <editor/tile.hpp>
 #include <editor/visualTile.hpp>
 #include <graphics/graphics.hpp>
 #include <graphics/structures.hpp>
 #include <level/file.hpp>
-#include <editor/tile.hpp>
 #include <list>
 #include <memory>
 #include <set>
@@ -39,7 +39,8 @@ class Editor {
     [[maybe_unused]] void        hideElement(const std::string& element);
     [[maybe_unused]] void        hideAllElements();
     [[maybe_unused]] bool        isElementVisible(const std::string& element);
-    [[maybe_unused]] bool        clickOnUi(const float& x, const float& y);
+    [[maybe_unused]] bool        clickOnUi(const int& x, const int& y, const std::string& element);
+    [[maybe_unused]] bool        clickOnUi(const int& x, const int& y);
     [[maybe_unused]] static bool isOverlap(const float& value, const float& low, const float& high);
 
     void uiMenu();     // Top menu
@@ -48,8 +49,9 @@ class Editor {
     void uiAssets();   // Display the metadata related to the map
     void uiMouse();
     void uiTiles();
-    void uiTexture(); // All basic textures
-    void present();   // Render all graphic
+    void uiDoorPopup(); // Popup for door options
+    void uiTexture();   // All basic textures
+    void present();     // Render all graphic
 
   private:
     const int requestDimensionW; // Requested window width
@@ -90,6 +92,8 @@ class Editor {
         ImVec2 Position;
         ImVec2 Size;
     };
+
+    ImVec2 doorsPopup;
     struct typeElementsCompare {
         bool operator()(const std::function<void()>& lhs, const std::function<void()>& rhs) const {
             return lhs.target_type().hash_code() < rhs.target_type().hash_code();
@@ -113,7 +117,7 @@ class Editor {
     Level::File::typeTiles  fileTiles;  // Tiles used inside the map editor, later used for export to a file
     Level::File::typeSpawn  fileSpawns;
 
-    std::vector<Tile>            editorTiles;   // All tiles in the game.
+    std::vector<Tile>                   editorTiles;   // All tiles in the game.
     std::unordered_map<int, VisualTile> visualOverlay; // Overlay that display the type
 
     struct comparePair {
@@ -126,7 +130,7 @@ class Editor {
         }
     };
     std::set<std::pair<int, int>, comparePair>      mLevelCoords; // A list of coordinates that is used
-    SDL_FRect                                       mPlayerSpawn;   //Area to draw the player in
-    std::vector<std::pair<SDL_Texture*, SDL_FRect>> mEdges; // Edges for drawing area
+    SDL_FRect                                       mPlayerSpawn; // Area to draw the player in
+    std::vector<std::pair<SDL_Texture*, SDL_FRect>> mEdges;       // Edges for drawing area
 };
 }
