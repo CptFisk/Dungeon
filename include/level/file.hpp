@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <level/types/spawn.hpp>
 #include <level/types/tile.hpp>
+#include <level/types/doors.hpp>
 #include <optional>
 #include <string>
 #include <vector>
