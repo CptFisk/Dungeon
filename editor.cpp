@@ -54,7 +54,7 @@ main() {
     Common::queueProcessHandler(
       [&](Uint32) {
           if (editor.getActionManager().isActionRising("Click")) {
-              editor.click(editor.getActionManager().mouseX, editor.getActionManager().mouseY);
+              editor.click();
           }
       },
       editor.getProcessing());
