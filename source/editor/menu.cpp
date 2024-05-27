@@ -49,6 +49,8 @@ Editor::uiMenu() {
                 displayElement("Mouse");
             if (ImGui::MenuItem("Textures"))
                 displayElement("Textures");
+            if (ImGui::MenuItem("Doors"))
+                displayElement("Doors");
             ImGui::EndMenu();
         }
         auto status = "Used: " + std::to_string(mLevelCoords.size());
