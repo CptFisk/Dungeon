@@ -67,12 +67,13 @@ Editor::startup() {
 
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 
-    mElements["TopMenu"]  = [this]() { uiMenu(); };
-    mElements["Tiles"]    = [this]() { uiTiles(); };
-    mElements["Header"]   = [this]() { uiHeader(); };
-    mElements["Assets"]   = [this]() { uiAssets(); };
-    mElements["Mouse"]    = [this]() { uiMouse(); };
-    mElements["Textures"] = [this]() { uiTexture(); };
+    mElements["TopMenu"]    = [this]() { uiMenu(); };
+    mElements["Tiles"]      = [this]() { uiTiles(); };
+    mElements["Header"]     = [this]() { uiHeader(); };
+    mElements["Assets"]     = [this]() { uiAssets(); };
+    mElements["Mouse"]      = [this]() { uiMouse(); };
+    mElements["Textures"]   = [this]() { uiTexture(); };
+    mElements["DoorsPopup"] = [this]() { uiDoorPopup(); };
     displayElement("TopMenu");
 }
 
@@ -89,6 +90,7 @@ Editor::mainLoop() {
         mFPSTimer.start();
 
         SDL_RenderClear(pRenderer);
+
         while (SDL_PollEvent(&event)) {
             ImGui_ImplSDL2_ProcessEvent(&event);
             bool accepted = true;
@@ -193,7 +195,9 @@ Editor::terminate() {
 }
 
 void
-Editor::click(const float& x, const float& y) {
+Editor::click() {
+    const auto x = mActionManager->mouseX;
+    const auto y = mActionManager->mouseY;
     if (fileTiles.Size != 0 && !clickOnUi(x, y)) {
         auto index =
           Common::getIndex(Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale), fileHeader.Level.SizeX);
@@ -240,19 +244,24 @@ Editor::click(const float& x, const float& y) {
                     visualOverlay[pos].newOverlay(GET_SDL("87ED17"));
                     break;
                 case Mouse::OBSTACLE:
+
                     fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::OBSTACLE);
                     visualOverlay[pos].newOverlay(GET_SDL("1D35FA"));
                     break;
                 case Mouse::PLAYER_SPAWN: {
-                    auto coords    = Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale);
-                    mPlayerSpawn.x = static_cast<float>(coords.first) * 16.0f * mScale.factorX;
-                    mPlayerSpawn.y = static_cast<float>(coords.second) * 16.0f * mScale.factorY;
-                    mPlayerSpawn.w = 16.0f * mScale.factorX;
-                    mPlayerSpawn.h = 16.0f * mScale.factorY;
+                    auto coords              = Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale);
+                    mPlayerSpawn.x           = static_cast<float>(coords.first) * 16.0f * mScale.factorX;
+                    mPlayerSpawn.y           = static_cast<float>(coords.second) * 16.0f * mScale.factorY;
+                    mPlayerSpawn.w           = 16.0f * mScale.factorX;
+                    mPlayerSpawn.h           = 16.0f * mScale.factorY;
                     fileHeader.Level.PlayerX = coords.first;
                     fileHeader.Level.PlayerY = coords.second;
-                }
-                    break;
+                } break;
+                case Mouse::DOORS:
+                    doorsPopup.x = x;
+                    doorsPopup.y = y;
+                    displayElement("DoorsPopup");
+
                 case Mouse::DEFAULT:
                 default:
                     break;
