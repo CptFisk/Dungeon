@@ -3,14 +3,19 @@
 #include <string>
 
 namespace Level::File {
-struct typeDoors {
+struct typeDoorsData {
     uint8_t     X;          // X-coordinate
     uint8_t     Y;          // Y-coordinate
     std::string Conditions; // Condition for open door
 
-    typeDoors()
+    typeDoorsData()
       : X{}
       , Y{}
       , Conditions{} {}
 };
+
+struct typeDoors{
+    std::vector<typeDoors> Doors;
+};
+
 }
