@@ -81,7 +81,6 @@ Editor::startup() {
 void
 Editor::mainLoop() {
     SDL_Event event;
-
     while (mRun) {
         SDL_SetRenderDrawColor(
           pRenderer, fileHeader.Color.BackgroundRed, fileHeader.Color.BackgroundGreen, fileHeader.Color.BackgroundBlue, SDL_ALPHA_OPAQUE);
@@ -201,8 +200,8 @@ Editor::click() {
     const auto x = mActionManager->mouseX;
     const auto y = mActionManager->mouseY;
     if (fileTiles.Size != 0 && !clickOnUi(x, y)) {
-        auto index =
-          Common::getIndex(Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale), fileHeader.Level.SizeX);
+        const auto clickCoord = Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale);
+        auto       index      = Common::getIndex(clickCoord, fileHeader.Level.SizeX);
         if (index.has_value()) {
             const auto pos = index.value();
 
