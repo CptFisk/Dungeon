@@ -33,6 +33,11 @@ AnimatedTexture::getViewport() {
     return &mCurrentViewport;
 }
 
+SDL_Rect*
+AnimatedTexture::getViewport(const int& pos) {
+    return &mViewports[pos];
+}
+
 void
 AnimatedTexture::addViewport(const SDL_Rect& view) {
     mViewports.push_back(view);
@@ -60,9 +65,9 @@ AnimatedTexture::runCycles(const int& cycles) {
     mCycles = cycles;
 }
 
-SDL_Rect
-AnimatedTexture::getViewport() const {
-    return mViewports[mView];
+std::vector<SDL_Rect>
+AnimatedTexture::getViewports() {
+    return mViewports;
 }
 
 bool
@@ -74,4 +79,5 @@ int
 AnimatedTexture::getTicks() const {
     return mTicks;
 }
+
 }

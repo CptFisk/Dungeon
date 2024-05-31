@@ -11,13 +11,14 @@ class AnimatedTexture {
 
     [[nodiscard]] SDL_Texture*& getTexture();
     SDL_Rect*                   getViewport();
+    SDL_Rect*                   getViewport(const int& pos);
     void                        addViewport(const SDL_Rect& view);
     void                        updateTexture();
     void                        runCycles(const int& cycles);
-    [[nodiscard]] SDL_Rect      getViewport() const;
+    std::vector<SDL_Rect>       getViewports();    // Get all the viewports for the animations
+    [[nodiscard]] bool          done() const;      // Animation is last frame
+    [[nodiscard]] int           getTicks() const;  // Return the maximum number of ticks
 
-    [[nodiscard]] bool done() const;     // Animation is last frame
-    [[nodiscard]] int  getTicks() const; // Return the maximum number of ticks
   private:
   protected:
     bool                  mPaused;
@@ -26,7 +27,7 @@ class AnimatedTexture {
     const int             mTicks;
     int                   mCurrentTicks;
     SDL_Rect              mCurrentViewport;
-    SDL_Texture*          mTexture;
     std::vector<SDL_Rect> mViewports;
+    SDL_Texture*          mTexture;
 };
 }
