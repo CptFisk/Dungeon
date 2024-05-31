@@ -22,7 +22,7 @@ main(int argc, char* argv[]) {
 
     Common::queueProcessHandler(
       [&](Uint32) {
-          if (engine.getActionManager().isActionPressed("Interact")) {
+          if (engine.getActionManager().isActionRising("Interact")) {
               engine.test();
           }
       },
