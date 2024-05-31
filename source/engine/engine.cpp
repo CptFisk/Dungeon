@@ -70,7 +70,6 @@ Engine::startup() {
     mThreads.push_back(spawnInterrupt(10));
     mThreads.push_back(spawnInterrupt(300));
     mThreads.push_back(spawnInterrupt(500));
-    mThreads.push_back(spawnInterrupt(10000));
 
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, 1280, 960, "Veras adventure"));
     mInitHandler->startup();
