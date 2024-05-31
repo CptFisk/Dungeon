@@ -5,8 +5,8 @@
 namespace Editor {
 void
 Editor::uiTiles() {
-    if(editorTiles.empty())
-        return; //Break on empty
+    if (editorTiles.empty())
+        return; // Break on empty
 
     const auto minX = std::max(static_cast<int>((mOffset.X / -1.0f) / (16.0f * mScale.factorX) - 3.0f), 0);
     const auto minY = std::max(static_cast<int>((mOffset.Y / -1.0f) / (16.0f * mScale.factorY) - 3.0f), 0);
@@ -36,19 +36,25 @@ Editor::uiTiles() {
             }
         }
 
-        //Show overlay's
-        for(const auto& index: indices){
+        // Show overlay's
+        for (const auto& index : indices) {
             auto visual = visualOverlay[index];
-            if(showNumbers){
+            if (showNumbers) {
                 auto number = visual.getNumber();
                 mPerspective->render(number.first, &number.second, &visual.getPosition());
             }
-            if(showOverlay){
+            if (showOverlay) {
                 mPerspective->render(visual.getOverlay(), nullptr, &visual.getPosition());
+                for (const auto& door : fileDoors.Doors) {
+                    SDL_FRect position = {
+                        door.X * 16.0f * mScale.factorX, door.Y * 16.0f * mScale.factorY, 16.0f * mScale.factorX, 16.0f * mScale.factorY
+                    };
+                    mPerspective->render(GET_SDL("A89AE7"), nullptr, &position);
+                }
             }
         }
     }
-    //Display player spawn
+    // Display player spawn
     mPerspective->render(GET_SDL("0000FF"), nullptr, &mPlayerSpawn);
 }
 }
