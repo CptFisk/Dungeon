@@ -136,6 +136,13 @@ Level::getLevel() {
 }
 
 void
-Level::interact() {}
+Level::interact(const SDL_FRect& area) {
+    for(auto& door : doors){
+        if(Utility::isOverlapping(area, door->getPosition())){
+            door->interact(true);
+            break;
+        }
+    }
+}
 
 }

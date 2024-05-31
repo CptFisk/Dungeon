@@ -35,7 +35,7 @@ class Level {
 
     std::vector<Common::typeDrawData>               getLevel(); // Return all draw data
 
-    void interact();
+    void interact(const SDL_FRect& area);
   protected:
     /**
      * @brief Split the graphic into smaller chunks and then generate graphics on them instead.
