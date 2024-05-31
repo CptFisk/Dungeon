@@ -33,9 +33,9 @@ class Door {
     void                                interact(bool condition);
 
     /**
-     * @return True if you can walk throught the door
+     * @return True if you can walk through the door
      */
-    [[nodiscard]] static bool isPassable() const;
+    [[nodiscard]] bool isPassable() const;
     /**
      * @return Position of door
      */

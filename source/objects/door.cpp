@@ -1,4 +1,3 @@
-#include <iostream>
 #include <objects/door.hpp>
 
 namespace Objects {
@@ -40,6 +39,7 @@ Door::interact(bool condition) {
                     mDrawData.Viewport = &viewport;
                     std::this_thread::sleep_for(std::chrono::milliseconds (10 * 6));
                 }
+                mDrawData.Texture = mAnimationOpening->getTexture();
                 mDrawData.Viewport = &mAnimationOpeningViewport.front();
             });
         } else {
@@ -51,6 +51,7 @@ Door::interact(bool condition) {
                     mDrawData.Viewport = &viewport;
                     std::this_thread::sleep_for(std::chrono::milliseconds (10 * 6));
                 }
+                mDrawData.Texture = mAnimationClosing->getTexture();
                 mDrawData.Viewport = &mAnimationClosingViewport.front();
             });
         }
