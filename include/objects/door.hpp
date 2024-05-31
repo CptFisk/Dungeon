@@ -32,21 +32,19 @@ class Door {
     [[nodiscard]] Common::typeDrawData& getDrawData();
     void                                interact(bool condition);
 
-    std::thread& getThread();
-
   protected:
-    void setOpenGraphic();   // Swap graphic pointers
-    void setClosedGraphic(); // Swap graphic pointers
 
   private:
     bool                       mOpen; // State of door (false = closed, true = open)
     Graphics::AnimatedTexture* mAnimationOpening;
     Graphics::AnimatedTexture* mAnimationClosing;
 
+    std::vector<SDL_Rect> mAnimationOpeningViewport; // Viewports
+    std::vector<SDL_Rect> mAnimationClosingViewport; // Viewports
+
     Common::typeDrawData mDrawData; // Used for returning the graphic
     SDL_FRect            mPosition;
 
-    std::mutex  mtx;    //Lock to keep it thread-safe
     std::thread mThread; // Used to swap state after animation finish
 };
 }
