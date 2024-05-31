@@ -14,6 +14,7 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
     fileHeader = header;
     fileAssets = assets;
     fileTiles  = tiles;
+    fileDoors = data.Doors;
 
     // Clear edges and then create them
     //  Position for edges
