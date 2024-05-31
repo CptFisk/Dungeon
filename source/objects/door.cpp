@@ -57,6 +57,16 @@ Door::interact(bool condition) {
     }
 }
 
+bool
+Door::isPassable() const {
+    return mOpen == true ? true : false;
+}
+
+SDL_FRect
+Door::getPosition() const {
+    return mPosition;
+}
+
 Common::typeDrawData&
 Door::getDrawData() {
     return mDrawData;

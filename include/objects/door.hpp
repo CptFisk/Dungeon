@@ -32,8 +32,16 @@ class Door {
     [[nodiscard]] Common::typeDrawData& getDrawData();
     void                                interact(bool condition);
 
-  protected:
+    /**
+     * @return True if you can walk throught the door
+     */
+    [[nodiscard]] static bool isPassable() const;
+    /**
+     * @return Position of door
+     */
+    [[nodiscard]] SDL_FRect getPosition() const;
 
+  protected:
   private:
     bool                       mOpen; // State of door (false = closed, true = open)
     Graphics::AnimatedTexture* mAnimationOpening;
