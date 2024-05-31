@@ -127,10 +127,6 @@ Engine::startup() {
 
     // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y, mPlayer->getPlayerCenter());
-
-    door = std::make_unique<Objects::Door>(
-      SDL_FRect{ 10 * 16.0f, 34 * 16.0f, 16.0f, 16.0f },  GET_ANIMATED("DoorOpenAnimation"), GET_ANIMATED("DoorCloseAnimation"));
-    mInterrupts[10000]->addFunction([&](){door->interact(true);});
 }
 
 void
@@ -207,15 +203,7 @@ Engine::mainLoop() {
         }
         // Apply background color
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
-        mPerspective->render(mLevel->mSegments[0].second, nullptr, &mLevel->mSegments[0].first);
-        auto data = door->getDrawData();
-        mPerspective->render(data.Texture, data.Viewport, data.Position);
-        /*
-        for(auto & segment : mLevel->mSegments){
-            mPerspective->render(segment.second, nullptr, &segment.first);
-        }
-         */
-
+        drawLevel();
         // Show interaction box during debug
 #ifdef DEBUG_MODE
         mPerspective->render(GET_SDL("0000FF"), nullptr, mPlayer->getInteractionArea());
@@ -319,7 +307,7 @@ Engine::drawNumbers() {
 void
 Engine::drawLevel() {
     for (const auto& tile : mLevel->getLevel()) {
-        // mPerspective->render(tile.Texture, tile.Viewport, tile.Position);
+        mPerspective->render(tile.Texture, tile.Viewport, tile.Position);
     }
 }
 

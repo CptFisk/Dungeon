@@ -5,6 +5,7 @@
 #include <graphicsForward.hpp>
 #include <level/file.hpp>
 #include <memory>
+#include <objects/door.hpp>
 #include <string>
 #include <vector>
 
@@ -34,16 +35,17 @@ class Level {
      */
     std::pair<uint8_t, uint8_t> getPlayerSpawn();
 
-    std::vector<Common::typeDrawData> getLevel(); // Return all draw data
-    std::vector<std::pair<SDL_FRect, SDL_Texture*>> mSegments; // Level segments (generated)
+    std::vector<Common::typeDrawData>               getLevel(); // Return all draw data
   protected:
     /**
      * @brief Split the graphic into smaller chunks and then generate graphics on them instead.
      * @brief Resulting that instead of having 128x 128 pixels you only have a grid 6x 6 instead.
      */
-    void createSegments();
-    void addToSegment(const int& pos, const std::string& name);
-    size_t getSegment(const std::pair<int,int> coord) const;
+    void   createSegments();
+    void   addToSegment(const int& pos, const std::string& name);
+    size_t getSegment(const std::pair<int, int> coord) const;
+
+    std::vector<std::pair<SDL_FRect, SDL_Texture*>> mSegments;  // Level segments (generated)
 
   private:
     Uint8& red;   // Reference to engine->Background->Red
@@ -55,9 +57,9 @@ class Level {
     SDL_Renderer*                       pRenderer; // Reference to the renderer
 
 
-    std::vector<SDL_FRect>                          obstacles; // Things that you cant walk over
-    std::vector<SDL_FRect>                          walls;
-
+    std::vector<SDL_FRect>     obstacles; // Things that you cant walk over
+    std::vector<SDL_FRect>     walls;
+    std::vector<Objects::Door*> doors;   //All doors on the map
     // Level data
     File::typeHeader header;
     int              elements; // Number of elements that exist in pTiles

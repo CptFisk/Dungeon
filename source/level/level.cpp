@@ -30,6 +30,10 @@ Level::~Level(){
     for(auto &[position, texture] : mSegments){
         SDL_DestroyTexture(texture);
     }
+
+    for(auto &door : doors){
+        delete door;
+    }
 }
 
 void
@@ -40,6 +44,7 @@ Level::loadLevel(const std::string& filename) {
 
     std::vector<SDL_FRect> obstacle;
     std::vector<SDL_FRect> wall;
+
     const auto             sizeX = static_cast<float>(data.Header.Level.SizeX) * 16.0f;
     const auto             sizeY = static_cast<float>(data.Header.Level.SizeY) * 16.0f;
 
@@ -77,6 +82,16 @@ Level::loadLevel(const std::string& filename) {
         pos--;
     }
 
+    for(auto &door : doors){
+        delete door;    //Free memory
+    }
+    doors.clear();  //Destroy vector
+
+    for(const auto& door : data.Doors.Doors){
+        const auto position = Common::newSDL_FRect(door.X, door.Y);
+        doors.emplace_back(new Objects::Door(position, GET_ANIMATED(door.GraphicOpen), GET_ANIMATED(door.GraphicClosing)));
+    }
+
     SDL_SetRenderTarget(pRenderer, nullptr);
     walls     = wall;
     obstacles = obstacle;
@@ -108,39 +123,9 @@ Level::getPlayerSpawn() {
 std::vector<Common::typeDrawData>
 Level::getLevel() {
     std::vector<Common::typeDrawData> data;
-    //SDL_RenderTexture(pRenderer, mSegments[0].second, nullptr, &mSegments[0].first);
-    /*
-
-    std::vector<int>                  indices; // Contains all the tiles
-
-    // Calculate what to draw
-    const auto minX = std::max(static_cast<int>((playerX / -1.0f) / 16.0f - 3.0f), 0);
-    const auto minY = std::max(static_cast<int>((playerY / -1.0f) / 16.0f - 3.0f), 0);
-    const auto maxX = std::min(minX + 20, static_cast<int>(header.Level.SizeX));
-    const auto maxY = std::min(minY + 16, static_cast<int>(header.Level.SizeY));
-
-    for (int y = minY; y < maxY; y++) {
-        for (int x = minX; x < maxX; x++) {
-            auto pos = Common::getIndex(x, y, header.Level.SizeX);
-            if (pos.has_value()) {
-                indices.emplace_back(pos.value());
-            }
-        }
-        size_t maxSize = 0;
-        for (const auto& index : indices) {
-            maxSize = std::max(maxSize, tiles[index].getDrawData().size()); // Selecting the biggest value
-        }
-
-        for (int i = 0; i < maxSize; i++) {
-            for (const auto& index : indices) {
-                if (index < tiles.size() && i < tiles[index].getDrawData().size()) {
-                    auto element = tiles[index].getDrawData()[i];
-                    data.emplace_back(element.Texture, element.Viewport, element.Position);
-                }
-            }
-        }
+    for(auto &segment : mSegments){
+        data.emplace_back(segment.second, nullptr, &segment.first);
     }
-     */
     return data;
 }
 

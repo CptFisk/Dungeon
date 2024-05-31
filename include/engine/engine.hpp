@@ -76,7 +76,6 @@ class Engine {
     std::unique_ptr<Player::Indicator>   mEnergy;
     std::unique_ptr<Common::Perspective> mPerspective;
     std::unique_ptr<LoadingScreen>       mLoadingScreen;
-    std::unique_ptr<Objects::Door>       door;
 
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;
