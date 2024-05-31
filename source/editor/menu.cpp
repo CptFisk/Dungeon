@@ -22,7 +22,7 @@ Editor::uiMenu() {
             }
             if (ImGui::MenuItem("Save project")) {
                 fileHeader.Level.Elements      = mLevelCoords.size();
-                Level::File::typeLevelData map = { fileHeader, fileAssets, fileTiles, fileSpawns};
+                Level::File::typeLevelData map = { fileHeader, fileAssets, fileTiles, fileDoors, fileSpawns};
 
                 Level::File::writeLevelDataToFile(std::string(fileHeader.MapName) + ".map", map);
             }

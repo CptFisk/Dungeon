@@ -36,6 +36,25 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
         for (const auto id : tile.Id)
             file.write(reinterpret_cast<const char*>(&id), sizeof(id));
     }
+
+    // Write doors to file
+    const auto numDoors = data.Doors.Doors.size();
+    file.write(reinterpret_cast<const char*>(&numDoors), sizeof(numDoors));
+
+    for (const auto& door : data.Doors.Doors) {
+        file.write(reinterpret_cast<const char*>(&door.X), sizeof(door.X));
+        file.write(reinterpret_cast<const char*>(&door.Y), sizeof(door.Y));
+        const auto open      = static_cast<uint8_t>(door.GraphicOpen.size());
+        const auto close     = static_cast<uint8_t>(door.GraphicClosing.size());
+        const auto condition = static_cast<uint8_t>(door.Condition.size());
+        file.write(reinterpret_cast<const char*>(&open), sizeof(open));
+        file.write(door.GraphicOpen.c_str(), open);
+        file.write(reinterpret_cast<const char*>(&close), sizeof(close));
+        file.write(door.GraphicClosing.c_str(), close);
+        file.write(reinterpret_cast<const char*>(&condition), sizeof(condition));
+        file.write(door.Condition.c_str(), condition);
+    }
+
     file.close();
 }
 
@@ -46,6 +65,7 @@ readLevelData(const std::string& filename) {
         throw std::runtime_error("Cant load file");
     typeHeader header = {};
     typeAssets assets;
+    typeDoors  doors;
     // Read size, nothing special here
     file.read(reinterpret_cast<char*>(&header), sizeof(typeHeader));
     // Read the size of how many assets is stored in the file
@@ -76,9 +96,49 @@ readLevelData(const std::string& filename) {
         }
         tiles.Tiles[i] = tileData;
     }
+
+    size_t numberOfDoors;
+
+    file.read(reinterpret_cast<char*>(&numberOfDoors), sizeof(numberOfDoors));
+    for(int i = 0; i < numberOfAssets; i++){
+
+        uint8_t x;
+        uint8_t y;
+
+        uint8_t  openLength;
+        uint8_t  closeLength;
+        uint8_t  conditionLength;
+
+        file.read(reinterpret_cast<char*>(&x), sizeof(x));
+        file.read(reinterpret_cast<char*>(&y), sizeof(y));
+
+        //Read open animation
+        file.read(reinterpret_cast<char*>(&openLength), sizeof(openLength));
+        char* openGraphic = new char[openLength + 1]{};
+        file.read(openGraphic, openLength);
+
+        //Read close animation
+        file.read(reinterpret_cast<char*>(&closeLength), sizeof(closeLength));
+        char* closeGraphic = new char[closeLength + 1]{};
+        file.read(closeGraphic, closeLength);
+
+        //Read condition
+        file.read(reinterpret_cast<char*>(&conditionLength), sizeof(conditionLength));
+        char* condition = new char[conditionLength + 1]{};
+        file.read(condition, conditionLength);
+
+        doors.Doors.emplace_back(x, y, condition, openGraphic, closeGraphic);
+        //Cleanup
+        delete[] openGraphic;
+        delete[] closeGraphic;
+        delete[] condition;
+
+    }
+
+
     file.close();
     // Generating response
-    return typeLevelData{ header, assets, tiles, typeSpawn() };
+    return typeLevelData{ header, assets, tiles, doors, typeSpawn() };
 }
 
 size_t

@@ -21,6 +21,11 @@ struct typeDoorsData {
       , Y(y)
       , GraphicOpen("DoorOpenAnimation")
       , GraphicClosing("DoorCloseAnimation") {}
+    typeDoorsData(const uint8_t& x, const uint8_t& y, const std::string& condition, const std::string& open, const std::string& close)
+      : X(x)
+      , Y(y)
+      , GraphicOpen(open)
+      , GraphicClosing(close) {}
 };
 
 struct typeDoors {

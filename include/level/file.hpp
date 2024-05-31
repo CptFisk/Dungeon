@@ -2,9 +2,9 @@
 #include <SDL.h>
 #include <cstdint>
 #include <level/types/assets.hpp>
+#include <level/types/doors.hpp>
 #include <level/types/spawn.hpp>
 #include <level/types/tile.hpp>
-#include <level/types/doors.hpp>
 #include <optional>
 #include <string>
 #include <vector>
@@ -38,11 +38,13 @@ struct typeLevelData {
     typeHeader Header;
     typeAssets Assets;
     typeTiles  Tiles;
+    typeDoors  Doors;
     typeSpawn  Spawns;
-    typeLevelData(typeHeader header, typeAssets assets, typeTiles tiles, typeSpawn spawns)
+    typeLevelData(typeHeader header, typeAssets assets, typeTiles tiles, typeDoors& doors, typeSpawn spawns)
       : Header(header)
       , Assets(std::move(assets))
       , Tiles(std::move(tiles))
+      , Doors(std::move(doors))
       , Spawns(std::move(spawns)){};
 };
 
