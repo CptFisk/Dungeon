@@ -107,6 +107,12 @@ Level::movement(const SDL_FRect& other, const Directions& direction) {
         if (Utility::isColliding(other, obstacle, direction))
             return false;
     }
+    for(const auto& door : doors){
+        if(!door->isPassable()){
+            if(Utility::isColliding(other, door->getPosition(), direction))
+                return false;
+        }
+    }
     return true;
 }
 

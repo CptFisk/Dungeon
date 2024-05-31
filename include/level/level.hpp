@@ -38,6 +38,7 @@ class Level {
     std::vector<Common::typeDrawData>               getLevel(); // Return all draw data
 
     void stuff(){
+        std::cout << "Cat" << std::endl;
         doors[2]->interact(true);
     }
   protected:
