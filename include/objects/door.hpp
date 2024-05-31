@@ -32,6 +32,8 @@ class Door {
     [[nodiscard]] Common::typeDrawData& getDrawData();
     void                                interact(bool condition);
 
+    std::thread& getThread();
+
   protected:
     void setOpenGraphic();   // Swap graphic pointers
     void setClosedGraphic(); // Swap graphic pointers

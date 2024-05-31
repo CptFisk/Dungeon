@@ -17,7 +17,17 @@ main(int argc, char* argv[]) {
     engine.getActionManager().registerKeyboardAction("PlayerEast", SDLK_d);
     engine.getActionManager().registerKeyboardAction("PlayerSouth", SDLK_s);
     engine.getActionManager().registerKeyboardAction("PlayerWest", SDLK_a);
+    engine.getActionManager().registerKeyboardAction("Interact", SDLK_SPACE);
     engine.getActionManager().registerMouseAction("Click", SDL_BUTTON_LEFT);
+
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (engine.getActionManager().isActionPressed("Interact")) {
+              engine.test();
+          }
+      },
+      engine.getProcessing());
+
 
     Common::queueProcessHandler(
       [&](Uint32) {

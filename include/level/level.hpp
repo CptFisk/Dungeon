@@ -36,6 +36,10 @@ class Level {
     std::pair<uint8_t, uint8_t> getPlayerSpawn();
 
     std::vector<Common::typeDrawData>               getLevel(); // Return all draw data
+
+    void stuff(){
+        doors[2]->interact(true);
+    }
   protected:
     /**
      * @brief Split the graphic into smaller chunks and then generate graphics on them instead.
@@ -44,6 +48,8 @@ class Level {
     void   createSegments();
     void   addToSegment(const int& pos, const std::string& name);
     size_t getSegment(const std::pair<int, int> coord) const;
+
+    inline void clearDoors();
 
     std::vector<std::pair<SDL_FRect, SDL_Texture*>> mSegments;  // Level segments (generated)
 

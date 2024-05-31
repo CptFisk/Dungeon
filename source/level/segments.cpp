@@ -94,6 +94,8 @@ Level::addToSegment(const int& pos, const std::string& name) {
     }
 }
 
+
+
 size_t
 Level::getSegment(const std::pair<int, int> coord) const {
     const int indexX           = static_cast<int>(coord.first / segmentSizeX);

@@ -31,9 +31,7 @@ Level::~Level(){
         SDL_DestroyTexture(texture);
     }
 
-    for(auto &door : doors){
-        delete door;
-    }
+    clearDoors();
 }
 
 void
@@ -82,10 +80,7 @@ Level::loadLevel(const std::string& filename) {
         pos--;
     }
 
-    for(auto &door : doors){
-        delete door;    //Free memory
-    }
-    doors.clear();  //Destroy vector
+    clearDoors();
 
     for(const auto& door : data.Doors.Doors){
         const auto position = Common::newSDL_FRect(door.X, door.Y);
@@ -120,11 +115,24 @@ Level::getPlayerSpawn() {
     return { header.Level.PlayerX, header.Level.PlayerY };
 }
 
+void
+Level::clearDoors() {
+    for(auto& door : doors){
+        delete door;
+    }
+    doors.clear();
+}
+
 std::vector<Common::typeDrawData>
 Level::getLevel() {
     std::vector<Common::typeDrawData> data;
+    //Fetch the segments
     for(auto &segment : mSegments){
         data.emplace_back(segment.second, nullptr, &segment.first);
+    }
+    //Add the doors over segments
+    for(auto& door : doors){
+        data.emplace_back(door->getDrawData());
     }
     return data;
 }

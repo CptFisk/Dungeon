@@ -2,10 +2,7 @@
 
 namespace Objects {
 
-Door::Door(const SDL_FRect&             position,
-           Graphics::AnimatedTexture*   opening,
-           Graphics::AnimatedTexture*   closing,
-           bool                         open)
+Door::Door(const SDL_FRect& position, Graphics::AnimatedTexture* opening, Graphics::AnimatedTexture* closing, bool open)
   : mPosition(position)
   , mOpen(open)
   , mAnimationOpening(opening)
@@ -21,7 +18,8 @@ Door::Door(const SDL_FRect&             position,
 }
 
 Door::~Door() {
-    mThread.join();
+    if (mThread.joinable())
+        mThread.join();
 }
 
 void
@@ -70,4 +68,10 @@ Door::getDrawData() {
     std::lock_guard<std::mutex> guard(mtx);
     return mDrawData;
 }
+
+std::thread&
+Door::getThread() {
+    return mThread;
+}
+
 }

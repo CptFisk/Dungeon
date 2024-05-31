@@ -27,7 +27,8 @@ Engine::Engine()
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Engine::~Engine() {
-    mInitHandler->shutdown();
+    mGraphics.reset(); // Kill graphics
+    mLevel.reset();    // Kill level
     // Kill all cute monsters
     for (auto& [name, monster] : mMonsters)
         delete monster; // Kill the baby
@@ -40,7 +41,7 @@ Engine::~Engine() {
     for (auto& thread : mThreads) {
         thread.join();
     }
-
+    mInitHandler->shutdown();
 }
 
 Common::ActionManager&
