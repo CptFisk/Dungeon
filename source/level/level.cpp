@@ -9,25 +9,17 @@
 
 namespace Level {
 
-Level::Level(SDL_Renderer*                       renderer,
-             std::shared_ptr<Graphics::Graphics> graphics,
-             Uint8&                              red,
-             Uint8&                              green,
-             Uint8&                              blue,
-             float&                              playerX,
-             float&                              playerY)
+Level::Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics, Uint8& red, Uint8& green, Uint8& blue)
   : pRenderer(renderer)
   , red(red)
   , green(green)
   , blue(blue)
-  , playerX(playerX)
-  , playerY(playerY)
   , header{}
   , mGraphics(std::move(graphics))
   , elements(0) {}
 
-Level::~Level(){
-    for(auto &[position, texture] : mSegments){
+Level::~Level() {
+    for (auto& [position, texture] : mSegments) {
         SDL_DestroyTexture(texture);
     }
 
@@ -43,8 +35,8 @@ Level::loadLevel(const std::string& filename) {
     std::vector<SDL_FRect> obstacle;
     std::vector<SDL_FRect> wall;
 
-    const auto             sizeX = static_cast<float>(data.Header.Level.SizeX) * 16.0f;
-    const auto             sizeY = static_cast<float>(data.Header.Level.SizeY) * 16.0f;
+    const auto sizeX = static_cast<float>(data.Header.Level.SizeX) * 16.0f;
+    const auto sizeY = static_cast<float>(data.Header.Level.SizeY) * 16.0f;
 
     // Set background colors
     red   = header.Color.BackgroundRed;
@@ -58,12 +50,12 @@ Level::loadLevel(const std::string& filename) {
     obstacle.push_back(SDL_FRect{ -16.0f, sizeY, sizeX, 16.0 });           // Bottom wall
 
     int pos = data.Tiles.Tiles.size() - 1; // Resetting, minus one to get correct values
-    createSegments();                  // Generate segments
+    createSegments();                      // Generate segments
 
-    //The reason for looping in reverse order is because of how items is drawn to the screen
+    // The reason for looping in reverse order is because of how items is drawn to the screen
     for (auto it = data.Tiles.Tiles.rbegin(); it != data.Tiles.Tiles.rend(); ++it) {
         if (((*it).Type & static_cast<uint8_t>(File::TileType::TEXTURE)) != 0) {
-            for(const auto& id : (*it).Id){
+            for (const auto& id : (*it).Id) {
                 addToSegment(pos, data.Assets.Assets[static_cast<int>(id)]);
             }
         }
@@ -82,7 +74,7 @@ Level::loadLevel(const std::string& filename) {
 
     clearDoors();
 
-    for(const auto& door : data.Doors.Doors){
+    for (const auto& door : data.Doors.Doors) {
         const auto position = Common::newSDL_FRect(door.X, door.Y);
         doors.emplace_back(new Objects::Door(position, GET_ANIMATED(door.GraphicOpen), GET_ANIMATED(door.GraphicClosing)));
     }
@@ -107,9 +99,9 @@ Level::movement(const SDL_FRect& other, const Directions& direction) {
         if (Utility::isColliding(other, obstacle, direction))
             return false;
     }
-    for(const auto& door : doors){
-        if(!door->isPassable()){
-            if(Utility::isColliding(other, door->getPosition(), direction))
+    for (const auto& door : doors) {
+        if (!door->isPassable()) {
+            if (Utility::isColliding(other, door->getPosition(), direction))
                 return false;
         }
     }
@@ -123,7 +115,7 @@ Level::getPlayerSpawn() {
 
 void
 Level::clearDoors() {
-    for(auto& door : doors){
+    for (auto& door : doors) {
         delete door;
     }
     doors.clear();
@@ -132,15 +124,18 @@ Level::clearDoors() {
 std::vector<Common::typeDrawData>
 Level::getLevel() {
     std::vector<Common::typeDrawData> data;
-    //Fetch the segments
-    for(auto &segment : mSegments){
+    // Fetch the segments
+    for (auto& segment : mSegments) {
         data.emplace_back(segment.second, nullptr, &segment.first);
     }
-    //Add the doors over segments
-    for(auto& door : doors){
+    // Add the doors over segments
+    for (auto& door : doors) {
         data.emplace_back(door->getDrawData());
     }
     return data;
 }
+
+void
+Level::interact() {}
 
 }

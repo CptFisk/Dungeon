@@ -31,7 +31,7 @@ class Engine {
     [[maybe_unused]] std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEvents();    // Get the list of events
     [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
 
-    void test() { mLevel->stuff(); };
+    void test() { mLevel->interact(); };
     void terminate();
     void click(); // Mouse click
     // Player movement

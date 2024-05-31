@@ -17,9 +17,7 @@ class Level {
           std::shared_ptr<Graphics::Graphics> graphics,
           Uint8&                              red,
           Uint8&                              green,
-          Uint8&                              blue,
-          float&                              playerX,
-          float&                              playerY);
+          Uint8&                              blue);
     ~Level(); // Cleaning
     void loadLevel(const std::string& filename);
     /**
@@ -37,10 +35,7 @@ class Level {
 
     std::vector<Common::typeDrawData>               getLevel(); // Return all draw data
 
-    void stuff(){
-        std::cout << "Cat" << std::endl;
-        doors[2]->interact(true);
-    }
+    void interact();
   protected:
     /**
      * @brief Split the graphic into smaller chunks and then generate graphics on them instead.
@@ -70,9 +65,6 @@ class Level {
     // Level data
     File::typeHeader header;
     int              elements; // Number of elements that exist in pTiles
-
-    float& playerX; // Player position X-axis
-    float& playerY; // Player position Y-axis
 
     static const int segmentSizeX = 64;
     static const int segmentSizeY = 64;
