@@ -100,7 +100,7 @@ readLevelData(const std::string& filename) {
     size_t numberOfDoors;
 
     file.read(reinterpret_cast<char*>(&numberOfDoors), sizeof(numberOfDoors));
-    for(int i = 0; i < numberOfAssets; i++){
+    for(int i = 0; i < numberOfDoors; i++){
 
         uint8_t x;
         uint8_t y;
