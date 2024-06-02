@@ -2,8 +2,8 @@
 
 namespace Player {
 Player::Player()
-  : mTexturePosition{ 0.0f, 0.0f, 16.0f, 16.0f }
-  , mInteraction(0.0f, 0.0f, 16.0f, 16.0f)
+  : mTexturePosition{ 0.0f, 0.0f, 12.0f, 18.0f }
+  , mInteraction(0.0f, 0.0f, 12.0f, 18.0f)
   , mPlayerCenter{}
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)
@@ -79,27 +79,27 @@ Player::updateInteraction() {
             mInteraction.x = mTexturePosition.x;
             mInteraction.y = mTexturePosition.y - 8.0f;
             mInteraction.h = 8.0f;
-            mInteraction.w = 16.0f;
+            mInteraction.w = 12.0f;
             break;
         case EAST:
             // Move the interaction box to our right
-            mInteraction.x = mTexturePosition.x + 16.0f;
+            mInteraction.x = mTexturePosition.x + 18.0f;
             mInteraction.y = mTexturePosition.y;
-            mInteraction.h = 16.0f;
+            mInteraction.h = 18.0f;
             mInteraction.w = 8.0f;
             break;
         case SOUTH:
             // Move the interaction box to our bottom
             mInteraction.x = mTexturePosition.x;
-            mInteraction.y = mTexturePosition.y + 16.0f;
+            mInteraction.y = mTexturePosition.y + 18.0f;
             mInteraction.h = 8.0f;
-            mInteraction.w = 16.0f;
+            mInteraction.w = 12.0f;
             break;
         case WEST:
             // Move the interaction box to our left
             mInteraction.x = mTexturePosition.x - 8.0f;
             mInteraction.y = mTexturePosition.y;
-            mInteraction.h = 16.0f;
+            mInteraction.h = 18.0f;
             mInteraction.w = 8.0f;
             break;
         default:

@@ -8,74 +8,74 @@
       {
         "Name" : "HumanIdleNorth",
         "Column" : 1,
-        "Row" : 1,
-        "Length" : 2,
+        "Row" : 4,
+        "Length" : 3,
         "Ticks" : 30,
-        "Width" : 16,
-        "Height" : 16
+        "Width" : 12,
+        "Height" : 18
       },
       {
         "Name" : "HumanIdleEast",
         "Column" : 1,
-        "Row" : 2,
-        "Length" : 2,
+        "Row" : 3,
+        "Length" : 3,
         "Ticks" : 30,
-        "Width" : 16,
-        "Height" : 16
+        "Width" : 12,
+        "Height" : 18
       },
       {
         "Name" : "HumanIdleSouth",
         "Column" : 1,
-        "Row" : 3,
-        "Length" : 2,
+        "Row" : 1,
+        "Length" : 3,
         "Ticks" : 30,
-        "Width" : 16,
-        "Height" : 16
+        "Width" : 12,
+        "Height" : 18
       },
       {
         "Name" : "HumanIdleWest",
         "Column" : 1,
-        "Row" : 4,
-        "Length" : 2,
+        "Row" : 2,
+        "Length" : 3,
         "Ticks" : 30,
-        "Width" : 16,
-        "Height" : 16
+        "Width" : 12,
+        "Height" : 18
       },
       {
         "Name" : "HumanMovingNorth",
-        "Column" : 3,
-        "Row" : 1,
-        "Length" : 2,
+        "Column" : 4,
+        "Row" : 4,
+        "Length" : 3,
         "Ticks" : 15,
-        "Width" : 16,
-        "Height" : 16
+        "Width" : 12,
+        "Height" : 18
       },
       {
         "Name" : "HumanMovingEast",
-        "Column" : 3,
-        "Row" : 2,
-        "Length" : 2,
+        "Column" : 4,
+        "Row" : 3,
+        "Length" : 3,
         "Ticks" : 15,
-        "Width" : 16,
-        "Height" : 16
+        "Width" : 12,
+        "Height" : 18
       },
       {
         "Name" : "HumanMovingSouth",
-        "Column" : 3,
-        "Row" : 3,
-        "Length" : 2,
+        "Column" : 4,
+        "Row" : 1,
+        "Length" : 3,
         "Ticks" : 15,
-        "Width" : 16,
-        "Height" : 16
+        "Width" : 12,
+        "Height" : 18
       },
       {
         "Name" : "HumanMovingWest",
-        "Column" : 3,
-        "Row" : 4,
-        "Length" : 2,
+        "Column" : 4,
+        "Row" : 2,
+        "Length" : 3,
         "Ticks" : 15,
-        "Width" : 16,
-        "Height" : 16
+        "Width" : 12,
+        "Height" : 18
       }
 
     ]
