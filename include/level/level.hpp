@@ -43,7 +43,7 @@ class Level {
      */
     void   createSegments();
     void   addToSegment(const int& pos, const std::string& name);
-    size_t getSegment(const std::pair<int, int> coord) const;
+    [[nodiscard]] size_t getSegment(const std::pair<int, int>& coord) const;
 
     inline void clearDoors();
 

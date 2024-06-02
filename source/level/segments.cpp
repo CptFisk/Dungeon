@@ -97,7 +97,7 @@ Level::addToSegment(const int& pos, const std::string& name) {
 
 
 size_t
-Level::getSegment(const std::pair<int, int> coord) const {
+Level::getSegment(const std::pair<int, int>& coord) const {
     const int indexX           = static_cast<int>(coord.first / segmentSizeX);
     const int indexY           = static_cast<int>(coord.second / segmentSizeY);
     const int numberOfSegments = static_cast<int>((header.Level.SizeX + segmentSizeX - 1) / segmentSizeX);
