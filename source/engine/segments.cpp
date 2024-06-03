@@ -1,9 +1,14 @@
+#include <iostream>
 #include <common/math.hpp>
 #include <graphics/graphics.hpp>
-#include <level/level.hpp>
-namespace Level {
+#include <engine/engine.hpp>
+
+
+
+namespace Engine {
+
 void
-Level::createSegments() {
+Engine::createSegments() {
     // Clear first if there is segments loaded
     for (auto [position, texture] : mSegments) {
         SDL_DestroyTexture(texture);
@@ -63,7 +68,7 @@ Level::createSegments() {
 }
 
 void
-Level::addToSegment(const int& pos, const std::string& name) {
+Engine::addToSegment(const int& pos, const std::string& name) {
 
     auto texture = GET_SIMPLE(name);                                               // First we extract the texture
     auto coords  = Common::getCoords(pos, header.Level.SizeX, header.Level.SizeY); // Fetching coords, hopefully
@@ -97,7 +102,7 @@ Level::addToSegment(const int& pos, const std::string& name) {
 
 
 size_t
-Level::getSegment(const std::pair<int, int>& coord) const {
+Engine::getSegment(const std::pair<int, int>& coord) const {
     const int indexX           = static_cast<int>(coord.first / segmentSizeX);
     const int indexY           = static_cast<int>(coord.second / segmentSizeY);
     const int numberOfSegments = static_cast<int>((header.Level.SizeX + segmentSizeX - 1) / segmentSizeX);

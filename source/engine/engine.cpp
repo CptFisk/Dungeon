@@ -12,11 +12,11 @@ namespace Engine {
 
 Engine::Engine()
   : mInitHandler(std::make_unique<Common::InitHandler>())
-  , pWindow(nullptr)
-  , pRenderer(nullptr)
   , pPlayerPosition(nullptr)
   , pPlayerTexture(nullptr)
   , pPlayerView(nullptr)
+  , pWindow(nullptr)
+  , pRenderer(nullptr)
   , mScale{}
   , mRun(true)
   , mVisibleUI(true)
@@ -28,7 +28,6 @@ Engine::Engine()
 
 Engine::~Engine() {
     mGraphics.reset(); // Kill graphics
-    mLevel.reset();    // Kill level
     // Kill all cute monsters
     for (auto& [name, monster] : mMonsters)
         delete monster; // Kill the baby
@@ -71,7 +70,7 @@ Engine::startup() {
     mThreads.push_back(spawnInterrupt(300));
     mThreads.push_back(spawnInterrupt(500));
 
-    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, 1280, 960, "Veras adventure"));
+    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, 1280, 960, "Vera adventure"));
     mInitHandler->startup();
     /*
     mLoadingScreen = std::make_unique<LoadingScreen>(pRenderer, mMutex);
@@ -88,8 +87,8 @@ Engine::startup() {
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
 
-    mLevel = std::make_unique<Level::Level>(pRenderer, mGraphics, Background.Red, Background.Green, Background.Blue);
-    mLevel->loadLevel("level.map");
+    loadLevel("level.map");
+
     mPlayer = std::make_unique<Player::Player>();
 
     mHealth =
@@ -149,7 +148,7 @@ Engine::click() {
 
 void
 Engine::movePlayer(Directions direction) {
-    if (mLevel->movement(*mPlayer->getPlayerCenter(), direction))
+    if (movement(*mPlayer->getPlayerCenter(), direction))
         mPerspective->move(direction, mPlayer->move(direction));
     else
         mPlayer->setDirection(direction); // At least change direction
@@ -168,7 +167,7 @@ Engine::resetPlayerMomentum() {
 void
 Engine::mainLoop() {
     textBox = new Objects::TextBox(mGraphics->generateText("Hello ssss", 8), 20, 20);
-    mPlayer->spawn(mLevel->getPlayerSpawn());
+    mPlayer->spawn(getPlayerSpawn());
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
     // mLoading.join();
@@ -208,8 +207,7 @@ Engine::mainLoop() {
 #ifdef DEBUG_MODE
         mPerspective->render(GET_SDL("0000FF"), nullptr, mPlayer->getInteractionArea());
         // Displaying spawn point
-        const auto coords = mLevel->getPlayerSpawn();
-        SDL_FRect  spawn{ coords.first * 16.0f, coords.second * 16.0f, 16.0f, 16.0f };
+        SDL_FRect spawn{ header.Level.PlayerX * 16.0f, header.Level.PlayerY * 16.0f, 16.0f, 16.0f };
         mPerspective->render(GET_SDL("A349A4"), nullptr, &spawn);
 #endif
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
@@ -306,8 +304,13 @@ Engine::drawNumbers() {
 
 void
 Engine::drawLevel() {
-    for (const auto& tile : mLevel->getLevel()) {
-        mPerspective->render(tile.Texture, tile.Viewport, tile.Position);
+    for (auto& [position, texture] : mSegments) {
+        mPerspective->render(texture, nullptr, &position);
+    }
+
+    for (auto& door : doors) {
+        auto drawData = door->getDrawData();
+
     }
 }
 

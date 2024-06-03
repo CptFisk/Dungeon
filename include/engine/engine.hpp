@@ -3,7 +3,7 @@
 #include <engine/include.hpp>
 #include <graphics/graphics.hpp>
 #include <graphics/numbers.hpp>
-#include <level/level.hpp>
+#include <level/file.hpp>
 #include <list>
 #include <memory>
 #include <monster/include.hpp>
@@ -31,7 +31,6 @@ class Engine {
     [[maybe_unused]] std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEvents();    // Get the list of events
     [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
 
-    void test() { mLevel->interact(*mPlayer->getInteractionArea()); };
     void terminate();
     void click(); // Mouse click
     // Player movement
@@ -72,7 +71,6 @@ class Engine {
     std::unique_ptr<Common::InitHandler> mInitHandler;
     std::unique_ptr<Player::Player>      mPlayer;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
-    std::unique_ptr<Level::Level>        mLevel;
     std::unique_ptr<Player::Indicator>   mHealth;
     std::unique_ptr<Player::Indicator>   mEnergy;
     std::unique_ptr<Common::Perspective> mPerspective;
@@ -109,6 +107,43 @@ class Engine {
 
     // Visible numbers
     std::vector<Graphics::Number> mNumbers; // Visible numbers
+
+    // Load a level
+    void loadLevel(const std::string& filename);
+
+    /**
+     * @breif Check if movement is allowed, or if it collides with other objects
+     * @param other Object to check with
+     * @return true = movement allowed
+     */
+    bool movement(const SDL_FRect& other, const Directions& direction);
+    bool movement(const SDL_FPoint& other, const Directions& direction);
+
+    void interact(const SDL_FRect& area);
+
+    /**
+     * @brief Returns the position were the player should spawn
+     */
+    std::pair<uint8_t, uint8_t> getPlayerSpawn();
+
+    // Segmentations
+    void                 createSegments();
+    void                 addToSegment(const int& pos, const std::string& name);
+    [[nodiscard]] size_t getSegment(const std::pair<int, int>& coord) const;
+
+    inline void clearDoors();
+
+    std::vector<std::pair<SDL_FRect, SDL_Texture*>> mSegments; // Level segments (generated)
+
+    std::vector<SDL_FRect>      obstacles; // Things that you cant walk over
+    std::vector<SDL_FRect>      walls;
+    std::vector<Objects::Door*> doors; // All doors on the map
+    // Level data
+    Level::File::typeHeader header;
+    int                     elements; // Number of elements that exist in pTiles
+
+    static const int segmentSizeX = 64;
+    static const int segmentSizeY = 64;
 
     Objects::TextBox* textBox;
 };

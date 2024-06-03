@@ -3,21 +3,12 @@
 #include <common/sdl.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
-#include <level/level.hpp>
+#include <engine/engine.hpp>
 #include <utility/math.hpp>
 #include <utility/textures.hpp>
 
-namespace Level {
-
-Level::Level(SDL_Renderer* renderer, std::shared_ptr<Graphics::Graphics> graphics, Uint8& red, Uint8& green, Uint8& blue)
-  : pRenderer(renderer)
-  , red(red)
-  , green(green)
-  , blue(blue)
-  , header{}
-  , mGraphics(std::move(graphics))
-  , elements(0) {}
-
+namespace Engine {
+/*
 Level::~Level() {
     for (auto& [position, texture] : mSegments) {
         SDL_DestroyTexture(texture);
@@ -25,10 +16,10 @@ Level::~Level() {
 
     clearDoors();
 }
-
+*/
 void
-Level::loadLevel(const std::string& filename) {
-    auto data = File::readLevelData(filename);
+Engine::loadLevel(const std::string& filename) {
+    auto data = Level::File::readLevelData(filename);
     header    = data.Header; // Catch header
     elements  = data.Header.Level.Elements;
 
@@ -39,9 +30,9 @@ Level::loadLevel(const std::string& filename) {
     const auto sizeY = static_cast<float>(data.Header.Level.SizeY) * 16.0f;
 
     // Set background colors
-    red   = header.Color.BackgroundRed;
-    green = header.Color.BackgroundGreen;
-    blue  = header.Color.BackgroundBlue;
+    Background.Red   = header.Color.BackgroundRed;
+    Background.Green = header.Color.BackgroundGreen;
+    Background.Blue  = header.Color.BackgroundBlue;
 
     // Generate walls
     obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, 16.0f, sizeY + 32.0f }); // Left wall
@@ -54,17 +45,17 @@ Level::loadLevel(const std::string& filename) {
 
     // The reason for looping in reverse order is because of how items is drawn to the screen
     for (auto it = data.Tiles.Tiles.rbegin(); it != data.Tiles.Tiles.rend(); ++it) {
-        if (((*it).Type & static_cast<uint8_t>(File::TileType::TEXTURE)) != 0) {
+        if (((*it).Type & static_cast<uint8_t>(Level::File::TileType::TEXTURE)) != 0) {
             for (const auto& id : (*it).Id) {
                 addToSegment(pos, data.Assets.Assets[static_cast<int>(id)]);
             }
         }
-        if (((*it).Type & static_cast<uint8_t>(File::TileType::OBSTACLE)) != 0) {
+        if (((*it).Type & static_cast<uint8_t>(Level::File::TileType::OBSTACLE)) != 0) {
             const auto coords = Common::getCoords(pos, data.Header.Level.SizeX, data.Header.Level.SizeY);
             if (coords.has_value())
                 obstacle.emplace_back(Common::newSDL_FRect(coords.value()));
         }
-        if (((*it).Type & static_cast<uint8_t>(File::TileType::WALL)) != 0) {
+        if (((*it).Type & static_cast<uint8_t>(Level::File::TileType::WALL)) != 0) {
             const auto coords = Common::getCoords(pos, data.Header.Level.SizeX, data.Header.Level.SizeY);
             if (coords.has_value())
                 wall.emplace_back(Common::newSDL_FRect(coords.value()));
@@ -85,12 +76,12 @@ Level::loadLevel(const std::string& filename) {
 }
 
 bool
-Level::movement(const SDL_FPoint& other, const Directions& direction) {
+Engine::movement(const SDL_FPoint& other, const Directions& direction) {
     return movement(SDL_FRect(other.x, other.y, 1.0f, 1.0f), direction);
 }
 
 bool
-Level::movement(const SDL_FRect& other, const Directions& direction) {
+Engine::movement(const SDL_FRect& other, const Directions& direction) {
     for (const auto& wall : walls) {
         if (Utility::isColliding(other, wall, direction))
             return false;
@@ -109,20 +100,20 @@ Level::movement(const SDL_FRect& other, const Directions& direction) {
 }
 
 std::pair<uint8_t, uint8_t>
-Level::getPlayerSpawn() {
+Engine::getPlayerSpawn() {
     return { header.Level.PlayerX, header.Level.PlayerY };
 }
 
 void
-Level::clearDoors() {
+Engine::clearDoors() {
     for (auto& door : doors) {
         delete door;
     }
     doors.clear();
 }
-
+/*
 std::vector<Common::typeDrawData>
-Level::getLevel() {
+Engine::getLevel() {
     std::vector<Common::typeDrawData> data;
     // Fetch the segments
     for (auto& segment : mSegments) {
@@ -134,9 +125,10 @@ Level::getLevel() {
     }
     return data;
 }
+*/
 
 void
-Level::interact(const SDL_FRect& area) {
+Engine::interact(const SDL_FRect& area) {
     for(auto& door : doors){
         if(Utility::isOverlapping(area, door->getPosition())){
             door->interact(true);
