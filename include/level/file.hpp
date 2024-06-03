@@ -5,6 +5,7 @@
 #include <level/types/doors.hpp>
 #include <level/types/spawn.hpp>
 #include <level/types/tile.hpp>
+#include <level/types/warp.hpp>
 #include <optional>
 #include <string>
 #include <vector>
