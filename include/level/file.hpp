@@ -35,6 +35,7 @@ struct typeHeader {
     } Level;
 };
 
+
 struct typeLevelData {
     typeHeader Header;
     typeAssets Assets;

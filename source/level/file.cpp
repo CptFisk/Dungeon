@@ -13,6 +13,9 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
     // Write header
     file.write(reinterpret_cast<const char*>(&data.Header), sizeof(data.Header));
 
+    //Write the biggest animated value that we have
+    file.write(reinterpret_cast<const char*>(&data.Assets.AnimationValue), sizeof(data.Assets.AnimationValue));
+
     // Write assets
     const auto numAssets = data.Assets.Assets.size();
     file.write(reinterpret_cast<const char*>(&numAssets), sizeof(numAssets));
@@ -68,6 +71,9 @@ readLevelData(const std::string& filename) {
     typeDoors  doors;
     // Read size, nothing special here
     file.read(reinterpret_cast<char*>(&header), sizeof(typeHeader));
+
+    file.read(reinterpret_cast<char*>(&assets.AnimationValue), sizeof(assets.AnimationValue));
+
     // Read the size of how many assets is stored in the file
     size_t numberOfAssets;
     file.read(reinterpret_cast<char*>(&numberOfAssets), sizeof(numberOfAssets));
