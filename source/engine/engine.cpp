@@ -322,7 +322,7 @@ Engine::addDarkness() {
 std::thread
 Engine::spawnInterrupt(const long& time) {
     auto thread = std::thread([&]() {
-        auto interrupt    = std::make_shared<Interrupt>(time, mRun);
+        auto interrupt    = std::make_shared<Common::Interrupt>(time, mRun);
         mInterrupts[time] = interrupt;
         interrupt->execute();
     });
