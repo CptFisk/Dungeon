@@ -6,8 +6,11 @@ namespace Graphics {
 class AnimatedTexture {
   public:
     AnimatedTexture();
-    AnimatedTexture(SDL_Texture* texture, const int& ticks, const bool& paused);
+    AnimatedTexture(SDL_Texture* texture,  const int& w, const int& h, const int& ticks, const bool& paused);
     ~AnimatedTexture();
+
+    const int    Width;   // Texture width
+    const int    Height;  // Texture height
 
     [[nodiscard]] SDL_Texture*&         getTexture();
     [[nodiscard]] SDL_Rect*             getViewport();

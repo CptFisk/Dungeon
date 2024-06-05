@@ -6,16 +6,20 @@ AnimatedTexture::AnimatedTexture()
   , mTicks(0)
   , mCurrentTicks(0)
   , mCycles(0)
+  , Width(0)
+  , Height(0)
   , mCurrentViewport{}
   , mTexture(nullptr)
   , mPaused(false) {}
 
-AnimatedTexture::AnimatedTexture(SDL_Texture* texture, const int& ticks, const bool& paused)
+AnimatedTexture::AnimatedTexture(SDL_Texture* texture, const int& w, const int& h, const int& ticks, const bool& paused)
   : mView(0)
   , mCycles(0)
   , mCurrentTicks(0)
   , mTexture(texture)
   , mCurrentViewport{}
+  , Width(w)
+  , Height(h)
   , mTicks(ticks)
   , mPaused(paused) {}
 
@@ -50,7 +54,7 @@ AnimatedTexture::updateTexture() {
         if (mView < (mViewports.size() - 1)) {
             mView++;
         } else {
-            mView = 0;
+            mView   = 0;
             mCycles = std::max(0, mCycles - 1);
         }
         mCurrentViewport = mViewports[mView];

@@ -79,7 +79,7 @@ Graphics::loadAnimatedTexture(const std::string& jsonString) {
     }
     for (const auto& data : jsonData.Objects) {
         if (mGraphics.find(data.Name) == mGraphics.end()) {
-            auto animation = new AnimatedTexture(Common::loadImage(pRenderer, jsonData.File), data.Ticks, data.Paused);
+            auto animation = new AnimatedTexture(Common::loadImage(pRenderer, jsonData.File),data.Width, data.Height, data.Ticks, data.Paused);
             for (int i = 0; i < data.Length; i++) {
                 const auto offset = (data.Column - 1) * data.Width;
                 animation->addViewport(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), (data.Width), (data.Height) });
