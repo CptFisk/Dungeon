@@ -22,6 +22,11 @@ Editor::uiMenu() {
             }
             if (ImGui::MenuItem("Save project")) {
                 fileHeader.Level.Elements      = mLevelCoords.size();
+                std::vector<int> temp;   //Temporary storage
+                for(const auto& [asset, value] : animationValues){
+                    temp.push_back(value);
+                }
+                fileAssets.AnimationValue = Common::findLcm(temp);
                 Level::File::typeLevelData map = { fileHeader, fileAssets, fileTiles, fileDoors, fileSpawns};
 
                 Level::File::writeLevelDataToFile(std::string(fileHeader.MapName) + ".map", map);
