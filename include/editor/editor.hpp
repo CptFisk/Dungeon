@@ -13,6 +13,7 @@
 #include <set>
 #include <unordered_map>
 #include <utility/timer.hpp>
+#include <thread>
 
 namespace Editor {
 class Editor {
@@ -32,6 +33,8 @@ class Editor {
     void terminate(); // Kill the editor
     void click();     // Click
   protected:
+    std::thread spawnInterrupt(const long& time); // Spawn a thread
+
     void loadLevel(const Level::File::typeLevelData& data);
     void removeSpecificTexture(const std::string& name);
 
@@ -73,8 +76,8 @@ class Editor {
     std::shared_ptr<Graphics::Graphics>  mGraphics;
     std::unique_ptr<Common::Perspective> mPerspective;
 
-    std::vector<std::string> mTextures;        // All textures that we can use
-    std::string              mSelectedTexture; // The selected texture
+    std::vector<std::pair<Graphics::TextureTypes, std::string>> mTextures;        // All textures that we can use
+    std::pair<Graphics::TextureTypes, std::string>              mSelectedTexture; // The selected texture
 
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;
@@ -134,5 +137,8 @@ class Editor {
     std::set<std::pair<int, int>, comparePair>      mLevelCoords; // A list of coordinates that is used
     SDL_FRect                                       mPlayerSpawn; // Area to draw the player in
     std::vector<std::pair<SDL_Texture*, SDL_FRect>> mEdges;       // Edges for drawing area
+
+    std::map<long int, std::shared_ptr<Common::Interrupt>> mInterrupts;
+    std::vector<std::thread> mThreads;
 };
 }

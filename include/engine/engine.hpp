@@ -92,7 +92,7 @@ class Engine {
 
     // Threads and interrupts
     std::vector<std::thread>                       mThreads;
-    std::map<long int, std::shared_ptr<Interrupt>> mInterrupts;
+    std::map<long int, std::shared_ptr<Common::Interrupt>> mInterrupts;
     std::thread                                    mLoading;
     // References to the player
     SDL_Texture** pPlayerTexture;

@@ -1,11 +1,11 @@
 #pragma once
 #include <cstdint>
 #include <vector>
-namespace Level::File{
+namespace Level::File {
 /**
  * All this types is only used for generating and loading a pre-defined map file.
  */
-enum class TileType : uint8_t { BLANK = 0, TEXTURE = 1 << 0, WALL = 1 << 1, OBSTACLE = 1 << 2 };
+enum class TileType : uint8_t { BLANK = 0, TEXTURE = 1 << 0, ANIMATED_TEXTURE = 1 << 1, WALL = 1 << 2, OBSTACLE = 1 << 3 };
 
 /**
  * @brief Definition of a single tile. A can have multiple properties and they are each stored as a single bit in Type.

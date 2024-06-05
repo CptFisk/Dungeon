@@ -26,9 +26,9 @@ Editor::uiTexture() {
         ImGui::InputText("##Filter", &filter);
         if(ImGui::BeginListBox("##Textures")){
             for(int i = 0; i < mTextures.size(); i++){
-                if(mTextures[i].find(filter) != std::string::npos) {
+                if(mTextures[i].second.find(filter) != std::string::npos) {
                     const bool selected = (currentItem == i);
-                    if (ImGui::Selectable(mTextures[i].c_str(), selected)) {
+                    if (ImGui::Selectable(mTextures[i].second.c_str(), selected)) {
                         currentItem      = i;
                         mSelectedTexture = mTextures[i];
                     }

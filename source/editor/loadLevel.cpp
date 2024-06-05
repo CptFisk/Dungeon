@@ -14,7 +14,7 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
     fileHeader = header;
     fileAssets = assets;
     fileTiles  = tiles;
-    fileDoors = data.Doors;
+    fileDoors  = data.Doors;
 
     // Clear edges and then create them
     //  Position for edges
@@ -43,25 +43,25 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
             visualOverlay[pos] = VisualTile(x, y, GET_SIMPLE("NumbersWhite"), mScale);
             for (const auto id : tile.Id) {
                 const auto val     = static_cast<int>(id);
-                auto       texture = GET_SIMPLE(data.Assets.Assets[val]); // Assets to use
-                editorTiles[pos].addData(texture.Texture, texture.getRandomView(), texture.Width, texture.Height, mScale);
+                auto&      texture = GET_SIMPLE(data.Assets.Assets[val]); // Assets to use
+                editorTiles[pos].addData(texture.Texture, &texture.getRandomView(), texture.Width, texture.Height, mScale);
                 visualOverlay[pos].incrementCounter(); // Count up
-                mLevelCoords.emplace(x,y);
+                mLevelCoords.emplace(x, y);
             }
-            if((tile.Type & static_cast<uint8_t>(Level::File::TileType::WALL)) != 0) {
+            if ((tile.Type & static_cast<uint8_t>(Level::File::TileType::WALL)) != 0) {
                 visualOverlay[pos].newOverlay(GET_SDL("87ED17"));
             }
-            if((tile.Type & static_cast<uint8_t>(Level::File::TileType::OBSTACLE)) != 0) {
+            if ((tile.Type & static_cast<uint8_t>(Level::File::TileType::OBSTACLE)) != 0) {
                 visualOverlay[pos].newOverlay(GET_SDL("1D35FA"));
             }
             pos++;
         }
     }
-    //Adding player spawn
+    // Adding player spawn
     mPlayerSpawn.x = static_cast<float>(fileHeader.Level.PlayerX) * 16.0f * mScale.factorX;
     mPlayerSpawn.y = static_cast<float>(fileHeader.Level.PlayerY) * 16.0f * mScale.factorY;
-    mPlayerSpawn.w = 16.0f *mScale.factorX;
-    mPlayerSpawn.h = 16.0f *mScale.factorY;
+    mPlayerSpawn.w = 16.0f * mScale.factorX;
+    mPlayerSpawn.h = 16.0f * mScale.factorY;
 
     mMapLoaded = true;
 }

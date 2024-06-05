@@ -76,13 +76,13 @@ class Graphics {
 
     void updateAnimatedTexture();
 
-    std::vector<std::string> getAllTextureNames() {
-        std::vector<std::string> names;
+    std::vector<std::pair<TextureTypes, std::string>> getAllTextureNames() {
+        std::vector<std::pair<TextureTypes, std::string>> textures;
         for (auto& graphic : mGraphics) {
-            if (graphic.second.Type == SIMPLE_TEXTURE)
-                names.push_back(graphic.first);
+            if (graphic.second.Type == SIMPLE_TEXTURE || graphic.second.Type == ANIMATED_TEXTURE)
+                textures.push_back({graphic.second.Type, graphic.first});
         }
-        return names;
+        return textures;
     }
 
   protected:

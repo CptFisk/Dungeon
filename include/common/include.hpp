@@ -9,3 +9,4 @@
 #include <common/perspective.hpp>
 #include <common/sdl.hpp>
 #include <common/structures.hpp>
+#include <common/interrupt.hpp>

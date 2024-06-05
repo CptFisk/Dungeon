@@ -10,7 +10,7 @@ namespace Editor {
  */
 struct tileData {
     SDL_Texture* Texture;
-    SDL_Rect     Viewport;
+    SDL_Rect*    Viewport;
     SDL_FRect    Position;
 };
 
@@ -27,9 +27,9 @@ class Tile {
     [[maybe_unused]] void clear(); // Clear vector
 
     void addData(SDL_Texture*             texture,
-                 SDL_Rect                 viewport,
-                 const float&             w,
-                 const float&             h,
+                 SDL_Rect*                viewport,
+                 const int&             w,
+                 const int&             h,
                  const Common::typeScale& scale); // Used in editor mode
 
     std::vector<Common::typeDrawData> getDrawData(); // Return all data that should be drawn.

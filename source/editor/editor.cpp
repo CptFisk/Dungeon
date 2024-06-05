@@ -1,6 +1,7 @@
 #include <backends/imgui_impl_sdl2.h>
 #include <backends/imgui_impl_sdlrenderer2.h>
 #include <common/initializer/imgui.hpp>
+#include <common/interrupt.hpp>
 #include <common/math.hpp>
 #include <common/scale.hpp>
 #include <editor/editor.hpp>
@@ -29,6 +30,11 @@ Editor::Editor(const int& w, const int& h)
   , mPlayerSpawn{} {}
 
 Editor::~Editor() {
+    // De-spawn all threads
+    for (auto& thread : mThreads) {
+        thread.join();
+    }
+
     mGraphics.reset();
     mInitHandler->shutdown();
 
@@ -45,6 +51,8 @@ Editor::getActionManager() {
 
 void
 Editor::startup() {
+    mThreads.push_back(spawnInterrupt(10));
+
     mInitHandler->addInitializer(
       std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, requestDimensionW, requestDimensionH, "Editor"));
     mInitHandler->addInitializer(std::make_shared<Common::ImGuiInitializer>(&pWindow, &pRenderer));
@@ -66,6 +74,8 @@ Editor::startup() {
     }
 
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
+    // Update all graphics
+    mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
     mElements["TopMenu"]    = [this]() { uiMenu(); };
     mElements["Tiles"]      = [this]() { uiTiles(); };
@@ -209,21 +219,30 @@ Editor::click() {
                 case Mouse::TEXTURE: {
                     // Add tile to the list
                     mLevelCoords.emplace(Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
-                    // Fetching the texture
-                    auto simpleTexture = GET_SIMPLE(mSelectedTexture);
+
+                    SDL_Texture* texture  = {};
+                    SDL_Rect*    viewport = {};
+                    if (mSelectedTexture.first == Graphics::TextureTypes::SIMPLE_TEXTURE) {
+                        auto& simpleTexture = GET_SIMPLE(mSelectedTexture.second);
+                        texture            = simpleTexture.getTexture();
+                        viewport           = &simpleTexture.getRandomView();
+                    } else {
+                        auto& animatedTexture = GET_ANIMATED(mSelectedTexture.second);
+                        texture              = animatedTexture->getTexture();
+                        viewport             = animatedTexture->getViewport();
+                    }
                     // Add texture to tile
-                    editorTiles[pos].addData(
-                      simpleTexture.Texture, simpleTexture.getRandomView(), simpleTexture.Width, simpleTexture.Height, mScale);
+                    editorTiles[pos].addData(texture, viewport, 16, 16, mScale);
                     // Stuff that shall be added to the files
                     fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::TEXTURE);
                     // Increment visual overlay
                     visualOverlay[pos].incrementCounter();
                     // Search if the asset have been used before
-                    const auto id = Level::File::findAsset(mSelectedTexture, fileAssets);
+                    const auto id = Level::File::findAsset(mSelectedTexture.second, fileAssets);
                     if (id.has_value())
                         fileTiles.Tiles[pos].Id.emplace_back(id.value());
                     else
-                        fileTiles.Tiles[pos].Id.emplace_back(Level::File::addAsset(mSelectedTexture, fileAssets));
+                        fileTiles.Tiles[pos].Id.emplace_back(Level::File::addAsset(mSelectedTexture.second, fileAssets));
                 } break;
                 case Mouse::REMOVE:
                     editorTiles[pos].clear(); // Clear the vector
@@ -269,6 +288,16 @@ Editor::click() {
             }
         }
     }
+}
+
+std::thread
+Editor::spawnInterrupt(const long& time) {
+    auto thread = std::thread([&]() {
+        auto interrupt    = std::make_shared<Common::Interrupt>(time, mRun);
+        mInterrupts[time] = interrupt;
+        interrupt->execute();
+    });
+    return thread;
 }
 
 }
