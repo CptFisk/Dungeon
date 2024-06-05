@@ -28,4 +28,6 @@ getClickCoords(const float& x, const float& y, const typeScale& scale);
 std::optional<std::pair<int,int>>
 getCoords(const int& pos, const int& width, const int& height);
 
+int findLcm(const std::vector<int>& values);
+int lcm(const int& a, const int &b);
 }

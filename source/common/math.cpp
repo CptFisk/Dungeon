@@ -37,4 +37,18 @@ getCoords(const int& pos, const int& width, const int& height) {
     const int y = pos / width;
     return std::make_pair(x, y);
 }
+
+int findLcm(const std::vector<int>& values){
+    if(values.empty())
+        return 0;
+    int result = values[0];
+    for(const auto& value : values){
+        result = lcm(result, value);
+    }
+    return result;
+}
+
+int lcm(const int& a, const int& b){
+    return (a / std::gcd(a,b)) * b;
+}
 }
