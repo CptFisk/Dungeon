@@ -239,7 +239,7 @@ Editor::click() {
                         viewport              = animatedTexture->getViewport();
 
                         // Check if this value is higher than previous
-                        animationValues[mSelectedTexture.second] = static_cast<int>(animatedTexture->getViewports().size());
+                        animationValues[mSelectedTexture.second] = static_cast<int>(animatedTexture->getViewports().size() * animatedTexture->getTicks());
 
                         fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE);
                     }

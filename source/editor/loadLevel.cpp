@@ -42,9 +42,33 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
             editorTiles.emplace_back(Tile(x, y, mScale));
             visualOverlay[pos] = VisualTile(x, y, GET_SIMPLE("NumbersWhite"), mScale);
             for (const auto id : tile.Id) {
-                const auto val     = static_cast<int>(id);
-                auto&      texture = GET_SIMPLE(data.Assets.Assets[val]); // Assets to use
-                editorTiles[pos].addData(texture.Texture, &texture.getRandomView(), texture.Width, texture.Height, mScale);
+                const auto val  = static_cast<int>(id);
+                auto       type = mGraphics->getTextureType(data.Assets.Assets[val]);
+
+                SDL_Texture* texture;
+                SDL_Rect*    viewport;
+                int          w;
+                int          h;
+                switch (type) {
+                    case Graphics::TextureTypes::SIMPLE_TEXTURE: {
+                        auto& simple = GET_SIMPLE(data.Assets.Assets[val]); // Assets to use
+                        texture      = simple.getTexture();
+                        viewport     = &simple.getRandomView();
+                        w            = simple.Width;
+                        h            = simple.Height;
+                    }
+                        break;
+
+                    case Graphics::TextureTypes::ANIMATED_TEXTURE: {
+                        auto& animated = GET_ANIMATED(data.Assets.Assets[val]); // Assets to use
+                        texture      = animated->getTexture();
+                        viewport     = animated->getViewport();
+                        w            = animated->Width;
+                        h            = animated->Height;
+                    }
+                        break;
+                }
+                editorTiles[pos].addData(texture, viewport, w, h, mScale);
                 visualOverlay[pos].incrementCounter(); // Count up
                 mLevelCoords.emplace(x, y);
             }
