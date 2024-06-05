@@ -1,0 +1,117 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/village/VillageRoad.png",
+        "Name": "VillageRoadSquareGray",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageRoad.png",
+        "Name": "VillageRoadSquareGrayBroken",
+        "Row": 1,
+        "Column": 2,
+        "Length": 8,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageRoad.png",
+        "Name": "VillageRoadSquareBrown",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageRoad.png",
+        "Name": "VillageRoadSquareBrownBroken",
+        "Row": 2,
+        "Column": 2,
+        "Length": 8,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageRoad.png",
+        "Name": "VillageRoadHorizontalGray",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageRoad.png",
+        "Name": "VillageRoadHorizontalGrayBroken",
+        "Row": 3,
+        "Column": 2,
+        "Length": 5,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageRoad.png",
+        "Name": "VillageRoadHorizontalBrown",
+        "Row": 4,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageRoad.png",
+        "Name": "VillageRoadHorizontalBrownBroken",
+        "Row": 4,
+        "Column": 2,
+        "Length": 5,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageRoad.png",
+        "Name": "VillageRoadVerticalGray",
+        "Row": 5,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageRoad.png",
+        "Name": "VillageRoadVerticalGrayBroken",
+        "Row": 5,
+        "Column": 2,
+        "Length": 3,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageRoad.png",
+        "Name": "VillageRoadVerticalBrown",
+        "Row": 6,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageRoad.png",
+        "Name": "VillageRoadVerticalBrownBroken",
+        "Row": 6,
+        "Column": 2,
+        "Length": 3,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
