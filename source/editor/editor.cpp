@@ -222,19 +222,29 @@ Editor::click() {
 
                     SDL_Texture* texture  = {};
                     SDL_Rect*    viewport = {};
+                    int          w;
+                    int          h;
                     if (mSelectedTexture.first == Graphics::TextureTypes::SIMPLE_TEXTURE) {
                         auto& simpleTexture = GET_SIMPLE(mSelectedTexture.second);
-                        texture            = simpleTexture.getTexture();
-                        viewport           = &simpleTexture.getRandomView();
+                        w                   = simpleTexture.Width;
+                        w                   = simpleTexture.Height;
+                        texture             = simpleTexture.getTexture();
+                        viewport            = &simpleTexture.getRandomView();
+                        fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::TEXTURE);
                     } else {
                         auto& animatedTexture = GET_ANIMATED(mSelectedTexture.second);
-                        texture              = animatedTexture->getTexture();
-                        viewport             = animatedTexture->getViewport();
+                        w                     = animatedTexture->Width;
+                        h                     = animatedTexture->Height;
+                        texture               = animatedTexture->getTexture();
+                        viewport              = animatedTexture->getViewport();
+
+                        // Check if this value is higher than previous
+                        animationValues[mSelectedTexture.second] = static_cast<int>(animatedTexture->getViewports().size());
+
+                        fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE);
                     }
                     // Add texture to tile
-                    editorTiles[pos].addData(texture, viewport, 16, 16, mScale);
-                    // Stuff that shall be added to the files
-                    fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::TEXTURE);
+                    editorTiles[pos].addData(texture, viewport, w, h, mScale);
                     // Increment visual overlay
                     visualOverlay[pos].incrementCounter();
                     // Search if the asset have been used before
@@ -243,6 +253,7 @@ Editor::click() {
                         fileTiles.Tiles[pos].Id.emplace_back(id.value());
                     else
                         fileTiles.Tiles[pos].Id.emplace_back(Level::File::addAsset(mSelectedTexture.second, fileAssets));
+
                 } break;
                 case Mouse::REMOVE:
                     editorTiles[pos].clear(); // Clear the vector

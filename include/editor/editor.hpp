@@ -11,9 +11,9 @@
 #include <list>
 #include <memory>
 #include <set>
+#include <thread>
 #include <unordered_map>
 #include <utility/timer.hpp>
-#include <thread>
 
 namespace Editor {
 class Editor {
@@ -122,8 +122,9 @@ class Editor {
     Level::File::typeSpawn  fileSpawns;
     Level::File::typeDoors  fileDoors; // Contains all doors
 
-    std::vector<Tile>                   editorTiles;   // All tiles in the game.
-    std::unordered_map<int, VisualTile> visualOverlay; // Overlay that display the type
+    std::vector<Tile>                    editorTiles;   // All tiles in the game.
+    std::unordered_map<int, VisualTile>  visualOverlay; // Overlay that display the type
+    std::unordered_map<std::string, int> animationValues;
 
     struct comparePair {
         bool operator()(const std::pair<int, int>& lhs, const std::pair<int, int>& rhs) const {
@@ -139,6 +140,6 @@ class Editor {
     std::vector<std::pair<SDL_Texture*, SDL_FRect>> mEdges;       // Edges for drawing area
 
     std::map<long int, std::shared_ptr<Common::Interrupt>> mInterrupts;
-    std::vector<std::thread> mThreads;
+    std::vector<std::thread>                               mThreads;
 };
 }

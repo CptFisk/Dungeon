@@ -70,7 +70,7 @@ class Graphics {
         if (it == mGraphics.end()) {
             mGraphics[name] = { texture, type };
         }
-        if (type == ANIMATED_TEXTURE)
+        if (type == TextureTypes::ANIMATED_TEXTURE)
             mAnimatedTextures.push_back(std::any_cast<AnimatedTexture*>(texture));
     }
 
@@ -79,18 +79,20 @@ class Graphics {
     std::vector<std::pair<TextureTypes, std::string>> getAllTextureNames() {
         std::vector<std::pair<TextureTypes, std::string>> textures;
         for (auto& graphic : mGraphics) {
-            if (graphic.second.Type == SIMPLE_TEXTURE || graphic.second.Type == ANIMATED_TEXTURE)
-                textures.push_back({graphic.second.Type, graphic.first});
+            if (graphic.second.Type == TextureTypes::SIMPLE_TEXTURE || graphic.second.Type == TextureTypes::ANIMATED_TEXTURE)
+                textures.push_back({ graphic.second.Type, graphic.first });
         }
         return textures;
     }
 
+    [[nodiscard]] TextureTypes getTextureType(const std::string& texture);
+
   protected:
-    void         loadGraphics(const std::string& folderPath);
-    void         loadJSON(const std::string& fileName); // Load a graphical JSON
-    void         loadSimpleTexture(const std::string& jsonString);
-    void         loadAnimatedTexture(const std::string& jsonString);
-    void         loadGeneratedTexture(const std::string& jsonString);
+    void loadGraphics(const std::string& folderPath);
+    void loadJSON(const std::string& fileName); // Load a graphical JSON
+    void loadSimpleTexture(const std::string& jsonString);
+    void loadAnimatedTexture(const std::string& jsonString);
+    void loadGeneratedTexture(const std::string& jsonString);
 
   private:
     std::unordered_map<std::string, typeTextureInfo> mGraphics; // Storage for all textures

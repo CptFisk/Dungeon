@@ -64,7 +64,7 @@ Graphics::loadSimpleTexture(const std::string& jsonString) {
             const auto offset = (data.Column - 1) * data.Width;
             base.addView(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), data.Width, (data.Height) });
         }
-        addTexture<typeSimpleTexture>(data.Name, base, SIMPLE_TEXTURE);
+        addTexture<typeSimpleTexture>(data.Name, base, TextureTypes::SIMPLE_TEXTURE);
     }
 }
 
@@ -84,7 +84,7 @@ Graphics::loadAnimatedTexture(const std::string& jsonString) {
                 const auto offset = (data.Column - 1) * data.Width;
                 animation->addViewport(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), (data.Width), (data.Height) });
             }
-            addTexture<AnimatedTexture*>(data.Name, animation, ANIMATED_TEXTURE);
+            addTexture<AnimatedTexture*>(data.Name, animation, TextureTypes::ANIMATED_TEXTURE);
         }
     }
 }
