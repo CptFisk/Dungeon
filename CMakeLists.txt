@@ -36,6 +36,7 @@ set(
         ${CMAKE_SOURCE_DIR}/source/common/math.cpp
         ${CMAKE_SOURCE_DIR}/source/common/sdl.cpp
         ${CMAKE_SOURCE_DIR}/source/common/perspective.cpp
+        ${CMAKE_SOURCE_DIR}/source/common/interrupt.cpp
 
         ${CMAKE_SOURCE_DIR}/source/graphics/graphics.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/simpleTexture.cpp
@@ -66,7 +67,6 @@ if (BUILD_GAME)
 
             ${CMAKE_SOURCE_DIR}/source/engine/engine.cpp
             ${CMAKE_SOURCE_DIR}/source/engine/loading.cpp
-            ${CMAKE_SOURCE_DIR}/source/engine/interrupt.cpp
 
             ${CMAKE_SOURCE_DIR}/source/engine/level.cpp
             ${CMAKE_SOURCE_DIR}/source/engine/segments.cpp

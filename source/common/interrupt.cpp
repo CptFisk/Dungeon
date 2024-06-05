@@ -1,9 +1,9 @@
 #include <chrono>
-#include <engine/interrupt.hpp>
+#include <common/interrupt.hpp>
 #include <iostream>
 #include <thread>
 
-namespace Engine {
+namespace Common {
 Interrupt::Interrupt(const long& time, bool& execute)
   : mExecute(execute)
   , mTime(time) {}

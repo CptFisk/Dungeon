@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 
-namespace Engine {
+namespace Common {
 class Interrupt {
   public:
     Interrupt(const long int& time, bool& execute);
