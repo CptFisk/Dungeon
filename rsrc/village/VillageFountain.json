@@ -6,7 +6,7 @@
     "Objects": [
       {
         "File": "rsrc/village/VillageFountain.png",
-        "Name": "VillageFountain",
+        "Name": "VillageFountainCross",
         "Row": 1,
         "Column": 1,
         "Length": 1,
@@ -15,7 +15,7 @@
       },
       {
         "File": "rsrc/village/VillageFountain.png",
-        "Name": "VillageFountainCross",
+        "Name": "VillageFountain",
         "Row": 1,
         "Column": 2,
         "Length": 1,
