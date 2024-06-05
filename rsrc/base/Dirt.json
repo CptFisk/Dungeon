@@ -6,7 +6,7 @@
     "Objects": [
       {
         "File": "rsrc/base/Dirt.png",
-        "Name": "Dirt",
+        "Name": "Dirt1",
         "Row": 1,
         "Column": 1,
         "Length": 1,
@@ -15,63 +15,9 @@
       },
       {
         "File": "rsrc/base/Dirt.png",
-        "Name": "DirtN",
+        "Name": "Dirt2",
         "Row": 1,
         "Column": 2,
-        "Length": 2,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/base/Dirt.png",
-        "Name": "DirtW",
-        "Row": 1,
-        "Column": 4,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/base/Dirt.png",
-        "Name": "DirtS",
-        "Row": 1,
-        "Column": 5,
-        "Length": 2,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/base/Dirt.png",
-        "Name": "DirtE",
-        "Row": 1,
-        "Column": 7,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/base/Dirt.png",
-        "Name": "DirtNE",
-        "Row": 2,
-        "Column": 1,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/base/Dirt.png",
-        "Name": "DirtES",
-        "Row": 2,
-        "Column": 2,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/base/Dirt.png",
-        "Name": "DirtSW",
-        "Row": 2,
-        "Column": 3,
         "Length": 1,
         "Height": 16,
         "Width": 16
@@ -80,14 +26,32 @@
         "File": "rsrc/base/Dirt.png",
         "Name": "DirtNW",
         "Row": 2,
-        "Column": 4,
+        "Column": 1,
         "Length": 1,
         "Height": 16,
         "Width": 16
       },
       {
         "File": "rsrc/base/Dirt.png",
-        "Name": "DirtNE2",
+        "Name": "DirtN",
+        "Row": 2,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/base/Dirt.png",
+        "Name": "DirtNE",
+        "Row": 2,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/base/Dirt.png",
+        "Name": "DirtW",
         "Row": 3,
         "Column": 1,
         "Length": 1,
@@ -96,16 +60,7 @@
       },
       {
         "File": "rsrc/base/Dirt.png",
-        "Name": "DirtSE2",
-        "Row": 3,
-        "Column": 2,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/base/Dirt.png",
-        "Name": "DirtSW2",
+        "Name": "DirtE",
         "Row": 3,
         "Column": 3,
         "Length": 1,
@@ -114,9 +69,63 @@
       },
       {
         "File": "rsrc/base/Dirt.png",
+        "Name": "DirtSW",
+        "Row": 4,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/base/Dirt.png",
+        "Name": "DirtS",
+        "Row": 4,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/base/Dirt.png",
+        "Name": "DirtSE",
+        "Row": 4,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/base/Dirt.png",
         "Name": "DirtNW2",
-        "Row": 3,
-        "Column": 4,
+        "Row": 5,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/base/Dirt.png",
+        "Name": "DirtNE2",
+        "Row": 5,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/base/Dirt.png",
+        "Name": "DirtSW2",
+        "Row": 7,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/base/Dirt.png",
+        "Name": "DirtSE2",
+        "Row": 7,
+        "Column": 3,
         "Length": 1,
         "Height": 16,
         "Width": 16

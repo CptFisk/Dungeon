@@ -37,7 +37,7 @@
         "Row": 2,
         "Column": 1,
         "Length": 1,
-        "Height": 32,
+        "Height": 16,
         "Width": 16
       },
       {
@@ -46,7 +46,7 @@
         "Row": 2,
         "Column": 2,
         "Length": 1,
-        "Height": 32,
+        "Height": 16,
         "Width": 16
       },
       {
@@ -55,7 +55,7 @@
         "Row": 2,
         "Column": 3,
         "Length": 1,
-        "Height": 32,
+        "Height": 16,
         "Width": 16
       },
       {
@@ -114,35 +114,8 @@
       },
       {
         "File": "rsrc/base/Grassland.png",
-        "Name": "GrasslandN2",
-        "Row": 5,
-        "Column": 2,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/base/Grassland.png",
         "Name": "GrasslandNE2",
         "Row": 5,
-        "Column": 3,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/base/Grassland.png",
-        "Name": "GrasslandW2",
-        "Row": 6,
-        "Column": 1,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/base/Grassland.png",
-        "Name": "GrasslandE2",
-        "Row": 6,
         "Column": 3,
         "Length": 1,
         "Height": 16,
@@ -153,15 +126,6 @@
         "Name": "GrasslandSW2",
         "Row": 7,
         "Column": 1,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/base/Grassland.png",
-        "Name": "GrasslandS2",
-        "Row": 7,
-        "Column": 2,
         "Length": 1,
         "Height": 16,
         "Width": 16
