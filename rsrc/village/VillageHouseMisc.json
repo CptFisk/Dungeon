@@ -1,0 +1,81 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/village/VillageHouseMisc.png",
+        "Name": "VillageWindowLargeBlack",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageHouseMisc.png",
+        "Name": "VillageWindowLarge",
+        "Row": 1,
+        "Column": 2,
+        "Length": 3,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageHouseMisc.png",
+        "Name": "VillageWindowLargeCircleBlack",
+        "Row": 1,
+        "Column": 5,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageHouseMisc.png",
+        "Name": "VillageWindowLargeCircle",
+        "Row": 1,
+        "Column": 6,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageHouseMisc.png",
+        "Name": "VillageWindowSmallBlack",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageHouseMisc.png",
+        "Name": "VillageWindowSmall",
+        "Row": 3,
+        "Column": 2,
+        "Length": 3,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageHouseMisc.png",
+        "Name": "VillageWindowSmallCircleBlack",
+        "Row": 3,
+        "Column": 5,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageHouseMisc.png",
+        "Name": "VillageWindowSmallCircle",
+        "Row": 3,
+        "Column": 6,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
