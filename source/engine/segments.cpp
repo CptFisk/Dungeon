@@ -147,7 +147,7 @@ Engine::getSegment(const std::pair<int, int>& coord) const {
     return indexY * numberOfSegments + indexX;
 }
 
-inline void
+void
 Engine::clearSegments() {
     for (auto& segment : mSegments) {
         for (auto& layer : segment.Layers) {

@@ -129,7 +129,7 @@ class Engine {
     // Segmentations
     void                 createSegments(const Level::File::typeAssets& assets);
     void                 addToSegment(const int& pos, const std::string& name);
-    inline void          clearSegments();
+    void                 clearSegments();
     [[nodiscard]] size_t getSegment(const std::pair<int, int>& coord) const;
 
     inline void clearDoors();
@@ -145,8 +145,8 @@ class Engine {
     int                     currentLayer = 0;
     int                     maxLayers    = 0;
 
-    static const int        segmentSizeX = 64;
-    static const int        segmentSizeY = 64;
+    static const int segmentSizeX = 64;
+    static const int segmentSizeY = 64;
 
     Objects::TextBox* textBox;
 };
