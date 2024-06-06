@@ -1,0 +1,118 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/base/GrasslandWater.png",
+    "Objects": [
+      {
+        "Name": "GrasslandWaterNW",
+        "Column": 1,
+        "Row": 1,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "GrasslandWaterN",
+        "Column": 1,
+        "Row": 2,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "GrasslandWaterNE",
+        "Column": 1,
+        "Row": 3,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "GrasslandWaterW",
+        "Column": 1,
+        "Row": 4,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "GrasslandWaterE",
+        "Column": 1,
+        "Row": 5,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "GrasslandWaterSW",
+        "Column": 1,
+        "Row": 6,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "GrasslandWaterS",
+        "Column": 1,
+        "Row": 7,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "GrasslandWaterSW",
+        "Column": 1,
+        "Row": 8,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "GrasslandWaterNW2",
+        "Column": 1,
+        "Row": 9,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "GrasslandWaterNE2",
+        "Column": 1,
+        "Row": 10,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "GrasslandWaterSW2",
+        "Column": 1,
+        "Row": 11,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "GrasslandWaterSE2",
+        "Column": 1,
+        "Row": 12,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 16
+      }
+    ]
+  }
+}
