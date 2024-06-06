@@ -1,0 +1,72 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/village/VillageFarmland.png",
+        "Name": "VillageFarmlandVerticalBlank",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 48,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageFarmland.png",
+        "Name": "VillageFarmlandVerticalWheat",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 48,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageFarmland.png",
+        "Name": "VillageFarmlandHorizontalBlank",
+        "Row": 3,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/village/VillageFarmland.png",
+        "Name": "VillageFarmlandVerticalWheat",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/village/VillageFarmland.png",
+        "Name": "VillageFarmlandSingle",
+        "Row": 3,
+        "Column": 7,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageFarmland.png",
+        "Name": "VillageFarmlandWheat",
+        "Row": 4,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageFarmland.png",
+        "Name": "VillageFarmlandFlower",
+        "Row": 4,
+        "Column": 2,
+        "Length": 5,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}

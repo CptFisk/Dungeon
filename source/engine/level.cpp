@@ -8,15 +8,7 @@
 #include <utility/textures.hpp>
 
 namespace Engine {
-/*
-Level::~Level() {
-    for (auto& [position, texture] : mSegments) {
-        SDL_DestroyTexture(texture);
-    }
 
-    clearDoors();
-}
-*/
 void
 Engine::loadLevel(const std::string& filename) {
     auto data = Level::File::readLevelData(filename);

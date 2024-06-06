@@ -17,7 +17,7 @@
         "File": "rsrc/village/VillageWell.png",
         "Name": "VillageWellHalf",
         "Row": 1,
-        "Column": 1,
+        "Column": 2,
         "Length": 1,
         "Height": 32,
         "Width": 32
@@ -26,7 +26,7 @@
         "File": "rsrc/village/VillageWell.png",
         "Name": "VillageWellEmpty",
         "Row": 1,
-        "Column": 1,
+        "Column": 3,
         "Length": 1,
         "Height": 32,
         "Width": 32
@@ -35,7 +35,7 @@
         "File": "rsrc/village/VillageWell.png",
         "Name": "VillageWellLadder",
         "Row": 1,
-        "Column": 1,
+        "Column": 4,
         "Length": 1,
         "Height": 32,
         "Width": 32

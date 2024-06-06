@@ -56,17 +56,17 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
                         viewport     = &simple.getRandomView();
                         w            = simple.Width;
                         h            = simple.Height;
-                    }
-                        break;
+                    } break;
 
                     case Graphics::TextureTypes::ANIMATED_TEXTURE: {
                         auto& animated = GET_ANIMATED(data.Assets.Assets[val]); // Assets to use
-                        texture      = animated->getTexture();
-                        viewport     = animated->getViewport();
-                        w            = animated->Width;
-                        h            = animated->Height;
-                    }
-                        break;
+                        texture        = animated->getTexture();
+                        viewport       = animated->getViewport();
+                        w              = animated->Width;
+                        h              = animated->Height;
+
+                        animationValues[data.Assets.Assets[val]] = static_cast<int>(animated->getViewports().size() * animated->getTicks());
+                    } break;
                 }
                 editorTiles[pos].addData(texture, viewport, w, h, mScale);
                 visualOverlay[pos].incrementCounter(); // Count up
