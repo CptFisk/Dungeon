@@ -1,0 +1,36 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/village/VillageRoofBlack.png",
+        "Name": "VillageRoofBlackMedium",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 80,
+        "Width": 128
+      },
+      {
+        "File": "rsrc/village/VillageRoofBlack.png",
+        "Name": "VillageRoofBlackLarge",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 80,
+        "Width": 160
+      },
+      {
+        "File": "rsrc/village/VillageRoofBlack.png",
+        "Name": "VillageRoofBlackSmall",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 80,
+        "Width": 64
+      }
+    ]
+  }
+}

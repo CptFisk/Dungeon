@@ -1,0 +1,36 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/village/VillageLogs.png",
+        "Name": "VillageLogsMedium",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageLogs.png",
+        "Name": "VillageLogsSmall",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageLogs.png",
+        "Name": "VillageLogsLarge",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 48,
+        "Width": 32
+      }
+    ]
+  }
+}
