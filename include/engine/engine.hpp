@@ -91,9 +91,9 @@ class Engine {
     Utility::Timer mFPSTimer; // To lock fps
 
     // Threads and interrupts
-    std::vector<std::thread>                       mThreads;
+    std::vector<std::thread>                               mThreads;
     std::map<long int, std::shared_ptr<Common::Interrupt>> mInterrupts;
-    std::thread                                    mLoading;
+    std::thread                                            mLoading;
     // References to the player
     SDL_Texture** pPlayerTexture;
     SDL_Rect**    pPlayerView;
@@ -127,13 +127,14 @@ class Engine {
     std::pair<uint8_t, uint8_t> getPlayerSpawn();
 
     // Segmentations
-    void                 createSegments();
+    void                 createSegments(const Level::File::typeAssets& assets);
     void                 addToSegment(const int& pos, const std::string& name);
+    inline void          clearSegments();
     [[nodiscard]] size_t getSegment(const std::pair<int, int>& coord) const;
 
     inline void clearDoors();
 
-    std::vector<std::pair<SDL_FRect, SDL_Texture*>> mSegments; // Level segments (generated)
+    std::vector<typeSegment> mSegments; // Level segments (generated)
 
     std::vector<SDL_FRect>      obstacles; // Things that you cant walk over
     std::vector<SDL_FRect>      walls;
@@ -141,9 +142,11 @@ class Engine {
     // Level data
     Level::File::typeHeader header;
     int                     elements; // Number of elements that exist in pTiles
+    int                     currentLayer = 0;
+    int                     maxLayers    = 0;
 
-    static const int segmentSizeX = 64;
-    static const int segmentSizeY = 64;
+    static const int        segmentSizeX = 64;
+    static const int        segmentSizeY = 64;
 
     Objects::TextBox* textBox;
 };

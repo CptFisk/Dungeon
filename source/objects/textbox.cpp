@@ -3,7 +3,7 @@
 namespace Objects {
 TextBox::TextBox(const Graphics::typeTextTexture& text, const int& x, const int& y)
   : mTexture(nullptr)
-  , mBackground{ static_cast<float>(x, static_cast<float>(y), 50, 50) } {
+  , mBackground{ static_cast<float>((x, static_cast<float>(y)), 50, 50) } {
     combineTextures(std::vector<Graphics::typeTextTexture>{ text });
 }
 
@@ -14,7 +14,7 @@ TextBox::TextBox(const std::vector<Graphics::typeTextTexture>& text, const int& 
 }
 
 TextBox::~TextBox() {
-    delete mTexture; // Cleaning
+    //delete mTexture; // Cleaning
 }
 
 void

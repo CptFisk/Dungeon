@@ -1,9 +1,9 @@
 #include <algorithm>
 #include <common/math.hpp>
 #include <common/sdl.hpp>
+#include <engine/engine.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
-#include <engine/engine.hpp>
 #include <utility/math.hpp>
 #include <utility/textures.hpp>
 
@@ -41,15 +41,17 @@ Engine::loadLevel(const std::string& filename) {
     obstacle.push_back(SDL_FRect{ -16.0f, sizeY, sizeX, 16.0 });           // Bottom wall
 
     int pos = data.Tiles.Tiles.size() - 1; // Resetting, minus one to get correct values
-    createSegments();                      // Generate segments
+    createSegments(data.Assets);           // Generate segments
 
     // The reason for looping in reverse order is because of how items is drawn to the screen
     for (auto it = data.Tiles.Tiles.rbegin(); it != data.Tiles.Tiles.rend(); ++it) {
-        if (((*it).Type & static_cast<uint8_t>(Level::File::TileType::TEXTURE)) != 0) {
+        if (((*it).Type & static_cast<uint8_t>(Level::File::TileType::TEXTURE)) != 0 ||
+            ((*it).Type & static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE)) != 0) {
             for (const auto& id : (*it).Id) {
                 addToSegment(pos, data.Assets.Assets[static_cast<int>(id)]);
             }
         }
+
         if (((*it).Type & static_cast<uint8_t>(Level::File::TileType::OBSTACLE)) != 0) {
             const auto coords = Common::getCoords(pos, data.Header.Level.SizeX, data.Header.Level.SizeY);
             if (coords.has_value())
@@ -73,6 +75,7 @@ Engine::loadLevel(const std::string& filename) {
     SDL_SetRenderTarget(pRenderer, nullptr);
     walls     = wall;
     obstacles = obstacle;
+    maxLayers = mSegments[0].Layers.size();
 }
 
 bool
@@ -129,8 +132,8 @@ Engine::getLevel() {
 
 void
 Engine::interact(const SDL_FRect& area) {
-    for(auto& door : doors){
-        if(Utility::isOverlapping(area, door->getPosition())){
+    for (auto& door : doors) {
+        if (Utility::isOverlapping(area, door->getPosition())) {
             door->interact(true);
             break;
         }

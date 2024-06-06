@@ -27,6 +27,7 @@ Engine::Engine()
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Engine::~Engine() {
+    clearSegments();
     mGraphics.reset(); // Kill graphics
     // Kill all cute monsters
     for (auto& [name, monster] : mMonsters)
@@ -67,7 +68,7 @@ void
 Engine::startup() {
     // Starting interrupts
     mThreads.push_back(spawnInterrupt(10));
-    mThreads.push_back(spawnInterrupt(300));
+    mThreads.push_back(spawnInterrupt(100));
     mThreads.push_back(spawnInterrupt(500));
 
     mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, 1280, 960, "Vera adventure"));
@@ -115,6 +116,13 @@ Engine::startup() {
     mParticles      = std::make_shared<Objects::Particle>(GET_SDL("FAE2C3"), 100, 0.5f, 0.5f);
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
+
+    mInterrupts[10]->addFunction([&]() {
+        currentLayer++;
+        if (currentLayer >= maxLayers) {
+            currentLayer = 0;
+        }
+    });
 
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 
@@ -304,13 +312,11 @@ Engine::drawNumbers() {
 
 void
 Engine::drawLevel() {
-    for (auto& [position, texture] : mSegments) {
-        mPerspective->render(texture, nullptr, &position);
+    for (auto& segment : mSegments) {
+        mPerspective->render(segment.Layers[currentLayer], nullptr, &segment.Position);
     }
-
     for (auto& door : doors) {
         auto drawData = door->getDrawData();
-
     }
 }
 
