@@ -227,7 +227,7 @@ Editor::click() {
                     if (mSelectedTexture.first == Graphics::TextureTypes::SIMPLE_TEXTURE) {
                         auto& simpleTexture = GET_SIMPLE(mSelectedTexture.second);
                         w                   = simpleTexture.Width;
-                        w                   = simpleTexture.Height;
+                        h                   = simpleTexture.Height;
                         texture             = simpleTexture.getTexture();
                         viewport            = &simpleTexture.getRandomView();
                         fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::TEXTURE);
