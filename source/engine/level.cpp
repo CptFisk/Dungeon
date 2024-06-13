@@ -32,31 +32,59 @@ Engine::loadLevel(const std::string& filename) {
     obstacle.push_back(SDL_FRect{ -16.0f, -16.0f, sizeX, 16.0f });         // Top wall
     obstacle.push_back(SDL_FRect{ -16.0f, sizeY, sizeX, 16.0 });           // Bottom wall
 
-    int pos = data.Tiles.Tiles.size() - 1; // Resetting, minus one to get correct values
-    createSegments(data.Assets);           // Generate segments
+    createSegments(data.Assets); // Generate segments
 
-    // The reason for looping in reverse order is because of how items is drawn to the screen
-    for (auto it = data.Tiles.Tiles.rbegin(); it != data.Tiles.Tiles.rend(); ++it) {
-        if (((*it).Type & static_cast<uint8_t>(Level::File::TileType::TEXTURE)) != 0 ||
-            ((*it).Type & static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE)) != 0) {
-            for (const auto& id : (*it).Id) {
-                addToSegment(pos, data.Assets.Assets[static_cast<int>(id)]);
+    const int tilesSize = data.Tiles.Tiles.size() - 1;
+    int       pos       = tilesSize;
+
+    bool layersLeft = false;
+    auto it         = data.Tiles.Tiles.rbegin();
+    /**
+     * This code will start with the first "layer" and go over all the tiles, if the tile have more sprite we
+     * will set the flag layersLeft to true. This means that the next time we reach the end of the vector
+     * we go back to the start, reset the flag and repeat the process over to see if this was the last layer.
+     * If no more layers is found when we have reached the end we continue. This is to make sure that all drawings
+     * appears in the correct order.
+     */
+    do {
+        if (it == data.Tiles.Tiles.rend()) {
+            it = data.Tiles.Tiles.rbegin();
+            pos = tilesSize;
+            layersLeft = false;
+        }
+
+        if (((it->Type & static_cast<uint8_t>(Level::File::TileType::TEXTURE)) != 0 ||
+             ((it->Type & static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE)) != 0)) &&
+            !it->Id.empty()) {
+            auto       id    = it->Id.front();
+            const auto asset = data.Assets.Assets[static_cast<int>(id)];
+            addToSegment(pos, asset);
+
+            it->Id.erase(it->Id.begin()); // Remove this element, it has been displayed
+
+            if (!it->Id.empty()) {
+                layersLeft = true; // There is more
             }
         }
 
-        if (((*it).Type & static_cast<uint8_t>(Level::File::TileType::OBSTACLE)) != 0) {
+        // Add obstacles
+        if ((it->Type & static_cast<uint8_t>(Level::File::TileType::OBSTACLE)) != 0) {
             const auto coords = Common::getCoords(pos, data.Header.Level.SizeX, data.Header.Level.SizeY);
             if (coords.has_value())
                 obstacle.emplace_back(Common::newSDL_FRect(coords.value()));
+
+            it->Type &= static_cast<uint8_t>(Level::File::TileType::OBSTACLE); // Reset bit
         }
-        if (((*it).Type & static_cast<uint8_t>(Level::File::TileType::WALL)) != 0) {
+        // Add walls
+        if ((it->Type & static_cast<uint8_t>(Level::File::TileType::WALL)) != 0) {
             const auto coords = Common::getCoords(pos, data.Header.Level.SizeX, data.Header.Level.SizeY);
             if (coords.has_value())
                 wall.emplace_back(Common::newSDL_FRect(coords.value()));
+            it->Type &= static_cast<uint8_t>(Level::File::TileType::WALL); // Reset bit
         }
         pos--;
-    }
 
+    } while (!(++it == data.Tiles.Tiles.rend() && !layersLeft));
     clearDoors();
 
     for (const auto& door : data.Doors.Doors) {

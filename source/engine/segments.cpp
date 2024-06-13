@@ -13,7 +13,8 @@ Engine::createSegments(const Level::File::typeAssets& assets) {
     int        segmentX        = 1;
     int        remainderX      = 0;
     int        segmentY        = 1;
-    const auto animationLayers = assets.AnimationValue; // This will determine the numbers of layers needed
+    // We always need at least one layer
+    const auto animationLayers = std::max(static_cast<int>(assets.AnimationValue), 1);
 
     if (header.Level.SizeX >= segmentSizeX) {
         segmentX   = static_cast<int>(header.Level.SizeX / segmentSizeX);
