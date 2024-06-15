@@ -156,10 +156,14 @@ Engine::click() {
 
 void
 Engine::movePlayer(Directions direction) {
+#pragma warning(removed for performance, fix this)
+    mPerspective->move(direction, mPlayer->move(direction));
+    /*
     if (movement(*mPlayer->getPlayerCenter(), direction))
         mPerspective->move(direction, mPlayer->move(direction));
     else
         mPlayer->setDirection(direction); // At least change direction
+        */
 }
 
 void

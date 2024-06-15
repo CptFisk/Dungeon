@@ -13,46 +13,52 @@ Editor::uiTiles() {
     const auto maxX = std::min(minX + 20, static_cast<int>(fileHeader.Level.SizeX));
     const auto maxY = std::min(minY + 16, static_cast<int>(fileHeader.Level.SizeY));
 
-    std::vector<int> indices; // Contains all the tiles
+    int  layer      = 0;
+    bool layersLeft = false;
+    do {
+        if (layersLeft)
+            layer++;
+
+        layersLeft = false;
+        for (int y = minY; y < maxY; y++) {
+            for (int x = minX; x < maxX; x++) {
+                const auto pos = Common::getIndex(x, y, fileHeader.Level.SizeX);
+                // Check if valid position
+                if (pos.has_value()) {
+                    const auto drawData = editorTiles[pos.value()].getDrawData();
+                    if (static_cast<int>(drawData.size() - 1) == layer) {
+                        mPerspective->render(drawData[layer].Texture, drawData[layer].Viewport, drawData[layer].Position);
+                    } else if (static_cast<int>(drawData.size()) > layer) {
+                        mPerspective->render(drawData[layer].Texture, drawData[layer].Viewport, drawData[layer].Position);
+                        layersLeft = true;
+                    }
+                }
+            }
+        }
+    } while (layersLeft);
 
     for (int y = minY; y < maxY; y++) {
         for (int x = minX; x < maxX; x++) {
             auto pos = Common::getIndex(x, y, fileHeader.Level.SizeX);
-            if (pos.has_value()) {
-                indices.emplace_back(pos.value());
-            }
-        }
-        size_t maxSize = 0;
-        for (const auto& index : indices) {
-            maxSize = std::max(maxSize, editorTiles[index].getDrawData().size()); // Selecting the biggest value
-        }
-
-        for (int i = 0; i < maxSize; i++) {
-            for (const auto& index : indices) {
-                if (index < editorTiles.size() && i < editorTiles[index].getDrawData().size()) {
-                    auto element = editorTiles[index].getDrawData()[i];
-                    mPerspective->render(element.Texture, element.Viewport, element.Position);
+            if(pos.has_value()){
+                auto visual = visualOverlay[pos.value()];
+                if(showNumbers){
+                    auto number = visual.getNumber();
+                    mPerspective->render(number.first, &number.second, &visual.getPosition());
+                }
+                if(showOverlay){
+                    mPerspective->render(visual.getOverlay(), nullptr, &visual.getPosition());
                 }
             }
         }
+    }
 
-        // Show overlay's
-        for (const auto& index : indices) {
-            auto visual = visualOverlay[index];
-            if (showNumbers) {
-                auto number = visual.getNumber();
-                mPerspective->render(number.first, &number.second, &visual.getPosition());
-            }
-            if (showOverlay) {
-                mPerspective->render(visual.getOverlay(), nullptr, &visual.getPosition());
-                for (const auto& door : fileDoors.Doors) {
-                    SDL_FRect position = {
-                        door.X * 16.0f * mScale.factorX, door.Y * 16.0f * mScale.factorY, 16.0f * mScale.factorX, 16.0f * mScale.factorY
-                    };
-                    mPerspective->render(GET_SDL("A89AE7"), nullptr, &position);
-                }
-            }
-        }
+    //Doors is drawn outside
+    for (const auto& door : fileDoors.Doors) {
+        SDL_FRect position = {
+            door.X * 16.0f * mScale.factorX, door.Y * 16.0f * mScale.factorY, 16.0f * mScale.factorX, 16.0f * mScale.factorY
+        };
+        mPerspective->render(GET_SDL("A89AE7"), nullptr, &position);
     }
     // Display player spawn
     mPerspective->render(GET_SDL("0000FF"), nullptr, &mPlayerSpawn);

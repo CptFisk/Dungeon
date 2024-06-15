@@ -35,10 +35,10 @@ Engine::loadLevel(const std::string& filename) {
     createSegments(data.Assets); // Generate segments
 
     const int tilesSize = data.Tiles.Tiles.size() - 1;
-    int       pos       = tilesSize;
+    int       pos       = 0;
 
     bool layersLeft = false;
-    auto it         = data.Tiles.Tiles.rbegin();
+    auto it         = data.Tiles.Tiles.begin();
     /**
      * This code will start with the first "layer" and go over all the tiles, if the tile have more sprite we
      * will set the flag layersLeft to true. This means that the next time we reach the end of the vector
@@ -47,9 +47,9 @@ Engine::loadLevel(const std::string& filename) {
      * appears in the correct order.
      */
     do {
-        if (it == data.Tiles.Tiles.rend()) {
-            it = data.Tiles.Tiles.rbegin();
-            pos = tilesSize;
+        if (it == data.Tiles.Tiles.end()) {
+            it = data.Tiles.Tiles.begin();
+            pos = 0;
             layersLeft = false;
         }
 
@@ -82,9 +82,9 @@ Engine::loadLevel(const std::string& filename) {
                 wall.emplace_back(Common::newSDL_FRect(coords.value()));
             it->Type &= static_cast<uint8_t>(Level::File::TileType::WALL); // Reset bit
         }
-        pos--;
+        pos++;
 
-    } while (!(++it == data.Tiles.Tiles.rend() && !layersLeft));
+    } while (!(++it == data.Tiles.Tiles.end() && !layersLeft));
     clearDoors();
 
     for (const auto& door : data.Doors.Doors) {
