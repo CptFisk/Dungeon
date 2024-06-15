@@ -156,7 +156,7 @@ Engine::click() {
 
 void
 Engine::movePlayer(Directions direction) {
-    if (movement(*mPlayer->getPlayerCenter(), direction))
+    if (movement(mPlayer->getPlayerCenter(), direction))
         mPerspective->move(direction, mPlayer->move(direction));
     else
         mPlayer->setDirection(direction); // At least change direction
@@ -170,6 +170,18 @@ Engine::setPlayerAction(Objects::State action) {
 void
 Engine::resetPlayerMomentum() {
     mPlayer->resetMomentum();
+}
+
+void
+Engine::interact() {
+    auto interactionArea = mPlayer->getInteractionArea();
+    for(auto& door: doors){
+        if(Utility::isOverlapping(*interactionArea, door->getPosition())){
+            door->interact(true);
+            break;
+        }
+    }
+
 }
 
 void
@@ -212,13 +224,18 @@ Engine::mainLoop() {
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
         drawLevel();
         // Show interaction box during debug
+        mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
 #ifdef DEBUG_MODE
+        // Display interaction area
         mPerspective->render(GET_SDL("0000FF"), nullptr, mPlayer->getInteractionArea());
+        // Display player center
+        SDL_FRect middle{ mPlayer->getPlayerCenter().x, mPlayer->getPlayerCenter().y, 1.0f, 1.0f };
+        mPerspective->render(GET_SDL("A349A4"), nullptr, &middle);
         // Displaying spawn point
         SDL_FRect spawn{ header.Level.PlayerX * 16.0f, header.Level.PlayerY * 16.0f, 16.0f, 16.0f };
         mPerspective->render(GET_SDL("A349A4"), nullptr, &spawn);
 #endif
-        mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
+
 
         monsters();
 

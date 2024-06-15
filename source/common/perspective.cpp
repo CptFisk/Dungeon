@@ -2,7 +2,7 @@
 #include <common/perspective.hpp>
 
 namespace Common {
-Perspective::Perspective(SDL_Renderer* renderer, float& offsetX, float& offsetY, SDL_FPoint* playerCenter)
+Perspective::Perspective(SDL_Renderer* renderer, float& offsetX, float& offsetY, SDL_FPoint& playerCenter)
   : pRenderer(renderer)
   , mOffset{ offsetX, offsetY }
   , pPlayerCenter(playerCenter) {}
@@ -37,7 +37,7 @@ Perspective::move(Directions direction, const float& velocity) {
             break;
         case EAST:
 #ifdef GAME_MODE
-            if (mOffset.x <= 0 && pPlayerCenter->x > halfX)
+            if (mOffset.x <= 0 && pPlayerCenter.x > halfX)
 #endif
 #ifdef EDITOR_MODE
 
@@ -46,7 +46,7 @@ Perspective::move(Directions direction, const float& velocity) {
             break;
         case SOUTH:
 #ifdef GAME_MODE
-            if (mOffset.y <= 0 && pPlayerCenter->y > halfY)
+            if (mOffset.y <= 0 && pPlayerCenter.y > halfY)
 #else
             if (mOffset.y <= 0)
 #endif

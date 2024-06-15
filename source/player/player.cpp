@@ -25,8 +25,8 @@ Player::spawn(const uint8_t& x, const uint8_t& y, const Directions& direction) {
 
     mTexturePosition.x = _x;
     mTexturePosition.y = _y;
-    mPlayerCenter.x    = _x + 8.0f; // Offset to make dot in center of player
-    mPlayerCenter.y    = _y + 8.0f; // Offset to make dot in center of player
+    mPlayerCenter.x    = _x + 6.0f; // Offset to make dot in center of player
+    mPlayerCenter.y    = _y + 8.5f; // Offset to make dot in center of player
     mDirection         = direction;
     updateInteraction();
 }
@@ -36,9 +36,9 @@ Player::getTexturePosition() {
     return &mTexturePosition;
 }
 
-SDL_FPoint*
+SDL_FPoint&
 Player::getPlayerCenter() {
-    return &mPlayerCenter;
+    return mPlayerCenter;
 }
 
 SDL_FRect*
@@ -83,9 +83,9 @@ Player::updateInteraction() {
             break;
         case EAST:
             // Move the interaction box to our right
-            mInteraction.x = mTexturePosition.x + 18.0f;
+            mInteraction.x = mTexturePosition.x + 12.0f;
             mInteraction.y = mTexturePosition.y;
-            mInteraction.h = 18.0f;
+            mInteraction.h = 12.0f;
             mInteraction.w = 8.0f;
             break;
         case SOUTH:

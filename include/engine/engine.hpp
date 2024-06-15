@@ -38,6 +38,7 @@ class Engine {
     void      movePlayer(Directions direction);
     void      setPlayerAction(Objects::State action);
     void      resetPlayerMomentum();
+    void      interact();
     SDL_Event mEvent;
 
   protected:
@@ -120,8 +121,6 @@ class Engine {
     bool movement(const SDL_FRect& other, const Directions& direction);
     bool movement(const SDL_FPoint& other, const Directions& direction);
 
-    void interact(const SDL_FRect& area);
-
     /**
      * @brief Returns the position were the player should spawn
      */
@@ -137,9 +136,7 @@ class Engine {
 
     std::vector<typeSegment> mSegments; // Level segments (generated)
 
-    std::vector<SDL_FRect>             obstacles; // Things that you cant walk over
     std::vector<Level::File::TileType> levelObjects;
-    std::vector<SDL_FRect>             walls;
     std::vector<Objects::Door*>        doors; // All doors on the map
     // Level data
     Level::File::typeHeader header;

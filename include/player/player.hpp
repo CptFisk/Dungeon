@@ -14,9 +14,9 @@ class Player {
     ~Player();
 
     SDL_Texture** getTexture();
-    SDL_Rect**   getTextureViewport();
+    SDL_Rect**    getTextureViewport();
     SDL_FRect*    getTexturePosition();
-    SDL_FPoint*   getPlayerCenter();
+    SDL_FPoint&   getPlayerCenter();
     SDL_FRect*    getInteractionArea();
     /**
      * @brief Move the player to a specific grid coordinate
@@ -38,7 +38,7 @@ class Player {
     Objects::State mAction;    // What are we doing
     Directions     mDirection; // The direction we are facing
     void           updateReferences();
-    void           updateInteraction(); //Update interaction box
+    void           updateInteraction();                                                         // Update interaction box
     void           updatePosition(const float& x, const float& y, const Directions& direction); // Update all data related to positioning
 
   protected:
@@ -48,7 +48,7 @@ class Player {
     // Pointer that SDL_Render refer to
     SDL_FRect    mTexturePosition;
     SDL_Texture* mCurrentTexture;
-    SDL_Rect*   mCurrentViewport;
+    SDL_Rect*    mCurrentViewport;
     SDL_FPoint   mPlayerCenter;
     SDL_FRect    mInteraction; // Small box in front of the player that is used to determine if we interact with a object
 };
