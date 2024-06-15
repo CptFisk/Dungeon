@@ -40,24 +40,25 @@ Editor::uiTiles() {
     for (int y = minY; y < maxY; y++) {
         for (int x = minX; x < maxX; x++) {
             auto pos = Common::getIndex(x, y, fileHeader.Level.SizeX);
-            if(pos.has_value()){
+            if (pos.has_value()) {
                 auto visual = visualOverlay[pos.value()];
-                if(showNumbers){
+                if (showNumbers) {
                     auto number = visual.getNumber();
                     mPerspective->render(number.first, &number.second, &visual.getPosition());
                 }
-                if(showOverlay){
+                if (showOverlay) {
                     mPerspective->render(visual.getOverlay(), nullptr, &visual.getPosition());
                 }
             }
         }
     }
 
-    //Doors is drawn outside
+    // Doors are drawn outside
     for (const auto& door : fileDoors.Doors) {
-        SDL_FRect position = {
-            door.X * 16.0f * mScale.factorX, door.Y * 16.0f * mScale.factorY, 16.0f * mScale.factorX, 16.0f * mScale.factorY
-        };
+        SDL_FRect position = { static_cast<float>(door.X) * 16.0f * mScale.factorX,
+                               static_cast<float>(door.Y) * 16.0f * mScale.factorY,
+                               16.0f * mScale.factorX,
+                               16.0f * mScale.factorY };
         mPerspective->render(GET_SDL("A89AE7"), nullptr, &position);
     }
     // Display player spawn
