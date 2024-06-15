@@ -48,16 +48,19 @@ Engine::loadLevel(const std::string& filename) {
      */
     do {
         if (it == data.Tiles.Tiles.end()) {
-            it = data.Tiles.Tiles.begin();
-            pos = 0;
+            it         = data.Tiles.Tiles.begin();
+            pos        = 0;
             layersLeft = false;
         }
 
         if (((it->Type & static_cast<uint8_t>(Level::File::TileType::TEXTURE)) != 0 ||
              ((it->Type & static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE)) != 0)) &&
             !it->Id.empty()) {
-            auto       id    = it->Id.front();
-            const auto asset = data.Assets.Assets[static_cast<int>(id)];
+            auto       id    = static_cast<int>(it->Id.front());
+            const auto asset = data.Assets.Assets[id];
+            if (asset == "VillageHouseBaseMedium") {
+                int a = 20;
+            }
             addToSegment(pos, asset);
 
             it->Id.erase(it->Id.begin()); // Remove this element, it has been displayed
@@ -73,14 +76,14 @@ Engine::loadLevel(const std::string& filename) {
             if (coords.has_value())
                 obstacle.emplace_back(Common::newSDL_FRect(coords.value()));
 
-            it->Type &= static_cast<uint8_t>(Level::File::TileType::OBSTACLE); // Reset bit
+            it->Type &= ~static_cast<uint8_t>(Level::File::TileType::OBSTACLE); // Reset bit
         }
         // Add walls
         if ((it->Type & static_cast<uint8_t>(Level::File::TileType::WALL)) != 0) {
             const auto coords = Common::getCoords(pos, data.Header.Level.SizeX, data.Header.Level.SizeY);
             if (coords.has_value())
                 wall.emplace_back(Common::newSDL_FRect(coords.value()));
-            it->Type &= static_cast<uint8_t>(Level::File::TileType::WALL); // Reset bit
+            it->Type &= ~static_cast<uint8_t>(Level::File::TileType::WALL); // Reset bit
         }
         pos++;
 
