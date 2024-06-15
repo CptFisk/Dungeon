@@ -10,35 +10,17 @@
         "Row": 1,
         "Column": 1,
         "Length": 1,
-        "Height": 32,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/village/VillageBench.png",
-        "Name": "VillageBenchS",
-        "Row": 1,
-        "Column": 3,
-        "Length": 1,
         "Height": 16,
-        "Width": 16
+        "Width": 32
       },
       {
         "File": "rsrc/village/VillageBench.png",
-        "Name": "VillageBenchE",
-        "Row": 1,
+        "Name": "VillageBenchDoubleN",
+        "Row": 2,
         "Column": 1,
         "Length": 1,
         "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/village/VillageBench.png",
-        "Name": "VillageBenchW",
-        "Row": 1,
-        "Column": 2,
-        "Length": 1,
-        "Height": 16,
-        "Width": 16
+        "Width": 32
       },
       {
         "File": "rsrc/village/VillageBench.png",
@@ -56,6 +38,42 @@
         "Column": 2,
         "Length": 1,
         "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageBench.png",
+        "Name": "VillageBenchS",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageBench.png",
+        "Name": "VillageBenchN",
+        "Row": 2,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageBench.png",
+        "Name": "VillageBenchE",
+        "Row": 3,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageBench.png",
+        "Name": "VillageBenchW",
+        "Row": 4,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
         "Width": 16
       }
     ]
