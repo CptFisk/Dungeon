@@ -37,7 +37,8 @@ SDL_Texture*
 loadImage(SDL_Renderer* renderer, const std::string& filename){
     SDL_Texture* texture = IMG_LoadTexture(renderer, filename.c_str());
     if(texture == nullptr){
-        throw std::runtime_error("Cant load texture");
+        const std::string error = "Cant load texture " + filename;
+        throw std::runtime_error(error);
     }
     SDL_SetTextureScaleMode(texture, SDL_ScaleModeNearest);
     return texture;
