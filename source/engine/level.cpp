@@ -34,8 +34,10 @@ Engine::loadLevel(const std::string& filename) {
 
     createSegments(data.Assets); // Generate segments
 
-    const int tilesSize = data.Tiles.Tiles.size() - 1;
-    int       pos       = 0;
+    int pos = 0;
+
+    const int mapSize = static_cast<float>(data.Header.Level.SizeX) * static_cast<float>(data.Header.Level.SizeY);
+    levelObjects      = std::vector<Level::File::TileType>(mapSize, Level::File::TileType::BLANK);
 
     bool layersLeft = false;
     auto it         = data.Tiles.Tiles.begin();
@@ -80,9 +82,8 @@ Engine::loadLevel(const std::string& filename) {
         }
         // Add walls
         if ((it->Type & static_cast<uint8_t>(Level::File::TileType::WALL)) != 0) {
-            const auto coords = Common::getCoords(pos, data.Header.Level.SizeX, data.Header.Level.SizeY);
-            if (coords.has_value())
-                wall.emplace_back(Common::newSDL_FRect(coords.value()));
+            levelObjects[pos] = static_cast<Level::File::TileType>(static_cast<uint8_t>(Level::File::TileType::WALL) |
+                                                                   static_cast<uint8_t>(levelObjects[pos]));
             it->Type &= ~static_cast<uint8_t>(Level::File::TileType::WALL); // Reset bit
         }
         pos++;
@@ -108,10 +109,40 @@ Engine::movement(const SDL_FPoint& other, const Directions& direction) {
 
 bool
 Engine::movement(const SDL_FRect& other, const Directions& direction) {
+    auto pos = other;
+    const float threshold = 6.0f;
+    switch (direction) {
+        case NORTH:
+            pos.y -= threshold;
+            break;
+        case EAST:
+            pos.x += threshold;
+            break;
+        case SOUTH:
+            pos.y += threshold;
+            break;
+        case WEST:
+            pos.x -= threshold;
+            break;
+        case ALL:
+        default:
+            break;
+    }
+
+    auto playerX = static_cast<int>(std::round(pos.x / 16.0f));
+    auto playerY = static_cast<int>(std::round(pos.y / 16.0f));
+
+    const auto index     = Common::getIndex(playerX, playerY, header.Level.SizeX);
+
+    if((static_cast<uint8_t>(levelObjects[index.value()]) & static_cast<uint8_t>(Level::File::TileType::WALL)) != 0 ){
+        return false;
+    }
+    /*
     for (const auto& wall : walls) {
         if (Utility::isColliding(other, wall, direction))
             return false;
     }
+
     for (const auto& obstacle : obstacles) {
         if (Utility::isColliding(other, obstacle, direction))
             return false;
@@ -122,6 +153,7 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
                 return false;
         }
     }
+     */
     return true;
 }
 

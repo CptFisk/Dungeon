@@ -11,6 +11,7 @@
 #include <objects/include.hpp>
 #include <player/indicator.hpp>
 #include <player/player.hpp>
+#include <set>
 #include <string>
 #include <thread>
 #include <utility/timer.hpp>
@@ -136,17 +137,17 @@ class Engine {
 
     std::vector<typeSegment> mSegments; // Level segments (generated)
 
-    std::vector<SDL_FRect>      obstacles; // Things that you cant walk over
-    std::vector<SDL_FRect>      walls;
-    std::vector<Objects::Door*> doors; // All doors on the map
+    std::vector<SDL_FRect>             obstacles; // Things that you cant walk over
+    std::vector<Level::File::TileType> levelObjects;
+    std::vector<SDL_FRect>             walls;
+    std::vector<Objects::Door*>        doors; // All doors on the map
     // Level data
     Level::File::typeHeader header;
     int                     elements; // Number of elements that exist in pTiles
     int                     currentLayer = 0;
     int                     maxLayers    = 0;
-
-    static const int segmentSizeX = 64;
-    static const int segmentSizeY = 64;
+    static const int        segmentSizeX = 64;
+    static const int        segmentSizeY = 64;
 
     Objects::TextBox* textBox;
 };
