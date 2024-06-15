@@ -321,6 +321,7 @@ Engine::drawLevel() {
     }
     for (auto& door : doors) {
         auto drawData = door->getDrawData();
+        mPerspective->render(drawData.Texture, drawData.Viewport, drawData.Position);
     }
 }
 

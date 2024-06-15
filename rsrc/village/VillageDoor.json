@@ -1,0 +1,63 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/village/VillageDoor.png",
+        "Name": "VillageBrownDoor1",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/village/VillageDoor.png",
+        "Name": "VillageBrownDoor2",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/village/VillageDoor.png",
+        "Name": "VillageBrownDoor3",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/village/VillageDoor.png",
+        "Name": "VillageGrayDoor1",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/village/VillageDoor.png",
+        "Name": "VillageGrayDoor2",
+        "Row": 2,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/village/VillageDoor.png",
+        "Name": "VillageGrayDoor3",
+        "Row": 3,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 48
+      }
+    ]
+  }
+}
