@@ -1,0 +1,63 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/village/VillageBench.png",
+        "Name": "VillageBenchDoubleS",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageBench.png",
+        "Name": "VillageBenchS",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageBench.png",
+        "Name": "VillageBenchE",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageBench.png",
+        "Name": "VillageBenchW",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageBench.png",
+        "Name": "VillageBenchDoubleE",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/village/VillageBench.png",
+        "Name": "VillageBenchDoubleW",
+        "Row": 2,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      }
+    ]
+  }
+}
