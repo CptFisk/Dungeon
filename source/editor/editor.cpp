@@ -84,6 +84,7 @@ Editor::startup() {
     mElements["Textures"]   = [this]() { uiTexture(); };
     mElements["DoorsPopup"] = [this]() { uiDoorPopup(); };
     mElements["Doors"]      = [this]() { uiDoors(); };
+    mElements["Warps"]      = [this]() { uiWarpsPopup(); };
     displayElement("TopMenu");
 }
 
@@ -293,10 +294,15 @@ Editor::click() {
                     fileHeader.Level.PlayerY = coords.second;
                 } break;
                 case Mouse::DOORS:
-                    doorsPopup.x = static_cast<float>(x);
-                    doorsPopup.y = static_cast<float>(y);
+                    popupPosition.x = static_cast<float>(x);
+                    popupPosition.y = static_cast<float>(y);
                     displayElement("DoorsPopup");
-
+                break;
+                case Mouse::WARPS:
+                    popupPosition.x = static_cast<float>(x);
+                    popupPosition.y = static_cast<float>(y);
+                    displayElement("WarpsPopup");
+                    break;
                 case Mouse::DEFAULT:
                 default:
                     break;

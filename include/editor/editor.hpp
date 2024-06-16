@@ -53,6 +53,7 @@ class Editor {
     void uiMouse();
     void uiTiles();
     void uiDoors();
+    void uiWarpsPopup();
     void uiDoorPopup(); // Popup for door options
     void uiTexture();   // All basic textures
     void present();     // Render all graphic
@@ -97,7 +98,7 @@ class Editor {
         ImVec2 Size;
     };
 
-    ImVec2 doorsPopup;
+    ImVec2 popupPosition;
     struct typeElementsCompare {
         bool operator()(const std::function<void()>& lhs, const std::function<void()>& rhs) const {
             return lhs.target_type().hash_code() < rhs.target_type().hash_code();

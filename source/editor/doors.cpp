@@ -34,14 +34,12 @@ Editor::uiDoors() {
 
 void
 Editor::uiDoorPopup() {
-    ImGuiPopupFlags flags = 0;
-
     if (mWindowOpen["DoorsPopup"]) {
-        ImGui::SetNextWindowPos(doorsPopup);
+        ImGui::SetNextWindowPos(popupPosition);
         mMouse = Mouse::DEFAULT;
     }
     ImGui::SetNextWindowSize(ImVec2(200.0f, 0.0f));
-    if (ImGui::Begin("Available doors", &mWindowOpen["Doors"], ImGuiWindowFlags_NoDecoration)) {
+    if (ImGui::Begin("Available doors", &mWindowOpen["DoorsPopup"], ImGuiWindowFlags_NoDecoration)) {
         for (int i = 0; i < fileDoors.Doors.size(); i++) {
             auto text = createText(fileDoors.Doors[i]);
 
@@ -57,7 +55,6 @@ Editor::uiDoorPopup() {
         if (ImGui::MenuItem("Add new")) {
             const auto x         = mActionManager->mouseX;
             const auto y         = mActionManager->mouseY;
-            const auto levelSize = fileHeader.Level.SizeX;
             auto       coords    = Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale);
             fileDoors.Doors.emplace_back(Level::File::typeDoorsData(coords.first, coords.second, ""));
             hideElement("DoorsPopup"); // Hide window after mouse click

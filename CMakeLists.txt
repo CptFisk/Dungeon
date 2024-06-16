@@ -103,6 +103,7 @@ else ()
             ${CMAKE_SOURCE_DIR}/source/editor/textures.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/tile.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/doors.cpp
+            ${CMAKE_SOURCE_DIR}/source/editor/warps.cpp
     )
 endif ()
 
