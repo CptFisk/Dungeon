@@ -13,7 +13,7 @@ class SDLInitializer : public Initializer {
      * @param h Window height
      * @param title Title
      */
-    SDLInitializer(SDL_Window** window, SDL_Renderer** render, const int& w, const int& h, std::string title);
+    SDLInitializer(SDL_Window*& window, SDL_Renderer*& render, const int& w, const int& h, std::string title);
     void startup() override;
     void shutdown() override;
 
@@ -21,8 +21,8 @@ class SDLInitializer : public Initializer {
   protected:
     const int         width;  // Requested window width
     const int         height; // Requested window height
-    SDL_Window**      window;
-    SDL_Renderer**    renderer;
+    SDL_Window*&      window;
+    SDL_Renderer*&    renderer;
     const std::string windowTitle;
 };
 }

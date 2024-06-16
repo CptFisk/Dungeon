@@ -54,7 +54,7 @@ Editor::startup() {
     mThreads.push_back(spawnInterrupt(10));
 
     mInitHandler->addInitializer(
-      std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, requestDimensionW, requestDimensionH, "Editor"));
+      std::make_shared<Common::SDLInitializer>(pWindow, pRenderer, requestDimensionW, requestDimensionH, "Editor"));
     mInitHandler->addInitializer(std::make_shared<Common::ImGuiInitializer>(&pWindow, &pRenderer));
     mInitHandler->startup();
 
@@ -62,7 +62,6 @@ Editor::startup() {
 
     // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer, mOffset.X, mOffset.Y);
-
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();

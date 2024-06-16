@@ -1,11 +1,18 @@
-#include <cmake.hpp>
 #include <common/perspective.hpp>
 
 namespace Common {
-Perspective::Perspective(SDL_Renderer* renderer, float& offsetX, float& offsetY, SDL_FPoint& playerCenter)
+#ifdef GAME_MODE
+Perspective::Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY, SDL_FPoint& playerCenter)
   : pRenderer(renderer)
   , mOffset{ offsetX, offsetY }
   , pPlayerCenter(playerCenter) {}
+#endif
+
+#ifdef EDITOR_MODE
+Perspective::Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY)
+  : pRenderer(renderer)
+  , mOffset{ offsetX, offsetY }{}
+#endif
 
 void
 Perspective::render(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* position) {

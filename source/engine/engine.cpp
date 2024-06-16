@@ -71,7 +71,7 @@ Engine::startup() {
     mThreads.push_back(spawnInterrupt(100));
     mThreads.push_back(spawnInterrupt(500));
 
-    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(&pWindow, &pRenderer, 1280, 960, "Vera adventure"));
+    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(pWindow, pRenderer, 1280, 960, "Vera adventure"));
     mInitHandler->startup();
     /*
     mLoadingScreen = std::make_unique<LoadingScreen>(pRenderer, mMutex);
