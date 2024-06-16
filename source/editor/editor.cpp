@@ -211,10 +211,10 @@ Editor::click() {
     if (fileTiles.Size != 0 && !clickOnUi(x, y)) {
         const auto clickCoord = Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale);
 
-        clickedCoord.first = clickCoord.first;    //To display coords
-        clickedCoord.second = clickCoord.second;    //To display coords
+        clickedCoord.first  = clickCoord.first;  // To display coords
+        clickedCoord.second = clickCoord.second; // To display coords
 
-        auto       index      = Common::getIndex(clickCoord, fileHeader.Level.SizeX);
+        auto index = Common::getIndex(clickCoord, fileHeader.Level.SizeX);
         if (index.has_value()) {
             const auto pos = index.value();
 
@@ -242,7 +242,8 @@ Editor::click() {
                         viewport              = animatedTexture->getViewport();
 
                         // Check if this value is higher than previous
-                        animationValues[mSelectedTexture.second] = static_cast<int>(animatedTexture->getViewports().size() * animatedTexture->getTicks());
+                        animationValues[mSelectedTexture.second] =
+                          static_cast<int>(animatedTexture->getViewports().size() * animatedTexture->getTicks());
 
                         fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE);
                     }
@@ -267,7 +268,7 @@ Editor::click() {
                     visualOverlay[pos].resetCounter();
                     {
                         // We need to remove the coord from the list of used coordinates.
-                        auto it = mLevelCoords.find(Common::getClickCoords(x, y, mScale));
+                        auto it = mLevelCoords.find(Common::getClickCoords(static_cast<float>(x), static_cast<float>(y), mScale));
                         if (it != mLevelCoords.end())
                             mLevelCoords.erase(it);
                     }
@@ -292,8 +293,8 @@ Editor::click() {
                     fileHeader.Level.PlayerY = coords.second;
                 } break;
                 case Mouse::DOORS:
-                    doorsPopup.x = x;
-                    doorsPopup.y = y;
+                    doorsPopup.x = static_cast<float>(x);
+                    doorsPopup.y = static_cast<float>(y);
                     displayElement("DoorsPopup");
 
                 case Mouse::DEFAULT:
