@@ -125,6 +125,7 @@ class Editor {
     std::vector<Tile>                    editorTiles;   // All tiles in the game.
     std::unordered_map<int, VisualTile>  visualOverlay; // Overlay that display the type
     std::unordered_map<std::string, int> animationValues;
+    std::pair<int, int>                  clickedCoord;
 
     struct comparePair {
         bool operator()(const std::pair<int, int>& lhs, const std::pair<int, int>& rhs) const {

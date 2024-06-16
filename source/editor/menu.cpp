@@ -21,13 +21,13 @@ Editor::uiMenu() {
                 loadLevel(Level::File::readLevelData("level.map"));
             }
             if (ImGui::MenuItem("Save project")) {
-                fileHeader.Level.Elements      = mLevelCoords.size();
-                std::vector<int> temp;   //Temporary storage
-                for(const auto& [asset, value] : animationValues){
+                fileHeader.Level.Elements = mLevelCoords.size();
+                std::vector<int> temp; // Temporary storage
+                for (const auto& [asset, value] : animationValues) {
                     temp.push_back(value);
                 }
-                fileAssets.AnimationValue = Common::findLcm(temp);
-                Level::File::typeLevelData map = { fileHeader, fileAssets, fileTiles, fileDoors, fileSpawns};
+                fileAssets.AnimationValue      = Common::findLcm(temp);
+                Level::File::typeLevelData map = { fileHeader, fileAssets, fileTiles, fileDoors, fileSpawns };
 
                 Level::File::writeLevelDataToFile(std::string(fileHeader.MapName) + ".map", map);
             }
@@ -59,8 +59,10 @@ Editor::uiMenu() {
             ImGui::EndMenu();
         }
         auto status = "Used: " + std::to_string(mLevelCoords.size());
-        ImGui::SameLine(ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize(status.c_str()).x);
-        ImGui::Text(status.c_str());
+        auto coords = "\tx: " + std::to_string(clickedCoord.first) + " y: " + std::to_string(clickedCoord.second);
+
+        ImGui::SameLine(ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize((status + coords).c_str()).x);
+        ImGui::Text((status + coords).c_str());
         mWindows["TopMenu"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::EndMainMenuBar();
     }
