@@ -2,7 +2,7 @@
 #include <editor/editor.hpp>
 #include <misc/cpp/imgui_stdlib.h>
 #include <string>
-#include <vector>
+
 namespace Editor {
 
 inline std::string

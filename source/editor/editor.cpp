@@ -210,6 +210,7 @@ Editor::click() {
     const auto y = mActionManager->mouseY;
     if (fileTiles.Size != 0 && !clickOnUi(x, y)) {
         const auto clickCoord = Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale);
+        clickedCoord = clickCoord;    //To display coords
         auto       index      = Common::getIndex(clickCoord, fileHeader.Level.SizeX);
         if (index.has_value()) {
             const auto pos = index.value();
