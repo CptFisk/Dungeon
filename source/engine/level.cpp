@@ -80,7 +80,7 @@ Engine::loadLevel(const std::string& filename) {
     } while (!(++it == data.Tiles.Tiles.end() && !layersLeft));
     clearDoors();
 
-    for (const auto& door : data.Doors.Doors) {
+    for (const auto& door : data.Doors) {
         const auto position = Common::newSDL_FRect(door.X, door.Y);
         doors.emplace_back(new Objects::Door(position, GET_ANIMATED(door.GraphicOpen), GET_ANIMATED(door.GraphicClosing)));
     }
