@@ -35,14 +35,13 @@ struct typeHeader {
     } Level;
 };
 
-
 struct typeLevelData {
-    typeHeader Header;
-    typeAssets Assets;
-    typeTiles  Tiles;
-    typeDoors  Doors;
-    typeSpawn  Spawns;
-    typeLevelData(typeHeader header, typeAssets assets, typeTiles tiles, typeDoors& doors, typeSpawn spawns)
+    typeHeader                 Header;
+    typeAssets                 Assets;
+    typeTiles                  Tiles;
+    std::vector<typeDoorsData> Doors;
+    typeSpawn                  Spawns;
+    typeLevelData(typeHeader header, typeAssets assets, typeTiles tiles, std::vector<typeDoorsData>& doors, typeSpawn spawns)
       : Header(header)
       , Assets(std::move(assets))
       , Tiles(std::move(tiles))

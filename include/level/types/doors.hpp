@@ -29,8 +29,4 @@ struct typeDoorsData {
       , GraphicClosing(close) {}
 };
 
-struct typeDoors {
-    std::vector<typeDoorsData> Doors;
-};
-
 }

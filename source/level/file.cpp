@@ -5,6 +5,7 @@
 #include <stdexcept>
 
 namespace Level::File {
+
 void
 writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
     std::ofstream file(filename, std::ios::binary);
@@ -13,7 +14,7 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
     // Write header
     file.write(reinterpret_cast<const char*>(&data.Header), sizeof(data.Header));
 
-    //Write the biggest animated value that we have
+    // Write the biggest animated value that we have
     file.write(reinterpret_cast<const char*>(&data.Assets.AnimationValue), sizeof(data.Assets.AnimationValue));
 
     // Write assets
@@ -41,10 +42,10 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
     }
 
     // Write doors to file
-    const auto numDoors = data.Doors.Doors.size();
+    const auto numDoors = data.Doors.size();
     file.write(reinterpret_cast<const char*>(&numDoors), sizeof(numDoors));
 
-    for (const auto& door : data.Doors.Doors) {
+    for (const auto& door : data.Doors) {
         file.write(reinterpret_cast<const char*>(&door.X), sizeof(door.X));
         file.write(reinterpret_cast<const char*>(&door.Y), sizeof(door.Y));
         const auto open      = static_cast<uint8_t>(door.GraphicOpen.size());
@@ -58,6 +59,8 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
         file.write(door.Condition.c_str(), condition);
     }
 
+    // Write
+
     file.close();
 }
 
@@ -66,9 +69,9 @@ readLevelData(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
     if (!file)
         throw std::runtime_error("Cant load file");
-    typeHeader header = {};
-    typeAssets assets;
-    typeDoors  doors;
+    typeHeader                 header = {};
+    typeAssets                 assets;
+    std::vector<typeDoorsData> doors;
     // Read size, nothing special here
     file.read(reinterpret_cast<char*>(&header), sizeof(typeHeader));
 
@@ -106,41 +109,39 @@ readLevelData(const std::string& filename) {
     size_t numberOfDoors;
 
     file.read(reinterpret_cast<char*>(&numberOfDoors), sizeof(numberOfDoors));
-    for(int i = 0; i < numberOfDoors; i++){
+    for (int i = 0; i < numberOfDoors; i++) {
 
         uint8_t x;
         uint8_t y;
 
-        uint8_t  openLength;
-        uint8_t  closeLength;
-        uint8_t  conditionLength;
+        uint8_t openLength;
+        uint8_t closeLength;
+        uint8_t conditionLength;
 
         file.read(reinterpret_cast<char*>(&x), sizeof(x));
         file.read(reinterpret_cast<char*>(&y), sizeof(y));
 
-        //Read open animation
+        // Read open animation
         file.read(reinterpret_cast<char*>(&openLength), sizeof(openLength));
         char* openGraphic = new char[openLength + 1]{};
         file.read(openGraphic, openLength);
 
-        //Read close animation
+        // Read close animation
         file.read(reinterpret_cast<char*>(&closeLength), sizeof(closeLength));
         char* closeGraphic = new char[closeLength + 1]{};
         file.read(closeGraphic, closeLength);
 
-        //Read condition
+        // Read condition
         file.read(reinterpret_cast<char*>(&conditionLength), sizeof(conditionLength));
         char* condition = new char[conditionLength + 1]{};
         file.read(condition, conditionLength);
 
-        doors.Doors.emplace_back(x, y, condition, openGraphic, closeGraphic);
-        //Cleanup
+        doors.emplace_back(x, y, condition, openGraphic, closeGraphic);
+        // Cleanup
         delete[] openGraphic;
         delete[] closeGraphic;
         delete[] condition;
-
     }
-
 
     file.close();
     // Generating response

@@ -56,7 +56,7 @@ Editor::uiTiles() {
 
     if (showOverlay) {
         // Doors are drawn outside
-        for (const auto& door : fileDoors.Doors) {
+        for (const auto& door : fileDoors) {
             SDL_FRect position = { FLOAT(door.X) * 16.0f * mScale.factorX,
                                    FLOAT(door.Y) * 16.0f * mScale.factorY,
                                    16.0f * mScale.factorX,
