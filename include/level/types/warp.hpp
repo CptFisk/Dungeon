@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <cstdint>
+#include <fstream>
 
 namespace Level::File{
 
@@ -15,4 +16,17 @@ struct typeWarpData{
     typeWarpCoordinate Destination;
     std::string Filename;
 };
+
+/**
+ * @brief Read warps from a filestream
+ */
+void
+readWarpData(std::ifstream& file, std::vector<typeWarpData>& data);
+
+/**
+ * @brief Write warps to a filestream
+ */
+void
+writeWarpData(std::ofstream& file, const std::vector<typeWarpData>& data);
+
 }
