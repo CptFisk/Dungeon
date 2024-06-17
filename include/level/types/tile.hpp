@@ -1,6 +1,8 @@
 #pragma once
 #include <cstdint>
+#include <fstream>
 #include <vector>
+
 namespace Level::File {
 /**
  * All this types is only used for generating and loading a pre-defined map file.
@@ -27,10 +29,24 @@ struct typeTiles {
     uint16_t                  Size; // Number of tiles defined
     std::vector<typeTileData> Tiles;
 
+    typeTiles() = default;
+
     // Constructor
     explicit typeTiles(uint16_t size)
       : Size(size) {
         Tiles.resize(size);
     }
 };
+
+/**
+ * @brief Read tiles from a filestream
+ */
+void
+readTiles(std::ifstream& file, typeTiles& data);
+
+/**
+ * @brief Write tiles to a filestream
+ */
+void
+writeTiles(std::ofstream& file, const typeTiles& data);
 }
