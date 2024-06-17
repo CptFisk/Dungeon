@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <cstdint>
 #include <level/types/assets.hpp>
-#include <level/types/doors.hpp>
+#include <level/types/door.hpp>
 #include <level/types/spawn.hpp>
 #include <level/types/tile.hpp>
 #include <level/types/warp.hpp>
@@ -40,13 +40,20 @@ struct typeLevelData {
     typeAssets                 Assets;
     typeTiles                  Tiles;
     std::vector<typeDoorsData> Doors;
+    std::vector<typeWarpData>  Warps;
     typeSpawn                  Spawns;
-    typeLevelData(typeHeader header, typeAssets assets, typeTiles tiles, std::vector<typeDoorsData>& doors, typeSpawn spawns)
+    typeLevelData(typeHeader                  header,
+                  typeAssets                  assets,
+                  typeTiles                   tiles,
+                  std::vector<typeDoorsData>& doors,
+                  std::vector<typeWarpData>&  warps,
+                  typeSpawn                   spawns)
       : Header(header)
       , Assets(std::move(assets))
       , Tiles(std::move(tiles))
       , Doors(std::move(doors))
-      , Spawns(std::move(spawns)){};
+      , Warps(std::move(warps))
+      , Spawns(spawns){};
 };
 
 /**

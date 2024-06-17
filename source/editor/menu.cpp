@@ -27,7 +27,7 @@ Editor::uiMenu() {
                     temp.push_back(value);
                 }
                 fileAssets.AnimationValue      = Common::findLcm(temp);
-                Level::File::typeLevelData map = { fileHeader, fileAssets, fileTiles, fileDoors, fileSpawns };
+                Level::File::typeLevelData map = { fileHeader, fileAssets, fileTiles, fileDoors, fileWarps, fileSpawns };
 
                 Level::File::writeLevelDataToFile(std::string(fileHeader.MapName) + ".map", map);
             }
