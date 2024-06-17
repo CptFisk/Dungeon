@@ -44,8 +44,8 @@ writeWarpData(std::ofstream& file, const std::vector<typeWarpData>& data) {
             file.write(reinterpret_cast<const char*>(&warp.Destination), sizeof(warp.Destination));
 
             // Handles filename
-            const auto filenameLength = static_cast<uint8_t>(warp.Filename.size());
-            file.write(reinterpret_cast<const char*>(filenameLength), sizeof(filenameLength)); // Write length
+            const auto filenameLength = UINT8(warp.Filename.size());
+            file.write(reinterpret_cast<const char*>(&filenameLength), sizeof(filenameLength)); // Write length
             file.write(warp.Filename.c_str(), filenameLength);
         } catch (...) {
             std::cerr << "Error writing warp data" << std::endl;
