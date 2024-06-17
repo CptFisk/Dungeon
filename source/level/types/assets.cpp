@@ -5,7 +5,7 @@
 namespace Level::File{
 
 void
-readAssets(std::ifstream& file, typeAssets& data){
+readAssetData(std::ifstream& file, typeAssets& data){
     uint16_t readSize;
     file.read(reinterpret_cast<char*>(&readSize), sizeof(readSize));
 
@@ -23,7 +23,8 @@ readAssets(std::ifstream& file, typeAssets& data){
     }
 }
 
-void writeAssets(std::ofstream& file, const typeAssets& data){
+void
+writeAssetData(std::ofstream& file, const typeAssets& data){
     //Get the number os assets in map and store it as uint16_t
     const auto numAssets = UINT16(data.Assets.size());
     file.write(reinterpret_cast<const char*>(&numAssets), sizeof(uint16_t));
