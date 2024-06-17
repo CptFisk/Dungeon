@@ -11,9 +11,15 @@ struct typeAssets {
     std::vector<std::string> Assets;         // Asset names
 };
 
+/**
+ * @brief Read assets from a filestream
+ */
 void
 readAssets(std::ifstream& file, typeAssets& data);
 
+/**
+ * @brief Write assets to a filestream
+ */
 void
 writeAssets(std::ofstream& file, const typeAssets& data);
 
