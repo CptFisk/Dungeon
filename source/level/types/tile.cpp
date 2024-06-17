@@ -5,7 +5,7 @@
 namespace Level::File{
 
 void
-readTiles(std::ifstream& file, typeTiles& data){
+readTileData(std::ifstream& file, typeTiles& data){
     uint16_t readSize;
 
     file.read(reinterpret_cast<char*>(&readSize), sizeof(readSize));
@@ -31,7 +31,7 @@ readTiles(std::ifstream& file, typeTiles& data){
 }
 
 void
-writeTiles(std::ofstream& file, const typeTiles& data){
+writeTileData(std::ofstream& file, const typeTiles& data){
     //Write the size first
     file.write(reinterpret_cast<const char*>(&data.Size), sizeof(uint16_t));
 

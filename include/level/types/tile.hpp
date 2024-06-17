@@ -42,11 +42,11 @@ struct typeTiles {
  * @brief Read tiles from a filestream
  */
 void
-readTiles(std::ifstream& file, typeTiles& data);
+readTileData(std::ifstream& file, typeTiles& data);
 
 /**
  * @brief Write tiles to a filestream
  */
 void
-writeTiles(std::ofstream& file, const typeTiles& data);
+writeTileData(std::ofstream& file, const typeTiles& data);
 }
