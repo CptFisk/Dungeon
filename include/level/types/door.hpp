@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -29,4 +30,15 @@ struct typeDoorsData {
       , GraphicClosing(close) {}
 };
 
+/**
+ * @brief Read doors from a filestream
+ */
+void
+readDoorData(std::ifstream& file, std::vector<typeDoorsData>& data);
+
+/**
+ * @brief Write doors to a filestream
+ */
+void
+writeDoorData(std::ofstream& file, const std::vector<typeDoorsData>& data);
 }
