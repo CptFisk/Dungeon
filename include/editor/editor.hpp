@@ -1,4 +1,5 @@
 #pragma once
+#include <global.hpp>
 #include <SDL.h>
 #include <common/include.hpp>
 #include <common/perspective.hpp>
@@ -117,11 +118,12 @@ class Editor {
     bool                                                   showGrid;
 
     // Map data
-    Level::File::typeHeader fileHeader;
-    Level::File::typeAssets fileAssets; // List of all the assets that exist in the current map.
-    Level::File::typeTiles  fileTiles;  // Tiles used inside the map editor, later used for export to a file
-    Level::File::typeSpawn  fileSpawns;
-    Level::File::typeDoors  fileDoors; // Contains all doors
+    Level::File::typeHeader                fileHeader;
+    Level::File::typeAssets                fileAssets; // List of all the assets that exist in the current map.
+    Level::File::typeTiles                 fileTiles;  // Tiles used inside the map editor, later used for export to a file
+    Level::File::typeSpawn                 fileSpawns;
+    Level::File::typeDoors                 fileDoors; // Contains all doors
+    std::vector<Level::File::typeWarpData> fileWarps;
 
     std::vector<Tile>                    editorTiles;   // All tiles in the game.
     std::unordered_map<int, VisualTile>  visualOverlay; // Overlay that display the type

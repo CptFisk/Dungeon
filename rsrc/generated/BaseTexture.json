@@ -107,6 +107,32 @@
         "Blue1": 231,
         "Blue2": 0,
         "Alpha": 80
+      },
+      {
+        "Name": "CF2B0B",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 207,
+        "Red2": 0,
+        "Green1": 43,
+        "Green2": 0,
+        "Blue1": 11,
+        "Blue2": 0,
+        "Alpha": 80
+      },
+      {
+        "Name": "8CCFCD",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 140,
+        "Red2": 0,
+        "Green1": 207,
+        "Green2": 0,
+        "Blue1": 205,
+        "Blue2": 0,
+        "Alpha": 80
       }
     ]
   }

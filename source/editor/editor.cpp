@@ -84,7 +84,7 @@ Editor::startup() {
     mElements["Textures"]   = [this]() { uiTexture(); };
     mElements["DoorsPopup"] = [this]() { uiDoorPopup(); };
     mElements["Doors"]      = [this]() { uiDoors(); };
-    mElements["Warps"]      = [this]() { uiWarpsPopup(); };
+    mElements["WarpsPopup"] = [this]() { uiWarpsPopup(); };
     displayElement("TopMenu");
 }
 
@@ -297,7 +297,7 @@ Editor::click() {
                     popupPosition.x = static_cast<float>(x);
                     popupPosition.y = static_cast<float>(y);
                     displayElement("DoorsPopup");
-                break;
+                    break;
                 case Mouse::WARPS:
                     popupPosition.x = static_cast<float>(x);
                     popupPosition.y = static_cast<float>(y);
