@@ -83,6 +83,7 @@ if (BUILD_GAME)
             ${CMAKE_SOURCE_DIR}/source/object/particle.cpp
             ${CMAKE_SOURCE_DIR}/source/object/textbox.cpp
             ${CMAKE_SOURCE_DIR}/source/object/door.cpp
+            ${CMAKE_SOURCE_DIR}/source/object/warp.cpp
 
             ${CMAKE_SOURCE_DIR}/source/monster/monster.cpp
             ${CMAKE_SOURCE_DIR}/source/monster/slime.cpp
