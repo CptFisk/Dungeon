@@ -79,7 +79,6 @@ if (BUILD_GAME)
             ${CMAKE_SOURCE_DIR}/source/player/player.cpp
             ${CMAKE_SOURCE_DIR}/source/player/indicator.cpp
 
-            ${CMAKE_SOURCE_DIR}/source/objects/obstacle.cpp
             ${CMAKE_SOURCE_DIR}/source/objects/projectile.cpp
             ${CMAKE_SOURCE_DIR}/source/objects/particle.cpp
             ${CMAKE_SOURCE_DIR}/source/objects/textbox.cpp
