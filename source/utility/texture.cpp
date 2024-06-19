@@ -7,10 +7,13 @@ getFRectCenter(const SDL_FRect& rect) {
     return std::pair<float, float>{ rect.x + (rect.w / 2.0), rect.y + (rect.h / 2) };
 }
 
-
 bool
-isOverlapping(const SDL_FRect& rect1, const SDL_FRect& rect2) {
-    return !(rect1.x + rect1.w < rect2.x || rect1.x > rect2.x + rect2.w || rect1.y + rect1.h < rect2.y || rect1.y > rect2.y + rect2.h);
+isOverlapping(const SDL_FRect& obj1, const SDL_FRect& obj2) {
+    return !(obj1.x + obj1.w < obj2.x || obj1.x > obj2.x + obj2.w || obj1.y + obj1.h < obj2.y || obj1.y > obj2.y + obj2.h);
+}
+
+bool isOverlapping(const SDL_Point& obj1, const SDL_FRect& obj2){
+    return !(obj1.x + 1 < obj2.x || obj1.x > obj2.x + obj2.w || obj1.y + 1 < obj2.y || obj1.y > obj2.y + obj2.h);
 }
 
 bool
