@@ -5,3 +5,4 @@
 #include <object/projectile.hpp>
 #include <object/textbox.hpp>
 #include <object/door.hpp>
+#include <object/warp.hpp>
