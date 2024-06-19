@@ -1,4 +1,4 @@
-#include <objects/projectile.hpp>
+#include <object/projectile.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
 

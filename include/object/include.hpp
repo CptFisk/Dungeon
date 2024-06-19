@@ -1,7 +1,7 @@
 #pragma once
 
-#include <objects/objects.hpp>
-#include <objects/particle.hpp>
-#include <objects/projectile.hpp>
-#include <objects/textbox.hpp>
-#include <objects/door.hpp>
+#include <object/objects.hpp>
+#include <object/particle.hpp>
+#include <object/projectile.hpp>
+#include <object/textbox.hpp>
+#include <object/door.hpp>

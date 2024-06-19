@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <nlohmann/json.hpp>
-#include <objects/objects.hpp>
+#include <object/objects.hpp>
 #include <string>
 
 namespace Common {

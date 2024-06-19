@@ -79,10 +79,10 @@ if (BUILD_GAME)
             ${CMAKE_SOURCE_DIR}/source/player/player.cpp
             ${CMAKE_SOURCE_DIR}/source/player/indicator.cpp
 
-            ${CMAKE_SOURCE_DIR}/source/objects/projectile.cpp
-            ${CMAKE_SOURCE_DIR}/source/objects/particle.cpp
-            ${CMAKE_SOURCE_DIR}/source/objects/textbox.cpp
-            ${CMAKE_SOURCE_DIR}/source/objects/door.cpp
+            ${CMAKE_SOURCE_DIR}/source/object/projectile.cpp
+            ${CMAKE_SOURCE_DIR}/source/object/particle.cpp
+            ${CMAKE_SOURCE_DIR}/source/object/textbox.cpp
+            ${CMAKE_SOURCE_DIR}/source/object/door.cpp
 
             ${CMAKE_SOURCE_DIR}/source/monster/monster.cpp
             ${CMAKE_SOURCE_DIR}/source/monster/slime.cpp

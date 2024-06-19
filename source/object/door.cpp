@@ -1,4 +1,4 @@
-#include <objects/door.hpp>
+#include <object/door.hpp>
 
 namespace Objects {
 

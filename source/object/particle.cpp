@@ -1,5 +1,5 @@
 #include <cstdlib>
-#include <objects/particle.hpp>
+#include <object/particle.hpp>
 
 namespace Objects {
 Particle::Particle(SDL_Texture* texture, const int& duration, const float& size, const float& velocity)

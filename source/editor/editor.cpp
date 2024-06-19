@@ -280,7 +280,6 @@ Editor::click() {
                     visualOverlay[pos].newOverlay(GET_SDL("87ED17"));
                     break;
                 case Mouse::OBSTACLE:
-
                     fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::OBSTACLE);
                     visualOverlay[pos].newOverlay(GET_SDL("1D35FA"));
                     break;

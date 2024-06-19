@@ -4,7 +4,7 @@
 #include <global.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <map>
-#include <objects/objects.hpp>
+#include <object/objects.hpp>
 #include <utility>
 
 namespace Player {

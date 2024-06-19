@@ -8,7 +8,7 @@
 #include <memory>
 #include <monster/include.hpp>
 #include <mutex>
-#include <objects/include.hpp>
+#include <object/include.hpp>
 #include <player/indicator.hpp>
 #include <player/player.hpp>
 #include <set>
@@ -136,8 +136,9 @@ class Engine {
 
     std::vector<typeSegment> mSegments; // Level segments (generated)
 
-    std::vector<Level::File::TileType> levelObjects;
-    std::vector<Objects::Door*>        doors; // All doors on the map
+    std::vector<Level::File::TileType>     levelObjects;
+    std::vector<Objects::Door*>            doors; // All doors on the map
+    std::vector<Level::File::typeWarpData> warps; // Warp locations
     // Level data
     Level::File::typeHeader header;
     int                     elements; // Number of elements that exist in pTiles

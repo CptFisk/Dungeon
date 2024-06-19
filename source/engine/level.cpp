@@ -85,6 +85,10 @@ Engine::loadLevel(const std::string& filename) {
         doors.emplace_back(new Objects::Door(position, GET_ANIMATED(door.GraphicOpen), GET_ANIMATED(door.GraphicClosing)));
     }
 
+    for(const auto& warp : data.Warps){
+        warps.emplace_back(warp);
+    }
+
     SDL_SetRenderTarget(pRenderer, nullptr);
     maxLayers = mSegments[0].Layers.size();
 }

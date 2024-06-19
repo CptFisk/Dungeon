@@ -3,7 +3,7 @@
 #include <common/structures.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <memory>
-#include <objects/particle.hpp>
+#include <object/particle.hpp>
 #include <utility>
 
 namespace Objects {

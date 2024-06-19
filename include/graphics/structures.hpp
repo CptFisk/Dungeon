@@ -1,6 +1,6 @@
 #pragma once
 #include <SDL.h>
-#include <objects/objects.hpp>
+#include <object/objects.hpp>
 #include <stdexcept>
 #include <utility>
 #include <vector>

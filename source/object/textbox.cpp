@@ -1,4 +1,4 @@
-#include <objects/textbox.hpp>
+#include <object/textbox.hpp>
 
 namespace Objects {
 TextBox::TextBox(const Graphics::typeTextTexture& text, const int& x, const int& y)
