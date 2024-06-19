@@ -17,6 +17,8 @@ class Perspective {
     void renderRotated(SDL_Texture* texture,const SDL_Rect* viewport, SDL_FRect* position, const float& angle);
 
     void move(Directions direction, const float& velocity); // Move the camera
+
+    void center(const SDL_FPoint& point, const float& offset);
     void center(const float& x, const float& y);
 
     struct {

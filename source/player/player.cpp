@@ -85,7 +85,7 @@ Player::updateInteraction() {
             // Move the interaction box to our right
             mInteraction.x = mTexturePosition.x + 12.0f;
             mInteraction.y = mTexturePosition.y;
-            mInteraction.h = 12.0f;
+            mInteraction.h = 18.0f;
             mInteraction.w = 8.0f;
             break;
         case SOUTH:

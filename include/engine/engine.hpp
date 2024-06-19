@@ -136,9 +136,9 @@ class Engine {
 
     std::vector<typeSegment> mSegments; // Level segments (generated)
 
-    std::vector<Level::File::TileType>     levelObjects;
-    std::vector<Objects::Door*>            doors; // All doors on the map
-    std::vector<Level::File::typeWarpData> warps; // Warp locations
+    std::vector<Level::File::TileType> levelObjects;
+    std::vector<Objects::Door*>        doors; // All doors on the map
+    std::vector<Objects::Warp>         warps; // Warp locations
     // Level data
     Level::File::typeHeader header;
     int                     elements; // Number of elements that exist in pTiles

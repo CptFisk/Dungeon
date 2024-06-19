@@ -83,11 +83,11 @@ Engine::loadLevel(const std::string& filename) {
 
     for (const auto& door : data.Doors) {
         const auto position = Common::newSDL_FRect(door.X, door.Y);
-        doors.emplace_back(Objects::Door(position, GET_ANIMATED(door.GraphicOpen), GET_ANIMATED(door.GraphicClosing)));
+        doors.emplace_back(new Objects::Door(position, GET_ANIMATED(door.GraphicOpen), GET_ANIMATED(door.GraphicClosing)));
     }
 
     for(const auto& warp : data.Warps){
-        warps.emplace_back(Objects::Warp(warp));
+        warps.push_back(Objects::Warp(warp));
     }
 
     SDL_SetRenderTarget(pRenderer, nullptr);

@@ -73,6 +73,11 @@ Perspective::move(Directions direction, const float& velocity) {
 }
 
 void
+Perspective::center(const SDL_FPoint& point, const float& offset) {
+    center(point.x + offset, point.y + offset);
+}
+
+void
 Perspective::center(const float& x, const float& y) {
     // First we calculate what is the center of the screen
     constexpr auto centerX = 8 * 16; // Half the screen (16 block in width, each block is 16*16 pixels)
