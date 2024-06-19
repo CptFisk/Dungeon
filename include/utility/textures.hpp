@@ -17,7 +17,7 @@ std::pair<float,float> getFRectCenter(const SDL_FRect& rect);
  * @return
  */
 bool isOverlapping(const SDL_FRect& obj1, const SDL_FRect& obj2);
-bool isOverlapping(const SDL_Point& obj1, const SDL_FRect& obj2);
+bool isOverlapping(const SDL_FPoint& obj1, const SDL_FRect& obj2);
 
 /**
  * @brief Return true if 2 SDL_FRect is about to collide in a certain direction
