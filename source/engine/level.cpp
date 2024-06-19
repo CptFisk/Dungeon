@@ -6,6 +6,7 @@
 #include <iostream>
 #include <utility/math.hpp>
 #include <utility/textures.hpp>
+#include <global.hpp>
 
 namespace Engine {
 
@@ -82,11 +83,11 @@ Engine::loadLevel(const std::string& filename) {
 
     for (const auto& door : data.Doors) {
         const auto position = Common::newSDL_FRect(door.X, door.Y);
-        doors.emplace_back(new Objects::Door(position, GET_ANIMATED(door.GraphicOpen), GET_ANIMATED(door.GraphicClosing)));
+        doors.emplace_back(Objects::Door(position, GET_ANIMATED(door.GraphicOpen), GET_ANIMATED(door.GraphicClosing)));
     }
 
     for(const auto& warp : data.Warps){
-        warps.emplace_back(warp);
+        warps.emplace_back(Objects::Warp(warp));
     }
 
     SDL_SetRenderTarget(pRenderer, nullptr);
@@ -120,13 +121,13 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
             break;
     }
 
-    auto playerX = static_cast<int>(pos.x / 16.0f);
-    auto playerY = static_cast<int>(pos.y / 16.0f);
+    auto playerX = INT(pos.x / 16.0f);
+    auto playerY = INT(pos.y / 16.0f);
 
     const auto index     = Common::getIndex(playerX, playerY, header.Level.SizeX);
 
-    if(((static_cast<uint8_t>(levelObjects[index.value()]) & static_cast<uint8_t>(Level::File::TileType::WALL)) != 0 ) ||
-        ((static_cast<uint8_t>(levelObjects[index.value()]) & static_cast<uint8_t>(Level::File::TileType::OBSTACLE)) != 0 )
+    if(((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::WALL)) != 0 ) ||
+        ((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::OBSTACLE)) != 0 )
         ){
         return false;
     }
