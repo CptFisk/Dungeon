@@ -1,0 +1,81 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/interior/InteriorFloor.png",
+        "Name": "InteriorFloorBrown",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorFloor.png",
+        "Name": "InteriorFloorYellow",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorFloor.png",
+        "Name": "InteriorFloorDarkBlue",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorFloor.png",
+        "Name": "InteriorFloorBlue",
+        "Row": 1,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorFloor.png",
+        "Name": "InteriorFloorCheckedSmallBack",
+        "Row": 1,
+        "Column": 5,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorFloor.png",
+        "Name": "InteriorFloorCheckedBigBack",
+        "Row": 1,
+        "Column": 6,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorFloor.png",
+        "Name": "InteriorFloorCheckedSmallBlue",
+        "Row": 1,
+        "Column": 7,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorFloor.png",
+        "Name": "InteriorFloorCheckedBigBlue",
+        "Row": 1,
+        "Column": 8,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
