@@ -33,7 +33,7 @@ Graphics::loadJSON(const std::string& fileName) {
     try {
         header = json::parse(jsonString)[nlohmann::json::json_pointer("/Header")].get<Common::typeHeaderJSON>();
     } catch (const std::exception& e) {
-        std::cerr << "No header found: " << e.what() << std::endl;
+        std::cerr << "No header found: in " << fileName  << std::endl << e.what() << std::endl;
     }
     switch (header.Type) {
         case Common::BASE_TEXTURE:
