@@ -18,7 +18,7 @@ Editor::uiMenu() {
             }
             if (ImGui::MenuItem("Load project")) {
                 // Right now assume we load the file level.map
-                loadLevel(Level::File::readLevelData("level.map"));
+                loadLevel(Level::File::readLevelData("levels/level.map"));
             }
             if (ImGui::MenuItem("Save project")) {
                 fileHeader.Level.Elements = mLevelCoords.size();
