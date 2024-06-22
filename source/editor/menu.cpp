@@ -16,9 +16,12 @@ Editor::uiMenu() {
                 fileAssets.Assets.clear(); // Clear the vector, we start blank
                 displayElement("Header");
             }
-            if (ImGui::MenuItem("Load project")) {
-                // Right now assume we load the file level.map
-                loadLevel(Level::File::readLevelData("levels/level.map"));
+            if (ImGui::BeginMenu("Load project")) {
+                for(const auto& file : mMapFiles){
+                    if(ImGui::MenuItem(file.c_str()))
+                        loadLevel(Level::File::readLevelData(file));
+                }
+                ImGui::EndMenu();
             }
             if (ImGui::MenuItem("Save project")) {
                 fileHeader.Level.Elements = mLevelCoords.size();
@@ -29,7 +32,7 @@ Editor::uiMenu() {
                 fileAssets.AnimationValue      = Common::findLcm(temp);
                 Level::File::typeLevelData map = { fileHeader, fileAssets, fileTiles, fileDoors, fileWarps, fileSpawns };
 
-                Level::File::writeLevelDataToFile(std::string(fileHeader.MapName) + ".map", map);
+                Level::File::writeLevelDataToFile("levels/" + std::string(fileHeader.MapName) + ".map", map);
             }
 
             ImGui::EndMenu();

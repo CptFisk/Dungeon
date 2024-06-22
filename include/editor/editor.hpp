@@ -16,6 +16,7 @@
 #include <unordered_map>
 #include <utility/timer.hpp>
 
+
 namespace Editor {
 class Editor {
   public:
@@ -74,6 +75,7 @@ class Editor {
         float Y;
     } mOffset;
 
+    std::vector<std::string>             mMapFiles;
     std::unique_ptr<Common::InitHandler> mInitHandler;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
     std::unique_ptr<Common::Perspective> mPerspective;

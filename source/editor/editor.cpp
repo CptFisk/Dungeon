@@ -6,6 +6,7 @@
 #include <common/scale.hpp>
 #include <editor/editor.hpp>
 #include <level/file.hpp>
+#include <utility/file.hpp>
 
 namespace Editor {
 Editor::Editor(const int& w, const int& h)
@@ -86,6 +87,10 @@ Editor::startup() {
     mElements["Doors"]      = [this]() { uiDoors(); };
     mElements["WarpsPopup"] = [this]() { uiWarpsPopup(); };
     displayElement("TopMenu");
+
+    for(const auto& file : Utility::getFiles("levels", ".map")){
+        mMapFiles.push_back(file.string());
+    }
 }
 
 void
