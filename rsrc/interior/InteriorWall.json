@@ -1,0 +1,144 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallBeigeLeft",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallBeige",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallBeigeRight",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallBlueLeft",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallBlue",
+        "Row": 2,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallBlueRight",
+        "Row": 2,
+        "Column": 3,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallGreenLeft",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallGreen",
+        "Row": 3,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallGreenRight",
+        "Row": 3,
+        "Column": 3,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallBlackLeft",
+        "Row": 4,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorBlackBlue",
+        "Row": 4,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallBlackRight",
+        "Row": 4,
+        "Column": 3,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallRedLeft",
+        "Row": 5,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallRed",
+        "Row": 5,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWall.png",
+        "Name": "InteriorWallRedRight",
+        "Row": 5,
+        "Column": 3,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      }
+    ]
+  }
+}
