@@ -137,6 +137,7 @@ target_link_libraries(
 file(
         GLOB RSRC
         ${CMAKE_SOURCE_DIR}/rsrc
+        ${CMAKE_SOURCE_DIR}/levels
 )
 
 file(

@@ -12,7 +12,7 @@ namespace Engine {
 
 void
 Engine::loadLevel(const std::string& filename) {
-    auto data = Level::File::readLevelData(filename);
+    auto data = Level::File::readLevelData("levels/" + filename);
     header    = data.Header; // Catch header
     elements  = data.Header.Level.Elements;
 
