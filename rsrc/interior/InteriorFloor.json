@@ -87,7 +87,7 @@
       },
       {
         "File": "rsrc/interior/InteriorFloor.png",
-        "Name": "InteriorFloorCheckedSmallBack",
+        "Name": "InteriorFloorCheckedSmallBlack",
         "Row": 4,
         "Column": 1,
         "Length": 1,
@@ -96,7 +96,7 @@
       },
       {
         "File": "rsrc/interior/InteriorFloor.png",
-        "Name": "InteriorFloorCheckedBigBack",
+        "Name": "InteriorFloorCheckedBigBlack",
         "Row": 4,
         "Column": 2,
         "Length": 1,
