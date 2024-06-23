@@ -1,0 +1,117 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/interior/InteriorWallEdge.png",
+        "Name": "InteriorWallEdgeNW",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWallEdge.png",
+        "Name": "InteriorWallEdgeN",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWallEdge.png",
+        "Name": "InteriorWallEdgeNE",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWallEdge.png",
+        "Name": "InteriorWallEdgeW",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWallEdge.png",
+        "Name": "InteriorWallEdgeE",
+        "Row": 2,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWallEdge.png",
+        "Name": "InteriorWallEdgeSW",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWallEdge.png",
+        "Name": "InteriorWallEdgeS",
+        "Row": 3,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWallEdge.png",
+        "Name": "InteriorWallEdgeSE",
+        "Row": 3,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWallEdge.png",
+        "Name": "InteriorWallEdgeNW2",
+        "Row": 1,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWallEdge.png",
+        "Name": "InteriorWallEdgeNE2",
+        "Row": 1,
+        "Column": 5,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWallEdge.png",
+        "Name": "InteriorWallEdgeSW2",
+        "Row": 2,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorWallEdge.png",
+        "Name": "InteriorWallEdgeSE2",
+        "Row": 2,
+        "Column": 5,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
