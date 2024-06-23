@@ -12,8 +12,13 @@ namespace Engine {
 
 void
 Engine::loadLevel(const std::string& filename) {
+    //If a map is loaded, unload it.
+    if(mLevelLoaded)
+        clearLoadedLevel();
+
     auto data = Level::File::readLevelData("levels/" + filename);
     mHeader   = data.Header; // Catch header
+    mFilename = filename;
 
     std::vector<SDL_FRect> obstacle;
     std::vector<SDL_FRect> wall;
@@ -78,7 +83,6 @@ Engine::loadLevel(const std::string& filename) {
         pos++;
 
     } while (!(++it == data.Tiles.Tiles.end() && !layersLeft));
-    clearDoors();
 
     for (const auto& door : data.Doors) {
         const auto position = Common::newSDL_FRect(door.X, door.Y);
@@ -91,6 +95,7 @@ Engine::loadLevel(const std::string& filename) {
 
     SDL_SetRenderTarget(pRenderer, nullptr);
     mMaxLayers = mSegments[0].Layers.size();
+    mLevelLoaded = true;
 }
 
 bool
@@ -146,11 +151,29 @@ Engine::getPlayerSpawn() {
 }
 
 void
-Engine::clearDoors() {
+Engine::clearLoadedLevel() {
+    //Reset all values
+    mLevelLoaded = false;
+    mHeader = {};
+    mFilename = {};
+    mCurrentLayer = {};
+    mMaxLayers = {};
+
+    //Clear segments
+    for (auto& segment : mSegments) {
+        for (auto& layer : segment.Layers) {
+            SDL_DestroyTexture(layer);
+        }
+    }
+    mSegments.clear();
+
+    //Clear doors
     for (auto& door : doors) {
         delete door;
     }
     doors.clear();
-}
+    //Clear warps zones, they are not manually allocated so just clear the vector
+    warps.clear();
 
+}
 }

@@ -7,8 +7,6 @@ namespace Engine {
 
 void
 Engine::createSegments(const Level::File::typeAssets& assets) {
-    // Clear first if there is segments loaded
-    clearSegments();
     // Calculating how many segments we need
     int        segmentX        = 1;
     int        remainderX      = 0;
@@ -147,15 +145,4 @@ Engine::getSegment(const std::pair<int, int>& coord) const {
 
     return indexY * numberOfSegments + indexX;
 }
-
-void
-Engine::clearSegments() {
-    for (auto& segment : mSegments) {
-        for (auto& layer : segment.Layers) {
-            SDL_DestroyTexture(layer);
-        }
-    }
-    mSegments.clear();
-}
-
 }

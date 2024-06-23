@@ -129,10 +129,9 @@ class Engine {
     // Segmentations
     void                 createSegments(const Level::File::typeAssets& assets);
     void                 addToSegment(const int& pos, const std::string& name);
-    void                 clearSegments();
     [[nodiscard]] size_t getSegment(const std::pair<int, int>& coord) const;
 
-    inline void clearDoors();
+    void clearLoadedLevel();
 
     std::vector<typeSegment>           mSegments; // Level segments (generated)
     std::vector<Level::File::TileType> levelObjects;
@@ -140,12 +139,13 @@ class Engine {
     std::vector<Objects::Warp>         warps; // Warp locations
 
     // Level data
+    bool                    mLevelLoaded;
     Level::File::typeHeader mHeader;
     std::string             mFilename; // Name of the current loaded map
     int                     mCurrentLayer = 0;
     int                     mMaxLayers    = 0;
-    static const int        segmentSizeX = 64;
-    static const int        segmentSizeY = 64;
+    static const int        segmentSizeX  = 64;
+    static const int        segmentSizeY  = 64;
 
     Objects::TextBox* textBox;
 };
