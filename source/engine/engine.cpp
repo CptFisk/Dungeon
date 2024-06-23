@@ -118,9 +118,9 @@ Engine::startup() {
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
     mInterrupts[10]->addFunction([&]() {
-        currentLayer++;
-        if (currentLayer >= maxLayers) {
-            currentLayer = 0;
+        mCurrentLayer++;
+        if (mCurrentLayer >= mMaxLayers) {
+            mCurrentLayer = 0;
         }
     });
 
@@ -338,7 +338,7 @@ Engine::drawNumbers() {
 void
 Engine::drawLevel() {
     for (auto& segment : mSegments) {
-        mPerspective->render(segment.Layers[currentLayer], nullptr, &segment.Position);
+        mPerspective->render(segment.Layers[mCurrentLayer], nullptr, &segment.Position);
     }
     for (auto& door : doors) {
         auto drawData = door->getDrawData();

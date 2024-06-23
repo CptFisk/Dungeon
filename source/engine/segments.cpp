@@ -16,12 +16,12 @@ Engine::createSegments(const Level::File::typeAssets& assets) {
     // We always need at least one layer
     const auto animationLayers = std::max(static_cast<int>(assets.AnimationValue), 1);
 
-    if (header.Level.SizeX >= segmentSizeX) {
-        segmentX   = static_cast<int>(header.Level.SizeX / segmentSizeX);
-        remainderX = header.Level.SizeX % segmentSizeX;
+    if (mHeader.Level.SizeX >= segmentSizeX) {
+        segmentX   = static_cast<int>(mHeader.Level.SizeX / segmentSizeX);
+        remainderX = mHeader.Level.SizeX % segmentSizeX;
     }
-    if (header.Level.SizeY >= segmentSizeY) {
-        segmentY = static_cast<int>(header.Level.SizeY / segmentSizeY);
+    if (mHeader.Level.SizeY >= segmentSizeY) {
+        segmentY = static_cast<int>(mHeader.Level.SizeY / segmentSizeY);
     }
 
     // Creating textures and positions
@@ -49,10 +49,10 @@ Engine::createSegments(const Level::File::typeAssets& assets) {
             auto xx = static_cast<float>(remainderX); // Remainder but as float
             int  remainderY;                          // Don't assign value, we will assign it later
             // Calculate the height we can use
-            if (segmentSizeY <= (header.Level.SizeY - (y * segmentSizeY))) {
+            if (segmentSizeY <= (mHeader.Level.SizeY - (y * segmentSizeY))) {
                 remainderY = segmentSizeY;
             } else {
-                remainderY = (header.Level.SizeY - (y * segmentSizeY));
+                remainderY = (mHeader.Level.SizeY - (y * segmentSizeY));
             }
 
             auto                      sx  = static_cast<float>(segmentX);     // Segments but as float
@@ -77,7 +77,7 @@ Engine::createSegments(const Level::File::typeAssets& assets) {
 
 void
 Engine::addToSegment(const int& pos, const std::string& name) {
-    auto coords = Common::getCoords(pos, header.Level.SizeX, header.Level.SizeY); // Fetching coords, hopefully
+    auto coords = Common::getCoords(pos, mHeader.Level.SizeX, mHeader.Level.SizeY); // Fetching coords, hopefully
 
     if (coords.has_value()) {
         auto coord = coords.value();
@@ -143,7 +143,7 @@ size_t
 Engine::getSegment(const std::pair<int, int>& coord) const {
     const int indexX           = static_cast<int>(coord.first / segmentSizeX);
     const int indexY           = static_cast<int>(coord.second / segmentSizeY);
-    const int numberOfSegments = static_cast<int>((header.Level.SizeX + segmentSizeX - 1) / segmentSizeX);
+    const int numberOfSegments = static_cast<int>((mHeader.Level.SizeX + segmentSizeX - 1) / segmentSizeX);
 
     return indexY * numberOfSegments + indexX;
 }

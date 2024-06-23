@@ -13,16 +13,15 @@ namespace Engine {
 void
 Engine::loadLevel(const std::string& filename) {
     auto data = Level::File::readLevelData("levels/" + filename);
-    header    = data.Header; // Catch header
-    elements  = data.Header.Level.Elements;
+    mHeader   = data.Header; // Catch header
 
     std::vector<SDL_FRect> obstacle;
     std::vector<SDL_FRect> wall;
 
     // Set background colors
-    Background.Red   = header.Color.BackgroundRed;
-    Background.Green = header.Color.BackgroundGreen;
-    Background.Blue  = header.Color.BackgroundBlue;
+    Background.Red   = mHeader.Color.BackgroundRed;
+    Background.Green = mHeader.Color.BackgroundGreen;
+    Background.Blue  = mHeader.Color.BackgroundBlue;
 
     createSegments(data.Assets); // Generate segments
 
@@ -91,7 +90,7 @@ Engine::loadLevel(const std::string& filename) {
     }
 
     SDL_SetRenderTarget(pRenderer, nullptr);
-    maxLayers = mSegments[0].Layers.size();
+    mMaxLayers = mSegments[0].Layers.size();
 }
 
 bool
@@ -124,7 +123,7 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
     auto playerX = INT(pos.x / 16.0f);
     auto playerY = INT(pos.y / 16.0f);
 
-    const auto index     = Common::getIndex(playerX, playerY, header.Level.SizeX);
+    const auto index     = Common::getIndex(playerX, playerY, mHeader.Level.SizeX);
 
     if(((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::WALL)) != 0 ) ||
         ((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::OBSTACLE)) != 0 )
@@ -143,7 +142,7 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
 
 std::pair<uint8_t, uint8_t>
 Engine::getPlayerSpawn() {
-    return { header.Level.PlayerX, header.Level.PlayerY };
+    return { mHeader.Level.PlayerX, mHeader.Level.PlayerY };
 }
 
 void

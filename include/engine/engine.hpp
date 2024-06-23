@@ -110,9 +110,6 @@ class Engine {
     // Visible numbers
     std::vector<Graphics::Number> mNumbers; // Visible numbers
 
-    // Load a level
-    void loadLevel(const std::string& filename);
-
     /**
      * @breif Check if movement is allowed, or if it collides with other objects
      * @param other Object to check with
@@ -120,6 +117,9 @@ class Engine {
      */
     bool movement(const SDL_FRect& other, const Directions& direction);
     bool movement(const SDL_FPoint& other, const Directions& direction);
+
+    // Load a level
+    void loadLevel(const std::string& filename);
 
     /**
      * @brief Returns the position were the player should spawn
@@ -134,16 +134,16 @@ class Engine {
 
     inline void clearDoors();
 
-    std::vector<typeSegment> mSegments; // Level segments (generated)
-
+    std::vector<typeSegment>           mSegments; // Level segments (generated)
     std::vector<Level::File::TileType> levelObjects;
     std::vector<Objects::Door*>        doors; // All doors on the map
     std::vector<Objects::Warp>         warps; // Warp locations
+
     // Level data
-    Level::File::typeHeader header;
-    int                     elements; // Number of elements that exist in pTiles
-    int                     currentLayer = 0;
-    int                     maxLayers    = 0;
+    Level::File::typeHeader mHeader;
+    std::string             mFilename; // Name of the current loaded map
+    int                     mCurrentLayer = 0;
+    int                     mMaxLayers    = 0;
     static const int        segmentSizeX = 64;
     static const int        segmentSizeY = 64;
 
