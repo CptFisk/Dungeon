@@ -165,16 +165,14 @@ Engine::movePlayer(Directions direction) {
     // Did we hit a warp?
     for (auto& warp : warps) {
         if (Utility::isOverlapping(mPlayer->getPlayerCenter(), warp.getPosition())) {
-            if(warp.getFilename() == mFilename || warp.getFilename().empty()) {
-                //Warping on the same map
-                const auto& destination = warp.getDestination();
-                mPlayer->spawn(destination.X, destination.Y);
-                mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
-            }else{
-                //Warping to different map
-                const auto& file = warp.getFilename();
-                std::cout << "Not implemented" << std::endl;
+            const auto destination =  warp.getDestination();
+            if(warp.getFilename() != mFilename){
+                //Swap map file
+                clearLoadedLevel();
+                loadLevel(warp.getFilename() + ".map");
             }
+            mPlayer->spawn(destination.X, destination.Y);
+            mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
         }
     }
 }
