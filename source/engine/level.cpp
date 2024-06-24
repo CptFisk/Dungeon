@@ -90,7 +90,7 @@ Engine::loadLevel(const std::string& filename) {
     }
 
     for(const auto& warp : data.Warps){
-        warps.push_back(Objects::Warp(warp));
+        warps.emplace_back(Objects::Warp(warp));
     }
 
     SDL_SetRenderTarget(pRenderer, nullptr);
