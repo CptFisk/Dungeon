@@ -56,6 +56,7 @@ class Editor {
     void uiTiles();
     void uiDoors();
     void uiWarpsPopup();
+    void uiWarps();
     void uiDoorPopup(); // Popup for door options
     void uiTexture();   // All basic textures
     void present();     // Render all graphic

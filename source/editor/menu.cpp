@@ -59,6 +59,8 @@ Editor::uiMenu() {
                 displayElement("Textures");
             if (ImGui::MenuItem("Doors"))
                 displayElement("Doors");
+            if (ImGui::MenuItem("Warps"))
+                displayElement("Warps");
             ImGui::EndMenu();
         }
         auto status = "Used: " + std::to_string(mLevelCoords.size());

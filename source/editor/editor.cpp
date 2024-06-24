@@ -86,9 +86,10 @@ Editor::startup() {
     mElements["DoorsPopup"] = [this]() { uiDoorPopup(); };
     mElements["Doors"]      = [this]() { uiDoors(); };
     mElements["WarpsPopup"] = [this]() { uiWarpsPopup(); };
+    mElements["Warps"]      = [this]() { uiWarps(); };
     displayElement("TopMenu");
 
-    for(const auto& file : Utility::getFiles("levels", ".map")){
+    for (const auto& file : Utility::getFiles("levels", ".map")) {
         mMapFiles.push_back(file.string());
     }
 }
