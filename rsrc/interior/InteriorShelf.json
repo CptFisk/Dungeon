@@ -120,6 +120,240 @@
         "Length": 1,
         "Height": 32,
         "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallRed1",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallRed2",
+        "Row": 2,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallRed3",
+        "Row": 2,
+        "Column": 3,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallRed4",
+        "Row": 2,
+        "Column": 4,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallRed5",
+        "Row": 2,
+        "Column": 5,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallRed6",
+        "Row": 2,
+        "Column": 6,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallRed7",
+        "Row": 2,
+        "Column": 7,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallRed8",
+        "Row": 2,
+        "Column": 8,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallRed9",
+        "Row": 2,
+        "Column": 9,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfBigRed1",
+        "Row": 2,
+        "Column": 6,
+        "Length": 1,
+        "Height": 32,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfBigRed2",
+        "Row": 2,
+        "Column": 7,
+        "Length": 1,
+        "Height": 32,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfBigRed3",
+        "Row": 2,
+        "Column": 8,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfBigRed4",
+        "Row": 2,
+        "Column": 9,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallBeige1",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallBeige2",
+        "Row": 3,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallBeige3",
+        "Row": 3,
+        "Column": 3,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallBeige4",
+        "Row": 3,
+        "Column": 4,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallBeige5",
+        "Row": 3,
+        "Column": 5,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallBeige6",
+        "Row": 3,
+        "Column": 6,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallBeige7",
+        "Row": 3,
+        "Column": 7,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallBeige8",
+        "Row": 3,
+        "Column": 8,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfSmallBeige9",
+        "Row": 3,
+        "Column": 9,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfBigBeige1",
+        "Row": 3,
+        "Column": 6,
+        "Length": 1,
+        "Height": 32,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfBigBeige2",
+        "Row": 3,
+        "Column": 7,
+        "Length": 1,
+        "Height": 32,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfBigBeige3",
+        "Row": 3,
+        "Column": 8,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorShelf.png",
+        "Name": "InteriorShelfBigBeige4",
+        "Row": 3,
+        "Column": 9,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
       }
     ]
   }
