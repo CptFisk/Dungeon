@@ -15,17 +15,8 @@
       },
       {
         "File": "rsrc/interior/InteriorPainting.png",
-        "Name": "InteriorPaintingRed",
-        "Row": 2,
-        "Column": 1,
-        "Length": 8,
-        "Height": 16,
-        "Width": 16
-      },
-      {
-        "File": "rsrc/interior/InteriorPainting.png",
         "Name": "InteriorPaintingBeige",
-        "Row": 3,
+        "Row": 2,
         "Column": 1,
         "Length": 8,
         "Height": 16,
