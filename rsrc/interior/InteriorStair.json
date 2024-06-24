@@ -1,0 +1,45 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/interior/InteriorStair.png",
+        "Name": "InteriorStairUpBrown",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorStair.png",
+        "Name": "InteriorStairDownBrown",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorStair.png",
+        "Name": "InteriorStairUpBeige",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorStair.png",
+        "Name": "InteriorStairDownBeige",
+        "Row": 2,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      }
+    ]
+  }
+}
