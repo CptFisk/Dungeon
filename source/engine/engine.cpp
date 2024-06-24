@@ -165,9 +165,16 @@ Engine::movePlayer(Directions direction) {
     // Did we hit a warp?
     for (auto& warp : warps) {
         if (Utility::isOverlapping(mPlayer->getPlayerCenter(), warp.getPosition())) {
-            const auto& destination = warp.getDestination();
-            mPlayer->spawn(destination.X, destination.Y);
-            mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
+            if(warp.getFilename() == mFilename || warp.getFilename().empty()) {
+                //Warping on the same map
+                const auto& destination = warp.getDestination();
+                mPlayer->spawn(destination.X, destination.Y);
+                mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
+            }else{
+                //Warping to different map
+                const auto& file = warp.getFilename();
+                std::cout << "Not implemented" << std::endl;
+            }
         }
     }
 }
@@ -241,7 +248,7 @@ Engine::mainLoop() {
         SDL_FRect middle{ mPlayer->getPlayerCenter().x, mPlayer->getPlayerCenter().y, 1.0f, 1.0f };
         mPerspective->render(GET_SDL("A349A4"), nullptr, &middle);
         // Displaying spawn point
-        SDL_FRect spawn{ header.Level.PlayerX * 16.0f, header.Level.PlayerY * 16.0f, 16.0f, 16.0f };
+        SDL_FRect spawn{ mHeader.Level.PlayerX * 16.0f, mHeader.Level.PlayerY * 16.0f, 16.0f, 16.0f };
         mPerspective->render(GET_SDL("A349A4"), nullptr, &spawn);
 #endif
 
