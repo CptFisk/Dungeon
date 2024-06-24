@@ -1,0 +1,36 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/interior/InteriorPainting.png",
+        "Name": "InteriorPaintingBrown",
+        "Row": 1,
+        "Column": 1,
+        "Length": 8,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorPainting.png",
+        "Name": "InteriorPaintingRed",
+        "Row": 2,
+        "Column": 1,
+        "Length": 8,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorPainting.png",
+        "Name": "InteriorPaintingBeige",
+        "Row": 3,
+        "Column": 1,
+        "Length": 8,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
