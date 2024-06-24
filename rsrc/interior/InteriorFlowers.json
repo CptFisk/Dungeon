@@ -1,0 +1,45 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/interior/InteriorFlowers.png",
+        "Name": "InteriorFlowerBrownBig",
+        "Row": 1,
+        "Column": 1,
+        "Length": 4,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorFlowers.png",
+        "Name": "InteriorFlowerBrownSmall",
+        "Row": 1,
+        "Column": 5,
+        "Length": 4,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorFlowers.png",
+        "Name": "InteriorFlowerBeigeBig",
+        "Row": 2,
+        "Column": 1,
+        "Length": 4,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorFlowers.png",
+        "Name": "InteriorFlowerBeigeSmall",
+        "Row": 2,
+        "Column": 5,
+        "Length": 4,
+        "Height": 32,
+        "Width": 16
+      }
+    ]
+  }
+}
