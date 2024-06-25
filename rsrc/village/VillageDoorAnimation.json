@@ -6,23 +6,43 @@
     "File": "rsrc/village/VillageDoorAnimation.png",
     "Objects": [
       {
-        "Name": "DoorOpenAnimation",
+        "Name": "VillageDoorBrownOpenAnimation",
         "Column": 1,
         "Row": 1,
         "Length": 4,
         "Ticks": 10,
         "Width": 16,
-        "Height": 16,
+        "Height": 32,
         "Paused" : true
       },
       {
-        "Name": "DoorCloseAnimation",
+        "Name": "VillageDoorBrownCloseAnimation",
         "Column": 1,
         "Row": 2,
         "Length": 4,
         "Ticks": 10,
         "Width": 16,
-        "Height": 16,
+        "Height": 32,
+        "Paused" : true
+      },
+      {
+        "Name": "VillageDoorBeigeOpenAnimation",
+        "Column": 1,
+        "Row": 3,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 32,
+        "Paused" : true
+      },
+      {
+        "Name": "VillageDoorBeigeCloseAnimation",
+        "Column": 1,
+        "Row": 4,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 32,
         "Paused" : true
       }
     ]
