@@ -14,7 +14,7 @@ getIndex(const std::pair<int, int>& coords, const int& maxX) {
 
 std::optional<int>
 getIndex(const int& x, const int& y, const int& maxX) {
-    if (maxX == 0)
+    if (maxX == 0 || x < 0 || y < 0)
         return std::nullopt;
     auto _x     = static_cast<int>(x);
     auto _y     = static_cast<int>(y);

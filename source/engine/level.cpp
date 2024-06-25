@@ -105,6 +105,7 @@ Engine::movement(const SDL_FPoint& other, const Directions& direction) {
 bool
 Engine::movement(const SDL_FRect& other, const Directions& direction) {
     auto pos = other;
+
     const float threshold = 1.0f;
     switch (direction) {
         case NORTH:
@@ -123,12 +124,14 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
         default:
             break;
     }
-
+    if(pos.x < 0 || pos.y < 0)
+        return false;   //No need to evaluate more
     auto playerX = INT(pos.x / 16.0f);
     auto playerY = INT(pos.y / 16.0f);
 
     const auto index     = Common::getIndex(playerX, playerY, mHeader.Level.SizeX);
-
+    if(!index.has_value())
+        return false;
     if(((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::WALL)) != 0 ) ||
         ((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::OBSTACLE)) != 0 )
         ){
