@@ -32,7 +32,7 @@ Editor::uiHeader() {
                 for(int x = 0; x < sizeX; x++) {
                     //Generating both tiles and visual overlay
                     editorTiles.emplace_back(Tile(x, y, mScale));
-                    visualOverlay[pos++] = VisualTile(x,y,GET_SIMPLE("NumbersWhite"), mScale);
+                    visualOverlay[pos++] = VisualTile(x,y,*GET_SIMPLE("NumbersWhite"), mScale);
                 }
             }
 
@@ -50,10 +50,10 @@ Editor::uiHeader() {
             const auto verticalLength   = tileSizeX * (static_cast<float>(sizeY) + 2.0f);
             const auto horizontalLength = tileSizeY * (static_cast<float>(sizeX) + 2.0f);
             // Adding some visuals so we don't paint outside
-            mEdges.emplace_back(GET_SDL("FF0000"), SDL_FRect{ leftX, topY, tileSizeX, verticalLength });      // Left
-            mEdges.emplace_back(GET_SDL("FF0000"), SDL_FRect{ rightX, topY, tileSizeX, verticalLength });     // Right
-            mEdges.emplace_back(GET_SDL("FF0000"), SDL_FRect{ leftX, topY, horizontalLength, tileSizeY });    // top
-            mEdges.emplace_back(GET_SDL("FF0000"), SDL_FRect{ leftX, bottomY, horizontalLength, tileSizeY }); // bottom
+            mEdges.emplace_back(*GET_SDL("FF0000"), SDL_FRect{ leftX, topY, tileSizeX, verticalLength });      // Left
+            mEdges.emplace_back(*GET_SDL("FF0000"), SDL_FRect{ rightX, topY, tileSizeX, verticalLength });     // Right
+            mEdges.emplace_back(*GET_SDL("FF0000"), SDL_FRect{ leftX, topY, horizontalLength, tileSizeY });    // top
+            mEdges.emplace_back(*GET_SDL("FF0000"), SDL_FRect{ leftX, bottomY, horizontalLength, tileSizeY }); // bottom
         }
     }
     mWindows["Header"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };

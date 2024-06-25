@@ -95,19 +95,19 @@ Engine::startup() {
     mPlayer = std::make_unique<Player::Player>();
 
     mHealth =
-      std::make_unique<Player::Indicator>(mVisibleUI, mPlayerHealth, 36.0f, pRenderer, GET_ANIMATED("Heart"), GET_SIMPLE("NumbersWhite"));
+      std::make_unique<Player::Indicator>(mVisibleUI, mPlayerHealth, 36.0f, pRenderer, *GET_ANIMATED("Heart"), *GET_SIMPLE("NumbersWhite"));
     mEnergy =
-      std::make_unique<Player::Indicator>(mVisibleUI, mPlayerEnergy, 16.0f, pRenderer, GET_ANIMATED("Bolt"), GET_SIMPLE("NumbersWhite"));
+      std::make_unique<Player::Indicator>(mVisibleUI, mPlayerEnergy, 16.0f, pRenderer, *GET_ANIMATED("Bolt"), *GET_SIMPLE("NumbersWhite"));
 
     // Binding player data
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::NORTH, GET_ANIMATED("HumanIdleNorth"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::EAST, GET_ANIMATED("HumanIdleEast"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, GET_ANIMATED("HumanIdleSouth"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::WEST, GET_ANIMATED("HumanIdleWest"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("HumanMovingNorth"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("HumanMovingEast"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, GET_ANIMATED("HumanMovingSouth"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::WEST, GET_ANIMATED("HumanMovingWest"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::NORTH, *GET_ANIMATED("HumanIdleNorth"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::EAST, *GET_ANIMATED("HumanIdleEast"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, *GET_ANIMATED("HumanIdleSouth"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::WEST, *GET_ANIMATED("HumanIdleWest"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::NORTH, *GET_ANIMATED("HumanMovingNorth"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::EAST, *GET_ANIMATED("HumanMovingEast"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, *GET_ANIMATED("HumanMovingSouth"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::WEST, *GET_ANIMATED("HumanMovingWest"));
 
     mPlayer->setDirection(SOUTH);
     mPlayer->setAction(Objects::State::IDLE);
@@ -115,7 +115,7 @@ Engine::startup() {
     pPlayerTexture  = mPlayer->getTexture();
     pPlayerView     = mPlayer->getTextureViewport();
     pPlayerPosition = mPlayer->getTexturePosition();
-    mParticles      = std::make_shared<Objects::Particle>(GET_SDL("FAE2C3"), 100, 0.5f, 0.5f);
+    mParticles      = std::make_shared<Objects::Particle>(*GET_SDL("FAE2C3"), 100, 0.5f, 0.5f);
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
@@ -130,9 +130,9 @@ Engine::startup() {
 
     // Adding a slime
     mMonsters[Monster::SLIME] = new Monster::Slime(50, 0.5f, pPlayerPosition);
-    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::IDLE, Directions::ALL, GET_ANIMATED("SlimeIdle"));
-    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::MOVE, Directions::ALL, GET_ANIMATED("SlimeMoving"));
-    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DYING, Directions::ALL, GET_ANIMATED("SlimeDead"));
+    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::IDLE, Directions::ALL, *GET_ANIMATED("SlimeIdle"));
+    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::MOVE, Directions::ALL, *GET_ANIMATED("SlimeMoving"));
+    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DYING, Directions::ALL, *GET_ANIMATED("SlimeDead"));
 
     // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y, mPlayer->getPlayerCenter());
@@ -151,7 +151,7 @@ Engine::click() {
     auto       angle       = Utility::calculateAngle(player.first, player.second, calculatedX, calculatedY);
     mPlayerEnergy -= 3;
 
-    Objects::typeProjectileStruct setup{ GET_ANIMATED("Fireball"), GET_SDL("RedCircle"), angle, 100, 5.0 };
+    Objects::typeProjectileStruct setup{ *GET_ANIMATED("Fireball"), *GET_SDL("RedCircle"), angle, 100, 5.0 };
 
     mProjectiles.push_back(new Objects::Projectile(setup, { pPlayerPosition->x, pPlayerPosition->y }, pRenderer, mParticles));
 }
@@ -168,7 +168,6 @@ Engine::movePlayer(Directions direction) {
             const auto destination =  warp.getDestination();
             if(warp.getFilename() != mFilename){
                 //Swap map file
-                clearLoadedLevel();
                 loadLevel(warp.getFilename() + ".map");
             }
             mPlayer->spawn(destination.X, destination.Y);
@@ -241,13 +240,13 @@ Engine::mainLoop() {
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
 #ifdef DEBUG_MODE
         // Display interaction area
-        mPerspective->render(GET_SDL("0000FF"), nullptr, mPlayer->getInteractionArea());
+        mPerspective->render(*GET_SDL("0000FF"), nullptr, mPlayer->getInteractionArea());
         // Display player center
         SDL_FRect middle{ mPlayer->getPlayerCenter().x, mPlayer->getPlayerCenter().y, 1.0f, 1.0f };
-        mPerspective->render(GET_SDL("A349A4"), nullptr, &middle);
+        mPerspective->render(*GET_SDL("A349A4"), nullptr, &middle);
         // Displaying spawn point
         SDL_FRect spawn{ mHeader.Level.PlayerX * 16.0f, mHeader.Level.PlayerY * 16.0f, 16.0f, 16.0f };
-        mPerspective->render(GET_SDL("A349A4"), nullptr, &spawn);
+        mPerspective->render(*GET_SDL("A349A4"), nullptr, &spawn);
 #endif
 
         monsters();
@@ -281,7 +280,7 @@ Engine::projectiles() {
                 (*it2)->damageMonster(damage);
                 // Display the damage
                 mNumbers.push_back(
-                  Graphics::Number({ (*it2)->getPosition()->x, (*it2)->getPosition()->y }, damage, 100, GET_SIMPLE("NumbersWhite"), 0.5f));
+                  Graphics::Number({ (*it2)->getPosition()->x, (*it2)->getPosition()->y }, damage, 100, *GET_SIMPLE("NumbersWhite"), 0.5f));
                 removed = true;
                 break;
             } else

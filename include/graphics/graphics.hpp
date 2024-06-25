@@ -51,17 +51,18 @@ class Graphics {
     };
 
     template<typename T>
-    T& getTexture(const std::string& name) {
+    T* getTexture(const std::string& name) {
         auto it = mGraphics.find(name);
         if (it != mGraphics.end()) {
             try {
-                return std::any_cast<T&>(it->second.Texture);
+                return std::any_cast<T>(&it->second.Texture);
             } catch (const std::bad_any_cast& e) {
                 std::cerr << name << std::endl;
                 throw std::runtime_error(e.what());
             }
         } else
-            throw std::out_of_range(name);
+            std::cerr << "Cant locate " << name << std::endl;
+        return nullptr;
     }
 
     template<typename T>

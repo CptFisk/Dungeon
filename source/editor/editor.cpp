@@ -216,7 +216,7 @@ Editor::click() {
     const auto x = mActionManager->mouseX;
     const auto y = mActionManager->mouseY;
     if (fileTiles.Size != 0 && !clickOnUi(x, y)) {
-        const auto clickCoord = Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale);
+        const auto clickCoord = Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), FLOAT(y) + (mOffset.Y / -1.0f), mScale);
 
         clickedCoord.first  = clickCoord.first;  // To display coords
         clickedCoord.second = clickCoord.second; // To display coords
@@ -235,22 +235,26 @@ Editor::click() {
                     int          w;
                     int          h;
                     if (mSelectedTexture.first == Graphics::TextureTypes::SIMPLE_TEXTURE) {
-                        auto& simpleTexture = GET_SIMPLE(mSelectedTexture.second);
-                        w                   = simpleTexture.Width;
-                        h                   = simpleTexture.Height;
-                        texture             = simpleTexture.getTexture();
-                        viewport            = &simpleTexture.getRandomView();
+                        auto simpleTexture = GET_SIMPLE(mSelectedTexture.second);
+                        if (simpleTexture == nullptr)
+                            return;
+                        w        = simpleTexture->Width;
+                        h        = simpleTexture->Height;
+                        texture  = simpleTexture->getTexture();
+                        viewport = &simpleTexture->getRandomView();
                         fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::TEXTURE);
                     } else {
-                        auto& animatedTexture = GET_ANIMATED(mSelectedTexture.second);
-                        w                     = animatedTexture->Width;
-                        h                     = animatedTexture->Height;
-                        texture               = animatedTexture->getTexture();
-                        viewport              = animatedTexture->getViewport();
+                        auto animatedTexture = GET_ANIMATED(mSelectedTexture.second);
+                        if (animatedTexture == nullptr)
+                            return;
+                        w        = (*animatedTexture)->Width;
+                        h        = (*animatedTexture)->Height;
+                        texture  = (*animatedTexture)->getTexture();
+                        viewport = (*animatedTexture)->getViewport();
 
                         // Check if this value is higher than previous
                         animationValues[mSelectedTexture.second] =
-                          static_cast<int>(animatedTexture->getViewports().size() * animatedTexture->getTicks());
+                          static_cast<int>((*animatedTexture)->getViewports().size() * (*animatedTexture)->getTicks());
 
                         fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE);
                     }
@@ -283,18 +287,18 @@ Editor::click() {
 
                 case Mouse::WALL:
                     fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::WALL);
-                    visualOverlay[pos].newOverlay(GET_SDL("87ED17"));
+                    visualOverlay[pos].newOverlay(*GET_SDL("87ED17"));
                     break;
                 case Mouse::OBSTACLE:
                     fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::OBSTACLE);
-                    visualOverlay[pos].newOverlay(GET_SDL("1D35FA"));
+                    visualOverlay[pos].newOverlay(*GET_SDL("1D35FA"));
                     break;
                 case Mouse::PLAYER_SPAWN: {
-                    auto coords              = Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale);
-                    mPlayerSpawn.x           = static_cast<float>(coords.first) * 16.0f * mScale.factorX;
-                    mPlayerSpawn.y           = static_cast<float>(coords.second) * 16.0f * mScale.factorY;
-                    mPlayerSpawn.w           = 16.0f * mScale.factorX;
-                    mPlayerSpawn.h           = 16.0f * mScale.factorY;
+                    auto coords    = Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), FLOAT(y) + (mOffset.Y / -1.0f), mScale);
+                    mPlayerSpawn.x = static_cast<float>(coords.first) * 16.0f * mScale.factorX;
+                    mPlayerSpawn.y = static_cast<float>(coords.second) * 16.0f * mScale.factorY;
+                    mPlayerSpawn.w = 16.0f * mScale.factorX;
+                    mPlayerSpawn.h = 16.0f * mScale.factorY;
                     fileHeader.Level.PlayerX = coords.first;
                     fileHeader.Level.PlayerY = coords.second;
                 } break;

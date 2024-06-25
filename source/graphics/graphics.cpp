@@ -18,19 +18,19 @@ Graphics::~Graphics() {
     for (auto& [name, data] : mGraphics) {
         switch (data.Type) {
             case TextureTypes::SDL_TEXTURE:
-                SDL_DestroyTexture(getTexture<SDL_Texture*>(name));
+                SDL_DestroyTexture(*getTexture<SDL_Texture*>(name));
                 break;
             case TextureTypes::TEXT:
-                SDL_DestroyTexture(getTexture<typeTextTexture>(name).Texture);
+                SDL_DestroyTexture(getTexture<typeTextTexture>(name)->Texture);
                 break;
             case TextureTypes::ANIMATED_TEXTURE: {
                 delete getTexture<AnimatedTexture*>(name);
             } break;
             case TextureTypes::GENERATED_TEXTURE:
-                SDL_DestroyTexture(getTexture<SDL_Texture*>(name));
+                SDL_DestroyTexture(*getTexture<SDL_Texture*>(name));
                 break;
             case TextureTypes::SIMPLE_TEXTURE:
-                SDL_DestroyTexture(getTexture<typeSimpleTexture>(name).Texture);
+                SDL_DestroyTexture(getTexture<typeSimpleTexture>(name)->Texture);
                 break;
         }
     }
@@ -59,7 +59,7 @@ Graphics::generateText(std::string text, const int& size) {
     std::transform(text.begin(), text.end(), text.begin(), [](unsigned char c) { return std::toupper(c); });
     const auto textureName = "text" + text;
     if (mGraphics.find(textureName) != mGraphics.end())
-        return getTexture<typeTextTexture>(textureName);
+        return *getTexture<typeTextTexture>(textureName);
     // Calculate sizes
     const auto length = text.length();
     const auto w      = static_cast<int>(length) * _size;
@@ -72,8 +72,8 @@ Graphics::generateText(std::string text, const int& size) {
     // Set render target to texture instead of screen
     SDL_SetRenderTarget(pRenderer, texture);
 
-    auto alphabet = getTexture<typeSimpleTexture>("LettersWhite").Texture;
-    auto numbers  = getTexture<typeSimpleTexture>("NumbersWhite").Texture;
+    auto alphabet = getTexture<typeSimpleTexture>("LettersWhite")->Texture;
+    auto numbers  = getTexture<typeSimpleTexture>("NumbersWhite")->Texture;
 
     int       pos         = 0;
     SDL_Rect selector    = { 0, 0, 8, 8 };

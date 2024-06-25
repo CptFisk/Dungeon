@@ -61,7 +61,7 @@ Editor::uiTiles() {
                                    FLOAT(door.Y) * 16.0f * mScale.factorY,
                                    16.0f * mScale.factorX,
                                    16.0f * mScale.factorY };
-            mPerspective->render(GET_SDL("A89AE7"), nullptr, &position);
+            mPerspective->render(*GET_SDL("A89AE7"), nullptr, &position);
         }
         for (const auto warp : fileWarps) {
             SDL_FRect oPosition = {
@@ -76,12 +76,12 @@ Editor::uiTiles() {
                 16.0f * mScale.factorX,
                 16.0f * mScale.factorY
             };
-            mPerspective->render(GET_SDL("CF2B0B"), nullptr, &oPosition);
-            mPerspective->render(GET_SDL("8CCFCD"), nullptr, &dPosition);
+            mPerspective->render(*GET_SDL("CF2B0B"), nullptr, &oPosition);
+            mPerspective->render(*GET_SDL("8CCFCD"), nullptr, &dPosition);
         }
 
         // Display player spawn
-        mPerspective->render(GET_SDL("0000FF"), nullptr, &mPlayerSpawn);
+        mPerspective->render(*GET_SDL("0000FF"), nullptr, &mPlayerSpawn);
     }
 }
 }

@@ -21,7 +21,7 @@ class Door {
      * @param closing Animation for door closing
      * @param open Determine the start-state of the door
      */
-    Door(const SDL_FRect& position, Graphics::AnimatedTexture* opening, Graphics::AnimatedTexture* closing, bool open = false);
+    Door(const int& x, const int& y, Graphics::AnimatedTexture* opening, Graphics::AnimatedTexture* closing, bool open = false);
     /**
      * @brief De-constructor that wait for the thread to stop
      */

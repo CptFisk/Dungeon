@@ -16,13 +16,13 @@ struct typeDoorsData {
       : X{}
       , Y{}
       , Condition{}
-      , GraphicOpen("DoorOpenAnimation")
-      , GraphicClosing("DoorCloseAnimation") {}
+      , GraphicOpen("VillageDoorBrownOpenAnimation")
+      , GraphicClosing("VillageDoorBrownCloseAnimation") {}
     typeDoorsData(const uint8_t& x, const uint8_t& y, const std::string& condition)
       : X(x)
       , Y(y)
-      , GraphicOpen("DoorOpenAnimation")
-      , GraphicClosing("DoorCloseAnimation") {}
+      , GraphicOpen("VillageDoorBrownOpenAnimation")
+      , GraphicClosing("VillageDoorBrownCloseAnimation") {}
     typeDoorsData(const uint8_t& x, const uint8_t& y, const std::string& condition, const std::string& open, const std::string& close)
       : X(x)
       , Y(y)
