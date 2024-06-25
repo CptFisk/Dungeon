@@ -24,7 +24,7 @@ Graphics::~Graphics() {
                 SDL_DestroyTexture(getTexture<typeTextTexture>(name)->Texture);
                 break;
             case TextureTypes::ANIMATED_TEXTURE: {
-                delete getTexture<AnimatedTexture*>(name);
+                delete *getTexture<AnimatedTexture*>(name);
             } break;
             case TextureTypes::GENERATED_TEXTURE:
                 SDL_DestroyTexture(*getTexture<SDL_Texture*>(name));
