@@ -1,0 +1,45 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/interior/InteriorTV.png",
+        "Name": "InteriorTVBig",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/interior/InteriorTV.png",
+        "Name": "InteriorTVMedium",
+        "Row": 1,
+        "Column":2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/interior/InteriorTV.png",
+        "Name": "InteriorTVSmall",
+        "Row": 1,
+        "Column": 5,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/interior/InteriorTV.png",
+        "Name": "InteriorTVMini",
+        "Row": 1,
+        "Column": 6,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
