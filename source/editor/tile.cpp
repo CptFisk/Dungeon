@@ -1,7 +1,7 @@
 #include <editor/tile.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <graphics/graphics.hpp>
-
+#include <global.hpp>
 namespace Editor {
 
 Tile::Tile(const int& x, const int& y, const Common::typeScale& scale)
@@ -35,8 +35,8 @@ Tile::addData(const std::string& asset, const std::shared_ptr<Graphics::Graphics
                               SDL_FRect{
                                 xPos,
                                 yPos,
-                                graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Width * scale.factorX,
-                                graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Height * scale.factorY,
+                                FLOAT(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Width) * scale.factorX,
+                                FLOAT(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Height) * scale.factorY,
                               });
             break;
         case Graphics::TextureTypes::ANIMATED_TEXTURE:
@@ -48,8 +48,8 @@ Tile::addData(const std::string& asset, const std::shared_ptr<Graphics::Graphics
                               SDL_FRect{
                                 xPos,
                                 yPos,
-                                (*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Width * scale.factorX,
-                                (*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Height * scale.factorY,
+                                FLOAT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Width) * scale.factorX,
+                                FLOAT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Height) * scale.factorY,
                               });
             break;
         default:;
