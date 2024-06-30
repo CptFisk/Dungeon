@@ -7,7 +7,15 @@ namespace Level::File {
 /**
  * All this types is only used for generating and loading a pre-defined map file.
  */
-enum class TileType : uint8_t { BLANK = 0, TEXTURE = 1 << 0, ANIMATED_TEXTURE = 1 << 1, WALL = 1 << 2, OBSTACLE = 1 << 3 };
+enum class TileType : uint8_t {
+    BLANK            = 0,       //Not defined
+    TEXTURE          = 1 << 0,  //Standard SDL_Texture*
+    ANIMATED_TEXTURE = 1 << 1,  //Class AnimatedTexture
+    WALL             = 1 << 2,  //Blocks all movement
+    OBSTACLE         = 1 << 3,  //Possible to "fly" over
+    UP               = 1 << 4,  //Warp the player down one Z-layer
+    DOWN             = 1 << 5   //Warp the player up one Z-layer
+};
 
 /**
  * @brief Definition of a single tile. A can have multiple properties and they are each stored as a single bit in Type.
