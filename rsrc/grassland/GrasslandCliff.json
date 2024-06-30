@@ -1,0 +1,252 @@
+{
+  "Header": {
+    "Type": "grasslandTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffNW",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffN",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffNE",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffW",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffE",
+        "Row": 2,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffSW",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffSWExtra",
+        "Row": 5,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffSExtra",
+        "Row": 5,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffSEExtra",
+        "Row": 5,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffSWBottom",
+        "Row": 4,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffSBottom",
+        "Row": 4,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffSEBottom",
+        "Row": 4,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffS",
+        "Row": 2,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffSE",
+        "Row": 2,
+        "Column": 3,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffNW2",
+        "Row": 1,
+        "Column": 4,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffNE2",
+        "Row": 1,
+        "Column": 5,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffSW2",
+        "Row": 3,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffSE2",
+        "Row": 3,
+        "Column": 5,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffStair",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 48,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffStairExtra",
+        "Row": 2,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffStairBottom",
+        "Row": 3,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffBridge",
+        "Row": 2,
+        "Column":1,
+        "Length": 1,
+        "Height": 96,
+        "Width": 64
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffTunnel",
+        "Row": 4,
+        "Column":3,
+        "Length": 1,
+        "Height": 48,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffTunnel",
+        "Row": 4,
+        "Column":3,
+        "Length": 1,
+        "Height": 48,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffSWDouble",
+        "Row": 1,
+        "Column": 10,
+        "Length": 1,
+        "Height": 64,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffSDouble",
+        "Row": 1,
+        "Column": 11,
+        "Length": 1,
+        "Height": 64,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandCliff.png",
+        "Name": "GrasslandCliffSEDouble",
+        "Row": 1,
+        "Column": 12,
+        "Length": 1,
+        "Height": 64,
+        "Width": 16
+      }
+    ]
+  }
+}
