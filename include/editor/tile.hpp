@@ -3,6 +3,8 @@
 #include <cmake.hpp>
 #include <common/scale.hpp>
 #include <common/structures.hpp>
+#include <graphicsForward.hpp>
+#include <graphics/structures.hpp>
 #include <vector>
 namespace Editor {
 /**
@@ -26,11 +28,7 @@ class Tile {
 
     [[maybe_unused]] void clear(); // Clear vector
 
-    void addData(SDL_Texture*             texture,
-                 SDL_Rect*                viewport,
-                 const int&             w,
-                 const int&             h,
-                 const Common::typeScale& scale); // Used in editor mode
+    void addData(const std::string& asset,const std::shared_ptr<Graphics::Graphics>& graphics); // Used in editor mode
 
     std::vector<Common::typeDrawData> getDrawData(); // Return all data that should be drawn.
     std::vector<tileData>&            getTileData(); // Return a reference to data
@@ -38,6 +36,7 @@ class Tile {
   protected:
     const float           xPos;
     const float           yPos;
+    const Common::typeScale scale;
     std::vector<tileData> data; // All data that belongs to the tile. This is to allow multiple layers of texture to a base tile
 };
 }

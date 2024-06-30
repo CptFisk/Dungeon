@@ -229,37 +229,8 @@ Editor::click() {
                 case Mouse::TEXTURE: {
                     // Add tile to the list
                     mLevelCoords.emplace(Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
-
-                    SDL_Texture* texture  = {};
-                    SDL_Rect*    viewport = {};
-                    int          w;
-                    int          h;
-                    if (mSelectedTexture.first == Graphics::TextureTypes::SIMPLE_TEXTURE) {
-                        auto simpleTexture = GET_SIMPLE(mSelectedTexture.second);
-                        if (simpleTexture == nullptr)
-                            return;
-                        w        = simpleTexture->Width;
-                        h        = simpleTexture->Height;
-                        texture  = simpleTexture->getTexture();
-                        viewport = &simpleTexture->getRandomView();
-                        fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::TEXTURE);
-                    } else {
-                        auto animatedTexture = GET_ANIMATED(mSelectedTexture.second);
-                        if (animatedTexture == nullptr)
-                            return;
-                        w        = (*animatedTexture)->Width;
-                        h        = (*animatedTexture)->Height;
-                        texture  = (*animatedTexture)->getTexture();
-                        viewport = (*animatedTexture)->getViewport();
-
-                        // Check if this value is higher than previous
-                        animationValues[mSelectedTexture.second] =
-                          static_cast<int>((*animatedTexture)->getViewports().size() * (*animatedTexture)->getTicks());
-
-                        fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE);
-                    }
                     // Add texture to tile
-                    editorTiles[pos].addData(texture, viewport, w, h, mScale);
+                    editorTiles[pos].addData(mSelectedTexture.second, mGraphics);
                     // Increment visual overlay
                     visualOverlay[pos].incrementCounter();
                     // Search if the asset have been used before
@@ -287,11 +258,11 @@ Editor::click() {
 
                 case Mouse::WALL:
                     fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::WALL);
-                    visualOverlay[pos].newOverlay(*GET_SDL("87ED17"));
+                    visualOverlay[pos].newOverlay(*GET_SDL(getMouseColorCode(Mouse::WALL)));
                     break;
                 case Mouse::OBSTACLE:
                     fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::OBSTACLE);
-                    visualOverlay[pos].newOverlay(*GET_SDL("1D35FA"));
+                    visualOverlay[pos].newOverlay(*GET_SDL(getMouseColorCode(Mouse::OBSTACLE)));
                     break;
                 case Mouse::PLAYER_SPAWN: {
                     auto coords    = Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), FLOAT(y) + (mOffset.Y / -1.0f), mScale);
@@ -302,12 +273,12 @@ Editor::click() {
                     fileHeader.Level.PlayerX = coords.first;
                     fileHeader.Level.PlayerY = coords.second;
                 } break;
-                case Mouse::DOORS:
+                case Mouse::DOOR:
                     popupPosition.x = static_cast<float>(x);
                     popupPosition.y = static_cast<float>(y);
                     displayElement("DoorsPopup");
                     break;
-                case Mouse::WARPS:
+                case Mouse::WARP:
                     popupPosition.x = static_cast<float>(x);
                     popupPosition.y = static_cast<float>(y);
                     displayElement("WarpsPopup");

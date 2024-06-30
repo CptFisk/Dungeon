@@ -1,10 +1,13 @@
 #include <editor/tile.hpp>
+#include <graphics/animatedTexture.hpp>
+#include <graphics/graphics.hpp>
 
 namespace Editor {
 
 Tile::Tile(const int& x, const int& y, const Common::typeScale& scale)
   : xPos(static_cast<float>(x) * 16.0f * scale.factorX)
-  , yPos(static_cast<float>(y) * 16.0f * scale.factorY) {}
+  , yPos(static_cast<float>(y) * 16.0f * scale.factorY)
+  , scale(scale) {}
 
 Tile&
 Tile::operator=(const Editor::Tile& other) {
@@ -20,10 +23,38 @@ Tile::clear() {
 }
 
 void
-Tile::addData(SDL_Texture* texture, SDL_Rect* viewport, const int& w, const int& h, const Common::typeScale& scale) {
-    data.emplace_back(texture, viewport, SDL_FRect{ xPos, yPos, w * scale.factorX, h * scale.factorY });
+Tile::addData(const std::string& asset, const std::shared_ptr<Graphics::Graphics>& graphics) {
+    const auto type = graphics->getTextureType(asset);
+    switch (type) {
+        case Graphics::TextureTypes::SIMPLE_TEXTURE:
+            if (graphics->getTexture<Graphics::typeSimpleTexture>(asset) == nullptr)
+                return;
+            // The asset exist and we can use it
+            data.emplace_back(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->getTexture(),
+                              &graphics->getTexture<Graphics::typeSimpleTexture>(asset)->getRandomView(),
+                              SDL_FRect{
+                                xPos,
+                                yPos,
+                                graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Width * scale.factorX,
+                                graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Height * scale.factorY,
+                              });
+            break;
+        case Graphics::TextureTypes::ANIMATED_TEXTURE:
+            if (graphics->getTexture<Graphics::AnimatedTexture*>(asset) == nullptr)
+                return;
+            // The asset exist and we can use it
+            data.emplace_back((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getTexture(),
+                              (*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getViewport(),
+                              SDL_FRect{
+                                xPos,
+                                yPos,
+                                (*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Width * scale.factorX,
+                                (*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Height * scale.factorY,
+                              });
+            break;
+        default:;
+    }
 }
-
 
 std::vector<Common::typeDrawData>
 Tile::getDrawData() {

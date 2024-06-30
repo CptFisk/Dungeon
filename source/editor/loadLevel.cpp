@@ -69,7 +69,7 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
                     } break;
                 }
                 if (exist) {
-                    editorTiles[pos].addData(texture, viewport, w, h, mScale);
+                    editorTiles[pos].addData(data.Assets.Assets[val], mGraphics);
                     visualOverlay[pos].incrementCounter(); // Count up
                     mLevelCoords.emplace(x, y);
                 }

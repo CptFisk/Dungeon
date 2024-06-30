@@ -1,0 +1,100 @@
+{
+  "Header": {
+    "Type": "GeneratedTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "Name": "#C0E6F5",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 192,
+        "Red2": 0,
+        "Green1": 230,
+        "Green2": 0,
+        "Blue1": 245,
+        "Blue2": 0,
+        "Alpha": 80
+      },
+      {
+        "Name": "#FFFF66",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 255,
+        "Red2": 0,
+        "Green1": 255,
+        "Green2": 0,
+        "Blue1": 102,
+        "Blue2": 0,
+        "Alpha": 80
+      },
+      {
+        "Name": "#D86DCD",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 216,
+        "Red2": 0,
+        "Green1": 109,
+        "Green2": 0,
+        "Blue1": 205,
+        "Blue2": 0,
+        "Alpha": 80
+      },
+      {
+        "Name": "#BE5014",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 190,
+        "Red2": 0,
+        "Green1": 80,
+        "Green2": 0,
+        "Blue1": 20,
+        "Blue2": 0,
+        "Alpha": 80
+      },
+      {
+        "Name": "#E8E8E8",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 232,
+        "Red2": 0,
+        "Green1": 232,
+        "Green2": 0,
+        "Blue1": 232,
+        "Blue2": 0,
+        "Alpha": 80
+      },
+      {
+        "Name": "#000000",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 0,
+        "Red2": 0,
+        "Green1": 0,
+        "Green2": 0,
+        "Blue1": 0,
+        "Blue2": 0,
+        "Alpha": 80
+      },
+      {
+        "Name": "#8ED973",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 216,
+        "Red2": 0,
+        "Green1": 217,
+        "Green2": 0,
+        "Blue1": 163,
+        "Blue2": 0,
+        "Alpha": 80
+      }
+    ]
+  }
+}

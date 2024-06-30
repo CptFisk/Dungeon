@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <common/include.hpp>
 #include <common/perspective.hpp>
-#include <editor/structures.hpp>
+#include <editor/mouse.hpp>
 #include <editor/tile.hpp>
 #include <editor/visualTile.hpp>
 #include <global.hpp>

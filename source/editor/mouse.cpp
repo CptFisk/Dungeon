@@ -29,8 +29,8 @@ Editor::uiMouse() {
         BUTTON_COLOR(Mouse::WALL, Wall)
         BUTTON_COLOR(Mouse::OBSTACLE, Obstacle)
         BUTTON_COLOR(Mouse::PLAYER_SPAWN, Player spawn)
-        BUTTON_COLOR(Mouse::DOORS, Doors)
-        BUTTON_COLOR(Mouse::WARPS, Warps)
+        BUTTON_COLOR(Mouse::DOOR, Doors)
+        BUTTON_COLOR(Mouse::WARP, Warps)
         mWindows["Mouse"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::End();
     }
