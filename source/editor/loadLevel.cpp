@@ -32,7 +32,7 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
         for (int x = 0; x < sizeX; x++) {
             const auto tile = tiles.Tiles[pos]; // To keep name short
             // Generating both tiles and visual overlay
-            editorTiles.emplace_back(Tile(x, y, mScale));
+            editorTiles.emplace_back(Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite")));
             visualOverlay[pos] = VisualTile(x, y, *GET_SIMPLE("NumbersWhite"), mScale);
             for (const auto& id : tile.Id) {
                 const auto val  = static_cast<int>(id);

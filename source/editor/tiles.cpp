@@ -42,18 +42,14 @@ Editor::uiTiles() {
         for (int x = minX; x < maxX; x++) {
             auto pos = Common::getIndex(x, y, fileHeader.Level.SizeX);
             if (pos.has_value()) {
-                auto visual = visualOverlay[pos.value()];
                 if (showNumbers) {
-                    auto number = visual.getNumber();
-                    mPerspective->render(number.first, &number.second, &visual.getPosition());
-                }
-                if (showOverlay) {
-                    mPerspective->render(visual.getOverlay(), nullptr, &visual.getPosition());
+                    auto number = editorTiles[pos.value()].getNumbers();
+                    mPerspective->render(number.Texture, number.Viewport, &number.Position);
                 }
             }
         }
     }
-
+    /*
     if (showOverlay) {
         // Doors are drawn outside
         for (const auto& door : fileDoors) {
@@ -83,5 +79,6 @@ Editor::uiTiles() {
         // Display player spawn
         mPerspective->render(*GET_SDL("0000FF"), nullptr, &mPlayerSpawn);
     }
+     */
 }
 }

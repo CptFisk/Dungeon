@@ -1,13 +1,14 @@
 #include <editor/tile.hpp>
+#include <global.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <graphics/graphics.hpp>
-#include <global.hpp>
 namespace Editor {
 
-Tile::Tile(const int& x, const int& y, const Common::typeScale& scale)
+Tile::Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics::typeSimpleTexture& number)
   : xPos(static_cast<float>(x) * 16.0f * scale.factorX)
   , yPos(static_cast<float>(y) * 16.0f * scale.factorY)
-  , scale(scale) {}
+  , scale(scale)
+  , numbers(number) {}
 
 Tile&
 Tile::operator=(const Editor::Tile& other) {
@@ -56,6 +57,11 @@ Tile::addData(const std::string& asset, const std::shared_ptr<Graphics::Graphics
     }
 }
 
+void
+Tile::addOverlay(SDL_Texture* overlay) {
+    overlays.emplace_back(overlay);
+}
+
 std::vector<Common::typeDrawData>
 Tile::getDrawData() {
     std::vector<Common::typeDrawData> ret;
@@ -67,6 +73,11 @@ Tile::getDrawData() {
 std::vector<tileData>&
 Tile::getTileData() {
     return data;
+}
+
+tileData
+Tile::getNumbers() {
+    return { numbers.getTexture(), &numbers.getView(data.size()), SDL_FRect{ xPos, yPos, 16.0f * scale.factorX, 16.0f * scale.factorY } };
 }
 
 }

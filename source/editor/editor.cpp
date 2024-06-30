@@ -228,11 +228,9 @@ Editor::click() {
             switch (mMouse) {
                 case Mouse::TEXTURE: {
                     // Add tile to the list
-                    mLevelCoords.emplace(Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
+                    mLevelCoords.emplace(Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
                     // Add texture to tile
                     editorTiles[pos].addData(mSelectedTexture.second, mGraphics);
-                    // Increment visual overlay
-                    visualOverlay[pos].incrementCounter();
                     // Search if the asset have been used before
                     const auto id = Level::File::findAsset(mSelectedTexture.second, fileAssets);
                     if (id.has_value())
