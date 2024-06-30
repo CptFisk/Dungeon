@@ -1,0 +1,45 @@
+{
+  "Header": {
+    "Type": "grasslandTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/grassland/GrasslandBush.png",
+        "Name": "GrasslandBushGreen",
+        "Row": 1,
+        "Column": 1,
+        "Length": 6,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandBush.png",
+        "Name": "GrasslandBushLightGreen",
+        "Row": 2,
+        "Column": 1,
+        "Length": 6,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandBush.png",
+        "Name": "GrasslandBushDarkGreen",
+        "Row": 3,
+        "Column": 1,
+        "Length": 6,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandBush.png",
+        "Name": "GrasslandBushBlue",
+        "Row": 4,
+        "Column": 1,
+        "Length": 6,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}

@@ -42,7 +42,8 @@ class Tile {
     [[nodiscard]] Common::typeDrawData              getNumbers();  // Return a graphic that display the number of graphics used
     [[nodiscard]] Common::typeDrawData              getOverlay();
 
-    bool elementExist(SDL_Texture* texture) const;
+    bool   elementExist(SDL_Texture* texture) const;
+    size_t removeElement(SDL_Texture* texture);
 
   private:
   protected:

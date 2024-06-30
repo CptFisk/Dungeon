@@ -1,0 +1,27 @@
+{
+  "Header": {
+    "Type": "grasslandTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/grassland/GrasslandMushroom.png",
+        "Name": "GrasslandMushroomRed",
+        "Row": 1,
+        "Column": 1,
+        "Length": 6,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandMushroom.png",
+        "Name": "GrasslandMushroomPurple",
+        "Row": 2,
+        "Column":1,
+        "Length": 6,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}

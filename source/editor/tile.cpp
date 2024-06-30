@@ -115,4 +115,17 @@ Tile::elementExist(SDL_Texture* texture) const {
     return it != data.end() ? true : false;
 }
 
+size_t
+Tile::removeElement(SDL_Texture* texture) {
+    const auto size = data.size();
+    for(auto it = data.begin(); it != data.end(); ){
+        if((*it).Texture == texture){
+            it= data.erase(it);
+        }else{
+            ++it;
+        }
+    }
+    return size - data.size();
+}
+
 }
