@@ -5,17 +5,13 @@
 namespace Editor{
 
 void Editor::removeSpecificTexture(const std::string& name) {
+    bool exist = false;
     auto texture =  GET_SIMPLE(name);
     if(texture == nullptr)
         return;
     for(auto &tile : editorTiles){
-        for(auto it = tile.getTileData().begin(); it != tile.getTileData().end();){
-            if((*it).Texture == texture->Texture){
-                it = tile.getTileData().erase(it);
-            }else{
-                ++it;
-            }
-        }
+        if(tile->elementExist(texture->Texture))
+            exist = true;
     }
 }
 

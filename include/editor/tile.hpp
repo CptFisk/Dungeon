@@ -6,6 +6,7 @@
 #include <graphics/structures.hpp>
 #include <graphics/types/simpleTexture.hpp>
 #include <graphicsForward.hpp>
+#include <set>
 #include <vector>
 
 namespace Editor {
@@ -23,30 +24,37 @@ struct tileData {
  */
 class Tile {
   public:
-    Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics::typeSimpleTexture& number); // Used in editor mode
-    ~Tile() = default;
+    Tile(const int&                   x,
+         const int&                   y,
+         const Common::typeScale&     scale,
+         Graphics::typeSimpleTexture& number,
+         SDL_Renderer*                renderer); // Used in editor mode
+    ~Tile();
 
     Tile& operator=(const Tile& other); // Operator overload
 
     [[maybe_unused]] void clear(); // Clear vector
 
-    void addData(const std::string& asset, const std::shared_ptr<Graphics::Graphics>& graphics); // Used in editor mode
+    bool addData(const std::string& asset, const std::shared_ptr<Graphics::Graphics>& graphics); // Used in editor mode
     void addOverlay(SDL_Texture* overlay);
 
-    std::vector<Common::typeDrawData> getDrawData(); // Return all data that should be drawn.
-    std::vector<tileData>&            getTileData(); // Return a reference to data
-    Common::typeDrawData              getNumbers();  // Return a graphic that display the number of graphics used
+    [[nodiscard]] std::vector<Common::typeDrawData> getDrawData(); // Return all data that should be drawn.
+    [[nodiscard]] Common::typeDrawData              getNumbers();  // Return a graphic that display the number of graphics used
+    [[nodiscard]] Common::typeDrawData              getOverlay();
+
+    bool elementExist(SDL_Texture* texture) const;
 
   private:
   protected:
+    SDL_Renderer*           pRenderer;        // Used for generating overlays
     const float             xPos;             // Position in map
     const float             yPos;             // Position in map
-    SDL_FRect         standardPosition; // Position on the map
+    SDL_FRect               standardPosition; // Position on the map
     const Common::typeScale scale;            // Scale of resolution
+    std::set<SDL_Texture*>  overlays;         // All overlays
 
-    Graphics::typeSimpleTexture& numbers; // Graphics to hold numbers
-
-    std::vector<tileData>     data;     // All data that belongs to the tile. This is to allow multiple layers of texture to a base tile
-    std::vector<SDL_Texture*> overlays; // All overlays
+    Graphics::typeSimpleTexture&      numbers; // Graphics to hold numbers
+    std::vector<Common::typeDrawData> data; // All data that belongs to the tile. This is to allow multiple layers of texture to a base tile
+    Common::typeDrawData              mOverlay; // Overlay
 };
 }

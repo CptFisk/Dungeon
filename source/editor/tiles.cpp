@@ -26,7 +26,7 @@ Editor::uiTiles() {
                 const auto pos = Common::getIndex(x, y, fileHeader.Level.SizeX);
                 // Check if valid position
                 if (pos.has_value()) {
-                    const auto drawData = editorTiles[pos.value()].getDrawData();
+                    const auto drawData = editorTiles[pos.value()]->getDrawData();
                     if (INT(drawData.size() - 1) == layer) {
                         mPerspective->render(drawData[layer].Texture, drawData[layer].Viewport, drawData[layer].Position);
                     } else if (INT(drawData.size()) > layer) {
@@ -43,7 +43,7 @@ Editor::uiTiles() {
             auto pos = Common::getIndex(x, y, fileHeader.Level.SizeX);
             if (pos.has_value()) {
                 if (showNumbers) {
-                    auto number = editorTiles[pos.value()].getNumbers();
+                    auto number = editorTiles[pos.value()]->getNumbers();
                     mPerspective->render(number.Texture, number.Viewport, number.Position);
                 }
             }

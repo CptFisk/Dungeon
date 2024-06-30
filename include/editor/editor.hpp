@@ -128,8 +128,7 @@ class Editor {
     std::vector<Level::File::typeDoorsData> fileDoors; // Contains all doors
     std::vector<Level::File::typeWarpData>  fileWarps;
 
-    std::vector<Tile>                    editorTiles;   // All tiles in the game.
-    std::unordered_map<int, VisualTile>  visualOverlay; // Overlay that display the type
+    std::vector<Tile*>                    editorTiles;   // All tiles in the game.
     std::unordered_map<std::string, int> animationValues;
     std::pair<int, int>                  clickedCoord;
 

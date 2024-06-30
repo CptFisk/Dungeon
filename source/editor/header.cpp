@@ -24,6 +24,9 @@ Editor::uiHeader() {
             const auto size  = sizeX * sizeY; // Total size
 
             fileTiles = Level::File::typeTiles(size);
+            for(auto& tile : editorTiles){
+                delete tile;
+            }
             editorTiles.clear();
             // Setting up all tiles
 
@@ -31,8 +34,7 @@ Editor::uiHeader() {
             for(int y = 0; y < sizeY; y++){
                 for(int x = 0; x < sizeX; x++) {
                     //Generating both tiles and visual overlay
-                    editorTiles.emplace_back(Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite")));
-                    visualOverlay[pos++] = VisualTile(x,y,*GET_SIMPLE("NumbersWhite"), mScale);
+                    editorTiles.emplace_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
                 }
             }
 
