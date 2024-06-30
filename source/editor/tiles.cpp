@@ -46,6 +46,10 @@ Editor::uiTiles() {
                     auto number = editorTiles[pos.value()]->getNumbers();
                     mPerspective->render(number.Texture, number.Viewport, number.Position);
                 }
+                if(showOverlay){
+                    auto overlay = editorTiles[pos.value()]->getOverlay();
+                    mPerspective->render(overlay.Texture, overlay.Viewport, overlay.Position);
+                }
             }
         }
     }
