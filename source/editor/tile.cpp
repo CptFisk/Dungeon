@@ -8,7 +8,8 @@ Tile::Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics:
   : xPos(static_cast<float>(x) * 16.0f * scale.factorX)
   , yPos(static_cast<float>(y) * 16.0f * scale.factorY)
   , scale(scale)
-  , numbers(number) {}
+  , numbers(number)
+  , standardPosition(xPos, yPos, 16.0f * scale.factorX, 16.0f* scale.factorY) {}
 
 Tile&
 Tile::operator=(const Editor::Tile& other) {
@@ -75,9 +76,9 @@ Tile::getTileData() {
     return data;
 }
 
-tileData
+Common::typeDrawData
 Tile::getNumbers() {
-    return { numbers.getTexture(), &numbers.getView(data.size()), SDL_FRect{ xPos, yPos, 16.0f * scale.factorX, 16.0f * scale.factorY } };
+    return {numbers.getTexture(), &numbers.getView(data.size()), &standardPosition};
 }
 
 }

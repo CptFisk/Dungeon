@@ -35,13 +35,14 @@ class Tile {
 
     std::vector<Common::typeDrawData> getDrawData(); // Return all data that should be drawn.
     std::vector<tileData>&            getTileData(); // Return a reference to data
-    tileData             getNumbers();  // Return a graphic that display the number of graphics used
+    Common::typeDrawData              getNumbers();  // Return a graphic that display the number of graphics used
 
   private:
   protected:
-    const float             xPos;  // Position in map
-    const float             yPos;  // Position in map
-    const Common::typeScale scale; // Scale of resolution
+    const float             xPos;             // Position in map
+    const float             yPos;             // Position in map
+    SDL_FRect         standardPosition; // Position on the map
+    const Common::typeScale scale;            // Scale of resolution
 
     Graphics::typeSimpleTexture& numbers; // Graphics to hold numbers
 

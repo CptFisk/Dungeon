@@ -44,7 +44,7 @@ Editor::uiTiles() {
             if (pos.has_value()) {
                 if (showNumbers) {
                     auto number = editorTiles[pos.value()].getNumbers();
-                    mPerspective->render(number.Texture, number.Viewport, &number.Position);
+                    mPerspective->render(number.Texture, number.Viewport, number.Position);
                 }
             }
         }
