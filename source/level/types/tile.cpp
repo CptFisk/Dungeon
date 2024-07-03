@@ -1,11 +1,11 @@
-#include <level/types/tile.hpp>
-#include <iostream>
 #include <global.hpp>
+#include <iostream>
+#include <level/types/tile.hpp>
 
-namespace Level::File{
+namespace Level::File {
 
 void
-readTileData(std::ifstream& file, typeTiles& data){
+readTileData(std::ifstream& file, typeTiles& data) {
     uint16_t readSize;
 
     file.read(reinterpret_cast<char*>(&readSize), sizeof(readSize));
@@ -23,7 +23,7 @@ readTileData(std::ifstream& file, typeTiles& data){
                 tileData.Id.emplace_back(id);
             }
             tiles.Tiles[i] = tileData;
-        }catch(...){
+        } catch (...) {
             std::cerr << "Error reading tiles" << std::endl;
         }
     }
@@ -31,12 +31,11 @@ readTileData(std::ifstream& file, typeTiles& data){
 }
 
 void
-writeTileData(std::ofstream& file, const typeTiles& data){
-    //Write the size first
-    file.write(reinterpret_cast<const char*>(&data.Size), sizeof(uint16_t));
-
-    for (const auto& tile : data.Tiles) {
-        try {
+writeTileData(std::ofstream& file, const typeTiles& data) {
+    try {
+        // Write normal tiles first
+        file.write(reinterpret_cast<const char*>(&data.TileSize), sizeof(uint16_t));
+        for (const auto& tile : data.Tiles) {
             // First we write the type
             file.write(reinterpret_cast<const char*>(&tile.Type), sizeof(tile.Type));
             // Write how big the array is
@@ -45,9 +44,14 @@ writeTileData(std::ofstream& file, const typeTiles& data){
             // Writing all ID:s
             for (const auto id : tile.Id)
                 file.write(reinterpret_cast<const char*>(&id), sizeof(id));
-        }catch(...){
-            std::cerr << "Error writing tiles" << std::endl;
         }
+        //Write layer data
+        file.write(reinterpret_cast<const char*>(&data.LayerSize), sizeof(uint16_t));
+        for (const auto& layer : data.TopLayer) {
+            file.write(reinterpret_cast<const char*>(&layer), sizeof(uint16_t));
+        }
+    } catch (...) {
+        std::cerr << "Error writing tiles" << std::endl;
     }
 }
 

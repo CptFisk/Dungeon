@@ -16,7 +16,8 @@ enum class Mouse {
     OBSTACLE,     // Make an obstacle
     PLAYER_SPAWN, // Set player spawn
     DOOR,         // Create a door
-    WARP          // Create a warp-zone.
+    WARP,          // Create a warp-zone.
+    TOP_LAYER      //Layer that the player can walk under
 };
 
 /**

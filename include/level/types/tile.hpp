@@ -8,13 +8,13 @@ namespace Level::File {
  * All this types is only used for generating and loading a pre-defined map file.
  */
 enum class TileType : uint8_t {
-    BLANK            = 0,       //Not defined
-    TEXTURE          = 1 << 0,  //Standard SDL_Texture*
-    ANIMATED_TEXTURE = 1 << 1,  //Class AnimatedTexture
-    WALL             = 1 << 2,  //Blocks all movement
-    OBSTACLE         = 1 << 3,  //Possible to "fly" over
-    UP               = 1 << 4,  //Warp the player down one Z-layer
-    DOWN             = 1 << 5   //Warp the player up one Z-layer
+    BLANK            = 0,      // Not defined
+    TEXTURE          = 1 << 0, // Standard SDL_Texture*
+    ANIMATED_TEXTURE = 1 << 1, // Class AnimatedTexture
+    WALL             = 1 << 2, // Blocks all movement
+    OBSTACLE         = 1 << 3, // Possible to "fly" over
+    UP               = 1 << 4, // Warp the player down one Z-layer
+    DOWN             = 1 << 5  // Warp the player up one Z-layer
 };
 
 /**
@@ -34,15 +34,20 @@ struct typeTileData {
  * @var Tiles Contains all the tiles.
  */
 struct typeTiles {
-    uint16_t                  Size; // Number of tiles defined
+    uint16_t                  TileSize; // Number of tiles defined
     std::vector<typeTileData> Tiles;
+    uint16_t                  LayerSize;
+    std::vector<uint8_t>      TopLayer;
 
-    typeTiles() = default;
+    typeTiles()
+      : TileSize(0)
+      , LayerSize(0) {}
 
-    // Constructor
     explicit typeTiles(uint16_t size)
-      : Size(size) {
+      : TileSize(size)
+      , LayerSize(size) {
         Tiles.resize(size);
+        TopLayer.resize(size);
     }
 };
 

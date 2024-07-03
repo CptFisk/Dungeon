@@ -33,7 +33,7 @@ readLevelData(const std::string& filename) {
         throw std::runtime_error("Cant load file");
     typeHeader                 header = {};
     typeAssets                 assets;
-    typeTiles                  tiles;
+    typeTiles                  tiles = {};
     std::vector<typeDoorsData> doors;
     std::vector<typeWarpData>  warps;
     uint16_t                   readSize; // Used to store sizes of objects

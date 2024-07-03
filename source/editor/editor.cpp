@@ -21,7 +21,7 @@ Editor::Editor(const int& w, const int& h)
   , showNumbers(false)
   , showOverlay(false)
   , showGrid(false)
-  , fileTiles(0)
+  , fileTiles{}
   , editorTiles{}
   , mScale{}
   , mHideAllWindows(false)
@@ -219,7 +219,7 @@ void
 Editor::click() {
     const auto x = mActionManager->mouseX;
     const auto y = mActionManager->mouseY;
-    if (fileTiles.Size != 0 && !clickOnUi(x, y)) {
+    if (fileTiles.TileSize != 0 && !clickOnUi(x, y)) {
         const auto clickCoord = Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), FLOAT(y) + (mOffset.Y / -1.0f), mScale);
 
         clickedCoord.first  = clickCoord.first;  // To display coords
