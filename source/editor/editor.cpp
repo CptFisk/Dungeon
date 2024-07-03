@@ -32,8 +32,8 @@ Editor::Editor(const int& w, const int& h)
   , mPlayerSpawn{} {}
 
 Editor::~Editor() {
-    //Clear all tiles
-    for(auto& tile : editorTiles){
+    // Clear all tiles
+    for (auto& tile : editorTiles) {
         delete tile;
     }
 
@@ -84,7 +84,7 @@ Editor::startup() {
 
     mElements["TopMenu"]    = [this]() { uiMenu(); };
     mElements["Tiles"]      = [this]() { uiTiles(); };
-    mElements["Header"]     = [this]() { uiHeader(); };
+    mElements["Header"]     = [this]() { uiHeader(mWindows["Header"], mWindowOpen["Header"], fileHeader); };
     mElements["Assets"]     = [this]() { uiAssets(); };
     mElements["Mouse"]      = [this]() { uiMouse(mWindows["Mouse"], mWindowOpen["Mouse"]); };
     mElements["Textures"]   = [this]() { uiTexture(); };
