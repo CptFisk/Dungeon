@@ -46,6 +46,8 @@ getMouseColorCode(const Mouse& mouse) {
             return "#000000";
         case Mouse::WARP:
             return "#8ED973";
+        case Mouse::TOP_LAYER:
+            return "#8960CF";
         default:
             return "";
     }

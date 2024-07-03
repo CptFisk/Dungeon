@@ -242,7 +242,6 @@ Editor::click() {
                         fileTiles.Tiles[pos].Base.emplace_back(id.value());
                     else
                         fileTiles.Tiles[pos].Base.emplace_back(Level::File::addAsset(mSelectedTexture.second, fileAssets));
-
                 } break;
                 case Mouse::REMOVE:
                     editorTiles[pos]->clear(); // Clear the vector

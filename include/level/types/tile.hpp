@@ -24,7 +24,7 @@ enum class TileType : uint8_t {
 struct typeTileData {
     uint8_t              Type;    // Tiletype
     std::vector<uint8_t> Base;    // Assets for base texture
-    std::vector<uint8_t> Overlay; // Assets for overlays
+    std::vector<uint8_t> Top; // Assets for overlays
     typeTileData()
       : Type(0){};
 };

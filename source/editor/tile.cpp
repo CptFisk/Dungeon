@@ -18,7 +18,7 @@ Tile::Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics:
     // Setup overlay
     mOverlay.Texture = SDL_CreateTexture(
       renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, INT(16.0f * scale.factorX), INT(16.0f * scale.factorY));
-    if(mOverlay.Texture == nullptr)
+    if (mOverlay.Texture == nullptr)
         std::cout << "Error in creating texture" << std::endl;
     mOverlay.Position = &standardPosition;
     mOverlay.Viewport = nullptr;
@@ -86,10 +86,26 @@ Tile::addData(const std::string& asset, const std::shared_ptr<Graphics::Graphics
 
 void
 Tile::addOverlay(SDL_Texture* overlay) {
+    SDL_FRect destination;
     if (overlays.empty()) {
         SDL_SetRenderTarget(pRenderer, mOverlay.Texture);
         SDL_RenderCopyF(pRenderer, overlay, nullptr, nullptr);
         SDL_SetRenderTarget(pRenderer, nullptr);
+    } else {
+        switch (overlays.size()) {
+            case 1:
+                SDL_SetRenderTarget(pRenderer, mOverlay.Texture);
+                destination = SDL_FRect{ 0.0f, 8.0f * scale.factorY, 16.0f * scale.factorX, 8.0f * scale.factorY };
+                SDL_RenderCopyF(pRenderer, overlay, nullptr, &destination);
+                SDL_SetRenderTarget(pRenderer, nullptr);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+        }
     }
     overlays.insert(overlay);
 }
@@ -118,10 +134,10 @@ Tile::elementExist(SDL_Texture* texture) const {
 size_t
 Tile::removeElement(SDL_Texture* texture) {
     const auto size = data.size();
-    for(auto it = data.begin(); it != data.end(); ){
-        if((*it).Texture == texture){
-            it= data.erase(it);
-        }else{
+    for (auto it = data.begin(); it != data.end();) {
+        if ((*it).Texture == texture) {
+            it = data.erase(it);
+        } else {
             ++it;
         }
     }

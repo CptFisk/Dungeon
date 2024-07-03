@@ -17,18 +17,18 @@ readTileData(std::ifstream& file, typeTiles& data) {
             file.read(reinterpret_cast<char*>(&tileData), sizeof(tileData.Type));
             uint8_t size;
             file.read(reinterpret_cast<char*>(&size), sizeof(size));
-            //Read base assets
+            // Read base assets
             for (int j = 0; j < size; j++) {
                 uint8_t id;
                 file.read(reinterpret_cast<char*>(&id), sizeof(id));
                 tileData.Base.emplace_back(id);
             }
             file.read(reinterpret_cast<char*>(&size), sizeof(size));
-            //Read overlays
-            for(int j = 0; j < size; j++){
+            // Read overlays
+            for (int j = 0; j < size; j++) {
                 uint8_t id;
                 file.read(reinterpret_cast<char*>(&id), sizeof(id));
-                tileData.Overlay.emplace_back(id);
+                tileData.Top.emplace_back(id);
             }
             tiles.Tiles[i] = tileData;
         } catch (...) {
@@ -53,9 +53,9 @@ writeTileData(std::ofstream& file, const typeTiles& data) {
             for (const auto id : tile.Base)
                 file.write(reinterpret_cast<const char*>(&id), sizeof(id));
 
-            const auto overlayLength = UINT8(tile.Overlay.size());
+            const auto overlayLength = UINT8(tile.Top.size());
             file.write(reinterpret_cast<const char*>(&overlayLength), sizeof(overlayLength));
-            for(const auto id : tile.Overlay)
+            for (const auto id : tile.Top)
                 file.write(reinterpret_cast<const char*>(&id), sizeof(id));
         }
     } catch (...) {
