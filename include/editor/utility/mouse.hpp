@@ -51,4 +51,8 @@ getMouseColorCode(const Mouse& mouse) {
     }
 }
 
+void mouseButton(Mouse& current, const Mouse& state, const std::string& text);
+
+
+
 }

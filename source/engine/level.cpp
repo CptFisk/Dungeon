@@ -53,17 +53,17 @@ Engine::loadLevel(const std::string& filename) {
 
         if (((it->Type & static_cast<uint8_t>(Level::File::TileType::TEXTURE)) != 0 ||
              ((it->Type & static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE)) != 0)) &&
-            !it->Id.empty()) {
-            auto       id    = static_cast<int>(it->Id.front());
+            !it->Base.empty()) {
+            auto       id    = static_cast<int>(it->Base.front());
             const auto asset = data.Assets.Assets[id];
             if (asset == "VillageHouseBaseMedium") {
                 int a = 20;
             }
             addToSegment(pos, asset);
 
-            it->Id.erase(it->Id.begin()); // Remove this element, it has been displayed
+            it->Base.erase(it->Base.begin()); // Remove this element, it has been displayed
 
-            if (!it->Id.empty()) {
+            if (!it->Base.empty()) {
                 layersLeft = true; // There is more
             }
         }

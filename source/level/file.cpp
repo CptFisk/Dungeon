@@ -87,9 +87,9 @@ removeAsset(const std::string& assetName, typeAssets& map, Level::File::typeTile
     // The asset was found, and we know the ID. Now we have to remove it from the
     for (auto& tile : fileTiles.Tiles) {
         // Loop all the different id's that exist
-        for (auto it = tile.Id.begin(); it != tile.Id.end();) {
+        for (auto it = tile.Base.begin(); it != tile.Base.end();) {
             if (*it == assetId) {
-                it = tile.Id.erase(it);
+                it = tile.Base.erase(it);
             } else if (*it > assetId) {
                 --(*it);
                 ++it;

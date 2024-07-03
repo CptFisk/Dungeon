@@ -36,7 +36,7 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
             const auto tile = tiles.Tiles[pos]; // To keep name short
             // Generating both tiles and visual overlay
             editorTiles.push_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
-            for (const auto& id : tile.Id) {
+            for (const auto& id : tile.Base) {
                 if(editorTiles[pos]->addData(data.Assets.Assets[INT(id)], mGraphics))
                     mLevelCoords.emplace(x, y);
             }

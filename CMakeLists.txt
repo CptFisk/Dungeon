@@ -99,7 +99,7 @@ else ()
             ${CMAKE_SOURCE_DIR}/source/editor/visualTile.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/loadLevel.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/ui.cpp
-            ${CMAKE_SOURCE_DIR}/source/editor/mouse.cpp
+
             ${CMAKE_SOURCE_DIR}/source/editor/menu.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/header.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/assets.cpp
@@ -109,6 +109,8 @@ else ()
             ${CMAKE_SOURCE_DIR}/source/editor/tile.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/doors.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/warps.cpp
+
+            ${CMAKE_SOURCE_DIR}/source/editor/utility/mouse.cpp
     )
 endif ()
 

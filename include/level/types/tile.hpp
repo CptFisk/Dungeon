@@ -22,8 +22,9 @@ enum class TileType : uint8_t {
  * @brief The element Id contains a list of all Assets that is used. Since a tile can have multiple assets linked to it.
  */
 struct typeTileData {
-    uint8_t              Type; // Tiletype
-    std::vector<uint8_t> Id;   // Reference to assets. Drawn from bottom to top
+    uint8_t              Type;    // Tiletype
+    std::vector<uint8_t> Base;    // Assets for base texture
+    std::vector<uint8_t> Overlay; // Assets for overlays
     typeTileData()
       : Type(0){};
 };
@@ -34,20 +35,15 @@ struct typeTileData {
  * @var Tiles Contains all the tiles.
  */
 struct typeTiles {
-    uint16_t                  TileSize; // Number of tiles defined
+    uint16_t                  Size; // Number of tiles defined
     std::vector<typeTileData> Tiles;
-    uint16_t                  LayerSize;
-    std::vector<uint8_t>      TopLayer;
 
     typeTiles()
-      : TileSize(0)
-      , LayerSize(0) {}
+      : Size(0) {}
 
     explicit typeTiles(uint16_t size)
-      : TileSize(size)
-      , LayerSize(size) {
+      : Size(size) {
         Tiles.resize(size);
-        TopLayer.resize(size);
     }
 };
 

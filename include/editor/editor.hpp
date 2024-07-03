@@ -2,8 +2,8 @@
 #include <SDL.h>
 #include <common/include.hpp>
 #include <common/perspective.hpp>
-#include <editor/mouse.hpp>
 #include <editor/tile.hpp>
+#include <editor/utility/mouse.hpp>
 #include <editor/visualTile.hpp>
 #include <global.hpp>
 #include <graphics/graphics.hpp>
@@ -15,7 +15,6 @@
 #include <thread>
 #include <unordered_map>
 #include <utility/timer.hpp>
-
 
 namespace Editor {
 class Editor {
@@ -48,11 +47,17 @@ class Editor {
     [[maybe_unused]] bool        clickOnUi(const int& x, const int& y);
     [[maybe_unused]] static bool isOverlap(const float& value, const float& low, const float& high);
 
+    // Windows
+    struct typeWindowCovering {
+        ImVec2 Position;
+        ImVec2 Size;
+    };
+
     void uiMenu();     // Top menu
     void uiHeader();   // Display current open project settings
     void uiDrawGrid(); // Draw a basic grid over the area
     void uiAssets();   // Display the metadata related to the map
-    void uiMouse();
+    void uiMouse(typeWindowCovering& area, bool& open);
     void uiTiles();
     void uiDoors();
     void uiWarpsPopup();
@@ -96,11 +101,7 @@ class Editor {
     SDL_Renderer* pRenderer;
     Mouse         mMouse;
 
-    // Windows
-    struct typeWindowCovering {
-        ImVec2 Position;
-        ImVec2 Size;
-    };
+
 
     ImVec2 popupPosition;
     struct typeElementsCompare {
@@ -128,7 +129,7 @@ class Editor {
     std::vector<Level::File::typeDoorsData> fileDoors; // Contains all doors
     std::vector<Level::File::typeWarpData>  fileWarps;
 
-    std::vector<Tile*>                    editorTiles;   // All tiles in the game.
+    std::vector<Tile*>                   editorTiles; // All tiles in the game.
     std::unordered_map<std::string, int> animationValues;
     std::pair<int, int>                  clickedCoord;
 

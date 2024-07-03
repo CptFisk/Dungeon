@@ -9,6 +9,7 @@
 #include <utility/file.hpp>
 
 namespace Editor {
+
 Editor::Editor(const int& w, const int& h)
   : mInitHandler(std::make_unique<Common::InitHandler>())
   , requestDimensionW(w)
@@ -24,8 +25,8 @@ Editor::Editor(const int& w, const int& h)
   , fileTiles{}
   , editorTiles{}
   , mScale{}
-  , mHideAllWindows(false)
   , mMouse(Mouse::DEFAULT)
+  , mHideAllWindows(false)
   , mActionManager(std::make_unique<Common::ActionManager>())
   , mOffset(0.0, 0.0)
   , mPlayerSpawn{} {}
@@ -85,7 +86,7 @@ Editor::startup() {
     mElements["Tiles"]      = [this]() { uiTiles(); };
     mElements["Header"]     = [this]() { uiHeader(); };
     mElements["Assets"]     = [this]() { uiAssets(); };
-    mElements["Mouse"]      = [this]() { uiMouse(); };
+    mElements["Mouse"]      = [this]() { uiMouse(mWindows["Mouse"], mWindowOpen["Mouse"]); };
     mElements["Textures"]   = [this]() { uiTexture(); };
     mElements["DoorsPopup"] = [this]() { uiDoorPopup(); };
     mElements["Doors"]      = [this]() { uiDoors(); };
@@ -219,7 +220,7 @@ void
 Editor::click() {
     const auto x = mActionManager->mouseX;
     const auto y = mActionManager->mouseY;
-    if (fileTiles.TileSize != 0 && !clickOnUi(x, y)) {
+    if (fileTiles.Size != 0 && !clickOnUi(x, y)) {
         const auto clickCoord = Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), FLOAT(y) + (mOffset.Y / -1.0f), mScale);
 
         clickedCoord.first  = clickCoord.first;  // To display coords
@@ -238,16 +239,16 @@ Editor::click() {
                     // Search if the asset have been used before
                     const auto id = Level::File::findAsset(mSelectedTexture.second, fileAssets);
                     if (id.has_value())
-                        fileTiles.Tiles[pos].Id.emplace_back(id.value());
+                        fileTiles.Tiles[pos].Base.emplace_back(id.value());
                     else
-                        fileTiles.Tiles[pos].Id.emplace_back(Level::File::addAsset(mSelectedTexture.second, fileAssets));
+                        fileTiles.Tiles[pos].Base.emplace_back(Level::File::addAsset(mSelectedTexture.second, fileAssets));
 
                 } break;
                 case Mouse::REMOVE:
                     editorTiles[pos]->clear(); // Clear the vector
 
                     fileTiles.Tiles[pos].Type = static_cast<uint8_t>(Level::File::TileType::BLANK);
-                    fileTiles.Tiles[pos].Id.clear();
+                    fileTiles.Tiles[pos].Base.clear();
 
                     {
                         // We need to remove the coord from the list of used coordinates.
