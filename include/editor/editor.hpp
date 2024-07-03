@@ -57,7 +57,7 @@ class Editor {
     void uiHeader(typeWindowCovering& area,bool &open, Level::File::typeHeader& header);   // Display current open project settings
     void uiDrawGrid(); // Draw a basic grid over the area
     void uiAssets();   // Display the metadata related to the map
-    void uiMouse(typeWindowCovering& area, bool& open);
+    void uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse);
     void uiTiles();
     void uiDoor(bool &open);
     void uiWarpsPopup();

@@ -102,7 +102,8 @@ else ()
 
             ${CMAKE_SOURCE_DIR}/source/editor/ui/door.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/ui/header.cpp
-            
+            ${CMAKE_SOURCE_DIR}/source/editor/ui/mouse.cpp
+
             ${CMAKE_SOURCE_DIR}/source/editor/menu.cpp
 
             ${CMAKE_SOURCE_DIR}/source/editor/assets.cpp
