@@ -13,12 +13,11 @@ createText(const Level::File::typeDoorsData& data) {
 }
 
 void
-Editor::uiDoors() {
+Editor::uiDoor(bool &open) {
     ImGui::SetNextWindowSize(ImVec2(200.0f, 0.0f));
-    if (ImGui::Begin("Available doors", &mWindowOpen["Doors"], ImGuiWindowFlags_AlwaysAutoResize)) {
+    if (ImGui::Begin("Available doors", &open, ImGuiWindowFlags_AlwaysAutoResize)) {
         for (int i = 0; i < fileDoors.size(); i++) {
-            auto text = createText(fileDoors[i]);
-
+            const auto text = createText(fileDoors[i]);
             if (ImGui::BeginMenu(text.c_str())) {
                 ImGui::InputText("Condition", &fileDoors[i].Condition);
                 if (ImGui::MenuItem("Remove"))
@@ -27,7 +26,6 @@ Editor::uiDoors() {
             }
         }
         ImGui::Separator();
-
         ImGui::End();
     }
 }

@@ -59,7 +59,7 @@ class Editor {
     void uiAssets();   // Display the metadata related to the map
     void uiMouse(typeWindowCovering& area, bool& open);
     void uiTiles();
-    void uiDoors();
+    void uiDoor(bool &open);
     void uiWarpsPopup();
     void uiWarps();
     void uiDoorPopup(); // Popup for door options

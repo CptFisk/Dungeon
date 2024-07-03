@@ -89,7 +89,7 @@ Editor::startup() {
     mElements["Mouse"]      = [this]() { uiMouse(mWindows["Mouse"], mWindowOpen["Mouse"]); };
     mElements["Textures"]   = [this]() { uiTexture(); };
     mElements["DoorsPopup"] = [this]() { uiDoorPopup(); };
-    mElements["Doors"]      = [this]() { uiDoors(); };
+    mElements["Doors"]      = [this]() { uiDoor(mWindowOpen["Doors"]); };
     mElements["WarpsPopup"] = [this]() { uiWarpsPopup(); };
     mElements["Warps"]      = [this]() { uiWarps(); };
     displayElement("TopMenu");
