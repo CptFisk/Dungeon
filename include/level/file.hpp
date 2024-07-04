@@ -86,6 +86,6 @@ findAsset(const std::string& asset, const typeAssets& map); // Search for an ass
  * @return True if a element was found and removed
  */
 bool
-removeAsset(const std::string& assetName, typeAssets& map, Level::File::typeTiles& fileTiles);
+removeAsset(const std::string& assetName, typeAssets& map);
 
 }

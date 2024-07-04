@@ -15,7 +15,7 @@ Editor::uiAssets() {
             ImGui::SameLine();
             if (ImGui::Button(("Delete##" + element).c_str())) {
                 const auto name = element;  //We need to store it, since it will be removed
-                if(Level::File::removeAsset(name, fileAssets,fileTiles))
+                if(Level::File::removeAsset(name, fileAssets))
                     removeSpecificTexture(name);
             }
         }
