@@ -30,7 +30,14 @@ Editor::uiMenu() {
                     temp.push_back(value);
                 }
                 fileAssets.AnimationValue      = Common::findLcm(temp);
-                Level::File::typeLevelData map = { fileHeader, fileAssets, fileTiles, fileDoors, fileWarps, fileSpawns };
+                Level::File::typeTiles tiles(editorTiles.size() - 1);
+
+                for(int i = 0; i < editorTiles.size(); i++){
+                    tiles.Tiles[i] = editorTiles[i]->getTileData();
+                }
+
+
+                Level::File::typeLevelData map = { fileHeader, fileAssets, tiles, fileDoors, fileWarps, fileSpawns };
 
                 Level::File::writeLevelDataToFile("levels/" + std::string(fileHeader.MapName) + ".map", map);
             }
