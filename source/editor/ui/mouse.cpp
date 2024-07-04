@@ -12,6 +12,7 @@ Editor::uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse) {
 
         ImGui::SeparatorText("Tiletype");
         mouseButton(mouse, Mouse::TEXTURE, "Texture");
+        mouseButton(mouse, Mouse::TOP_LAYER, "Top layer");
         mouseButton(mouse, Mouse::WALL, "Wall");
         mouseButton(mouse, Mouse::OBSTACLE, "Obstacle");
         mouseButton(mouse, Mouse::PLAYER_SPAWN, "Player spawn");
