@@ -145,7 +145,12 @@ Tile::addType(const Level::File::TileType& value, SDL_Texture* overlay) {
 }
 
 std::vector<Common::typeDrawData>
-Tile::getDrawData() {
+Tile::getBaseDrawData() {
+    return baseLayer;
+}
+
+std::vector<Common::typeDrawData>
+Tile::getTopDrawData() {
     return baseLayer;
 }
 

@@ -61,7 +61,9 @@ class Tile {
      */
     void addType(const Level::File::TileType& value, SDL_Texture* overlay);
 
-    [[nodiscard]] std::vector<Common::typeDrawData> getDrawData(); // Return all data that should be drawn.
+    [[nodiscard]] std::vector<Common::typeDrawData> getBaseDrawData();
+    [[nodiscard]] std::vector<Common::typeDrawData> getTopDrawData();
+
     [[nodiscard]] Common::typeDrawData              getNumbers();  // Return a graphic that display the number of graphics used
     [[nodiscard]] Common::typeDrawData              getOverlay();
 
@@ -69,6 +71,7 @@ class Tile {
     size_t             removeElement(SDL_Texture* texture);
 
     [[nodiscard]] Level::File::typeTileData getTileData() const;
+
 
   private:
     void addOverlay(SDL_Texture* overlay);
