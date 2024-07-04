@@ -37,7 +37,11 @@ Tile::clear() {
     for (auto& element : baseLayer) {
         delete element.Position;
     }
+    for (auto& element : topLayer) {
+        delete element.Position;
+    }
     baseLayer.clear();
+    topLayer.clear();
     tileData = {};
 }
 
@@ -151,7 +155,7 @@ Tile::getBaseDrawData() {
 
 std::vector<Common::typeDrawData>
 Tile::getTopDrawData() {
-    return baseLayer;
+    return topLayer;
 }
 
 Common::typeDrawData
