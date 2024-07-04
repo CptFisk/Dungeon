@@ -183,7 +183,7 @@ Editor::mainLoop() {
 
 void
 Editor::move(Directions direction) {
-    mPerspective->move(direction, 5.0);
+    mPerspective->move(direction, 10.0);
 }
 
 void
@@ -217,7 +217,7 @@ void
 Editor::click() {
     const auto x = mActionManager->mouseX;
     const auto y = mActionManager->mouseY;
-    if (editorTiles.size() != 0 && !clickOnUi(x, y)) {
+    if (!editorTiles.empty() && !clickOnUi(x, y)) {
         const auto clickCoord = Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), FLOAT(y) + (mOffset.Y / -1.0f), mScale);
 
         clickedCoord.first  = clickCoord.first;  // To display coords
@@ -228,11 +228,12 @@ Editor::click() {
             const auto pos = index.value();
 
             switch (mMouse) {
-                case Mouse::TEXTURE: {
+                case Mouse::TEXTURE:
+                case Mouse::TOP_LAYER:
                     // Add tile to the list
                     mLevelCoords.emplace(Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
-                    editorTiles[pos]->addData(mSelectedTexture.second, fileAssets, mGraphics);
-                } break;
+                    editorTiles[pos]->addData(mSelectedTexture.second, fileAssets, mGraphics, mMouse);
+                    break;
                 case Mouse::REMOVE:
                     editorTiles[pos]->clear(); // Clear the vector
                     {
@@ -242,12 +243,17 @@ Editor::click() {
                             mLevelCoords.erase(it);
                     }
                     break;
-
                 case Mouse::WALL:
                     editorTiles[pos]->addType(Level::File::TileType::WALL, *GET_SDL(getMouseColorCode(Mouse::WALL)));
                     break;
                 case Mouse::OBSTACLE:
                     editorTiles[pos]->addType(Level::File::TileType::OBSTACLE, *GET_SDL(getMouseColorCode(Mouse::OBSTACLE)));
+                    break;
+                case Mouse::UP:
+                    editorTiles[pos]->addType(Level::File::TileType::UP, *GET_SDL(getMouseColorCode(Mouse::UP)));
+                    break;
+                case Mouse::DOWN:
+                    editorTiles[pos]->addType(Level::File::TileType::DOWN, *GET_SDL(getMouseColorCode(Mouse::DOWN)));
                     break;
                 case Mouse::PLAYER_SPAWN: {
                     auto coords    = Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), FLOAT(y) + (mOffset.Y / -1.0f), mScale);

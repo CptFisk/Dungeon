@@ -36,15 +36,20 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
             // Generating both tiles and visual overlay
             editorTiles.push_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
             for (const auto& id : tile.Base) {
-                if (editorTiles[pos]->addData(data.Assets.Assets[INT(id)], fileAssets, mGraphics))
+                if (editorTiles[pos]->addData(data.Assets.Assets[INT(id)], fileAssets, mGraphics, false))
                     mLevelCoords.emplace(x, y);
             }
-            if ((tile.Type & static_cast<uint8_t>(Level::File::TileType::WALL)) != 0) {
+            for(const auto& id : tile.Top){
+                if (editorTiles[pos]->addData(data.Assets.Assets[INT(id)], fileAssets, mGraphics, true))
+                    mLevelCoords.emplace(x, y);
+            }
+            if ((tile.Type & UINT8(Level::File::TileType::WALL)) != 0) {
                 editorTiles[pos]->addType(Level::File::TileType::WALL, *GET_SDL(getMouseColorCode(Mouse::WALL)));
             }
-            if ((tile.Type & static_cast<uint8_t>(Level::File::TileType::OBSTACLE)) != 0) {
+            if ((tile.Type & UINT8(Level::File::TileType::OBSTACLE)) != 0) {
                 editorTiles[pos]->addType(Level::File::TileType::OBSTACLE, *GET_SDL(getMouseColorCode(Mouse::OBSTACLE)));
             }
+
             pos++;
         }
     }

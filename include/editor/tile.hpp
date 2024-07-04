@@ -8,6 +8,7 @@
 #include <graphicsForward.hpp>
 #include <level/types/assets.hpp>
 #include <level/types/tile.hpp>
+#include <editor/utility/mouse.hpp>
 #include <set>
 #include <variant>
 #include <vector>
@@ -34,13 +35,26 @@ class Tile {
          SDL_Renderer*                renderer); // Used in editor mode
     ~Tile();
 
-    Tile& operator=(const Tile& other); // Operator overload
-
     [[maybe_unused]] void clear(); // Clear vector
 
+    /**
+     * @brief Used to add a graphic to a tile. The function handle the types internally (both animated and base-textures). It also
+     * @brief add it to the base or top-layer list
+     * @param asset Name of the asset
+     * @param assetList Reference to asset list
+     * @param graphics Reference to graphic engine
+     * @param mode True if top-layer, otherwise false
+     * @return True if data could be added
+     */
     bool addData(const std::string&                         asset,
                  Level::File::typeAssets&                   assetList,
-                 const std::shared_ptr<Graphics::Graphics>& graphics); // Used in editor mode
+                 const std::shared_ptr<Graphics::Graphics>& graphics,
+                 const bool& mode);
+    bool addData(const std::string&                         asset,
+                 Level::File::typeAssets&                   assetList,
+                 const std::shared_ptr<Graphics::Graphics>& graphics,
+                 const Mouse& mouse);
+
     /**
      * @brief Add a new value to the tile type
      * @param value
@@ -70,7 +84,8 @@ class Tile {
 
     std::set<SDL_Texture*>            overlays; // All overlays
     Graphics::typeSimpleTexture&      numbers;  // Graphics to hold numbers
-    std::vector<Common::typeDrawData> data; // All data that belongs to the tile. This is to allow multiple layers of texture to a base tile
+    std::vector<Common::typeDrawData> baseLayer;
+    std::vector<Common::typeDrawData> topLayer;
     Common::typeDrawData              mOverlay; // Overlay
 };
 }

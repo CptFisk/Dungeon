@@ -32,26 +32,23 @@ Tile::~Tile() {
     SDL_DestroyTexture(mOverlay.Texture); // Cleanup
 }
 
-Tile&
-Tile::operator=(const Editor::Tile& other) {
-    if (this == &other)
-        return *this;
-    data = other.data;
-
-    return *this;
-}
-
 void
 Tile::clear() {
-    for (auto& element : data) {
+    for (auto& element : baseLayer) {
         delete element.Position;
     }
-    data.clear();
+    baseLayer.clear();
     tileData = {};
 }
 
 bool
-Tile::addData(const std::string& asset, Level::File::typeAssets& assetList, const std::shared_ptr<Graphics::Graphics>& graphics) {
+Tile::addData(const std::string& asset, Level::File::typeAssets& assetList, const std::shared_ptr<Graphics::Graphics>& graphics, const bool& mode) {
+    return addData(asset, assetList, graphics, mode ? Mouse::TOP_LAYER : Mouse::TEXTURE);
+}
+
+bool
+Tile::addData(const std::string& asset, Level::File::typeAssets& assetList, const std::shared_ptr<Graphics::Graphics>& graphics,  const Mouse& mouse) {
+    auto& data = mouse == Mouse::TEXTURE ? baseLayer : topLayer;
     const auto size = data.size();
     const auto type = graphics->getTextureType(asset);
     switch (type) {
@@ -67,6 +64,7 @@ Tile::addData(const std::string& asset, Level::File::typeAssets& assetList, cons
                                 FLOAT(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Width) * scale.factorX,
                                 FLOAT(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Height) * scale.factorY,
                               });
+            tileData.Type |= static_cast<uint8_t>(Level::File::TileType::TEXTURE);
             break;
         case Graphics::TextureTypes::ANIMATED_TEXTURE:
             if (graphics->getTexture<Graphics::AnimatedTexture*>(asset) == nullptr)
@@ -80,15 +78,34 @@ Tile::addData(const std::string& asset, Level::File::typeAssets& assetList, cons
                                 FLOAT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Width) * scale.factorX,
                                 FLOAT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Height) * scale.factorY,
                               });
+            tileData.Type |= static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE);
             break;
         default:;
     }
     // Handles the list of assets
     if (Level::File::findAsset(asset, assetList).has_value()) {
         // The item exist in asset list. Append it to the end of our graphics
-        tileData.Base.emplace_back(Level::File::findAsset(asset, assetList).value());
+        switch(mouse){
+            case Mouse::TEXTURE:
+                tileData.Base.emplace_back(Level::File::findAsset(asset, assetList).value());
+                break;
+            case Mouse::TOP_LAYER:
+                tileData.Top.emplace_back(Level::File::findAsset(asset, assetList).value());
+                break;
+            default:
+                ;
+        }
     } else {
-        tileData.Base.emplace_back(Level::File::addAsset(asset, assetList));
+        switch(mouse){
+            case Mouse::TEXTURE:
+                tileData.Base.emplace_back(Level::File::addAsset(asset, assetList));
+                break;
+            case Mouse::TOP_LAYER:
+                tileData.Top.emplace_back(Level::File::addAsset(asset, assetList));
+                break;
+            default:
+              ;
+        }
     }
 
     return data.size() > size ? true : false;
@@ -129,12 +146,12 @@ Tile::addType(const Level::File::TileType& value, SDL_Texture* overlay) {
 
 std::vector<Common::typeDrawData>
 Tile::getDrawData() {
-    return data;
+    return baseLayer;
 }
 
 Common::typeDrawData
 Tile::getNumbers() {
-    return { numbers.getTexture(), &numbers.getView(data.size()), &standardPosition };
+    return { numbers.getTexture(), &numbers.getView(baseLayer.size()), &standardPosition };
 }
 
 Common::typeDrawData
@@ -144,21 +161,21 @@ Tile::getOverlay() {
 
 bool
 Tile::elementExist(SDL_Texture* texture) const {
-    auto it = std::find_if(data.begin(), data.end(), [&texture](const Common::typeDrawData& d) { return d.Texture == texture; });
-    return it != data.end() ? true : false;
+    auto it = std::find_if(baseLayer.begin(), baseLayer.end(), [&texture](const Common::typeDrawData& d) { return d.Texture == texture; });
+    return it != baseLayer.end() ? true : false;
 }
 
 size_t
 Tile::removeElement(SDL_Texture* texture) {
-    const auto size = data.size();
-    for (auto it = data.begin(); it != data.end();) {
+    const auto size = baseLayer.size();
+    for (auto it = baseLayer.begin(); it != baseLayer.end();) {
         if ((*it).Texture == texture) {
-            it = data.erase(it);
+            it = baseLayer.erase(it);
         } else {
             ++it;
         }
     }
-    return size - data.size();
+    return size - baseLayer.size();
 }
 
 Level::File::typeTileData
