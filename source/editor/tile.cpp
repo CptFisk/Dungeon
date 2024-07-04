@@ -161,4 +161,9 @@ Tile::removeElement(SDL_Texture* texture) {
     return size - data.size();
 }
 
+Level::File::typeTileData
+Tile::getTileData() const {
+    return tileData;
+}
+
 }

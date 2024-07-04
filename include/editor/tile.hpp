@@ -6,8 +6,8 @@
 #include <graphics/structures.hpp>
 #include <graphics/types/simpleTexture.hpp>
 #include <graphicsForward.hpp>
-#include <level/types/tile.hpp>
 #include <level/types/assets.hpp>
+#include <level/types/tile.hpp>
 #include <set>
 #include <variant>
 #include <vector>
@@ -51,8 +51,10 @@ class Tile {
     [[nodiscard]] Common::typeDrawData              getNumbers();  // Return a graphic that display the number of graphics used
     [[nodiscard]] Common::typeDrawData              getOverlay();
 
-    bool   elementExist(SDL_Texture* texture) const;
-    size_t removeElement(SDL_Texture* texture);
+    [[nodiscard]] bool elementExist(SDL_Texture* texture) const;
+    size_t             removeElement(SDL_Texture* texture);
+
+    [[nodiscard]] Level::File::typeTileData getTileData() const;
 
   private:
     void addOverlay(SDL_Texture* overlay);
