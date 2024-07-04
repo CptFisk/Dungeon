@@ -22,7 +22,6 @@ Editor::Editor(const int& w, const int& h)
   , showNumbers(false)
   , showOverlay(false)
   , showGrid(false)
-  , fileTiles{}
   , editorTiles{}
   , mScale{}
   , mMouse(Mouse::DEFAULT)
@@ -44,8 +43,6 @@ Editor::~Editor() {
 
     mGraphics.reset();
     mInitHandler->shutdown();
-
-    fileTiles.Tiles.clear();
 
     SDL_Quit();
 }
@@ -220,7 +217,7 @@ void
 Editor::click() {
     const auto x = mActionManager->mouseX;
     const auto y = mActionManager->mouseY;
-    if (fileTiles.Size != 0 && !clickOnUi(x, y)) {
+    if (editorTiles.size() != 0 && !clickOnUi(x, y)) {
         const auto clickCoord = Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), FLOAT(y) + (mOffset.Y / -1.0f), mScale);
 
         clickedCoord.first  = clickCoord.first;  // To display coords
