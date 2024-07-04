@@ -56,9 +56,6 @@ Engine::loadLevel(const std::string& filename) {
             !it->Base.empty()) {
             auto       id    = static_cast<int>(it->Base.front());
             const auto asset = data.Assets.Assets[id];
-            if (asset == "VillageHouseBaseMedium") {
-                int a = 20;
-            }
             addToSegment(pos, asset);
 
             it->Base.erase(it->Base.begin()); // Remove this element, it has been displayed
