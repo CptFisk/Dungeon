@@ -4,18 +4,6 @@
 
 namespace Editor{
 
-void Editor::removeSpecificTexture(const std::string& name) {
-    auto size = 0;
-    auto texture =  GET_SIMPLE(name);
-    if(texture == nullptr)
-        return;
-    for(auto &tile : editorTiles){
-        if(tile->elementExist(texture->Texture))
-            size += tile->removeElement(texture->Texture);
-    }
-}
-
-
 void
 Editor::uiTexture() {
     if (ImGui::Begin("Textures", &mWindowOpen["Textures"], ImGuiWindowFlags_AlwaysAutoResize)) {
