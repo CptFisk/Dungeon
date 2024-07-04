@@ -16,24 +16,29 @@ Editor::uiHeader(typeWindowCovering& area,bool& open, Level::File::typeHeader& h
         ImGui::InputText("Level name", header.MapName, IM_ARRAYSIZE(header.MapName));
         ImGui::ColorPicker4("MyColor##4", (float*)&color, flags, nullptr);
 
+
         if (ImGui::Button(mNewFile ? "Create" : "Save")) {
-            mNewFile         = false;
-            mMapLoaded       = true;
-            const auto sizeX = header.Level.SizeX;
-            const auto sizeY = header.Level.SizeY;
-            const auto size  = sizeX * sizeY; // Total size
+            if(mNewFile) {
+                mNewFile         = false;
+                mMapLoaded       = true;
+                const auto sizeX = header.Level.SizeX;
+                const auto sizeY = header.Level.SizeY;
+                const auto size  = sizeX * sizeY; // Total size
 
-            for(auto& tile : editorTiles){
-                delete tile;
-            }
-            editorTiles.clear();
-            // Setting up all tiles
-
-            for(int y = 0; y < sizeY; y++){
-                for(int x = 0; x < sizeX; x++) {
-                    //Generating both tiles and visual overlay
-                    editorTiles.emplace_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
+                for (auto& tile : editorTiles) {
+                    delete tile;
                 }
+                editorTiles.clear();
+                // Setting up all tiles
+
+                for (int y = 0; y < sizeY; y++) {
+                    for (int x = 0; x < sizeX; x++) {
+                        // Generating both tiles and visual overlay
+                        editorTiles.emplace_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
+                    }
+                }
+            }else{
+                hideElement("Header");
             }
 
             header.Color.BackgroundRed   = UINT8(FLOAT(color[0] * 255.0f));
