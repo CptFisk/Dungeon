@@ -25,7 +25,7 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
     // Adding some visuals so we don't paint outside
     mEdges.clear();
     // Creating the map
-    for(auto& tile : editorTiles){
+    for (auto& tile : editorTiles) {
         delete tile;
     }
     editorTiles.clear();
@@ -37,14 +37,14 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
             // Generating both tiles and visual overlay
             editorTiles.push_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
             for (const auto& id : tile.Base) {
-                if(editorTiles[pos]->addData(data.Assets.Assets[INT(id)], mGraphics))
+                if (editorTiles[pos]->addData(data.Assets.Assets[INT(id)], mGraphics))
                     mLevelCoords.emplace(x, y);
             }
             if ((tile.Type & static_cast<uint8_t>(Level::File::TileType::WALL)) != 0) {
-                editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::WALL)));
+                editorTiles[pos]->addType(Level::File::TileType::WALL, *GET_SDL(getMouseColorCode(Mouse::WALL)));
             }
             if ((tile.Type & static_cast<uint8_t>(Level::File::TileType::OBSTACLE)) != 0) {
-                editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::OBSTACLE)));
+                editorTiles[pos]->addType(Level::File::TileType::OBSTACLE, *GET_SDL(getMouseColorCode(Mouse::OBSTACLE)));
             }
             pos++;
         }

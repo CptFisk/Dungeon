@@ -12,6 +12,7 @@ Tile::Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics:
   , yPos(static_cast<float>(y) * 16.0f * scale.factorY)
   , scale(scale)
   , numbers(number)
+  , tileData{}
   , standardPosition(xPos, yPos, 16.0f * scale.factorX, 16.0f * scale.factorY)
   , mOverlay{} {
 
@@ -46,10 +47,11 @@ Tile::clear() {
         delete element.Position;
     }
     data.clear();
+    tileData = {};
 }
 
 bool
-Tile::addData(const std::string& asset, const std::shared_ptr<Graphics::Graphics>& graphics) {
+Tile::addData(const std::string& asset, Level::File::typeAssets& assetList, const std::shared_ptr<Graphics::Graphics>& graphics) {
     const auto size = data.size();
     const auto type = graphics->getTextureType(asset);
     switch (type) {
@@ -81,6 +83,14 @@ Tile::addData(const std::string& asset, const std::shared_ptr<Graphics::Graphics
             break;
         default:;
     }
+    // Handles the list of assets
+    if (Level::File::findAsset(asset, assetList).has_value()) {
+        // The item exist in asset list. Append it to the end of our graphics
+        tileData.Base.emplace_back(Level::File::findAsset(asset, assetList).value());
+    } else {
+        tileData.Base.emplace_back(Level::File::addAsset(asset, assetList));
+    }
+
     return data.size() > size ? true : false;
 }
 
@@ -108,6 +118,13 @@ Tile::addOverlay(SDL_Texture* overlay) {
         }
     }
     overlays.insert(overlay);
+}
+
+void
+Tile::addType(const Level::File::TileType& value, SDL_Texture* overlay) {
+    tileData.Type |= static_cast<uint8_t>(value);
+    if (overlays.find(overlay) == overlays.end())
+        addOverlay(overlay);
 }
 
 std::vector<Common::typeDrawData>

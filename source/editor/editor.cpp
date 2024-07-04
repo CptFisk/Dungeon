@@ -234,21 +234,10 @@ Editor::click() {
                 case Mouse::TEXTURE: {
                     // Add tile to the list
                     mLevelCoords.emplace(Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
-                    // Add texture to tile
-                    editorTiles[pos]->addData(mSelectedTexture.second, mGraphics);
-                    // Search if the asset have been used before
-                    const auto id = Level::File::findAsset(mSelectedTexture.second, fileAssets);
-                    if (id.has_value())
-                        fileTiles.Tiles[pos].Base.emplace_back(id.value());
-                    else
-                        fileTiles.Tiles[pos].Base.emplace_back(Level::File::addAsset(mSelectedTexture.second, fileAssets));
+                    editorTiles[pos]->addData(mSelectedTexture.second, fileAssets, mGraphics);
                 } break;
                 case Mouse::REMOVE:
                     editorTiles[pos]->clear(); // Clear the vector
-
-                    fileTiles.Tiles[pos].Type = static_cast<uint8_t>(Level::File::TileType::BLANK);
-                    fileTiles.Tiles[pos].Base.clear();
-
                     {
                         // We need to remove the coord from the list of used coordinates.
                         auto it = mLevelCoords.find(Common::getClickCoords(static_cast<float>(x), static_cast<float>(y), mScale));
@@ -258,12 +247,10 @@ Editor::click() {
                     break;
 
                 case Mouse::WALL:
-                    fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::WALL);
-                    editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::WALL)));
+                    editorTiles[pos]->addType(Level::File::TileType::WALL, *GET_SDL(getMouseColorCode(Mouse::WALL)));
                     break;
                 case Mouse::OBSTACLE:
-                    fileTiles.Tiles[pos].Type |= static_cast<uint8_t>(Level::File::TileType::OBSTACLE);
-                    editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::OBSTACLE)));
+                    editorTiles[pos]->addType(Level::File::TileType::OBSTACLE, *GET_SDL(getMouseColorCode(Mouse::OBSTACLE)));
                     break;
                 case Mouse::PLAYER_SPAWN: {
                     auto coords    = Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), FLOAT(y) + (mOffset.Y / -1.0f), mScale);
