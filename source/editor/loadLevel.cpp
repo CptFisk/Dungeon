@@ -13,7 +13,6 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
 
     fileHeader = header;
     fileAssets = assets;
-    fileTiles  = tiles;
     fileDoors  = data.Doors;
     fileWarps  = data.Warps;
 
@@ -37,7 +36,7 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
             // Generating both tiles and visual overlay
             editorTiles.push_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
             for (const auto& id : tile.Base) {
-                if (editorTiles[pos]->addData(data.Assets.Assets[INT(id)], mGraphics))
+                if (editorTiles[pos]->addData(data.Assets.Assets[INT(id)], fileAssets, mGraphics))
                     mLevelCoords.emplace(x, y);
             }
             if ((tile.Type & static_cast<uint8_t>(Level::File::TileType::WALL)) != 0) {
