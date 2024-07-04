@@ -23,7 +23,6 @@ Editor::uiHeader(typeWindowCovering& area,bool& open, Level::File::typeHeader& h
             const auto sizeY = header.Level.SizeY;
             const auto size  = sizeX * sizeY; // Total size
 
-            fileTiles = Level::File::typeTiles(size);
             for(auto& tile : editorTiles){
                 delete tile;
             }
