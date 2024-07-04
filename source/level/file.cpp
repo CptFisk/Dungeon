@@ -69,7 +69,7 @@ findAsset(const std::string& asset, const typeAssets& map) {
 }
 
 bool
-removeAsset(const std::string& assetName, typeAssets& map, Level::File::typeTiles& fileTiles) {
+removeAsset(const std::string& assetName, typeAssets& map) {
     // Calculate our id
     int  assetId;
     bool found = false;
@@ -83,21 +83,6 @@ removeAsset(const std::string& assetName, typeAssets& map, Level::File::typeTile
     }
     if (!found)
         return false;
-
-    // The asset was found, and we know the ID. Now we have to remove it from the
-    for (auto& tile : fileTiles.Tiles) {
-        // Loop all the different id's that exist
-        for (auto it = tile.Base.begin(); it != tile.Base.end();) {
-            if (*it == assetId) {
-                it = tile.Base.erase(it);
-            } else if (*it > assetId) {
-                --(*it);
-                ++it;
-            } else {
-                ++it;
-            }
-        }
-    }
     return true;
 }
 
