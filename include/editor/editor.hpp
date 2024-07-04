@@ -37,7 +37,7 @@ class Editor {
     std::thread spawnInterrupt(const long& time); // Spawn a thread
 
     void loadLevel(const Level::File::typeLevelData& data);
-    void removeSpecificTexture(const std::string& name);
+    void removeSpecificTexture(const std::string& name, std::vector<Tile*>& tiles);
 
     [[maybe_unused]] void        displayElement(const std::string& element);
     [[maybe_unused]] void        hideElement(const std::string& element);
@@ -56,7 +56,7 @@ class Editor {
     void uiMenu();     // Top menu
     void uiHeader(typeWindowCovering& area,bool &open, Level::File::typeHeader& header);   // Display current open project settings
     void uiDrawGrid(); // Draw a basic grid over the area
-    void uiAssets();   // Display the metadata related to the map
+    void uiAssets(typeWindowCovering& area,bool &open, Level::File::typeAssets& assets);   // Display the metadata related to the map
     void uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse);
     void uiTiles();
     void uiDoor(bool &open);

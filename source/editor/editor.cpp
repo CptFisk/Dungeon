@@ -82,7 +82,7 @@ Editor::startup() {
     mElements["TopMenu"]    = [this]() { uiMenu(); };
     mElements["Tiles"]      = [this]() { uiTiles(); };
     mElements["Header"]     = [this]() { uiHeader(mWindows["Header"], mWindowOpen["Header"], fileHeader); };
-    mElements["Assets"]     = [this]() { uiAssets(); };
+    mElements["Assets"]     = [this]() { uiAssets(mWindows["Assets"], mWindowOpen["Assets"], fileAssets); };
     mElements["Mouse"]      = [this]() { uiMouse(mWindows["Mouse"], mWindowOpen["Mouse"], mMouse); };
     mElements["Textures"]   = [this]() { uiTexture(); };
     mElements["DoorsPopup"] = [this]() { uiDoorPopup(); };
