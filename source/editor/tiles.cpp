@@ -26,7 +26,7 @@ Editor::uiTiles() {
                 const auto pos = Common::getIndex(x, y, fileHeader.Level.SizeX);
                 // Check if valid position
                 if (pos.has_value()) {
-                    const auto drawData = editorTiles[pos.value()]->getDrawData();
+                    const auto& drawData = editorTiles[pos.value()]->getBaseDrawData();
                     if (INT(drawData.size() - 1) == layer) {
                         mPerspective->render(drawData[layer].Texture, drawData[layer].Viewport, drawData[layer].Position);
                     } else if (INT(drawData.size()) > layer) {
@@ -42,6 +42,10 @@ Editor::uiTiles() {
         for (int x = minX; x < maxX; x++) {
             auto pos = Common::getIndex(x, y, fileHeader.Level.SizeX);
             if (pos.has_value()) {
+                //Draw the top layer
+                for(const auto& drawData : editorTiles[pos.value()]->getTopDrawData()){
+                    mPerspective->render(drawData.Texture, drawData.Viewport, drawData.Position);
+                }
                 if (showNumbers) {
                     auto number = editorTiles[pos.value()]->getNumbers();
                     mPerspective->render(number.Texture, number.Viewport, number.Position);

@@ -72,9 +72,8 @@ class Tile {
 
     [[nodiscard]] Level::File::typeTileData getTileData() const;
 
-
-  private:
     void addOverlay(SDL_Texture* overlay);
+  private:
 
   protected:
     SDL_Renderer*           pRenderer;        // Used for generating overlays

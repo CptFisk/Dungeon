@@ -228,8 +228,9 @@ Editor::click() {
             const auto pos = index.value();
 
             switch (mMouse) {
-                case Mouse::TEXTURE:
                 case Mouse::TOP_LAYER:
+                    editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::TOP_LAYER)));
+                case Mouse::TEXTURE:
                     // Add tile to the list
                     mLevelCoords.emplace(Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
                     editorTiles[pos]->addData(mSelectedTexture.second, fileAssets, mGraphics, mMouse);
