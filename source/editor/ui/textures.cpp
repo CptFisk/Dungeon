@@ -5,8 +5,8 @@
 namespace Editor{
 
 void
-Editor::uiTexture() {
-    if (ImGui::Begin("Textures", &mWindowOpen["Textures"], ImGuiWindowFlags_AlwaysAutoResize)) {
+Editor::uiTexture(typeWindowCovering& area, bool& open) {
+    if (ImGui::Begin("Textures", &open, ImGuiWindowFlags_AlwaysAutoResize)) {
         static int currentItem;
         static std::string filter;
         ImGui::InputText("##Filter", &filter);
@@ -24,11 +24,11 @@ Editor::uiTexture() {
             }
             ImGui::EndListBox();
         }
-        mWindows["Textures"] = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
+        area= { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::End();
     }
 
-    if(!mWindowOpen["Textures"])
+    if(!open)
         hideElement("Textures");
 }
 }

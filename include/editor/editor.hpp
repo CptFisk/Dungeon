@@ -53,18 +53,20 @@ class Editor {
         ImVec2 Size;
     };
 
-    void uiMenu();     // Top menu
-    void uiHeader(typeWindowCovering& area,bool &open, Level::File::typeHeader& header);   // Display current open project settings
-    void uiDrawGrid(); // Draw a basic grid over the area
-    void uiAssets(typeWindowCovering& area,bool &open, Level::File::typeAssets& assets);   // Display the metadata related to the map
+    void uiMenu();                                                                        // Top menu
+    void uiHeader(typeWindowCovering& area, bool& open, Level::File::typeHeader& header); // Display current open project settings
+    void uiDrawGrid();                                                                    // Draw a basic grid over the area
+    void uiAssets(typeWindowCovering& area, bool& open, Level::File::typeAssets& assets); // Display the metadata related to the map
     void uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse);
     void uiTiles();
-    void uiDoor(bool &open);
+    void uiDoor(bool& open);
     void uiWarpsPopup();
     void uiWarps();
     void uiDoorPopup(); // Popup for door options
-    void uiTexture();   // All basic textures
-    void present();     // Render all graphic
+    void uiTexture(typeWindowCovering&                                                area,
+                   bool&                                                              open,
+                   const std::vector<std::pair<Graphics::TextureTypes, std::string>>& textures); // All basic textures
+    void present();                                                                              // Render all graphic
 
   private:
     const int requestDimensionW; // Requested window width
@@ -100,8 +102,6 @@ class Editor {
     SDL_Window*   pWindow;
     SDL_Renderer* pRenderer;
     Mouse         mMouse;
-
-
 
     ImVec2 popupPosition;
     struct typeElementsCompare {
