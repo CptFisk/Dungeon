@@ -104,13 +104,14 @@ else ()
             ${CMAKE_SOURCE_DIR}/source/editor/ui/header.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/ui/mouse.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/ui/assets.cpp
+            ${CMAKE_SOURCE_DIR}/source/editor/ui/textures.cpp
 
             ${CMAKE_SOURCE_DIR}/source/editor/menu.cpp
 
 
             ${CMAKE_SOURCE_DIR}/source/editor/grid.cpp
             ${CMAKE_SOURCE_DIR}/source/editor/tiles.cpp
-            ${CMAKE_SOURCE_DIR}/source/editor/textures.cpp
+
             ${CMAKE_SOURCE_DIR}/source/editor/tile.cpp
 
             ${CMAKE_SOURCE_DIR}/source/editor/warps.cpp

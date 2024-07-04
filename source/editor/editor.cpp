@@ -84,7 +84,7 @@ Editor::startup() {
     mElements["Header"]     = [this]() { uiHeader(mWindows["Header"], mWindowOpen["Header"], fileHeader); };
     mElements["Assets"]     = [this]() { uiAssets(mWindows["Assets"], mWindowOpen["Assets"], fileAssets); };
     mElements["Mouse"]      = [this]() { uiMouse(mWindows["Mouse"], mWindowOpen["Mouse"], mMouse); };
-    mElements["Textures"]   = [this]() { uiTexture(); };
+    mElements["Textures"]   = [this]() { uiTexture(mWindows["Textures"], mWindowOpen["Textures"], mTextures, mSelectedTexture); };
     mElements["DoorsPopup"] = [this]() { uiDoorPopup(); };
     mElements["Doors"]      = [this]() { uiDoor(mWindowOpen["Doors"]); };
     mElements["WarpsPopup"] = [this]() { uiWarpsPopup(); };

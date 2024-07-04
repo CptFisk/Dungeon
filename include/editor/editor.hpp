@@ -65,7 +65,8 @@ class Editor {
     void uiDoorPopup(); // Popup for door options
     void uiTexture(typeWindowCovering&                                                area,
                    bool&                                                              open,
-                   const std::vector<std::pair<Graphics::TextureTypes, std::string>>& textures); // All basic textures
+                   const std::vector<std::pair<Graphics::TextureTypes, std::string>>& textures,
+                   std::pair<Graphics::TextureTypes, std::string>& selectedTexture);
     void present();                                                                              // Render all graphic
 
   private:
