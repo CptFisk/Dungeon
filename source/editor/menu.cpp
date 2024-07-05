@@ -22,7 +22,8 @@ Editor::uiMenu() {
             if (ImGui::MenuItem("Save project")) {
                 std::vector<int> temp; // Temporary storage
                 for (const auto& [asset, value] : animationValues) {
-                    temp.push_back(value);
+                    if (value > 0)
+                        temp.push_back(value);
                 }
                 fileAssets.AnimationValue = Common::findLcm(temp);
                 Level::File::typeTiles tiles(editorTiles.size());
@@ -32,7 +33,8 @@ Editor::uiMenu() {
                 }
 
                 Level::File::typeLevelData map = { fileHeader, fileAssets, tiles, fileDoors, fileWarps, fileSpawns };
-                const std::string fileName = UINT8_STRING(fileHeader.Data.X) + UINT8_STRING(fileHeader.Data.Y) + UINT8_STRING(fileHeader.Data.Z);
+                const std::string          fileName =
+                  UINT8_STRING(fileHeader.Data.X) + UINT8_STRING(fileHeader.Data.Y) + UINT8_STRING(fileHeader.Data.Z);
                 Level::File::writeLevelDataToFile("levels/" + fileName + ".map", map);
             }
 

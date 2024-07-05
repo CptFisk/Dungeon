@@ -235,7 +235,8 @@ Editor::click() {
                 case Mouse::TEXTURE:
                     // Add tile to the list
                     mLevelCoords.emplace(Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
-                    editorTiles[pos]->addData(mSelectedTexture.second, fileAssets, mGraphics, mMouse);
+                    //Save the animation value
+                    animationValues[mSelectedTexture.second] = editorTiles[pos]->addData(mSelectedTexture.second, fileAssets, mGraphics, mMouse);
                     break;
                 case Mouse::REMOVE:
                     editorTiles[pos]->clear(); // Clear the vector

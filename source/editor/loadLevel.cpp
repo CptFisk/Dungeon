@@ -16,7 +16,6 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
     fileDoors  = data.Doors;
     fileWarps  = data.Warps;
 
-
     // Adding some visuals so we don't paint outside
     mEdges.clear();
     // Creating the map
@@ -26,18 +25,20 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
     editorTiles.clear();
 
     int pos = 0;
-    for (int y = 0; y <  MAP_SIZE; y++) {
-        for (int x = 0; x <  MAP_SIZE; x++) {
+    for (int y = 0; y < MAP_SIZE; y++) {
+        for (int x = 0; x < MAP_SIZE; x++) {
             const auto tile = tiles.Tiles[pos]; // To keep name short
             // Generating both tiles and visual overlay
             editorTiles.push_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
             for (const auto& id : tile.Base) {
-                if (editorTiles[pos]->addData(data.Assets.Assets[INT(id)], fileAssets, mGraphics, false))
-                    mLevelCoords.emplace(x, y);
+                const auto asset       = data.Assets.Assets[INT(id)];
+                animationValues[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, false);
+                mLevelCoords.emplace(x, y);
             }
-            for(const auto& id : tile.Top){
-                if (editorTiles[pos]->addData(data.Assets.Assets[INT(id)], fileAssets, mGraphics, true))
-                    mLevelCoords.emplace(x, y);
+            for (const auto& id : tile.Top) {
+                const auto asset       = data.Assets.Assets[INT(id)];
+                animationValues[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, true);
+                mLevelCoords.emplace(x, y);
             }
             if ((tile.Type & UINT8(Level::File::TileType::WALL)) != 0) {
                 editorTiles[pos]->addType(Level::File::TileType::WALL, *GET_SDL(getMouseColorCode(Mouse::WALL)));
@@ -49,7 +50,6 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
             pos++;
         }
     }
-
 
     mMapLoaded = true;
 }
