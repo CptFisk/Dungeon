@@ -1,15 +1,25 @@
 #include <editor/editor.hpp>
 #include <imgui.h>
 #include <global.hpp>
+#include <misc/cpp/imgui_stdlib.h>
+
 namespace Editor {
 
 void
 Editor::uiHeader(typeWindowCovering& area, bool& open, Level::File::typeHeaderData& header) {
+    static std::string dataX = UINT8_STRING(header.Data.X);
+    static std::string dataY = UINT8_STRING(header.Data.Y);
+    static std::string dataZ = UINT8_STRING(header.Data.Z);
+
     static float color[4] = { 0.258823544, 0.501960814, 0.866666675, 0 }; // Default value for water colour
 
     ImGuiColorEditFlags flags = ImGuiColorEditFlags_NoAlpha;
 
     if (ImGui::Begin("Level settings", &open, ImGuiWindowFlags_AlwaysAutoResize)) {
+        ImGui::InputText("X", &dataX, ImGuiInputTextFlags_CharsDecimal);
+        ImGui::InputText("Y", &dataY, ImGuiInputTextFlags_CharsDecimal);
+        ImGui::InputText("Z", &dataZ, ImGuiInputTextFlags_CharsDecimal);
+
         ImGui::ColorPicker4("MyColor##4", (float*)&color, flags, nullptr);
 
         if (ImGui::Button(mNewFile ? "Create" : "Save")) {
@@ -22,7 +32,6 @@ Editor::uiHeader(typeWindowCovering& area, bool& open, Level::File::typeHeaderDa
                 }
                 editorTiles.clear();
                 // Setting up all tiles
-
                 for (int y = 0; y <  MAP_SIZE; y++) {
                     for (int x = 0; x < MAP_SIZE; x++) {
                         // Generating both tiles and visual overlay
@@ -32,7 +41,9 @@ Editor::uiHeader(typeWindowCovering& area, bool& open, Level::File::typeHeaderDa
             } else {
                 hideElement("Header");
             }
-
+            header.Data.X = STRING_UINT8(dataX);
+            header.Data.Y = STRING_UINT8(dataY);
+            header.Data.Z = STRING_UINT8(dataZ);
             header.Colour.BackgroundRed   = UINT8(FLOAT(color[0] * 255.0f));
             header.Colour.BackgroundGreen = UINT8(FLOAT(color[1] * 255.0f));
             header.Colour.BackgroundBlue  = UINT8(FLOAT(color[2] * 255.0f));

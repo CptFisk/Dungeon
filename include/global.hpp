@@ -7,6 +7,7 @@
 #define FLOAT(x)        static_cast<float>(x)
 #define INT(x)          static_cast<int>(x)
 #define UINT8_STRING(x) std::to_string(static_cast<int>(x))
+#define STRING_UINT8(x) static_cast<uint8_t>(std::stoi(x))
 
 // Map size
 const int     MAP_SIZE  = 128;
