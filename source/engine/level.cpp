@@ -24,16 +24,15 @@ Engine::loadLevel(const std::string& filename) {
     std::vector<SDL_FRect> wall;
 
     // Set background colors
-    Background.Red   = mHeader.Color.BackgroundRed;
-    Background.Green = mHeader.Color.BackgroundGreen;
-    Background.Blue  = mHeader.Color.BackgroundBlue;
+    Background.Red   = mHeader.Colour.BackgroundRed;
+    Background.Green = mHeader.Colour.BackgroundGreen;
+    Background.Blue  = mHeader.Colour.BackgroundBlue;
 
     createSegments(data.Assets); // Generate segments
 
     int pos = 0;
 
-    const int mapSize = static_cast<float>(data.Header.Level.SizeX) * static_cast<float>(data.Header.Level.SizeY);
-    levelObjects      = std::vector<Level::File::TileType>(mapSize, Level::File::TileType::BLANK);
+    levelObjects      = std::vector<Level::File::TileType>(MAX_TILES, Level::File::TileType::BLANK);
 
     bool layersLeft = false;
     auto it         = data.Tiles.Tiles.begin();
@@ -126,7 +125,7 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
     auto playerX = INT(pos.x / 16.0f);
     auto playerY = INT(pos.y / 16.0f);
 
-    const auto index     = Common::getIndex(playerX, playerY, mHeader.Level.SizeX);
+    const auto index     = Common::getIndex(playerX, playerY, MAP_SIZE);
     if(!index.has_value())
         return false;
     if(((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::WALL)) != 0 ) ||
@@ -142,11 +141,6 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
         }
     }
     return true;
-}
-
-std::pair<uint8_t, uint8_t>
-Engine::getPlayerSpawn() {
-    return { mHeader.Level.PlayerX, mHeader.Level.PlayerY };
 }
 
 void

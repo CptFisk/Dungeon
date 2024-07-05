@@ -121,11 +121,6 @@ class Engine {
     // Load a level
     void loadLevel(const std::string& filename);
 
-    /**
-     * @brief Returns the position were the player should spawn
-     */
-    std::pair<uint8_t, uint8_t> getPlayerSpawn();
-
     // Segmentations
     void                 createSegments(const Level::File::typeAssets& assets);
     void                 addToSegment(const int& pos, const std::string& name);

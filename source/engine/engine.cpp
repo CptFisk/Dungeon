@@ -90,7 +90,7 @@ Engine::startup() {
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
 
-    loadLevel("level.map");
+    loadLevel("555.map");
 
     mPlayer = std::make_unique<Player::Player>();
 
@@ -200,7 +200,7 @@ Engine::interact() {
 void
 Engine::mainLoop() {
     textBox = new Objects::TextBox(mGraphics->generateText("Hello ssss", 8), 20, 20);
-    mPlayer->spawn(getPlayerSpawn());
+    mPlayer->spawn(44,120);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
     // mLoading.join();
@@ -244,9 +244,6 @@ Engine::mainLoop() {
         // Display player center
         SDL_FRect middle{ mPlayer->getPlayerCenter().x, mPlayer->getPlayerCenter().y, 1.0f, 1.0f };
         mPerspective->render(*GET_SDL("A349A4"), nullptr, &middle);
-        // Displaying spawn point
-        SDL_FRect spawn{ mHeader.Level.PlayerX * 16.0f, mHeader.Level.PlayerY * 16.0f, 16.0f, 16.0f };
-        mPerspective->render(*GET_SDL("A349A4"), nullptr, &spawn);
 #endif
 
         monsters();

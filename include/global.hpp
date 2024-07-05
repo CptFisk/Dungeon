@@ -11,6 +11,6 @@
 
 // Map size
 const int     MAP_SIZE  = 128;
-constexpr int MAX_TILES = MAP_SIZE ^ 2;
+constexpr int MAX_TILES = MAP_SIZE * MAP_SIZE;
 
 enum Directions : uint8_t { NORTH = 1 << 0, EAST = 1 << 1, SOUTH = 1 << 2, WEST = 1 << 3, ALL = NORTH | EAST | SOUTH | WEST };

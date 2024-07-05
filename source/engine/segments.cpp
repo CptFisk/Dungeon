@@ -2,6 +2,7 @@
 #include <engine/engine.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
+#include <global.hpp>
 
 namespace Engine {
 
@@ -14,12 +15,12 @@ Engine::createSegments(const Level::File::typeAssets& assets) {
     // We always need at least one layer
     const auto animationLayers = std::max(static_cast<int>(assets.AnimationValue), 1);
 
-    if (mHeader.Level.SizeX >= segmentSizeX) {
-        segmentX   = static_cast<int>(mHeader.Level.SizeX / segmentSizeX);
-        remainderX = mHeader.Level.SizeX % segmentSizeX;
+    if (MAP_SIZE >= segmentSizeX) {
+        segmentX   = static_cast<int>(MAP_SIZE/ segmentSizeX);
+        remainderX = MAP_SIZE % segmentSizeX;
     }
-    if (mHeader.Level.SizeY >= segmentSizeY) {
-        segmentY = static_cast<int>(mHeader.Level.SizeY / segmentSizeY);
+    if (MAP_SIZE >= segmentSizeY) {
+        segmentY = static_cast<int>(MAP_SIZE / segmentSizeY);
     }
 
     // Creating textures and positions
@@ -47,10 +48,10 @@ Engine::createSegments(const Level::File::typeAssets& assets) {
             auto xx = static_cast<float>(remainderX); // Remainder but as float
             int  remainderY;                          // Don't assign value, we will assign it later
             // Calculate the height we can use
-            if (segmentSizeY <= (mHeader.Level.SizeY - (y * segmentSizeY))) {
+            if (segmentSizeY <= (MAP_SIZE - (y * segmentSizeY))) {
                 remainderY = segmentSizeY;
             } else {
-                remainderY = (mHeader.Level.SizeY - (y * segmentSizeY));
+                remainderY = (MAP_SIZE - (y * segmentSizeY));
             }
 
             auto                      sx  = static_cast<float>(segmentX);     // Segments but as float
@@ -75,7 +76,7 @@ Engine::createSegments(const Level::File::typeAssets& assets) {
 
 void
 Engine::addToSegment(const int& pos, const std::string& name) {
-    auto coords = Common::getCoords(pos, mHeader.Level.SizeX, mHeader.Level.SizeY); // Fetching coords, hopefully
+    auto coords = Common::getCoords(pos, MAP_SIZE, MAP_SIZE); // Fetching coords, hopefully
 
     if (coords.has_value()) {
         auto coord = coords.value();
@@ -126,9 +127,17 @@ Engine::addToSegment(const int& pos, const std::string& name) {
 
                 break;
                 case Graphics::TextureTypes::GENERATED_TEXTURE:
+                    std::cerr << "GENERATED" << std::endl;
+                    break;
                 case Graphics::TextureTypes::SDL_TEXTURE:
+                    std::cerr << "SDL" << std::endl;
+                    break;
                 case Graphics::TextureTypes::TEXT:
+                    std::cerr << "TEXT" << std::endl;
+                    break;
                 case Graphics::TextureTypes::UNDEFINED:
+                    std::cerr << "UNDEFINED" << std::endl;
+                    break;
                 default:
                     std::cerr << "Not supported" << std::endl;
             }
@@ -145,7 +154,7 @@ size_t
 Engine::getSegment(const std::pair<int, int>& coord) const {
     const int indexX           = static_cast<int>(coord.first / segmentSizeX);
     const int indexY           = static_cast<int>(coord.second / segmentSizeY);
-    const int numberOfSegments = static_cast<int>((mHeader.Level.SizeX + segmentSizeX - 1) / segmentSizeX);
+    const int numberOfSegments = static_cast<int>((MAP_SIZE + segmentSizeX - 1) / segmentSizeX);
 
     return indexY * numberOfSegments + indexX;
 }
