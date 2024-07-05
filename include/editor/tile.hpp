@@ -44,13 +44,13 @@ class Tile {
      * @param assetList Reference to asset list
      * @param graphics Reference to graphic engine
      * @param mode True if top-layer, otherwise false
-     * @return True if data could be added
+     * @return Value of animation value, if static texture returns 0
      */
-    bool addData(const std::string&                         asset,
+    int addData(const std::string&                         asset,
                  Level::File::typeAssets&                   assetList,
                  const std::shared_ptr<Graphics::Graphics>& graphics,
                  const bool& mode);
-    bool addData(const std::string&                         asset,
+    int addData(const std::string&                         asset,
                  Level::File::typeAssets&                   assetList,
                  const std::shared_ptr<Graphics::Graphics>& graphics,
                  const Mouse& mouse);

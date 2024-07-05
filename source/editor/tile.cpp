@@ -45,74 +45,81 @@ Tile::clear() {
     tileData = {};
 }
 
-bool
-Tile::addData(const std::string& asset, Level::File::typeAssets& assetList, const std::shared_ptr<Graphics::Graphics>& graphics, const bool& mode) {
+int
+Tile::addData(const std::string&                         asset,
+              Level::File::typeAssets&                   assetList,
+              const std::shared_ptr<Graphics::Graphics>& graphics,
+              const bool&                                mode) {
     return addData(asset, assetList, graphics, mode ? Mouse::TOP_LAYER : Mouse::TEXTURE);
 }
 
-bool
-Tile::addData(const std::string& asset, Level::File::typeAssets& assetList, const std::shared_ptr<Graphics::Graphics>& graphics,  const Mouse& mouse) {
-    auto& data = mouse == Mouse::TEXTURE ? baseLayer : topLayer;
-    const auto size = data.size();
-    const auto type = graphics->getTextureType(asset);
+int
+Tile::addData(const std::string&                         asset,
+              Level::File::typeAssets&                   assetList,
+              const std::shared_ptr<Graphics::Graphics>& graphics,
+              const Mouse&                               mouse) {
+    auto&      data           = mouse == Mouse::TEXTURE ? baseLayer : topLayer;
+    const auto size           = data.size();
+    const auto type           = graphics->getTextureType(asset);
+    int        animationValue = 0;
     switch (type) {
         case Graphics::TextureTypes::SIMPLE_TEXTURE:
-            if (graphics->getTexture<Graphics::typeSimpleTexture>(asset) == nullptr)
-                return false;
-            // The asset exist and we can use it
-            data.emplace_back(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->getTexture(),
-                              &graphics->getTexture<Graphics::typeSimpleTexture>(asset)->getRandomView(),
-                              new SDL_FRect{
-                                xPos,
-                                yPos,
-                                FLOAT(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Width) * scale.factorX,
-                                FLOAT(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Height) * scale.factorY,
-                              });
-            tileData.Type |= static_cast<uint8_t>(Level::File::TileType::TEXTURE);
+            if (graphics->getTexture<Graphics::typeSimpleTexture>(asset) != nullptr) {
+                // The asset exist and we can use it
+                data.emplace_back(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->getTexture(),
+                                  &graphics->getTexture<Graphics::typeSimpleTexture>(asset)->getRandomView(),
+                                  new SDL_FRect{
+                                    xPos,
+                                    yPos,
+                                    FLOAT(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Width) * scale.factorX,
+                                    FLOAT(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Height) * scale.factorY,
+                                  });
+                tileData.Type |= static_cast<uint8_t>(Level::File::TileType::TEXTURE);
+            }
             break;
         case Graphics::TextureTypes::ANIMATED_TEXTURE:
-            if (graphics->getTexture<Graphics::AnimatedTexture*>(asset) == nullptr)
-                return false;
-            // The asset exist and we can use it
-            data.emplace_back((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getTexture(),
-                              (*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getViewport(),
-                              new SDL_FRect{
-                                xPos,
-                                yPos,
-                                FLOAT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Width) * scale.factorX,
-                                FLOAT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Height) * scale.factorY,
-                              });
-            tileData.Type |= static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE);
+            if (graphics->getTexture<Graphics::AnimatedTexture*>(asset) != nullptr) {
+                // The asset exist and we can use it
+                data.emplace_back((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getTexture(),
+                                  (*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getViewport(),
+                                  new SDL_FRect{
+                                    xPos,
+                                    yPos,
+                                    FLOAT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Width) * scale.factorX,
+                                    FLOAT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Height) * scale.factorY,
+                                  });
+                tileData.Type |= static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE);
+                animationValue = (graphics->getTexture<Graphics::AnimatedTexture>(asset))->getViewports().size() *
+                                 (graphics->getTexture<Graphics::AnimatedTexture>(asset))->getTicks();
+            }
             break;
         default:;
     }
     // Handles the list of assets
     if (Level::File::findAsset(asset, assetList).has_value()) {
         // The item exist in asset list. Append it to the end of our graphics
-        switch(mouse){
+        switch (mouse) {
             case Mouse::TEXTURE:
                 tileData.Base.emplace_back(Level::File::findAsset(asset, assetList).value());
                 break;
             case Mouse::TOP_LAYER:
                 tileData.Top.emplace_back(Level::File::findAsset(asset, assetList).value());
                 break;
-            default:
-                ;
+            default:;
         }
     } else {
-        switch(mouse){
+        switch (mouse) {
             case Mouse::TEXTURE:
                 tileData.Base.emplace_back(Level::File::addAsset(asset, assetList));
                 break;
             case Mouse::TOP_LAYER:
                 tileData.Top.emplace_back(Level::File::addAsset(asset, assetList));
                 break;
-            default:
-              ;
+            default:;
         }
     }
 
-    return data.size() > size ? true : false;
+    return animationValue;
 }
 
 void
