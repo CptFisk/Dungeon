@@ -30,6 +30,7 @@ set(
         ${CMAKE_SOURCE_DIR}/source/common/initializer/sdl.cpp
         ${CMAKE_SOURCE_DIR}/source/common/initializer/imgui.cpp
 
+        ${CMAKE_SOURCE_DIR}/source/level/types/header.cpp
         ${CMAKE_SOURCE_DIR}/source/level/types/assets.cpp
         ${CMAKE_SOURCE_DIR}/source/level/types/tile.cpp
         ${CMAKE_SOURCE_DIR}/source/level/types/door.cpp

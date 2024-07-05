@@ -11,8 +11,8 @@ Editor::uiTiles() {
 
     const auto minX = std::max(INT((mOffset.X / -1.0f) / (16.0f * mScale.factorX) - 3.0f), 0);
     const auto minY = std::max(INT((mOffset.Y / -1.0f) / (16.0f * mScale.factorY) - 3.0f), 0);
-    const auto maxX = std::min(minX + 20, INT(fileHeader.Level.SizeX));
-    const auto maxY = std::min(minY + 16, INT(fileHeader.Level.SizeY));
+    const auto maxX = std::min(minX + 20, MAP_SIZE);
+    const auto maxY = std::min(minY + 16, MAP_SIZE);
 
     int  layer      = 0;
     bool layersLeft = false;
@@ -23,7 +23,7 @@ Editor::uiTiles() {
         layersLeft = false;
         for (int y = minY; y < maxY; y++) {
             for (int x = minX; x < maxX; x++) {
-                const auto pos = Common::getIndex(x, y, fileHeader.Level.SizeX);
+                const auto pos = Common::getIndex(x, y, MAP_SIZE);
                 // Check if valid position
                 if (pos.has_value()) {
                     const auto& drawData = editorTiles[pos.value()]->getBaseDrawData();
@@ -40,7 +40,7 @@ Editor::uiTiles() {
 
     for (int y = minY; y < maxY; y++) {
         for (int x = minX; x < maxX; x++) {
-            auto pos = Common::getIndex(x, y, fileHeader.Level.SizeX);
+            auto pos = Common::getIndex(x, y, MAP_SIZE);
             if (pos.has_value()) {
                 //Draw the top layer
                 for(const auto& drawData : editorTiles[pos.value()]->getTopDrawData()){

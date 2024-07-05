@@ -16,10 +16,6 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
     fileDoors  = data.Doors;
     fileWarps  = data.Warps;
 
-    // Clear edges and then create them
-    //  Position for edges
-    const auto sizeX = fileHeader.Level.SizeX;
-    const auto sizeY = fileHeader.Level.SizeY;
 
     // Adding some visuals so we don't paint outside
     mEdges.clear();
@@ -30,8 +26,8 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
     editorTiles.clear();
 
     int pos = 0;
-    for (int y = 0; y < sizeY; y++) {
-        for (int x = 0; x < sizeX; x++) {
+    for (int y = 0; y <  MAP_SIZE; y++) {
+        for (int x = 0; x <  MAP_SIZE; x++) {
             const auto tile = tiles.Tiles[pos]; // To keep name short
             // Generating both tiles and visual overlay
             editorTiles.push_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
@@ -53,11 +49,7 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
             pos++;
         }
     }
-    // Adding player spawn
-    mPlayerSpawn.x = static_cast<float>(fileHeader.Level.PlayerX) * 16.0f * mScale.factorX;
-    mPlayerSpawn.y = static_cast<float>(fileHeader.Level.PlayerY) * 16.0f * mScale.factorY;
-    mPlayerSpawn.w = 16.0f * mScale.factorX;
-    mPlayerSpawn.h = 16.0f * mScale.factorY;
+
 
     mMapLoaded = true;
 }

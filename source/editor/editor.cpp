@@ -27,8 +27,7 @@ Editor::Editor(const int& w, const int& h)
   , mMouse(Mouse::DEFAULT)
   , mHideAllWindows(false)
   , mActionManager(std::make_unique<Common::ActionManager>())
-  , mOffset(0.0, 0.0)
-  , mPlayerSpawn{} {}
+  , mOffset(0.0, 0.0) {}
 
 Editor::~Editor() {
     // Clear all tiles
@@ -100,8 +99,11 @@ void
 Editor::mainLoop() {
     SDL_Event event;
     while (mRun) {
-        SDL_SetRenderDrawColor(
-          pRenderer, fileHeader.Color.BackgroundRed, fileHeader.Color.BackgroundGreen, fileHeader.Color.BackgroundBlue, SDL_ALPHA_OPAQUE);
+        SDL_SetRenderDrawColor(pRenderer,
+                               fileHeader.Colour.BackgroundRed,
+                               fileHeader.Colour.BackgroundGreen,
+                               fileHeader.Colour.BackgroundBlue,
+                               SDL_ALPHA_OPAQUE);
         ImGui_ImplSDLRenderer2_NewFrame();
         ImGui_ImplSDL2_NewFrame();
         ImGui::NewFrame();
@@ -223,7 +225,7 @@ Editor::click() {
         clickedCoord.first  = clickCoord.first;  // To display coords
         clickedCoord.second = clickCoord.second; // To display coords
 
-        auto index = Common::getIndex(clickCoord, fileHeader.Level.SizeX);
+        auto index = Common::getIndex(clickCoord, MAP_SIZE);
         if (index.has_value()) {
             const auto pos = index.value();
 
@@ -256,15 +258,6 @@ Editor::click() {
                 case Mouse::DOWN:
                     editorTiles[pos]->addType(Level::File::TileType::DOWN, *GET_SDL(getMouseColorCode(Mouse::DOWN)));
                     break;
-                case Mouse::PLAYER_SPAWN: {
-                    auto coords    = Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), FLOAT(y) + (mOffset.Y / -1.0f), mScale);
-                    mPlayerSpawn.x = static_cast<float>(coords.first) * 16.0f * mScale.factorX;
-                    mPlayerSpawn.y = static_cast<float>(coords.second) * 16.0f * mScale.factorY;
-                    mPlayerSpawn.w = 16.0f * mScale.factorX;
-                    mPlayerSpawn.h = 16.0f * mScale.factorY;
-                    fileHeader.Level.PlayerX = coords.first;
-                    fileHeader.Level.PlayerY = coords.second;
-                } break;
                 case Mouse::DOOR:
                     popupPosition.x = static_cast<float>(x);
                     popupPosition.y = static_cast<float>(y);

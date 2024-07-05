@@ -7,17 +7,17 @@ namespace Editor {
  * Different modes the mouse can have in editor mode
  */
 enum class Mouse {
-    DEFAULT,      // Default, no action when you click
-    REMOVE,       // Remove all states and links to the tile
-    TEXTURE,      // Add a standard texture to the tile
-    UP,           // Add a warp up
-    DOWN,         // Add a warp down
-    WALL,         // Make a wall
-    OBSTACLE,     // Make an obstacle
-    PLAYER_SPAWN, // Set player spawn
-    DOOR,         // Create a door
-    WARP,          // Create a warp-zone.
-    TOP_LAYER      //Layer that the player can walk under
+    DEFAULT,  // Default, no action when you click
+    REMOVE,   // Remove all states and links to the tile
+    TEXTURE,  // Add a standard texture to the tile
+    UP,       // Add a warp up
+    DOWN,     // Add a warp down
+    WALL,     // Make a wall
+    OBSTACLE, // Make an obstacle
+    SPARE,    // Previously player spawn
+    DOOR,     // Create a door
+    WARP,     // Create a warp-zone.
+    TOP_LAYER // Layer that the player can walk under
 };
 
 /**
@@ -40,7 +40,7 @@ getMouseColorCode(const Mouse& mouse) {
             return "#D86DCD";
         case Mouse::OBSTACLE:
             return "#BE5014";
-        case Mouse::PLAYER_SPAWN:
+        case Mouse::SPARE:
             return "#E8E8E8";
         case Mouse::DOOR:
             return "#000000";
@@ -53,8 +53,7 @@ getMouseColorCode(const Mouse& mouse) {
     }
 }
 
-void mouseButton(Mouse& current, const Mouse& state, const std::string& text);
-
-
+void
+mouseButton(Mouse& current, const Mouse& state, const std::string& text);
 
 }

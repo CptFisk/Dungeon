@@ -3,46 +3,24 @@
 #include <cstdint>
 #include <level/types/assets.hpp>
 #include <level/types/door.hpp>
+#include <level/types/header.hpp>
 #include <level/types/spawn.hpp>
 #include <level/types/tile.hpp>
 #include <level/types/warp.hpp>
-#include <optional>
 #include <string>
 #include <vector>
+#include <optional>
 
 namespace Level::File {
 
-struct typeHeader {
-    uint8_t HeaderVersion; // Version of editor
-    char    MapName[31];   // Filename
-
-    struct Color {
-        uint8_t BackgroundRed;   // RGB colour of background
-        uint8_t BackgroundGreen; // RGB colour of background
-        uint8_t BackgroundBlue;  // RGB colour of background
-        Color()
-          : BackgroundRed(0)
-          , BackgroundGreen(0)
-          , BackgroundBlue(0){};
-    } Color;
-
-    struct Level {
-        uint8_t  SizeX;    // Map width
-        uint8_t  SizeY;    // Map height
-        uint16_t Elements; // Number of active tiles
-        uint8_t  PlayerX;
-        uint8_t  PlayerY;
-    } Level;
-};
-
 struct typeLevelData {
-    typeHeader                 Header;
+    typeHeaderData             Header;
     typeAssets                 Assets;
     typeTiles                  Tiles;
     std::vector<typeDoorsData> Doors;
     std::vector<typeWarpData>  Warps;
     typeSpawn                  Spawns;
-    typeLevelData(typeHeader                  header,
+    typeLevelData(typeHeaderData              header,
                   typeAssets                  assets,
                   typeTiles                   tiles,
                   std::vector<typeDoorsData>& doors,
@@ -72,20 +50,5 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data);
 typeLevelData
 readLevelData(const std::string& filename);
 
-size_t
-addAsset(const std::string& asset, typeAssets& map); // Add a new item to the list, returns the id that was assigned
-
-std::optional<size_t>
-findAsset(const std::string& asset, const typeAssets& map); // Search for an asset, -1 if item don't exist
-
-/**
- * @brief Function used to remove a asset both from the game-world but also from the visual map that you are editing.
- * @param assetName Name of the asset
- * @param map Asset list
- * @param fileTiles Reference to the fileData structure
- * @return True if a element was found and removed
- */
-bool
-removeAsset(const std::string& assetName, typeAssets& map);
 
 }

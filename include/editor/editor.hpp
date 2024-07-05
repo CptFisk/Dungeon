@@ -53,10 +53,10 @@ class Editor {
         ImVec2 Size;
     };
 
-    void uiMenu();                                                                        // Top menu
-    void uiHeader(typeWindowCovering& area, bool& open, Level::File::typeHeader& header); // Display current open project settings
-    void uiDrawGrid();                                                                    // Draw a basic grid over the area
-    void uiAssets(typeWindowCovering& area, bool& open, Level::File::typeAssets& assets); // Display the metadata related to the map
+    void uiMenu();                                                                            // Top menu
+    void uiHeader(typeWindowCovering& area, bool& open, Level::File::typeHeaderData& header); // Display current open project settings
+    void uiDrawGrid();                                                                        // Draw a basic grid over the area
+    void uiAssets(typeWindowCovering& area, bool& open, Level::File::typeAssets& assets);     // Display the metadata related to the map
     void uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse);
     void uiTiles();
     void uiDoor(bool& open);
@@ -66,8 +66,8 @@ class Editor {
     void uiTexture(typeWindowCovering&                                                area,
                    bool&                                                              open,
                    const std::vector<std::pair<Graphics::TextureTypes, std::string>>& textures,
-                   std::pair<Graphics::TextureTypes, std::string>& selectedTexture);
-    void present();                                                                              // Render all graphic
+                   std::pair<Graphics::TextureTypes, std::string>&                    selectedTexture);
+    void present(); // Render all graphic
 
   private:
     const int requestDimensionW; // Requested window width
@@ -123,7 +123,7 @@ class Editor {
     bool                                                   showGrid;
 
     // Map data
-    Level::File::typeHeader                 fileHeader;
+    Level::File::typeHeaderData             fileHeader;
     Level::File::typeAssets                 fileAssets; // List of all the assets that exist in the current map.
     Level::File::typeSpawn                  fileSpawns;
     std::vector<Level::File::typeDoorsData> fileDoors; // Contains all doors
@@ -143,7 +143,6 @@ class Editor {
         }
     };
     std::set<std::pair<int, int>, comparePair>      mLevelCoords; // A list of coordinates that is used
-    SDL_FRect                                       mPlayerSpawn; // Area to draw the player in
     std::vector<std::pair<SDL_Texture*, SDL_FRect>> mEdges;       // Edges for drawing area
 
     std::map<long int, std::shared_ptr<Common::Interrupt>> mInterrupts;

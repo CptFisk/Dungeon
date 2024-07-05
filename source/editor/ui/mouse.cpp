@@ -15,7 +15,6 @@ Editor::uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse) {
         mouseButton(mouse, Mouse::TOP_LAYER, "Top layer");
         mouseButton(mouse, Mouse::WALL, "Wall");
         mouseButton(mouse, Mouse::OBSTACLE, "Obstacle");
-        mouseButton(mouse, Mouse::PLAYER_SPAWN, "Player spawn");
         ImGui::SeparatorText("Interaction");
         mouseButton(mouse, Mouse::UP, "Up");
         mouseButton(mouse, Mouse::DOWN, "Down");

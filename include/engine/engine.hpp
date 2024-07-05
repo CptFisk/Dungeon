@@ -139,13 +139,13 @@ class Engine {
     std::vector<Objects::Warp>         warps; // Warp locations
 
     // Level data
-    bool                    mLevelLoaded;
-    Level::File::typeHeader mHeader;
-    std::string             mFilename; // Name of the current loaded map
-    int                     mCurrentLayer = 0;
-    int                     mMaxLayers    = 0;
-    static const int        segmentSizeX  = 64;
-    static const int        segmentSizeY  = 64;
+    bool                        mLevelLoaded;
+    Level::File::typeHeaderData mHeader;
+    std::string                 mFilename; // Name of the current loaded map
+    int                         mCurrentLayer = 0;
+    int                         mMaxLayers    = 0;
+    static const int            segmentSizeX  = 64;
+    static const int            segmentSizeY  = 64;
 
     Objects::TextBox* textBox;
 };

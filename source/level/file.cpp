@@ -3,6 +3,7 @@
 #include <global.hpp>
 #include <iostream>
 #include <level/file.hpp>
+#include <level/types/header.hpp>
 #include <stdexcept>
 
 namespace Level::File {
@@ -13,11 +14,7 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
     if (!file.is_open())
         throw std::runtime_error("Cant write to file");
     // Write header
-    file.write(reinterpret_cast<const char*>(&data.Header), sizeof(data.Header));
-
-    // Write the biggest animated value that we have
-    file.write(reinterpret_cast<const char*>(&data.Assets.AnimationValue), sizeof(data.Assets.AnimationValue));
-
+    writeHeaderData(file, data.Header);
     writeAssetData(file, data.Assets);
     writeTileData(file, data.Tiles);
     writeDoorData(file, data.Doors);
@@ -31,18 +28,14 @@ readLevelData(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
     if (!file)
         throw std::runtime_error("Cant load file");
-    typeHeader                 header = {};
+    typeHeaderData             header = {};
     typeAssets                 assets;
     typeTiles                  tiles = {};
     std::vector<typeDoorsData> doors;
     std::vector<typeWarpData>  warps;
-    uint16_t                   readSize; // Used to store sizes of objects
-    // Read size, nothing special here
-    file.read(reinterpret_cast<char*>(&header), sizeof(typeHeader));
-
-    file.read(reinterpret_cast<char*>(&assets.AnimationValue), sizeof(assets.AnimationValue));
 
     // Read the size of how many assets is stored in the file
+    readHeaderData(file, header);
     readAssetData(file, assets);
     readTileData(file, tiles);
     readDoorData(file, doors);
@@ -53,37 +46,5 @@ readLevelData(const std::string& filename) {
     return typeLevelData{ header, assets, tiles, doors, warps, typeSpawn() };
 }
 
-size_t
-addAsset(const std::string& asset, typeAssets& map) {
-    const auto size = map.Assets.size();
-    map.Assets.emplace_back(asset);
-    return size;
-}
-
-std::optional<size_t>
-findAsset(const std::string& asset, const typeAssets& map) {
-    auto it = std::find(map.Assets.begin(), map.Assets.end(), asset);
-    if (it != map.Assets.end())
-        return std::distance(map.Assets.begin(), it);
-    return std::nullopt;
-}
-
-bool
-removeAsset(const std::string& assetName, typeAssets& map) {
-    // Calculate our id
-    int  assetId;
-    bool found = false;
-    for (auto it = map.Assets.begin(); it != map.Assets.end(); ++it) {
-        if (*it == assetName) {
-            assetId = static_cast<int>(std::distance(map.Assets.begin(), it));
-            map.Assets.erase(it);
-            found = true;
-            break; // Stop the loop
-        }
-    }
-    if (!found)
-        return false;
-    return true;
-}
 
 }

@@ -1,11 +1,13 @@
 #include <level/types/assets.hpp>
 #include <iostream>
 #include <global.hpp>
+#include <algorithm>
 
 namespace Level::File{
 
 void
 readAssetData(std::ifstream& file, typeAssets& data){
+    file.read(reinterpret_cast<char*>(&data.AnimationValue), sizeof(data.AnimationValue));
     uint16_t readSize;
     file.read(reinterpret_cast<char*>(&readSize), sizeof(readSize));
 
@@ -25,6 +27,8 @@ readAssetData(std::ifstream& file, typeAssets& data){
 
 void
 writeAssetData(std::ofstream& file, const typeAssets& data){
+    // Write the biggest animated value that we have
+    file.write(reinterpret_cast<const char*>(&data.AnimationValue), sizeof(data.AnimationValue));
     //Get the number os assets in map and store it as uint16_t
     const auto numAssets = UINT16(data.Assets.size());
     file.write(reinterpret_cast<const char*>(&numAssets), sizeof(uint16_t));
@@ -38,6 +42,40 @@ writeAssetData(std::ofstream& file, const typeAssets& data){
             std::cerr << "Error writing assets" << std::endl;
         }
     }
+}
+
+
+size_t
+addAsset(const std::string& asset, typeAssets& map) {
+    const auto size = map.Assets.size();
+    map.Assets.emplace_back(asset);
+    return size;
+}
+
+std::optional<size_t>
+findAsset(const std::string& asset, const typeAssets& map) {
+    auto it = std::find(map.Assets.begin(), map.Assets.end(), asset);
+    if (it != map.Assets.end())
+        return std::distance(map.Assets.begin(), it);
+    return std::nullopt;
+}
+
+bool
+removeAsset(const std::string& assetName, typeAssets& map) {
+    // Calculate our id
+    int  assetId;
+    bool found = false;
+    for (auto it = map.Assets.begin(); it != map.Assets.end(); ++it) {
+        if (*it == assetName) {
+            assetId = static_cast<int>(std::distance(map.Assets.begin(), it));
+            map.Assets.erase(it);
+            found = true;
+            break; // Stop the loop
+        }
+    }
+    if (!found)
+        return false;
+    return true;
 }
 
 }

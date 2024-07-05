@@ -8,38 +8,32 @@ Editor::uiMenu() {
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("New project")) {
-                fileHeader               = Level::File::typeHeader{};
-                fileHeader.Level.SizeX   = 16;
-                fileHeader.Level.SizeY   = 12;
-                fileHeader.HeaderVersion = 1;
-
+                fileHeader = Level::File::typeHeaderData{};
                 fileAssets.Assets.clear(); // Clear the vector, we start blank
                 displayElement("Header");
             }
             if (ImGui::BeginMenu("Load project")) {
-                for(const auto& file : mMapFiles){
-                    if(ImGui::MenuItem(file.c_str()))
+                for (const auto& file : mMapFiles) {
+                    if (ImGui::MenuItem(file.c_str()))
                         loadLevel(Level::File::readLevelData(file));
                 }
                 ImGui::EndMenu();
             }
             if (ImGui::MenuItem("Save project")) {
-                fileHeader.Level.Elements = mLevelCoords.size();
                 std::vector<int> temp; // Temporary storage
                 for (const auto& [asset, value] : animationValues) {
                     temp.push_back(value);
                 }
-                fileAssets.AnimationValue      = Common::findLcm(temp);
-                Level::File::typeTiles tiles(editorTiles.size() - 1);
+                fileAssets.AnimationValue = Common::findLcm(temp);
+                Level::File::typeTiles tiles(editorTiles.size());
 
-                for(int i = 0; i < editorTiles.size(); i++){
+                for (int i = 0; i < editorTiles.size(); i++) {
                     tiles.Tiles[i] = editorTiles[i]->getTileData();
                 }
 
-
                 Level::File::typeLevelData map = { fileHeader, fileAssets, tiles, fileDoors, fileWarps, fileSpawns };
-
-                Level::File::writeLevelDataToFile("levels/" + std::string(fileHeader.MapName) + ".map", map);
+                const std::string fileName = UINT8_STRING(fileHeader.Data.X) + UINT8_STRING(fileHeader.Data.Y) + UINT8_STRING(fileHeader.Data.Z);
+                Level::File::writeLevelDataToFile("levels/" + fileName + ".map", map);
             }
 
             ImGui::EndMenu();
