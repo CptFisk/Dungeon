@@ -89,8 +89,8 @@ Tile::addData(const std::string&                         asset,
                                     FLOAT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Height) * scale.factorY,
                                   });
                 tileData.Type |= static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE);
-                animationValue = (graphics->getTexture<Graphics::AnimatedTexture>(asset))->getViewports().size() *
-                                 (graphics->getTexture<Graphics::AnimatedTexture>(asset))->getTicks();
+                animationValue = INT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getViewports().size() *
+                                     (*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getTicks());
             }
             break;
         default:;
