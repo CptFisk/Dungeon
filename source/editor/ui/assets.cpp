@@ -22,8 +22,9 @@ Editor::uiAssets(typeWindowCovering& area, bool& open, Level::File::typeAssets& 
                   std::remove_if(assets.Assets.begin(), assets.Assets.end(), [name](const std::string a) { return a == name; }),
                   assets.Assets.end());
                 removeSpecificTexture(name, editorTiles, pos);
-                pos++;
+
             }
+            pos++;
         }
         area = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::End();
