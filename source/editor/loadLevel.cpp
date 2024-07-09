@@ -34,12 +34,11 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
             // Generating both tiles and visual overlay
             editorTiles.push_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
             for (const auto& id : tile.Base) {
-                if(id >= assets.Assets.size()){
-                    std::cout << "ERROR";
+                if(id <= assets.Assets.size()) {
+                    const auto asset           = data.Assets.Assets[INT(id)];
+                    animationValuesBase[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, false);
+                    mLevelCoords.emplace(x, y);
                 }
-                const auto asset           = data.Assets.Assets[INT(id)];
-                animationValuesBase[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, false);
-                mLevelCoords.emplace(x, y);
             }
             for (const auto& id : tile.Top) {
                 const auto asset          = data.Assets.Assets[INT(id)];
