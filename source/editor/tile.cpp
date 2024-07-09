@@ -178,25 +178,28 @@ Tile::getOverlay() {
 }
 
 bool
-Tile::elementExist(SDL_Texture* texture) const {
-    auto it = std::find_if(baseLayer.begin(), baseLayer.end(), [&texture](const Common::typeDrawData& d) { return d.Texture == texture; });
-    return it != baseLayer.end() ? true : false;
+Tile::elementExist(SDL_Texture* texture, const uint8_t& id) const {
+    auto t1 = std::find_if(baseLayer.begin(), baseLayer.end(), [&texture](const Common::typeDrawData& d) { return d.Texture == texture; });
+    auto t2 = std::find_if(topLayer.begin(), topLayer.end(), [&texture](const Common::typeDrawData& d) { return d.Texture == texture; });
+    auto i1 = std::find_if(tileData.Base.begin(), tileData.Base.end(), [&id](const uint8_t& d) { return d == id; });
+    auto i2 = std::find_if(tileData.Top.begin(), tileData.Top.end(), [&id](const uint8_t& d) { return d == id; });
+    return t1 != baseLayer.end() || t2 != topLayer.end() || i1 != tileData.Base.end() || i2 != tileData.Top.end() ? true : false;
 }
 
 void
 Tile::removeElement(SDL_Texture* texture, const uint8_t& id) {
-    //Remove from all the vectors
-    Utility::removeElementInVector(baseLayer, [texture](const Common::typeDrawData a){return a.Texture == texture;});
-    Utility::removeElementInVector(topLayer, [texture](const Common::typeDrawData a){return a.Texture == texture;});
-    Utility::removeElementInVector(tileData.Base, [id](const uint8_t& a){return a == id;});
-    Utility::removeElementInVector(tileData.Top, [id](const uint8_t& a){return a == id;});
-    //Now lower all the values that was above the  id for base and top
-    for(auto& element : tileData.Base){
-        if(element > id)
+    // Remove from all the vectors
+    Utility::removeElementInVector(baseLayer, [texture](const Common::typeDrawData a) { return a.Texture == texture; });
+    Utility::removeElementInVector(topLayer, [texture](const Common::typeDrawData a) { return a.Texture == texture; });
+    Utility::removeElementInVector(tileData.Base, [id](const uint8_t& a) { return a == id; });
+    Utility::removeElementInVector(tileData.Top, [id](const uint8_t& a) { return a == id; });
+    // Now lower all the values that was above the  id for base and top
+    for (auto& element : tileData.Base) {
+        if (element > id)
             --element;
     }
-    for(auto& element : tileData.Top){
-        if(element > id)
+    for (auto& element : tileData.Top) {
+        if (element > id)
             --element;
     }
 }
