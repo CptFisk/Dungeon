@@ -28,16 +28,22 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
     for (int y = 0; y < MAP_SIZE; y++) {
         for (int x = 0; x < MAP_SIZE; x++) {
             const auto tile = tiles.Tiles[pos]; // To keep name short
+            if(pos >= MAX_TILES){
+                std::cout << "FAILURE";
+            }
             // Generating both tiles and visual overlay
             editorTiles.push_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
             for (const auto& id : tile.Base) {
-                const auto asset       = data.Assets.Assets[INT(id)];
-                animationValues[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, false);
+                if(id >= assets.Assets.size()){
+                    std::cout << "ERROR";
+                }
+                const auto asset           = data.Assets.Assets[INT(id)];
+                animationValuesBase[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, false);
                 mLevelCoords.emplace(x, y);
             }
             for (const auto& id : tile.Top) {
-                const auto asset       = data.Assets.Assets[INT(id)];
-                animationValues[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, true);
+                const auto asset          = data.Assets.Assets[INT(id)];
+                animationValuesTop[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, true);
                 mLevelCoords.emplace(x, y);
             }
             if ((tile.Type & UINT8(Level::File::TileType::WALL)) != 0) {

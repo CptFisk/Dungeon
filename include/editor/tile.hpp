@@ -3,12 +3,12 @@
 #include <cmake.hpp>
 #include <common/scale.hpp>
 #include <common/structures.hpp>
+#include <editor/utility/mouse.hpp>
 #include <graphics/structures.hpp>
 #include <graphics/types/simpleTexture.hpp>
 #include <graphicsForward.hpp>
 #include <level/types/assets.hpp>
 #include <level/types/tile.hpp>
-#include <editor/utility/mouse.hpp>
 #include <set>
 #include <variant>
 #include <vector>
@@ -47,13 +47,13 @@ class Tile {
      * @return Value of animation value, if static texture returns 0
      */
     int addData(const std::string&                         asset,
-                 Level::File::typeAssets&                   assetList,
-                 const std::shared_ptr<Graphics::Graphics>& graphics,
-                 const bool& mode);
+                Level::File::typeAssets&                   assetList,
+                const std::shared_ptr<Graphics::Graphics>& graphics,
+                const bool&                                mode);
     int addData(const std::string&                         asset,
-                 Level::File::typeAssets&                   assetList,
-                 const std::shared_ptr<Graphics::Graphics>& graphics,
-                 const Mouse& mouse);
+                Level::File::typeAssets&                   assetList,
+                const std::shared_ptr<Graphics::Graphics>& graphics,
+                const Mouse&                               mouse);
 
     /**
      * @brief Add a new value to the tile type
@@ -64,17 +64,17 @@ class Tile {
     [[nodiscard]] std::vector<Common::typeDrawData> getBaseDrawData();
     [[nodiscard]] std::vector<Common::typeDrawData> getTopDrawData();
 
-    [[nodiscard]] Common::typeDrawData              getNumbers();  // Return a graphic that display the number of graphics used
-    [[nodiscard]] Common::typeDrawData              getOverlay();
+    [[nodiscard]] Common::typeDrawData getNumbers(); // Return a graphic that display the number of graphics used
+    [[nodiscard]] Common::typeDrawData getOverlay();
 
     [[nodiscard]] bool elementExist(SDL_Texture* texture) const;
-    size_t             removeElement(SDL_Texture* texture);
+    void               removeElement(SDL_Texture* texture, const uint8_t& id);
 
     [[nodiscard]] Level::File::typeTileData getTileData() const;
 
     void addOverlay(SDL_Texture* overlay);
-  private:
 
+  private:
   protected:
     SDL_Renderer*           pRenderer;        // Used for generating overlays
     const float             xPos;             // Position in map

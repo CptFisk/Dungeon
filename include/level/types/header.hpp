@@ -5,10 +5,6 @@
 #include <vector>
 
 namespace Level::File {
-struct a {
-    int A;
-    int B;
-};
 
 struct typeHeaderData {
     struct Data {

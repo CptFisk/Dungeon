@@ -2,6 +2,17 @@
 #include <imgui.h>
 #include <string>
 
+// Internal function to find LCM for animation values
+int
+findAnimationValue(const std::unordered_map<std::string, int>& data) {
+    std::vector<int> temp;
+    for (const auto& [asset, value] : data) {
+        if (value > 0)
+            temp.emplace_back(value);
+    }
+    return Common::findLcm(temp);
+}
+
 namespace Editor {
 void
 Editor::uiMenu() {
@@ -20,14 +31,10 @@ Editor::uiMenu() {
                 ImGui::EndMenu();
             }
             if (ImGui::MenuItem("Save project")) {
-                std::vector<int> temp; // Temporary storage
-                for (const auto& [asset, value] : animationValues) {
-                    if (value > 0)
-                        temp.push_back(value);
-                }
-                fileAssets.AnimationValue = Common::findLcm(temp);
-                Level::File::typeTiles tiles(editorTiles.size());
+                fileAssets.AnimationValueBase = findAnimationValue(animationValuesBase);
+                fileAssets.AnimationValueTop = findAnimationValue(animationValuesTop);
 
+                Level::File::typeTiles tiles(editorTiles.size());
                 for (int i = 0; i < editorTiles.size(); i++) {
                     tiles.Tiles[i] = editorTiles[i]->getTileData();
                 }
@@ -37,7 +44,6 @@ Editor::uiMenu() {
                   UINT8_STRING(fileHeader.Data.X) + UINT8_STRING(fileHeader.Data.Y) + UINT8_STRING(fileHeader.Data.Z);
                 Level::File::writeLevelDataToFile("levels/" + fileName + ".map", map);
             }
-
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Project", mMapLoaded)) {

@@ -46,5 +46,4 @@ readLevelData(const std::string& filename) {
     return typeLevelData{ header, assets, tiles, doors, warps, typeSpawn() };
 }
 
-
 }

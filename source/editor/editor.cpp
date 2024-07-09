@@ -227,16 +227,17 @@ Editor::click() {
 
         auto index = Common::getIndex(clickCoord, MAP_SIZE);
         if (index.has_value()) {
-            const auto pos = index.value();
-
+            const auto pos   = index.value();
+            const auto asset = mSelectedTexture.second;
             switch (mMouse) {
                 case Mouse::TOP_LAYER:
                     editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::TOP_LAYER)));
-                case Mouse::TEXTURE:
-                    // Add tile to the list
                     mLevelCoords.emplace(Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
-                    //Save the animation value
-                    animationValues[mSelectedTexture.second] = editorTiles[pos]->addData(mSelectedTexture.second, fileAssets, mGraphics, mMouse);
+                    animationValuesTop[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, mMouse);
+                    break;
+                case Mouse::TEXTURE:
+                    mLevelCoords.emplace(Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
+                    animationValuesBase[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, mMouse);
                     break;
                 case Mouse::REMOVE:
                     editorTiles[pos]->clear(); // Clear the vector

@@ -1,15 +1,16 @@
 #pragma once
 #include <cstdint>
 #include <fstream>
+#include <optional>
 #include <string>
 #include <vector>
-#include <optional>
 
 namespace Level::File {
 
 struct typeAssets {
-    uint8_t                  AnimationValue; // Used to calculate the numbers of segments we need
-    std::vector<std::string> Assets;         // Asset names
+    uint8_t                  AnimationValueBase; // Used to calculate the numbers of segments we need
+    uint8_t                  AnimationValueTop;  // Used to calculate the numbers of segments we need
+    std::vector<std::string> Assets;             // Asset names
 };
 
 /**

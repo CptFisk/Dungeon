@@ -23,6 +23,7 @@ readTileData(std::ifstream& file, typeTiles& data) {
                 file.read(reinterpret_cast<char*>(&id), sizeof(id));
                 tileData.Base.emplace_back(id);
             }
+
             file.read(reinterpret_cast<char*>(&size), sizeof(size));
             // Read overlays
             for (int j = 0; j < size; j++) {

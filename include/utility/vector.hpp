@@ -1,17 +1,13 @@
 #pragma once
 #include <vector>
+#include <algorithm>
 
 namespace Utility{
-template <typename T>
-bool removeElementInVector(std::vector<T> vector, T element){
-    bool removed = false;
-    for(auto it = vector.begin(); it != vector.end();){
-        if((it) == element){
-            it = vector.erase(it);
-        }else{
-            ++it;
-        }
-    }
+template <typename T, typename Condition>
+bool removeElementInVector(std::vector<T> vector, Condition con){
+    const auto size = vector.size();
+    vector.erase(std::remove_if(vector.begin(), vector.end(), con), vector.end());
+    return size != vector.size();
 }
 
 }

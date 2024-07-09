@@ -37,7 +37,7 @@ class Editor {
     std::thread spawnInterrupt(const long& time); // Spawn a thread
 
     void loadLevel(const Level::File::typeLevelData& data);
-    void removeSpecificTexture(const std::string& name, std::vector<Tile*>& tiles);
+    void removeSpecificTexture(const std::string& name, std::vector<Tile*>& tiles, const uint8_t& id);
 
     [[maybe_unused]] void        displayElement(const std::string& element);
     [[maybe_unused]] void        hideElement(const std::string& element);
@@ -130,7 +130,8 @@ class Editor {
     std::vector<Level::File::typeWarpData>  fileWarps;
 
     std::vector<Tile*>                   editorTiles; // All tiles in the game.
-    std::unordered_map<std::string, int> animationValues;
+    std::unordered_map<std::string, int> animationValuesBase;
+    std::unordered_map<std::string, int> animationValuesTop;
     std::pair<int, int>                  clickedCoord;
 
     struct comparePair {

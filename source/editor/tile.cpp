@@ -4,6 +4,8 @@
 #include <graphics/animatedTexture.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
+#include <utility/vector.hpp>
+
 namespace Editor {
 
 Tile::Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics::typeSimpleTexture& number, SDL_Renderer* renderer)
@@ -181,17 +183,22 @@ Tile::elementExist(SDL_Texture* texture) const {
     return it != baseLayer.end() ? true : false;
 }
 
-size_t
-Tile::removeElement(SDL_Texture* texture) {
-    const auto size = baseLayer.size();
-    for (auto it = baseLayer.begin(); it != baseLayer.end();) {
-        if ((*it).Texture == texture) {
-            it = baseLayer.erase(it);
-        } else {
-            ++it;
-        }
+void
+Tile::removeElement(SDL_Texture* texture, const uint8_t& id) {
+    //Remove from all the vectors
+    Utility::removeElementInVector(baseLayer, [texture](const Common::typeDrawData a){return a.Texture == texture;});
+    Utility::removeElementInVector(topLayer, [texture](const Common::typeDrawData a){return a.Texture == texture;});
+    Utility::removeElementInVector(tileData.Base, [id](const uint8_t& a){return a == id;});
+    Utility::removeElementInVector(tileData.Top, [id](const uint8_t& a){return a == id;});
+    //Now lower all the values that was above the  id for base and top
+    for(auto& element : tileData.Base){
+        if(element > id)
+            --element;
     }
-    return size - baseLayer.size();
+    for(auto& element : tileData.Top){
+        if(element > id)
+            --element;
+    }
 }
 
 Level::File::typeTileData
