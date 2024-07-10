@@ -160,7 +160,11 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
         const auto object = (*it).second;
         const auto level  = object->getLevel();
         if (level != mHeader.MapCoordinate) {
+            loadLevel(object->getLevel().toString() + ".map");
+        }else{
+            std::cout << "Swap level" << std::endl;
         }
+        return false;
     }
 
     for (const auto& door : doors) {

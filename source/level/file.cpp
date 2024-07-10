@@ -26,7 +26,7 @@ Level::File::typeLevelData
 readLevelData(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
     if (!file)
-        throw std::runtime_error("Cant load file");
+        throw std::runtime_error("Cant load file: " + filename);
     typeHeaderData             header = {};
     typeAssets                 assets;
     typeTiles                  tiles = {};
