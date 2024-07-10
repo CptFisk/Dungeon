@@ -64,7 +64,7 @@ Engine::createSegments(std::vector<typeSegmentData>& segment, const uint8_t& ani
             segment.push_back({ layers, SDL_FRect{ xx * ssx * 16.0f, yy * ssy * 16.0f, ssx * 16.0f, ssy * 16.0f } });
         }
     }
-    maxValue = INT(segment.size());
+    maxValue = INT(segment[0].Layers.size());
 }
 
 void
@@ -108,7 +108,10 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                             if (SDL_SetRenderTarget(pRenderer, layer) != 0) {
                                 std::cerr << SDL_GetError() << std::endl;
                             }
-                            SDL_RenderCopyF(pRenderer, (*texture)->getTexture(), &(*texture)->getViewports()[viewport], &destination);
+                            auto& t = (*texture);
+                            //auto& view = (*texture)->getViewports()[viewport];
+                            auto view = t->getViewports()[viewport];
+                            SDL_RenderCopyF(pRenderer, (*texture)->getTexture(), &view, &destination);
                             if (++tick >= maxTicks) {
                                 tick = 0;
                                 if (viewport++ >= maxViewports)
