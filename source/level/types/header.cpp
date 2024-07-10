@@ -7,7 +7,7 @@ void
 readHeaderData(std::ifstream& file, typeHeaderData& data) {
     try {
         // Read header data
-        file.read(reinterpret_cast<char*>(&data.Data), sizeof(typeHeaderData::Data));
+        file.read(reinterpret_cast<char*>(&data.MapCoordinate), sizeof(typeHeaderData::MapCoordinate));
         file.read(reinterpret_cast<char*>(&data.Colour), sizeof(typeHeaderData::Colour));
 
         // Get size of first vector
@@ -40,7 +40,7 @@ readHeaderData(std::ifstream& file, typeHeaderData& data) {
 void
 writeHeaderData(std::ofstream& file, const typeHeaderData& data) {
     try {
-        file.write(reinterpret_cast<const char*>(&data.Data), sizeof(data.Data));
+        file.write(reinterpret_cast<const char*>(&data.MapCoordinate), sizeof(data.MapCoordinate));
         file.write(reinterpret_cast<const char*>(&data.Colour), sizeof(data.Colour));
 
         const auto onLoadSize = UINT8(data.OnLoad.size());
