@@ -1,0 +1,36 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/grassland/GrasslandMushroom.png",
+        "Name": "GrasslandStoneSmall",
+        "Row": 1,
+        "Column": 1,
+        "Length": 12,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandMushroom.png",
+        "Name": "GrasslandStoneHigh",
+        "Row": 2,
+        "Column": 1,
+        "Length": 4,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandMushroom.png",
+        "Name": "GrasslandStoneBig",
+        "Row": 3,
+        "Column": 1,
+        "Length": 6,
+        "Height": 32,
+        "Width": 32
+      }
+      ]
+  }
+}
