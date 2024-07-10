@@ -168,18 +168,6 @@ Engine::movePlayer(Directions direction) {
         mPerspective->move(direction, mPlayer->move(direction));
     else
         mPlayer->setDirection(direction); // At least change direction
-    // Did we hit a warp?
-    for (auto& warp : warps) {
-        if (Utility::isOverlapping(mPlayer->getPlayerCenter(), warp.getPosition())) {
-            const auto destination = warp.getDestination();
-            if (warp.getFilename() != mFilename) {
-                // Swap map file
-                loadLevel(warp.getFilename() + ".map");
-            }
-            mPlayer->spawn(destination.X, destination.Y);
-            mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
-        }
-    }
 }
 
 void

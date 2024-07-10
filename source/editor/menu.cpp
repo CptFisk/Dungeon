@@ -41,7 +41,7 @@ Editor::uiMenu() {
 
                 Level::File::typeLevelData map = { fileHeader, fileAssets, tiles, fileDoors, fileWarps, fileSpawns };
                 const std::string          fileName =
-                  UINT8_STRING(fileHeader.Data.X) + UINT8_STRING(fileHeader.Data.Y) + UINT8_STRING(fileHeader.Data.Z);
+                  UINT8_STRING(fileHeader.MapCoordinate.X) + UINT8_STRING(fileHeader.MapCoordinate.Y) + UINT8_STRING(fileHeader.MapCoordinate.Z);
                 Level::File::writeLevelDataToFile("levels/" + fileName + ".map", map);
             }
             ImGui::EndMenu();
