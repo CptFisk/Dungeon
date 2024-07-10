@@ -14,7 +14,14 @@ struct typeSegment {
     std::vector<typeSegmentData> Top;    // Contains all elements that will be above the player
 };
 
-void clearTypeSegmentData(std::vector<typeSegmentData>& data);
+/**
+ * @brief Clear all data inside a typeSegmentData
+ */
+void clearTypeSegmentData(typeSegmentData& data);
+/**
+ * @brief Clear all data inside typeSegment
+ * @param data
+ */
 void clearTypeSegment(typeSegment& data);
 
 }

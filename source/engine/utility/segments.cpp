@@ -7,11 +7,17 @@
 
 namespace Engine {
 
-void clearTypeSegmentData(std::vector<typeSegmentData>& data){
-
+void clearTypeSegmentData(typeSegmentData& data){
+    for(auto& texture : data.Layers)
+        SDL_DestroyTexture(texture);
 }
 void clearTypeSegment(typeSegment& data){
-
+    for(auto& bottom : data.Bottom)
+        clearTypeSegmentData(bottom);
+    for(auto& top : data.Top)
+        clearTypeSegmentData(top);
+    data.Bottom.clear();
+    data.Top.clear();
 }
 
 void
