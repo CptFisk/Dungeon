@@ -3,27 +3,27 @@
 
 namespace Objects {
 
-Warp::Warp(const Level::File::typeWarpData& data)
-  : mDestination(data.Destination)
-  , mFile(data.Filename) {
-    mPosition = Common::newSDL_FRect(data.Origin.X, data.Origin.Y);
-}
+Warp::Warp(const Level::File::typeMapCoordinate& level,
+           const Level::File::typeMapCoordinate& destination)
+  : mLevel(level)
+  , mDestination(destination)
+  , mFilename(destination.toString()) {}
 
 Warp::~Warp() {}
 
-Level::File::typeWarpCoordinate
+Level::File::typeMapCoordinate
+Warp::getLevel() const {
+    return mLevel;
+}
+
+Level::File::typeMapCoordinate
 Warp::getDestination() const {
     return mDestination;
 }
 
 std::string
 Warp::getFilename() const {
-    return mFile;
-}
-
-SDL_FRect&
-Warp::getPosition() {
-    return mPosition;
+    return mFilename;
 }
 
 }

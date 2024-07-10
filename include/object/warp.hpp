@@ -6,19 +6,26 @@
 namespace Objects {
 class Warp {
   public:
-    Warp(const Level::File::typeWarpData& data);
+    Warp(const Level::File::typeMapCoordinate& level,
+         const Level::File::typeMapCoordinate& destination);
     ~Warp();
 
-    Level::File::typeWarpCoordinate getDestination() const;
-    std::string                     getFilename() const;
     /**
-     * @brief Return the position that the warp is located at
+     * @brief Return the level that is the destination
      */
-    SDL_FRect& getPosition();
+    [[nodiscard]] Level::File::typeMapCoordinate getLevel() const;
+    /**
+     * @brief Return the destination on the level
+     */
+    [[nodiscard]] Level::File::typeMapCoordinate getDestination() const;
+    /**
+     * @brief Return the level, but as a string
+     */
+    [[nodiscard]] std::string getFilename() const;
   protected:
   private:
-    SDL_FRect                             mPosition;
-    const Level::File::typeWarpCoordinate mDestination;
-    const std::string                     mFile;
+    const Level::File::typeMapCoordinate mDestination;
+    const Level::File::typeMapCoordinate mLevel;
+    const std::string mFilename;
 };
 }
