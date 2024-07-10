@@ -1,0 +1,36 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/grassland/GrasslandLeaf.png",
+        "Name": "GrasslandLeafSmall",
+        "Row": 1,
+        "Column": 1,
+        "Length": 4,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandLeaf.png",
+        "Name": "GrasslandLeafMedium",
+        "Row": 2,
+        "Column": 1,
+        "Length": 4,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandLeaf.png",
+        "Name": "GrasslandLeafLarge",
+        "Row": 3,
+        "Column": 1,
+        "Length": 4,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
