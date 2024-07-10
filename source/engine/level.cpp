@@ -2,18 +2,18 @@
 #include <common/math.hpp>
 #include <common/sdl.hpp>
 #include <engine/engine.hpp>
+#include <global.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
 #include <utility/math.hpp>
 #include <utility/textures.hpp>
-#include <global.hpp>
 
 namespace Engine {
 
 void
 Engine::loadLevel(const std::string& filename) {
-    //If a map is loaded, unload it.
-    if(mLevelLoaded)
+    // If a map is loaded, unload it.
+    if (mLevelLoaded)
         clearLoadedLevel();
 
     auto data = Level::File::readLevelData("levels/" + filename);
@@ -28,11 +28,13 @@ Engine::loadLevel(const std::string& filename) {
     Background.Green = mHeader.Colour.BackgroundGreen;
     Background.Blue  = mHeader.Colour.BackgroundBlue;
 
-    createSegments(data.Assets); // Generate segments
+    // Create segments
+    createSegments(mSegments.Bottom, data.Assets.AnimationValueBase, mSegments.MaxLayerBottom);
+    createSegments(mSegments.Top, data.Assets.AnimationValueTop, mSegments.MaxLayerTop);
 
     int pos = 0;
 
-    levelObjects      = std::vector<Level::File::TileType>(MAX_TILES, Level::File::TileType::BLANK);
+    levelObjects = std::vector<Level::File::TileType>(MAX_TILES, Level::File::TileType::BLANK);
 
     bool layersLeft = false;
     auto it         = data.Tiles.Tiles.begin();
@@ -50,12 +52,12 @@ Engine::loadLevel(const std::string& filename) {
             layersLeft = false;
         }
 
-        if (((it->Type & static_cast<uint8_t>(Level::File::TileType::TEXTURE)) != 0 ||
-             ((it->Type & static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE)) != 0)) &&
+        if (((it->Type & UINT8(Level::File::TileType::TEXTURE)) != 0 ||
+             ((it->Type & UINT8(Level::File::TileType::ANIMATED_TEXTURE)) != 0)) &&
             !it->Base.empty()) {
-            auto       id    = static_cast<int>(it->Base.front());
+            auto       id    = INT(it->Base.front());
             const auto asset = data.Assets.Assets[id];
-            addToSegment(pos, asset);
+            addToSegment(mSegments.Bottom, pos, asset);
 
             it->Base.erase(it->Base.begin()); // Remove this element, it has been displayed
 
@@ -65,16 +67,14 @@ Engine::loadLevel(const std::string& filename) {
         }
 
         // Add obstacles
-        if ((it->Type & static_cast<uint8_t>(Level::File::TileType::OBSTACLE)) != 0) {
-            levelObjects[pos] = static_cast<Level::File::TileType>(static_cast<uint8_t>(Level::File::TileType::OBSTACLE) |
-                                                                   static_cast<uint8_t>(levelObjects[pos]));
-            it->Type &= ~static_cast<uint8_t>(Level::File::TileType::OBSTACLE); // Reset bit
+        if ((it->Type & UINT8(Level::File::TileType::OBSTACLE)) != 0) {
+            levelObjects[pos] = static_cast<Level::File::TileType>(UINT8(Level::File::TileType::OBSTACLE) | UINT8(levelObjects[pos]));
+            it->Type &= ~UINT8(Level::File::TileType::OBSTACLE); // Reset bit
         }
         // Add walls
-        if ((it->Type & static_cast<uint8_t>(Level::File::TileType::WALL)) != 0) {
-            levelObjects[pos] = static_cast<Level::File::TileType>(static_cast<uint8_t>(Level::File::TileType::WALL) |
-                                                                   static_cast<uint8_t>(levelObjects[pos]));
-            it->Type &= ~static_cast<uint8_t>(Level::File::TileType::WALL); // Reset bit
+        if ((it->Type & UINT8(Level::File::TileType::WALL)) != 0) {
+            levelObjects[pos] = static_cast<Level::File::TileType>(UINT8(Level::File::TileType::WALL) | UINT8(levelObjects[pos]));
+            it->Type &= ~UINT8(Level::File::TileType::WALL); // Reset bit
         }
         pos++;
 
@@ -84,12 +84,11 @@ Engine::loadLevel(const std::string& filename) {
         doors.emplace_back(new Objects::Door(door.X, door.Y, *GET_ANIMATED(door.GraphicOpen), *GET_ANIMATED(door.GraphicClosing)));
     }
 
-    for(const auto& warp : data.Warps){
+    for (const auto& warp : data.Warps) {
         warps.emplace_back(Objects::Warp(warp));
     }
 
     SDL_SetRenderTarget(pRenderer, nullptr);
-    mMaxLayers = mSegments[0].Layers.size();
     mLevelLoaded = true;
 }
 
@@ -120,17 +119,16 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
         default:
             break;
     }
-    if(pos.x < 0 || pos.y < 0)
-        return false;   //No need to evaluate more
+    if (pos.x < 0 || pos.y < 0)
+        return false; // No need to evaluate more
     auto playerX = INT(pos.x / 16.0f);
     auto playerY = INT(pos.y / 16.0f);
 
-    const auto index     = Common::getIndex(playerX, playerY, MAP_SIZE);
-    if(!index.has_value())
+    const auto index = Common::getIndex(playerX, playerY, MAP_SIZE);
+    if (!index.has_value())
         return false;
-    if(((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::WALL)) != 0 ) ||
-        ((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::OBSTACLE)) != 0 )
-        ){
+    if (((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::WALL)) != 0) ||
+        ((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::OBSTACLE)) != 0)) {
         return false;
     }
 
@@ -145,28 +143,20 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
 
 void
 Engine::clearLoadedLevel() {
-    //Reset all values
-    mLevelLoaded = false;
-    mHeader = {};
-    mFilename = {};
-    mCurrentLayer = {};
-    mMaxLayers = {};
+    // Reset all values
+    mLevelLoaded  = false;
+    mHeader       = {};
+    mFilename     = {};
 
-    //Clear segments
-    for (auto& segment : mSegments) {
-        for (auto& layer : segment.Layers) {
-            SDL_DestroyTexture(layer);
-        }
-    }
-    mSegments.clear();
+    // Clear segments
+    clearTypeSegment(mSegments);
 
-    //Clear doors
+    // Clear doors
     for (auto& door : doors) {
         delete door;
     }
     doors.clear();
-    //Clear warps zones, they are not manually allocated so just clear the vector
+    // Clear warps zones, they are not manually allocated so just clear the vector
     warps.clear();
-
 }
 }
