@@ -3,10 +3,10 @@
 namespace Editor {
 
 inline std::string
-createText(const Level::File::typeWarpData& data) {
-    const auto x = std::to_string(static_cast<unsigned int>(data.Origin.X));
-    const auto y = std::to_string(static_cast<unsigned int>(data.Origin.Y));
-    return "[" + x + "," + y + "]";
+createText(const Level::File::type3DMapCoordinate& level, const Level::File::type2DMapCoordinate& destination) {
+    const auto file = "{" + UINT8_STRING(level.X) + "," + UINT8_STRING(level.Y) + "," + UINT8_STRING(level.Z) + "}";
+    const auto dest = "[" + UINT8_STRING(destination.X) + "," + UINT8_STRING(destination.Y) + "]";
+    return file + "->" + dest;
 }
 
 void
@@ -28,19 +28,27 @@ Editor::uiWarpsPopup() {
                 coords       = Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale);
                 initialized  = true;
             }
-
+            static std::string fileX;
+            static std::string fileY;
+            static std::string fileZ;
             static std::string destX;
             static std::string destY;
-            static std::string file;
+            ImGui::Text("Level");
+            ImGui::InputText("Level X", &fileX, ImGuiInputTextFlags_CharsDecimal);
+            ImGui::InputText("Level Y", &fileY, ImGuiInputTextFlags_CharsDecimal);
+            ImGui::InputText("Level Z", &fileZ, ImGuiInputTextFlags_CharsDecimal);
+            ImGui::Separator();
+            ImGui::Text("Destination");
+            ImGui::InputText("Destination X", &destX, ImGuiInputTextFlags_CharsDecimal);
+            ImGui::InputText("Destination Y", &destY, ImGuiInputTextFlags_CharsDecimal);
 
             ImGui::BeginChild("fileName", ImVec2(300, 0), ImGuiChildFlags_AutoResizeY);
-            ImGui::InputText("Filename", &file, ImGuiInputTextFlags_CharsNoBlank);
-            ImGui::InputText("X", &destX, ImGuiInputTextFlags_CharsDecimal);
-            ImGui::InputText("Y", &destY, ImGuiInputTextFlags_CharsDecimal);
+
             if (ImGui::Button("Create", ImVec2(300, 0))) {
-                Level::File::typeWarpCoordinate origin{ UINT8(coords.first), UINT8(coords.second) }; // Origin
-                Level::File::typeWarpCoordinate destination{ UINT8(std::stoi(destX)), UINT8(std::stoi(destY)) };
-                fileWarps.emplace_back(Level::File::typeWarpData{origin, destination, file});
+                Level::File::type2DMapCoordinate origin{ UINT8(coords.first), UINT8(coords.second) };
+                Level::File::type3DMapCoordinate level{ STRING_UINT8(fileX), STRING_UINT8(fileY), STRING_UINT8(fileZ) };
+                Level::File::type2DMapCoordinate destination{ STRING_UINT8(destX), STRING_UINT8(destX) };
+                fileWarps.emplace_back(Level::File::typeWarpData{ origin, level, destination });
                 initialized = false;
                 hideElement("WarpsPopup"); // Hide window after mouse click
             }
@@ -58,17 +66,14 @@ Editor::uiWarps() {
     ImGui::SetNextWindowSize(ImVec2(200.0f, 0.0f));
     if (ImGui::Begin("Available warps", &mWindowOpen["Warps"], ImGuiWindowFlags_AlwaysAutoResize)) {
         for (int i = 0; i < fileWarps.size(); i++) {
-            auto text = createText(fileWarps[i]);
-
+            auto text = createText(fileWarps[i].Level, fileWarps[i].Destination);
             if (ImGui::BeginMenu(text.c_str())) {
-                ImGui::InputText("Filename", &fileWarps[i].Filename);
                 if (ImGui::MenuItem("Remove"))
                     fileWarps.erase(fileWarps.begin() + i);
                 ImGui::EndMenu();
             }
         }
         ImGui::Separator();
-
         ImGui::End();
     }
 }
