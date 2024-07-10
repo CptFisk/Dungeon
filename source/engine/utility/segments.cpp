@@ -1,23 +1,30 @@
-#include <engine/utility/segment.hpp>
 #include <common/math.hpp>
 #include <engine/engine.hpp>
+#include <engine/utility/segment.hpp>
 #include <global.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
 
 namespace Engine {
 
-void clearTypeSegmentData(typeSegmentData& data){
-    for(auto& texture : data.Layers)
+void
+clearTypeSegmentData(typeSegmentData& data) {
+    for (auto& texture : data.Layers)
         SDL_DestroyTexture(texture);
 }
-void clearTypeSegment(typeSegment& data){
-    for(auto& bottom : data.Bottom)
+void
+clearTypeSegment(typeSegment& data) {
+    for (auto& bottom : data.Bottom)
         clearTypeSegmentData(bottom);
-    for(auto& top : data.Top)
+    for (auto& top : data.Top)
         clearTypeSegmentData(top);
     data.Bottom.clear();
     data.Top.clear();
+
+    data.MaxLayerBottom     = {};
+    data.CurrentLayerBottom = {};
+    data.MaxLayerTop        = {};
+    data.CurrentLayerTop    = {};
 }
 
 void
@@ -65,12 +72,12 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
     const auto coords = Common::getCoords(pos, MAP_SIZE, MAP_SIZE); // Fetching coords, hopefully
 
     if (coords.has_value()) {
-        auto coord = coords.value();
+        const auto coord = coords.value();
         // Calculating what segment this area belongs to
-        auto index = getSegment(coord);
+        const auto index = getSegment(coord);
         if (index <= segment.size()) {
-            const auto x = static_cast<float>((coord.first * 16) % (segmentSizeX * 16));
-            const auto y = static_cast<float>((coord.second * 16) % (segmentSizeY * 16));
+            const auto x = FLOAT((coord.first * 16) % (segmentSizeX * 16));
+            const auto y = FLOAT((coord.second * 16) % (segmentSizeY * 16));
 
             switch (mGraphics->getTextureType(name)) {
                 case Graphics::TextureTypes::SIMPLE_TEXTURE: {
@@ -97,7 +104,7 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                         const auto maxViewports = (*texture)->getViewports().size();
                         int        tick         = 0;
                         int        viewport     = 0;
-                        for (auto layer : mSegments[index].Layers) {
+                        for (auto layer : segment[index].Layers) {
                             if (SDL_SetRenderTarget(pRenderer, layer) != 0) {
                                 std::cerr << SDL_GetError() << std::endl;
                             }
