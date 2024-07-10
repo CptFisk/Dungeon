@@ -1,23 +1,29 @@
+#include <engine/utility/segment.hpp>
 #include <common/math.hpp>
 #include <engine/engine.hpp>
+#include <global.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
-#include <global.hpp>
 
 namespace Engine {
 
+void clearTypeSegmentData(std::vector<typeSegmentData>& data){
+
+}
+void clearTypeSegment(typeSegment& data){
+
+}
+
 void
-Engine::createSegments(const Level::File::typeAssets& assets) {
+Engine::createSegments(std::vector<typeSegmentData>& segment, const uint8_t& animationValue, int& maxValue) {
     // Calculating how many segments we need
-    int segmentX   = 1;
-    int remainderX = 0;
-    int segmentY   = 1;
+    int segmentX = 1;
+    int segmentY = 1;
     // We always need at least one layer
-    const auto animationLayers = std::max(static_cast<int>(assets.AnimationValueBase), 1);
+    const auto animationLayers = std::max(static_cast<int>(animationValue), 1);
 
     if (MAP_SIZE >= segmentSizeX) {
-        segmentX   = static_cast<int>(MAP_SIZE/ segmentSizeX);
-        remainderX = MAP_SIZE % segmentSizeX;
+        segmentX = static_cast<int>(MAP_SIZE / segmentSizeX);
     }
     if (MAP_SIZE >= segmentSizeY) {
         segmentY = static_cast<int>(MAP_SIZE / segmentSizeY);
@@ -26,11 +32,12 @@ Engine::createSegments(const Level::File::typeAssets& assets) {
     // Creating textures and positions
     for (int y = 0; y < segmentY; y++) {
         for (int x = 0; x < segmentX; x++) {
-            auto                      xx  = static_cast<float>(x);            // Current x-position but as float
-            auto                      yy  = static_cast<float>(y);            // Current y-position but as float
-            auto                      ssx = static_cast<float>(segmentSizeX); // Segment size but as float
-            auto                      ssy = static_cast<float>(segmentSizeY); // Segment size but as float
-            std::vector<SDL_Texture*> layers;                                 // All the layers
+            const auto     xx  = static_cast<float>(x);            // Current x-position but as float
+            const auto     yy  = static_cast<float>(y);            // Current y-position but as float
+            constexpr auto ssx = static_cast<float>(segmentSizeX); // Segment size but as float
+            constexpr auto ssy = static_cast<float>(segmentSizeY); // Segment size but as float
+
+            std::vector<SDL_Texture*> layers; // All the layers
             // Generating all layers
             for (int i = 0; i < animationLayers; i++) {
                 // Create texture
@@ -41,48 +48,21 @@ Engine::createSegments(const Level::File::typeAssets& assets) {
                 // Creating all layers
                 layers.emplace_back(texture);
             }
-            mSegments.push_back({ layers, SDL_FRect{ xx * ssx * 16.0f, yy * ssy * 16.0f, ssx * 16.0f, ssy * 16.0f } });
-        }
-        // Is there any remainder
-        if (remainderX != 0) {
-            auto xx = static_cast<float>(remainderX); // Remainder but as float
-            int  remainderY;                          // Don't assign value, we will assign it later
-            // Calculate the height we can use
-            if (segmentSizeY <= (MAP_SIZE - (y * segmentSizeY))) {
-                remainderY = segmentSizeY;
-            } else {
-                remainderY = (MAP_SIZE - (y * segmentSizeY));
-            }
-
-            auto                      sx  = static_cast<float>(segmentX);     // Segments but as float
-            auto                      ssx = static_cast<float>(segmentSizeX); // Segment size but as float
-            auto                      ssy = static_cast<float>(segmentSizeY); // Segment size but as float
-            std::vector<SDL_Texture*> layers;                                 // All the layers
-
-            for (int i = 0; i < animationLayers; i++) {
-                auto texture =
-                  SDL_CreateTexture(pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, remainderX * 16, remainderY * 16);
-                SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
-                SDL_SetTextureAlphaMod(texture, 255);
-                layers.emplace_back(texture);
-                layers.emplace_back(texture);
-            }
-            mSegments.push_back(
-              { layers,
-                SDL_FRect{ sx * ssx * 16.0f, static_cast<float>(y) * ssy * 16.0f, xx * 16.0f, static_cast<float>(remainderY) * 16.0f } });
+            segment.push_back({ layers, SDL_FRect{ xx * ssx * 16.0f, yy * ssy * 16.0f, ssx * 16.0f, ssy * 16.0f } });
         }
     }
+    maxValue = INT(segment.size());
 }
 
 void
-Engine::addToSegment(const int& pos, const std::string& name) {
-    auto coords = Common::getCoords(pos, MAP_SIZE, MAP_SIZE); // Fetching coords, hopefully
+Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name) {
+    const auto coords = Common::getCoords(pos, MAP_SIZE, MAP_SIZE); // Fetching coords, hopefully
 
     if (coords.has_value()) {
         auto coord = coords.value();
         // Calculating what segment this area belongs to
         auto index = getSegment(coord);
-        if (index <= mSegments.size()) {
+        if (index <= segment.size()) {
             const auto x = static_cast<float>((coord.first * 16) % (segmentSizeX * 16));
             const auto y = static_cast<float>((coord.second * 16) % (segmentSizeY * 16));
 
@@ -93,7 +73,7 @@ Engine::addToSegment(const int& pos, const std::string& name) {
                         const SDL_FRect destination = { x, y, FLOAT(texture->Width), FLOAT(texture->Height) };
                         const auto&     viewport    = texture->getRandomView();
                         // This is the most basic, apply this texture to all layers
-                        for (auto& layer : mSegments[index].Layers) {
+                        for (auto& layer : segment[index].Layers) {
                             SDL_SetRenderTarget(pRenderer, layer); // Set render target
                             SDL_RenderCopyF(pRenderer, texture->getTexture(), &viewport, &destination);
                         }
@@ -151,10 +131,10 @@ Engine::addToSegment(const int& pos, const std::string& name) {
 }
 
 size_t
-Engine::getSegment(const std::pair<int, int>& coord) const {
-    const int indexX           = static_cast<int>(coord.first / segmentSizeX);
-    const int indexY           = static_cast<int>(coord.second / segmentSizeY);
-    const int numberOfSegments = static_cast<int>((MAP_SIZE + segmentSizeX - 1) / segmentSizeX);
+Engine::getSegment(const std::pair<int, int>& coord) {
+    const int     indexX           = INT(coord.first / segmentSizeX);
+    const int     indexY           = INT(coord.second / segmentSizeY);
+    constexpr int numberOfSegments = INT((MAP_SIZE + segmentSizeX - 1) / segmentSizeX);
 
     return indexY * numberOfSegments + indexX;
 }

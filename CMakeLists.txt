@@ -75,7 +75,7 @@ if (BUILD_GAME)
             ${CMAKE_SOURCE_DIR}/source/engine/loading.cpp
 
             ${CMAKE_SOURCE_DIR}/source/engine/level.cpp
-            ${CMAKE_SOURCE_DIR}/source/engine/segments.cpp
+            ${CMAKE_SOURCE_DIR}/source/engine/utility/segments.cpp
 
             ${CMAKE_SOURCE_DIR}/source/player/player.cpp
             ${CMAKE_SOURCE_DIR}/source/player/indicator.cpp
