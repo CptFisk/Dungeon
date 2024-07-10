@@ -8,9 +8,9 @@
 namespace Level::File {
 
 struct typeWarpData {
-    typeMapCoordinate Origin;
-    typeMapCoordinate Level;       // Level that contains the coordinate
-    typeMapCoordinate Destination; // Destination on the level
+    type3DMapCoordinate Origin;
+    type3DMapCoordinate Level;       // Level that contains the coordinate
+    type2DMapCoordinate Destination; // Destination on the level
 };
 
 /**
