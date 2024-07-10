@@ -3,15 +3,12 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <level/types/coordinate.hpp>
 
 namespace Level::File {
 
 struct typeHeaderData {
-    struct Data {
-        uint8_t X;
-        uint8_t Y;
-        uint8_t Z;
-    } Data;
+    typeMapCoordinate MapCoordinate;
 
     struct Colour {
         uint8_t BackgroundRed;   // RGB colour of background
