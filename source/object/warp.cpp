@@ -3,27 +3,22 @@
 
 namespace Objects {
 
-Warp::Warp(const Level::File::typeMapCoordinate& level,
-           const Level::File::typeMapCoordinate& destination)
+Warp::Warp(const Level::File::type3DMapCoordinate& level,
+           const Level::File::type2DMapCoordinate& destination)
   : mLevel(level)
-  , mDestination(destination)
-  , mFilename(destination.toString()) {}
+  , mDestination(destination) {}
 
 Warp::~Warp() {}
 
-Level::File::typeMapCoordinate
+Level::File::type3DMapCoordinate
 Warp::getLevel() const {
     return mLevel;
 }
 
-Level::File::typeMapCoordinate
+Level::File::type2DMapCoordinate
 Warp::getDestination() const {
     return mDestination;
 }
 
-std::string
-Warp::getFilename() const {
-    return mFilename;
-}
 
 }
