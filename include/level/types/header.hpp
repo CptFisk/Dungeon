@@ -8,7 +8,7 @@
 namespace Level::File {
 
 struct typeHeaderData {
-    typeMapCoordinate MapCoordinate;
+    type3DMapCoordinate MapCoordinate;
 
     struct Colour {
         uint8_t BackgroundRed;   // RGB colour of background

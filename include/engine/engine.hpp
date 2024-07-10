@@ -139,7 +139,7 @@ class Engine {
     typeSegment                        mSegments;
     std::vector<Level::File::TileType> levelObjects;
     std::vector<Objects::Door*>        doors; // All doors on the map
-    std::unordered_map<int, Level::File::typeWarpData*> warp; // Warp locations
+    std::unordered_map<int, Objects::Warp*> warp; // Warp locations
 
     // Level data
     bool                        mLevelLoaded;

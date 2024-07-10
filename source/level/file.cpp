@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <fstream>
-#include <global.hpp>
 #include <iostream>
 #include <level/file.hpp>
 #include <level/types/header.hpp>

@@ -52,7 +52,8 @@ Engine::loadLevel(const std::string& filename) {
             layersLeft = false;
         }
 
-        if (((it->Type & UINT8(Level::File::TileType::BASE_TEXTURE)) != 0 || ((it->Type & UINT8(Level::File::TileType::TOP_TEXTURE)) != 0)) &&
+        if (((it->Type & UINT8(Level::File::TileType::BASE_TEXTURE)) != 0 ||
+             ((it->Type & UINT8(Level::File::TileType::TOP_TEXTURE)) != 0)) &&
             !it->Base.empty()) {
             const auto id    = INT(it->Base.front());
             const auto asset = data.Assets.Assets[id];
@@ -83,16 +84,32 @@ Engine::loadLevel(const std::string& filename) {
             levelObjects[pos] = static_cast<Level::File::TileType>(UINT8(Level::File::TileType::WALL) | UINT8(levelObjects[pos]));
             it->Type &= ~UINT8(Level::File::TileType::WALL); // Reset bit
         }
+        // Add transportation up
+        if ((it->Type & UINT8(Level::File::TileType::UP)) != 0) {
+
+            it->Type &= ~UINT8(Level::File::TileType::UP); // Reset bit
+        }
+        // Add transportation down
+        if ((it->Type & UINT8(Level::File::TileType::DOWN)) != 0) {
+            const auto coords = Common::getCoords(pos, MAP_SIZE, MAP_SIZE);
+            if (coords.has_value() && mHeader.MapCoordinate.Z > 0) {
+                const auto origin  = mHeader.MapCoordinate;
+                const auto& [x, y] = coords.value();
+                // Reduce our Z-layer by one
+                Level::File::type3DMapCoordinate level(origin.X, origin.Y, origin.Z - 1);
+                Level::File::type2DMapCoordinate destination(x, y);
+                warp[pos] = new Objects::Warp(level, destination);
+            } else {
+                std::cerr << "Not a valid coordinate" << std::endl;
+            }
+            it->Type &= ~UINT8(Level::File::TileType::DOWN); // Reset bit
+        }
         pos++;
 
     } while (!(++it == data.Tiles.Tiles.end() && !layersLeft));
 
     for (const auto& door : data.Doors) {
         doors.emplace_back(new Objects::Door(door.X, door.Y, *GET_ANIMATED(door.GraphicOpen), *GET_ANIMATED(door.GraphicClosing)));
-    }
-
-    for (const auto& warp : data.Warps) {
-        warps.emplace_back(Objects::Warp(warp));
     }
 
     SDL_SetRenderTarget(pRenderer, nullptr);
@@ -138,6 +155,13 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
         ((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::OBSTACLE)) != 0)) {
         return false;
     }
+    auto it = warp.find(index.value());
+    if (it != warp.end()) {
+        const auto object = (*it).second;
+        const auto level  = object->getLevel();
+        if (level != mHeader.MapCoordinate) {
+        }
+    }
 
     for (const auto& door : doors) {
         if (!door->isPassable()) {
@@ -164,6 +188,8 @@ Engine::clearLoadedLevel() {
     }
     doors.clear();
     // Clear warps zones, they are not manually allocated so just clear the vector
-    warps.clear();
+    for (auto& [position, object] : warp)
+        delete object;
+    warp.clear();
 }
 }
