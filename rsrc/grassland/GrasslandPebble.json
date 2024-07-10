@@ -1,0 +1,27 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/grassland/GrasslandPebble.png",
+        "Name": "GrasslandPebbleLight",
+        "Row": 1,
+        "Column": 1,
+        "Length": 6,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandPebble.png",
+        "Name": "GrasslandPebbleDark",
+        "Row": 2,
+        "Column": 1,
+        "Length": 6,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
