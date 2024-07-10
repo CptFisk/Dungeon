@@ -25,6 +25,7 @@ Engine::Engine()
   , mPlayerEnergy(50)
   , mEvent{}
   , Background{}
+  , mSegments{}
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Engine::~Engine() {
@@ -120,9 +121,14 @@ Engine::startup() {
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
     mInterrupts[10]->addFunction([&]() {
-        mCurrentLayer++;
-        if (mCurrentLayer >= mMaxLayers) {
-            mCurrentLayer = 0;
+        //Increment layers for top and bottom graphic
+        mSegments.CurrentLayerBottom++;
+        mSegments.CurrentLayerTop++;
+        if (mSegments.CurrentLayerBottom >= mSegments.MaxLayerBottom) {
+            mSegments.CurrentLayerBottom = 0;
+        }
+        if (mSegments.CurrentLayerTop >= mSegments.MaxLayerTop) {
+            mSegments.CurrentLayerTop = 0;
         }
     });
 
@@ -338,8 +344,8 @@ Engine::drawNumbers() {
 
 void
 Engine::drawLevel() {
-    for (auto& segment : mSegments) {
-        mPerspective->render(segment.Layers[mCurrentLayer], nullptr, &segment.Position);
+    for (auto& segment : mSegments.Bottom) {
+        mPerspective->render(segment.Layers[mSegments.CurrentLayerBottom], nullptr, &segment.Position);
     }
     for (auto& door : doors) {
         auto drawData = door->getDrawData();

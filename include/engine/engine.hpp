@@ -122,13 +122,21 @@ class Engine {
     void loadLevel(const std::string& filename);
 
     // Segmentations
-    void                 createSegments(const Level::File::typeAssets& assets);
-    void                 addToSegment(const int& pos, const std::string& name);
-    [[nodiscard]] size_t getSegment(const std::pair<int, int>& coord) const;
+    void createSegments(std::vector<typeSegmentData>& segment, const uint8_t& animationValue, int& maxValue);
+    void addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name);
+
+    [[nodiscard]] static size_t getSegment(const std::pair<int, int>& coord);
 
     void clearLoadedLevel();
 
-    std::vector<typeSegment>           mSegments; // Level segments (generated)
+    /**
+     * @brief A vector that contains all the segments for the map.
+     * @example Wanting to draw animation frames 0 for bottom layer should be this:
+     * @example for(auto& frame : mSegments.Bottom){
+     * @example render(frame[0]);
+     * @example }
+     */
+    typeSegment                        mSegments;
     std::vector<Level::File::TileType> levelObjects;
     std::vector<Objects::Door*>        doors; // All doors on the map
     std::vector<Objects::Warp>         warps; // Warp locations
@@ -137,10 +145,8 @@ class Engine {
     bool                        mLevelLoaded;
     Level::File::typeHeaderData mHeader;
     std::string                 mFilename; // Name of the current loaded map
-    int                         mCurrentLayer = 0;
-    int                         mMaxLayers    = 0;
-    static const int            segmentSizeX  = 64;
-    static const int            segmentSizeY  = 64;
+    static const int            segmentSizeX = 128;
+    static const int            segmentSizeY = 128;
 
     Objects::TextBox* textBox;
 };
