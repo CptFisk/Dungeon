@@ -7,9 +7,9 @@ namespace Editor {
 
 void
 Editor::uiHeader(typeWindowCovering& area, bool& open, Level::File::typeHeaderData& header) {
-    static std::string dataX = UINT8_STRING(header.Data.X);
-    static std::string dataY = UINT8_STRING(header.Data.Y);
-    static std::string dataZ = UINT8_STRING(header.Data.Z);
+    static std::string dataX = UINT8_STRING(header.MapCoordinate.X);
+    static std::string dataY = UINT8_STRING(header.MapCoordinate.Y);
+    static std::string dataZ = UINT8_STRING(header.MapCoordinate.Z);
 
     static float color[4] = { 0.258823544, 0.501960814, 0.866666675, 0 }; // Default value for water colour
 
@@ -41,9 +41,9 @@ Editor::uiHeader(typeWindowCovering& area, bool& open, Level::File::typeHeaderDa
             } else {
                 hideElement("Header");
             }
-            header.Data.X = STRING_UINT8(dataX);
-            header.Data.Y = STRING_UINT8(dataY);
-            header.Data.Z = STRING_UINT8(dataZ);
+            header.MapCoordinate.X = STRING_UINT8(dataX);
+            header.MapCoordinate.Y = STRING_UINT8(dataY);
+            header.MapCoordinate.Z = STRING_UINT8(dataZ);
             header.Colour.BackgroundRed   = UINT8(FLOAT(color[0] * 255.0f));
             header.Colour.BackgroundGreen = UINT8(FLOAT(color[1] * 255.0f));
             header.Colour.BackgroundBlue  = UINT8(FLOAT(color[2] * 255.0f));

@@ -3,18 +3,14 @@
 #include <string>
 #include <cstdint>
 #include <fstream>
+#include <level/types/coordinate.hpp>
 
 namespace Level::File{
 
-struct typeWarpCoordinate{
-    uint8_t X;  //X-coordinate
-    uint8_t Y;  //Y-coordinate
-};
 
 struct typeWarpData{
-    typeWarpCoordinate Origin;
-    typeWarpCoordinate Destination;
-    std::string Filename;
+    typeMapCoordinate Origin;
+    typeMapCoordinate Destination;
 };
 
 /**
