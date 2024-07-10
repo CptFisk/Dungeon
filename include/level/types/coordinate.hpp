@@ -1,24 +1,30 @@
 #pragma once
 #include <cstdint>
-#include <string>
-#include <sstream>
 #include <global.hpp>
+#include <sstream>
+#include <string>
 
-namespace Level::File{
-struct typeMapCoordinate{
+namespace Level::File {
+struct typeMapCoordinate {
     uint8_t X;
     uint8_t Y;
     uint8_t Z;
 
-    bool operator==(const typeMapCoordinate& other) const{
-        return other.X == X && other.Y == Y && other.Z == Z;
-    }
+    typeMapCoordinate()
+      : X(0)
+      , Y(0)
+      , Z(0) {}
 
-    bool operator !=(const typeMapCoordinate& other) const{
-        return other.X != X || other.Y != Y || other.Z != Z;
-    }
+    typeMapCoordinate(const uint8_t& x, const uint8_t& y, const uint8_t& z)
+      : X(x)
+      , Y(y)
+      , Z(z) {}
 
-    std::string toString() const{
+    bool operator==(const typeMapCoordinate& other) const { return other.X == X && other.Y == Y && other.Z == Z; }
+
+    bool operator!=(const typeMapCoordinate& other) const { return other.X != X || other.Y != Y || other.Z != Z; }
+
+    [[nodiscard]] std::string toString() const {
         std::ostringstream oss;
         oss << INT(X) << INT(Y) << INT(Z);
         return oss.str();
