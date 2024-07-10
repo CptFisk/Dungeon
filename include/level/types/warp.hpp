@@ -1,16 +1,16 @@
 #pragma once
-#include <vector>
-#include <string>
 #include <cstdint>
 #include <fstream>
 #include <level/types/coordinate.hpp>
+#include <string>
+#include <vector>
 
-namespace Level::File{
+namespace Level::File {
 
-
-struct typeWarpData{
+struct typeWarpData {
     typeMapCoordinate Origin;
-    typeMapCoordinate Destination;
+    typeMapCoordinate Level;       // Level that contains the coordinate
+    typeMapCoordinate Destination; // Destination on the level
 };
 
 /**
