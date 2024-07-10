@@ -5,7 +5,7 @@
   "Data": {
     "Objects": [
       {
-        "File": "rsrc/grassland/GrasslandMushroom.png",
+        "File": "rsrc/grassland/GrasslandStone.png",
         "Name": "GrasslandStoneSmall",
         "Row": 1,
         "Column": 1,
@@ -14,7 +14,7 @@
         "Width": 16
       },
       {
-        "File": "rsrc/grassland/GrasslandMushroom.png",
+        "File": "rsrc/grassland/GrasslandStone.png",
         "Name": "GrasslandStoneHigh",
         "Row": 2,
         "Column": 1,
@@ -23,7 +23,7 @@
         "Width": 16
       },
       {
-        "File": "rsrc/grassland/GrasslandMushroom.png",
+        "File": "rsrc/grassland/GrasslandStone.png",
         "Name": "GrasslandStoneBig",
         "Row": 3,
         "Column": 1,
