@@ -52,18 +52,25 @@ Engine::loadLevel(const std::string& filename) {
             layersLeft = false;
         }
 
-        if (((it->Type & UINT8(Level::File::TileType::TEXTURE)) != 0 ||
-             ((it->Type & UINT8(Level::File::TileType::ANIMATED_TEXTURE)) != 0)) &&
+        if (((it->Type & UINT8(Level::File::TileType::BASE_TEXTURE)) != 0 || ((it->Type & UINT8(Level::File::TileType::TOP_TEXTURE)) != 0)) &&
             !it->Base.empty()) {
-            auto       id    = INT(it->Base.front());
+            const auto id    = INT(it->Base.front());
             const auto asset = data.Assets.Assets[id];
             addToSegment(mSegments.Bottom, pos, asset);
 
             it->Base.erase(it->Base.begin()); // Remove this element, it has been displayed
 
-            if (!it->Base.empty()) {
+            if (!it->Base.empty())
                 layersLeft = true; // There is more
-            }
+        }
+        // Overlay
+        if (((it->Type & UINT8(Level::File::TileType::TOP_TEXTURE)) != 0) && !it->Top.empty()) {
+            const auto id    = INT(it->Top.front());
+            const auto asset = data.Assets.Assets[id];
+            addToSegment(mSegments.Top, pos, asset);
+            it->Top.erase(it->Top.begin()); // Remove element
+            if (!it->Top.empty())
+                layersLeft = true;
         }
 
         // Add obstacles
@@ -144,9 +151,9 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
 void
 Engine::clearLoadedLevel() {
     // Reset all values
-    mLevelLoaded  = false;
-    mHeader       = {};
-    mFilename     = {};
+    mLevelLoaded = false;
+    mHeader      = {};
+    mFilename    = {};
 
     // Clear segments
     clearTypeSegment(mSegments);

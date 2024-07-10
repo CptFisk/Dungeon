@@ -61,7 +61,7 @@ Tile::addData(const std::string&                         asset,
               const std::shared_ptr<Graphics::Graphics>& graphics,
               const Mouse&                               mouse) {
     auto&      data           = mouse == Mouse::TEXTURE ? baseLayer : topLayer;
-    const auto size           = data.size();
+    auto       tileType       = mouse == Mouse::TEXTURE ? Level::File::TileType::BASE_TEXTURE : Level::File::TileType::TOP_TEXTURE;
     const auto type           = graphics->getTextureType(asset);
     int        animationValue = 0;
     switch (type) {
@@ -76,7 +76,6 @@ Tile::addData(const std::string&                         asset,
                                     FLOAT(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Width) * scale.factorX,
                                     FLOAT(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Height) * scale.factorY,
                                   });
-                tileData.Type |= static_cast<uint8_t>(Level::File::TileType::TEXTURE);
             }
             break;
         case Graphics::TextureTypes::ANIMATED_TEXTURE:
@@ -90,7 +89,6 @@ Tile::addData(const std::string&                         asset,
                                     FLOAT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Width) * scale.factorX,
                                     FLOAT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Height) * scale.factorY,
                                   });
-                tileData.Type |= static_cast<uint8_t>(Level::File::TileType::ANIMATED_TEXTURE);
                 animationValue = INT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getViewports().size() *
                                      (*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getTicks());
             }
@@ -120,7 +118,7 @@ Tile::addData(const std::string&                         asset,
             default:;
         }
     }
-
+    tileData.Type |= static_cast<uint8_t>(tileType);
     return animationValue;
 }
 

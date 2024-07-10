@@ -232,9 +232,6 @@ Editor::click() {
             switch (mMouse) {
                 case Mouse::TOP_LAYER:
                     editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::TOP_LAYER)));
-                    mLevelCoords.emplace(Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
-                    animationValuesTop[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, mMouse);
-                    break;
                 case Mouse::TEXTURE:
                     mLevelCoords.emplace(Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
                     animationValuesBase[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, mMouse);

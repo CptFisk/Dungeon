@@ -29,7 +29,7 @@ Engine::Engine()
   , mActionManager(std::make_unique<Common::ActionManager>()) {}
 
 Engine::~Engine() {
-    if(mLevelLoaded)
+    if (mLevelLoaded)
         clearLoadedLevel();
     mGraphics.reset(); // Kill graphics
     // Kill all cute monsters
@@ -121,7 +121,7 @@ Engine::startup() {
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
     mInterrupts[10]->addFunction([&]() {
-        //Increment layers for top and bottom graphic
+        // Increment layers for top and bottom graphic
         mSegments.CurrentLayerBottom++;
         mSegments.CurrentLayerTop++;
         if (mSegments.CurrentLayerBottom >= mSegments.MaxLayerBottom) {
@@ -171,9 +171,9 @@ Engine::movePlayer(Directions direction) {
     // Did we hit a warp?
     for (auto& warp : warps) {
         if (Utility::isOverlapping(mPlayer->getPlayerCenter(), warp.getPosition())) {
-            const auto destination =  warp.getDestination();
-            if(warp.getFilename() != mFilename){
-                //Swap map file
+            const auto destination = warp.getDestination();
+            if (warp.getFilename() != mFilename) {
+                // Swap map file
                 loadLevel(warp.getFilename() + ".map");
             }
             mPlayer->spawn(destination.X, destination.Y);
@@ -206,7 +206,7 @@ Engine::interact() {
 void
 Engine::mainLoop() {
     textBox = new Objects::TextBox(mGraphics->generateText("Hello ssss", 8), 20, 20);
-    mPlayer->spawn(44,120);
+    mPlayer->spawn(44, 120);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
     // mLoading.join();
@@ -241,7 +241,7 @@ Engine::mainLoop() {
         }
         // Apply background color
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
-        drawLevel();
+        drawLevel(mSegments.Bottom, mSegments.CurrentLayerBottom);
         // Show interaction box during debug
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
 #ifdef DEBUG_MODE
@@ -251,11 +251,10 @@ Engine::mainLoop() {
         SDL_FRect middle{ mPlayer->getPlayerCenter().x, mPlayer->getPlayerCenter().y, 1.0f, 1.0f };
         mPerspective->render(*GET_SDL("A349A4"), nullptr, &middle);
 #endif
-
         monsters();
-
         projectiles();
         drawProjectiles();
+        drawLevel(mSegments.Top, mSegments.CurrentLayerTop);
         drawNumbers();
         mHealth->draw();
         mEnergy->draw();
@@ -343,14 +342,16 @@ Engine::drawNumbers() {
 }
 
 void
-Engine::drawLevel() {
-    for (auto& segment : mSegments.Bottom) {
-        mPerspective->render(segment.Layers[mSegments.CurrentLayerBottom], nullptr, &segment.Position);
+Engine::drawLevel(std::vector<typeSegmentData>& data, const int& currentLayer) {
+    for (auto& segment : data) {
+        mPerspective->render(segment.Layers[currentLayer], nullptr, &segment.Position);
     }
+    /*
     for (auto& door : doors) {
         auto drawData = door->getDrawData();
         mPerspective->render(drawData.Texture, drawData.Viewport, drawData.Position);
     }
+     */
 }
 
 void

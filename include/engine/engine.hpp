@@ -49,7 +49,7 @@ class Engine {
 
     void drawProjectiles();
     void drawNumbers();
-    void drawLevel();
+    void drawLevel(std::vector<typeSegmentData>& data, const int& currentLayer);
 
     void        addDarkness();
     std::thread spawnInterrupt(const long& time); // Spawn a thread
