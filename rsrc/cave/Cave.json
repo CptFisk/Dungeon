@@ -1,0 +1,198 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "Cave1",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "Cave2",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "Cave3",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveMedium1",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveMedium2",
+        "Row": 2,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveMedium3",
+        "Row": 2,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveDark1",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveDark2",
+        "Row": 3,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveDark3",
+        "Row": 3,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveNW",
+        "Row": 4,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveN",
+        "Row": 4,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveNE",
+        "Row": 4,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveW",
+        "Row": 5,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveE",
+        "Row": 5,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveSW",
+        "Row": 6,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveS",
+        "Row": 6,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveSE",
+        "Row": 6,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveNW2",
+        "Row": 7,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveNE2",
+        "Row": 7,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveSW2",
+        "Row": 7,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/Cave.png",
+        "Name": "CaveSE2",
+        "Row": 7,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}
