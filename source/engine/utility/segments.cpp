@@ -14,6 +14,7 @@ clearTypeSegmentData(typeSegmentData& data) {
 }
 void
 clearTypeSegment(typeSegment& data) {
+
     for (auto& bottom : data.Bottom)
         clearTypeSegmentData(bottom);
     for (auto& top : data.Top)
@@ -34,7 +35,6 @@ Engine::createSegments(std::vector<typeSegmentData>& segment, const uint8_t& ani
     int segmentY = 1;
     // We always need at least one layer
     const auto animationLayers = std::max(static_cast<int>(animationValue), 1);
-
     if (MAP_SIZE >= segmentSizeX) {
         segmentX = static_cast<int>(MAP_SIZE / segmentSizeX);
     }
@@ -56,8 +56,17 @@ Engine::createSegments(std::vector<typeSegmentData>& segment, const uint8_t& ani
                 // Create texture
                 auto texture =
                   SDL_CreateTexture(pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, segmentSizeX * 16, segmentSizeY * 16);
+                /**
+                 * It appears that SDL_CreateTexture dont always provide a 100% clean texture, resulting in that we sometime
+                 * inherit older parts, we first need to make sure that its cleared.
+                 */
+                SDL_SetRenderTarget(pRenderer, texture);
+                SDL_SetRenderDrawColor(pRenderer, 0,0,0,0);
+                SDL_RenderClear(pRenderer);
+
                 SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
                 SDL_SetTextureAlphaMod(texture, 255);
+                SDL_SetRenderTarget(pRenderer, nullptr);
                 // Creating all layers
                 layers.emplace_back(texture);
             }
@@ -109,7 +118,7 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                                 std::cerr << SDL_GetError() << std::endl;
                             }
                             auto& t = (*texture);
-                            //auto& view = (*texture)->getViewports()[viewport];
+                            // auto& view = (*texture)->getViewports()[viewport];
                             auto view = t->getViewports()[viewport];
                             SDL_RenderCopyF(pRenderer, (*texture)->getTexture(), &view, &destination);
                             if (++tick >= maxTicks) {

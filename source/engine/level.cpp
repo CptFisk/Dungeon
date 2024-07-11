@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <common/math.hpp>
-#include <common/sdl.hpp>
 #include <engine/engine.hpp>
 #include <global.hpp>
 #include <graphics/graphics.hpp>

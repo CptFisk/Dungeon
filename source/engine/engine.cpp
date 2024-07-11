@@ -92,6 +92,7 @@ Engine::startup() {
     mGraphics->init();
 
     loadLevel("555.map");
+    SDL_RenderClear(pRenderer);
 
     mPlayer = std::make_unique<Player::Player>();
 

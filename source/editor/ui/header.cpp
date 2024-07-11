@@ -23,7 +23,7 @@ Editor::uiHeader(typeWindowCovering& area, bool& open, Level::File::typeHeaderDa
         ImGui::ColorPicker4("MyColor##4", (float*)&color, flags, nullptr);
 
         if (ImGui::Button(mNewFile ? "Create" : "Save")) {
-            if (mNewFile) {
+            if (!mNewFile) {
                 mNewFile         = false;
                 mMapLoaded       = true;
 
