@@ -244,6 +244,7 @@ Engine::mainLoop() {
         projectiles();
         drawProjectiles();
         drawLevel(mSegments.Top, mSegments.CurrentLayerTop);
+        addDarkness();
         drawNumbers();
         mHealth->draw();
         mEnergy->draw();
@@ -345,7 +346,11 @@ Engine::drawLevel(std::vector<typeSegmentData>& data, const int& currentLayer) {
 
 void
 Engine::addDarkness() {
-    // SDL_RenderTexture(pRenderer, mGraphics->getTexture<SDL_Texture*>("Shadow"), nullptr, nullptr);
+    auto t = GET_SDL("Shadow");
+    if(t == nullptr)
+        return;
+    auto t1 = *t;
+    SDL_RenderCopy(pRenderer, t1, nullptr, nullptr);
 }
 
 std::thread

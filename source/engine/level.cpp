@@ -160,6 +160,8 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
         const auto level  = object->getLevel();
         if (level != mHeader.MapCoordinate) {
             loadLevel(object->getLevel().toString() + ".map");
+            mPlayer->spawn(object->getDestination());
+            mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
         }else{
             std::cout << "Swap level" << std::endl;
         }
