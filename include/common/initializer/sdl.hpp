@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <SDL.h>
 #include <common/initializer/initializer.hpp>
 

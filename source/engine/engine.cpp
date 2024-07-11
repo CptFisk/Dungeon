@@ -346,7 +346,7 @@ Engine::drawLevel(std::vector<typeSegmentData>& data, const int& currentLayer) {
 
 void
 Engine::addDarkness() {
-    auto t = GET_SDL("Shadow");
+    auto t = GET_SDL("Shadow50");
     if(t == nullptr)
         return;
     auto t1 = *t;
