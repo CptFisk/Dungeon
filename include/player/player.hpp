@@ -5,6 +5,7 @@
 #include <graphics/animatedTexture.hpp>
 #include <map>
 #include <object/objects.hpp>
+#include <level/types/coordinate.hpp>
 #include <utility>
 
 namespace Player {
@@ -24,7 +25,8 @@ class Player {
      * @param y Y-Coordinate
      */
     void spawn(const uint8_t& x, const uint8_t& y, const Directions& direction = Directions::NORTH);
-    void spawn(const std::pair<uint8_t, uint8_t>& pos, const Directions& direction = Directions::NORTH); // Overload
+    void spawn(const std::pair<uint8_t, uint8_t>& pos, const Directions& direction = Directions::NORTH);
+    void spawn(const Level::File::type2DMapCoordinate& pos, const Directions& direction = Directions::NORTH);
 
     void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
 
