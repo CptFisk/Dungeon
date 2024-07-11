@@ -1,0 +1,252 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffNW",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffN",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffNE",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffW",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffE",
+        "Row": 2,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSW",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSWExtra",
+        "Row": 5,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSExtra",
+        "Row": 5,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSEExtra",
+        "Row": 5,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSWBottom",
+        "Row": 4,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSBottom",
+        "Row": 4,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSEBottom",
+        "Row": 4,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffS",
+        "Row": 2,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSE",
+        "Row": 2,
+        "Column": 3,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffNW2",
+        "Row": 1,
+        "Column": 4,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffNE2",
+        "Row": 1,
+        "Column": 5,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSW2",
+        "Row": 3,
+        "Column": 4,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSE2",
+        "Row": 3,
+        "Column": 5,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffStair",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 48,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffStairExtra",
+        "Row": 2,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffStairBottom",
+        "Row": 3,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffBridge",
+        "Row": 2,
+        "Column":1,
+        "Length": 1,
+        "Height": 96,
+        "Width": 64
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffTunnel",
+        "Row": 4,
+        "Column":3,
+        "Length": 1,
+        "Height": 48,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffTunnel",
+        "Row": 4,
+        "Column":3,
+        "Length": 1,
+        "Height": 48,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSWDouble",
+        "Row": 1,
+        "Column": 10,
+        "Length": 1,
+        "Height": 64,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSDouble",
+        "Row": 1,
+        "Column": 11,
+        "Length": 1,
+        "Height": 64,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSEDouble",
+        "Row": 1,
+        "Column": 12,
+        "Length": 1,
+        "Height": 64,
+        "Width": 16
+      }
+    ]
+  }
+}
