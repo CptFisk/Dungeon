@@ -31,19 +31,6 @@
         "Alpha": 70
       },
       {
-        "Name": "Shadow",
-        "Shape": "Square",
-        "Width": 16,
-        "Height": 16,
-        "Red1": 0,
-        "Red2": 0,
-        "Green1": 0,
-        "Green2": 0,
-        "Blue1": 0,
-        "Blue2": 0,
-        "Alpha": 20
-      },
-      {
         "Name": "FAE2C3",
         "Shape": "Square",
         "Width": 1,
