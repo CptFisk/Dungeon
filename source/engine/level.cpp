@@ -6,6 +6,7 @@
 #include <iostream>
 #include <utility/math.hpp>
 #include <utility/textures.hpp>
+#include <engine/helper/functions.hpp>
 
 namespace Engine {
 
@@ -96,7 +97,7 @@ Engine::loadLevel(const std::string& filename) {
                 const auto& [x, y] = coords.value();
                 // Reduce our Z-layer by one
                 Level::File::type3DMapCoordinate level(origin.X, origin.Y, origin.Z - 1);
-                Level::File::type2DMapCoordinate destination(x, y);
+                Level::File::type2DMapCoordinate destination(x, y + 1);
                 warp[pos] = new Objects::Warp(level, destination);
             } else {
                 std::cerr << "Not a valid coordinate" << std::endl;
@@ -113,6 +114,12 @@ Engine::loadLevel(const std::string& filename) {
 
     SDL_SetRenderTarget(pRenderer, nullptr);
     mLevelLoaded = true;
+    //Run all startup functions
+    for(const auto& name : data.Header.OnLoad){
+        auto function = getExternalFunction(name);
+        if(function)
+            function();
+    }
 }
 
 bool
@@ -162,7 +169,7 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
             loadLevel(object->getLevel().toString() + ".map");
             mPlayer->spawn(object->getDestination());
             mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
-        }else{
+        } else {
             std::cout << "Swap level" << std::endl;
         }
         return false;

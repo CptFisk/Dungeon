@@ -5,14 +5,13 @@
 #include <iostream>
 #include <SDL.h>
 
-
+Engine::Engine engine;
 
 int
 main(int argc, char* argv[]) {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
-    Engine::Engine engine;
     engine.getActionManager().registerKeyboardAction("PlayerNorth", SDLK_w);
     engine.getActionManager().registerKeyboardAction("PlayerEast", SDLK_d);
     engine.getActionManager().registerKeyboardAction("PlayerSouth", SDLK_s);

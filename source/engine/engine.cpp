@@ -17,6 +17,7 @@ Engine::Engine()
   , pPlayerView(nullptr)
   , pWindow(nullptr)
   , pRenderer(nullptr)
+  , pDarkness(nullptr)
   , mScale{}
   , mRun(true)
   , mVisibleUI(true)
@@ -244,7 +245,7 @@ Engine::mainLoop() {
         projectiles();
         drawProjectiles();
         drawLevel(mSegments.Top, mSegments.CurrentLayerTop);
-        addDarkness();
+        drawDarkness();
         drawNumbers();
         mHealth->draw();
         mEnergy->draw();
@@ -342,15 +343,6 @@ Engine::drawLevel(std::vector<typeSegmentData>& data, const int& currentLayer) {
         mPerspective->render(drawData.Texture, drawData.Viewport, drawData.Position);
     }
      */
-}
-
-void
-Engine::addDarkness() {
-    auto t = GET_SDL("Shadow50");
-    if(t == nullptr)
-        return;
-    auto t1 = *t;
-    SDL_RenderCopy(pRenderer, t1, nullptr, nullptr);
 }
 
 std::thread

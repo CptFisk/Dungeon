@@ -39,6 +39,7 @@ class Engine {
     void      setPlayerAction(Objects::State action);
     void      resetPlayerMomentum();
     void      interact();
+    void      setDarkness(const unsigned int& v);
     SDL_Event mEvent;
 
   protected:
@@ -51,7 +52,7 @@ class Engine {
     void drawNumbers();
     void drawLevel(std::vector<typeSegmentData>& data, const int& currentLayer);
 
-    void        addDarkness();
+    void        drawDarkness();
     std::thread spawnInterrupt(const long& time); // Spawn a thread
 
   private:
@@ -136,10 +137,10 @@ class Engine {
      * @example render(frame[0]);
      * @example }
      */
-    typeSegment                        mSegments;
-    std::vector<Level::File::TileType> levelObjects;
-    std::vector<Objects::Door*>        doors; // All doors on the map
-    std::unordered_map<int, Objects::Warp*> warp; // Warp locations
+    typeSegment                             mSegments;
+    std::vector<Level::File::TileType>      levelObjects;
+    std::vector<Objects::Door*>             doors; // All doors on the map
+    std::unordered_map<int, Objects::Warp*> warp;  // Warp locations
 
     // Level data
     bool                        mLevelLoaded;
@@ -147,8 +148,11 @@ class Engine {
     std::string                 mFilename; // Name of the current loaded map
     static const int            segmentSizeX = 128;
     static const int            segmentSizeY = 128;
+    SDL_Texture*                pDarkness;
 
     Objects::TextBox* textBox;
 };
+
+extern Engine engine;
 
 }
