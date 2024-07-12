@@ -58,6 +58,7 @@ class Editor {
     void uiDrawGrid();                                                                        // Draw a basic grid over the area
     void uiAssets(typeWindowCovering& area, bool& open, Level::File::typeAssets& assets);     // Display the metadata related to the map
     void uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse);
+    void uiFunctions(typeWindowCovering& area, bool& open, std::vector<std::string>& elements, const std::string& title);
     void uiTiles();
     void uiDoor(bool& open);
     void uiWarpsPopup();

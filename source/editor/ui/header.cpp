@@ -48,9 +48,9 @@ Editor::uiHeader(typeWindowCovering& area, bool& open, Level::File::typeHeaderDa
             header.Colour.BackgroundGreen = UINT8(FLOAT(color[1] * 255.0f));
             header.Colour.BackgroundBlue  = UINT8(FLOAT(color[2] * 255.0f));
         }
+        area = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
+        ImGui::End();
     }
-    area = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
-    ImGui::End();
 
     if (!open)
         hideElement("Header");

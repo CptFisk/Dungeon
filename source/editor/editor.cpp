@@ -88,6 +88,8 @@ Editor::startup() {
     mElements["Doors"]      = [this]() { uiDoor(mWindowOpen["Doors"]); };
     mElements["WarpsPopup"] = [this]() { uiWarpsPopup(); };
     mElements["Warps"]      = [this]() { uiWarps(); };
+    mElements["OnLoad"]     = [this]() { uiFunctions(mWindows["OnLoad"], mWindowOpen["OnLoad"], fileHeader.OnLoad, "On load"); };
+    mElements["OnExit"]     = [this]() { uiFunctions(mWindows["OnExit"], mWindowOpen["OnExit"], fileHeader.OnExit, "On exit"); };
     displayElement("TopMenu");
 
     for (const auto& file : Utility::getFiles("levels", ".map")) {

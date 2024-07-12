@@ -53,6 +53,13 @@ Editor::uiMenu() {
             if (ImGui::MenuItem("Assets")) {
                 displayElement("Assets");
             }
+            if (ImGui::MenuItem("On load")) {
+                displayElement("OnLoad");
+            }
+            if (ImGui::MenuItem("On exit")) {
+                displayElement("OnExit");
+            }
+
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Display")) {
