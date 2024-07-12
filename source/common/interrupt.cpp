@@ -1,6 +1,5 @@
 #include <chrono>
 #include <common/interrupt.hpp>
-#include <iostream>
 #include <thread>
 
 namespace Common {
@@ -16,11 +15,10 @@ Interrupt::execute() {
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(mTime));
     }
-    std::cout << "Thread " << mTime << std::endl;
 }
 
 void
-Interrupt::addFunction(std::function<void()> function) {
+Interrupt::addFunction(const std::function<void()>& function) {
     mFunctions.push_back(function);
 }
 }

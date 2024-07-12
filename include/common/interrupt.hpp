@@ -8,7 +8,7 @@ class Interrupt {
   public:
     Interrupt(const long int& time, bool& execute);
     void execute();
-    void addFunction(std::function<void()> function);
+    void addFunction(const std::function<void()>& function);
 
   protected:
   private:
