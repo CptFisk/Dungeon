@@ -23,8 +23,9 @@ constexpr std::array<functionPair, 50> externalFunctions{ { { "removeDarkness", 
 
 constexpr functionPointer
 getExternalFunction(std::string_view name) {
-    for (const auto& pair : externalFunctions) {
-        return pair.second;
+    for (const auto& [key, function] : externalFunctions) {
+        if(key == name)
+            return function;
     }
     return nullptr;
 }
