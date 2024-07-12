@@ -86,7 +86,17 @@ Engine::loadLevel(const std::string& filename) {
         }
         // Add transportation up
         if ((it->Type & UINT8(Level::File::TileType::UP)) != 0) {
-
+            const auto coords = Common::getCoords(pos, MAP_SIZE, MAP_SIZE);
+            if (coords.has_value() && mHeader.MapCoordinate.Z > 0) {
+                const auto origin  = mHeader.MapCoordinate;
+                const auto& [x, y] = coords.value();
+                // Reduce our Z-layer by one
+                Level::File::type3DMapCoordinate level(origin.X, origin.Y, origin.Z + 1);
+                Level::File::type2DMapCoordinate destination(x, y + 1);
+                warp[pos] = new Objects::Warp(level, destination);
+            } else {
+                std::cerr << "Not a valid coordinate" << std::endl;
+            }
             it->Type &= ~UINT8(Level::File::TileType::UP); // Reset bit
         }
         // Add transportation down
@@ -119,6 +129,8 @@ Engine::loadLevel(const std::string& filename) {
         auto function = getExternalFunction(name);
         if(function)
             function();
+        else
+            std::cerr << "Function: " << name << " could not be found" << std::endl;
     }
 }
 
@@ -163,11 +175,12 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
     }
     auto it = warp.find(index.value());
     if (it != warp.end()) {
-        const auto object = (*it).second;
+        auto object = it->second;
         const auto level  = object->getLevel();
         if (level != mHeader.MapCoordinate) {
+            const auto destination = object->getDestination();  //Need to store before swapping map
             loadLevel(object->getLevel().toString() + ".map");
-            mPlayer->spawn(object->getDestination());
+            mPlayer->spawn(destination);
             mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
         } else {
             std::cout << "Swap level" << std::endl;
@@ -186,6 +199,15 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
 
 void
 Engine::clearLoadedLevel() {
+    //Run functions on unLoad
+    for(const auto& name : mHeader.OnExit){
+        auto function = getExternalFunction(name);
+        if(function)
+            function();
+        else
+            std::cerr << "Function: " << name << " could not be found" << std::endl;
+    }
+
     // Reset all values
     mLevelLoaded = false;
     mHeader      = {};
