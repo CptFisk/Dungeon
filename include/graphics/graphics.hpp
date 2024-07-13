@@ -15,7 +15,11 @@
 #define GET_SIMPLE(VAR)   mGraphics->getTexture<Graphics::typeSimpleTexture>(VAR)
 #define GET_SDL(VAR)      mGraphics->getTexture<SDL_Texture*>(VAR)
 
+
 namespace Graphics {
+
+enum class TextureTypes { UNDEFINED, SDL_TEXTURE, TEXT, SIMPLE_TEXTURE, ANIMATED_TEXTURE, GENERATED_TEXTURE };
+
 class Graphics {
   public:
     explicit Graphics(SDL_Renderer* renderer);

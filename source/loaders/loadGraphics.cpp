@@ -1,10 +1,10 @@
 #include <common/structures.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <graphics/graphics.hpp>
-#include <graphics/structures.hpp>
 #include <graphics/types/baseTexture.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <graphics/types/simpleTexture.hpp>
+#include <graphics/types/animatedTexture.hpp>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <utility/file.hpp>
