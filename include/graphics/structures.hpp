@@ -7,12 +7,6 @@
 
 namespace Graphics {
 
-#define GENERATED_SHAPES(DO) \
-    DO(CIRCLE)               \
-    DO(SQUARE)
-#define MAKE_GENERATED_SHAPES(VAR) VAR,
-enum GeneratedShapes { GENERATED_SHAPES(MAKE_GENERATED_SHAPES) };
-NLOHMANN_JSON_SERIALIZE_ENUM(GeneratedShapes, { { CIRCLE, "Circle" }, { SQUARE, "Square" } })
 
 enum class TextureTypes { UNDEFINED, SDL_TEXTURE, TEXT, SIMPLE_TEXTURE, ANIMATED_TEXTURE, GENERATED_TEXTURE };
 
@@ -24,18 +18,6 @@ struct typeTextTexture {
     SDL_FRect    Dimensions;
 };
 
-/***
- * @brief Used when Object is of type BASE_TEXTURE
- */
-struct typeBaseTextureJSON {
-    std::string File;   // File to be loaded
-    std::string Name;   // Name of file
-    int         Column; // Start column in sheet
-    int         Row;    // Start row in sheet
-    int         Length; // Number of sprites to be read
-    int         Height; // Height of texture
-    int         Width;  // Width of texture
-};
 
 struct typeAnimatedTextureJSON {
     std::string Name;   // Animation name
@@ -48,35 +30,13 @@ struct typeAnimatedTextureJSON {
     bool        Paused; // Optional, not always existing
 };
 
-struct typeGeneratedTextureJSON {
-    std::string     Name;
-    GeneratedShapes Shape;
-    int             Red1;
-    int             Red2;
-    int             Green1;
-    int             Green2;
-    int             Blue1;
-    int             Blue2;
-    int             Alpha;
-    int             Height; // Height of texture
-    int             Width;  // Width of texture
-};
 
-struct typeBaseTextureData {
-    std::vector<typeBaseTextureJSON> Objects;
-};
 
 struct typeAnimatedTextureData {
     std::string                          File;
     std::vector<typeAnimatedTextureJSON> Objects;
 };
 
-struct typeGeneratedTextureData {
-    std::vector<typeGeneratedTextureJSON> Objects;
-};
-
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeBaseTextureJSON, File, Name, Column, Row, Length, Height, Width)
-// NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeAnimatedTextureJSON, Name, Column, Row, Length, Ticks, Height, Width, Paused)
 inline void
 to_json(nlohmann::json& nlohmann_json_j, const typeAnimatedTextureJSON& nlohmann_json_t) {
     nlohmann_json_j["Name"]   = nlohmann_json_t.Name;
@@ -103,10 +63,9 @@ from_json(const nlohmann::json& nlohmann_json_j, typeAnimatedTextureJSON& nlohma
         nlohmann_json_t.Paused = false;
     }
 }
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeGeneratedTextureJSON, Name, Shape, Red1, Red2, Green1, Green2, Blue1, Blue2, Alpha, Height, Width)
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeBaseTextureData, Objects)
+
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeAnimatedTextureData, File, Objects)
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeGeneratedTextureData, Objects)
+
 
 }

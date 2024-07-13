@@ -2,6 +2,8 @@
 #include <graphics/animatedTexture.hpp>
 #include <graphics/graphics.hpp>
 #include <graphics/structures.hpp>
+#include <graphics/types/baseTexture.hpp>
+#include <graphics/types/generatedTexture.hpp>
 #include <graphics/types/simpleTexture.hpp>
 #include <iostream>
 #include <nlohmann/json.hpp>
@@ -99,7 +101,7 @@ Graphics::loadGeneratedTexture(const std::string& jsonString) {
     }
     for (const auto& data : jsonData.Objects) {
         switch (data.Shape) {
-            case CIRCLE:
+            case typeShape::Circle:
                 generateCircle(data.Name,
                                static_cast<float>(data.Height),
                                data.Red1,
@@ -110,7 +112,7 @@ Graphics::loadGeneratedTexture(const std::string& jsonString) {
                                data.Blue2,
                                Utility::Scale<Uint8>(data.Alpha, 0, 100, 0, 255));
                 break;
-            case SQUARE:
+            case typeShape::Square:
                 generateSquare(data.Name,
                                data.Width,
                                data.Height,

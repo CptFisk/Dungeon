@@ -1,0 +1,18 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/effects/Light.png",
+        "Name": "Light",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 72,
+        "Width": 72
+      }
+    ]
+  }
+}

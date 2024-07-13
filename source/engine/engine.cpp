@@ -195,10 +195,10 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
-    textBox = new Objects::TextBox(mGraphics->generateText("Hello ssss", 8), 20, 20);
     mPlayer->spawn(44, 120);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
-
+    auto light = GET_SIMPLE("Light")->Texture;
+    auto lDest = SDL_Rect{ 72, 72, 72, 72 };
     // mLoading.join();
 
     while (mRun) {
@@ -246,6 +246,7 @@ Engine::mainLoop() {
         drawProjectiles();
         drawLevel(mSegments.Top, mSegments.CurrentLayerTop);
         drawDarkness();
+        SDL_RenderCopy(pRenderer, light, nullptr, &lDest);
         drawNumbers();
         mHealth->draw();
         mEnergy->draw();
