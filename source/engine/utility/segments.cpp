@@ -110,7 +110,7 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                          * viewports we simply restart. Since we calculated the layers to match the lcm of the frames it should all be fine
                          */
                         const auto maxTicks     = (*texture)->getTicks();
-                        const auto maxViewports = (*texture)->getViewports().size();
+                        const auto maxViewports = (*texture)->getViewports().size() - 1;
                         int        tick         = 0;
                         int        viewport     = 0;
                         for (auto layer : segment[index].Layers) {
