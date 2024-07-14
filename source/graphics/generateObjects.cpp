@@ -13,6 +13,7 @@ Graphics::generateSquare(const std::string& name,
     SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height,32, SDL_PIXELFORMAT_RGBA32);
     if (surface == nullptr) {
         std::cerr << SDL_GetError() << std::endl;
+        return;
     }
 
     if (SDL_FillRect(surface, nullptr, SDL_MapRGB(surface->format, r, g, b)) != 0)
@@ -46,6 +47,7 @@ Graphics::generateCircle(const std::string& name,   // Name of texture
     // Surface check
     if (!surface) {
         std::cerr << "SDL_CreateRGBSurface failed: " << SDL_GetError() << std::endl;
+        return;
     }
 
     int centerX     = static_cast<int>(radius);
