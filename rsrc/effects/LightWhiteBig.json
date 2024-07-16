@@ -1,0 +1,19 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/effects/LightWhiteBig.png",
+    "Objects": [
+      {
+        "Name": "LightWhiteBig",
+        "Column": 1,
+        "Row": 1,
+        "Length": 7,
+        "Ticks": 10,
+        "Width": 72,
+        "Height": 72
+      }
+    ]
+  }
+}

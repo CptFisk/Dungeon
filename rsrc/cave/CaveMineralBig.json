@@ -1,0 +1,64 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/cave/CaveMineralBig.png",
+    "Objects": [
+      {
+        "Name": "CaveMineralBig1",
+        "Column": 1,
+        "Row": 1,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 32,
+        "Height": 32
+      },
+      {
+        "Name": "CaveMineralBig2",
+        "Column": 1,
+        "Row": 2,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 32,
+        "Height": 32
+      },
+      {
+        "Name": "CaveMineralBig3",
+        "Column": 1,
+        "Row": 3,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 32,
+        "Height": 32
+      },
+      {
+        "Name": "CaveMineralBig4",
+        "Column": 1,
+        "Row": 4,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 32,
+        "Height": 32
+      },
+      {
+        "Name": "CaveMineralBig5",
+        "Column": 1,
+        "Row": 5,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 32,
+        "Height": 32
+      },
+      {
+        "Name": "CaveMineralBig6",
+        "Column": 1,
+        "Row": 6,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 32,
+        "Height": 32
+      }
+    ]
+  }
+}

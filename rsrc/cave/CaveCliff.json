@@ -159,11 +159,29 @@
       },
       {
         "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSW2Double",
+        "Row": 2,
+        "Column": 4,
+        "Length": 1,
+        "Height": 48,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
         "Name": "CaveCliffSE2",
         "Row": 3,
         "Column": 5,
         "Length": 1,
         "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveCliff.png",
+        "Name": "CaveCliffSE2Double",
+        "Row": 2,
+        "Column": 5,
+        "Length": 1,
+        "Height": 48,
         "Width": 16
       },
       {

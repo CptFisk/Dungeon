@@ -1,0 +1,37 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/cave/CaveTorch.png",
+    "Objects": [
+      {
+        "Name": "CaveTorch1",
+        "Column": 1,
+        "Row": 1,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 32
+      },
+      {
+        "Name": "CaveTorch2",
+        "Column": 1,
+        "Row": 2,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 32
+      },
+      {
+        "Name": "CaveTorch3",
+        "Column": 1,
+        "Row": 3,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 32
+      }
+    ]
+  }
+}
