@@ -1,12 +1,12 @@
 #include <algorithm>
 #include <common/math.hpp>
 #include <engine/engine.hpp>
+#include <engine/helper/functions.hpp>
 #include <global.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
 #include <utility/math.hpp>
 #include <utility/textures.hpp>
-#include <engine/helper/functions.hpp>
 
 namespace Engine {
 
@@ -34,7 +34,7 @@ Engine::loadLevel(const std::string& filename) {
 
     int pos = 0;
 
-    levelObjects = std::vector<Level::File::TileType>(MAX_TILES, Level::File::TileType::BLANK);
+    levelObjects = std::vector<Level::File::TileType>(MAX_TILES);
 
     bool layersLeft = false;
     auto it         = data.Tiles.Tiles.begin();
@@ -52,9 +52,8 @@ Engine::loadLevel(const std::string& filename) {
             layersLeft = false;
         }
 
-        if (((it->Type & UINT8(Level::File::TileType::BASE_TEXTURE)) != 0 ||
-             ((it->Type & UINT8(Level::File::TileType::TOP_TEXTURE)) != 0)) &&
-            !it->Base.empty()) {
+        if (((it->Type.test(Level::File::TileType::BASE_TEXTURE) ||
+             it->Type.test(Level::File::TileType::TOP_TEXTURE)) && !it->Base.empty())) {
             const auto id    = INT(it->Base.front());
             const auto asset = data.Assets.Assets[id];
             addToSegment(mSegments.Bottom, pos, asset);
@@ -65,7 +64,7 @@ Engine::loadLevel(const std::string& filename) {
                 layersLeft = true; // There is more
         }
         // Overlay
-        if (((it->Type & UINT8(Level::File::TileType::TOP_TEXTURE)) != 0) && !it->Top.empty()) {
+        if (it->Type.test(Level::File::TileType::TOP_TEXTURE) && !it->Top.empty()) {
             const auto id    = INT(it->Top.front());
             const auto asset = data.Assets.Assets[id];
             addToSegment(mSegments.Top, pos, asset);
@@ -75,17 +74,17 @@ Engine::loadLevel(const std::string& filename) {
         }
 
         // Add obstacles
-        if ((it->Type & UINT8(Level::File::TileType::OBSTACLE)) != 0) {
+        if (it->Type.test(Level::File::TileType::OBSTACLE)) {
             levelObjects[pos] = static_cast<Level::File::TileType>(UINT8(Level::File::TileType::OBSTACLE) | UINT8(levelObjects[pos]));
-            it->Type &= ~UINT8(Level::File::TileType::OBSTACLE); // Reset bit
+            it->Type.reset(Level::File::TileType::OBSTACLE);
         }
         // Add walls
-        if ((it->Type & UINT8(Level::File::TileType::WALL)) != 0) {
+        if (it->Type.test(Level::File::TileType::WALL)) {
             levelObjects[pos] = static_cast<Level::File::TileType>(UINT8(Level::File::TileType::WALL) | UINT8(levelObjects[pos]));
-            it->Type &= ~UINT8(Level::File::TileType::WALL); // Reset bit
+            it->Type.reset(Level::File::TileType::WALL); // Reset bit
         }
         // Add transportation up
-        if ((it->Type & UINT8(Level::File::TileType::UP)) != 0) {
+        if (it->Type.test(Level::File::TileType::UP)) {
             const auto coords = Common::getCoords(pos, MAP_SIZE, MAP_SIZE);
             if (coords.has_value() && mHeader.MapCoordinate.Z > 0) {
                 const auto origin  = mHeader.MapCoordinate;
@@ -97,10 +96,10 @@ Engine::loadLevel(const std::string& filename) {
             } else {
                 std::cerr << "Not a valid coordinate" << std::endl;
             }
-            it->Type &= ~UINT8(Level::File::TileType::UP); // Reset bit
+            it->Type.reset(Level::File::TileType::UP);
         }
         // Add transportation down
-        if ((it->Type & UINT8(Level::File::TileType::DOWN)) != 0) {
+        if (it->Type.test(Level::File::TileType::DOWN)) {
             const auto coords = Common::getCoords(pos, MAP_SIZE, MAP_SIZE);
             if (coords.has_value() && mHeader.MapCoordinate.Z > 0) {
                 const auto origin  = mHeader.MapCoordinate;
@@ -112,7 +111,7 @@ Engine::loadLevel(const std::string& filename) {
             } else {
                 std::cerr << "Not a valid coordinate" << std::endl;
             }
-            it->Type &= ~UINT8(Level::File::TileType::DOWN); // Reset bit
+            it->Type.reset(Level::File::TileType::DOWN); // Reset bit
         }
         pos++;
 
@@ -124,10 +123,10 @@ Engine::loadLevel(const std::string& filename) {
 
     SDL_SetRenderTarget(pRenderer, nullptr);
     mLevelLoaded = true;
-    //Run all startup functions
-    for(const auto& name : data.Header.OnLoad){
+    // Run all startup functions
+    for (const auto& name : data.Header.OnLoad) {
         auto function = getExternalFunction(name);
-        if(function)
+        if (function)
             function();
         else
             std::cerr << "Function: " << name << " could not be found" << std::endl;
@@ -175,10 +174,10 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
     }
     auto it = warp.find(index.value());
     if (it != warp.end()) {
-        auto object = it->second;
+        auto       object = it->second;
         const auto level  = object->getLevel();
         if (level != mHeader.MapCoordinate) {
-            const auto destination = object->getDestination();  //Need to store before swapping map
+            const auto destination = object->getDestination(); // Need to store before swapping map
             loadLevel(object->getLevel().toString() + ".map");
             mPlayer->spawn(destination);
             mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
@@ -199,10 +198,10 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
 
 void
 Engine::clearLoadedLevel() {
-    //Run functions on unLoad
-    for(const auto& name : mHeader.OnExit){
+    // Run functions on unLoad
+    for (const auto& name : mHeader.OnExit) {
         auto function = getExternalFunction(name);
-        if(function)
+        if (function)
             function();
         else
             std::cerr << "Function: " << name << " could not be found" << std::endl;

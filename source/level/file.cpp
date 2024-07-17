@@ -29,7 +29,7 @@ readLevelData(const std::string& filename) {
         throw std::runtime_error("Cant load file: " + filename);
     typeHeaderData             header = {};
     typeAssets                 assets;
-    typeTiles                  tiles = {};
+    typeTiles                  tiles(MAX_TILES);
     std::vector<typeDoorsData> doors;
     std::vector<typeWarpData>  warps;
 

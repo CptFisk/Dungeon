@@ -46,17 +46,16 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
                 editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::TOP_LAYER)));
                 mLevelCoords.emplace(x, y);
             }
-            if ((tile.Type & UINT8(Level::File::TileType::WALL)) != 0) {
+            if (tile.Type.test(Level::File::TileType::WALL)){
                 editorTiles[pos]->addType(Level::File::TileType::WALL, *GET_SDL(getMouseColorCode(Mouse::WALL)));
             }
-            if ((tile.Type & UINT8(Level::File::TileType::OBSTACLE)) != 0) {
+            if (tile.Type.test(Level::File::TileType::OBSTACLE)){
                 editorTiles[pos]->addType(Level::File::TileType::OBSTACLE, *GET_SDL(getMouseColorCode(Mouse::OBSTACLE)));
             }
-            if ((tile.Type & UINT8(Level::File::TileType::UP)) != 0) {
+            if (tile.Type.test(Level::File::TileType::UP)) {
                 editorTiles[pos]->addType(Level::File::TileType::UP, *GET_SDL(getMouseColorCode(Mouse::UP)));
             }
-            if ((tile.Type & UINT8(Level::File::TileType::DOWN)) != 0) {
-
+            if (tile.Type.test(Level::File::TileType::DOWN)) {
                 editorTiles[pos]->addType(Level::File::TileType::DOWN, *GET_SDL(getMouseColorCode(Mouse::DOWN)));
             }
             pos++;
