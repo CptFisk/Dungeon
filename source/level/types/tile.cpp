@@ -6,11 +6,12 @@ namespace Level::File {
 
 void
 readTileData(std::ifstream& file, typeTiles& data) {
-
     for (int i = 0; i < MAX_TILES; i++) {
         try {
             File::typeTileData tileData;
-            file.read(reinterpret_cast<char*>(&tileData), sizeof(uint8_t));
+            uint32_t type;
+            file.read(reinterpret_cast<char*>(&type), sizeof(uint32_t));
+            tileData.Type = type;
             uint8_t size;
             file.read(reinterpret_cast<char*>(&size), sizeof(size));
             // Read base assets
@@ -38,8 +39,9 @@ void
 writeTileData(std::ofstream& file, const typeTiles& data) {
     try {
         for (const auto& tile : data.Tiles) {
+            auto type = static_cast<uint32_t>(tile.Type.to_ulong());
             // First we write the type
-            file.write(reinterpret_cast<const char*>(&tile.Type), sizeof(tile.Type));
+            file.write(reinterpret_cast<const char*>(&type), sizeof(type));
             // Write how big the array is
             const auto baseLength = UINT8(tile.Base.size());
             file.write(reinterpret_cast<const char*>(&baseLength), sizeof(baseLength));

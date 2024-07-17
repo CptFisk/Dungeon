@@ -118,7 +118,7 @@ Tile::addData(const std::string&                         asset,
             default:;
         }
     }
-    tileData.Type |= static_cast<uint8_t>(tileType);
+    tileData.Type.set(tileType);
     return animationValue;
 }
 
@@ -150,7 +150,7 @@ Tile::addOverlay(SDL_Texture* overlay) {
 
 void
 Tile::addType(const Level::File::TileType& value, SDL_Texture* overlay) {
-    tileData.Type |= static_cast<uint8_t>(value);
+    tileData.Type.set(value);
     if (overlays.find(overlay) == overlays.end())
         addOverlay(overlay);
 }

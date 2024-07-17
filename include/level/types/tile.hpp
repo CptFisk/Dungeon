@@ -23,7 +23,7 @@ enum TileType : uint8_t {
  * @brief The element Id contains a list of all Assets that is used. Since a tile can have multiple assets linked to it.
  */
 struct typeTileData {
-    std::bitset<8>      Type;
+    std::bitset<32>      Type;
     std::vector<uint8_t> Base; // Assets for base texture
     std::vector<uint8_t> Top;  // Assets for overlays
     typeTileData()
