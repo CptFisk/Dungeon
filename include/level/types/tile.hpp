@@ -15,7 +15,33 @@ enum TileType : uint8_t {
     OBSTACLE     = 3, // Possible to "fly" over
     UP           = 4, // Warp the player down one Z-layer
     DOWN         = 5, // Warp the player up one Z-layer
-
+    SPARE6       = 6,
+    SPARE7       = 7,
+    SPARE8       = 8,
+    SPARE9       = 9,
+    SPARE10      = 10,
+    SPARE11      = 11,
+    SPARE12      = 12,
+    SPARE13      = 13,
+    SPARE14      = 14,
+    SPARE15      = 15,
+    SPARE16      = 16,
+    SPARE17      = 17,
+    SPARE18      = 18,
+    SPARE19      = 19,
+    SPARE20      = 20,
+    SPARE21      = 21,
+    SPARE22      = 22,
+    SPARE23      = 23,
+    SPARE24      = 24,
+    LIGHT_ORANGE = 25,
+    LIGHT_RED    = 26,
+    LIGHT_WHITE  = 27,
+    LIGHT_CIRCLE = 28,
+    LIGHT_SQUARE = 29,
+    LIGHT_SMALL  = 30,
+    LIGHT_MEDIUM = 31,
+    LIGHT_BIG    = 32
 };
 
 /**
