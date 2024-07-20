@@ -13,4 +13,6 @@
 const int     MAP_WIDTH = 128;
 constexpr int MAP_SIZE  = MAP_WIDTH * MAP_WIDTH;
 
+const int LIGHT_ANIMATION_FRAMES = 7;
+
 enum Directions : uint8_t { NORTH = 1 << 0, EAST = 1 << 1, SOUTH = 1 << 2, WEST = 1 << 3, ALL = NORTH | EAST | SOUTH | WEST };
