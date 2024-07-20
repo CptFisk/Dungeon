@@ -1,9 +1,10 @@
 #include <editor/editor.hpp>
-#include <editor/utility/mouseDarkness.hpp>
+#include <editor/utility/mouseLightning.hpp>
 namespace Editor {
 void
 Editor::uiMouseLightning(Editor::Editor::typeWindowCovering& area,
                          bool&                               open,
+                         Mouse&                              mouse,
                          LightningShape&                     shape,
                          LightningColour&                    colour,
                          LightningSize&                      size) {
@@ -26,9 +27,8 @@ Editor::uiMouseLightning(Editor::Editor::typeWindowCovering& area,
     }
 
     if (!open) {
-        // Reset all the bits
-
-        hideElement("Mouse");
+        mouse = DEFAULT;
+        hideElement("Lightning");
     }
 }
 }

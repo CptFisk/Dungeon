@@ -35,11 +35,11 @@ Engine::createSegments(std::vector<typeSegmentData>& segment, const uint8_t& ani
     int segmentY = 1;
     // We always need at least one layer
     const auto animationLayers = std::max(static_cast<int>(animationValue), 1);
-    if (MAP_SIZE >= segmentSizeX) {
-        segmentX = static_cast<int>(MAP_SIZE / segmentSizeX);
+    if (MAP_WIDTH >= segmentSizeX) {
+        segmentX = static_cast<int>(MAP_WIDTH / segmentSizeX);
     }
-    if (MAP_SIZE >= segmentSizeY) {
-        segmentY = static_cast<int>(MAP_SIZE / segmentSizeY);
+    if (MAP_WIDTH >= segmentSizeY) {
+        segmentY = static_cast<int>(MAP_WIDTH / segmentSizeY);
     }
 
     // Creating textures and positions
@@ -78,7 +78,7 @@ Engine::createSegments(std::vector<typeSegmentData>& segment, const uint8_t& ani
 
 void
 Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name) {
-    const auto coords = Common::getCoords(pos, MAP_SIZE, MAP_SIZE); // Fetching coords, hopefully
+    const auto coords = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH); // Fetching coords, hopefully
 
     if (coords.has_value()) {
         const auto coord = coords.value();
@@ -159,7 +159,7 @@ size_t
 Engine::getSegment(const std::pair<int, int>& coord) {
     const int     indexX           = INT(coord.first / segmentSizeX);
     const int     indexY           = INT(coord.second / segmentSizeY);
-    constexpr int numberOfSegments = INT((MAP_SIZE + segmentSizeX - 1) / segmentSizeX);
+    constexpr int numberOfSegments = INT((MAP_WIDTH + segmentSizeX - 1) / segmentSizeX);
 
     return indexY * numberOfSegments + indexX;
 }

@@ -33,15 +33,14 @@ enum TileType : uint8_t {
     SPARE21      = 21,
     SPARE22      = 22,
     SPARE23      = 23,
-    SPARE24      = 24,
-    LIGHT_YELLOW = 25,
-    LIGHT_RED    = 26,
-    LIGHT_WHITE  = 27,
-    LIGHT_CIRCLE = 28,
-    LIGHT_SQUARE = 29,
-    LIGHT_SMALL  = 30,
-    LIGHT_MEDIUM = 31,
-    LIGHT_BIG    = 32
+    LIGHT_YELLOW = 24,
+    LIGHT_RED    = 25,
+    LIGHT_WHITE  = 26,
+    LIGHT_CIRCLE = 27,
+    LIGHT_SQUARE = 28,
+    LIGHT_SMALL  = 29,
+    LIGHT_MEDIUM = 30,
+    LIGHT_BIG    = 31
 };
 
 /**

@@ -8,13 +8,15 @@ Editor::uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse) {
 
         ImGui::SeparatorText("Graphical");
         mouseButton(mouse, Mouse::DEFAULT, "None");
+        if(mouseButton(mouse, Mouse::LIGHTNING, "Lightning"))
+            displayElement("Lightning");
         mouseButton(mouse, Mouse::REMOVE, "Remove");
-
         ImGui::SeparatorText("Tiletype");
         mouseButton(mouse, Mouse::TEXTURE, "Texture");
         mouseButton(mouse, Mouse::TOP_LAYER, "Top layer");
         mouseButton(mouse, Mouse::WALL, "Wall");
         mouseButton(mouse, Mouse::OBSTACLE, "Obstacle");
+
         ImGui::SeparatorText("Interaction");
         mouseButton(mouse, Mouse::UP, "Up");
         mouseButton(mouse, Mouse::DOWN, "Down");

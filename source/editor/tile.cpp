@@ -155,6 +155,17 @@ Tile::addType(const Level::File::TileType& value, SDL_Texture* overlay) {
         addOverlay(overlay);
 }
 
+void
+Tile::addLightning(const Editor::LightningShape& shape, const Editor::LightningColour& colour, const Editor::LightningSize& size) {
+    /*
+    Since the enums for shape, colour and size have the same values as the one in Level::File::Types they can be cast directly
+        between each other.
+    */
+    tileData.Type.set(shape);
+    tileData.Type.set(colour);
+    tileData.Type.set(size);
+}
+
 std::vector<Common::typeDrawData>
 Tile::getBaseDrawData() {
     return baseLayer;

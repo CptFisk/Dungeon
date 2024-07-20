@@ -25,10 +25,10 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
     editorTiles.clear();
 
     int pos = 0;
-    for (int y = 0; y < MAP_SIZE; y++) {
-        for (int x = 0; x < MAP_SIZE; x++) {
+    for (int y = 0; y < MAP_WIDTH; y++) {
+        for (int x = 0; x < MAP_WIDTH; x++) {
             const auto tile = tiles.Tiles[pos]; // To keep name short
-            if(pos >= MAX_TILES){
+            if(pos >= MAP_SIZE){
                 std::cout << "FAILURE";
             }
             // Generating both tiles and visual overlay

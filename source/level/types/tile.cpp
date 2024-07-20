@@ -6,7 +6,7 @@ namespace Level::File {
 
 void
 readTileData(std::ifstream& file, typeTiles& data) {
-    for (int i = 0; i < MAX_TILES; i++) {
+    for (int i = 0; i < MAP_SIZE; i++) {
         try {
             File::typeTileData tileData;
             uint32_t type;

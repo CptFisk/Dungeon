@@ -25,9 +25,9 @@ Editor::Editor(const int& w, const int& h)
   , editorTiles{}
   , mScale{}
   , mMouse(Mouse::DEFAULT)
-  , mLightningColour{}
-  , mLightningShape{}
-  , mLightningSize{}
+  , mLightningColour(LightningColour::LIGHT_YELLOW)
+  , mLightningShape(LightningShape::LIGHT_CIRCLE)
+  , mLightningSize(LightningSize::LIGHT_SMALL)
   , mHideAllWindows(false)
   , mActionManager(std::make_unique<Common::ActionManager>())
   , mOffset(0.0, 0.0) {}
@@ -87,7 +87,7 @@ Editor::startup() {
     mElements["Assets"]    = [this]() { uiAssets(mWindows["Assets"], mWindowOpen["Assets"], fileAssets); };
     mElements["Mouse"]     = [this]() { uiMouse(mWindows["Mouse"], mWindowOpen["Mouse"], mMouse); };
     mElements["Lightning"] = [this]() {
-        uiMouseLightning(mWindows["Lightning"], mWindowOpen["Lightning"], mLightningShape, mLightningColour, mLightningSize);
+        uiMouseLightning(mWindows["Lightning"], mWindowOpen["Lightning"], mMouse, mLightningShape, mLightningColour, mLightningSize);
     };
     mElements["Textures"]   = [this]() { uiTexture(mWindows["Textures"], mWindowOpen["Textures"], mTextures, mSelectedTexture); };
     mElements["DoorsPopup"] = [this]() { uiDoorPopup(); };
@@ -233,7 +233,7 @@ Editor::click() {
         clickedCoord.first  = clickCoord.first;  // To display coords
         clickedCoord.second = clickCoord.second; // To display coords
 
-        auto index = Common::getIndex(clickCoord, MAP_SIZE);
+        auto index = Common::getIndex(clickCoord, MAP_WIDTH);
         if (index.has_value()) {
             const auto pos   = index.value();
             const auto asset = mSelectedTexture.second;
@@ -274,6 +274,9 @@ Editor::click() {
                     popupPosition.x = static_cast<float>(x);
                     popupPosition.y = static_cast<float>(y);
                     displayElement("WarpsPopup");
+                    break;
+                case Mouse::LIGHTNING:
+                    editorTiles[pos]->addLightning(mLightningShape, mLightningColour, mLightningSize);
                     break;
                 case Mouse::DEFAULT:
                 default:

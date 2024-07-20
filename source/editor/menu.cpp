@@ -71,8 +71,6 @@ Editor::uiMenu() {
                 showGrid = !showGrid;
             if (ImGui::MenuItem("Mouse"))
                 displayElement("Mouse");
-            if (ImGui::MenuItem("Lightning"))
-                displayElement("Lightning");
             if (ImGui::MenuItem("Textures"))
                 displayElement("Textures");
             if (ImGui::MenuItem("Doors"))

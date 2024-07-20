@@ -34,7 +34,7 @@ Engine::loadLevel(const std::string& filename) {
 
     int pos = 0;
 
-    levelObjects = std::vector<Level::File::TileType>(MAX_TILES);
+    levelObjects = std::vector<Level::File::TileType>(MAP_SIZE);
 
     bool layersLeft = false;
     auto it         = data.Tiles.Tiles.begin();
@@ -85,7 +85,7 @@ Engine::loadLevel(const std::string& filename) {
         }
         // Add transportation up
         if (it->Type.test(Level::File::TileType::UP)) {
-            const auto coords = Common::getCoords(pos, MAP_SIZE, MAP_SIZE);
+            const auto coords = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
             if (coords.has_value() && mHeader.MapCoordinate.Z > 0) {
                 const auto origin  = mHeader.MapCoordinate;
                 const auto& [x, y] = coords.value();
@@ -100,7 +100,7 @@ Engine::loadLevel(const std::string& filename) {
         }
         // Add transportation down
         if (it->Type.test(Level::File::TileType::DOWN)) {
-            const auto coords = Common::getCoords(pos, MAP_SIZE, MAP_SIZE);
+            const auto coords = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
             if (coords.has_value() && mHeader.MapCoordinate.Z > 0) {
                 const auto origin  = mHeader.MapCoordinate;
                 const auto& [x, y] = coords.value();
@@ -165,7 +165,7 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
     auto playerX = INT(pos.x / 16.0f);
     auto playerY = INT(pos.y / 16.0f);
 
-    const auto index = Common::getIndex(playerX, playerY, MAP_SIZE);
+    const auto index = Common::getIndex(playerX, playerY, MAP_WIDTH);
     if (!index.has_value())
         return false;
     if (((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::WALL)) != 0) ||

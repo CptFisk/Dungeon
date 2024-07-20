@@ -32,8 +32,8 @@ Editor::uiHeader(typeWindowCovering& area, bool& open, Level::File::typeHeaderDa
                 }
                 editorTiles.clear();
                 // Setting up all tiles
-                for (int y = 0; y <  MAP_SIZE; y++) {
-                    for (int x = 0; x < MAP_SIZE; x++) {
+                for (int y = 0; y < MAP_WIDTH; y++) {
+                    for (int x = 0; x < MAP_WIDTH; x++) {
                         // Generating both tiles and visual overlay
                         editorTiles.emplace_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
                     }

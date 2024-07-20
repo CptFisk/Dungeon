@@ -4,6 +4,7 @@
 #include <common/scale.hpp>
 #include <common/structures.hpp>
 #include <editor/utility/mouse.hpp>
+#include <editor/utility/mouseLightning.hpp>
 #include <graphics/structures.hpp>
 #include <graphics/types/simpleTexture.hpp>
 #include <graphicsForward.hpp>
@@ -60,7 +61,13 @@ class Tile {
      * @param value
      */
     void addType(const Level::File::TileType& value, SDL_Texture* overlay);
-
+    /**
+     * @brief Add a lightning effect to the tile.
+     * @param shape Shape of tile, either square or circle
+     * @param colour Colour of the effect
+     * @param size Size of the effect
+     */
+    void addLightning(const LightningShape& shape, const LightningColour& colour, const LightningSize& size);
     [[nodiscard]] std::vector<Common::typeDrawData> getBaseDrawData();
     [[nodiscard]] std::vector<Common::typeDrawData> getTopDrawData();
 

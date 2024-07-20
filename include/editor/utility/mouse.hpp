@@ -1,7 +1,7 @@
 #pragma once
-#include <string>
-#include <level/types/tile.hpp>
 #include <imgui.h>
+#include <level/types/tile.hpp>
+#include <string>
 namespace Editor {
 
 /**
@@ -18,7 +18,8 @@ enum Mouse {
     SPARE,     // Previously player spawn
     DOOR,      // Create a door
     WARP,      // Create a warp-zone.
-    TOP_LAYER // Layer that the player can walk under
+    TOP_LAYER, // Layer that the player can walk under
+    LIGHTNING
 };
 
 /**
@@ -55,16 +56,20 @@ getMouseColorCode(const Mouse& mouse) {
 }
 
 template<typename T>
-void
-mouseButton(T& current, const T& state, const std::string& text){
+bool
+mouseButton(T& current, const T& state, const std::string& text) {
+    bool   clicked = false;
     ImVec2 buttonSize(ImGui::GetContentRegionAvail().x, 0);
-    if(current == state){
+    if (current == state) {
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.2f, 0.8f, 0.4f, 1.0f });
-    }else{
+    } else {
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.8f, 0.8f, 1.0f });
     }
-    if(ImGui::Button(text.c_str(), buttonSize))
+    if (ImGui::Button(text.c_str(), buttonSize)) {
         current = state;
+        clicked = true;
+    }
     ImGui::PopStyleColor(1);
+    return clicked;
 }
 }
