@@ -4,6 +4,7 @@
 #include <common/perspective.hpp>
 #include <editor/tile.hpp>
 #include <editor/utility/mouse.hpp>
+#include <editor/utility/mouseDarkness.hpp>
 #include <editor/visualTile.hpp>
 #include <global.hpp>
 #include <graphics/graphics.hpp>
@@ -58,6 +59,7 @@ class Editor {
     void uiDrawGrid();                                                                        // Draw a basic grid over the area
     void uiAssets(typeWindowCovering& area, bool& open, Level::File::typeAssets& assets);     // Display the metadata related to the map
     void uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse);
+    void uiMouseLightning(typeWindowCovering& area, bool& open, LightningShape& shape, LightningColour& colour, LightningSize& size);
     void uiFunctions(typeWindowCovering& area, bool& open, std::vector<std::string>& elements, const std::string& title);
     void uiTiles();
     void uiDoor(bool& open);
@@ -103,7 +105,11 @@ class Editor {
 
     SDL_Window*   pWindow;
     SDL_Renderer* pRenderer;
-    Mouse         mMouse;
+    // Mouse functions
+    Mouse           mMouse;
+    LightningColour mLightningColour;
+    LightningShape  mLightningShape;
+    LightningSize   mLightningSize;
 
     ImVec2 popupPosition;
     struct typeElementsCompare {

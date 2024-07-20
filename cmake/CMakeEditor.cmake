@@ -14,6 +14,7 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/editor/ui/door.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui/header.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui/mouse.cpp
+        ${CMAKE_SOURCE_DIR}/source/editor/ui/mouseLightning.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui/assets.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui/textures.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui/functions.cpp
@@ -28,7 +29,6 @@ add_executable(
 
         ${CMAKE_SOURCE_DIR}/source/editor/warps.cpp
 
-        ${CMAKE_SOURCE_DIR}/source/editor/utility/mouse.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/utility/assetsHandler.cpp
 )
 

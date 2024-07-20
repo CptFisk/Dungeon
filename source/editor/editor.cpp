@@ -25,6 +25,9 @@ Editor::Editor(const int& w, const int& h)
   , editorTiles{}
   , mScale{}
   , mMouse(Mouse::DEFAULT)
+  , mLightningColour{}
+  , mLightningShape{}
+  , mLightningSize{}
   , mHideAllWindows(false)
   , mActionManager(std::make_unique<Common::ActionManager>())
   , mOffset(0.0, 0.0) {}
@@ -78,11 +81,14 @@ Editor::startup() {
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
 
-    mElements["TopMenu"]    = [this]() { uiMenu(); };
-    mElements["Tiles"]      = [this]() { uiTiles(); };
-    mElements["Header"]     = [this]() { uiHeader(mWindows["Header"], mWindowOpen["Header"], fileHeader); };
-    mElements["Assets"]     = [this]() { uiAssets(mWindows["Assets"], mWindowOpen["Assets"], fileAssets); };
-    mElements["Mouse"]      = [this]() { uiMouse(mWindows["Mouse"], mWindowOpen["Mouse"], mMouse); };
+    mElements["TopMenu"]   = [this]() { uiMenu(); };
+    mElements["Tiles"]     = [this]() { uiTiles(); };
+    mElements["Header"]    = [this]() { uiHeader(mWindows["Header"], mWindowOpen["Header"], fileHeader); };
+    mElements["Assets"]    = [this]() { uiAssets(mWindows["Assets"], mWindowOpen["Assets"], fileAssets); };
+    mElements["Mouse"]     = [this]() { uiMouse(mWindows["Mouse"], mWindowOpen["Mouse"], mMouse); };
+    mElements["Lightning"] = [this]() {
+        uiMouseLightning(mWindows["Lightning"], mWindowOpen["Lightning"], mLightningShape, mLightningColour, mLightningSize);
+    };
     mElements["Textures"]   = [this]() { uiTexture(mWindows["Textures"], mWindowOpen["Textures"], mTextures, mSelectedTexture); };
     mElements["DoorsPopup"] = [this]() { uiDoorPopup(); };
     mElements["Doors"]      = [this]() { uiDoor(mWindowOpen["Doors"]); };

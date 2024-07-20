@@ -34,7 +34,7 @@ enum TileType : uint8_t {
     SPARE22      = 22,
     SPARE23      = 23,
     SPARE24      = 24,
-    LIGHT_ORANGE = 25,
+    LIGHT_YELLOW = 25,
     LIGHT_RED    = 26,
     LIGHT_WHITE  = 27,
     LIGHT_CIRCLE = 28,

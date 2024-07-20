@@ -1,22 +1,23 @@
 #pragma once
 #include <string>
-
+#include <level/types/tile.hpp>
+#include <imgui.h>
 namespace Editor {
 
 /**
  * Different modes the mouse can have in editor mode
  */
-enum class Mouse {
-    DEFAULT,  // Default, no action when you click
-    REMOVE,   // Remove all states and links to the tile
-    TEXTURE,  // Add a standard texture to the tile
-    UP,       // Add a warp up
-    DOWN,     // Add a warp down
-    WALL,     // Make a wall
-    OBSTACLE, // Make an obstacle
-    SPARE,    // Previously player spawn
-    DOOR,     // Create a door
-    WARP,     // Create a warp-zone.
+enum Mouse {
+    DEFAULT,   // Default, no action when you click
+    REMOVE,    // Remove all states and links to the tile
+    TEXTURE,   // Add a standard texture to the tile
+    UP,        // Add a warp up
+    DOWN,      // Add a warp down
+    WALL,      // Make a wall
+    OBSTACLE,  // Make an obstacle
+    SPARE,     // Previously player spawn
+    DOOR,      // Create a door
+    WARP,      // Create a warp-zone.
     TOP_LAYER // Layer that the player can walk under
 };
 
@@ -53,7 +54,17 @@ getMouseColorCode(const Mouse& mouse) {
     }
 }
 
+template<typename T>
 void
-mouseButton(Mouse& current, const Mouse& state, const std::string& text);
-
+mouseButton(T& current, const T& state, const std::string& text){
+    ImVec2 buttonSize(ImGui::GetContentRegionAvail().x, 0);
+    if(current == state){
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.2f, 0.8f, 0.4f, 1.0f });
+    }else{
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.8f, 0.8f, 1.0f });
+    }
+    if(ImGui::Button(text.c_str(), buttonSize))
+        current = state;
+    ImGui::PopStyleColor(1);
+}
 }
