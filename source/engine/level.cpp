@@ -5,9 +5,9 @@
 #include <global.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
+#include <utility/bits.hpp>
 #include <utility/math.hpp>
 #include <utility/textures.hpp>
-
 namespace Engine {
 
 void
@@ -31,10 +31,10 @@ Engine::loadLevel(const std::string& filename) {
     // Create segments
     createSegments(mSegments.Bottom, data.Assets.AnimationValueBase, mSegments.MaxLayerBottom);
     createSegments(mSegments.Top, data.Assets.AnimationValueTop, mSegments.MaxLayerTop);
-
+    createSegments(mSegments.Lightning, LIGHT_ANIMATION_FRAMES, mSegments.MaxLayerLightning);
     int pos = 0;
 
-    levelObjects = std::vector<Level::File::TileType>(MAP_SIZE);
+    levelObjects = std::vector<std::bitset<8>>(MAP_SIZE);
 
     bool layersLeft = false;
     auto it         = data.Tiles.Tiles.begin();
@@ -52,11 +52,11 @@ Engine::loadLevel(const std::string& filename) {
             layersLeft = false;
         }
 
-        if (((it->Type.test(Level::File::TileType::BASE_TEXTURE) ||
-             it->Type.test(Level::File::TileType::TOP_TEXTURE)) && !it->Base.empty())) {
+        if (((it->Type.test(Level::File::TileType::BASE_TEXTURE) || it->Type.test(Level::File::TileType::TOP_TEXTURE)) &&
+             !it->Base.empty())) {
             const auto id    = INT(it->Base.front());
             const auto asset = data.Assets.Assets[id];
-            addToSegment(mSegments.Bottom, pos, asset);
+            addToSegment(mSegments.Bottom, pos, asset, std::nullopt);
 
             it->Base.erase(it->Base.begin()); // Remove this element, it has been displayed
 
@@ -67,20 +67,24 @@ Engine::loadLevel(const std::string& filename) {
         if (it->Type.test(Level::File::TileType::TOP_TEXTURE) && !it->Top.empty()) {
             const auto id    = INT(it->Top.front());
             const auto asset = data.Assets.Assets[id];
-            addToSegment(mSegments.Top, pos, asset);
+            addToSegment(mSegments.Top, pos, asset, std::nullopt);
             it->Top.erase(it->Top.begin()); // Remove element
             if (!it->Top.empty())
                 layersLeft = true;
         }
-
+        // Add lightning effects
+        if (Utility::isAnyBitSet((it->Type), std::bitset<32>(LIGHT_BITS))) {
+            addLightning(it->Type);
+            Utility::resetBits(it->Type, std::bitset<32>(LIGHT_BITS));
+        }
         // Add obstacles
         if (it->Type.test(Level::File::TileType::OBSTACLE)) {
-            levelObjects[pos] = static_cast<Level::File::TileType>(UINT8(Level::File::TileType::OBSTACLE) | UINT8(levelObjects[pos]));
+            levelObjects[pos].set(Level::File::TileType::OBSTACLE);
             it->Type.reset(Level::File::TileType::OBSTACLE);
         }
         // Add walls
         if (it->Type.test(Level::File::TileType::WALL)) {
-            levelObjects[pos] = static_cast<Level::File::TileType>(UINT8(Level::File::TileType::WALL) | UINT8(levelObjects[pos]));
+            levelObjects[pos].set(Level::File::TileType::WALL);
             it->Type.reset(Level::File::TileType::WALL); // Reset bit
         }
         // Add transportation up
@@ -113,6 +117,7 @@ Engine::loadLevel(const std::string& filename) {
             }
             it->Type.reset(Level::File::TileType::DOWN); // Reset bit
         }
+
         pos++;
 
     } while (!(++it == data.Tiles.Tiles.end() && !layersLeft));
@@ -168,10 +173,8 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
     const auto index = Common::getIndex(playerX, playerY, MAP_WIDTH);
     if (!index.has_value())
         return false;
-    if (((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::WALL)) != 0) ||
-        ((UINT8(levelObjects[index.value()]) & UINT8(Level::File::TileType::OBSTACLE)) != 0)) {
+    if((levelObjects[index.value()].test(Level::File::TileType::WALL) || levelObjects[index.value()].test(Level::File::TileType::OBSTACLE)))
         return false;
-    }
     auto it = warp.find(index.value());
     if (it != warp.end()) {
         auto       object = it->second;

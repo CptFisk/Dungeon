@@ -8,7 +8,7 @@ namespace Level::File {
 /**
  * All this types is only used for generating and loading a pre-defined map file.
  */
-enum TileType : uint8_t {
+enum TileType : uint32_t {
     BASE_TEXTURE = 0, // Textures for base-layer
     TOP_TEXTURE  = 1, // Class AnimatedTexture
     WALL         = 2, // Blocks all movement

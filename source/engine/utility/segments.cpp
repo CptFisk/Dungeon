@@ -4,13 +4,16 @@
 #include <global.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
+#include <level/types/tile.hpp>
 
 namespace Engine {
 
 void
 clearTypeSegmentData(typeSegmentData& data) {
-    for (auto& texture : data.Layers)
-        SDL_DestroyTexture(texture);
+    for (auto& texture : data.Layers) {
+        if (texture)
+            SDL_DestroyTexture(texture);
+    }
 }
 void
 clearTypeSegment(typeSegment& data) {
@@ -19,6 +22,8 @@ clearTypeSegment(typeSegment& data) {
         clearTypeSegmentData(bottom);
     for (auto& top : data.Top)
         clearTypeSegmentData(top);
+    for (auto& lightning : data.Lightning)
+        clearTypeSegmentData(lightning);
     data.Bottom.clear();
     data.Top.clear();
 
@@ -61,7 +66,7 @@ Engine::createSegments(std::vector<typeSegmentData>& segment, const uint8_t& ani
                  * inherit older parts, we first need to make sure that its cleared.
                  */
                 SDL_SetRenderTarget(pRenderer, texture);
-                SDL_SetRenderDrawColor(pRenderer, 0,0,0,0);
+                SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 0);
                 SDL_RenderClear(pRenderer);
 
                 SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
@@ -77,9 +82,8 @@ Engine::createSegments(std::vector<typeSegmentData>& segment, const uint8_t& ani
 }
 
 void
-Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name) {
+Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name, std::optional<SDL_FRect> position) {
     const auto coords = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH); // Fetching coords, hopefully
-
     if (coords.has_value()) {
         const auto coord = coords.value();
         // Calculating what segment this area belongs to
@@ -92,8 +96,9 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                 case Graphics::TextureTypes::SIMPLE_TEXTURE: {
                     auto texture = GET_SIMPLE(name);
                     if (texture != nullptr) {
-                        const SDL_FRect destination = { x, y, FLOAT(texture->Width), FLOAT(texture->Height) };
-                        const auto&     viewport    = texture->getRandomView();
+                        const SDL_FRect destination =
+                          position.has_value() ? position.value() : SDL_FRect{ x, y, FLOAT(texture->Width), FLOAT(texture->Height) };
+                        const auto& viewport = texture->getRandomView();
                         // This is the most basic, apply this texture to all layers
                         for (auto& layer : segment[index].Layers) {
                             SDL_SetRenderTarget(pRenderer, layer); // Set render target
@@ -117,10 +122,7 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                             if (SDL_SetRenderTarget(pRenderer, layer) != 0) {
                                 std::cerr << SDL_GetError() << std::endl;
                             }
-                            auto& t = (*texture);
-                            // auto& view = (*texture)->getViewports()[viewport];
-                            auto view = t->getViewports()[viewport];
-                            SDL_RenderCopyF(pRenderer, (*texture)->getTexture(), &view, &destination);
+                            SDL_RenderCopyF(pRenderer, (*texture)->getTexture(), &(*texture)->getViewports()[viewport], &destination);
                             if (++tick >= maxTicks) {
                                 tick = 0;
                                 if (viewport++ >= maxViewports)
@@ -153,6 +155,40 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
     } else {
         std::cerr << "Cant translate coordinates" << std::endl;
     }
+}
+
+void
+Engine::addLightning(const std::bitset<32> bitset) {
+    std::string textureName = "Light";
+    SDL_FRect   position;
+    if (bitset.test(Level::File::TileType::LIGHT_CIRCLE))
+        textureName += "Circle";
+    else if (bitset.test(Level::File::TileType::LIGHT_SQUARE))
+        textureName += "SQUARE";
+    else {
+        std::cerr << "Wrong shape on lightning" << std::endl;
+        return;
+    }
+    if (bitset.test(Level::File::TileType::LIGHT_RED))
+        textureName += "Red";
+    else if (bitset.test(Level::File::TileType::LIGHT_YELLOW))
+        textureName += "Yellow";
+    else if (bitset.test(Level::File::TileType::LIGHT_WHITE))
+        textureName += "White";
+    else {
+        std::cerr << "Wrong colour on lightning" << std::endl;
+        return;
+    }
+    if (bitset.test(Level::File::TileType::LIGHT_SMALL)) {
+        textureName += "Small";
+    } else if (bitset.test(Level::File::TileType::LIGHT_MEDIUM)) {
+        textureName += "Medium";
+    } else if (bitset.test(Level::File::TileType::LIGHT_BIG)) {
+        textureName += "Big";
+    } else {
+        std::cerr << "Wrong size on lightning";
+    }
+    std::cout << textureName << std::endl;
 }
 
 size_t

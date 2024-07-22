@@ -124,8 +124,8 @@ class Engine {
 
     // Segmentations
     void createSegments(std::vector<typeSegmentData>& segment, const uint8_t& animationValue, int& maxValue);
-    void addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name);
-
+    void addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name, std::optional<SDL_FRect> position);
+    void addLightning(const std::bitset<32> bitset);
     [[nodiscard]] static size_t getSegment(const std::pair<int, int>& coord);
 
     void clearLoadedLevel();
@@ -138,7 +138,7 @@ class Engine {
      * @example }
      */
     typeSegment                             mSegments;
-    std::vector<Level::File::TileType>      levelObjects;
+    std::vector<std::bitset<8>>             levelObjects;
     std::vector<Objects::Door*>             doors; // All doors on the map
     std::unordered_map<int, Objects::Warp*> warp;  // Warp locations
 
