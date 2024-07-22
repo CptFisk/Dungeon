@@ -2,13 +2,13 @@
 #include <iostream>
 #include <level/types/tile.hpp>
 
-namespace Level::File {
+namespace Level {
 
 void
 readTileData(std::ifstream& file, typeTiles& data) {
     for (int i = 0; i < MAP_SIZE; i++) {
         try {
-            File::typeTileData tileData;
+            typeTileData tileData;
             uint32_t type;
             file.read(reinterpret_cast<char*>(&type), sizeof(uint32_t));
             tileData.Type = type;

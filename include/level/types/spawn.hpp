@@ -1,7 +1,7 @@
 #pragma onceonce
 #include <cstdint>
 
-namespace Level::File{
+namespace Level{
 /**
  * @brief Different type of spawn types
  */

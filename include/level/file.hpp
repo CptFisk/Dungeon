@@ -11,7 +11,7 @@
 #include <vector>
 #include <optional>
 
-namespace Level::File {
+namespace Level{
 
 struct typeLevelData {
     typeHeaderData             Header;

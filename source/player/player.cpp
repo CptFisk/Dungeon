@@ -19,7 +19,7 @@ Player::spawn(const std::pair<uint8_t, uint8_t>& pos, const Directions& directio
 }
 
 void
-Player::spawn(const Level::File::type2DMapCoordinate& pos, const Directions& direction){
+Player::spawn(const Level::type2DMapCoordinate& pos, const Directions& direction){
     spawn(pos.X, pos.Y);
 }
 

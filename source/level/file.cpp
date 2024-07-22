@@ -5,7 +5,7 @@
 #include <level/types/header.hpp>
 #include <stdexcept>
 
-namespace Level::File {
+namespace Level {
 
 void
 writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
@@ -22,7 +22,7 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
     file.close();
 }
 
-Level::File::typeLevelData
+Level::typeLevelData
 readLevelData(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
     if (!file)

@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace Level::File {
+namespace Level {
 
 struct typeAssets {
     uint8_t                  AnimationValueBase; // Used to calculate the numbers of segments we need

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <level/types/warp.hpp>
 
-namespace Level::File {
+namespace Level {
 
 void
 readWarpData(std::ifstream& file, std::vector<typeWarpData>& data) {

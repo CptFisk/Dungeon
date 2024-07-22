@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace Level::File {
+namespace Level {
 
 struct typeWarpData {
     type2DMapCoordinate Origin;

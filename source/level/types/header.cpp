@@ -2,7 +2,7 @@
 #include <iostream>
 #include <global.hpp>
 
-namespace Level::File {
+namespace Level {
 void
 readHeaderData(std::ifstream& file, typeHeaderData& data) {
     try {

@@ -6,7 +6,7 @@
 namespace Editor {
 
 void
-Editor::uiHeader(typeWindowCovering& area, bool& open, Level::File::typeHeaderData& header) {
+Editor::uiHeader(typeWindowCovering& area, bool& open, Level::typeHeaderData& header) {
     static std::string dataX = UINT8_STRING(header.MapCoordinate.X);
     static std::string dataY = UINT8_STRING(header.MapCoordinate.Y);
     static std::string dataZ = UINT8_STRING(header.MapCoordinate.Z);

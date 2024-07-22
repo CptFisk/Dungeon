@@ -144,7 +144,7 @@ class Engine {
 
     // Level data
     bool                        mLevelLoaded;
-    Level::File::typeHeaderData mHeader;
+    Level::typeHeaderData mHeader;
     std::string                 mFilename; // Name of the current loaded map
     static const int            segmentSizeX = 128;
     static const int            segmentSizeY = 128;

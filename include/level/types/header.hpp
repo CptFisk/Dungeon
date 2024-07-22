@@ -5,7 +5,7 @@
 #include <vector>
 #include <level/types/coordinate.hpp>
 
-namespace Level::File {
+namespace Level{
 
 struct typeHeaderData {
     type3DMapCoordinate MapCoordinate;

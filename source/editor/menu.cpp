@@ -19,14 +19,14 @@ Editor::uiMenu() {
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("New project")) {
-                fileHeader = Level::File::typeHeaderData{};
+                fileHeader = Level::typeHeaderData{};
                 fileAssets.Assets.clear(); // Clear the vector, we start blank
                 displayElement("Header");
             }
             if (ImGui::BeginMenu("Load project")) {
                 for (const auto& file : mMapFiles) {
                     if (ImGui::MenuItem(file.c_str()))
-                        loadLevel(Level::File::readLevelData(file));
+                        loadLevel(Level::readLevelData(file));
                 }
                 ImGui::EndMenu();
             }
@@ -34,15 +34,15 @@ Editor::uiMenu() {
                 fileAssets.AnimationValueBase = findAnimationValue(animationValuesBase);
                 fileAssets.AnimationValueTop = findAnimationValue(animationValuesTop);
 
-                Level::File::typeTiles tiles(editorTiles.size());
+                Level::typeTiles tiles(editorTiles.size());
                 for (int i = 0; i < editorTiles.size(); i++) {
                     tiles.Tiles[i] = editorTiles[i]->getTileData();
                 }
 
-                Level::File::typeLevelData map = { fileHeader, fileAssets, tiles, fileDoors, fileWarps, fileSpawns };
+                Level::typeLevelData map = { fileHeader, fileAssets, tiles, fileDoors, fileWarps, fileSpawns };
                 const std::string          fileName =
                   UINT8_STRING(fileHeader.MapCoordinate.X) + UINT8_STRING(fileHeader.MapCoordinate.Y) + UINT8_STRING(fileHeader.MapCoordinate.Z);
-                Level::File::writeLevelDataToFile("levels/" + fileName + ".map", map);
+                Level::writeLevelDataToFile("levels/" + fileName + ".map", map);
             }
             ImGui::EndMenu();
         }

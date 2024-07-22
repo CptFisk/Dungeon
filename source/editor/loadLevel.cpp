@@ -6,7 +6,7 @@ namespace Editor {
  * @brief The reason for this is that the editor handle so much more than just a normal tile drawing.
  */
 void
-Editor::loadLevel(const Level::File::typeLevelData& data) {
+Editor::loadLevel(const Level::typeLevelData& data) {
     const auto header = data.Header;
     const auto assets = data.Assets;
     const auto tiles  = data.Tiles;
@@ -46,17 +46,17 @@ Editor::loadLevel(const Level::File::typeLevelData& data) {
                 editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::TOP_LAYER)));
                 mLevelCoords.emplace(x, y);
             }
-            if (tile.Type.test(Level::File::TileType::WALL)){
-                editorTiles[pos]->addType(Level::File::TileType::WALL, *GET_SDL(getMouseColorCode(Mouse::WALL)));
+            if (tile.Type.test(Level::TileType::WALL)){
+                editorTiles[pos]->addType(Level::TileType::WALL, *GET_SDL(getMouseColorCode(Mouse::WALL)));
             }
-            if (tile.Type.test(Level::File::TileType::OBSTACLE)){
-                editorTiles[pos]->addType(Level::File::TileType::OBSTACLE, *GET_SDL(getMouseColorCode(Mouse::OBSTACLE)));
+            if (tile.Type.test(Level::TileType::OBSTACLE)){
+                editorTiles[pos]->addType(Level::TileType::OBSTACLE, *GET_SDL(getMouseColorCode(Mouse::OBSTACLE)));
             }
-            if (tile.Type.test(Level::File::TileType::UP)) {
-                editorTiles[pos]->addType(Level::File::TileType::UP, *GET_SDL(getMouseColorCode(Mouse::UP)));
+            if (tile.Type.test(Level::TileType::UP)) {
+                editorTiles[pos]->addType(Level::TileType::UP, *GET_SDL(getMouseColorCode(Mouse::UP)));
             }
-            if (tile.Type.test(Level::File::TileType::DOWN)) {
-                editorTiles[pos]->addType(Level::File::TileType::DOWN, *GET_SDL(getMouseColorCode(Mouse::DOWN)));
+            if (tile.Type.test(Level::TileType::DOWN)) {
+                editorTiles[pos]->addType(Level::TileType::DOWN, *GET_SDL(getMouseColorCode(Mouse::DOWN)));
             }
             pos++;
         }

@@ -16,7 +16,7 @@ Engine::loadLevel(const std::string& filename) {
     if (mLevelLoaded)
         clearLoadedLevel();
 
-    auto data = Level::File::readLevelData("levels/" + filename);
+    auto data = Level::readLevelData("levels/" + filename);
     mHeader   = data.Header; // Catch header
     mFilename = filename;
 
@@ -52,7 +52,7 @@ Engine::loadLevel(const std::string& filename) {
             layersLeft = false;
         }
 
-        if (((it->Type.test(Level::File::TileType::BASE_TEXTURE) || it->Type.test(Level::File::TileType::TOP_TEXTURE)) &&
+        if (((it->Type.test(Level::TileType::BASE_TEXTURE) || it->Type.test(Level::TileType::TOP_TEXTURE)) &&
              !it->Base.empty())) {
             const auto id    = INT(it->Base.front());
             const auto asset = data.Assets.Assets[id];
@@ -64,7 +64,7 @@ Engine::loadLevel(const std::string& filename) {
                 layersLeft = true; // There is more
         }
         // Overlay
-        if (it->Type.test(Level::File::TileType::TOP_TEXTURE) && !it->Top.empty()) {
+        if (it->Type.test(Level::TileType::TOP_TEXTURE) && !it->Top.empty()) {
             const auto id    = INT(it->Top.front());
             const auto asset = data.Assets.Assets[id];
             addToSegment(mSegments.Top, pos, asset, std::nullopt);
@@ -78,44 +78,44 @@ Engine::loadLevel(const std::string& filename) {
             Utility::resetBits(it->Type, std::bitset<32>(LIGHT_BITS));
         }
         // Add obstacles
-        if (it->Type.test(Level::File::TileType::OBSTACLE)) {
-            levelObjects[pos].set(Level::File::TileType::OBSTACLE);
-            it->Type.reset(Level::File::TileType::OBSTACLE);
+        if (it->Type.test(Level::TileType::OBSTACLE)) {
+            levelObjects[pos].set(Level::TileType::OBSTACLE);
+            it->Type.reset(Level::TileType::OBSTACLE);
         }
         // Add walls
-        if (it->Type.test(Level::File::TileType::WALL)) {
-            levelObjects[pos].set(Level::File::TileType::WALL);
-            it->Type.reset(Level::File::TileType::WALL); // Reset bit
+        if (it->Type.test(Level::TileType::WALL)) {
+            levelObjects[pos].set(Level::TileType::WALL);
+            it->Type.reset(Level::TileType::WALL); // Reset bit
         }
         // Add transportation up
-        if (it->Type.test(Level::File::TileType::UP)) {
+        if (it->Type.test(Level::TileType::UP)) {
             const auto coords = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
             if (coords.has_value() && mHeader.MapCoordinate.Z > 0) {
                 const auto origin  = mHeader.MapCoordinate;
                 const auto& [x, y] = coords.value();
                 // Reduce our Z-layer by one
-                Level::File::type3DMapCoordinate level(origin.X, origin.Y, origin.Z + 1);
-                Level::File::type2DMapCoordinate destination(x, y + 1);
+                Level::type3DMapCoordinate level(origin.X, origin.Y, origin.Z + 1);
+                Level::type2DMapCoordinate destination(x, y + 1);
                 warp[pos] = new Objects::Warp(level, destination);
             } else {
                 std::cerr << "Not a valid coordinate" << std::endl;
             }
-            it->Type.reset(Level::File::TileType::UP);
+            it->Type.reset(Level::TileType::UP);
         }
         // Add transportation down
-        if (it->Type.test(Level::File::TileType::DOWN)) {
+        if (it->Type.test(Level::TileType::DOWN)) {
             const auto coords = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
             if (coords.has_value() && mHeader.MapCoordinate.Z > 0) {
                 const auto origin  = mHeader.MapCoordinate;
                 const auto& [x, y] = coords.value();
                 // Reduce our Z-layer by one
-                Level::File::type3DMapCoordinate level(origin.X, origin.Y, origin.Z - 1);
-                Level::File::type2DMapCoordinate destination(x, y + 1);
+                Level::type3DMapCoordinate level(origin.X, origin.Y, origin.Z - 1);
+                Level::type2DMapCoordinate destination(x, y + 1);
                 warp[pos] = new Objects::Warp(level, destination);
             } else {
                 std::cerr << "Not a valid coordinate" << std::endl;
             }
-            it->Type.reset(Level::File::TileType::DOWN); // Reset bit
+            it->Type.reset(Level::TileType::DOWN); // Reset bit
         }
 
         pos++;
@@ -173,7 +173,7 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
     const auto index = Common::getIndex(playerX, playerY, MAP_WIDTH);
     if (!index.has_value())
         return false;
-    if((levelObjects[index.value()].test(Level::File::TileType::WALL) || levelObjects[index.value()].test(Level::File::TileType::OBSTACLE)))
+    if((levelObjects[index.value()].test(Level::TileType::WALL) || levelObjects[index.value()].test(Level::TileType::OBSTACLE)))
         return false;
     auto it = warp.find(index.value());
     if (it != warp.end()) {

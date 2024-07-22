@@ -26,7 +26,7 @@ class Player {
      */
     void spawn(const uint8_t& x, const uint8_t& y, const Directions& direction = Directions::NORTH);
     void spawn(const std::pair<uint8_t, uint8_t>& pos, const Directions& direction = Directions::NORTH);
-    void spawn(const Level::File::type2DMapCoordinate& pos, const Directions& direction = Directions::NORTH);
+    void spawn(const Level::type2DMapCoordinate& pos, const Directions& direction = Directions::NORTH);
 
     void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
 

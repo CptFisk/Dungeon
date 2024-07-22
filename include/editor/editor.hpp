@@ -37,7 +37,7 @@ class Editor {
   protected:
     std::thread spawnInterrupt(const long& time); // Spawn a thread
 
-    void loadLevel(const Level::File::typeLevelData& data);
+    void loadLevel(const Level::typeLevelData& data);
     void removeSpecificTexture(const std::string& name, std::vector<Tile*>& tiles, const uint8_t& id);
 
     [[maybe_unused]] void        displayElement(const std::string& element);
@@ -55,9 +55,9 @@ class Editor {
     };
 
     void uiMenu();                                                                            // Top menu
-    void uiHeader(typeWindowCovering& area, bool& open, Level::File::typeHeaderData& header); // Display current open project settings
+    void uiHeader(typeWindowCovering& area, bool& open, Level::typeHeaderData& header); // Display current open project settings
     void uiDrawGrid();                                                                        // Draw a basic grid over the area
-    void uiAssets(typeWindowCovering& area, bool& open, Level::File::typeAssets& assets);     // Display the metadata related to the map
+    void uiAssets(typeWindowCovering& area, bool& open, Level::typeAssets& assets);     // Display the metadata related to the map
     void uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse);
     void uiMouseLightning(typeWindowCovering& area,
                           bool&               open,
@@ -135,11 +135,11 @@ class Editor {
     bool                                                   showGrid;
 
     // Map data
-    Level::File::typeHeaderData             fileHeader;
-    Level::File::typeAssets                 fileAssets; // List of all the assets that exist in the current map.
-    Level::File::typeSpawn                  fileSpawns;
-    std::vector<Level::File::typeDoorsData> fileDoors; // Contains all doors
-    std::vector<Level::File::typeWarpData>  fileWarps;
+    Level::typeHeaderData             fileHeader;
+    Level::typeAssets                 fileAssets; // List of all the assets that exist in the current map.
+    Level::typeSpawn                  fileSpawns;
+    std::vector<Level::typeDoorsData> fileDoors; // Contains all doors
+    std::vector<Level::typeWarpData>  fileWarps;
 
     std::vector<Tile*>                   editorTiles; // All tiles in the game.
     std::unordered_map<std::string, int> animationValuesBase;

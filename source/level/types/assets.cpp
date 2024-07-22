@@ -3,7 +3,7 @@
 #include <iostream>
 #include <level/types/assets.hpp>
 
-namespace Level::File {
+namespace Level {
 
 void
 readAssetData(std::ifstream& file, typeAssets& data) {

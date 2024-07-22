@@ -2,7 +2,7 @@
 #include <iostream>
 #include <level/types/door.hpp>
 
-namespace Level::File{
+namespace Level{
 
 void
 readDoorData(std::ifstream& file, std::vector<typeDoorsData>& data){

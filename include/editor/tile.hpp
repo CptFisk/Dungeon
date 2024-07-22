@@ -48,11 +48,11 @@ class Tile {
      * @return Value of animation value, if static texture returns 0
      */
     int addData(const std::string&                         asset,
-                Level::File::typeAssets&                   assetList,
+                Level::typeAssets&                   assetList,
                 const std::shared_ptr<Graphics::Graphics>& graphics,
                 const bool&                                mode);
     int addData(const std::string&                         asset,
-                Level::File::typeAssets&                   assetList,
+                Level::typeAssets&                   assetList,
                 const std::shared_ptr<Graphics::Graphics>& graphics,
                 const Mouse&                               mouse);
 
@@ -60,7 +60,7 @@ class Tile {
      * @brief Add a new value to the tile type
      * @param value
      */
-    void addType(const Level::File::TileType& value, SDL_Texture* overlay);
+    void addType(const Level::TileType& value, SDL_Texture* overlay);
     /**
      * @brief Add a lightning effect to the tile.
      * @param shape Shape of tile, either square or circle
@@ -77,7 +77,7 @@ class Tile {
     [[nodiscard]] bool elementExist(SDL_Texture* texture, const uint8_t& id) const;
     void               removeElement(SDL_Texture* texture, const uint8_t& id);
 
-    [[nodiscard]] Level::File::typeTileData getTileData() const;
+    [[nodiscard]] Level::typeTileData getTileData() const;
 
     void addOverlay(SDL_Texture* overlay);
 
@@ -89,7 +89,7 @@ class Tile {
     SDL_FRect               standardPosition; // Position on the map
     const Common::typeScale scale;            // Scale of resolution
 
-    Level::File::typeTileData tileData; // Tile data
+    Level::typeTileData tileData; // Tile data
 
     std::set<SDL_Texture*>            overlays; // All overlays
     Graphics::typeSimpleTexture&      numbers;  // Graphics to hold numbers

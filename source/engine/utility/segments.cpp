@@ -161,29 +161,29 @@ void
 Engine::addLightning(const std::bitset<32> bitset) {
     std::string textureName = "Light";
     SDL_FRect   position;
-    if (bitset.test(Level::File::TileType::LIGHT_CIRCLE))
+    if (bitset.test(Level::TileType::LIGHT_CIRCLE))
         textureName += "Circle";
-    else if (bitset.test(Level::File::TileType::LIGHT_SQUARE))
+    else if (bitset.test(Level::TileType::LIGHT_SQUARE))
         textureName += "SQUARE";
     else {
         std::cerr << "Wrong shape on lightning" << std::endl;
         return;
     }
-    if (bitset.test(Level::File::TileType::LIGHT_RED))
+    if (bitset.test(Level::TileType::LIGHT_RED))
         textureName += "Red";
-    else if (bitset.test(Level::File::TileType::LIGHT_YELLOW))
+    else if (bitset.test(Level::TileType::LIGHT_YELLOW))
         textureName += "Yellow";
-    else if (bitset.test(Level::File::TileType::LIGHT_WHITE))
+    else if (bitset.test(Level::TileType::LIGHT_WHITE))
         textureName += "White";
     else {
         std::cerr << "Wrong colour on lightning" << std::endl;
         return;
     }
-    if (bitset.test(Level::File::TileType::LIGHT_SMALL)) {
+    if (bitset.test(Level::TileType::LIGHT_SMALL)) {
         textureName += "Small";
-    } else if (bitset.test(Level::File::TileType::LIGHT_MEDIUM)) {
+    } else if (bitset.test(Level::TileType::LIGHT_MEDIUM)) {
         textureName += "Medium";
-    } else if (bitset.test(Level::File::TileType::LIGHT_BIG)) {
+    } else if (bitset.test(Level::TileType::LIGHT_BIG)) {
         textureName += "Big";
     } else {
         std::cerr << "Wrong size on lightning";

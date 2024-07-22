@@ -4,7 +4,7 @@
 #include <fstream>
 #include <vector>
 
-namespace Level::File {
+namespace Level {
 /**
  * All this types is only used for generating and loading a pre-defined map file.
  */
