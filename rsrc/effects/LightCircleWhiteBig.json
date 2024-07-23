@@ -1,9 +1,9 @@
 {
   "Header": {
-    "Type": "AnimatedTexture"
+    "Type": "LightningTexture"
   },
   "Data": {
-    "File": "rsrc/effects/LightWhiteBig.png",
+    "File": "rsrc/effects/LightCircleWhiteBig.png",
     "Objects": [
       {
         "Name": "LightCircleWhiteBig",
