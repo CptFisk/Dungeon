@@ -65,7 +65,7 @@ Tile::addData(const std::string&                         asset,
     const auto type           = graphics->getTextureType(asset);
     int        animationValue = 0;
     switch (type) {
-        case Graphics::TextureTypes::SIMPLE_TEXTURE:
+        case Graphics::TextureTypes::BaseTexture:
             if (graphics->getTexture<Graphics::typeSimpleTexture>(asset) != nullptr) {
                 // The asset exist and we can use it
                 data.emplace_back(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->getTexture(),
@@ -78,7 +78,7 @@ Tile::addData(const std::string&                         asset,
                                   });
             }
             break;
-        case Graphics::TextureTypes::ANIMATED_TEXTURE:
+        case Graphics::TextureTypes::AnimatedTexture:
             if (graphics->getTexture<Graphics::AnimatedTexture*>(asset) != nullptr) {
                 // The asset exist and we can use it
                 data.emplace_back((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getTexture(),

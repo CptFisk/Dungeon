@@ -123,9 +123,9 @@ class Engine {
     void loadLevel(const std::string& filename);
 
     // Segmentations
-    void createSegments(std::vector<typeSegmentData>& segment, const uint8_t& animationValue, int& maxValue);
-    void addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name, std::optional<SDL_FRect> position);
-    void addLightning(const std::bitset<32> bitset);
+    void                        createSegments(std::vector<typeSegmentData>& segment, const uint8_t& animationValue, int& maxValue);
+    void                        addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name, bool center = false);
+    void                        addLightning(const std::bitset<32> bitset, const int& pos);
     [[nodiscard]] static size_t getSegment(const std::pair<int, int>& coord);
 
     void clearLoadedLevel();
@@ -143,12 +143,12 @@ class Engine {
     std::unordered_map<int, Objects::Warp*> warp;  // Warp locations
 
     // Level data
-    bool                        mLevelLoaded;
+    bool                  mLevelLoaded;
     Level::typeHeaderData mHeader;
-    std::string                 mFilename; // Name of the current loaded map
-    static const int            segmentSizeX = 128;
-    static const int            segmentSizeY = 128;
-    SDL_Texture*                pDarkness;
+    std::string           mFilename; // Name of the current loaded map
+    static const int      segmentSizeX = 128;
+    static const int      segmentSizeY = 128;
+    SDL_Texture*          pDarkness;
 
     Objects::TextBox* textBox;
 };

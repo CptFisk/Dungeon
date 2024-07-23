@@ -29,7 +29,7 @@ Graphics::generateSquare(const std::string& name,
 
     if (SDL_RenderCopy(pRenderer, squareTexture, nullptr, nullptr) != 0)
         std::cerr << SDL_GetError();
-    addTexture<SDL_Texture*>(name, squareTexture, TextureTypes::GENERATED_TEXTURE);
+    addTexture<SDL_Texture*>(name, squareTexture, TextureTypes::GeneratedTexture);
 }
 
 void
@@ -89,7 +89,7 @@ Graphics::generateCircle(const std::string& name,   // Name of texture
     }
 
     SDL_FreeSurface(surface);
-    addTexture<SDL_Texture*>(name, circleTexture, TextureTypes::GENERATED_TEXTURE);
+    addTexture<SDL_Texture*>(name, circleTexture, TextureTypes::GeneratedTexture);
 
 }
 }

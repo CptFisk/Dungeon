@@ -52,11 +52,10 @@ Engine::loadLevel(const std::string& filename) {
             layersLeft = false;
         }
 
-        if (((it->Type.test(Level::TileType::BASE_TEXTURE) || it->Type.test(Level::TileType::TOP_TEXTURE)) &&
-             !it->Base.empty())) {
+        if (((it->Type.test(Level::TileType::BASE_TEXTURE) || it->Type.test(Level::TileType::TOP_TEXTURE)) && !it->Base.empty())) {
             const auto id    = INT(it->Base.front());
             const auto asset = data.Assets.Assets[id];
-            addToSegment(mSegments.Bottom, pos, asset, std::nullopt);
+            addToSegment(mSegments.Bottom, pos, asset);
 
             it->Base.erase(it->Base.begin()); // Remove this element, it has been displayed
 
@@ -67,14 +66,14 @@ Engine::loadLevel(const std::string& filename) {
         if (it->Type.test(Level::TileType::TOP_TEXTURE) && !it->Top.empty()) {
             const auto id    = INT(it->Top.front());
             const auto asset = data.Assets.Assets[id];
-            addToSegment(mSegments.Top, pos, asset, std::nullopt);
+            addToSegment(mSegments.Top, pos, asset);
             it->Top.erase(it->Top.begin()); // Remove element
             if (!it->Top.empty())
                 layersLeft = true;
         }
         // Add lightning effects
         if (Utility::isAnyBitSet((it->Type), std::bitset<32>(LIGHT_BITS))) {
-            addLightning(it->Type);
+            addLightning(it->Type, pos);
             Utility::resetBits(it->Type, std::bitset<32>(LIGHT_BITS));
         }
         // Add obstacles
@@ -173,7 +172,7 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
     const auto index = Common::getIndex(playerX, playerY, MAP_WIDTH);
     if (!index.has_value())
         return false;
-    if((levelObjects[index.value()].test(Level::TileType::WALL) || levelObjects[index.value()].test(Level::TileType::OBSTACLE)))
+    if ((levelObjects[index.value()].test(Level::TileType::WALL) || levelObjects[index.value()].test(Level::TileType::OBSTACLE)))
         return false;
     auto it = warp.find(index.value());
     if (it != warp.end()) {

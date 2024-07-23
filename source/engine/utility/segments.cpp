@@ -82,7 +82,7 @@ Engine::createSegments(std::vector<typeSegmentData>& segment, const uint8_t& ani
 }
 
 void
-Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name, std::optional<SDL_FRect> position) {
+Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name, bool center) {
     const auto coords = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH); // Fetching coords, hopefully
     if (coords.has_value()) {
         const auto coord = coords.value();
@@ -93,12 +93,11 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
             const auto y = FLOAT((coord.second * 16) % (segmentSizeY * 16));
 
             switch (mGraphics->getTextureType(name)) {
-                case Graphics::TextureTypes::SIMPLE_TEXTURE: {
+                case Graphics::TextureTypes::BaseTexture: {
                     auto texture = GET_SIMPLE(name);
                     if (texture != nullptr) {
-                        const SDL_FRect destination =
-                          position.has_value() ? position.value() : SDL_FRect{ x, y, FLOAT(texture->Width), FLOAT(texture->Height) };
-                        const auto& viewport = texture->getRandomView();
+                        const SDL_FRect destination = SDL_FRect{ x, y, FLOAT(texture->Width), FLOAT(texture->Height) };
+                        const auto&     viewport    = texture->getRandomView();
                         // This is the most basic, apply this texture to all layers
                         for (auto& layer : segment[index].Layers) {
                             SDL_SetRenderTarget(pRenderer, layer); // Set render target
@@ -106,7 +105,7 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                         }
                     }
                 } break;
-                case Graphics::TextureTypes::ANIMATED_TEXTURE: {
+                case Graphics::TextureTypes::AnimatedTexture: {
                     auto texture = GET_ANIMATED(name);
                     if (texture != nullptr) {
                         const SDL_FRect destination = { x, y, FLOAT((*texture)->Width), FLOAT((*texture)->Height) };
@@ -133,16 +132,13 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                 }
 
                 break;
-                case Graphics::TextureTypes::GENERATED_TEXTURE:
+                case Graphics::TextureTypes::GeneratedTexture:
                     std::cerr << "GENERATED" << std::endl;
                     break;
-                case Graphics::TextureTypes::SDL_TEXTURE:
-                    std::cerr << "SDL" << std::endl;
-                    break;
-                case Graphics::TextureTypes::TEXT:
+                case Graphics::TextureTypes::Text:
                     std::cerr << "TEXT" << std::endl;
                     break;
-                case Graphics::TextureTypes::UNDEFINED:
+                case Graphics::TextureTypes::Undefined:
                     std::cerr << "UNDEFINED" << std::endl;
                     break;
                 default:
@@ -158,7 +154,7 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
 }
 
 void
-Engine::addLightning(const std::bitset<32> bitset) {
+Engine::addLightning(const std::bitset<32> bitset, const int& pos) {
     std::string textureName = "Light";
     SDL_FRect   position;
     if (bitset.test(Level::TileType::LIGHT_CIRCLE))
@@ -189,6 +185,7 @@ Engine::addLightning(const std::bitset<32> bitset) {
         std::cerr << "Wrong size on lightning";
     }
     std::cout << textureName << std::endl;
+    addToSegment(mSegments.Lightning, pos, textureName, true);
 }
 
 size_t

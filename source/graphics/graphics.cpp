@@ -17,19 +17,16 @@ Graphics::updateAnimatedTexture() {
 Graphics::~Graphics() {
     for (auto& [name, data] : mGraphics) {
         switch (data.Type) {
-            case TextureTypes::SDL_TEXTURE:
-                SDL_DestroyTexture(*getTexture<SDL_Texture*>(name));
-                break;
-            case TextureTypes::TEXT:
+            case TextureTypes::Text:
                 SDL_DestroyTexture(getTexture<typeTextTexture>(name)->Texture);
                 break;
-            case TextureTypes::ANIMATED_TEXTURE: {
+            case TextureTypes::AnimatedTexture: {
                 delete *getTexture<AnimatedTexture*>(name);
             } break;
-            case TextureTypes::GENERATED_TEXTURE:
+            case TextureTypes::GeneratedTexture:
                 SDL_DestroyTexture(*getTexture<SDL_Texture*>(name));
                 break;
-            case TextureTypes::SIMPLE_TEXTURE:
+            case TextureTypes::BaseTexture:
                 SDL_DestroyTexture(getTexture<typeSimpleTexture>(name)->Texture);
                 break;
         }
@@ -44,7 +41,7 @@ Graphics::init() {
 TextureTypes
 Graphics::getTextureType(const std::string& texture) {
     auto it = mGraphics.find(texture);
-    return it != mGraphics.end() ? it->second.Type : TextureTypes::UNDEFINED;
+    return it != mGraphics.end() ? it->second.Type : TextureTypes::Undefined;
 }
 
 typeTextTexture
@@ -98,7 +95,7 @@ Graphics::generateText(std::string text, const int& size) {
     }
     SDL_SetRenderTarget(pRenderer, nullptr); // Reset render target
     auto obj = typeTextTexture{ texture, SDL_FRect{ 0, 10, static_cast<float>(w), static_cast<float>(h) } };
-    addTexture<typeTextTexture>(textureName, obj, TextureTypes::TEXT);
+    addTexture<typeTextTexture>(textureName, obj, TextureTypes::Text);
     return obj;
 }
 

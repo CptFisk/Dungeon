@@ -5,6 +5,7 @@
 #include <graphics/animatedTexture.hpp>
 #include <graphics/structures.hpp>
 #include <graphics/types/simpleTexture.hpp>
+#include <graphics/types/textureTypes.hpp>
 #include <iostream>
 #include <string>
 #include <typeindex>
@@ -15,10 +16,7 @@
 #define GET_SIMPLE(VAR)   mGraphics->getTexture<Graphics::typeSimpleTexture>(VAR)
 #define GET_SDL(VAR)      mGraphics->getTexture<SDL_Texture*>(VAR)
 
-
 namespace Graphics {
-
-enum class TextureTypes { UNDEFINED, SDL_TEXTURE, TEXT, SIMPLE_TEXTURE, ANIMATED_TEXTURE, GENERATED_TEXTURE };
 
 class Graphics {
   public:
@@ -75,7 +73,7 @@ class Graphics {
         if (it == mGraphics.end()) {
             mGraphics[name] = { texture, type };
         }
-        if (type == TextureTypes::ANIMATED_TEXTURE)
+        if (type == TextureTypes::AnimatedTexture)
             mAnimatedTextures.push_back(std::any_cast<AnimatedTexture*>(texture));
     }
 
@@ -84,7 +82,7 @@ class Graphics {
     std::vector<std::pair<TextureTypes, std::string>> getAllTextureNames() {
         std::vector<std::pair<TextureTypes, std::string>> textures;
         for (auto& graphic : mGraphics) {
-            if (graphic.second.Type == TextureTypes::SIMPLE_TEXTURE || graphic.second.Type == TextureTypes::ANIMATED_TEXTURE)
+            if (graphic.second.Type == TextureTypes::BaseTexture || graphic.second.Type == TextureTypes::AnimatedTexture)
                 textures.push_back({ graphic.second.Type, graphic.first });
         }
         return textures;

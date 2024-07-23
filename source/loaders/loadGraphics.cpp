@@ -1,10 +1,11 @@
-#include <common/structures.hpp>
+#include <common/jsonHeader.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <graphics/graphics.hpp>
+#include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/baseTexture.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <graphics/types/simpleTexture.hpp>
-#include <graphics/types/animatedTexture.hpp>
+#include <graphics/types/textureTypes.hpp>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <utility/file.hpp>
@@ -29,22 +30,22 @@ Graphics::loadGraphics(const std::string& folderPath) {
 
 void
 Graphics::loadJSON(const std::string& fileName) {
-    Common::typeHeaderJSON header = {};
+    typeHeaderJSON header = {};
     // Process all the meta-data
     const std::string jsonString = Utility::getFileContent(fileName);
     try {
-        header = json::parse(jsonString)[nlohmann::json::json_pointer("/Header")].get<Common::typeHeaderJSON>();
+        header = json::parse(jsonString)[nlohmann::json::json_pointer("/Header")].get<typeHeaderJSON>();
     } catch (const std::exception& e) {
-        std::cerr << "No header found: in " << fileName  << std::endl << e.what() << std::endl;
+        std::cerr << "No header found: in " << fileName << std::endl << e.what() << std::endl;
     }
     switch (header.Type) {
-        case Common::BASE_TEXTURE:
+        case TextureTypes::BaseTexture:
             loadSimpleTexture(jsonString);
             break;
-        case Common::ANIMATED_TEXTURE:
+        case TextureTypes::AnimatedTexture:
             loadAnimatedTexture(jsonString);
             break;
-        case Common::GENERATED_TEXTURE:
+        case TextureTypes::GeneratedTexture:
             loadGeneratedTexture(jsonString);
             break;
     }
@@ -66,7 +67,7 @@ Graphics::loadSimpleTexture(const std::string& jsonString) {
             const auto offset = (data.Column - 1) * data.Width;
             base.addView(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), data.Width, (data.Height) });
         }
-        addTexture<typeSimpleTexture>(data.Name, base, TextureTypes::SIMPLE_TEXTURE);
+        addTexture<typeSimpleTexture>(data.Name, base, TextureTypes::BaseTexture);
     }
 }
 
@@ -81,12 +82,13 @@ Graphics::loadAnimatedTexture(const std::string& jsonString) {
     }
     for (const auto& data : jsonData.Objects) {
         if (mGraphics.find(data.Name) == mGraphics.end()) {
-            auto animation = new AnimatedTexture(Common::loadImage(pRenderer, jsonData.File),data.Width, data.Height, data.Ticks, data.Paused);
+            auto animation =
+              new AnimatedTexture(Common::loadImage(pRenderer, jsonData.File), data.Width, data.Height, data.Ticks, data.Paused);
             for (int i = 0; i < data.Length; i++) {
                 const auto offset = (data.Column - 1) * data.Width;
                 animation->addViewport(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), (data.Width), (data.Height) });
             }
-            addTexture<AnimatedTexture*>(data.Name, animation, TextureTypes::ANIMATED_TEXTURE);
+            addTexture<AnimatedTexture*>(data.Name, animation, TextureTypes::AnimatedTexture);
         }
     }
 }
