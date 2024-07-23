@@ -6,7 +6,7 @@
     "File": "rsrc/effects/LightWhiteBig.png",
     "Objects": [
       {
-        "Name": "LightWhiteBig",
+        "Name": "LightCircleWhiteBig",
         "Column": 1,
         "Row": 1,
         "Length": 7,
