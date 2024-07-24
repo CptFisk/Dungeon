@@ -124,7 +124,14 @@ class Engine {
 
     // Segmentations
     void                        createSegments(std::vector<typeSegmentData>& segment, const uint8_t& animationValue, int& maxValue);
-    void                        addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name, bool center = false);
+    void                        addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name);
+    /**
+     * @brief Add a alpha-channel value and blend mode to a segment
+     * @param segment Segment
+     * @param blendMode Blend-mode to use, see SDL_BlendMode for reference
+     * @param value  alpha value to use, 100 means full transparency and 0 means none
+     */
+    void                        setSegmentAlpha(std::vector<typeSegmentData>& segments, const SDL_BlendMode& blendMode, const int& value);
     void                        addLightning(const std::bitset<32> bitset, const int& pos);
     [[nodiscard]] static size_t getSegment(const std::pair<int, int>& coord);
 

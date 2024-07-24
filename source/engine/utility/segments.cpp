@@ -5,6 +5,7 @@
 #include <graphics/graphics.hpp>
 #include <iostream>
 #include <level/types/tile.hpp>
+#include <utility/scale.hpp>
 
 namespace Engine {
 
@@ -82,15 +83,15 @@ Engine::createSegments(std::vector<typeSegmentData>& segment, const uint8_t& ani
 }
 
 void
-Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name, bool center) {
+Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name) {
     const auto coords = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH); // Fetching coords, hopefully
     if (coords.has_value()) {
         const auto coord = coords.value();
         // Calculating what segment this area belongs to
         const auto index = getSegment(coord);
         if (index <= segment.size()) {
-            const auto x = FLOAT((coord.first * 16) % (segmentSizeX * 16));
-            const auto y = FLOAT((coord.second * 16) % (segmentSizeY * 16));
+            auto x = FLOAT((coord.first * 16) % (segmentSizeX * 16));
+            auto y = FLOAT((coord.second * 16) % (segmentSizeY * 16));
 
             switch (mGraphics->getTextureType(name)) {
                 case Graphics::TextureTypes::BaseTexture: {
@@ -139,8 +140,22 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                     std::cerr << "TEXT" << std::endl;
                     break;
                 case Graphics::TextureTypes::Undefined:
+                    std::cerr << name << std::endl;
                     std::cerr << "UNDEFINED" << std::endl;
                     break;
+                case Graphics::TextureTypes::LightningTexture: {
+                    auto texture = GET_ANIMATED(name);
+                    if (texture != nullptr) {
+                        x -= (FLOAT(((*texture)->Width / 2)) - 8.0);
+                        y -= (FLOAT(((*texture)->Height / 2)) - 8.0);
+                        int viewport = 0;
+                        for (auto layer : segment[index].Layers) {
+                            SDL_FRect destination = { x, y, FLOAT((*texture)->Width), FLOAT((*texture)->Height) };
+                            SDL_SetRenderTarget(pRenderer, layer);
+                            SDL_RenderCopyF(pRenderer, (*texture)->getTexture(), &(*texture)->getViewports()[viewport++], &destination);
+                        }
+                    }
+                } break;
                 default:
                     std::cerr << "Not supported" << std::endl;
             }
@@ -154,9 +169,18 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
 }
 
 void
+Engine::setSegmentAlpha(std::vector<typeSegmentData>& segments, const SDL_BlendMode& blendMode, const int& value) {
+    for (auto& segment : segments) {
+        for (auto& layer : segment.Layers) {
+            SDL_SetTextureBlendMode(layer, blendMode);
+            SDL_SetTextureAlphaMod(layer, Utility::Scale(value, 0, 100, 0, 255));
+        }
+    }
+}
+
+void
 Engine::addLightning(const std::bitset<32> bitset, const int& pos) {
     std::string textureName = "Light";
-    SDL_FRect   position;
     if (bitset.test(Level::TileType::LIGHT_CIRCLE))
         textureName += "Circle";
     else if (bitset.test(Level::TileType::LIGHT_SQUARE))
@@ -176,16 +200,17 @@ Engine::addLightning(const std::bitset<32> bitset, const int& pos) {
         return;
     }
     if (bitset.test(Level::TileType::LIGHT_SMALL)) {
-        textureName += "Small";
+        addToSegment(mSegments.Lightning, pos, textureName + "Small");
     } else if (bitset.test(Level::TileType::LIGHT_MEDIUM)) {
-        textureName += "Medium";
+        addToSegment(mSegments.Lightning, pos, textureName + "Medium");
+        addToSegment(mSegments.Lightning, pos, textureName + "Small");
     } else if (bitset.test(Level::TileType::LIGHT_BIG)) {
-        textureName += "Big";
+        addToSegment(mSegments.Lightning, pos, textureName + "Big");
+        addToSegment(mSegments.Lightning, pos, textureName + "Medium");
+        addToSegment(mSegments.Lightning, pos, textureName + "Small");
     } else {
         std::cerr << "Wrong size on lightning";
     }
-    std::cout << textureName << std::endl;
-    addToSegment(mSegments.Lightning, pos, textureName, true);
 }
 
 size_t

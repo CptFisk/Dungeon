@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace Graphics {
+namespace Common {
 
 struct typeAnimatedTextureJSON {
     std::string Name;   // Animation name
@@ -30,7 +30,6 @@ struct typeAnimatedTextureData {
     std::string                          File;
     std::vector<typeAnimatedTextureJSON> Objects;
 };
-
 
 inline void
 to_json(nlohmann::json& nlohmann_json_j, const typeAnimatedTextureJSON& nlohmann_json_t) {
@@ -59,7 +58,5 @@ from_json(const nlohmann::json& nlohmann_json_j, typeAnimatedTextureJSON& nlohma
     }
 }
 
-
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeAnimatedTextureData, File, Objects)
-
 }

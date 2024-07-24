@@ -8,8 +8,14 @@ Graphics::Graphics(SDL_Renderer* renderer)
 
 void
 Graphics::updateAnimatedTexture() {
-
     for (auto& texture : mAnimatedTextures) {
+        texture->updateTexture();
+    }
+}
+
+void
+Graphics::updateLightningTexture(){
+    for (auto& texture : mLightningTextures) {
         texture->updateTexture();
     }
 }

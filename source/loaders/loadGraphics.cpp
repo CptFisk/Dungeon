@@ -1,7 +1,7 @@
+#include <common/jsonAnimation.hpp>
 #include <common/jsonHeader.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <graphics/graphics.hpp>
-#include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/baseTexture.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <graphics/types/simpleTexture.hpp>
@@ -43,11 +43,13 @@ Graphics::loadJSON(const std::string& fileName) {
             loadSimpleTexture(jsonString);
             break;
         case TextureTypes::AnimatedTexture:
-            loadAnimatedTexture(jsonString);
+            loadAnimatedTexture(jsonString, TextureTypes::AnimatedTexture);
             break;
         case TextureTypes::GeneratedTexture:
             loadGeneratedTexture(jsonString);
             break;
+        case TextureTypes::LightningTexture:
+            loadAnimatedTexture(jsonString, TextureTypes::LightningTexture);
     }
 }
 
@@ -72,10 +74,10 @@ Graphics::loadSimpleTexture(const std::string& jsonString) {
 }
 
 void
-Graphics::loadAnimatedTexture(const std::string& jsonString) {
-    typeAnimatedTextureData jsonData;
+Graphics::loadAnimatedTexture(const std::string& jsonString, const TextureTypes& type) {
+    Common::typeAnimatedTextureData jsonData;
     try {
-        jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<typeAnimatedTextureData>();
+        jsonData = json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<Common::typeAnimatedTextureData>();
     } catch (const std::exception& e) {
         std::cerr << e.what();
         throw std::runtime_error(e.what());
@@ -84,11 +86,22 @@ Graphics::loadAnimatedTexture(const std::string& jsonString) {
         if (mGraphics.find(data.Name) == mGraphics.end()) {
             auto animation =
               new AnimatedTexture(Common::loadImage(pRenderer, jsonData.File), data.Width, data.Height, data.Ticks, data.Paused);
+            // Add alpha channel if lightning
+
+            if (type == TextureTypes::LightningTexture) {
+
+                if(SDL_SetTextureBlendMode(animation->getTexture(), SDL_BLENDMODE_BLEND) != 0)
+                    std::cerr << SDL_GetError();
+                if(SDL_SetTextureAlphaMod(animation->getTexture(), Utility::Scale(40, 0, 100, 0, 255)) != 0)
+                    std::cerr << SDL_GetError();
+
+            }
+
             for (int i = 0; i < data.Length; i++) {
                 const auto offset = (data.Column - 1) * data.Width;
                 animation->addViewport(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), (data.Width), (data.Height) });
             }
-            addTexture<AnimatedTexture*>(data.Name, animation, TextureTypes::AnimatedTexture);
+            addTexture<AnimatedTexture*>(data.Name, animation, type);
         }
     }
 }

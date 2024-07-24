@@ -32,6 +32,7 @@ Engine::loadLevel(const std::string& filename) {
     createSegments(mSegments.Bottom, data.Assets.AnimationValueBase, mSegments.MaxLayerBottom);
     createSegments(mSegments.Top, data.Assets.AnimationValueTop, mSegments.MaxLayerTop);
     createSegments(mSegments.Lightning, LIGHT_ANIMATION_FRAMES, mSegments.MaxLayerLightning);
+    setSegmentAlpha(mSegments.Lightning, SDL_BLENDMODE_MUL, 40);
     int pos = 0;
 
     levelObjects = std::vector<std::bitset<8>>(MAP_SIZE);

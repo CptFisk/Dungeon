@@ -69,16 +69,25 @@ class Graphics {
 
     template<typename T>
     void addTexture(const std::string& name, T texture, TextureTypes type) {
-        auto it = mGraphics.find(name);
-        if (it == mGraphics.end()) {
-            mGraphics[name] = { texture, type };
+        switch (type) {
+            case TextureTypes::AnimatedTexture:
+                mAnimatedTextures.push_back(std::any_cast<AnimatedTexture*>(texture));
+                mGraphics[name] = { texture, type };
+                break;
+            case TextureTypes::LightningTexture:
+                mLightningTextures.push_back(std::any_cast<AnimatedTexture*>(texture));
+                mGraphics[name] = { texture, type };
+                break;
+            case TextureTypes::BaseTexture:
+            case TextureTypes::GeneratedTexture:
+                mGraphics[name] = { texture, type };
+            default:
+                break;
         }
-        if (type == TextureTypes::AnimatedTexture)
-            mAnimatedTextures.push_back(std::any_cast<AnimatedTexture*>(texture));
     }
 
-    void updateAnimatedTexture();
-
+    void                                              updateAnimatedTexture();
+    void                                              updateLightningTexture();
     std::vector<std::pair<TextureTypes, std::string>> getAllTextureNames() {
         std::vector<std::pair<TextureTypes, std::string>> textures;
         for (auto& graphic : mGraphics) {
@@ -94,13 +103,14 @@ class Graphics {
     void loadGraphics(const std::string& folderPath);
     void loadJSON(const std::string& fileName); // Load a graphical JSON
     void loadSimpleTexture(const std::string& jsonString);
-    void loadAnimatedTexture(const std::string& jsonString);
+    void loadAnimatedTexture(const std::string& jsonString, const TextureTypes& type);
     void loadGeneratedTexture(const std::string& jsonString);
 
   private:
     std::unordered_map<std::string, typeTextureInfo> mGraphics; // Storage for all textures
     SDL_Renderer*                                    pRenderer;
 
-    std::vector<AnimatedTexture*> mAnimatedTextures; // Textures that should be updated cyclic
+    std::vector<AnimatedTexture*> mAnimatedTextures;  // Textures that should be updated cyclic
+    std::vector<AnimatedTexture*> mLightningTextures; // Textures that should be updated cyclic
 };
 }

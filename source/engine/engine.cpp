@@ -1,5 +1,5 @@
 #include "engine/loading.hpp"
-
+#include <utility/scale.hpp>
 #include <cmake.hpp>
 #include <common/handlers.hpp>
 #include <common/scale.hpp>
@@ -7,7 +7,6 @@
 #include <utility/file.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
-#include <utility/scale.hpp>
 
 namespace Engine {
 
@@ -122,17 +121,22 @@ Engine::startup() {
     mParticles      = std::make_shared<Objects::Particle>(*GET_SDL("FAE2C3"), 100, 0.5f, 0.5f);
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
+    mInterrupts[10]->addFunction([&]() { mGraphics->updateLightningTexture(); });
 
     mInterrupts[10]->addFunction([&]() {
         // Increment layers for top and bottom graphic
         mSegments.CurrentLayerBottom++;
         mSegments.CurrentLayerTop++;
-        if (mSegments.CurrentLayerBottom >= mSegments.MaxLayerBottom) {
+
+        if (mSegments.CurrentLayerBottom >= mSegments.MaxLayerBottom)
             mSegments.CurrentLayerBottom = 0;
-        }
-        if (mSegments.CurrentLayerTop >= mSegments.MaxLayerTop) {
+        if (mSegments.CurrentLayerTop >= mSegments.MaxLayerTop)
             mSegments.CurrentLayerTop = 0;
-        }
+    });
+    mInterrupts[100]->addFunction([&](){
+        mSegments.CurrentLayerLightning++;
+        if (mSegments.CurrentLayerLightning >= mSegments.MaxLayerLightning)
+            mSegments.CurrentLayerLightning = 0;
     });
 
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
@@ -199,11 +203,10 @@ Engine::mainLoop() {
     mPlayer->spawn(44, 120);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
-    auto lightWhite = GET_ANIMATED("LightWhiteBig");
+    auto lightWhite = GET_ANIMATED("LightCircleWhiteBig");
     if (lightWhite == nullptr)
         mRun = false;
-    auto &tex = (*lightWhite);
-
+    auto& tex = (*lightWhite);
 
     SDL_Rect pos2 = { 56, 56, 36, 36 };
 
@@ -255,12 +258,17 @@ Engine::mainLoop() {
         drawProjectiles();
         drawLevel(mSegments.Top, mSegments.CurrentLayerTop);
         drawDarkness();
-        //Positions
-        SDL_FRect big = {mPlayer->getPlayerCenter().x - 36.0f, mPlayer->getPlayerCenter().y - 36.0f, 72, 72 };
-        SDL_FRect medium = {mPlayer->getPlayerCenter().x - 18.0f, mPlayer->getPlayerCenter().y - 18.0f, 36, 36 };
+        // Positions
+        SDL_FRect big    = { mPlayer->getPlayerCenter().x - 36.0f, mPlayer->getPlayerCenter().y - 36.0f, 72, 72 };
+        SDL_FRect medium = { mPlayer->getPlayerCenter().x - 18.0f, mPlayer->getPlayerCenter().y - 18.0f, 36, 36 };
         mPerspective->render(tex->getTexture(), tex->getViewport(), &big);
         mPerspective->render(tex->getTexture(), tex->getViewport(), &medium);
+
         drawNumbers();
+
+
+        drawLevel(mSegments.Lightning, mSegments.CurrentLayerLightning);
+        //mPerspective->render(mSegments.Lightning[0].Layers[0], nullptr, &mSegments.Lightning[0].Position);
         mHealth->draw();
         mEnergy->draw();
 
