@@ -87,14 +87,11 @@ Graphics::loadAnimatedTexture(const std::string& jsonString, const TextureTypes&
             auto animation =
               new AnimatedTexture(Common::loadImage(pRenderer, jsonData.File), data.Width, data.Height, data.Ticks, data.Paused);
             // Add alpha channel if lightning
-
             if (type == TextureTypes::LightningTexture) {
-
-                if(SDL_SetTextureBlendMode(animation->getTexture(), SDL_BLENDMODE_BLEND) != 0)
+                if (SDL_SetTextureBlendMode(animation->getTexture(), SDL_BLENDMODE_BLEND) != 0)
                     std::cerr << SDL_GetError();
-                if(SDL_SetTextureAlphaMod(animation->getTexture(), Utility::Scale(40, 0, 100, 0, 255)) != 0)
+                if (SDL_SetTextureAlphaMod(animation->getTexture(), Utility::Scale(40, 0, 100, 0, 255)) != 0)
                     std::cerr << SDL_GetError();
-
             }
 
             for (int i = 0; i < data.Length; i++) {

@@ -203,16 +203,6 @@ Engine::mainLoop() {
     mPlayer->spawn(44, 120);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
-    auto lightWhite = GET_ANIMATED("LightCircleWhiteBig");
-    if (lightWhite == nullptr)
-        mRun = false;
-    auto& tex = (*lightWhite);
-
-    SDL_Rect pos2 = { 56, 56, 36, 36 };
-
-    SDL_SetTextureBlendMode(tex->getTexture(), SDL_BLENDMODE_MUL);
-    SDL_SetTextureAlphaMod(tex->getTexture(), Utility::Scale(40,0,100,0,255) );
-
     while (mRun) {
         mFPSTimer.start();
 
@@ -259,11 +249,6 @@ Engine::mainLoop() {
         drawLevel(mSegments.Top, mSegments.CurrentLayerTop);
         drawDarkness();
         // Positions
-        SDL_FRect big    = { mPlayer->getPlayerCenter().x - 36.0f, mPlayer->getPlayerCenter().y - 36.0f, 72, 72 };
-        SDL_FRect medium = { mPlayer->getPlayerCenter().x - 18.0f, mPlayer->getPlayerCenter().y - 18.0f, 36, 36 };
-        mPerspective->render(tex->getTexture(), tex->getViewport(), &big);
-        mPerspective->render(tex->getTexture(), tex->getViewport(), &medium);
-
         drawNumbers();
 
 
