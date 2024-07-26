@@ -3,7 +3,7 @@
     "Type": "AnimatedTexture"
   },
   "Data": {
-    "File": "rsrc/monsters/Slime.png",
+    "File": "rsrc/monster/Slime.png",
     "Objects": [
       {
         "Name": "SlimeIdle",
