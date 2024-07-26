@@ -28,7 +28,7 @@ clearTypeSegment(typeSegment& data) {
         clearTypeSegmentData(lightning);
     data.Bottom.clear();
     data.Top.clear();
-
+    data.Lightning.clear();
     data.MaxLayerBottom     = {};
     data.CurrentLayerBottom = {};
     data.MaxLayerTop        = {};
