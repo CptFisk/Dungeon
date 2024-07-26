@@ -107,6 +107,19 @@
         "Blue1": 207,
         "Blue2": 0,
         "Alpha": 80
+      },
+      {
+        "Name": "#C8BFE7",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 200,
+        "Red2": 0,
+        "Green1": 191,
+        "Green2": 0,
+        "Blue1": 231,
+        "Blue2": 0,
+        "Alpha": 80
       }
     ]
   }
