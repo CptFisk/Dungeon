@@ -139,6 +139,36 @@ Engine::loadLevel(const std::string& filename) {
 }
 
 bool
+Engine::movementWalls(const SDL_FPoint& other, const int& threshold, const Directions& direction) {
+    auto posX = INT(other.x);
+    auto posY = INT(other.y);
+    switch(direction){
+        case NORTH:
+            posY -= threshold;
+            break;
+        case EAST:
+            posX += threshold;
+            break;
+        case SOUTH:
+            posY += threshold;
+            break;
+        case WEST:
+            posX -= threshold;
+            break;
+        default:
+            break;
+    }
+    const auto index = Common::getIndex(posX, posY, MAP_WIDTH);
+
+    if (!index.has_value()) {
+        return false;
+    }
+    if ((levelObjects[index.value()].test(Level::TileType::WALL) || levelObjects[index.value()].test(Level::TileType::OBSTACLE)))
+        return false;
+    return true;
+}
+
+bool
 Engine::movement(const SDL_FPoint& other, const Directions& direction) {
     return movement(SDL_FRect(other.x, other.y, 1.0f, 1.0f), direction);
 }

@@ -2,11 +2,14 @@
 #include <utility/trigonometry.hpp>
 
 namespace Monster {
-Slime::Slime(const int& health, const float& velocity, SDL_FPoint& playerCenter)
+Slime::Slime(const int&                                                            health,
+             const float&                                                          velocity,
+             SDL_FPoint&                                                           playerCenter,
+             std::function<bool(const SDL_FPoint&, const int&, const Directions&)> checkWalls)
   : mTicks(0)
   , IDLE(75)
   , MOVE(300)
-  , BaseMonster(health, velocity, playerCenter) {}
+  , BaseMonster(health, velocity, playerCenter, checkWalls) {}
 
 Slime::~Slime() {}
 
@@ -25,14 +28,14 @@ void
 Slime::interact() {
     if (mState == Objects::IDLE) {
         if (mTicks++ > IDLE) {
-            mState  = Objects::MOVE;
-            mTicks  = 0;
+            mState = Objects::MOVE;
+            mTicks = 0;
         }
-    }else if(mState == Objects::MOVE){
+    } else if (mState == Objects::MOVE) {
         auto angle = Utility::calculateMovement(mMonsterPosition.x, mMonsterPosition.y, mPlayerCenter.x, mPlayerCenter.y, mVelocity);
         mMonsterPosition.x += angle.first;
         mMonsterPosition.y += angle.second;
-        if(mTicks++ > MOVE){
+        if (mTicks++ > MOVE) {
             mState = Objects::IDLE;
             mTicks = 0;
         }

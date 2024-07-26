@@ -3,7 +3,7 @@
     "Type": "AnimatedTexture"
   },
   "Data": {
-    "File": "rsrc/monster/Slime.png",
+    "File": "rsrc/monster/CaveCrawler.png",
     "Objects": [
       {
         "Name": "CaveCrawlerSouth",

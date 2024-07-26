@@ -1,5 +1,6 @@
 #pragma once
 
 namespace Monster {
-enum Monsters { SLIME };
+enum class Type { SLIME = 1, CAVE_CRAWLER = 2 };
+
 }

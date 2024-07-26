@@ -4,11 +4,14 @@
 namespace Monster {
 class Slime : public BaseMonster {
   public:
-    Slime(const int& health, const float& velocity, SDL_FPoint& playerCenter);
+    Slime(const int&                                                            health,
+          const float&                                                          velocity,
+          SDL_FPoint&                                                           playerCenter,
+          std::function<bool(const SDL_FPoint&, const int&, const Directions&)> checkWalls);
     ~Slime();
 
-    BaseMonster* spawn(const float& x, const float& y) const override;
-    void         interact() override;
+    [[nodiscard]] BaseMonster* spawn(const float& x, const float& y) const override;
+    void                       interact() override;
 
   protected:
   private:

@@ -1,7 +1,10 @@
 #include <monster/monster.hpp>
 
 namespace Monster {
-BaseMonster::BaseMonster(const int& health, const float& velocity, SDL_FPoint& playerCenter)
+BaseMonster::BaseMonster(const int&                                                             health,
+                         const float&                                                           velocity,
+                         SDL_FPoint&                                                            playerCenter,
+                         std::function<bool(const SDL_FPoint&, const int&, const Directions&)> checkWalls)
   : mInflictDamage(true)
   , mHealth(health)
   , mVelocity(velocity)
@@ -11,6 +14,7 @@ BaseMonster::BaseMonster(const int& health, const float& velocity, SDL_FPoint& p
   , mPlayerCenter(playerCenter)
   , mState(Objects::IDLE)
   , mDirection(SOUTH)
+  , fCheckWalls(checkWalls)
   , DEATH_ANIMATION(20) {}
 
 BaseMonster::BaseMonster(const Monster::BaseMonster& other)
@@ -20,7 +24,8 @@ BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   , mTextures(other.mTextures)
   , mMonsterPosition{}
   , mDirection(SOUTH)
-  , mInflictDamage(0)
+  , fCheckWalls(other.fCheckWalls)
+  , mInflictDamage(false)
   , pCurrentTexture(other.pCurrentTexture)
   , pCurrentViewport(other.pCurrentViewport)
   , mPlayerCenter(other.mPlayerCenter)

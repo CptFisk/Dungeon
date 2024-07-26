@@ -7,11 +7,14 @@ namespace Monster {
 
 class BaseMonster {
   public:
-    BaseMonster(const int& health, const float& velocity, SDL_FPoint& playerCenter);
+    BaseMonster(const int&                                                            health,
+                const float&                                                          velocity,
+                SDL_FPoint&                                                           playerCenter,
+                std::function<bool(const SDL_FPoint&, const int&, const Directions&)> checkWalls);
     BaseMonster(const BaseMonster& other);
     ~BaseMonster();
 
-    virtual BaseMonster* spawn(const float& x, const float& y) const = 0;
+    [[nodiscard]] virtual BaseMonster* spawn(const float& x, const float& y) const = 0;
     /**
      * @brief Deal damage to the monster.
      * @param damage
@@ -56,5 +59,8 @@ class BaseMonster {
     SDL_FPoint&  mPlayerCenter;    // Reference to the center of the player (used for targeting etc)
 
     void updateReferences();
+
+    // Global help functions
+    std::function<bool(const SDL_FPoint&, const int&, const Directions& direction)> fCheckWalls;
 };
 }

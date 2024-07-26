@@ -40,6 +40,7 @@ class Engine {
     void      resetPlayerMomentum();
     void      interact();
     void      setDarkness(const unsigned int& v);
+    bool      movementWalls(const SDL_FPoint& other, const int& threshold, const Directions& direction);
     SDL_Event mEvent;
 
   protected:
@@ -106,7 +107,7 @@ class Engine {
 
     // Monster blueprints
     std::unordered_map<Monster::Type, Monster::BaseMonster*> mMonsters;
-    std::vector<Monster::BaseMonster*>                           mActiveMonsters;
+    std::vector<Monster::BaseMonster*>                       mActiveMonsters;
 
     // Visible numbers
     std::vector<Graphics::Number> mNumbers; // Visible numbers
@@ -118,13 +119,12 @@ class Engine {
      */
     bool movement(const SDL_FRect& other, const Directions& direction);
     bool movement(const SDL_FPoint& other, const Directions& direction);
-
     // Load a level
     void loadLevel(const std::string& filename);
 
     // Segmentations
-    void                        createSegments(std::vector<typeSegmentData>& segment, const uint8_t& animationValue, int& maxValue);
-    void                        addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name);
+    void createSegments(std::vector<typeSegmentData>& segment, const uint8_t& animationValue, int& maxValue);
+    void addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name);
     /**
      * @brief Add a alpha-channel value and blend mode to a segment
      * @param segment Segment
