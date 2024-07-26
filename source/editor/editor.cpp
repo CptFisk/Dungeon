@@ -277,6 +277,7 @@ Editor::click() {
                     break;
                 case Mouse::LIGHTNING:
                     editorTiles[pos]->addLightning(mLightningShape, mLightningColour, mLightningSize);
+                    editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::LIGHTNING)));
                     break;
                 case Mouse::DEFAULT:
                 default:

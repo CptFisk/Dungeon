@@ -5,6 +5,7 @@
 #include <graphics/graphics.hpp>
 #include <iostream>
 #include <level/types/tile.hpp>
+#include <utility/bits.hpp>
 #include <utility/scale.hpp>
 
 namespace Engine {
@@ -181,35 +182,39 @@ Engine::setSegmentAlpha(std::vector<typeSegmentData>& segments, const SDL_BlendM
 void
 Engine::addLightning(const std::bitset<32> bitset, const int& pos) {
     std::string textureName = "Light";
-    if (bitset.test(Level::TileType::LIGHT_CIRCLE))
-        textureName += "Circle";
-    else if (bitset.test(Level::TileType::LIGHT_SQUARE))
-        textureName += "SQUARE";
-    else {
-        std::cerr << "Wrong shape on lightning" << std::endl;
-        return;
+    switch (Utility::getSetBit(bitset, std::bitset<32>(LIGHT_SHAPE))) {
+        case Level::LIGHT_CIRCLE:
+            textureName += "Circle";
+            break;
+        case Level::LIGHT_SQUARE:
+            textureName += "Square";
+            break;
+        default:
+            return;
     }
-    if (bitset.test(Level::TileType::LIGHT_RED))
-        textureName += "Red";
-    else if (bitset.test(Level::TileType::LIGHT_YELLOW))
-        textureName += "Yellow";
-    else if (bitset.test(Level::TileType::LIGHT_WHITE))
-        textureName += "White";
-    else {
-        std::cerr << "Wrong colour on lightning" << std::endl;
-        return;
+    switch (Utility::getSetBit(bitset, std::bitset<32>(LIGHT_COLOUR))) {
+        case Level::LIGHT_RED:
+            textureName += "Red";
+            break;
+        case Level::LIGHT_YELLOW:
+            textureName += "Yellow";
+            break;
+        case Level::LIGHT_WHITE:
+            textureName += "White";
+            break;
+        default:
+            return;
     }
-    if (bitset.test(Level::TileType::LIGHT_SMALL)) {
-        addToSegment(mSegments.Lightning, pos, textureName + "Small");
-    } else if (bitset.test(Level::TileType::LIGHT_MEDIUM)) {
-        addToSegment(mSegments.Lightning, pos, textureName + "Medium");
-        addToSegment(mSegments.Lightning, pos, textureName + "Small");
-    } else if (bitset.test(Level::TileType::LIGHT_BIG)) {
-        addToSegment(mSegments.Lightning, pos, textureName + "Big");
-        addToSegment(mSegments.Lightning, pos, textureName + "Medium");
-        addToSegment(mSegments.Lightning, pos, textureName + "Small");
-    } else {
-        std::cerr << "Wrong size on lightning";
+    switch (Utility::getSetBit(bitset, std::bitset<32>(LIGHT_SIZE))) {
+        case Level::LIGHT_BIG:
+            addToSegment(mSegments.Lightning, pos, textureName + "Big");
+        case Level::LIGHT_MEDIUM:
+            addToSegment(mSegments.Lightning, pos, textureName + "Medium");
+        case Level::LIGHT_SMALL:
+            // addToSegment(mSegments.Lightning, pos, textureName + "Small");
+            break;
+        default:
+            return;
     }
 }
 

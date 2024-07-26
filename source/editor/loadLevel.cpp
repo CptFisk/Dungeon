@@ -1,5 +1,5 @@
 #include <editor/editor.hpp>
-
+#include <utility/bits.hpp>
 namespace Editor {
 /**
  * @brief This is not equal to the class Level that normally handles the tiles inside the game.
@@ -28,13 +28,13 @@ Editor::loadLevel(const Level::typeLevelData& data) {
     for (int y = 0; y < MAP_WIDTH; y++) {
         for (int x = 0; x < MAP_WIDTH; x++) {
             const auto tile = tiles.Tiles[pos]; // To keep name short
-            if(pos >= MAP_SIZE){
+            if (pos >= MAP_SIZE) {
                 std::cout << "FAILURE";
             }
             // Generating both tiles and visual overlay
             editorTiles.push_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
             for (const auto& id : tile.Base) {
-                if(id <= assets.Assets.size()) {
+                if (id <= assets.Assets.size()) {
                     const auto asset           = data.Assets.Assets[INT(id)];
                     animationValuesBase[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, false);
                     mLevelCoords.emplace(x, y);
@@ -46,10 +46,17 @@ Editor::loadLevel(const Level::typeLevelData& data) {
                 editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::TOP_LAYER)));
                 mLevelCoords.emplace(x, y);
             }
-            if (tile.Type.test(Level::TileType::WALL)){
+            if (Utility::isAnyBitSet((tile.Type), std::bitset<32>(LIGHT_BITS))) {
+                LightningShape  shape  = static_cast<LightningShape>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_SHAPE)));
+                LightningColour colour = static_cast<LightningColour>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_COLOUR)));
+                LightningSize   size   = static_cast<LightningSize>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_SIZE)));
+                editorTiles[pos]->addLightning(shape, colour, size);
+                editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::LIGHTNING)));
+            }
+            if (tile.Type.test(Level::TileType::WALL)) {
                 editorTiles[pos]->addType(Level::TileType::WALL, *GET_SDL(getMouseColorCode(Mouse::WALL)));
             }
-            if (tile.Type.test(Level::TileType::OBSTACLE)){
+            if (tile.Type.test(Level::TileType::OBSTACLE)) {
                 editorTiles[pos]->addType(Level::TileType::OBSTACLE, *GET_SDL(getMouseColorCode(Mouse::OBSTACLE)));
             }
             if (tile.Type.test(Level::TileType::UP)) {
