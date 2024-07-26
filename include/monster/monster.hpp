@@ -7,7 +7,7 @@ namespace Monster {
 
 class BaseMonster {
   public:
-    BaseMonster(const int& health, const float& velocity, SDL_FRect* playerPosition);
+    BaseMonster(const int& health, const float& velocity, SDL_FPoint& playerCenter);
     BaseMonster(const BaseMonster& other);
     ~BaseMonster();
 
@@ -38,7 +38,7 @@ class BaseMonster {
   protected:
     const float mVelocity;
     int         mTicks;
-    const int   DEATH_ANIMATION;
+    const int   DEATH_ANIMATION = 30;
 
     bool mInflictDamage; // Monster can inflict damage
     int  mHealth;        // Monster health
@@ -49,10 +49,11 @@ class BaseMonster {
     std::map<std::pair<Objects::State, Directions>, Graphics::AnimatedTexture*> mTextures;
 
     // Pointer that SDL_Render refer to
-    SDL_FRect    mMonsterPosition;
-    SDL_Texture* pCurrentTexture;
-    SDL_Rect*    pCurrentViewport;
-    SDL_FRect*   pPlayerPosition;
+    SDL_FPoint   mMonsterCenter;   // Center of the monster
+    SDL_FRect    mMonsterPosition; // Drawing area of the monster
+    SDL_Texture* pCurrentTexture;  // Reference to the current texture
+    SDL_Rect*    pCurrentViewport; // Reference to the current viewport
+    SDL_FPoint&  mPlayerCenter;    // Reference to the center of the player (used for targeting etc)
 
     void updateReferences();
 };

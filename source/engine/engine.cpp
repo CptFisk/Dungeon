@@ -1,10 +1,11 @@
 #include "engine/loading.hpp"
-#include <utility/scale.hpp>
+
 #include <cmake.hpp>
 #include <common/handlers.hpp>
 #include <common/scale.hpp>
 #include <engine/engine.hpp>
 #include <utility/file.hpp>
+#include <utility/scale.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
 
@@ -133,7 +134,7 @@ Engine::startup() {
         if (mSegments.CurrentLayerTop >= mSegments.MaxLayerTop)
             mSegments.CurrentLayerTop = 0;
     });
-    mInterrupts[100]->addFunction([&](){
+    mInterrupts[100]->addFunction([&]() {
         mSegments.CurrentLayerLightning++;
         if (mSegments.CurrentLayerLightning >= mSegments.MaxLayerLightning)
             mSegments.CurrentLayerLightning = 0;
@@ -142,10 +143,17 @@ Engine::startup() {
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
 
     // Adding a slime
-    mMonsters[Monster::SLIME] = new Monster::Slime(50, 0.5f, pPlayerPosition);
-    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::IDLE, Directions::ALL, *GET_ANIMATED("SlimeIdle"));
-    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::MOVE, Directions::ALL, *GET_ANIMATED("SlimeMoving"));
-    mMonsters[Monster::SLIME]->addAnimatedTexture(Objects::DYING, Directions::ALL, *GET_ANIMATED("SlimeDead"));
+    mMonsters[Monster::Type::SLIME] = new Monster::Slime(50, 0.5f, mPlayer->getPlayerCenter());
+    mMonsters[Monster::Type::SLIME]->addAnimatedTexture(Objects::IDLE, Directions::ALL, *GET_ANIMATED("SlimeIdle"));
+    mMonsters[Monster::Type::SLIME]->addAnimatedTexture(Objects::MOVE, Directions::ALL, *GET_ANIMATED("SlimeMoving"));
+    mMonsters[Monster::Type::SLIME]->addAnimatedTexture(Objects::DYING, Directions::ALL, *GET_ANIMATED("SlimeDead"));
+
+    mMonsters[Monster::Type::CAVE_CRAWLER] = new Monster::CaveCrawler(75, 0.2f, mPlayer->getPlayerCenter());
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, *GET_ANIMATED("CaveCrawlerNorth"));
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::EAST, *GET_ANIMATED("CaveCrawlerEast"));
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, *GET_ANIMATED("CaveCrawlerSouth"));
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::WEST, *GET_ANIMATED("CaveCrawlerWest"));
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::DYING, Directions::ALL, *GET_ANIMATED("CaveCrawlerDead"));
 
     // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y, mPlayer->getPlayerCenter());
@@ -200,7 +208,8 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
-    mPlayer->spawn(44, 120);
+    mPlayer->spawn(44, 115);
+    mActiveMonsters.push_back(mMonsters[Monster::Type::CAVE_CRAWLER]->spawn(44, 115));
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
     while (mRun) {
@@ -235,7 +244,7 @@ Engine::mainLoop() {
         SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
         drawLevel(mSegments.Bottom, mSegments.CurrentLayerBottom);
         // Show interaction box during debug
-        mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
+
 #ifdef DEBUG_MODE
         // Display interaction area
         mPerspective->render(*GET_SDL("0000FF"), nullptr, mPlayer->getInteractionArea());
@@ -244,6 +253,7 @@ Engine::mainLoop() {
         mPerspective->render(*GET_SDL("A349A4"), nullptr, &middle);
 #endif
         monsters();
+        mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
         projectiles();
         drawProjectiles();
         drawLevel(mSegments.Top, mSegments.CurrentLayerTop);
@@ -251,9 +261,8 @@ Engine::mainLoop() {
         // Positions
         drawNumbers();
 
-
         drawLevel(mSegments.Lightning, mSegments.CurrentLayerLightning);
-        //mPerspective->render(mSegments.Lightning[0].Layers[0], nullptr, &mSegments.Lightning[0].Position);
+        // mPerspective->render(mSegments.Lightning[0].Layers[0], nullptr, &mSegments.Lightning[0].Position);
         mHealth->draw();
         mEnergy->draw();
 

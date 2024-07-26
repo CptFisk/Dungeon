@@ -4,7 +4,7 @@
 namespace Monster {
 class Slime : public BaseMonster {
   public:
-    Slime(const int& health, const float& velocity, SDL_FRect* playerPosition);
+    Slime(const int& health, const float& velocity, SDL_FPoint& playerCenter);
     ~Slime();
 
     BaseMonster* spawn(const float& x, const float& y) const override;

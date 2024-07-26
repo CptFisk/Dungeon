@@ -105,7 +105,7 @@ class Engine {
     int           mPlayerEnergy;
 
     // Monster blueprints
-    std::unordered_map<Monster::Monsters, Monster::BaseMonster*> mMonsters;
+    std::unordered_map<Monster::Type, Monster::BaseMonster*> mMonsters;
     std::vector<Monster::BaseMonster*>                           mActiveMonsters;
 
     // Visible numbers
