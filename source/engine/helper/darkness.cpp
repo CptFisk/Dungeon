@@ -1,6 +1,5 @@
 #include <engine/engine.hpp>
 #include <engine/helper/darkness.hpp>
-#include <iostream>
 
 void
 removeDarkness(){
