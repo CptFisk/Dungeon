@@ -50,6 +50,8 @@ getMouseColorCode(const Mouse& mouse) {
             return "#8ED973";
         case Mouse::TOP_LAYER:
             return "#8960CF";
+        case Mouse::LIGHTNING:
+            return "#C8BFE7";
         default:
             return "";
     }
