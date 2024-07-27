@@ -26,13 +26,61 @@ CaveCrawler::spawn(const float& x, const float& y) const {
 
 void
 CaveCrawler::interact() {
-    if (mState == Objects::IDLE) {
-        if (fCheckWalls(mMonsterCenter, 16.0, NORTH)) {
-            mState = Objects::MOVE;
-        }
-    }
-    if (mState == Objects::MOVE) {
-        mMonsterPosition.y += 0.1;
+    static float distance;
+    switch (mState) {
+        case Objects::IDLE: {
+            auto dir        = getRandomDirection();
+            auto tempCenter = mMonsterCenter;
+            bool done       = false;
+            do {
+                // Randomize a new direction
+                while (fCheckWalls(tempCenter, 16.0f, dir)) {
+                    switch (dir) {
+                        case NORTH:
+                            tempCenter.y -= 16.0f;
+                            break;
+                        case EAST:
+                            tempCenter.x += 16.0f;
+                            break;
+                        case SOUTH:
+                            tempCenter.y += 16.0f;
+                            break;
+                        case WEST:
+                            tempCenter.x -= 16.0f;
+                            break;
+                    }
+                    distance += 16.0f;
+                    done = true;
+                }
+                // Invalid direction, try a new one
+                if (!done)
+                    dir = getRandomDirection();
+
+            } while (!done);
+            mState     = Objects::MOVE;
+            mDirection = dir;
+        } break;
+
+        case Objects::MOVE:
+            switch (mDirection) {
+                case NORTH:
+                    updatePosition(0.0f, -mVelocity);
+                    break;
+                case EAST:
+                    updatePosition(mVelocity, 0.0f);
+                    break;
+                case SOUTH:
+                    updatePosition(0.0f, mVelocity);
+                    break;
+                case WEST:
+                    updatePosition(mVelocity, 0.0f);
+                    break;
+            }
+            if ((distance -= mVelocity) <= 0) {
+                mState = Objects::IDLE;
+            };
+            updateReferences();
+            break;
     }
 }
 }

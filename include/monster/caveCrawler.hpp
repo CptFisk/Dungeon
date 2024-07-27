@@ -1,5 +1,6 @@
 #pragma once
 #include <monster/monster.hpp>
+#include <random>
 
 namespace Monster {
 class CaveCrawler : public BaseMonster {

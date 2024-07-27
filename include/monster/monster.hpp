@@ -30,6 +30,7 @@ class BaseMonster {
 
     void setAction(Objects::State action);
     void setDirection(Directions direction);
+    void updatePosition(const float& x, const float& y);
 
     virtual void interact() = 0;
 

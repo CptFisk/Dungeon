@@ -1,9 +1,9 @@
 #include <monster/monster.hpp>
 
 namespace Monster {
-BaseMonster::BaseMonster(const int&                                                             health,
-                         const float&                                                           velocity,
-                         SDL_FPoint&                                                            playerCenter,
+BaseMonster::BaseMonster(const int&                                                            health,
+                         const float&                                                          velocity,
+                         SDL_FPoint&                                                           playerCenter,
                          std::function<bool(const SDL_FPoint&, const int&, const Directions&)> checkWalls)
   : mInflictDamage(true)
   , mHealth(health)
@@ -70,6 +70,14 @@ void
 BaseMonster::setDirection(Directions direction) {
     mDirection = direction;
     updateReferences();
+}
+
+void
+BaseMonster::updatePosition(const float& x, const float& y) {
+    mMonsterPosition.x += x;
+    mMonsterPosition.y += y;
+    mMonsterCenter.x += x;
+    mMonsterCenter.y += y;
 }
 
 Common::typeDrawData

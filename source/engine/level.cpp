@@ -142,7 +142,7 @@ bool
 Engine::movementWalls(const SDL_FPoint& other, const int& threshold, const Directions& direction) {
     auto posX = INT(other.x);
     auto posY = INT(other.y);
-    switch(direction){
+    switch (direction) {
         case NORTH:
             posY -= threshold;
             break;
@@ -158,7 +158,8 @@ Engine::movementWalls(const SDL_FPoint& other, const int& threshold, const Direc
         default:
             break;
     }
-    const auto index = Common::getIndex(posX, posY, MAP_WIDTH);
+    //We divide by 16 to get a coordinate rather than pixel
+    const auto index = Common::getIndex(posX / 16, posY / 16, MAP_WIDTH);
 
     if (!index.has_value()) {
         return false;

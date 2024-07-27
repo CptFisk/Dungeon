@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include <random>
 
 // Casting macros
 #define UINT8(x)        static_cast<uint8_t>(x)
@@ -20,3 +21,22 @@ const unsigned long int LIGHT_SHAPE            = 0x18000000;
 const unsigned long int LIGHT_SIZE             = 0xE0000000;
 
 enum Directions : uint8_t { NORTH = 1 << 0, EAST = 1 << 1, SOUTH = 1 << 2, WEST = 1 << 3, ALL = NORTH | EAST | SOUTH | WEST };
+
+/**
+ * @brief Returns a random direction
+ * @return Type as enum
+ */
+inline Directions getRandomDirection(){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dist(0,3);
+
+    switch(dist(gen)){
+        case 0: return NORTH;
+        case 1: return WEST;
+        case 2: return SOUTH;
+        case 3: return EAST;
+    }
+
+    return NORTH;
+}
