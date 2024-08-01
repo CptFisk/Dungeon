@@ -93,6 +93,20 @@ Engine::startup() {
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
 
+    mMonsters[Monster::Type::CAVE_CRAWLER] = new Monster::CaveCrawler(
+      75, 0.2f, mPlayer->getPlayerCenter(), [&](const SDL_FPoint& point, const int& threshold, const Directions& direction) {
+          return movementWalls(point, threshold, direction);
+      });
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, *GET_ANIMATED("CaveCrawlerNorth"));
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::EAST, *GET_ANIMATED("CaveCrawlerEast"));
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, *GET_ANIMATED("CaveCrawlerSouth"));
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::WEST, *GET_ANIMATED("CaveCrawlerWest"));
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::IDLE, Directions::NORTH, *GET_ANIMATED("CaveCrawlerNorth"));
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::IDLE, Directions::EAST, *GET_ANIMATED("CaveCrawlerEast"));
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, *GET_ANIMATED("CaveCrawlerSouth"));
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::IDLE, Directions::WEST, *GET_ANIMATED("CaveCrawlerWest"));
+    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::DYING, Directions::ALL, *GET_ANIMATED("CaveCrawlerDead"));
+
     loadLevel("554.map");
     SDL_RenderClear(pRenderer);
 
@@ -150,19 +164,7 @@ Engine::startup() {
     mMonsters[Monster::Type::SLIME]->addAnimatedTexture(Objects::MOVE, Directions::ALL, *GET_ANIMATED("SlimeMoving"));
     mMonsters[Monster::Type::SLIME]->addAnimatedTexture(Objects::DYING, Directions::ALL, *GET_ANIMATED("SlimeDead"));
 */
-    mMonsters[Monster::Type::CAVE_CRAWLER] = new Monster::CaveCrawler(
-      75, 0.2f, mPlayer->getPlayerCenter(), [&](const SDL_FPoint& point, const int& threshold, const Directions& direction) {
-          return movementWalls(point, threshold, direction);
-      });
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, *GET_ANIMATED("CaveCrawlerNorth"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::EAST, *GET_ANIMATED("CaveCrawlerEast"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, *GET_ANIMATED("CaveCrawlerSouth"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::WEST, *GET_ANIMATED("CaveCrawlerWest"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::IDLE, Directions::NORTH, *GET_ANIMATED("CaveCrawlerNorth"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::IDLE, Directions::EAST, *GET_ANIMATED("CaveCrawlerEast"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, *GET_ANIMATED("CaveCrawlerSouth"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::IDLE, Directions::WEST, *GET_ANIMATED("CaveCrawlerWest"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::DYING, Directions::ALL, *GET_ANIMATED("CaveCrawlerDead"));
+
 
     // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y, mPlayer->getPlayerCenter());
@@ -218,7 +220,6 @@ Engine::interact() {
 void
 Engine::mainLoop() {
     mPlayer->spawn(44, 115);
-    mActiveMonsters.push_back(mMonsters[Monster::Type::CAVE_CRAWLER]->spawn(44, 115));
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
     while (mRun) {

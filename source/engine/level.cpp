@@ -52,7 +52,8 @@ Engine::loadLevel(const std::string& filename) {
             pos        = 0;
             layersLeft = false;
         }
-
+        const auto coords = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
+        const auto& [x, y] = coords.value();
         if (((it->Type.test(Level::TileType::BASE_TEXTURE) || it->Type.test(Level::TileType::TOP_TEXTURE)) && !it->Base.empty())) {
             const auto id    = INT(it->Base.front());
             const auto asset = data.Assets.Assets[id];
@@ -89,10 +90,8 @@ Engine::loadLevel(const std::string& filename) {
         }
         // Add transportation up
         if (it->Type.test(Level::TileType::UP)) {
-            const auto coords = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
             if (coords.has_value() && mHeader.MapCoordinate.Z > 0) {
                 const auto origin  = mHeader.MapCoordinate;
-                const auto& [x, y] = coords.value();
                 // Reduce our Z-layer by one
                 Level::type3DMapCoordinate level(origin.X, origin.Y, origin.Z + 1);
                 Level::type2DMapCoordinate destination(x, y + 1);
@@ -104,10 +103,8 @@ Engine::loadLevel(const std::string& filename) {
         }
         // Add transportation down
         if (it->Type.test(Level::TileType::DOWN)) {
-            const auto coords = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
             if (coords.has_value() && mHeader.MapCoordinate.Z > 0) {
                 const auto origin  = mHeader.MapCoordinate;
-                const auto& [x, y] = coords.value();
                 // Reduce our Z-layer by one
                 Level::type3DMapCoordinate level(origin.X, origin.Y, origin.Z - 1);
                 Level::type2DMapCoordinate destination(x, y + 1);
@@ -116,6 +113,13 @@ Engine::loadLevel(const std::string& filename) {
                 std::cerr << "Not a valid coordinate" << std::endl;
             }
             it->Type.reset(Level::TileType::DOWN); // Reset bit
+        }
+
+        if (Utility::isAnyBitSet((it->Type), std::bitset<32>(MONSTER_BITS))) {
+            //Extract the id
+            auto monsterId = static_cast<Monster::Type>(Utility::getBitValue<32, int>(it->Type, 10, 17));
+            mActiveMonsters.push_back(mMonsters[monsterId]->spawn(x, y));
+            Utility::resetBits(it->Type, std::bitset<32>(MONSTER_BITS));
         }
 
         pos++;
@@ -158,7 +162,7 @@ Engine::movementWalls(const SDL_FPoint& other, const int& threshold, const Direc
         default:
             break;
     }
-    //We divide by 16 to get a coordinate rather than pixel
+    // We divide by 16 to get a coordinate rather than pixel
     const auto index = Common::getIndex(posX / 16, posY / 16, MAP_WIDTH);
 
     if (!index.has_value()) {
@@ -240,8 +244,8 @@ Engine::clearLoadedLevel() {
         else
             std::cerr << "Function: " << name << " could not be found" << std::endl;
     }
-    //Kill and remove all cute monsters
-    for(auto monster : mActiveMonsters)
+    // Kill and remove all cute monsters
+    for (auto monster : mActiveMonsters)
         delete monster;
     mActiveMonsters.clear();
 
