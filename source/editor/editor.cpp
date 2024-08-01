@@ -6,6 +6,7 @@
 #include <common/scale.hpp>
 #include <editor/editor.hpp>
 #include <level/file.hpp>
+#include <monster/definition.hpp>
 #include <utility/file.hpp>
 
 namespace Editor {
@@ -24,6 +25,7 @@ Editor::Editor(const int& w, const int& h)
   , showGrid(false)
   , editorTiles{}
   , mScale{}
+  , mSelectedMonster(1)
   , mMouse(Mouse::DEFAULT)
   , mLightningColour(LightningColour::LIGHT_YELLOW)
   , mLightningShape(LightningShape::LIGHT_CIRCLE)
@@ -96,6 +98,7 @@ Editor::startup() {
     mElements["Warps"]      = [this]() { uiWarps(); };
     mElements["OnLoad"]     = [this]() { uiFunctions(mWindows["OnLoad"], mWindowOpen["OnLoad"], fileHeader.OnLoad, "On load"); };
     mElements["OnExit"]     = [this]() { uiFunctions(mWindows["OnExit"], mWindowOpen["OnExit"], fileHeader.OnExit, "On exit"); };
+    mElements["Monster"]    = [this]() { uiMonster(mWindows["Monster"], mWindowOpen["Monster"]); };
     displayElement("TopMenu");
 
     for (const auto& file : Utility::getFiles("levels", ".map")) {
@@ -244,7 +247,7 @@ Editor::click() {
                     mLevelCoords.emplace(Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
                     animationValuesBase[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, mMouse);
                     break;
-                case Mouse::REMOVE:
+                case Mouse::CLEAR_ALL:
                     editorTiles[pos]->clear(); // Clear the vector
                     {
                         // We need to remove the coord from the list of used coordinates.
@@ -252,6 +255,12 @@ Editor::click() {
                         if (it != mLevelCoords.end())
                             mLevelCoords.erase(it);
                     }
+                    break;
+                case Mouse::CLEAR_LATEST:
+                    editorTiles[pos]->clearLastData();
+                    break;
+                case Mouse::CLEAR_TYPE:
+                    editorTiles[pos]->clearType();
                     break;
                 case Mouse::WALL:
                     editorTiles[pos]->addType(Level::TileType::WALL, *GET_SDL(getMouseColorCode(Mouse::WALL)));
@@ -279,6 +288,12 @@ Editor::click() {
                     editorTiles[pos]->addLightning(mLightningShape, mLightningColour, mLightningSize);
                     editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::LIGHTNING)));
                     break;
+                case Mouse::MONSTER: {
+                    auto texture = GET_ANIMATED(Monster::monsters[mSelectedMonster].DefaultImage);
+                    if (texture != nullptr) {
+                        editorTiles[pos]->addMonster(mSelectedMonster, (*texture)->getTexture(), (*texture)->getViewports().front());
+                    }
+                } break;
                 case Mouse::DEFAULT:
                 default:
                     break;

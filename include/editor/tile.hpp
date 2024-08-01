@@ -48,19 +48,27 @@ class Tile {
      * @return Value of animation value, if static texture returns 0
      */
     int addData(const std::string&                         asset,
-                Level::typeAssets&                   assetList,
+                Level::typeAssets&                         assetList,
                 const std::shared_ptr<Graphics::Graphics>& graphics,
                 const bool&                                mode);
     int addData(const std::string&                         asset,
-                Level::typeAssets&                   assetList,
+                Level::typeAssets&                         assetList,
                 const std::shared_ptr<Graphics::Graphics>& graphics,
                 const Mouse&                               mouse);
-
+    /**
+     * @brief Clear the last data that was added
+     */
+    void clearLastData();
+    void addMonster(const int& id, SDL_Texture* texture, const SDL_Rect& viewport);
     /**
      * @brief Add a new value to the tile type
      * @param value
      */
     void addType(const Level::TileType& value, SDL_Texture* overlay);
+    /**
+     * @brief Clear all types from a tile
+     */
+    void clearType();
     /**
      * @brief Add a lightning effect to the tile.
      * @param shape Shape of tile, either square or circle
@@ -82,6 +90,8 @@ class Tile {
     void addOverlay(SDL_Texture* overlay);
 
   private:
+    void generateOverlay();
+
   protected:
     SDL_Renderer*           pRenderer;        // Used for generating overlays
     const float             xPos;             // Position in map
@@ -95,6 +105,7 @@ class Tile {
     Graphics::typeSimpleTexture&      numbers;  // Graphics to hold numbers
     std::vector<Common::typeDrawData> baseLayer;
     std::vector<Common::typeDrawData> topLayer;
-    Common::typeDrawData              mOverlay; // Overlay
+    bool                              lastLayer; // False = baseLayer, True = topLayer
+    Common::typeDrawData              mOverlay;  // Overlay
 };
 }

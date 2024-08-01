@@ -8,18 +8,21 @@ namespace Editor {
  * Different modes the mouse can have in editor mode
  */
 enum Mouse {
-    DEFAULT,   // Default, no action when you click
-    REMOVE,    // Remove all states and links to the tile
-    TEXTURE,   // Add a standard texture to the tile
-    UP,        // Add a warp up
-    DOWN,      // Add a warp down
-    WALL,      // Make a wall
-    OBSTACLE,  // Make an obstacle
-    SPARE,     // Previously player spawn
-    DOOR,      // Create a door
-    WARP,      // Create a warp-zone.
-    TOP_LAYER, // Layer that the player can walk under
-    LIGHTNING
+    DEFAULT,      // Default, no action when you click
+    CLEAR_ALL,    // Remove all states and links to the tile
+    CLEAR_LATEST, // Remove the latest added graphic
+    CLEAR_TYPE,   // Remove types such as monster, up/down wall etc.
+    TEXTURE,      // Add a standard texture to the tile
+    UP,           // Add a warp up
+    DOWN,         // Add a warp down
+    WALL,         // Make a wall
+    OBSTACLE,     // Make an obstacle
+    SPARE,        // Previously player spawn
+    DOOR,         // Create a door
+    WARP,         // Create a warp-zone.
+    TOP_LAYER,    // Layer that the player can walk under
+    LIGHTNING,    // Add lightning effects
+    MONSTER       // Bind a monster to a tile
 };
 
 /**
@@ -31,7 +34,7 @@ enum Mouse {
 getMouseColorCode(const Mouse& mouse) {
     switch (mouse) {
         case Mouse::DEFAULT:
-        case Mouse::REMOVE:
+        case Mouse::CLEAR_ALL:
         case Mouse::TEXTURE:
             return ""; // They don't have a colour code
         case Mouse::UP:

@@ -73,6 +73,8 @@ Editor::uiMenu() {
                 displayElement("Mouse");
             if (ImGui::MenuItem("Textures"))
                 displayElement("Textures");
+            if (ImGui::MenuItem("Monster"))
+                displayElement("Monster");
             if (ImGui::MenuItem("Doors"))
                 displayElement("Doors");
             if (ImGui::MenuItem("Warps"))

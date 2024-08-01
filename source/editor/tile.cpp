@@ -4,7 +4,9 @@
 #include <graphics/animatedTexture.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
+#include <utility/bits.hpp>
 #include <utility/vector.hpp>
+#include <monster/definition.hpp>
 
 namespace Editor {
 
@@ -15,23 +17,31 @@ Tile::Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics:
   , scale(scale)
   , numbers(number)
   , tileData{}
+  , lastLayer(false)
   , standardPosition(xPos, yPos, 16.0f * scale.factorX, 16.0f * scale.factorY)
   , mOverlay{} {
+    generateOverlay();
+}
 
+Tile::~Tile() {
+    clear();
+    SDL_DestroyTexture(mOverlay.Texture); // Cleanup
+}
+
+void
+Tile::generateOverlay() {
+    // Clear first if set
+    if (mOverlay.Texture)
+        SDL_DestroyTexture(mOverlay.Texture);
     // Setup overlay
     mOverlay.Texture = SDL_CreateTexture(
-      renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, INT(16.0f * scale.factorX), INT(16.0f * scale.factorY));
+      pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, INT(16.0f * scale.factorX), INT(16.0f * scale.factorY));
     if (mOverlay.Texture == nullptr)
         std::cout << "Error in creating texture" << std::endl;
     mOverlay.Position = &standardPosition;
     mOverlay.Viewport = nullptr;
     SDL_SetTextureBlendMode(mOverlay.Texture, SDL_BLENDMODE_BLEND);
     SDL_SetTextureAlphaMod(mOverlay.Texture, 127);
-}
-
-Tile::~Tile() {
-    clear();
-    SDL_DestroyTexture(mOverlay.Texture); // Cleanup
 }
 
 void
@@ -49,7 +59,7 @@ Tile::clear() {
 
 int
 Tile::addData(const std::string&                         asset,
-              Level::typeAssets&                   assetList,
+              Level::typeAssets&                         assetList,
               const std::shared_ptr<Graphics::Graphics>& graphics,
               const bool&                                mode) {
     return addData(asset, assetList, graphics, mode ? Mouse::TOP_LAYER : Mouse::TEXTURE);
@@ -57,7 +67,7 @@ Tile::addData(const std::string&                         asset,
 
 int
 Tile::addData(const std::string&                         asset,
-              Level::typeAssets&                   assetList,
+              Level::typeAssets&                         assetList,
               const std::shared_ptr<Graphics::Graphics>& graphics,
               const Mouse&                               mouse) {
     auto&      data           = mouse == Mouse::TEXTURE ? baseLayer : topLayer;
@@ -123,19 +133,37 @@ Tile::addData(const std::string&                         asset,
 }
 
 void
+Tile::clearLastData() {
+    if (!lastLayer)
+        baseLayer.pop_back();
+    else
+        topLayer.pop_back();
+}
+
+void
+Tile::addMonster(const int& id, SDL_Texture* texture, const SDL_Rect& viewport) {
+    //Add graphics
+    SDL_SetRenderTarget(pRenderer, mOverlay.Texture);
+    const auto destination = SDL_FRect{ 0.0f, 0.0f * scale.factorY, 16.0f * scale.factorX, 16.0f * scale.factorY };
+    SDL_RenderCopyF(pRenderer, texture, &viewport, &destination);
+    SDL_SetRenderTarget(pRenderer, nullptr);
+
+    Utility::setBitValue(tileData.Type, 10,17, id);
+}
+
+void
 Tile::addOverlay(SDL_Texture* overlay) {
     SDL_FRect destination;
     if (overlays.empty()) {
         SDL_SetRenderTarget(pRenderer, mOverlay.Texture);
         SDL_RenderCopyF(pRenderer, overlay, nullptr, nullptr);
-        SDL_SetRenderTarget(pRenderer, nullptr);
     } else {
         switch (overlays.size()) {
             case 1:
                 SDL_SetRenderTarget(pRenderer, mOverlay.Texture);
                 destination = SDL_FRect{ 0.0f, 8.0f * scale.factorY, 16.0f * scale.factorX, 8.0f * scale.factorY };
                 SDL_RenderCopyF(pRenderer, overlay, nullptr, &destination);
-                SDL_SetRenderTarget(pRenderer, nullptr);
+
                 break;
             case 2:
                 break;
@@ -145,6 +173,7 @@ Tile::addOverlay(SDL_Texture* overlay) {
                 break;
         }
     }
+    SDL_SetRenderTarget(pRenderer, nullptr);
     overlays.insert(overlay);
 }
 
@@ -153,6 +182,12 @@ Tile::addType(const Level::TileType& value, SDL_Texture* overlay) {
     tileData.Type.set(value);
     if (overlays.find(overlay) == overlays.end())
         addOverlay(overlay);
+}
+
+void
+Tile::clearType() {
+    Utility::resetBits(tileData.Type, std::bitset<32>(0xFFFFFFFC)); // Clear all types
+    generateOverlay();
 }
 
 void

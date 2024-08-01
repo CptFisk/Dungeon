@@ -8,9 +8,12 @@ Editor::uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse) {
 
         ImGui::SeparatorText("Graphical");
         mouseButton(mouse, Mouse::DEFAULT, "None");
-        if(mouseButton(mouse, Mouse::LIGHTNING, "Lightning"))
+        if (mouseButton(mouse, Mouse::LIGHTNING, "Lightning"))
             displayElement("Lightning");
-        mouseButton(mouse, Mouse::REMOVE, "Remove");
+        ImGui::SeparatorText("Clearing");
+        mouseButton(mouse, Mouse::CLEAR_ALL, "Clear all");
+        mouseButton(mouse, Mouse::CLEAR_LATEST, "Clear last");
+        mouseButton(mouse, Mouse::CLEAR_TYPE, "Clear types");
         ImGui::SeparatorText("Tiletype");
         mouseButton(mouse, Mouse::TEXTURE, "Texture");
         mouseButton(mouse, Mouse::TOP_LAYER, "Top layer");
@@ -22,6 +25,7 @@ Editor::uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse) {
         mouseButton(mouse, Mouse::DOWN, "Down");
         mouseButton(mouse, Mouse::DOOR, "Door");
         mouseButton(mouse, Mouse::WARP, "Warp");
+        mouseButton(mouse, Mouse::MONSTER, "Monster");
         area = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::End();
     }

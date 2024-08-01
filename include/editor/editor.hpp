@@ -54,9 +54,9 @@ class Editor {
         ImVec2 Size;
     };
 
-    void uiMenu();                                                                            // Top menu
+    void uiMenu();                                                                      // Top menu
     void uiHeader(typeWindowCovering& area, bool& open, Level::typeHeaderData& header); // Display current open project settings
-    void uiDrawGrid();                                                                        // Draw a basic grid over the area
+    void uiDrawGrid();                                                                  // Draw a basic grid over the area
     void uiAssets(typeWindowCovering& area, bool& open, Level::typeAssets& assets);     // Display the metadata related to the map
     void uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse);
     void uiMouseLightning(typeWindowCovering& area,
@@ -65,6 +65,7 @@ class Editor {
                           LightningShape&     shape,
                           LightningColour&    colour,
                           LightningSize&      size);
+    void uiMonster(typeWindowCovering& area, bool& open);
     void uiFunctions(typeWindowCovering& area, bool& open, std::vector<std::string>& elements, const std::string& title);
     void uiTiles();
     void uiDoor(bool& open);
@@ -99,7 +100,7 @@ class Editor {
 
     std::vector<std::pair<Graphics::TextureTypes, std::string>> mTextures;        // All textures that we can use
     std::pair<Graphics::TextureTypes, std::string>              mSelectedTexture; // The selected texture
-
+    int                                                         mSelectedMonster; // Selected monster
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;
     std::list<std::function<bool(SDL_Event*)>>                             mEventWatcher; // List of all event to watch for

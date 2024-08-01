@@ -68,4 +68,37 @@ getBitValue(const std::bitset<N> bitset, unsigned int start, unsigned int end) {
     return static_cast<T>(shifted.to_ulong());
 }
 
+/**
+ * @brief Set a value into a specified position inside a bigger bitset.
+ * @tparam N Size of bitmask
+ * @tparam T Datatype of the value to be set (using static_cast<T>)
+ * @param bitset Bitset where the value shall be inserted
+ * @param start Start position for the first bit
+ * @param end End position for the last bit
+ * @param value Value to be inserted
+ * @example setBitValue(bitset, 4, 7, 15) will set bits 4 to 7 in bitset to 15
+ * @throws std::invalid_argument if the value does not fit in the specified bit range
+ */
+template<std::size_t N, typename T>
+constexpr void
+setBitValue(std::bitset<N>& bitset, unsigned int start, unsigned int end, T value) {
+    if (start > end || end >= N)
+        throw std::invalid_argument("Invalid start or end position");
+
+    unsigned int bitRange = end - start + 1;
+    T            maxValue = (1ULL << bitRange) - 1;
+
+    if (static_cast<unsigned long long>(value) > maxValue)
+        throw std::invalid_argument("Value does not fit in the specified bit range");
+
+    std::bitset<N> mask(((1ULL << bitRange) - 1) << start);
+    std::bitset<N> valueBits(static_cast<unsigned long long>(value) << start);
+
+    // Clear the bits in the specified range
+    bitset &= ~mask;
+
+    // Set the bits to the value
+    bitset |= (valueBits & mask);
+}
+
 }

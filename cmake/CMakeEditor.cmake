@@ -18,6 +18,7 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/editor/ui/assets.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui/textures.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui/functions.cpp
+        ${CMAKE_SOURCE_DIR}/source/editor/ui/monster.cpp
 
         ${CMAKE_SOURCE_DIR}/source/editor/menu.cpp
 
