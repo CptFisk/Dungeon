@@ -51,6 +51,8 @@ CaveCrawler::interact() {
                     }
                     distance += 16.0f;
                     done = true;
+                    if(distance >= 48.0f)
+                        break;  //So we dont walk in eternity
                 }
                 // Invalid direction, try a new one
                 if (!done)
@@ -59,6 +61,7 @@ CaveCrawler::interact() {
             } while (!done);
             mState     = Objects::MOVE;
             mDirection = dir;
+            updateReferences();
         } break;
 
         case Objects::MOVE:
@@ -73,7 +76,7 @@ CaveCrawler::interact() {
                     updatePosition(0.0f, mVelocity);
                     break;
                 case WEST:
-                    updatePosition(mVelocity, 0.0f);
+                    updatePosition(-mVelocity, 0.0f);
                     break;
             }
             if ((distance -= mVelocity) <= 0) {
