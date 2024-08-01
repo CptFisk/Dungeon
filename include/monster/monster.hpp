@@ -12,7 +12,7 @@ class BaseMonster {
                 SDL_FPoint&                                                           playerCenter,
                 std::function<bool(const SDL_FPoint&, const int&, const Directions&)> checkWalls);
     BaseMonster(const BaseMonster& other);
-    ~BaseMonster();
+    virtual ~BaseMonster();
 
     [[nodiscard]] virtual BaseMonster* spawn(const float& x, const float& y) const = 0;
     /**
@@ -57,7 +57,7 @@ class BaseMonster {
     SDL_FRect    mMonsterPosition; // Drawing area of the monster
     SDL_Texture* pCurrentTexture;  // Reference to the current texture
     SDL_Rect*    pCurrentViewport; // Reference to the current viewport
-    SDL_FPoint&  mPlayerCenter;    // Reference to the center of the player (used for targeting etc)
+    SDL_FPoint&  mPlayerCenter;    // Reference to the center of the player (used for targeting etc.)
 
     void updateReferences();
 

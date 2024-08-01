@@ -240,6 +240,10 @@ Engine::clearLoadedLevel() {
         else
             std::cerr << "Function: " << name << " could not be found" << std::endl;
     }
+    //Kill and remove all cute monsters
+    for(auto monster : mActiveMonsters)
+        delete monster;
+    mActiveMonsters.clear();
 
     // Reset all values
     mLevelLoaded = false;
