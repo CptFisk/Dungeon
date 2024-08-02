@@ -211,7 +211,7 @@ Engine::addLightning(const std::bitset<32> bitset, const int& pos) {
         case Level::LIGHT_MEDIUM:
             addToSegment(mSegments.Lightning, pos, textureName + "Medium");
         case Level::LIGHT_SMALL:
-            // addToSegment(mSegments.Lightning, pos, textureName + "Small");
+            daddToSegment(mSegments.Lightning, pos, textureName + "Small");
             break;
         default:
             return;
