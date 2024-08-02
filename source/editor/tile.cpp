@@ -134,10 +134,13 @@ Tile::addData(const std::string&                         asset,
 
 void
 Tile::clearLastData() {
-    if (!lastLayer)
+    if (!lastLayer && !baseLayer.empty()) {
         baseLayer.pop_back();
-    else
+        tileData.Base.pop_back();
+    }else if(!topLayer.empty()){
         topLayer.pop_back();
+        tileData.Top.pop_back();
+    }
 }
 
 void
