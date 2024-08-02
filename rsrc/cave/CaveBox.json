@@ -1,0 +1,54 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/cave/CaveBox.png",
+        "Name": "CaveBox3",
+        "Row": 1,
+        "Column": 1,
+        "Length": 3,
+        "Height": 32,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/cave/CaveBox.png",
+        "Name": "CaveBox4",
+        "Row": 2,
+        "Column": 1,
+        "Length": 3,
+        "Height": 32,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/cave/CaveBox.png",
+        "Name": "CaveBoxRound",
+        "Row": 5,
+        "Column": 1,
+        "Length": 4,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveBox.png",
+        "Name": "CaveBoxMedium",
+        "Row": 6,
+        "Column": 1,
+        "Length": 4,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveBox.png",
+        "Name": "CaveBoxBig",
+        "Row": 7,
+        "Column": 1,
+        "Length": 4,
+        "Height": 16,
+        "Width": 16
+      }
+    ]
+  }
+}

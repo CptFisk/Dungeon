@@ -1,0 +1,19 @@
+{
+  "Header": {
+    "Type": "LightningTexture"
+  },
+  "Data": {
+    "File": "rsrc/effects/LightCircleWhiteMedium.png",
+    "Objects": [
+      {
+        "Name": "LightCircleWhiteMedium",
+        "Column": 1,
+        "Row": 1,
+        "Length": 7,
+        "Ticks": 10,
+        "Width": 36,
+        "Height": 36
+      }
+    ]
+  }
+}

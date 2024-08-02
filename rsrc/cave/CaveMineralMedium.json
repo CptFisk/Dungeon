@@ -1,0 +1,46 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/cave/CaveMineralMedium.png",
+    "Objects": [
+      {
+        "Name": "CaveMineralMedium1",
+        "Column": 1,
+        "Row": 1,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 32
+      },
+      {
+        "Name": "CaveMineralMedium2",
+        "Column": 1,
+        "Row": 2,
+        "Length": 4,
+        "Ticks": 10,
+        "Width":16,
+        "Height": 32
+      },
+      {
+        "Name": "CaveMineralMedium3",
+        "Column": 1,
+        "Row": 3,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 32
+      },
+      {
+        "Name": "CaveMineralMedium4",
+        "Column": 1,
+        "Row": 4,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 32
+      }
+    ]
+  }
+}

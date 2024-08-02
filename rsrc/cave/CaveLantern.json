@@ -1,0 +1,81 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/cave/CaveLantern.png",
+        "Name": "CaveLanternRightSmallOff",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveLantern.png",
+        "Name": "CaveLanternRightSmallOn",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveLantern.png",
+        "Name": "CaveLanternLeftSmallOff",
+        "Row": 1,
+        "Column": 4,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveLantern.png",
+        "Name": "CaveLanternLeftSmallOn",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveLantern.png",
+        "Name": "CaveLanternRightBigOff",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/cave/CaveLantern.png",
+        "Name": "CaveLanternRightBigOn",
+        "Row": 2,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/cave/CaveLantern.png",
+        "Name": "CaveLanternLeftBigOff",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/cave/CaveLantern.png",
+        "Name": "CaveLanternLeftBigOn",
+        "Row": 3,
+        "Column": 2,
+        "Length": 1,
+        "Height": 32,
+        "Width": 32
+      }
+    ]
+  }
+}
