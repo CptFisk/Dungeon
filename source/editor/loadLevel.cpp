@@ -1,5 +1,7 @@
 #include <editor/editor.hpp>
+#include <monster/definition.hpp>
 #include <utility/bits.hpp>
+
 namespace Editor {
 /**
  * @brief This is not equal to the class Level that normally handles the tiles inside the game.
@@ -46,7 +48,7 @@ Editor::loadLevel(const Level::typeLevelData& data) {
                 editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::TOP_LAYER)));
                 mLevelCoords.emplace(x, y);
             }
-            if (Utility::isAnyBitSet((tile.Type), std::bitset<32>(LIGHT_BITS))) {
+            if (Utility::isAnyBitSet(tile.Type, std::bitset<32>(LIGHT_BITS))) {
                 LightningShape  shape  = static_cast<LightningShape>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_SHAPE)));
                 LightningColour colour = static_cast<LightningColour>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_COLOUR)));
                 LightningSize   size   = static_cast<LightningSize>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_SIZE)));
@@ -64,6 +66,13 @@ Editor::loadLevel(const Level::typeLevelData& data) {
             }
             if (tile.Type.test(Level::TileType::DOWN)) {
                 editorTiles[pos]->addType(Level::TileType::DOWN, *GET_SDL(getMouseColorCode(Mouse::DOWN)));
+            }
+            if (Utility::isAnyBitSet(tile.Type, std::bitset<32>(MONSTER_BITS))) {
+                const auto monsterId = Utility::getBitValue<32, int>(tile.Type, 10, 17);
+                const auto texture   = GET_ANIMATED(Monster::monsters[monsterId].DefaultImage);
+                if (texture != nullptr) {
+                    editorTiles[pos]->addMonster(monsterId, (*texture)->getTexture(), (*texture)->getViewports().front());
+                }
             }
             pos++;
         }
