@@ -1,0 +1,72 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/cave/CaveMiningRail.png",
+        "Name": "CaveMiningRailNW",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveMiningRail.png",
+        "Name": "CaveMiningRailH",
+        "Row": 1,
+        "Column": 2,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveMiningRail.png",
+        "Name": "CaveMiningRailNE",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveMiningRail.png",
+        "Name": "CaveMiningRailV",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveMiningRail.png",
+        "Name": "CaveMiningRailSW",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveMiningRail.png",
+        "Name": "CaveMiningRailSE",
+        "Row": 3,
+        "Column": 3,
+        "Length": 1,
+        "Height": 16,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/cave/CaveMiningRail.png",
+        "Name": "CaveMiningRailCart",
+        "Row": 1,
+        "Column": 4,
+        "Length": 1,
+        "Height": 32,
+        "Width": 16
+      }
+    ]
+  }
+}

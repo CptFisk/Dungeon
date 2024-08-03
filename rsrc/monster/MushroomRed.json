@@ -1,0 +1,91 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/monster/MushroomRed.png",
+    "Objects": [
+      {
+        "Name": "MushroomRedSouth1",
+        "Column": 1,
+        "Row": 1,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 18,
+        "Height": 18
+      },
+      {
+        "Name": "MushroomRedWest1",
+        "Column": 1,
+        "Row": 2,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 18,
+        "Height": 18
+      },
+      {
+        "Name": "MushroomRedEast1",
+        "Column": 1,
+        "Row": 3,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 18,
+        "Height": 18
+      },
+      {
+        "Name": "MushroomRedNorth1",
+        "Column": 1,
+        "Row": 4,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 18,
+        "Height": 18
+      },
+      {
+        "Name": "MushroomRedSouth2",
+        "Column": 3,
+        "Row": 1,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 18,
+        "Height": 18
+      },
+      {
+        "Name": "MushroomRedWest2",
+        "Column": 3,
+        "Row": 2,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 18,
+        "Height": 18
+      },
+      {
+        "Name": "MushroomRedEast2",
+        "Column": 3,
+        "Row": 3,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 18,
+        "Height": 18
+      },
+      {
+        "Name": "MushroomRedNorth2",
+        "Column": 3,
+        "Row": 4,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 18,
+        "Height": 18
+      },
+      {
+        "Name": "MushroomRedDead",
+        "Column": 1,
+        "Row": 5,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 18,
+        "Height": 18
+      }
+    ]
+  }
+}
