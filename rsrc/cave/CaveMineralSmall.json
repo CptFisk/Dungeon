@@ -1,0 +1,118 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/cave/CaveMineralSmall.png",
+    "Objects": [
+      {
+        "Name": "CaveMineralSmallYellow1",
+        "Column": 1,
+        "Row": 1,
+        "Length": 8,
+        "Ticks": 8,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "CaveMineralSmallYellow2",
+        "Column": 1,
+        "Row": 2,
+        "Length": 8,
+        "Ticks": 8,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "CaveMineralSmallYellow3",
+        "Column": 1,
+        "Row": 3,
+        "Length": 8,
+        "Ticks": 8,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "CaveMineralSmallYellow4",
+        "Column": 1,
+        "Row": 4,
+        "Length": 8,
+        "Ticks": 8,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "CaveMineralSmallYellow5",
+        "Column": 1,
+        "Row": 5,
+        "Length": 8,
+        "Ticks": 8,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "CaveMineralSmallYellow6",
+        "Column": 1,
+        "Row": 6,
+        "Length": 8,
+        "Ticks": 8,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "CaveMineralSmallBlue1",
+        "Column": 1,
+        "Row": 7,
+        "Length": 8,
+        "Ticks": 8,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "CaveMineralSmallBlue2",
+        "Column": 1,
+        "Row": 8,
+        "Length": 8,
+        "Ticks": 8,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "CaveMineralSmallBlue3",
+        "Column": 1,
+        "Row": 9,
+        "Length": 8,
+        "Ticks": 8,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "CaveMineralSmallBlue4",
+        "Column": 1,
+        "Row": 10,
+        "Length": 8,
+        "Ticks": 8,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "CaveMineralSmallBlue5",
+        "Column": 1,
+        "Row": 11,
+        "Length": 8,
+        "Ticks": 8,
+        "Width": 16,
+        "Height": 16
+      },
+      {
+        "Name": "CaveMineralSmallBlue6",
+        "Column": 1,
+        "Row": 12,
+        "Length": 8,
+        "Ticks": 8,
+        "Width": 16,
+        "Height": 16
+      }
+    ]
+  }
+}
