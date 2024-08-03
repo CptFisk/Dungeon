@@ -1,0 +1,55 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/monster/SlimeGreen.png",
+    "Objects": [
+      {
+        "Name": "SlimeGreenSouth",
+        "Column": 1,
+        "Row": 1,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      },
+      {
+        "Name": "SlimeGreenWest",
+        "Column": 1,
+        "Row": 2,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      },
+      {
+        "Name": "SlimeGreenEast",
+        "Column": 1,
+        "Row": 3,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      },
+      {
+        "Name": "SlimeGreenNorth",
+        "Column": 1,
+        "Row": 4,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      },
+      {
+        "Name": "SlimeGreenDead",
+        "Column": 1,
+        "Row": 5,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      }
+    ]
+  }
+}

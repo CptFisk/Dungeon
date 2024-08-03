@@ -9,12 +9,23 @@ struct MonsterData {
     std::string DefaultImage;
 };
 
-enum class Type { SLIME = 1, CAVE_CRAWLER = 2 };
+enum class Type {
+    SPARE1       = 1, // Spare
+    CAVE_CRAWLER = 2, // Cave crawler
+    SLIME_BLUE   = 3, // Blue small slime
+    SLIME_GREEN  = 4, // Green small slime
+    SLIME_PURPLE = 5, // Purple small slime
+    SLIME_RED    = 6  // Red small slime
+};
 
-const std::array<MonsterData, 3> monsters = { {
-  { "", "" },                            // Default blank
-  { "Slime", "Slime" },                  // Slime
-  { "Cave Crawler", "CaveCrawlerSouth" } // Cave Crawler
+const std::array<MonsterData, 7> monsters = { {
+  { "", "" },                             // Default blank
+  { "SPARE1", "SPARE" },                  // Slime
+  { "Cave Crawler", "CaveCrawlerSouth" }, // Cave Crawler
+  { "Slime blue", "SlimeBlueSouth" },     // Blue slime
+  { "Slime green", "SlimeGreenSouth" },   // Green slime
+  { "Slime purple", "SlimePurpleSouth" }, // Purple slime
+  { "Slime red", "SlimeRedSouth" }        // Red slime
 } };
 
 }

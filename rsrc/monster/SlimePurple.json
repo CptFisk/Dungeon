@@ -1,0 +1,55 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/monster/SlimePurple.png",
+    "Objects": [
+      {
+        "Name": "SlimePurpleSouth",
+        "Column": 1,
+        "Row": 1,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      },
+      {
+        "Name": "SlimePurpleWest",
+        "Column": 1,
+        "Row": 2,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      },
+      {
+        "Name": "SlimePurpleEast",
+        "Column": 1,
+        "Row": 3,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      },
+      {
+        "Name": "SlimePurpleNorth",
+        "Column": 1,
+        "Row": 4,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      },
+      {
+        "Name": "SlimePurpleDead",
+        "Column": 1,
+        "Row": 5,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      }
+    ]
+  }
+}

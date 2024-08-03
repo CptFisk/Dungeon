@@ -2,6 +2,9 @@
 #include <monster/monster.hpp>
 
 namespace Monster {
+/**
+ * @brief Base class for all small slimes that exist.
+ */
 class Slime : public BaseMonster {
   public:
     Slime(const int&                                                            health,
@@ -15,8 +18,8 @@ class Slime : public BaseMonster {
 
   protected:
   private:
-    const float SLIME_WIDTH  = 8.0f;
-    const float SLIME_HEIGHT = 8.0f;
+    const float MONSTER_WIDTH  = 12.0f;
+    const float MONSTER_HEIGHT = 10.0f;
     int         mTicks; // Current ticks
     const int   IDLE;
     const int   MOVE;

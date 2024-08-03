@@ -1,0 +1,55 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/monster/SlimeRed.png",
+    "Objects": [
+      {
+        "Name": "SlimeRedSouth",
+        "Column": 1,
+        "Row": 1,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      },
+      {
+        "Name": "SlimeRedWest",
+        "Column": 1,
+        "Row": 2,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      },
+      {
+        "Name": "SlimeRedEast",
+        "Column": 1,
+        "Row": 3,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      },
+      {
+        "Name": "SlimeRedNorth",
+        "Column": 1,
+        "Row": 4,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      },
+      {
+        "Name": "SlimeRedDead",
+        "Column": 1,
+        "Row": 5,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 12,
+        "Height": 10
+      }
+    ]
+  }
+}

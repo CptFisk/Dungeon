@@ -15,17 +15,21 @@ Slime::~Slime() {}
 
 BaseMonster*
 Slime::spawn(const float& x, const float& y) const {
-
+    const auto xPos         = x * 16.0f; // One square is 16 pixels
+    const auto yPos         = y * 16.0f; // One square is 16 pixels
     auto obj                = new Slime(*this);
-    obj->mMonsterPosition.x = x;
-    obj->mMonsterPosition.y = y;
-    obj->mMonsterPosition.w = SLIME_WIDTH;
-    obj->mMonsterPosition.h = SLIME_HEIGHT;
+    obj->mMonsterPosition.x = xPos - FLOAT((INT(MONSTER_WIDTH) % 16) / 2);
+    obj->mMonsterPosition.y = yPos - FLOAT((INT(MONSTER_HEIGHT) % 16) / 2);
+    obj->mMonsterPosition.w = MONSTER_WIDTH;
+    obj->mMonsterPosition.h = MONSTER_HEIGHT;
+    obj->mMonsterCenter.x   = xPos + 9;
+    obj->mMonsterCenter.y   = yPos + 9;
     return obj;
 }
 
 void
 Slime::interact() {
+    /*
     if (mState == Objects::IDLE) {
         if (mTicks++ > IDLE) {
             mState = Objects::MOVE;
@@ -41,5 +45,6 @@ Slime::interact() {
         }
         updateReferences();
     }
+     */
 }
 }
