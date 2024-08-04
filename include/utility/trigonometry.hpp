@@ -1,52 +1,70 @@
 #pragma once
+#include <SDL.h>
+#include <cmath>
 #include <utility>
-
 namespace Utility {
 /***
  * @brief Calculate the new position based on angle and velocity
  * @param angle Angle the object is moving. 0 degree is equal to 3 o'clock
  * @param velocity Velocity of object in pixels
  */
-template<typename T>
-std::pair<T, T>
-calculateVector(const T& angle, const T& velocity, const T& x, const T& y) {
-    auto angleRadians = angle * M_PI / 180.0;
-
-    auto deltaX = velocity * cos(angleRadians);
-    auto deltaY = velocity * sin(angleRadians);
-    return std::make_pair(static_cast<T>(deltaX), static_cast<T>(deltaY));
+inline SDL_FPoint
+calculateVector(const double& angle, const float& velocity) {
+    const auto angleRadians = angle * M_PI / 180.0f;
+    const auto dx           = velocity * cos(angleRadians);
+    const auto dy           = velocity * sin(angleRadians);
+    auto       result       = SDL_FPoint{ static_cast<float>(dx), static_cast<float>(dy) };
+    return result;
 }
 
 /***
  * @brief Calculate the angle between 2 points in a coordinate system
- * @return The angle
+ * @return The angle as double
  */
-template<typename T>
-T
-calculateAngle(const std::pair<T, T>& p1, const std::pair<T, T>& p2) {
-    return calculateAngle(p1.first, p1.second, p2.first, p2.second);
-}
-template<typename T>
-T
-calculateAngle(const T& x1, const T& y1, const T& x2, const T& y2) {
-    auto deltaX = x2 - x1;
-    auto deltaY = y2 - y1;
+inline constexpr double
+getAngle(const SDL_FPoint& a, const SDL_FPoint& b) {
+    const auto dx = a.x - b.x;
+    const auto dy = a.y - b.y;
 
-    auto angleRadians = atan2(deltaY, deltaX);
-    auto angleDegrees = angleRadians * 180 / M_PI;
+    const auto angleRadians = atan2(dy, dx);
+    auto       angleDegrees = angleRadians * 180 / M_PI;
 
     // Convert negative angles to positive equivalent
     if (angleDegrees < 0)
         angleDegrees += 360;
-
-    return static_cast<T>(angleDegrees);
+    return angleDegrees;
 }
 
-template<typename T>
-std::pair<T, T>
-calculateMovement(const T& x1, const T& y1, const T& x2, const T& y2, const float& velocity) {
-    auto angle = calculateAngle(x1, y1, x2, y2);
-    return calculateVector(angle, velocity, x2, y2);
+inline constexpr double
+getAngle(const float& ax, const float& ay, const float& bx, const float& by) {
+    return getAngle(SDL_FPoint{ ax, ay }, SDL_FPoint{ bx, by });
+}
+
+/**
+ * @brief Return the distance between 2 SDL_FPoints (a^2 + b^2 = c^2)
+ * @param a Position 1
+ * @param b Position 2
+ * @return The distance as float. The number indicate the number of squares between
+ */
+constexpr float
+getDistance(const SDL_FPoint& a, const SDL_FPoint& b) {
+    // No need to worry about negative values since we square the numbers, removing all negative numbers
+    const auto dx = a.x - b.x;
+    const auto dy = a.y - b.y;
+    return (sqrt(dx * dy + dy * dy)) / 16.0f;
+}
+/**
+ * @brief Return the distance between 2 SDL_FPoints (a^2 + b^2 = c^2)
+ * @param a Position 1
+ * @param b Position 2
+ * @return The distance as float. The number is the absolute value
+ */
+constexpr float
+getDistanceAbsolute(const SDL_FPoint& a, const SDL_FPoint& b) {
+    // No need to worry about negative values since we square the numbers, removing all negative numbers
+    const auto dx = a.x - b.x;
+    const auto dy = a.y - b.y;
+    return sqrt(dx * dy + dy * dy);
 }
 
 }
