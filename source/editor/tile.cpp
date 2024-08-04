@@ -54,6 +54,7 @@ Tile::clear() {
     }
     baseLayer.clear();
     topLayer.clear();
+    overlays.clear();
     tileData = {};
 }
 

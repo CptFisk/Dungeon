@@ -106,6 +106,7 @@ class Engine {
     int           mPlayerEnergy;
 
     // Monster blueprints
+    void createMonsters();
     std::unordered_map<Monster::Type, Monster::BaseMonster*> mMonsters;
     std::vector<Monster::BaseMonster*>                       mActiveMonsters;
 

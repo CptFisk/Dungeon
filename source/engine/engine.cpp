@@ -35,6 +35,9 @@ Engine::~Engine() {
         clearLoadedLevel();
     mGraphics.reset(); // Kill graphics
     // Kill all cute monsters
+    for(auto monster : mActiveMonsters){
+        delete monster;
+    }
     for (auto& [name, monster] : mMonsters)
         delete monster; // Kill the baby
 
@@ -93,20 +96,8 @@ Engine::startup() {
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
 
-    mMonsters[Monster::Type::CAVE_CRAWLER] = new Monster::CaveCrawler(
-      75, 0.2f, mPlayer->getPlayerCenter(), [&](const SDL_FPoint& point, const int& threshold, const Directions& direction) {
-          return movementWalls(point, threshold, direction);
-      });
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, *GET_ANIMATED("CaveCrawlerNorth"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::EAST, *GET_ANIMATED("CaveCrawlerEast"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, *GET_ANIMATED("CaveCrawlerSouth"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::WEST, *GET_ANIMATED("CaveCrawlerWest"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::IDLE, Directions::NORTH, *GET_ANIMATED("CaveCrawlerNorth"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::IDLE, Directions::EAST, *GET_ANIMATED("CaveCrawlerEast"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, *GET_ANIMATED("CaveCrawlerSouth"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::IDLE, Directions::WEST, *GET_ANIMATED("CaveCrawlerWest"));
-    mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::DYING, Directions::ALL, *GET_ANIMATED("CaveCrawlerDead"));
-
+    //Generate all monster data
+    createMonsters();
     loadLevel("554.map");
     SDL_RenderClear(pRenderer);
 
@@ -155,17 +146,6 @@ Engine::startup() {
     });
 
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
-
-    // Adding a slime
-    /*
-    auto func =
-    mMonsters[Monster::Type::SLIME] = new Monster::Slime(50, 0.5f, mPlayer->getPlayerCenter(), func);
-    mMonsters[Monster::Type::SLIME]->addAnimatedTexture(Objects::IDLE, Directions::ALL, *GET_ANIMATED("SlimeIdle"));
-    mMonsters[Monster::Type::SLIME]->addAnimatedTexture(Objects::MOVE, Directions::ALL, *GET_ANIMATED("SlimeMoving"));
-    mMonsters[Monster::Type::SLIME]->addAnimatedTexture(Objects::DYING, Directions::ALL, *GET_ANIMATED("SlimeDead"));
-*/
-
-
     // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y, mPlayer->getPlayerCenter());
 }
@@ -220,6 +200,10 @@ Engine::interact() {
 void
 Engine::mainLoop() {
     mPlayer->spawn(44, 115);
+    mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_BLUE]->spawn(44,115));
+    mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_GREEN]->spawn(44,114));
+    mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_PURPLE]->spawn(44,113));
+    mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_RED]->spawn(44,112));
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
     while (mRun) {

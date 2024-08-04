@@ -15,12 +15,12 @@ CaveCrawler::spawn(const float& x, const float& y) const {
     const auto xPos         = x * 16.0f; // One square is 16 pixels
     const auto yPos         = y * 16.0f; // One square is 16 pixels
     auto       obj          = new CaveCrawler(*this);
-    obj->mMonsterPosition.x = xPos - FLOAT((INT(MONSTER_WIDTH) % 16) / 2);
-    obj->mMonsterPosition.y = yPos - FLOAT((INT(MONSTER_HEIGHT) % 16) / 2);
+    obj->mMonsterPosition.x = xPos + FLOAT((16 - MONSTER_WIDTH) / 2);
+    obj->mMonsterPosition.y = yPos + FLOAT((16 - MONSTER_HEIGHT) / 2);
     obj->mMonsterPosition.w = MONSTER_WIDTH;
     obj->mMonsterPosition.h = MONSTER_HEIGHT;
-    obj->mMonsterCenter.x   = xPos + 9;
-    obj->mMonsterCenter.y   = yPos + 9;
+    obj->mMonsterCenter.x   = xPos + (MONSTER_WIDTH / 2.0f);
+    obj->mMonsterCenter.y   = yPos + (MONSTER_HEIGHT / 2.0f);
     return obj;
 }
 
@@ -51,8 +51,8 @@ CaveCrawler::interact() {
                     }
                     distance += 16.0f;
                     done = true;
-                    if(distance >= 48.0f)
-                        break;  //So we dont walk in eternity
+                    if (distance >= 48.0f)
+                        break; // So we dont walk in eternity
                 }
                 // Invalid direction, try a new one
                 if (!done)
