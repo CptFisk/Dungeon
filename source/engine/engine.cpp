@@ -5,7 +5,6 @@
 #include <common/scale.hpp>
 #include <engine/engine.hpp>
 #include <utility/file.hpp>
-#include <utility/scale.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
 
@@ -35,7 +34,7 @@ Engine::~Engine() {
         clearLoadedLevel();
     mGraphics.reset(); // Kill graphics
     // Kill all cute monsters
-    for(auto monster : mActiveMonsters){
+    for (auto monster : mActiveMonsters) {
         delete monster;
     }
     for (auto& [name, monster] : mMonsters)
@@ -96,12 +95,11 @@ Engine::startup() {
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
 
-    //Generate all monster data
+    mPlayer = std::make_unique<Player::Player>();
+    // Generate all monster data
     createMonsters();
     loadLevel("554.map");
     SDL_RenderClear(pRenderer);
-
-    mPlayer = std::make_unique<Player::Player>();
 
     mHealth =
       std::make_unique<Player::Indicator>(mVisibleUI, mPlayerHealth, 36.0f, pRenderer, *GET_ANIMATED("Heart"), *GET_SIMPLE("NumbersWhite"));
@@ -157,14 +155,12 @@ Engine::terminate() {
 
 void
 Engine::click() {
-    const auto calculatedX = mActionManager->mouseX + (mPerspective->mOffset.x / -1.0f);
-    const auto calculatedY = mActionManager->mouseY + (mPerspective->mOffset.y / -1.0f);
-    auto       player      = Utility::getFRectCenter(*pPlayerPosition);
-    auto       angle       = Utility::calculateAngle(player.first, player.second, calculatedX, calculatedY);
-    mPlayerEnergy -= 3;
+    const auto click = SDL_FPoint{ FLOAT(mActionManager->mouseX) + (mPerspective->mOffset.x / -1.0f),
+                                   FLOAT(mActionManager->mouseY) + (mPerspective->mOffset.y / -1.0f) };
+    const auto angle = Utility::getAngle(click, mPlayer->getPlayerCenter());
+    mPlayerEnergy -= 3; // Reduce energy
 
     Objects::typeProjectileStruct setup{ *GET_ANIMATED("Fireball"), *GET_SDL("RedCircle"), angle, 100, 5.0 };
-
     mProjectiles.push_back(new Objects::Projectile(setup, { pPlayerPosition->x, pPlayerPosition->y }, pRenderer, mParticles));
 }
 
@@ -200,10 +196,10 @@ Engine::interact() {
 void
 Engine::mainLoop() {
     mPlayer->spawn(44, 115);
-    mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_BLUE]->spawn(44,115));
-    mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_GREEN]->spawn(44,114));
-    mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_PURPLE]->spawn(44,113));
-    mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_RED]->spawn(44,112));
+    // mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_BLUE]->spawn(44,115));
+    mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_GREEN]->spawn(44, 114));
+    // mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_PURPLE]->spawn(44,113));
+    // mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_RED]->spawn(44,112));
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
     while (mRun) {
