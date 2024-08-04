@@ -10,7 +10,7 @@ namespace Objects {
 struct typeProjectileStruct {
     Graphics::AnimatedTexture* Projectile; // Projectile texture
     SDL_Texture*               Lightning;  // Lightning texture
-    float                      Angle;      // Travel angle
+    double                     Angle;      // Travel angle
     int                        Duration;   // How far until object is destroyed
     float                      Velocity;   // Velocity of object
 };
@@ -41,7 +41,7 @@ class Projectile {
     SDL_FRect                  mCurrentPosition;   // Current position of the projectile
     SDL_FRect                  mLightningPosition; // Current position of light (if used)
     int                        mDamage;
-    float                      mAngle;           // Rotation angle
+    double                     mAngle;           // Rotation angle
     const float                mVelocity;        // Velocity
     int                        mDuration;        // Number of ticks, destroyed on 0
     std::shared_ptr<Particle>  mParticle;        // Reference to the particle engine
