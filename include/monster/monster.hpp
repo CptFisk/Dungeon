@@ -7,10 +7,10 @@ namespace Monster {
 
 class BaseMonster {
   public:
-    BaseMonster(const int&                                                            health,
-                const float&                                                          velocity,
-                SDL_FPoint&                                                           playerCenter,
-                std::function<bool(const SDL_FPoint&, const int&, const Directions&)> checkWalls);
+    BaseMonster(const int&                                                         health,
+                const float&                                                       velocity,
+                SDL_FPoint&                                                        playerCenter,
+                std::function<bool(const SDL_FPoint&, const float&, const float&)> checkWalls);
     BaseMonster(const BaseMonster& other);
     virtual ~BaseMonster();
 
@@ -62,6 +62,6 @@ class BaseMonster {
     void updateReferences();
 
     // Global help functions
-    std::function<bool(const SDL_FPoint&, const int&, const Directions& direction)> fCheckWalls;
+    std::function<bool(const SDL_FPoint&, const float&, const float&)> fCheckWalls;
 };
 }

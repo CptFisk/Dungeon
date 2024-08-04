@@ -143,25 +143,10 @@ Engine::loadLevel(const std::string& filename) {
 }
 
 bool
-Engine::movementWalls(const SDL_FPoint& other, const int& threshold, const Directions& direction) {
-    auto posX = INT(other.x);
-    auto posY = INT(other.y);
-    switch (direction) {
-        case NORTH:
-            posY -= threshold;
-            break;
-        case EAST:
-            posX += threshold;
-            break;
-        case SOUTH:
-            posY += threshold;
-            break;
-        case WEST:
-            posX -= threshold;
-            break;
-        default:
-            break;
-    }
+Engine::movementWalls(const SDL_FPoint& other, const float& x, const float& y) {
+    auto posX = INT(other.x + x);
+    auto posY = INT(other.y + y);
+
     // We divide by 16 to get a coordinate rather than pixel
     const auto index = Common::getIndex(posX / 16, posY / 16, MAP_WIDTH);
 

@@ -1,10 +1,10 @@
 #include <monster/monster.hpp>
 
 namespace Monster {
-BaseMonster::BaseMonster(const int&                                                            health,
-                         const float&                                                          velocity,
-                         SDL_FPoint&                                                           playerCenter,
-                         std::function<bool(const SDL_FPoint&, const int&, const Directions&)> checkWalls)
+BaseMonster::BaseMonster(const int&                                                         health,
+                         const float&                                                       velocity,
+                         SDL_FPoint&                                                        playerCenter,
+                         std::function<bool(const SDL_FPoint&, const float&, const float&)> checkWalls)
   : mInflictDamage(true)
   , mHealth(health)
   , mVelocity(velocity)

@@ -8,7 +8,7 @@ class CaveCrawler : public BaseMonster {
     CaveCrawler(const int&                                                            health,
                 const float&                                                          velocity,
                 SDL_FPoint&                                                           playerCenter,
-                std::function<bool(const SDL_FPoint&, const int&, const Directions&)> checkWalls);
+                std::function<bool(const SDL_FPoint&, const float&, const float&)> checkWalls);
     ~CaveCrawler();
 
     BaseMonster* spawn(const float& x, const float& y) const override;

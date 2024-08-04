@@ -7,10 +7,11 @@ namespace Monster {
  */
 class Slime : public BaseMonster {
   public:
-    Slime(const int&                                                            health,
-          const float&                                                          velocity,
-          SDL_FPoint&                                                           playerCenter,
-          std::function<bool(const SDL_FPoint&, const int&, const Directions&)> checkWalls);
+    Slime(const int&                                                         health,
+          const float&                                                       velocity,
+          const float&                                                         radius,
+          SDL_FPoint&                                                        playerCenter,
+          std::function<bool(const SDL_FPoint&, const float&, const float&)> checkWalls);
     ~Slime();
 
     [[nodiscard]] BaseMonster* spawn(const float& x, const float& y) const override;
@@ -20,9 +21,7 @@ class Slime : public BaseMonster {
   private:
     const float MONSTER_WIDTH  = 12.0f;
     const float MONSTER_HEIGHT = 10.0f;
-    int         mTicks; // Current ticks
-    const int   IDLE;
-    const int   MOVE;
+    const float   mRadius; // How close the player needs to be to trigger monster
 };
 
 }

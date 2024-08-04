@@ -1,10 +1,10 @@
 #include <engine/engine.hpp>
 #include <monster/caveCrawler.hpp>
 namespace Monster {
-CaveCrawler::CaveCrawler(const int&                                                            health,
-                         const float&                                                          velocity,
-                         SDL_FPoint&                                                           playerCenter,
-                         std::function<bool(const SDL_FPoint&, const int&, const Directions&)> checkWalls)
+CaveCrawler::CaveCrawler(const int&                                                         health,
+                         const float&                                                       velocity,
+                         SDL_FPoint&                                                        playerCenter,
+                         std::function<bool(const SDL_FPoint&, const float&, const float&)> checkWalls)
   : mTicks(0)
   , BaseMonster(health, velocity, playerCenter, checkWalls) {}
 
@@ -32,9 +32,30 @@ CaveCrawler::interact() {
             auto dir        = getRandomDirection();
             auto tempCenter = mMonsterCenter;
             bool done       = false;
+            float  x          = 0.0f;
+            float  y          = 0.0f;
             do {
+                switch (dir) {
+                    case NORTH:
+                        y = -16.0f;
+                        x = 0.0f;
+                        break;
+                    case EAST:
+                        x = 16.0f;
+                        y = 0.0f;
+                        break;
+                    case SOUTH:
+                        y = 16.0f;
+                        x = 0.0f;
+                        break;
+                    case WEST:
+                        x = -16.0f;
+                        y = 0.0f;
+                        break;
+                }
+
                 // Randomize a new direction
-                while (fCheckWalls(tempCenter, 16.0f, dir)) {
+                while (fCheckWalls(tempCenter, x, y)) {
                     switch (dir) {
                         case NORTH:
                             tempCenter.y -= 16.0f;
@@ -52,7 +73,7 @@ CaveCrawler::interact() {
                     distance += 16.0f;
                     done = true;
                     if (distance >= 48.0f)
-                        break; // So we dont walk in eternity
+                        break; // So we don't walk in eternity
                 }
                 // Invalid direction, try a new one
                 if (!done)

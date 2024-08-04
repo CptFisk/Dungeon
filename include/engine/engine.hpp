@@ -40,7 +40,7 @@ class Engine {
     void      resetPlayerMomentum();
     void      interact();
     void      setDarkness(const unsigned int& v);
-    bool      movementWalls(const SDL_FPoint& other, const int& threshold, const Directions& direction);
+    bool      movementWalls(const SDL_FPoint& other, const float& x, const float& y);
     SDL_Event mEvent;
 
   protected:
@@ -106,7 +106,7 @@ class Engine {
     int           mPlayerEnergy;
 
     // Monster blueprints
-    void createMonsters();
+    void                                                     createMonsters();
     std::unordered_map<Monster::Type, Monster::BaseMonster*> mMonsters;
     std::vector<Monster::BaseMonster*>                       mActiveMonsters;
 

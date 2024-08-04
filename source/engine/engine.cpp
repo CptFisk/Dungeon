@@ -196,10 +196,6 @@ Engine::interact() {
 void
 Engine::mainLoop() {
     mPlayer->spawn(44, 115);
-    // mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_BLUE]->spawn(44,115));
-    mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_GREEN]->spawn(44, 114));
-    // mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_PURPLE]->spawn(44,113));
-    // mActiveMonsters.push_back(mMonsters[Monster::Type::SLIME_RED]->spawn(44,112));
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
     while (mRun) {
