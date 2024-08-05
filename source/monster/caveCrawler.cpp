@@ -88,16 +88,29 @@ CaveCrawler::interact() {
         case Objects::MOVE:
             switch (mDirection) {
                 case NORTH:
-                    updatePosition(0.0f, -mVelocity);
+                    if(fCheckWalls(mMonsterCenter, 0, -mVelocity))
+                        updatePosition(0.0f, -mVelocity);
+                    else
+                        mState = Objects::IDLE;
                     break;
                 case EAST:
-                    updatePosition(mVelocity, 0.0f);
+                    if(fCheckWalls(mMonsterCenter, mVelocity, 0.0f))
+                        updatePosition(mVelocity, 0.0f);
+                    else
+                        mState = Objects::IDLE;
                     break;
                 case SOUTH:
-                    updatePosition(0.0f, mVelocity);
+                    if(fCheckWalls(mMonsterCenter, 0.0f, mVelocity))
+                        updatePosition(0.0f, mVelocity);
+                    else
+                        mState = Objects::IDLE;
                     break;
                 case WEST:
-                    updatePosition(-mVelocity, 0.0f);
+                    if(fCheckWalls(mMonsterCenter, -mVelocity,0.0f))
+                        updatePosition(-mVelocity,0.0f);
+                    else
+                        mState = Objects::IDLE;
+                    break;
                     break;
             }
             if ((distance -= mVelocity) <= 0) {
