@@ -5,8 +5,7 @@ CaveCrawler::CaveCrawler(const int&                                             
                          const float&                                                       velocity,
                          SDL_FPoint&                                                        playerCenter,
                          std::function<bool(const SDL_FPoint&, const float&, const float&)> checkWalls)
-  : mTicks(0)
-  , BaseMonster(health, velocity, playerCenter, checkWalls) {}
+  : BaseMonster(health, velocity, playerCenter, checkWalls) {}
 
 CaveCrawler::~CaveCrawler() = default;
 
@@ -29,11 +28,11 @@ CaveCrawler::interact() {
     static float distance;
     switch (mState) {
         case Objects::IDLE: {
-            auto dir        = getRandomDirection();
-            auto tempCenter = mMonsterCenter;
-            bool done       = false;
-            float  x          = 0.0f;
-            float  y          = 0.0f;
+            auto  dir        = getRandomDirection();
+            auto  tempCenter = mMonsterCenter;
+            bool  done       = false;
+            float x          = 0.0f;
+            float y          = 0.0f;
             do {
                 switch (dir) {
                     case NORTH:
@@ -52,6 +51,8 @@ CaveCrawler::interact() {
                         x = -16.0f;
                         y = 0.0f;
                         break;
+                    default:
+                        break;
                 }
 
                 // Randomize a new direction
@@ -68,6 +69,8 @@ CaveCrawler::interact() {
                             break;
                         case WEST:
                             tempCenter.x -= 16.0f;
+                            break;
+                        default:
                             break;
                     }
                     distance += 16.0f;
@@ -88,35 +91,38 @@ CaveCrawler::interact() {
         case Objects::MOVE:
             switch (mDirection) {
                 case NORTH:
-                    if(fCheckWalls(mMonsterCenter, 0, -mVelocity))
+                    if (fCheckWalls(mMonsterCenter, 0, -mVelocity))
                         updatePosition(0.0f, -mVelocity);
                     else
                         mState = Objects::IDLE;
                     break;
                 case EAST:
-                    if(fCheckWalls(mMonsterCenter, mVelocity, 0.0f))
+                    if (fCheckWalls(mMonsterCenter, mVelocity, 0.0f))
                         updatePosition(mVelocity, 0.0f);
                     else
                         mState = Objects::IDLE;
                     break;
                 case SOUTH:
-                    if(fCheckWalls(mMonsterCenter, 0.0f, mVelocity))
+                    if (fCheckWalls(mMonsterCenter, 0.0f, mVelocity))
                         updatePosition(0.0f, mVelocity);
                     else
                         mState = Objects::IDLE;
                     break;
                 case WEST:
-                    if(fCheckWalls(mMonsterCenter, -mVelocity,0.0f))
-                        updatePosition(-mVelocity,0.0f);
+                    if (fCheckWalls(mMonsterCenter, -mVelocity, 0.0f))
+                        updatePosition(-mVelocity, 0.0f);
                     else
                         mState = Objects::IDLE;
                     break;
+                default:
                     break;
             }
             if ((distance -= mVelocity) <= 0) {
                 mState = Objects::IDLE;
             };
             updateReferences();
+            break;
+        default:
             break;
     }
 }
