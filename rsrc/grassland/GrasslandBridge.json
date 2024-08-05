@@ -1,0 +1,63 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/grassland/GrasslandBridge.png",
+        "Name": "GrasslandBridgeBigV",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 48,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/grassland/GrasslandBridge.png",
+        "Name": "GrasslandBridgeMediumV",
+        "Row": 1,
+        "Column": 3,
+        "Length": 1,
+        "Height": 48,
+        "Width": 32
+      },
+      {
+        "File": "rsrc/grassland/GrasslandBridge.png",
+        "Name": "GrasslandBridgeSmallV",
+        "Row": 1,
+        "Column": 7,
+        "Length": 1,
+        "Height": 48,
+        "Width": 16
+      },
+      {
+        "File": "rsrc/grassland/GrasslandBridge.png",
+        "Name": "GrasslandBridgeBigH",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 96,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/grassland/GrasslandBridge.png",
+        "Name": "GrasslandBridgeMediumH",
+        "Row": 2,
+        "Column": 2,
+        "Length": 1,
+        "Height": 64,
+        "Width": 48
+      },
+      {
+        "File": "rsrc/grassland/GrasslandBridge.png",
+        "Name": "GrasslandBridgeSmallH",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 32,
+        "Width": 48
+      }
+    ]
+  }
+}
