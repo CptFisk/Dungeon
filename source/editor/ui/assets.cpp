@@ -29,5 +29,8 @@ Editor::uiAssets(typeWindowCovering& area, bool& open, Level::typeAssets& assets
         area = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::End();
     }
+
+    if (!open)
+        hideElement("Assets");
 }
 }

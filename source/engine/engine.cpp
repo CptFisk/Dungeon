@@ -98,7 +98,7 @@ Engine::startup() {
     mPlayer = std::make_unique<Player::Player>();
     // Generate all monster data
     createMonsters();
-    loadLevel("554.map");
+    loadLevel("555.map");
     SDL_RenderClear(pRenderer);
 
     mHealth =
@@ -195,7 +195,7 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
-    mPlayer->spawn(44, 115);
+    mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
     while (mRun) {
