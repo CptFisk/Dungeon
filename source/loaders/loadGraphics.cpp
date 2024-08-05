@@ -1,9 +1,13 @@
-#include <common/jsonAnimation.hpp>
-#include <common/jsonHeader.hpp>
 #include <graphics/animatedTexture.hpp>
 #include <graphics/graphics.hpp>
-#include <graphics/types/baseTexture.hpp>
-#include <graphics/types/generatedTexture.hpp>
+
+#include <common/jsonBaseTexture.hpp>
+#include <common/jsonGeneratedTexture.hpp>
+#include <common/jsonAnimation.hpp>
+#include <common/jsonHeader.hpp>
+#include <common/jsonTextTexture.hpp>
+#include <common/jsonNumberTexture.hpp>
+
 #include <graphics/types/simpleTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
 #include <iostream>
