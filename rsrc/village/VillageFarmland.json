@@ -33,7 +33,7 @@
       },
       {
         "File": "rsrc/village/VillageFarmland.png",
-        "Name": "VillageFarmlandVerticalWheat",
+        "Name": "VillageFarmlandHorizontalWheat",
         "Row": 1,
         "Column": 2,
         "Length": 1,
