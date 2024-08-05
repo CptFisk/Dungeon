@@ -1,0 +1,19 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/environment/StoneSword.png",
+    "Objects": [
+      {
+        "Name": "StoneSword",
+        "Column": 1,
+        "Row": 1,
+        "Length": 8,
+        "Ticks": 10,
+        "Width": 48,
+        "Height": 32
+      }
+    ]
+  }
+}
