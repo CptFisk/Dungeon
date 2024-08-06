@@ -1,0 +1,27 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 19,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "gameDebug",
+            "description": "Debug build for game",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "BUILD_GAME": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "Game debug",
+            "hidden": true,
+            "configurePreset": "gameDebug"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.20)
 project("Veras adventure")
 option(BUILD_GAME "Build game" ON)
 

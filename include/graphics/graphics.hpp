@@ -23,22 +23,7 @@ class Graphics {
     explicit Graphics(SDL_Renderer* renderer);
     ~Graphics();
     void init();
-    void generateSquare(const std::string& name,
-                        const int&         width,
-                        const int&         height,
-                        const Uint8&       r,
-                        const Uint8&       g,
-                        const Uint8&       b,
-                        const Uint8&       a);
-    void generateCircle(const std::string& name,   // Name of texture
-                        const float&       radius, // Radius
-                        const Uint8&       r1,     // Start red color
-                        const Uint8&       r2,     // End red color
-                        const Uint8&       g1,     // Start green color
-                        const Uint8&       g2,     // End green color
-                        const Uint8&       b1,     // Start blue color
-                        const Uint8&       b2,     // End blue color
-                        const Uint8&       a);           // Alpha channel
+
 
     /**
      * @brief Generate a text as texture
@@ -100,11 +85,30 @@ class Graphics {
     [[nodiscard]] TextureTypes getTextureType(const std::string& texture);
 
   protected:
-    void loadGraphics(const std::string& folderPath);
-    void loadJSON(const std::string& fileName); // Load a graphical JSON
-    void loadSimpleTexture(const std::string& jsonString);
-    void loadAnimatedTexture(const std::string& jsonString, const TextureTypes& type);
+    void loadGraphics(const std::string& folderPath);    // Start function
+    void loadJSON(const std::string& fileName);          // Load the header and select sub function
+    void loadBaseTexture(const std::string& jsonString); // Sub function for base-texture
+    void loadAnimatedTexture(const std::string& jsonString);
+    void loadLightningTexture(const std::string& jsonString);   //Sub function for lightning effects
     void loadGeneratedTexture(const std::string& jsonString);
+
+    //Functions to generate shapes
+    void generateSquare(const std::string& name,
+                        const int&         width,
+                        const int&         height,
+                        const Uint8&       r,
+                        const Uint8&       g,
+                        const Uint8&       b,
+                        const Uint8&       a);
+    void generateCircle(const std::string& name,   // Name of texture
+                        const float&       radius, // Radius
+                        const Uint8&       r1,     // Start red color
+                        const Uint8&       r2,     // End red color
+                        const Uint8&       g1,     // Start green color
+                        const Uint8&       g2,     // End green color
+                        const Uint8&       b1,     // Start blue color
+                        const Uint8&       b2,     // End blue color
+                        const Uint8&       a);           // Alpha channel
 
   private:
     std::unordered_map<std::string, typeTextureInfo> mGraphics; // Storage for all textures
