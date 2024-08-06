@@ -1,4 +1,5 @@
 #include <common/jsonAnimation.hpp>
+#include <error.hpp>
 #include <graphics/graphics.hpp>
 #include <nlohmann/json.hpp>
 
@@ -10,8 +11,7 @@ Graphics::loadAnimatedTexture(const std::string& jsonString) {
     try {
         jsonData = nlohmann::json::parse(jsonString)[nlohmann::json::json_pointer("/Data")].get<Common::typeAnimatedTextureData>();
     } catch (const std::exception& e) {
-        std::cerr << e.what();
-        throw std::runtime_error(e.what());
+        ASSERT_WITH_MESSAGE(false, e.what());
     }
     for (const auto& data : jsonData.Objects) {
         if (mGraphics.find(data.Name) == mGraphics.end()) {
