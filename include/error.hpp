@@ -1,7 +1,10 @@
 #pragma once
 #include <assert.h>
+#include <iostream>
 
-#define ASSERT_WITH_MESSAGE(condition, message) \
-   do { \
-      assert(condition && #message); \
-   } while (0);
+// Custom assert macro with a message
+#define ASSERT_WITH_MESSAGE(condition, message)                       \
+    if (condition) {                                                  \
+        std::cerr << #condition << " " << __FILE__ << " " << message; \
+        std::abort();                                                 \
+    }

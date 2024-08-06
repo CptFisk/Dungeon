@@ -49,16 +49,16 @@ Graphics::generateSquare(const std::string& name,
                          const Uint8&       b,
                          const Uint8&       a) {
     SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
-    ASSERT_WITH_MESSAGE(surface == nullptr, "Surface is nullptr")
-    ASSERT_WITH_MESSAGE(SDL_FillRect(surface, nullptr, SDL_MapRGB(surface->format, r, g, b)) != 0, "Cant fill rectangle")
+    ASSERT_WITH_MESSAGE(surface == nullptr, "Surface is nullptr");
+    ASSERT_WITH_MESSAGE(SDL_FillRect(surface, nullptr, SDL_MapRGB(surface->format, r, g, b)) != 0, "Cant fill rectangle");
     auto squareTexture = SDL_CreateTextureFromSurface(pRenderer, surface);
-    ASSERT_WITH_MESSAGE(squareTexture == nullptr, "squareTexture is nullptr")
+    ASSERT_WITH_MESSAGE(squareTexture == nullptr, "squareTexture is nullptr");
 
-    ASSERT_WITH_MESSAGE(SDL_SetTextureBlendMode(squareTexture, SDL_BLENDMODE_BLEND) != 0, "Cant set blend-mode")
-    ASSERT_WITH_MESSAGE(SDL_SetTextureAlphaMod(squareTexture, a) != 0, "Cant apply alpha channel")
+    ASSERT_WITH_MESSAGE(SDL_SetTextureBlendMode(squareTexture, SDL_BLENDMODE_BLEND) != 0, "Cant set blend-mode");
+    ASSERT_WITH_MESSAGE(SDL_SetTextureAlphaMod(squareTexture, a) != 0, "Cant apply alpha channel");
     SDL_FreeSurface(surface);
 
-    ASSERT_WITH_MESSAGE(SDL_RenderCopy(pRenderer, squareTexture, nullptr, nullptr) != 0, "Cant render texture")
+    ASSERT_WITH_MESSAGE(SDL_RenderCopy(pRenderer, squareTexture, nullptr, nullptr) != 0, "Cant render texture");
     addTexture<SDL_Texture*>(name, squareTexture, TextureTypes::GeneratedTexture);
 }
 
