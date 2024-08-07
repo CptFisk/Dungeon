@@ -24,9 +24,9 @@ add_library(
 
         ${CMAKE_SOURCE_DIR}/source/graphics/graphics.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/simpleTexture.cpp
+        ${CMAKE_SOURCE_DIR}/source/graphics/types/animatedTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/numbers.cpp
-        ${CMAKE_SOURCE_DIR}/source/graphics/animatedTexture.cpp
-
+        
         ${CMAKE_SOURCE_DIR}/source/loaders/loadGraphics.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadBaseTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadAnimatedTexture.cpp

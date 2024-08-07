@@ -2,11 +2,12 @@
 #include <SDL.h>
 #include <common/structures.hpp>
 #include <global.hpp>
-#include <graphics/animatedTexture.hpp>
+#include <graphics/types/animatedTexture.hpp>
+#include <level/types/coordinate.hpp>
 #include <map>
 #include <object/objects.hpp>
-#include <level/types/coordinate.hpp>
 #include <utility>
+
 
 namespace Player {
 class Player {

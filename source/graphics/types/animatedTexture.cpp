@@ -1,4 +1,4 @@
-#include <graphics/animatedTexture.hpp>
+#include <graphics/types/animatedTexture.hpp>
 
 namespace Graphics {
 AnimatedTexture::AnimatedTexture()

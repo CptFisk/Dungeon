@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <common/scale.hpp>
-#include <graphics/animatedTexture.hpp>
+#include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/simpleTexture.hpp>
 
 namespace Player {
@@ -26,10 +26,10 @@ class Indicator {
 
   protected:
   private:
-    const SDL_FRect    mPositionIcon;      // Position of icon
-    const SDL_FRect    mPositionNumber[3]; // Position for numbers
-    bool&              mVisible;           // If the UI should be visible
-    int&               mValue;             // Players current health
+    const SDL_FRect mPositionIcon;      // Position of icon
+    const SDL_FRect mPositionNumber[3]; // Position for numbers
+    bool&           mVisible;           // If the UI should be visible
+    int&            mValue;             // Players current health
 
     Graphics::AnimatedTexture*  pIconTexture; // Texture for the icon
     Graphics::typeSimpleTexture mNumbers;     // Textures for numbers

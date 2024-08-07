@@ -2,14 +2,15 @@
 #include <common/jsonHeader.hpp>
 #include <common/jsonNumberTexture.hpp>
 #include <common/jsonTextTexture.hpp>
-#include <graphics/animatedTexture.hpp>
 #include <graphics/graphics.hpp>
+#include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/simpleTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <utility/file.hpp>
 #include <utility/scale.hpp>
+
 
 using json = nlohmann::json;
 
@@ -53,6 +54,5 @@ Graphics::loadJSON(const std::string& fileName) {
             break;
     }
 }
-
 
 }

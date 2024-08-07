@@ -2,8 +2,8 @@
 #include <SDL.h>
 #include <any>
 #include <common/include.hpp>
-#include <graphics/animatedTexture.hpp>
 #include <graphics/structures.hpp>
+#include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/simpleTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
 #include <iostream>
@@ -23,7 +23,6 @@ class Graphics {
     explicit Graphics(SDL_Renderer* renderer);
     ~Graphics();
     void init();
-
 
     /**
      * @brief Generate a text as texture
@@ -89,10 +88,11 @@ class Graphics {
     void loadJSON(const std::string& fileName);          // Load the header and select sub function
     void loadBaseTexture(const std::string& jsonString); // Sub function for base-texture
     void loadAnimatedTexture(const std::string& jsonString);
-    void loadLightningTexture(const std::string& jsonString);   //Sub function for lightning effects
+    void loadLightningTexture(const std::string& jsonString); // Sub function for lightning effects
     void loadGeneratedTexture(const std::string& jsonString);
+    void loadTextTexture(const std::string& jsonString); // Sub function for text textures
 
-    //Functions to generate shapes
+    // Functions to generate shapes
     void generateSquare(const std::string& name,
                         const int&         width,
                         const int&         height,

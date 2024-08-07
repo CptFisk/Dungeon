@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <common/structures.hpp>
-#include <graphics/animatedTexture.hpp>
+#include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/simpleTexture.hpp>
 #include <mutex>
 #include <thread>
