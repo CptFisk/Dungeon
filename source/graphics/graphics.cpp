@@ -4,7 +4,7 @@
 
 namespace Graphics {
 Graphics::Graphics(SDL_Renderer* renderer)
-  : pRenderer(renderer){}
+  : pRenderer(renderer) {}
 
 void
 Graphics::updateAnimatedTexture() {
@@ -14,7 +14,7 @@ Graphics::updateAnimatedTexture() {
 }
 
 void
-Graphics::updateLightningTexture(){
+Graphics::updateLightningTexture() {
     for (auto& texture : mLightningTextures) {
         texture->updateTexture();
     }
@@ -33,7 +33,7 @@ Graphics::~Graphics() {
                 SDL_DestroyTexture(*getTexture<SDL_Texture*>(name));
                 break;
             case TextureTypes::BaseTexture:
-                SDL_DestroyTexture(getTexture<typeSimpleTexture>(name)->Texture);
+                SDL_DestroyTexture(getTexture<typeSimpleTexture>(name)->getTexture());
                 break;
         }
     }
@@ -75,13 +75,12 @@ Graphics::generateText(std::string text, const int& size) {
     // Set render target to texture instead of screen
     SDL_SetRenderTarget(pRenderer, texture);
 
-    auto alphabet = getTexture<typeSimpleTexture>("LettersWhite")->Texture;
-    auto numbers  = getTexture<typeSimpleTexture>("NumbersWhite")->Texture;
+    auto alphabet = getTexture<typeSimpleTexture>("LettersWhite")->getTexture();
+    auto numbers  = getTexture<typeSimpleTexture>("NumbersWhite")->getTexture();
 
     int       pos         = 0;
-    SDL_Rect selector    = { 0, 0, 8, 8 };
+    SDL_Rect  selector    = { 0, 0, 8, 8 };
     SDL_FRect destination = { 0, 0, static_cast<float>(size), static_cast<float>(size) };
-
 
     for (const auto& c : text) {
         destination.x = static_cast<float>(pos++) * size;

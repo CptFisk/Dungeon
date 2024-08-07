@@ -8,7 +8,7 @@ Number::Number(std::pair<float, float>      position,
                const float&                 scale)
   : mTicks(0)
   , MAX_TICKS(visibility)
-  , pTexture(texture.Texture) {
+  , pTexture(texture.getTexture()) {
     // All is prepared, now starting to calculate
     auto numbers = Utility::splitNumbers(value);
     int  pos     = 0; // Current position

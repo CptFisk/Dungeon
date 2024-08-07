@@ -11,7 +11,7 @@ typeSimpleTexture::typeSimpleTexture(SDL_Texture* texture, const int& w, const i
   , Width(w)
   , Height(h) {}
 
-SDL_Texture*
+SDL_Texture*&
 typeSimpleTexture::getTexture() {
     return Texture;
 }
@@ -28,7 +28,7 @@ typeSimpleTexture::operator[](size_t n) const {
 }
 
 SDL_Rect&
-typeSimpleTexture::getView(size_t n){
+typeSimpleTexture::getView(size_t n) {
     return Views[n];
 }
 

@@ -27,7 +27,7 @@ Indicator::draw() {
         int pos = 0;
         if (mValue > 0 && mValue < 999) {
             for (const auto& n : Utility::splitNumbers(mValue))
-                SDL_RenderCopyF(pRenderer, mNumbers.Texture, &mNumbers.getView(n), &mPositionNumber[pos++]);
+                SDL_RenderCopyF(pRenderer, mNumbers.getTexture(), &mNumbers.getView(n), &mPositionNumber[pos++]);
         }
     }
 }
