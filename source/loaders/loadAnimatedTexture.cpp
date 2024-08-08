@@ -21,6 +21,7 @@ Graphics::loadAnimatedTexture(const std::string& jsonString) {
                 const auto offset = (data.Column - 1) * data.Width;
                 animation->addViewport(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), (data.Width), (data.Height) });
             }
+            animation->addViewportDone();
             addTexture<AnimatedTexture*>(data.Name, animation, TextureTypes::AnimatedTexture);
         }
     }
