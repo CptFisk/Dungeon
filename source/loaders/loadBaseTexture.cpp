@@ -14,13 +14,13 @@ Graphics::loadBaseTexture(const std::string& jsonString) {
     }
 
     for (const auto& data : jsonData.Objects) {
-        auto base = BaseTexture(Common::loadImage(pRenderer, data.File), data.Width, data.Height);
+        auto texture = new BaseTexture(Common::loadImage(pRenderer, data.File), data.Width, data.Height);
         // Generating viewports
         for (int i = 0; i < data.Length; i++) {
             const auto offset = (data.Column - 1) * data.Width;
-            base.addViewport(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), data.Width, (data.Height) });
+            texture->addViewport(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), data.Width, (data.Height) });
         }
-        addTexture<BaseTexture>(data.Name, base, TextureTypes::BaseTexture);
+        addTexture(data.Name, texture);
     }
 }
 

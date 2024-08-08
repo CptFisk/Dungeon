@@ -100,7 +100,7 @@ Engine::startup() {
     createMonsters();
     loadLevel("555.map");
     SDL_RenderClear(pRenderer);
-
+    /*
     mHealth =
       std::make_unique<Player::Indicator>(mVisibleUI, mPlayerHealth, 36.0f, pRenderer, *GET_ANIMATED("Heart"), *GET_SIMPLE("NumbersWhite"));
     mEnergy =
@@ -146,6 +146,7 @@ Engine::startup() {
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
     // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y, mPlayer->getPlayerCenter());
+    */
 }
 
 void
@@ -159,9 +160,8 @@ Engine::click() {
                                    FLOAT(mActionManager->mouseY) + (mPerspective->mOffset.y / -1.0f) };
     const auto angle = Utility::getAngle(click, mPlayer->getPlayerCenter());
     mPlayerEnergy -= 3; // Reduce energy
-
-    Objects::typeProjectileStruct setup{ *GET_ANIMATED("Fireball"), *GET_SDL("RedCircle"), angle, 100, 5.0 };
-    mProjectiles.push_back(new Objects::Projectile(setup, { pPlayerPosition->x, pPlayerPosition->y }, pRenderer, mParticles));
+    // Objects::typeProjectileStruct setup{ *GET_ANIMATED("Fireball"), *GET_SDL("RedCircle"), angle, 100, 5.0 };
+    // mProjectiles.push_back(new Objects::Projectile(setup, { pPlayerPosition->x, pPlayerPosition->y }, pRenderer, mParticles));
 }
 
 void
@@ -233,10 +233,10 @@ Engine::mainLoop() {
 
 #ifdef DEBUG_MODE
         // Display interaction area
-        mPerspective->render(*GET_SDL("0000FF"), nullptr, mPlayer->getInteractionArea());
+        mPerspective->render(GET_GENERATED("0000FF")->getTexture(), nullptr, mPlayer->getInteractionArea());
         // Display player center
         SDL_FRect middle{ mPlayer->getPlayerCenter().x, mPlayer->getPlayerCenter().y, 1.0f, 1.0f };
-        mPerspective->render(*GET_SDL("A349A4"), nullptr, &middle);
+        mPerspective->render(GET_GENERATED("A349A4")->getTexture(), nullptr, &middle);
 #endif
         monsters();
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
@@ -263,6 +263,7 @@ Engine::mainLoop() {
 
 void
 Engine::projectiles() {
+    /*
     for (auto it = mProjectiles.begin(); it != mProjectiles.end();) {
         bool removed = false;
         (*it)->move(); // Move it
@@ -290,6 +291,7 @@ Engine::projectiles() {
             }
         }
     }
+    */
 }
 
 void

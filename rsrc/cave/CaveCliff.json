@@ -215,7 +215,7 @@
         "File": "rsrc/cave/CaveCliff.png",
         "Name": "CaveCliffBridge",
         "Row": 2,
-        "Column":1,
+        "Column": 1,
         "Length": 1,
         "Height": 96,
         "Width": 64
@@ -224,16 +224,7 @@
         "File": "rsrc/cave/CaveCliff.png",
         "Name": "CaveCliffTunnel",
         "Row": 4,
-        "Column":3,
-        "Length": 1,
-        "Height": 48,
-        "Width": 48
-      },
-      {
-        "File": "rsrc/cave/CaveCliff.png",
-        "Name": "CaveCliffTunnel",
-        "Row": 4,
-        "Column":3,
+        "Column": 3,
         "Length": 1,
         "Height": 48,
         "Width": 48

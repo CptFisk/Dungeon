@@ -96,41 +96,40 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
 
             switch (mGraphics->getTextureType(name)) {
                 case Graphics::TextureTypes::BaseTexture: {
-                    auto texture = GET_SIMPLE(name);
-                    if (texture != nullptr) {
-                        const SDL_FRect destination = SDL_FRect{ x, y, FLOAT(texture->getWidth()), FLOAT(texture->getHeight()) };
-                        const auto&     viewport    = texture->getRandomViewport();
-                        // This is the most basic, apply this texture to all layers
-                        for (auto& layer : segment[index].Layers) {
-                            SDL_SetRenderTarget(pRenderer, layer); // Set render target
-                            SDL_RenderCopyF(pRenderer, texture->getTexture(), &viewport, &destination);
-                        }
+                    auto            texture     = GET_BASE(name);
+                    const SDL_FRect destination = SDL_FRect{ x, y, FLOAT(texture->getWidth()), FLOAT(texture->getHeight()) };
+                    const auto&     viewport    = texture->getRandomViewport();
+                    // This is the most basic, apply this texture to all layers
+                    for (auto& layer : segment[index].Layers) {
+                        SDL_SetRenderTarget(pRenderer, layer); // Set render target
+                        SDL_RenderCopyF(pRenderer, texture->getTexture(), &viewport, &destination);
                     }
+
                 } break;
                 case Graphics::TextureTypes::AnimatedTexture: {
                     auto texture = GET_ANIMATED(name);
-                    if (texture != nullptr) {
-                        const SDL_FRect destination = { x, y, FLOAT((*texture)->getWidth()), FLOAT((*texture)->getHeight()) };
-                        /**
-                         * We start the viewport at 0, then we increment it each time we draw a layer. When we have reached the end of our
-                         * viewports we simply restart. Since we calculated the layers to match the lcm of the frames it should all be fine
-                         */
-                        const auto maxTicks     = (*texture)->getTicks();
-                        const auto maxViewports = (*texture)->getViewports().size() - 1;
-                        int        tick         = 0;
-                        int        viewport     = 0;
-                        for (auto layer : segment[index].Layers) {
-                            if (SDL_SetRenderTarget(pRenderer, layer) != 0) {
-                                std::cerr << SDL_GetError() << std::endl;
-                            }
-                            SDL_RenderCopyF(pRenderer, (*texture)->getTexture(), &(*texture)->getViewport(viewport), &destination);
-                            if (++tick >= maxTicks) {
-                                tick = 0;
-                                if (viewport++ >= maxViewports)
-                                    viewport = 0;
-                            }
+
+                    const SDL_FRect destination = { x, y, FLOAT(texture->getWidth()), FLOAT(texture->getHeight()) };
+                    /**
+                     * We start the viewport at 0, then we increment it each time we draw a layer. When we have reached the end of our
+                     * viewports we simply restart. Since we calculated the layers to match the lcm of the frames it should all be fine
+                     */
+                    const auto maxTicks     = texture->getTicks();
+                    const auto maxViewports = texture->getViewports().size() - 1;
+                    int        tick         = 0;
+                    int        viewport     = 0;
+                    for (auto layer : segment[index].Layers) {
+                        if (SDL_SetRenderTarget(pRenderer, layer) != 0) {
+                            std::cerr << SDL_GetError() << std::endl;
+                        }
+                        SDL_RenderCopyF(pRenderer, texture->getTexture(), &texture->getViewport(viewport), &destination);
+                        if (++tick >= maxTicks) {
+                            tick = 0;
+                            if (viewport++ >= maxViewports)
+                                viewport = 0;
                         }
                     }
+
                 }
 
                 break;
@@ -146,16 +145,15 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                     break;
                 case Graphics::TextureTypes::LightningTexture: {
                     auto texture = GET_ANIMATED(name);
-                    if (texture != nullptr) {
-                        x -= (FLOAT(((*texture)->getWidth() / 2)) - 8.0);
-                        y -= (FLOAT(((*texture)->getHeight() / 2)) - 8.0);
-                        int viewport = 0;
-                        for (auto layer : segment[index].Layers) {
-                            SDL_FRect destination = { x, y, FLOAT((*texture)->getWidth()), FLOAT((*texture)->getHeight()) };
-                            SDL_SetRenderTarget(pRenderer, layer);
-                            SDL_RenderCopyF(pRenderer, (*texture)->getTexture(), &(*texture)->getViewport(viewport++), &destination);
-                        }
+                    x -= (FLOAT((texture->getWidth() / 2)) - 8.0);
+                    y -= (FLOAT((texture->getHeight() / 2)) - 8.0);
+                    int viewport = 0;
+                    for (auto layer : segment[index].Layers) {
+                        SDL_FRect destination = { x, y, FLOAT(texture->getWidth()), FLOAT(texture->getHeight()) };
+                        SDL_SetRenderTarget(pRenderer, layer);
+                        SDL_RenderCopyF(pRenderer, texture->getTexture(), &texture->getViewport(viewport++), &destination);
                     }
+
                 } break;
                 default:
                     std::cerr << "Not supported" << std::endl;

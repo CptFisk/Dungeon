@@ -7,16 +7,13 @@ namespace Engine {
 
 void
 Engine::setDarkness(const unsigned int& v) {
-    if(v == 0){
-        pDarkness = nullptr;    //Destroy link to texture if darkness should be removed
+    if (v == 0) {
+        pDarkness = nullptr; // Destroy link to texture if darkness should be removed
         return;
     }
-    const std::string name = "Shadow" + std::to_string(50);
-    auto texture = GET_SDL(name);
-    if(texture == nullptr)
-        return;
-    pDarkness = *texture;
-
+    const std::string name    = "Shadow" + std::to_string(50);
+    auto              texture = GET_GENERATED(name);
+    pDarkness                 = texture->getTexture();
 }
 
 void

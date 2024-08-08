@@ -2,9 +2,11 @@
 #include <SDL.h>
 #include <any>
 #include <common/include.hpp>
+#include <error.hpp>
 #include <graphics/structures.hpp>
 #include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/baseTexture.hpp>
+#include <graphics/types/generatedTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
 #include <iostream>
 #include <string>
@@ -12,9 +14,11 @@
 #include <unordered_map>
 #include <vector>
 
-#define GET_ANIMATED(VAR) mGraphics->getTexture<Graphics::AnimatedTexture*>(VAR)
-#define GET_SIMPLE(VAR)   mGraphics->getTexture<Graphics::BaseTexture>(VAR)
-#define GET_SDL(VAR)      mGraphics->getTexture<SDL_Texture*>(VAR)
+#define GET_ANIMATED(VAR)  static_cast<Graphics::AnimatedTexture*>(mGraphics->getTexture(VAR))
+#define GET_BASE(VAR)      static_cast<Graphics::BaseTexture*>(mGraphics->getTexture(VAR))
+#define GET_GENERATED(VAR) static_cast<Graphics::GeneratedTexture*>(mGraphics->getTexture(VAR))
+// #define GET_SIMPLE(VAR)   mGraphics->getTexture<Graphics::BaseTexture>(VAR)
+// #define GET_SDL(VAR)      mGraphics->getTexture<SDL_Texture*>(VAR)
 
 namespace Graphics {
 
@@ -36,47 +40,54 @@ class Graphics {
         TextureTypes Type;
     };
 
-    template<typename T>
-    T* getTexture(const std::string& name) {
-        auto it = mGraphics.find(name);
-        if (it != mGraphics.end()) {
-            try {
-                return std::any_cast<T>(&it->second.Texture);
-            } catch (const std::bad_any_cast& e) {
-                std::cerr << name << std::endl;
-                throw std::runtime_error(e.what());
-            }
-        } else
-            std::cerr << "Cant locate " << name << std::endl;
-        return nullptr;
+    Texture* getTexture(const std::string& name) {
+        ASSERT_WITH_MESSAGE(mGraphics.find(name) == mGraphics.end(), name << " dont exist");
+        return mGraphics[name];
     }
 
+    void addTexture(const std::string& name, Texture* texture) {
+        ASSERT_WITH_MESSAGE(mGraphics.find(name) != mGraphics.end(), name << " already exists")
+
+        switch (texture->getType()) {
+            case TextureTypes::AnimatedTexture:
+                mGraphics[name] = texture;
+                break;
+            case TextureTypes::BaseTexture:
+                mGraphics[name] = texture;
+                break;
+            case TextureTypes::GeneratedTexture:
+                mGraphics[name] = texture;
+                break;
+        }
+    }
+    /*
     template<typename T>
     void addTexture(const std::string& name, T texture, TextureTypes type) {
         switch (type) {
             case TextureTypes::AnimatedTexture:
                 mAnimatedTextures.push_back(std::any_cast<AnimatedTexture*>(texture));
-                mGraphics[name] = { texture, type };
+                // mGraphics[name] = { texture };
                 break;
             case TextureTypes::LightningTexture:
                 mLightningTextures.push_back(std::any_cast<AnimatedTexture*>(texture));
-                mGraphics[name] = { texture, type };
+                // mGraphics[name] = { texture };
                 break;
             case TextureTypes::BaseTexture:
             case TextureTypes::GeneratedTexture:
-                mGraphics[name] = { texture, type };
+                // mGraphics[name] = { texture };
             default:
                 break;
         }
     }
+    */
 
     void                                              updateAnimatedTexture();
     void                                              updateLightningTexture();
     std::vector<std::pair<TextureTypes, std::string>> getAllTextureNames() {
         std::vector<std::pair<TextureTypes, std::string>> textures;
-        for (auto& graphic : mGraphics) {
-            if (graphic.second.Type == TextureTypes::BaseTexture || graphic.second.Type == TextureTypes::AnimatedTexture)
-                textures.push_back({ graphic.second.Type, graphic.first });
+        for (auto& [name, graphic] : mGraphics) {
+            if (graphic->getType() == TextureTypes::BaseTexture || graphic->getType() == TextureTypes::AnimatedTexture)
+                textures.push_back({ graphic->getType(), name });
         }
         return textures;
     }
@@ -111,8 +122,8 @@ class Graphics {
                         const Uint8&       a);           // Alpha channel
 
   private:
-    std::unordered_map<std::string, typeTextureInfo> mGraphics; // Storage for all textures
-    SDL_Renderer*                                    pRenderer;
+    std::unordered_map<std::string, Texture*> mGraphics; // Storage for all textures
+    SDL_Renderer*                             pRenderer;
 
     std::vector<AnimatedTexture*> mAnimatedTextures;  // Textures that should be updated cyclic
     std::vector<AnimatedTexture*> mLightningTextures; // Textures that should be updated cyclic

@@ -8,6 +8,7 @@ Engine::createMonsters() {
     auto& playerCenter = mPlayer->getPlayerCenter();
 
     mMonsters[Monster::Type::CAVE_CRAWLER] = new Monster::CaveCrawler(75, 0.2f, playerCenter, checkWall);
+    /*
     mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, *GET_ANIMATED("CaveCrawlerNorth"));
     mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::EAST, *GET_ANIMATED("CaveCrawlerEast"));
     mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, *GET_ANIMATED("CaveCrawlerSouth"));
@@ -61,6 +62,7 @@ Engine::createMonsters() {
     mMonsters[Monster::Type::SLIME_RED]->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, *GET_ANIMATED("SlimeRedSouth"));
     mMonsters[Monster::Type::SLIME_RED]->addAnimatedTexture(Objects::IDLE, Directions::WEST, *GET_ANIMATED("SlimeRedWest"));
     mMonsters[Monster::Type::SLIME_RED]->addAnimatedTexture(Objects::DYING, Directions::ALL, *GET_ANIMATED("SlimeRedDead"));
+    */
 }
 
 };

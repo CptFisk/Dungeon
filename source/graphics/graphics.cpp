@@ -22,7 +22,8 @@ Graphics::updateLightningTexture() {
 
 Graphics::~Graphics() {
     for (auto& [name, data] : mGraphics) {
-        switch (data.Type) {
+        switch (data->getType()) {
+            /*
             case TextureTypes::Text:
                 SDL_DestroyTexture(getTexture<typeTextTexture>(name)->Texture);
                 break;
@@ -37,6 +38,8 @@ Graphics::~Graphics() {
                 SDL_DestroyTexture(getTexture<BaseTexture>(name)->getTexture());
                 break;
         }
+        */
+        }
     }
 }
 
@@ -48,11 +51,12 @@ Graphics::init() {
 TextureTypes
 Graphics::getTextureType(const std::string& texture) {
     auto it = mGraphics.find(texture);
-    return it != mGraphics.end() ? it->second.Type : TextureTypes::Undefined;
+    return it != mGraphics.end() ? it->second->getType() : TextureTypes::Undefined;
 }
 
 typeTextTexture
 Graphics::generateText(std::string text, const int& size) {
+    /*
     int _size; // Internal variable
     if (size < 8.0f) {
         std::cerr << "Size needs to be 8.0 or bigger";
@@ -103,6 +107,7 @@ Graphics::generateText(std::string text, const int& size) {
     auto obj = typeTextTexture{ texture, SDL_FRect{ 0, 10, static_cast<float>(w), static_cast<float>(h) } };
     addTexture<typeTextTexture>(textureName, obj, TextureTypes::Text);
     return obj;
+    */
+    return typeTextTexture{};
 }
-
 }

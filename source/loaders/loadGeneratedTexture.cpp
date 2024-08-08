@@ -59,7 +59,7 @@ Graphics::generateSquare(const std::string& name,
     SDL_FreeSurface(surface);
 
     ASSERT_WITH_MESSAGE(SDL_RenderCopy(pRenderer, squareTexture, nullptr, nullptr) != 0, "Cant render texture");
-    addTexture<SDL_Texture*>(name, squareTexture, TextureTypes::GeneratedTexture);
+    // addTexture<SDL_Texture*>(name, squareTexture, TextureTypes::GeneratedTexture);
 }
 
 void
@@ -115,8 +115,7 @@ Graphics::generateCircle(const std::string& name,   // Name of texture
     if (!circleTexture) {
         std::cerr << "SDL_CreateTextureFromSurface failed: " << SDL_GetError() << std::endl;
     }
-
     SDL_FreeSurface(surface);
-    addTexture<SDL_Texture*>(name, circleTexture, TextureTypes::GeneratedTexture);
+    // addTexture(name, texture);
 }
 }

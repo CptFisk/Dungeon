@@ -52,7 +52,7 @@ Engine::loadLevel(const std::string& filename) {
             pos        = 0;
             layersLeft = false;
         }
-        const auto coords = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
+        const auto coords  = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
         const auto& [x, y] = coords.value();
         if (((it->Type.test(Level::TileType::BASE_TEXTURE) || it->Type.test(Level::TileType::TOP_TEXTURE)) && !it->Base.empty())) {
             const auto id    = INT(it->Base.front());
@@ -91,7 +91,7 @@ Engine::loadLevel(const std::string& filename) {
         // Add transportation up
         if (it->Type.test(Level::TileType::UP)) {
             if (coords.has_value() && mHeader.MapCoordinate.Z > 0) {
-                const auto origin  = mHeader.MapCoordinate;
+                const auto origin = mHeader.MapCoordinate;
                 // Reduce our Z-layer by one
                 Level::type3DMapCoordinate level(origin.X, origin.Y, origin.Z + 1);
                 Level::type2DMapCoordinate destination(x, y + 1);
@@ -104,7 +104,7 @@ Engine::loadLevel(const std::string& filename) {
         // Add transportation down
         if (it->Type.test(Level::TileType::DOWN)) {
             if (coords.has_value() && mHeader.MapCoordinate.Z > 0) {
-                const auto origin  = mHeader.MapCoordinate;
+                const auto origin = mHeader.MapCoordinate;
                 // Reduce our Z-layer by one
                 Level::type3DMapCoordinate level(origin.X, origin.Y, origin.Z - 1);
                 Level::type2DMapCoordinate destination(x, y + 1);
@@ -116,7 +116,7 @@ Engine::loadLevel(const std::string& filename) {
         }
 
         if (Utility::isAnyBitSet((it->Type), std::bitset<32>(MONSTER_BITS))) {
-            //Extract the id
+            // Extract the id
             auto monsterId = static_cast<Monster::Type>(Utility::getBitValue<32, int>(it->Type, 10, 17));
             mActiveMonsters.push_back(mMonsters[monsterId]->spawn(x, y));
             Utility::resetBits(it->Type, std::bitset<32>(MONSTER_BITS));
@@ -127,7 +127,8 @@ Engine::loadLevel(const std::string& filename) {
     } while (!(++it == data.Tiles.Tiles.end() && !layersLeft));
 
     for (const auto& door : data.Doors) {
-        doors.emplace_back(new Objects::Door(door.X, door.Y, *GET_ANIMATED(door.GraphicOpen), *GET_ANIMATED(door.GraphicClosing)));
+        auto t = static_cast<Graphics::AnimatedTexture*>(mGraphics->getTexture(door.GraphicOpen));
+        // doors.emplace_back(new Objects::Door(door.X, door.Y, *GET_ANIMATED(door.GraphicOpen), *GET_ANIMATED(door.GraphicClosing)));
     }
 
     SDL_SetRenderTarget(pRenderer, nullptr);
