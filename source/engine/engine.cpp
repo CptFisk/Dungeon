@@ -105,16 +105,16 @@ Engine::startup() {
       std::make_unique<Player::Indicator>(mVisibleUI, mPlayerHealth, 36.0f, pRenderer, *GET_ANIMATED("Heart"), *GET_SIMPLE("NumbersWhite"));
     mEnergy =
       std::make_unique<Player::Indicator>(mVisibleUI, mPlayerEnergy, 16.0f, pRenderer, *GET_ANIMATED("Bolt"), *GET_SIMPLE("NumbersWhite"));
-
+    */
     // Binding player data
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::NORTH, *GET_ANIMATED("HumanIdleNorth"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::EAST, *GET_ANIMATED("HumanIdleEast"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, *GET_ANIMATED("HumanIdleSouth"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::WEST, *GET_ANIMATED("HumanIdleWest"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::NORTH, *GET_ANIMATED("HumanMovingNorth"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::EAST, *GET_ANIMATED("HumanMovingEast"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, *GET_ANIMATED("HumanMovingSouth"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::WEST, *GET_ANIMATED("HumanMovingWest"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::NORTH, GET_ANIMATED("HumanIdleNorth"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::EAST, GET_ANIMATED("HumanIdleEast"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, GET_ANIMATED("HumanIdleSouth"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::WEST, GET_ANIMATED("HumanIdleWest"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("HumanMovingNorth"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("HumanMovingEast"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, GET_ANIMATED("HumanMovingSouth"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::WEST, GET_ANIMATED("HumanMovingWest"));
 
     mPlayer->setDirection(SOUTH);
     mPlayer->setAction(Objects::State::IDLE);
@@ -122,10 +122,10 @@ Engine::startup() {
     pPlayerTexture  = mPlayer->getTexture();
     pPlayerView     = mPlayer->getTextureViewport();
     pPlayerPosition = mPlayer->getTexturePosition();
-    mParticles      = std::make_shared<Objects::Particle>(*GET_SDL("FAE2C3"), 100, 0.5f, 0.5f);
+
+    mParticles = std::make_shared<Objects::Particle>(GET_GENERATED("FAE2C3")->getTexture(), 100, 0.5f, 0.5f);
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
-    mInterrupts[10]->addFunction([&]() { mGraphics->updateLightningTexture(); });
 
     mInterrupts[10]->addFunction([&]() {
         // Increment layers for top and bottom graphic
@@ -146,7 +146,6 @@ Engine::startup() {
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
     // Setup perspective
     mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y, mPlayer->getPlayerCenter());
-    */
 }
 
 void
@@ -160,8 +159,8 @@ Engine::click() {
                                    FLOAT(mActionManager->mouseY) + (mPerspective->mOffset.y / -1.0f) };
     const auto angle = Utility::getAngle(click, mPlayer->getPlayerCenter());
     mPlayerEnergy -= 3; // Reduce energy
-    // Objects::typeProjectileStruct setup{ *GET_ANIMATED("Fireball"), *GET_SDL("RedCircle"), angle, 100, 5.0 };
-    // mProjectiles.push_back(new Objects::Projectile(setup, { pPlayerPosition->x, pPlayerPosition->y }, pRenderer, mParticles));
+    Objects::typeProjectileStruct setup{ GET_ANIMATED("Fireball"), GET_GENERATED("RedCircle")->getTexture(), angle, 100, 5.0 };
+    mProjectiles.push_back(new Objects::Projectile(setup, { pPlayerPosition->x, pPlayerPosition->y }, pRenderer, mParticles));
 }
 
 void
@@ -248,9 +247,8 @@ Engine::mainLoop() {
         drawNumbers();
 
         drawLevel(mSegments.Lightning, mSegments.CurrentLayerLightning);
-        // mPerspective->render(mSegments.Lightning[0].Layers[0], nullptr, &mSegments.Lightning[0].Position);
-        mHealth->draw();
-        mEnergy->draw();
+        // mHealth->draw();
+        // mEnergy->draw();
 
         present();
 
@@ -263,7 +261,7 @@ Engine::mainLoop() {
 
 void
 Engine::projectiles() {
-    /*
+
     for (auto it = mProjectiles.begin(); it != mProjectiles.end();) {
         bool removed = false;
         (*it)->move(); // Move it
@@ -275,8 +273,10 @@ Engine::projectiles() {
                 it = mProjectiles.erase(it); // Move iterator
                 (*it2)->damageMonster(damage);
                 // Display the damage
+                /*
                 mNumbers.push_back(
                   Graphics::Number({ (*it2)->getPosition()->x, (*it2)->getPosition()->y }, damage, 100, *GET_SIMPLE("NumbersWhite"), 0.5f));
+                  */
                 removed = true;
                 break;
             } else
@@ -291,7 +291,6 @@ Engine::projectiles() {
             }
         }
     }
-    */
 }
 
 void

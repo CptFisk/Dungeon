@@ -51,6 +51,7 @@ class Graphics {
         switch (texture->getType()) {
             case TextureTypes::AnimatedTexture:
                 mGraphics[name] = texture;
+                mAnimatedTextures.push_back(&mGraphics[name]);
                 break;
             case TextureTypes::BaseTexture:
                 mGraphics[name] = texture;
@@ -82,7 +83,6 @@ class Graphics {
     */
 
     void                                              updateAnimatedTexture();
-    void                                              updateLightningTexture();
     std::vector<std::pair<TextureTypes, std::string>> getAllTextureNames() {
         std::vector<std::pair<TextureTypes, std::string>> textures;
         for (auto& [name, graphic] : mGraphics) {
@@ -125,7 +125,7 @@ class Graphics {
     std::unordered_map<std::string, Texture*> mGraphics; // Storage for all textures
     SDL_Renderer*                             pRenderer;
 
-    std::vector<AnimatedTexture*> mAnimatedTextures;  // Textures that should be updated cyclic
-    std::vector<AnimatedTexture*> mLightningTextures; // Textures that should be updated cyclic
+    std::vector<Texture**>         mAnimatedTextures;  // Textures that should be updated cyclic
+    std::vector<AnimatedTexture**> mLightningTextures; // Textures that should be updated cyclic
 };
 }

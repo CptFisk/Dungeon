@@ -8,38 +8,15 @@ Graphics::Graphics(SDL_Renderer* renderer)
 
 void
 Graphics::updateAnimatedTexture() {
-    for (auto& texture : mAnimatedTextures) {
-        texture->updateTexture();
-    }
-}
-
-void
-Graphics::updateLightningTexture() {
-    for (auto& texture : mLightningTextures) {
-        texture->updateTexture();
+    for (auto object : mAnimatedTextures) {
+        static_cast<AnimatedTexture*>(*object)->updateTexture();
     }
 }
 
 Graphics::~Graphics() {
-    for (auto& [name, data] : mGraphics) {
-        switch (data->getType()) {
-            /*
-            case TextureTypes::Text:
-                SDL_DestroyTexture(getTexture<typeTextTexture>(name)->Texture);
-                break;
-            case TextureTypes::AnimatedTexture: {
-                SDL_DestroyTexture((*getTexture<AnimatedTexture*>(name))->getTexture()); // Clear texture
-                delete *getTexture<AnimatedTexture*>(name);
-            } break;
-            case TextureTypes::GeneratedTexture:
-                SDL_DestroyTexture(*getTexture<SDL_Texture*>(name));
-                break;
-            case TextureTypes::BaseTexture:
-                SDL_DestroyTexture(getTexture<BaseTexture>(name)->getTexture());
-                break;
-        }
-        */
-        }
+    for (auto [name, data] : mGraphics) {
+        SDL_DestroyTexture(data->getTexture());
+        delete data;
     }
 }
 

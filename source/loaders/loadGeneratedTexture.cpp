@@ -1,6 +1,7 @@
 #include <common/jsonGeneratedTexture.hpp>
 #include <error.hpp>
 #include <graphics/graphics.hpp>
+#include <graphics/types/generatedTexture.hpp>
 #include <nlohmann/json.hpp>
 #include <utility/scale.hpp>
 
@@ -59,7 +60,8 @@ Graphics::generateSquare(const std::string& name,
     SDL_FreeSurface(surface);
 
     ASSERT_WITH_MESSAGE(SDL_RenderCopy(pRenderer, squareTexture, nullptr, nullptr) != 0, "Cant render texture");
-    // addTexture<SDL_Texture*>(name, squareTexture, TextureTypes::GeneratedTexture);
+    auto texture = new GeneratedTexture(squareTexture, width, height);
+    addTexture(name, texture);
 }
 
 void
@@ -116,6 +118,7 @@ Graphics::generateCircle(const std::string& name,   // Name of texture
         std::cerr << "SDL_CreateTextureFromSurface failed: " << SDL_GetError() << std::endl;
     }
     SDL_FreeSurface(surface);
-    // addTexture(name, texture);
+    auto texture = new GeneratedTexture(circleTexture, INT(radius * 2), INT(radius * 2));
+    addTexture(name, texture);
 }
 }
