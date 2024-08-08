@@ -52,7 +52,7 @@ void
 BaseMonster::addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture) {
     if (pCurrentTexture == nullptr || pCurrentViewport == nullptr) {
         pCurrentTexture  = texture->getTexture();
-        pCurrentViewport = texture->getViewport();
+        pCurrentViewport = texture->getAnimatedViewport();
     }
 
     if (direction == Directions::ALL) {
@@ -109,7 +109,7 @@ BaseMonster::getState() {
 void
 BaseMonster::updateReferences() {
     pCurrentTexture  = mTextures[{ mState, mDirection }]->getTexture();
-    pCurrentViewport = mTextures[{ mState, mDirection }]->getViewport();
+    pCurrentViewport = mTextures[{ mState, mDirection }]->getAnimatedViewport();
 }
 
 }

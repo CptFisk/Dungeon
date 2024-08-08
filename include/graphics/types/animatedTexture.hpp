@@ -1,36 +1,35 @@
 #pragma once
 #include <SDL.h>
+#include <graphics/types/baseTexture.hpp>
 #include <vector>
 
 namespace Graphics {
-class AnimatedTexture {
+class AnimatedTexture : public BaseTexture {
   public:
-    AnimatedTexture();
-    AnimatedTexture(SDL_Texture* texture,  const int& w, const int& h, const int& ticks, const bool& paused);
+    AnimatedTexture(SDL_Texture* texture, const int& w, const int& h, const int& ticks, const bool& paused);
     ~AnimatedTexture();
+    /**
+     * @brief Return the current animated viewport
+     * @return SDL_Rect*
+     */
+    [[nodiscard]] SDL_Rect* getAnimatedViewport();
+    /**
+     * @brief Shall be called after all the viewports is added to finish the process
+     */
+    void addViewportDone();
 
-    const int    Width;   // Texture width
-    const int    Height;  // Texture height
-
-    [[nodiscard]] SDL_Texture*&         getTexture();
-    [[nodiscard]] SDL_Rect*             getViewport();
-    [[nodiscard]] SDL_Rect*             getViewport(const int& pos);
-    void                                addViewport(const SDL_Rect& view);
-    void                                updateTexture();
-    void                                runCycles(const int& cycles);
-    [[nodiscard]] std::vector<SDL_Rect> getViewports();   // Get all the viewports for the animations
-    [[nodiscard]] bool                  done() const;     // Animation is last frame
-    [[nodiscard]] int                   getTicks() const; // Return the maximum number of ticks
+    void               updateTexture();
+    void               runCycles(const int& cycles);
+    [[nodiscard]] bool done() const;     // Animation is last frame
+    [[nodiscard]] int  getTicks() const; // Return the maximum number of ticks
 
   private:
   protected:
-    bool                  mPaused;
-    int                   mView;
-    int                   mCycles;
-    const int             mTicks;
-    int                   mCurrentTicks;
-    SDL_Rect              mCurrentViewport;
-    std::vector<SDL_Rect> mViewports;
-    SDL_Texture*          mTexture;
+    bool      mPaused; // Texture is paused
+    int       mView;
+    int       mCycles;
+    const int mTicks;
+    int       mCurrentTicks;
+    SDL_Rect  mCurrentViewport;
 };
 }

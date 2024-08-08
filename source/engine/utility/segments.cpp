@@ -110,7 +110,7 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                 case Graphics::TextureTypes::AnimatedTexture: {
                     auto texture = GET_ANIMATED(name);
                     if (texture != nullptr) {
-                        const SDL_FRect destination = { x, y, FLOAT((*texture)->Width), FLOAT((*texture)->Height) };
+                        const SDL_FRect destination = { x, y, FLOAT((*texture)->getWidth()), FLOAT((*texture)->getHeight()) };
                         /**
                          * We start the viewport at 0, then we increment it each time we draw a layer. When we have reached the end of our
                          * viewports we simply restart. Since we calculated the layers to match the lcm of the frames it should all be fine
@@ -123,7 +123,7 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                             if (SDL_SetRenderTarget(pRenderer, layer) != 0) {
                                 std::cerr << SDL_GetError() << std::endl;
                             }
-                            SDL_RenderCopyF(pRenderer, (*texture)->getTexture(), &(*texture)->getViewports()[viewport], &destination);
+                            SDL_RenderCopyF(pRenderer, (*texture)->getTexture(), &(*texture)->getViewport(viewport), &destination);
                             if (++tick >= maxTicks) {
                                 tick = 0;
                                 if (viewport++ >= maxViewports)
@@ -147,13 +147,13 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                 case Graphics::TextureTypes::LightningTexture: {
                     auto texture = GET_ANIMATED(name);
                     if (texture != nullptr) {
-                        x -= (FLOAT(((*texture)->Width / 2)) - 8.0);
-                        y -= (FLOAT(((*texture)->Height / 2)) - 8.0);
+                        x -= (FLOAT(((*texture)->getWidth() / 2)) - 8.0);
+                        y -= (FLOAT(((*texture)->getHeight() / 2)) - 8.0);
                         int viewport = 0;
                         for (auto layer : segment[index].Layers) {
-                            SDL_FRect destination = { x, y, FLOAT((*texture)->Width), FLOAT((*texture)->Height) };
+                            SDL_FRect destination = { x, y, FLOAT((*texture)->getWidth()), FLOAT((*texture)->getHeight()) };
                             SDL_SetRenderTarget(pRenderer, layer);
-                            SDL_RenderCopyF(pRenderer, (*texture)->getTexture(), &(*texture)->getViewports()[viewport++], &destination);
+                            SDL_RenderCopyF(pRenderer, (*texture)->getTexture(), &(*texture)->getViewport(viewport++), &destination);
                         }
                     }
                 } break;

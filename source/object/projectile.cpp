@@ -37,12 +37,11 @@ Projectile::getLightning() {
 }
 
 Common::typeDrawDataAngled
-Projectile::getProjectile(){
+Projectile::getProjectile() {
     if (mParticleEnabled && rand() % PARTICLE_CHANCE == 1)
         mParticle->addParticle(mCurrentPosition);
-    return Common::typeDrawDataAngled{pProjectile->getTexture(), pProjectile->getViewport(), &mCurrentPosition, mAngle};
+    return Common::typeDrawDataAngled{ pProjectile->getTexture(), pProjectile->getAnimatedViewport(), &mCurrentPosition, mAngle };
 };
-
 
 void
 Projectile::move() {

@@ -1,50 +1,24 @@
 #include <graphics/types/animatedTexture.hpp>
 
 namespace Graphics {
-AnimatedTexture::AnimatedTexture()
-  : mView(0)
-  , mTicks(0)
-  , mCurrentTicks(0)
-  , mCycles(0)
-  , Width(0)
-  , Height(0)
-  , mCurrentViewport{}
-  , mTexture(nullptr)
-  , mPaused(false) {}
 
 AnimatedTexture::AnimatedTexture(SDL_Texture* texture, const int& w, const int& h, const int& ticks, const bool& paused)
   : mView(0)
   , mCycles(0)
   , mCurrentTicks(0)
-  , mTexture(texture)
-  , mCurrentViewport{}
-  , Width(w)
-  , Height(h)
   , mTicks(ticks)
-  , mPaused(paused) {}
+  , mPaused(paused)
+  , BaseTexture(texture, w, h, TextureTypes::AnimatedTexture) {}
 
-AnimatedTexture::~AnimatedTexture() {
-    SDL_DestroyTexture(mTexture); // Cleaning
-}
-
-SDL_Texture*&
-AnimatedTexture::getTexture() {
-    return mTexture;
-}
+AnimatedTexture::~AnimatedTexture() {}
 
 SDL_Rect*
-AnimatedTexture::getViewport() {
+AnimatedTexture::getAnimatedViewport() {
     return &mCurrentViewport;
 }
 
-SDL_Rect*
-AnimatedTexture::getViewport(const int& pos) {
-    return &mViewports[pos];
-}
-
 void
-AnimatedTexture::addViewport(const SDL_Rect& view) {
-    mViewports.push_back(view);
+AnimatedTexture::addViewportDone() {
     mCurrentViewport = mViewports.front();
 }
 
@@ -67,11 +41,6 @@ AnimatedTexture::updateTexture() {
 void
 AnimatedTexture::runCycles(const int& cycles) {
     mCycles = cycles;
-}
-
-std::vector<SDL_Rect>
-AnimatedTexture::getViewports() {
-    return mViewports;
 }
 
 bool

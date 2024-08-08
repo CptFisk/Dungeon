@@ -55,13 +55,12 @@ class Texture {
     [[nodiscard]] std::vector<SDL_Rect>& getViewports();
 
   protected:
+    std::vector<SDL_Rect> mViewports;
+
   private:
     const int          mHeight;  // Texture Height
     const int          mWidth;   // Texture width
     const TextureTypes mType;    // Texture type
     SDL_Texture*       pTexture; // SDL_Texture
-
-    std::vector<SDL_Rect> mViewports;
 };
-
 }

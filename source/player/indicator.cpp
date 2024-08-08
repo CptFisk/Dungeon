@@ -22,7 +22,7 @@ void
 Indicator::draw() {
     if (mVisible) {
         // Icon
-        SDL_RenderCopyF(pRenderer, pIconTexture->getTexture(), pIconTexture->getViewport(), &mPositionIcon);
+        SDL_RenderCopyF(pRenderer, pIconTexture->getTexture(), pIconTexture->getAnimatedViewport(), &mPositionIcon);
         // Numbers
         int pos = 0;
         if (mValue > 0 && mValue < 999) {

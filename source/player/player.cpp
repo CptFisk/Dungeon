@@ -19,7 +19,7 @@ Player::spawn(const std::pair<uint8_t, uint8_t>& pos, const Directions& directio
 }
 
 void
-Player::spawn(const Level::type2DMapCoordinate& pos, const Directions& direction){
+Player::spawn(const Level::type2DMapCoordinate& pos, const Directions& direction) {
     spawn(pos.X, pos.Y);
 }
 
@@ -66,14 +66,14 @@ Player::addAnimatedTexture(Objects::State action, Directions direction, Graphics
     mTextures[{ action, direction }] = texture;
     if (mCurrentTexture == nullptr || mCurrentViewport == nullptr) {
         mCurrentTexture  = texture->getTexture();
-        mCurrentViewport = texture->getViewport();
+        mCurrentViewport = texture->getAnimatedViewport();
     }
 }
 
 void
 Player::updateReferences() {
     mCurrentTexture  = mTextures[{ mAction, mDirection }]->getTexture();
-    mCurrentViewport = mTextures[{ mAction, mDirection }]->getViewport();
+    mCurrentViewport = mTextures[{ mAction, mDirection }]->getAnimatedViewport();
 }
 
 void
