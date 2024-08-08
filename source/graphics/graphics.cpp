@@ -33,7 +33,7 @@ Graphics::~Graphics() {
                 SDL_DestroyTexture(*getTexture<SDL_Texture*>(name));
                 break;
             case TextureTypes::BaseTexture:
-                SDL_DestroyTexture(getTexture<typeSimpleTexture>(name)->getTexture());
+                // SDL_DestroyTexture(getTexture<typeSimpleTexture>(name)->getTexture());
                 break;
         }
     }
@@ -75,8 +75,8 @@ Graphics::generateText(std::string text, const int& size) {
     // Set render target to texture instead of screen
     SDL_SetRenderTarget(pRenderer, texture);
 
-    auto alphabet = getTexture<typeSimpleTexture>("LettersWhite")->getTexture();
-    auto numbers  = getTexture<typeSimpleTexture>("NumbersWhite")->getTexture();
+    auto alphabet = getTexture<SimpleTexture>("LettersWhite")->getTexture();
+    auto numbers  = getTexture<SimpleTexture>("NumbersWhite")->getTexture();
 
     int       pos         = 0;
     SDL_Rect  selector    = { 0, 0, 8, 8 };

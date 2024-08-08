@@ -1,11 +1,8 @@
 #include <graphics/numbers.hpp>
 #include <utility/math.hpp>
 namespace Graphics {
-Number::Number(std::pair<float, float>      position,
-               const int&                   value,
-               const int&                   visibility,
-               Graphics::typeSimpleTexture& texture,
-               const float&                 scale)
+
+Number::Number(std::pair<float, float> position, const int& value, const int& visibility, SimpleTexture& texture, const float& scale)
   : mTicks(0)
   , MAX_TICKS(visibility)
   , pTexture(texture.getTexture()) {
@@ -16,7 +13,7 @@ Number::Number(std::pair<float, float>      position,
         auto& posX = position.first;
         auto& posY = position.second;
         mPositions.emplace_back(SDL_FRect{ posX + (static_cast<float>(pos++) * 8.0f * scale), posY, 8.0f * scale, 8.0f * scale },
-                                &texture.getView(number));
+                                &texture.getViewport(number));
     }
 }
 

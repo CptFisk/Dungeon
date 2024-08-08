@@ -8,7 +8,7 @@
 
 namespace Graphics {
 struct typeNumbersData {
-    SDL_Texture*                                  Texture; // Texture
+    SDL_Texture*                                 Texture; // Texture
     std::vector<std::pair<SDL_FRect, SDL_Rect*>> Visuals; // Destination and viewport
 };
 
@@ -22,11 +22,7 @@ struct typeNumbersData {
  */
 class Number {
   public:
-    Number(std::pair<float, float>  position,
-           const int&               value,
-           const int&               visibility,
-           typeSimpleTexture&       texture,
-           const float&             scale = 1.0f);
+    Number(std::pair<float, float> position, const int& value, const int& visibility, SimpleTexture& texture, const float& scale = 1.0f);
 
     Number& operator=(const Number& other);
 
@@ -38,7 +34,7 @@ class Number {
     int       mTicks;    // Current ticks
     const int MAX_TICKS; // Maximum ticks
 
-    SDL_Texture*                                  pTexture;   // Reference to "font"
+    SDL_Texture*                                 pTexture;   // Reference to "font"
     std::vector<std::pair<SDL_FRect, SDL_Rect*>> mPositions; // Contains a position and  viewport
 };
 }

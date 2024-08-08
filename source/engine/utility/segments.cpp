@@ -98,8 +98,8 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                 case Graphics::TextureTypes::BaseTexture: {
                     auto texture = GET_SIMPLE(name);
                     if (texture != nullptr) {
-                        const SDL_FRect destination = SDL_FRect{ x, y, FLOAT(texture->Width), FLOAT(texture->Height) };
-                        const auto&     viewport    = texture->getRandomView();
+                        const SDL_FRect destination = SDL_FRect{ x, y, FLOAT(texture->getWidth()), FLOAT(texture->getHeight()) };
+                        const auto&     viewport    = texture->getRandomViewport();
                         // This is the most basic, apply this texture to all layers
                         for (auto& layer : segment[index].Layers) {
                             SDL_SetRenderTarget(pRenderer, layer); // Set render target

@@ -16,12 +16,12 @@ class Indicator {
      * @param scale Game scale factor
      * @param texture Texture
      */
-    Indicator(bool&                              visible,
-              int&                               value,
-              const float&                       distance,
-              SDL_Renderer*                      renderer,
-              Graphics::AnimatedTexture*         texture,
-              const Graphics::typeSimpleTexture& numbers);
+    Indicator(bool&                          visible,
+              int&                           value,
+              const float&                   distance,
+              SDL_Renderer*                  renderer,
+              Graphics::AnimatedTexture*     texture,
+              const Graphics::SimpleTexture& numbers);
     void draw();
 
   protected:
@@ -31,8 +31,8 @@ class Indicator {
     bool&           mVisible;           // If the UI should be visible
     int&            mValue;             // Players current health
 
-    Graphics::AnimatedTexture*  pIconTexture; // Texture for the icon
-    Graphics::typeSimpleTexture mNumbers;     // Textures for numbers
+    Graphics::AnimatedTexture* pIconTexture; // Texture for the icon
+    Graphics::SimpleTexture    mNumbers;     // Textures for numbers
 
     SDL_Renderer* pRenderer; // Reference to renderer
 };

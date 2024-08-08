@@ -2,12 +2,12 @@
 #include <utility/math.hpp>
 
 namespace Player {
-Indicator::Indicator(bool&                              visible,
-                     int&                               value,
-                     const float&                       distance,
-                     SDL_Renderer*                      renderer,
-                     Graphics::AnimatedTexture*         texture,
-                     const Graphics::typeSimpleTexture& numbers)
+Indicator::Indicator(bool&                          visible,
+                     int&                           value,
+                     const float&                   distance,
+                     SDL_Renderer*                  renderer,
+                     Graphics::AnimatedTexture*     texture,
+                     const Graphics::SimpleTexture& numbers)
   : mVisible(visible)
   , mValue(value)
   , pRenderer(renderer)
@@ -27,7 +27,7 @@ Indicator::draw() {
         int pos = 0;
         if (mValue > 0 && mValue < 999) {
             for (const auto& n : Utility::splitNumbers(mValue))
-                SDL_RenderCopyF(pRenderer, mNumbers.getTexture(), &mNumbers.getView(n), &mPositionNumber[pos++]);
+                SDL_RenderCopyF(pRenderer, mNumbers.getTexture(), &mNumbers.getViewport(n), &mPositionNumber[pos++]);
         }
     }
 }
