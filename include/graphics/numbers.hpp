@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <common/scale.hpp>
-#include <graphics/types/simpleTexture.hpp>
+#include <graphics/types/baseTexture.hpp>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -22,7 +22,7 @@ struct typeNumbersData {
  */
 class Number {
   public:
-    Number(std::pair<float, float> position, const int& value, const int& visibility, SimpleTexture& texture, const float& scale = 1.0f);
+    Number(std::pair<float, float> position, const int& value, const int& visibility, BaseTexture& texture, const float& scale = 1.0f);
 
     Number& operator=(const Number& other);
 

@@ -6,12 +6,12 @@ namespace Graphics {
 /**
  * @brief Holds a basic texture and all the available viewports.
  */
-class SimpleTexture : public Texture {
+class BaseTexture : public Texture {
     using Texture::Texture;
 
   public:
-    SimpleTexture(SDL_Texture* texture, const int& w, const int& h);
-    ~SimpleTexture();
+    BaseTexture(SDL_Texture* texture, const int& w, const int& h);
+    ~BaseTexture();
 };
 
 }

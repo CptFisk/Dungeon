@@ -2,7 +2,7 @@
 #include <utility/math.hpp>
 namespace Graphics {
 
-Number::Number(std::pair<float, float> position, const int& value, const int& visibility, SimpleTexture& texture, const float& scale)
+Number::Number(std::pair<float, float> position, const int& value, const int& visibility, BaseTexture& texture, const float& scale)
   : mTicks(0)
   , MAX_TICKS(visibility)
   , pTexture(texture.getTexture()) {

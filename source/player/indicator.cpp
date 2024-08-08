@@ -2,12 +2,12 @@
 #include <utility/math.hpp>
 
 namespace Player {
-Indicator::Indicator(bool&                          visible,
-                     int&                           value,
-                     const float&                   distance,
-                     SDL_Renderer*                  renderer,
-                     Graphics::AnimatedTexture*     texture,
-                     const Graphics::SimpleTexture& numbers)
+Indicator::Indicator(bool&                        visible,
+                     int&                         value,
+                     const float&                 distance,
+                     SDL_Renderer*                renderer,
+                     Graphics::AnimatedTexture*   texture,
+                     const Graphics::BaseTexture& numbers)
   : mVisible(visible)
   , mValue(value)
   , pRenderer(renderer)

@@ -75,8 +75,8 @@ Graphics::generateText(std::string text, const int& size) {
     // Set render target to texture instead of screen
     SDL_SetRenderTarget(pRenderer, texture);
 
-    auto alphabet = getTexture<SimpleTexture>("LettersWhite")->getTexture();
-    auto numbers  = getTexture<SimpleTexture>("NumbersWhite")->getTexture();
+    auto alphabet = getTexture<BaseTexture>("LettersWhite")->getTexture();
+    auto numbers  = getTexture<BaseTexture>("NumbersWhite")->getTexture();
 
     int       pos         = 0;
     SDL_Rect  selector    = { 0, 0, 8, 8 };

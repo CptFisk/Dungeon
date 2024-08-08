@@ -4,7 +4,6 @@
 #include <common/jsonTextTexture.hpp>
 #include <graphics/graphics.hpp>
 #include <graphics/types/animatedTexture.hpp>
-#include <graphics/types/simpleTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
 #include <iostream>
 #include <nlohmann/json.hpp>

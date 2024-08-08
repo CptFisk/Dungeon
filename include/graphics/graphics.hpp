@@ -4,7 +4,7 @@
 #include <common/include.hpp>
 #include <graphics/structures.hpp>
 #include <graphics/types/animatedTexture.hpp>
-#include <graphics/types/simpleTexture.hpp>
+#include <graphics/types/baseTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
 #include <iostream>
 #include <string>
@@ -13,7 +13,7 @@
 #include <vector>
 
 #define GET_ANIMATED(VAR) mGraphics->getTexture<Graphics::AnimatedTexture*>(VAR)
-#define GET_SIMPLE(VAR)   mGraphics->getTexture<Graphics::SimpleTexture>(VAR)
+#define GET_SIMPLE(VAR)   mGraphics->getTexture<Graphics::BaseTexture>(VAR)
 #define GET_SDL(VAR)      mGraphics->getTexture<SDL_Texture*>(VAR)
 
 namespace Graphics {
