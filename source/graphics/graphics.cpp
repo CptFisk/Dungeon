@@ -27,13 +27,14 @@ Graphics::~Graphics() {
                 SDL_DestroyTexture(getTexture<typeTextTexture>(name)->Texture);
                 break;
             case TextureTypes::AnimatedTexture: {
+                SDL_DestroyTexture((*getTexture<AnimatedTexture*>(name))->getTexture()); // Clear texture
                 delete *getTexture<AnimatedTexture*>(name);
             } break;
             case TextureTypes::GeneratedTexture:
                 SDL_DestroyTexture(*getTexture<SDL_Texture*>(name));
                 break;
             case TextureTypes::BaseTexture:
-                // SDL_DestroyTexture(getTexture<typeSimpleTexture>(name)->getTexture());
+                SDL_DestroyTexture(getTexture<BaseTexture>(name)->getTexture());
                 break;
         }
     }
