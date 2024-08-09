@@ -7,6 +7,7 @@
 #include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/baseTexture.hpp>
 #include <graphics/types/generatedTexture.hpp>
+#include <graphics/types/textTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
 #include <iostream>
 #include <string>
@@ -49,15 +50,15 @@ class Graphics {
         ASSERT_WITH_MESSAGE(mGraphics.find(name) != mGraphics.end(), name << " already exists")
 
         switch (texture->getType()) {
-            case TextureTypes::AnimatedTexture:
-                mGraphics[name] = texture;
-                mAnimatedTextures.push_back(&mGraphics[name]);
-                break;
+            case TextureTypes::GeneratedTexture:
             case TextureTypes::BaseTexture:
                 mGraphics[name] = texture;
                 break;
-            case TextureTypes::GeneratedTexture:
+            case TextureTypes::AnimatedTexture:
+            case TextureTypes::LightningTexture:
+            case TextureTypes::Text:
                 mGraphics[name] = texture;
+                mAnimatedTextures.push_back(&mGraphics[name]);
                 break;
         }
     }

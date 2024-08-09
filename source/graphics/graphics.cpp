@@ -9,7 +9,14 @@ Graphics::Graphics(SDL_Renderer* renderer)
 void
 Graphics::updateAnimatedTexture() {
     for (auto object : mAnimatedTextures) {
-        static_cast<AnimatedTexture*>(*object)->updateTexture();
+        switch ((*object)->getType()) {
+            case TextureTypes::AnimatedTexture:
+                static_cast<AnimatedTexture*>(*object)->updateTexture();
+                break;
+            case TextureTypes::Text:
+                static_cast<TextTexture*>(*object)->updateTexture();
+                break;
+        }
     }
 }
 

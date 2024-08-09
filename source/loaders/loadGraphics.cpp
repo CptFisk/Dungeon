@@ -10,7 +10,6 @@
 #include <utility/file.hpp>
 #include <utility/scale.hpp>
 
-
 using json = nlohmann::json;
 
 namespace Graphics {
@@ -50,6 +49,9 @@ Graphics::loadJSON(const std::string& fileName) {
             break;
         case TextureTypes::LightningTexture:
             loadLightningTexture(jsonString);
+            break;
+        case TextureTypes::Text:
+            loadTextTexture(jsonString);
             break;
     }
 }

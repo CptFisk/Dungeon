@@ -17,7 +17,9 @@ class AnimatedTexture : public BaseTexture {
      * @brief Shall be called after all the viewports is added to finish the process
      */
     void addViewportDone();
-
+    /**
+     * @brief Update the animationframe for the texture
+     */
     void               updateTexture();
     void               runCycles(const int& cycles);
     [[nodiscard]] bool done() const;     // Animation is last frame
@@ -26,7 +28,7 @@ class AnimatedTexture : public BaseTexture {
   private:
   protected:
     bool      mPaused; // Texture is paused
-    int       mView;
+    int       mView;   // Selector for viewports
     int       mCycles;
     const int mTicks;
     int       mCurrentTicks;

@@ -1,7 +1,7 @@
 #include <common/jsonTextTexture.hpp>
 #include <error.hpp>
 #include <graphics/graphics.hpp>
-#include <graphics/types/letterTexture.hpp>
+#include <graphics/types/textTexture.hpp>
 #include <nlohmann/json.hpp>
 
 namespace Graphics {
@@ -21,7 +21,7 @@ Graphics::loadTextTexture(const std::string& jsonString) {
         int width;
         int height;
         ASSERT_WITH_MESSAGE(SDL_QueryTexture(image, nullptr, nullptr, &width, &height) != 0, SDL_GetError())
-        auto texture = new LetterTexture(image, width, height, pRenderer, data.Width, data.Height, data.Length);
+        auto texture = new TextTexture(image, width, height, pRenderer, data.Width, data.Height, data.Length, data.Ticks);
         addTexture(data.Name, texture);
     }
 }
