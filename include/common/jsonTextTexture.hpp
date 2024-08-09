@@ -15,7 +15,7 @@ struct typeTextTextureJSON {
     int         Length; // Number of sprites to be read
     int         Height; // Height of texture
     int         Width;  // Width of texture
-
+    int         Ticks;  // Ticks for animation
     typeTextTextureJSON()
       : File{}
       , Name{}
@@ -23,13 +23,14 @@ struct typeTextTextureJSON {
       , Row{}
       , Length{}
       , Height{}
-      , Width{} {}
+      , Width{}
+      , Ticks{} {}
 };
 
 struct typeTextTextureData {
     std::vector<typeTextTextureJSON> Objects;
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeTextTextureJSON, File, Name, Row, Column, Length, Height, Width)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeTextTextureJSON, File, Name, Row, Column, Length, Height, Width, Ticks)
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeTextTextureData, Objects)
 }
