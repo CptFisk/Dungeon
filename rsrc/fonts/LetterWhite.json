@@ -11,7 +11,8 @@
         "Column": 1,
         "Length": 1,
         "Height": 8,
-        "Width": 8
+        "Width": 8,
+        "Ticks": 10
       }
     ]
   }
