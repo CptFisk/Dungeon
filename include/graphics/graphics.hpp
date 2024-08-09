@@ -61,26 +61,6 @@ class Graphics {
                 break;
         }
     }
-    /*
-    template<typename T>
-    void addTexture(const std::string& name, T texture, TextureTypes type) {
-        switch (type) {
-            case TextureTypes::AnimatedTexture:
-                mAnimatedTextures.push_back(std::any_cast<AnimatedTexture*>(texture));
-                // mGraphics[name] = { texture };
-                break;
-            case TextureTypes::LightningTexture:
-                mLightningTextures.push_back(std::any_cast<AnimatedTexture*>(texture));
-                // mGraphics[name] = { texture };
-                break;
-            case TextureTypes::BaseTexture:
-            case TextureTypes::GeneratedTexture:
-                // mGraphics[name] = { texture };
-            default:
-                break;
-        }
-    }
-    */
 
     void                                              updateAnimatedTexture();
     std::vector<std::pair<TextureTypes, std::string>> getAllTextureNames() {
