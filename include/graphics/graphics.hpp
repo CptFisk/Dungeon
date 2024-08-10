@@ -7,6 +7,7 @@
 #include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/baseTexture.hpp>
 #include <graphics/types/generatedTexture.hpp>
+#include <graphics/types/numberTexture.hpp>
 #include <graphics/types/textTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
 #include <iostream>
@@ -14,6 +15,7 @@
 #include <typeindex>
 #include <unordered_map>
 #include <vector>
+
 
 #define GET_ANIMATED(VAR)  static_cast<Graphics::AnimatedTexture*>(mGraphics->getTexture(VAR))
 #define GET_BASE(VAR)      static_cast<Graphics::BaseTexture*>(mGraphics->getTexture(VAR))
@@ -63,8 +65,16 @@ class Graphics {
                 break;
         }
     }
-
-    void                                              updateAnimatedTexture();
+    /**
+     * @brief Update all animated textures
+     *
+     */
+    void updateAnimatedTexture();
+    /**
+     * @brief Fetch all textures that can be used on maps
+     *
+     * @return std::vector<std::pair<TextureTypes, std::string>>
+     */
     std::vector<std::pair<TextureTypes, std::string>> getAllTextureNames() {
         std::vector<std::pair<TextureTypes, std::string>> textures;
         for (auto& [name, graphic] : mGraphics) {
@@ -83,7 +93,8 @@ class Graphics {
     void loadAnimatedTexture(const std::string& jsonString);
     void loadLightningTexture(const std::string& jsonString); // Sub function for lightning effects
     void loadGeneratedTexture(const std::string& jsonString);
-    void loadTextTexture(const std::string& jsonString); // Sub function for text textures
+    void loadTextTexture(const std::string& jsonString);   // Sub function for text textures
+    void loadNumberTexture(const std::string& jsonString); // Sub function for number textures
 
     // Functions to generate shapes
     void generateSquare(const std::string& name,

@@ -16,6 +16,9 @@ Graphics::updateAnimatedTexture() {
             case TextureTypes::Text:
                 static_cast<TextTexture*>(*object)->updateTexture();
                 break;
+            case TextureTypes::Number:
+                static_cast<NumberTexture*>(*object)->updateTexture();
+                break;
         }
     }
 }
