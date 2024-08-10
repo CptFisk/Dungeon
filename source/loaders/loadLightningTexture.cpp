@@ -1,8 +1,9 @@
-#include <common/jsonAnimation.hpp>
 #include <error.hpp>
 #include <graphics/graphics.hpp>
+#include <graphics/json/jsonAnimation.hpp>
 #include <nlohmann/json.hpp>
 #include <utility/scale.hpp>
+
 
 namespace Graphics {
 
