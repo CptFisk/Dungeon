@@ -57,6 +57,7 @@ class Graphics {
             case TextureTypes::AnimatedTexture:
             case TextureTypes::LightningTexture:
             case TextureTypes::Text:
+            case TextureTypes::Number:
                 mGraphics[name] = texture;
                 mAnimatedTextures.push_back(&mGraphics[name]);
                 break;
