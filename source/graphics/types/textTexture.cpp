@@ -49,7 +49,7 @@ TextTexture::~TextTexture() {
 };
 
 SDL_Texture*&
-TextTexture::getLetter(const char& letter) {
+TextTexture::getLetterSingle(const char& letter) {
     const int value = static_cast<int>(toupper(letter)) - 65; // Convert the character to uppercase and lower the int by 65
     return letter != ' ' ? mLetters[value] : mLetters[26];    // If the character is not a space, return the letter. Otherwise return space
 }

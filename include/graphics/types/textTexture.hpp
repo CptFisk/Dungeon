@@ -43,7 +43,7 @@ class TextTexture : public Texture {
      * @return SDL_Texture*&
      * @example getLetter('A');
      */
-    [[nodiscard]] SDL_Texture*& getLetter(const char& letter);
+    [[nodiscard]] SDL_Texture*& getLetterSingle(const char& letter);
 
     [[nodiscard]] SDL_Rect* getAnimatedViewport();
 
