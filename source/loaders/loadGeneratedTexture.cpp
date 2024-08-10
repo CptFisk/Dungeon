@@ -1,9 +1,10 @@
-#include <common/jsonGeneratedTexture.hpp>
 #include <error.hpp>
 #include <graphics/graphics.hpp>
+#include <graphics/json/jsonGeneratedTexture.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <nlohmann/json.hpp>
 #include <utility/scale.hpp>
+
 
 namespace Graphics {
 
