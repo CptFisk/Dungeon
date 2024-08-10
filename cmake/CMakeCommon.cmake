@@ -28,6 +28,7 @@ add_library(
         ${CMAKE_SOURCE_DIR}/source/graphics/types/animatedTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/generatedTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/textTexture.cpp
+        ${CMAKE_SOURCE_DIR}/source/graphics/types/numberTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/numbers.cpp
         
         ${CMAKE_SOURCE_DIR}/source/loaders/loadGraphics.cpp
