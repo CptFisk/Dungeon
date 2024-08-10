@@ -3,7 +3,6 @@
 #include <nlohmann/json.hpp>
 #include <utility/file.hpp>
 
-
 using json = nlohmann::json;
 
 namespace Graphics {
@@ -46,6 +45,9 @@ Graphics::loadJSON(const std::string& fileName) {
             break;
         case TextureTypes::Text:
             loadTextTexture(jsonString);
+            break;
+        case TextureTypes::Number:
+            loadNumberTexture(jsonString);
             break;
     }
 }
