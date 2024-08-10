@@ -50,6 +50,8 @@ class NumberTexture : public Texture {
   protected:
   private:
     const int                    mTicks;
+    const int                    mFontW; // Width of font
+    const int                    mFontH; // Height of font
     int                          mCurrentTicks;
     int                          mView;    // Selector for viewports
     std::array<SDL_Texture*, 10> mNumbers; // All invdual number

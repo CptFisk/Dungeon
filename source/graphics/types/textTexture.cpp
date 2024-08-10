@@ -15,6 +15,8 @@ TextTexture::TextTexture(SDL_Texture*  texture,
   : mView(0)
   , mCurrentTicks(0)
   , mTicks(ticks)
+  , mFontW(fontW)
+  , mFontH(fontH)
   , Texture(texture, w, h, TextureTypes::Text) {
     const int expectedLength = (26 * fontW) + fontW; // We also add for space
     const int expectedHeight = length * fontH;
@@ -22,17 +24,19 @@ TextTexture::TextTexture(SDL_Texture*  texture,
 
     for (int i = 0; i < mLetters.size(); i++) {
         // Area were we fetch each character from
-        auto area    = SDL_Rect{ i * fontW, 0, fontW, h };
-        auto texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, fontW, fontH);
+        auto area      = SDL_Rect{ i * fontW, 0, fontW, h };
+        auto character = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, fontW, fontH);
 
         ASSERT_WITH_MESSAGE(texture == nullptr, SDL_GetError());
-        ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(renderer, texture) != 0, SDL_GetError())
+        ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(renderer, character) != 0, SDL_GetError())
         ASSERT_WITH_MESSAGE(SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0) != 0, SDL_GetError())
         ASSERT_WITH_MESSAGE(SDL_RenderClear(renderer) != 0, SDL_GetError())
+        ASSERT_WITH_MESSAGE(SDL_SetTextureBlendMode(character, SDL_BLENDMODE_BLEND) != 0, SDL_GetError())
+        ASSERT_WITH_MESSAGE(SDL_SetTextureAlphaMod(character, 255) != 0, SDL_GetError())
         ASSERT_WITH_MESSAGE(SDL_RenderCopy(renderer, texture, &area, nullptr) != 0, SDL_GetError())
         ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(renderer, nullptr) != 0, SDL_GetError())
 
-        mLetters[i] = texture;
+        mLetters[i] = character;
     }
     // Creating viewports
     int viewports = (h / fontH);
