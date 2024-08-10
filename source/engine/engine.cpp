@@ -100,12 +100,12 @@ Engine::startup() {
     createMonsters();
     loadLevel("555.map");
     SDL_RenderClear(pRenderer);
-    /*
+
     mHealth =
-      std::make_unique<Player::Indicator>(mVisibleUI, mPlayerHealth, 36.0f, pRenderer, *GET_ANIMATED("Heart"), *GET_SIMPLE("NumbersWhite"));
+      std::make_unique<Player::Indicator>(mVisibleUI, mPlayerHealth, 36.0f, pRenderer, GET_ANIMATED("Heart"), GET_NUMBER("NumberWhite"));
     mEnergy =
-      std::make_unique<Player::Indicator>(mVisibleUI, mPlayerEnergy, 16.0f, pRenderer, *GET_ANIMATED("Bolt"), *GET_SIMPLE("NumbersWhite"));
-    */
+      std::make_unique<Player::Indicator>(mVisibleUI, mPlayerEnergy, 16.0f, pRenderer, GET_ANIMATED("Bolt"), GET_NUMBER("NumberWhite"));
+
     // Binding player data
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::NORTH, GET_ANIMATED("HumanIdleNorth"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::EAST, GET_ANIMATED("HumanIdleEast"));
@@ -247,8 +247,8 @@ Engine::mainLoop() {
         drawNumbers();
 
         drawLevel(mSegments.Lightning, mSegments.CurrentLayerLightning);
-        // mHealth->draw();
-        // mEnergy->draw();
+        mHealth->draw();
+        mEnergy->draw();
 
         present();
 
