@@ -1,8 +1,9 @@
-#include <common/jsonTextTexture.hpp>
 #include <error.hpp>
 #include <graphics/graphics.hpp>
+#include <graphics/json/jsonTextTexture.hpp>
 #include <graphics/types/textTexture.hpp>
 #include <nlohmann/json.hpp>
+
 
 namespace Graphics {
 
