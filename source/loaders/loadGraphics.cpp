@@ -1,7 +1,8 @@
-#include <common/jsonHeader.hpp>
 #include <graphics/graphics.hpp>
+#include <graphics/json/jsonHeader.hpp>
 #include <nlohmann/json.hpp>
 #include <utility/file.hpp>
+
 
 using json = nlohmann::json;
 
