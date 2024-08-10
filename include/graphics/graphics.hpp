@@ -16,10 +16,10 @@
 #include <unordered_map>
 #include <vector>
 
-
 #define GET_ANIMATED(VAR)  static_cast<Graphics::AnimatedTexture*>(mGraphics->getTexture(VAR))
 #define GET_BASE(VAR)      static_cast<Graphics::BaseTexture*>(mGraphics->getTexture(VAR))
 #define GET_GENERATED(VAR) static_cast<Graphics::GeneratedTexture*>(mGraphics->getTexture(VAR))
+#define GET_NUMBER(VAR)    static_cast<Graphics::NumberTexture*>(mGraphics->getTexture(VAR))
 // #define GET_SIMPLE(VAR)   mGraphics->getTexture<Graphics::BaseTexture>(VAR)
 // #define GET_SDL(VAR)      mGraphics->getTexture<SDL_Texture*>(VAR)
 
