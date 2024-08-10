@@ -2,17 +2,17 @@
 #include <utility/math.hpp>
 
 namespace Player {
-Indicator::Indicator(bool&                        visible,
-                     int&                         value,
-                     const float&                 distance,
-                     SDL_Renderer*                renderer,
-                     Graphics::AnimatedTexture*   texture,
-                     const Graphics::BaseTexture& numbers)
+Indicator::Indicator(bool&                      visible,
+                     int&                       value,
+                     const float&               distance,
+                     SDL_Renderer*              renderer,
+                     Graphics::AnimatedTexture* texture,
+                     Graphics::NumberTexture*   numbers)
   : mVisible(visible)
   , mValue(value)
   , pRenderer(renderer)
   , pIconTexture(texture)
-  , mNumbers(numbers)
+  , pNumbers(numbers)
   , mPositionIcon(8.0f, 192 - distance, 16.0f, 16.0f)
   , mPositionNumber({ 28.0f, (192 - distance) + 4.0f, 8.0f, 8.0f },
                     { 36.0f, (192 - distance) + 4.0f, 8.0f, 8.0f },
@@ -25,9 +25,10 @@ Indicator::draw() {
         SDL_RenderCopyF(pRenderer, pIconTexture->getTexture(), pIconTexture->getAnimatedViewport(), &mPositionIcon);
         // Numbers
         int pos = 0;
+
         if (mValue > 0 && mValue < 999) {
             for (const auto& n : Utility::splitNumbers(mValue))
-                SDL_RenderCopyF(pRenderer, mNumbers.getTexture(), &mNumbers.getViewport(n), &mPositionNumber[pos++]);
+                SDL_RenderCopyF(pRenderer, pNumbers->getNumberSingle(n), nullptr, &mPositionNumber[pos++]);
         }
     }
 }
