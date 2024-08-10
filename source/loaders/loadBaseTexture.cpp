@@ -1,6 +1,7 @@
-#include <common/jsonBaseTexture.hpp>
 #include <graphics/graphics.hpp>
+#include <graphics/json/jsonBaseTexture.hpp>
 #include <nlohmann/json.hpp>
+
 
 namespace Graphics {
 
