@@ -1,14 +1,7 @@
-#include <common/jsonGeneratedTexture.hpp>
 #include <common/jsonHeader.hpp>
-#include <common/jsonNumberTexture.hpp>
-#include <common/jsonTextTexture.hpp>
 #include <graphics/graphics.hpp>
-#include <graphics/types/animatedTexture.hpp>
-#include <graphics/types/textureTypes.hpp>
-#include <iostream>
 #include <nlohmann/json.hpp>
 #include <utility/file.hpp>
-#include <utility/scale.hpp>
 
 using json = nlohmann::json;
 
