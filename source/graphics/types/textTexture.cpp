@@ -22,7 +22,7 @@ TextTexture::TextTexture(SDL_Texture*  texture,
 
     for (int i = 0; i < mLetters.size(); i++) {
         // Area were we fetch each character from
-        auto area    = SDL_Rect{ i * fontW, 0, fontW, fontH };
+        auto area    = SDL_Rect{ i * fontW, 0, fontW, h };
         auto texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, fontW, fontH);
 
         ASSERT_WITH_MESSAGE(texture == nullptr, SDL_GetError());
