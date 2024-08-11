@@ -1,9 +1,9 @@
 #include <error.hpp>
 #include <graphics/graphics.hpp>
 #include <graphics/json/jsonAnimation.hpp>
+#include <graphics/types/lightningTexture.hpp>
 #include <nlohmann/json.hpp>
 #include <utility/scale.hpp>
-
 
 namespace Graphics {
 
@@ -18,17 +18,16 @@ Graphics::loadLightningTexture(const std::string& jsonString) {
     }
     for (const auto& data : jsonData.Objects) {
         if (mGraphics.find(data.Name) == mGraphics.end()) {
-            auto texture =
-              new AnimatedTexture(Common::loadImage(pRenderer, jsonData.File), data.Width, data.Height, data.Ticks, data.Paused);
-            // Add alpha channel if lightning
-            ASSERT_WITH_MESSAGE(SDL_SetTextureBlendMode(texture->getTexture(), SDL_BLENDMODE_BLEND) != 0, SDL_GetError());
-            ASSERT_WITH_MESSAGE(SDL_SetTextureAlphaMod(texture->getTexture(), Utility::Scale(40, 0, 100, 0, 255) != 0), SDL_GetError());
+            auto texture = Common::loadImage(pRenderer, jsonData.File);
+            ASSERT_WITH_MESSAGE(SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND) != 0, SDL_GetError());
+            ASSERT_WITH_MESSAGE(SDL_SetTextureAlphaMod(texture, Utility::Scale(40, 0, 100, 0, 255)) != 0, SDL_GetError());
+            auto lightning = new LightningTexture(texture, data.Width, data.Height, data.Ticks, data.Paused);
             for (int i = 0; i < data.Length; i++) {
                 const auto offset = (data.Column - 1) * data.Width;
-                texture->addViewport(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), (data.Width), (data.Height) });
+                lightning->addViewport(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), (data.Width), (data.Height) });
             }
-            texture->addViewportDone();
-            addTexture(data.Name, texture);
+            lightning->addViewportDone();
+            addTexture(data.Name, lightning);
         }
     }
 }

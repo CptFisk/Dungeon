@@ -7,6 +7,7 @@
 #include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/baseTexture.hpp>
 #include <graphics/types/generatedTexture.hpp>
+#include <graphics/types/lightningTexture.hpp>
 #include <graphics/types/numberTexture.hpp>
 #include <graphics/types/textTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
@@ -20,6 +21,8 @@
 #define GET_BASE(VAR)      static_cast<Graphics::BaseTexture*>(mGraphics->getTexture(VAR))
 #define GET_GENERATED(VAR) static_cast<Graphics::GeneratedTexture*>(mGraphics->getTexture(VAR))
 #define GET_NUMBER(VAR)    static_cast<Graphics::NumberTexture*>(mGraphics->getTexture(VAR))
+#define GET_TEXT(VAR)      static_cast<Graphics::TextTexture*>(mGraphics->getTexture(VAR))
+#define GET_LIGHTNING(VAR) static_cast<Graphics::LightningTexture*>(mGraphics->getTexture(VAR))
 // #define GET_SIMPLE(VAR)   mGraphics->getTexture<Graphics::BaseTexture>(VAR)
 // #define GET_SDL(VAR)      mGraphics->getTexture<SDL_Texture*>(VAR)
 

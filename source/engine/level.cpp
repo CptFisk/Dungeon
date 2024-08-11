@@ -128,7 +128,6 @@ Engine::loadLevel(const std::string& filename) {
 
     for (const auto& door : data.Doors) {
         auto t = static_cast<Graphics::AnimatedTexture*>(mGraphics->getTexture(door.GraphicOpen));
-        // doors.emplace_back(new Objects::Door(door.X, door.Y, *GET_ANIMATED(door.GraphicOpen), *GET_ANIMATED(door.GraphicClosing)));
     }
 
     SDL_SetRenderTarget(pRenderer, nullptr);

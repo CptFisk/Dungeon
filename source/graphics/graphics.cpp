@@ -13,6 +13,8 @@ Graphics::updateAnimatedTexture() {
             case TextureTypes::AnimatedTexture:
                 static_cast<AnimatedTexture*>(*object)->updateTexture();
                 break;
+            case TextureTypes::LightningTexture:
+                static_cast<LightningTexture*>(*object)->updateTexture();
             case TextureTypes::Text:
                 static_cast<TextTexture*>(*object)->updateTexture();
                 break;

@@ -144,7 +144,7 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                     std::cerr << "UNDEFINED" << std::endl;
                     break;
                 case Graphics::TextureTypes::LightningTexture: {
-                    auto texture = GET_ANIMATED(name);
+                    auto texture = GET_LIGHTNING(name);
                     x -= (FLOAT((texture->getWidth() / 2)) - 8.0);
                     y -= (FLOAT((texture->getHeight() / 2)) - 8.0);
                     int viewport = 0;
@@ -171,8 +171,8 @@ void
 Engine::setSegmentAlpha(std::vector<typeSegmentData>& segments, const SDL_BlendMode& blendMode, const int& value) {
     for (auto& segment : segments) {
         for (auto& layer : segment.Layers) {
-            SDL_SetTextureBlendMode(layer, blendMode);
-            SDL_SetTextureAlphaMod(layer, Utility::Scale(value, 0, 100, 0, 255));
+            ASSERT_WITH_MESSAGE(SDL_SetTextureBlendMode(layer, blendMode) != 0, SDL_GetError())
+            ASSERT_WITH_MESSAGE(SDL_SetTextureAlphaMod(layer, Utility::Scale(value, 0, 100, 0, 255)) != 0, SDL_GetError())
         }
     }
 }

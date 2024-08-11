@@ -8,8 +8,8 @@ namespace Common {
  * @brief a grid size of 16x12 squares.
  */
 struct typeScale {
-    float factorX;
-    float factorY;
+    float factorX;       // Value used to scale the width of each level, 1 means 16 squares width
+    float factorY;       // Value used to scale the height of each level, 1 means 16 squares width
     int   windowWidth;   // Window width
     int   windowHeight;  // Window Height
     float selectedScale; // Slace that we stick with
