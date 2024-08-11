@@ -12,5 +12,6 @@ calculateGameScale(typeScale& scale, SDL_Window* window) {
     scale.factorY         = (static_cast<float>(height) / squareY) / pixelSize;
     scale.windowWidth     = width;
     scale.windowHeight    = height;
+    scale.selectedScale   = std::min(scale.factorX, scale.factorY);
 }
 }

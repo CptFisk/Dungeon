@@ -10,13 +10,15 @@ namespace Common {
 struct typeScale {
     float factorX;
     float factorY;
-    int   windowWidth;  // Window width
-    int   windowHeight; // Window Height
+    int   windowWidth;   // Window width
+    int   windowHeight;  // Window Height
+    float selectedScale; // Slace that we stick with
     typeScale()
       : factorX(0.0f)
       , factorY(0.0f)
       , windowWidth(0)
-      , windowHeight(0) {}
+      , windowHeight(0)
+      , selectedScale(0.0f) {}
 };
 
 void

@@ -1,9 +1,9 @@
 #define SDL_MAIN_HANDLED
+#include <SDL.h>
 #include <common/handlers.hpp>
 #include <engine/engine.hpp>
 #include <imgui.h>
 #include <iostream>
-#include <SDL.h>
 
 Engine::Engine engine;
 
@@ -12,21 +12,30 @@ main(int argc, char* argv[]) {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
+    engine.startup();
     engine.getActionManager().registerKeyboardAction("PlayerNorth", SDLK_w);
     engine.getActionManager().registerKeyboardAction("PlayerEast", SDLK_d);
     engine.getActionManager().registerKeyboardAction("PlayerSouth", SDLK_s);
     engine.getActionManager().registerKeyboardAction("PlayerWest", SDLK_a);
     engine.getActionManager().registerKeyboardAction("Interact", SDLK_SPACE);
+    engine.getActionManager().registerKeyboardAction("Exit", SDLK_ESCAPE);
     engine.getActionManager().registerMouseAction("Click", SDL_BUTTON_LEFT);
 
     Common::queueProcessHandler(
       [&](Uint32) {
-          if (engine.getActionManager().isActionRising("Interact")){
-              engine.interact();
+          if (engine.getActionManager().isActionRising("Exit")) {
+              engine.terminate();
           }
       },
       engine.getProcessing());
 
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (engine.getActionManager().isActionRising("Interact")) {
+              engine.interact();
+          }
+      },
+      engine.getProcessing());
 
     Common::queueProcessHandler(
       [&](Uint32) {
@@ -86,7 +95,6 @@ main(int argc, char* argv[]) {
       },
       engine.getEvents());
 
-    engine.startup();
     try {
         engine.mainLoop();
     } catch (const std::exception& e) {
