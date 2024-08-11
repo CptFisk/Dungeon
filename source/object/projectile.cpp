@@ -31,16 +31,16 @@ Projectile::getPosition() {
     return &mCurrentPosition;
 }
 
-Common::typeDrawData
+Graphics::typeDrawData
 Projectile::getLightning() {
-    return Common::typeDrawData{ pLightning, nullptr, &mLightningPosition };
+    return Graphics::typeDrawData{ pLightning, nullptr, &mLightningPosition };
 }
 
-Common::typeDrawDataAngled
+Graphics::typeDrawDataAngled
 Projectile::getProjectile() {
     if (mParticleEnabled && rand() % PARTICLE_CHANCE == 1)
         mParticle->addParticle(mCurrentPosition);
-    return Common::typeDrawDataAngled{ pProjectile->getTexture(), pProjectile->getAnimatedViewport(), &mCurrentPosition, mAngle };
+    return Graphics::typeDrawDataAngled{ pProjectile->getTexture(), pProjectile->getAnimatedViewport(), &mCurrentPosition, mAngle };
 };
 
 void

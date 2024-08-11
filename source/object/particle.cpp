@@ -21,10 +21,10 @@ Particle::addParticle(const SDL_FRect& position) {
     particles.push_back(ParticleStruct{ SDL_FRect{ x, y, size, size }, duration });
 }
 
-std::vector<Common::typeDrawData>
+std::vector<Graphics::typeDrawData>
 Particle::getDrawData() {
-    std::vector<Common::typeDrawData> data;
-    for(auto it = particles.begin(); it != particles.end();){
+    std::vector<Graphics::typeDrawData> data;
+    for (auto it = particles.begin(); it != particles.end();) {
         if ((*it).Duration < 0) {
             it = particles.erase(it);
 

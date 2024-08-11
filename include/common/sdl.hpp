@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <common/scale.hpp>
+#include <string>
 
 namespace Common {
 

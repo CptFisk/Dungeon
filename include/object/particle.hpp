@@ -1,8 +1,8 @@
 #pragma once
 #include <SDL.h>
-#include <vector>
+#include <graphics/types/drawData.hpp>
 #include <random>
-#include <common/structures.hpp>
+#include <vector>
 
 namespace Objects {
 class Particle {
@@ -15,8 +15,8 @@ class Particle {
     Particle(SDL_Texture* texture, const int& duration, const float& size, const float& velocity);
     ~Particle();
 
-    void addParticle(const SDL_FRect& position); // Position for particle
-    std::vector<Common::typeDrawData> getDrawData();
+    void                                addParticle(const SDL_FRect& position); // Position for particle
+    std::vector<Graphics::typeDrawData> getDrawData();
 
   protected:
     void randomPosition(SDL_FRect& rect);
@@ -28,8 +28,8 @@ class Particle {
     std::vector<ParticleStruct> particles; // Vector containing all particles
     SDL_Texture*                texture;
 
-    std::random_device rd;
-    std::mt19937 gen;
+    std::random_device                    rd;
+    std::mt19937                          gen;
     std::uniform_real_distribution<float> distribution;
 };
 }

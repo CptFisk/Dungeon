@@ -1,10 +1,11 @@
 #pragma once
 #include <SDL.h>
-#include <common/structures.hpp>
 #include <graphics/types/animatedTexture.hpp>
+#include <graphics/types/drawData.hpp>
 #include <memory>
 #include <object/particle.hpp>
 #include <utility>
+
 
 namespace Objects {
 struct typeProjectileStruct {
@@ -27,10 +28,10 @@ class Projectile {
 
     SDL_FRect* getPosition(); // Returns a pointer to the current position
 
-    int                        getNewDuration(); // Calculate and return the new duration
-    int                        getDamage() const;
-    Common::typeDrawData       getLightning();  // Return draw data for lightning
-    Common::typeDrawDataAngled getProjectile(); // Return draw data for the projectile
+    int                          getNewDuration(); // Calculate and return the new duration
+    int                          getDamage() const;
+    Graphics::typeDrawData       getLightning();  // Return draw data for lightning
+    Graphics::typeDrawDataAngled getProjectile(); // Return draw data for the projectile
 
     void move(); // All functions related to movement
   private:

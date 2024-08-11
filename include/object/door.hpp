@@ -1,10 +1,9 @@
 #pragma once
 #include <SDL.h>
-#include <common/structures.hpp>
 #include <graphics/types/animatedTexture.hpp>
+#include <graphics/types/drawData.hpp>
 #include <mutex>
 #include <thread>
-
 
 namespace Objects {
 
@@ -29,8 +28,8 @@ class Door {
     /**
      * @brief Returns the draw data that can later be passed to the perspective manager
      */
-    [[nodiscard]] Common::typeDrawData& getDrawData();
-    void                                interact(bool condition);
+    [[nodiscard]] Graphics::typeDrawData& getDrawData();
+    void                                  interact(bool condition);
 
     /**
      * @return True if you can walk through the door
@@ -50,8 +49,8 @@ class Door {
     std::vector<SDL_Rect> mAnimationOpeningViewport; // Viewports
     std::vector<SDL_Rect> mAnimationClosingViewport; // Viewports
 
-    Common::typeDrawData mDrawData; // Used for returning the graphic
-    SDL_FRect            mPosition;
+    Graphics::typeDrawData mDrawData; // Used for returning the graphic
+    SDL_FRect              mPosition;
 
     std::thread mThread; // Used to swap state after animation finish
 };

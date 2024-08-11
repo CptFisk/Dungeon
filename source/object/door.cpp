@@ -80,7 +80,7 @@ Door::getPosition() const {
     return mPosition;
 }
 
-Common::typeDrawData&
+Graphics::typeDrawData&
 Door::getDrawData() {
     return mDrawData;
 }

@@ -1,7 +1,7 @@
 #pragma once
-#include <common/structures.hpp>
 #include <global.hpp>
 #include <graphics/types/animatedTexture.hpp>
+#include <graphics/types/drawData.hpp>
 
 namespace Monster {
 
@@ -34,9 +34,9 @@ class BaseMonster {
 
     virtual void interact() = 0;
 
-    Common::typeDrawData getMonster();
-    SDL_FRect*           getPosition();
-    Objects::State       getState();
+    Graphics::typeDrawData getMonster();
+    SDL_FRect*             getPosition();
+    Objects::State         getState();
 
   private:
   protected:

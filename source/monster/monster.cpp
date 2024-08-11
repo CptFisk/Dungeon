@@ -80,10 +80,10 @@ BaseMonster::updatePosition(const float& x, const float& y) {
     mMonsterCenter.y += y;
 }
 
-Common::typeDrawData
+Graphics::typeDrawData
 BaseMonster::getMonster() {
     interact();
-    return Common::typeDrawData{ pCurrentTexture, pCurrentViewport, &mMonsterPosition };
+    return Graphics::typeDrawData{ pCurrentTexture, pCurrentViewport, &mMonsterPosition };
 }
 
 SDL_FRect*
