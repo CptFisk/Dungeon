@@ -3,7 +3,6 @@
 #include <any>
 #include <common/include.hpp>
 #include <error.hpp>
-#include <graphics/structures.hpp>
 #include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/baseTexture.hpp>
 #include <graphics/types/generatedTexture.hpp>
@@ -33,13 +32,6 @@ class Graphics {
     explicit Graphics(SDL_Renderer* renderer);
     ~Graphics();
     void init();
-
-    /**
-     * @brief Generate a text as texture
-     * @param text Text to be generated
-     * @param size Size of the text, default and min value is 8
-     */
-    typeTextTexture generateText(std::string text, const int& size = 8);
 
     struct typeTextureInfo {
         std::any     Texture;

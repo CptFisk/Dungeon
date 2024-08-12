@@ -26,8 +26,7 @@ Engine::Engine()
   , mPlayerEnergy(50)
   , mEvent{}
   , Background{}
-  , mSegments{}
-  , mActionManager(std::make_unique<Common::ActionManager>()) {}
+  , mSegments{} {}
 
 Engine::~Engine() {
     if (mLevelLoaded)
@@ -77,19 +76,21 @@ Engine::startup() {
     mThreads.push_back(spawnInterrupt(10));
     mThreads.push_back(spawnInterrupt(100));
     mThreads.push_back(spawnInterrupt(500));
-
-    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(pWindow, pRenderer, 1280, 960, "Vera adventure"));
+    // 1280 960
+    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(pWindow, pRenderer, 1920, 1080, false, "Vera adventure"));
     mInitHandler->startup();
+    // 1920 1080
+
     /*
-    mLoadingScreen = std::make_unique<LoadingScreen>(pRenderer, mMutex);
+    mLoadingScreen = std::make_unique<LoadinasgScreen>(pRenderer, mMutex);
 
     mLoading = std::thread([&]() {
-        mLoadingScreen->run();
+        mLoadingScreen->run();s
     });
     */
     Common::calculateGameScale(mScale, pWindow);
-    SDL_RenderSetLogicalSize(pRenderer, 256, 192);
-    mActionManager->bindRenderer(&pRenderer); // Bind the renderer
+    SDL_RenderSetScale(pRenderer, mScale.selectedScale, mScale.selectedScale);
+    mActionManager = std::make_unique<Common::ActionManager>(pRenderer, mScale);
 
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
@@ -98,7 +99,7 @@ Engine::startup() {
     mPlayer = std::make_unique<Player::Player>();
     // Generate all monster data
     createMonsters();
-    loadLevel("555.map");
+    loadLevel("554.map");
     SDL_RenderClear(pRenderer);
 
     mHealth =
@@ -145,7 +146,7 @@ Engine::startup() {
 
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
     // Setup perspective
-    mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y, mPlayer->getPlayerCenter());
+    mPerspective = std::make_unique<Common::Perspective>(pRenderer, offset.X, offset.Y, mPlayer->getPlayerCenter(), mScale);
 }
 
 void
@@ -194,9 +195,12 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
-    mPlayer->spawn(9, 119);
+    // mPlayer->spawn(9, 119);
+    mPlayer->spawn(51, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
+    auto text = GET_TEXT("LetterWhite")->getWord("Hejsan Vera");
+    auto area = SDL_Rect{ 0, 0, 88, 8 };
     while (mRun) {
         mFPSTimer.start();
 
@@ -256,7 +260,6 @@ Engine::mainLoop() {
         if (ticks < 1000.0 / 60.0)
             SDL_Delay((1000 / 60.0) - ticks);
     }
-    delete textBox;
 }
 
 void
@@ -340,12 +343,6 @@ Engine::drawLevel(std::vector<typeSegmentData>& data, const int& currentLayer) {
     for (auto& segment : data) {
         mPerspective->render(segment.Layers[currentLayer], nullptr, &segment.Position);
     }
-    /*
-    for (auto& door : doors) {
-        auto drawData = door->getDrawData();
-        mPerspective->render(drawData.Texture, drawData.Viewport, drawData.Position);
-    }
-     */
 }
 
 std::thread

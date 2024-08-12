@@ -157,8 +157,6 @@ class Engine {
     static const int      segmentSizeX = 128;
     static const int      segmentSizeY = 128;
     SDL_Texture*          pDarkness;
-
-    Objects::TextBox* textBox;
 };
 
 extern Engine engine;
