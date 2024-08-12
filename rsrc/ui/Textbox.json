@@ -1,0 +1,36 @@
+{
+  "Header": {
+    "Type": "BaseTexture"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/ui/Textbox.png",
+        "Name": "TextboxStart",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 64
+      },
+      {
+        "File": "rsrc/ui/Textbox.png",
+        "Name": "TextboxEnd",
+        "Row": 2,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 64
+      }
+      {
+        "File": "rsrc/ui/Textbox.png",
+        "Name": "TextboxCenter",
+        "Row": 3,
+        "Column": 1,
+        "Length": 1,
+        "Height": 16,
+        "Width": 64
+      }
+    ]
+  }
+}
