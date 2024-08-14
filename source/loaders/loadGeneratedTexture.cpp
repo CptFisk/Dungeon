@@ -5,7 +5,6 @@
 #include <nlohmann/json.hpp>
 #include <utility/scale.hpp>
 
-
 namespace Graphics {
 
 void
@@ -50,7 +49,7 @@ Graphics::generateSquare(const std::string& name,
                          const Uint8&       g,
                          const Uint8&       b,
                          const Uint8&       a) {
-    SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
+    auto surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
     ASSERT_WITH_MESSAGE(surface == nullptr, "Surface is nullptr");
     ASSERT_WITH_MESSAGE(SDL_FillRect(surface, nullptr, SDL_MapRGB(surface->format, r, g, b)) != 0, "Cant fill rectangle");
     auto squareTexture = SDL_CreateTextureFromSurface(pRenderer, surface);
