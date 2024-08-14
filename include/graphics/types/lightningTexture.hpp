@@ -6,7 +6,7 @@
 namespace Graphics {
 class LightningTexture : public BaseTexture {
   public:
-    LightningTexture(SDL_Texture* texture, const int& w, const int& h, const int& ticks, const bool& paused);
+    LightningTexture(SDL_Texture* texture, const int& w, const int& h, const int& ticks, const int& alpha);
     ~LightningTexture();
     /**
      * @brief Return the current Lightning viewport
@@ -21,14 +21,12 @@ class LightningTexture : public BaseTexture {
      * @brief Update the animationframe for the texture
      */
     void               updateTexture();
-    void               runCycles(const int& cycles);
     [[nodiscard]] bool done() const;     // Animation is last frame
     [[nodiscard]] int  getTicks() const; // Return the maximum number of ticks
 
   private:
   protected:
-    bool      mPaused; // Texture is paused
-    int       mView;   // Selector for viewports
+    int       mView; // Selector for viewports
     int       mCycles;
     const int mTicks;
     int       mCurrentTicks;

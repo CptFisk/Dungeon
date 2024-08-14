@@ -1,14 +1,19 @@
+#include <error.hpp>
 #include <graphics/types/lightningTexture.hpp>
+#include <utility/scale.hpp>
 
 namespace Graphics {
 
-LightningTexture::LightningTexture(SDL_Texture* texture, const int& w, const int& h, const int& ticks, const bool& paused)
+LightningTexture::LightningTexture(SDL_Texture* texture, const int& w, const int& h, const int& ticks, const int& alpha)
   : mView(0)
   , mCycles(0)
   , mCurrentTicks(0)
   , mTicks(ticks)
-  , mPaused(paused)
-  , BaseTexture(texture, w, h, TextureTypes::LightningTexture) {}
+  , BaseTexture(texture, w, h, TextureTypes::LightningTexture) {
+
+    ASSERT_WITH_MESSAGE(SDL_SetTextureBlendMode(BaseTexture::pTexture, SDL_BLENDMODE_BLEND) != 0, SDL_GetError())
+    ASSERT_WITH_MESSAGE(SDL_SetTextureAlphaMod(BaseTexture::pTexture, Utility::Scale(alpha, 0, 100, 0, 255)) != 0, SDL_GetError())
+}
 
 LightningTexture::~LightningTexture() {}
 
@@ -24,7 +29,7 @@ LightningTexture::addViewportDone() {
 
 void
 LightningTexture::updateTexture() {
-    if (mCurrentTicks > mTicks && (mPaused == false || (mPaused == true && mCycles > 0))) {
+    if (mCurrentTicks > mTicks) {
         if (mView < (mViewports.size() - 1)) {
             mView++;
         } else {
@@ -36,11 +41,6 @@ LightningTexture::updateTexture() {
     } else {
         mCurrentTicks++;
     }
-}
-
-void
-LightningTexture::runCycles(const int& cycles) {
-    mCycles = cycles;
 }
 
 bool
