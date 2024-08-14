@@ -18,10 +18,7 @@ Graphics::loadLightningTexture(const std::string& jsonString) {
     }
     for (const auto& data : jsonData.Objects) {
         if (mGraphics.find(data.Name) == mGraphics.end()) {
-            auto texture = Common::loadImage(pRenderer, jsonData.File);
-            ASSERT_WITH_MESSAGE(SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND) != 0, SDL_GetError());
-            ASSERT_WITH_MESSAGE(SDL_SetTextureAlphaMod(texture, Utility::Scale(40, 0, 100, 0, 255)) != 0, SDL_GetError());
-            auto lightning = new LightningTexture(texture, data.Width, data.Height, data.Ticks, data.Paused);
+            auto lightning = new LightningTexture(Common::loadImage(pRenderer, jsonData.File), data.Width, data.Height, data.Ticks, 40);
             for (int i = 0; i < data.Length; i++) {
                 const auto offset = (data.Column - 1) * data.Width;
                 lightning->addViewport(SDL_Rect{ (data.Width * i + offset), (data.Height * (data.Row - 1)), (data.Width), (data.Height) });
