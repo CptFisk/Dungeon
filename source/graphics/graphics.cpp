@@ -1,7 +1,7 @@
 #include <cmath>
 #include <graphics/graphics.hpp>
 #include <iostream>
-
+#include <set>
 namespace Graphics {
 Graphics::Graphics(SDL_Renderer* renderer)
   : pRenderer(renderer) {}
@@ -15,6 +15,7 @@ Graphics::updateAnimatedTexture() {
                 break;
             case TextureTypes::LightningTexture:
                 static_cast<LightningTexture*>(*object)->updateTexture();
+                break;
             case TextureTypes::Text:
                 static_cast<TextTexture*>(*object)->updateTexture();
                 break;
@@ -26,8 +27,8 @@ Graphics::updateAnimatedTexture() {
 }
 
 Graphics::~Graphics() {
-    for (auto [name, data] : mGraphics) {
-        SDL_DestroyTexture(data->getTexture());
+    SDL_RenderClear(pRenderer);
+    for (auto& [name, data] : mGraphics) {
         delete data;
     }
 }
