@@ -103,6 +103,7 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                     for (auto& layer : segment[index].Layers) {
                         SDL_SetRenderTarget(pRenderer, layer); // Set render target
                         SDL_RenderCopyF(pRenderer, texture->getTexture(), &viewport, &destination);
+                        ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(pRenderer, nullptr) != 0, SDL_GetError())
                     }
 
                 } break;
@@ -119,10 +120,9 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                     int        tick         = 0;
                     int        viewport     = 0;
                     for (auto layer : segment[index].Layers) {
-                        if (SDL_SetRenderTarget(pRenderer, layer) != 0) {
-                            std::cerr << SDL_GetError() << std::endl;
-                        }
+                        ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(pRenderer, layer) != 0, SDL_GetError())
                         SDL_RenderCopyF(pRenderer, texture->getTexture(), &texture->getViewport(viewport), &destination);
+                        ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(pRenderer, nullptr) != 0, SDL_GetError())
                         if (++tick >= maxTicks) {
                             tick = 0;
                             if (viewport++ >= maxViewports)
@@ -152,6 +152,7 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                         SDL_FRect destination = { x, y, FLOAT(texture->getWidth()), FLOAT(texture->getHeight()) };
                         SDL_SetRenderTarget(pRenderer, layer);
                         SDL_RenderCopyF(pRenderer, texture->getTexture(), &texture->getViewport(viewport++), &destination);
+                        SDL_SetRenderTarget(pRenderer, nullptr);
                     }
 
                 } break;
