@@ -9,7 +9,9 @@ Texture::Texture(SDL_Texture* texture, const int& w, const int& h, TextureTypes 
   , mHeight(h)
   , mType(type) {}
 
-Texture::~Texture() {}
+Texture::~Texture() {
+    SDL_DestroyTexture(pTexture);
+}
 
 SDL_Texture*&
 Texture::getTexture() {
