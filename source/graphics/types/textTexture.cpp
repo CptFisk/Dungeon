@@ -27,7 +27,7 @@ TextTexture::TextTexture(SDL_Texture*  texture,
         auto area      = SDL_Rect{ i * fontW, 0, fontW, h };
         auto character = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, fontW, fontH);
 
-        ASSERT_WITH_MESSAGE(texture == nullptr, SDL_GetError());
+        ASSERT_WITH_MESSAGE(character == nullptr, SDL_GetError());
         ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(renderer, character) != 0, SDL_GetError())
         ASSERT_WITH_MESSAGE(SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0) != 0, SDL_GetError())
         ASSERT_WITH_MESSAGE(SDL_RenderClear(renderer) != 0, SDL_GetError())
