@@ -10,7 +10,7 @@ namespace Graphics {
 class Texture {
   public:
     Texture(SDL_Texture* texture, const int& w, const int& h, TextureTypes type);
-    ~Texture();
+    virtual ~Texture();
     /**
      * @brief Get the reference to SDL_Texture*
      * @return SDL_Texture*&
