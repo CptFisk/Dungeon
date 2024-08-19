@@ -16,12 +16,12 @@
 #include <unordered_map>
 #include <vector>
 
-#define GET_ANIMATED(VAR)  dynamic_cast<Graphics::AnimatedTexture*>(mGraphics->getTexture(VAR))
-#define GET_BASE(VAR)      dynamic_cast<Graphics::BaseTexture*>(mGraphics->getTexture(VAR))
-#define GET_GENERATED(VAR) dynamic_cast<Graphics::GeneratedTexture*>(mGraphics->getTexture(VAR))
-#define GET_NUMBER(VAR)    dynamic_cast<Graphics::NumberTexture*>(mGraphics->getTexture(VAR))
-#define GET_TEXT(VAR)      dynamic_cast<Graphics::TextTexture*>(mGraphics->getTexture(VAR))
-#define GET_LIGHTNING(VAR) dynamic_cast<Graphics::LightningTexture*>(mGraphics->getTexture(VAR))
+#define GET_ANIMATED(VAR)  (dynamic_cast<Graphics::AnimatedTexture*>(mGraphics->getTexture(VAR)))
+#define GET_BASE(VAR)      (dynamic_cast<Graphics::BaseTexture*>(mGraphics->getTexture(VAR)))
+#define GET_GENERATED(VAR) (dynamic_cast<Graphics::GeneratedTexture*>(mGraphics->getTexture(VAR)))
+#define GET_NUMBER(VAR)    (dynamic_cast<Graphics::NumberTexture*>(mGraphics->getTexture(VAR)))
+#define GET_TEXT(VAR)      (dynamic_cast<Graphics::TextTexture*>(mGraphics->getTexture(VAR)))
+#define GET_LIGHTNING(VAR) (dynamic_cast<Graphics::LightningTexture*>(mGraphics->getTexture(VAR)))
 // #define GET_SIMPLE(VAR)   mGraphics->getTexture<Graphics::BaseTexture>(VAR)
 // #define GET_SDL(VAR)      mGraphics->getTexture<SDL_Texture*>(VAR)
 
