@@ -5,8 +5,8 @@
     "Data": {
         "Objects": [
             {
-                "File": "rsrc/ui/HealthBar.png",
-                "Name": "HealthBar",
+                "File": "rsrc/ui/HealthRed.png",
+                "Name": "HealthRed",
                 "Row": 1,
                 "Column": 1,
                 "Length": 1,
