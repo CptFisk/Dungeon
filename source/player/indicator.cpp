@@ -1,35 +1,42 @@
+#include <global.hpp>
 #include <player/indicator.hpp>
 #include <utility/math.hpp>
 
 namespace Player {
-Indicator::Indicator(bool&                      visible,
-                     int&                       value,
-                     const float&               distance,
-                     SDL_Renderer*              renderer,
-                     Graphics::AnimatedTexture* texture,
-                     Graphics::NumberTexture*   numbers)
-  : mVisible(visible)
-  , mValue(value)
-  , pRenderer(renderer)
-  , pIconTexture(texture)
-  , pNumbers(numbers)
-  , mPositionIcon(8.0f, 192 - distance, 16.0f, 16.0f)
-  , mPositionNumber({ 28.0f, (192 - distance) + 4.0f, 8.0f, 8.0f },
-                    { 36.0f, (192 - distance) + 4.0f, 8.0f, 8.0f },
-                    { 44.0f, (192 - distance) + 4.0f, 8.0f, 8.0f }) {}
+Indicator::Indicator(int&                   value,
+                     Common::typeScale&     scale,
+                     const int&             marginBottom,
+                     Graphics::BaseTexture* base,
+                     Graphics::BaseTexture* indicator)
+  : mValue(value)
+  , mScale(scale)
+  , mMarginBottom(marginBottom)
+  , pBase(base)
+  , pIndicator(indicator)
+  , mBaseDestination{}
+  , mIndicatorDestination{}
+  , mBaseDrawData(base->getTexture(), nullptr, &mBaseDestination)
+  , mIndicatorDrawData(indicator->getTexture(), nullptr, &mIndicatorDestination) {
+    updateIndicator(); // Calculate position
+}
 
 void
-Indicator::draw() {
-    if (mVisible) {
-        // Icon
-        SDL_RenderCopyF(pRenderer, pIconTexture->getTexture(), pIconTexture->getAnimatedViewport(), &mPositionIcon);
-        // Numbers
-        int pos = 0;
+Indicator::updateIndicator() {
+    // Positions for base-element
+    const auto wB           = pBase->getWidth();
+    const auto hB           = pBase->getHeight();
+    const auto marginBottom = INT(FLOAT(mScale.windowHeight) / mScale.selectedScale) - mMarginBottom;
+    mBaseDestination        = { 16, FLOAT(marginBottom), FLOAT(wB), FLOAT(hB) };
 
-        if (mValue > 0 && mValue < 999) {
-            for (const auto& n : Utility::splitNumbers(mValue))
-                SDL_RenderCopyF(pRenderer, pNumbers->getNumberSingle(n), nullptr, &mPositionNumber[pos++]);
-        }
-    }
+    // Positions for Indicator
+    const auto wI = pIndicator->getWidth();
+    const auto hI = pIndicator->getHeight();
+    mIndicatorDestination         = { 16, FLOAT(marginBottom), FLOAT(wI), FLOAT(hI) };
 }
+
+std::vector<Graphics::typeDrawData>
+Indicator::getIndicator() {
+    return std::vector<Graphics::typeDrawData>{ mBaseDrawData, mIndicatorDrawData };
+}
+
 }
