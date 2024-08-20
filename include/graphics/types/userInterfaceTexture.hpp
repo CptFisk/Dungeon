@@ -27,7 +27,7 @@ class UserInterfaceTexture : public Texture {
                          const int&   bottom,
                          const int&   left,
                          const int&   right);
-    ~UserInterfaceTexture() = default;
+    ~UserInterfaceTexture() override = default;
 
     /**
      * @brief Return the margin (spacing) to a element from that side of the screen.
