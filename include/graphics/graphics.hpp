@@ -10,20 +10,20 @@
 #include <graphics/types/numberTexture.hpp>
 #include <graphics/types/textTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
+#include <graphics/types/userInterfaceTexture.hpp>
 #include <iostream>
 #include <string>
 #include <typeindex>
 #include <unordered_map>
 #include <vector>
 
-#define GET_ANIMATED(VAR)  (dynamic_cast<Graphics::AnimatedTexture*>(mGraphics->getTexture(VAR)))
-#define GET_BASE(VAR)      (dynamic_cast<Graphics::BaseTexture*>(mGraphics->getTexture(VAR)))
-#define GET_GENERATED(VAR) (dynamic_cast<Graphics::GeneratedTexture*>(mGraphics->getTexture(VAR)))
-#define GET_NUMBER(VAR)    (dynamic_cast<Graphics::NumberTexture*>(mGraphics->getTexture(VAR)))
-#define GET_TEXT(VAR)      (dynamic_cast<Graphics::TextTexture*>(mGraphics->getTexture(VAR)))
-#define GET_LIGHTNING(VAR) (dynamic_cast<Graphics::LightningTexture*>(mGraphics->getTexture(VAR)))
-// #define GET_SIMPLE(VAR)   mGraphics->getTexture<Graphics::BaseTexture>(VAR)
-// #define GET_SDL(VAR)      mGraphics->getTexture<SDL_Texture*>(VAR)
+#define GET_ANIMATED(VAR)      (dynamic_cast<Graphics::AnimatedTexture*>(mGraphics->getTexture(VAR)))
+#define GET_BASE(VAR)          (dynamic_cast<Graphics::BaseTexture*>(mGraphics->getTexture(VAR)))
+#define GET_GENERATED(VAR)     (dynamic_cast<Graphics::GeneratedTexture*>(mGraphics->getTexture(VAR)))
+#define GET_NUMBER(VAR)        (dynamic_cast<Graphics::NumberTexture*>(mGraphics->getTexture(VAR)))
+#define GET_TEXT(VAR)          (dynamic_cast<Graphics::TextTexture*>(mGraphics->getTexture(VAR)))
+#define GET_LIGHTNING(VAR)     (dynamic_cast<Graphics::LightningTexture*>(mGraphics->getTexture(VAR)))
+#define GET_USERINTERFACE(VAR) (dynamic_cast<Graphics::UserInterfaceTexture*>(mGraphics->getTexture(VAR)))
 
 namespace Graphics {
 
@@ -86,9 +86,9 @@ class Graphics {
     void loadAnimatedTexture(const std::string& jsonString);
     void loadLightningTexture(const std::string& jsonString); // Sub function for lightning effects
     void loadGeneratedTexture(const std::string& jsonString);
-    void loadTextTexture(const std::string& jsonString);   // Sub function for text textures
-    void loadNumberTexture(const std::string& jsonString); // Sub function for number textures
-    void loadUserInterfaceTexture(const std::string& jsonString);     // Sub function for loading UI elements
+    void loadTextTexture(const std::string& jsonString);          // Sub function for text textures
+    void loadNumberTexture(const std::string& jsonString);        // Sub function for number textures
+    void loadUserInterfaceTexture(const std::string& jsonString); // Sub function for loading UI elements
     // Functions to generate shapes
     void generateSquare(const std::string& name,
                         const int&         width,
