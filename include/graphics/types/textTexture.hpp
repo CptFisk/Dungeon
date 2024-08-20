@@ -18,8 +18,8 @@ class TextTexture : public Texture {
      * @param w Width of entire picture
      * @param h Height of entire picture
      * @param renderer Reference to the renderer, used to create characters
-     * @param fontW Width of invidual character
-     * @param fontH Height of invidual character
+     * @param fontW Width of individual character
+     * @param fontH Height of individual character
      * @param length Numbers of variations for each characters
      * @param ticks Number of ticks for animation
      */
@@ -31,9 +31,9 @@ class TextTexture : public Texture {
                 const int&    fontH,
                 const int&    length,
                 const int&    ticks);
-    ~TextTexture();
+    ~TextTexture() override;
     /**
-     * @brief Update the animationframe for the texture
+     * @brief Update the animation frame for the texture
      */
     void updateTexture();
     /**
