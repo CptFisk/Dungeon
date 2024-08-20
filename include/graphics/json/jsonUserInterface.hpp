@@ -15,7 +15,7 @@ namespace Graphics {
 /***
  * @brief JSON type for User Interface
  */
-struct typeUITextureJSON {
+struct typeUserInterfaceTextureJSON {
     std::string File;   // File to be loaded
     std::string Name;   // Name of file
     int         Column; // Start column in sheet
@@ -28,7 +28,7 @@ struct typeUITextureJSON {
     int         MarginLeft;
     int         MarginRight;
 
-    typeUITextureJSON()
+    typeUserInterfaceTextureJSON()
       : File{}
       , Name{}
       , Column{}
@@ -41,9 +41,13 @@ struct typeUITextureJSON {
       , MarginLeft{}
       , MarginRight{} {}
 };
+struct typeUserInterfaceTextureData {
+    std::vector<typeUserInterfaceTextureJSON> Objects;
+};
 
 inline void
-to_json(nlohmann::json& nlohmann_json_j, const typeUITextureJSON& nlohmann_json_t) {
+to_json(nlohmann::json& nlohmann_json_j, const typeUserInterfaceTextureJSON& nlohmann_json_t) {
+    nlohmann_json_j["File"]         = nlohmann_json_t.File;
     nlohmann_json_j["Name"]         = nlohmann_json_t.Name;
     nlohmann_json_j["Column"]       = nlohmann_json_t.Column;
     nlohmann_json_j["Row"]          = nlohmann_json_t.Row;
@@ -56,7 +60,8 @@ to_json(nlohmann::json& nlohmann_json_j, const typeUITextureJSON& nlohmann_json_
     nlohmann_json_j["MarginRight"]  = nlohmann_json_t.MarginRight;
 }
 inline void
-from_json(const nlohmann::json& nlohmann_json_j, typeUITextureJSON& nlohmann_json_t) {
+from_json(const nlohmann::json& nlohmann_json_j, typeUserInterfaceTextureJSON& nlohmann_json_t) {
+    nlohmann_json_j.at("File").get_to(nlohmann_json_t.File);
     nlohmann_json_j.at("Name").get_to(nlohmann_json_t.Name);
     nlohmann_json_j.at("Column").get_to(nlohmann_json_t.Column);
     nlohmann_json_j.at("Row").get_to(nlohmann_json_t.Row);
@@ -68,5 +73,7 @@ from_json(const nlohmann::json& nlohmann_json_j, typeUITextureJSON& nlohmann_jso
     GENERATE_JSON_CODE(MarginLeft)
     GENERATE_JSON_CODE(MarginRight)
 }
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(typeUserInterfaceTextureData, Objects)
 
 }

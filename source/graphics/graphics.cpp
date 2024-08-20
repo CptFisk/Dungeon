@@ -1,4 +1,3 @@
-#include <cmath>
 #include <graphics/graphics.hpp>
 #include <iostream>
 #include <set>
@@ -11,17 +10,19 @@ Graphics::updateAnimatedTexture() {
     for (auto object : mAnimatedTextures) {
         switch ((*object)->getType()) {
             case TextureTypes::AnimatedTexture:
-                static_cast<AnimatedTexture*>(*object)->updateTexture();
+                dynamic_cast<AnimatedTexture*>(*object)->updateTexture();
                 break;
             case TextureTypes::LightningTexture:
-                static_cast<LightningTexture*>(*object)->updateTexture();
+                dynamic_cast<LightningTexture*>(*object)->updateTexture();
                 break;
             case TextureTypes::Text:
-                static_cast<TextTexture*>(*object)->updateTexture();
+                dynamic_cast<TextTexture*>(*object)->updateTexture();
                 break;
             case TextureTypes::Number:
-                static_cast<NumberTexture*>(*object)->updateTexture();
+                dynamic_cast<NumberTexture*>(*object)->updateTexture();
                 break;
+            default:
+                ASSERT_WITH_MESSAGE(true, "Wrong type!")
         }
     }
 }

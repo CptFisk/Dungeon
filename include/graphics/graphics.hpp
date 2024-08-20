@@ -33,11 +33,6 @@ class Graphics {
     ~Graphics();
     void init();
 
-    struct typeTextureInfo {
-        std::any     Texture;
-        TextureTypes Type;
-    };
-
     Texture* getTexture(const std::string& name) {
         ASSERT_WITH_MESSAGE(mGraphics.find(name) == mGraphics.end(), name << " dont exist");
         return mGraphics[name];
@@ -49,6 +44,7 @@ class Graphics {
         switch (texture->getType()) {
             case TextureTypes::GeneratedTexture:
             case TextureTypes::BaseTexture:
+            case TextureTypes::UserInterface:
                 mGraphics[name] = texture;
                 break;
             case TextureTypes::AnimatedTexture:
@@ -58,6 +54,8 @@ class Graphics {
                 mGraphics[name] = texture;
                 mAnimatedTextures.push_back(&mGraphics[name]);
                 break;
+            default:
+                ASSERT_WITH_MESSAGE(true, "Cant get type")
         }
     }
     /**
@@ -90,7 +88,7 @@ class Graphics {
     void loadGeneratedTexture(const std::string& jsonString);
     void loadTextTexture(const std::string& jsonString);   // Sub function for text textures
     void loadNumberTexture(const std::string& jsonString); // Sub function for number textures
-
+    void loadUserInterfaceTexture(const std::string& jsonString);     // Sub function for loading UI elements
     // Functions to generate shapes
     void generateSquare(const std::string& name,
                         const int&         width,

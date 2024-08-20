@@ -49,6 +49,9 @@ Graphics::loadJSON(const std::string& fileName) {
         case TextureTypes::Number:
             loadNumberTexture(jsonString);
             break;
+        case TextureTypes::UserInterface:
+            loadUserInterfaceTexture(jsonString);
+            break;
     }
 }
 
