@@ -1,6 +1,6 @@
 {
     "Header": {
-        "Type": "BaseTexture"
+        "Type": "UserInterface"
     },
     "Data": {
         "Objects": [
@@ -11,7 +11,9 @@
                 "Column": 1,
                 "Length": 1,
                 "Height": 16,
-                "Width": 64
+                "Width": 64,
+                "MarginBottom" : 27,
+                "MarginLeft" : 32
             }
         ]
     }
