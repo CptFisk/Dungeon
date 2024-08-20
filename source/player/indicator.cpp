@@ -3,14 +3,9 @@
 #include <utility/math.hpp>
 
 namespace Player {
-Indicator::Indicator(int&                   value,
-                     Common::typeScale&     scale,
-                     const int&             marginBottom,
-                     Graphics::BaseTexture* base,
-                     Graphics::BaseTexture* indicator)
+Indicator::Indicator(int& value, Common::typeScale& scale, Graphics::UserInterfaceTexture* base, Graphics::UserInterfaceTexture* indicator)
   : mValue(value)
   , mScale(scale)
-  , mMarginBottom(marginBottom)
   , pBase(base)
   , pIndicator(indicator)
   , mBaseDestination{}
@@ -23,15 +18,16 @@ Indicator::Indicator(int&                   value,
 void
 Indicator::updateIndicator() {
     // Positions for base-element
-    const auto wB           = pBase->getWidth();
-    const auto hB           = pBase->getHeight();
-    const auto marginBottom = INT(FLOAT(mScale.windowHeight) / mScale.selectedScale) - mMarginBottom;
-    mBaseDestination        = { 16, FLOAT(marginBottom), FLOAT(wB), FLOAT(hB) };
+    mBaseDestination = { pBase->getMarginLeftF(),
+                         FLOAT(INT(FLOAT(mScale.windowHeight) / mScale.selectedScale) - pBase->getMarginBottom()),
+                         pBase->getWidthF(),
+                         pBase->getHeightF() };
 
     // Positions for Indicator
-    const auto wI = pIndicator->getWidth();
-    const auto hI = pIndicator->getHeight();
-    mIndicatorDestination         = { 16, FLOAT(marginBottom), FLOAT(wI), FLOAT(hI) };
+    mIndicatorDestination = { pIndicator->getMarginLeftF(),
+                              FLOAT(INT(FLOAT(mScale.windowHeight) / mScale.selectedScale) - pIndicator->getMarginBottom()),
+                              pIndicator->getWidthF(),
+                              pIndicator->getHeightF() };
 }
 
 std::vector<Graphics::typeDrawData>

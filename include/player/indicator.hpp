@@ -1,13 +1,25 @@
 #pragma once
 #include <SDL.h>
 #include <common/scale.hpp>
-#include <graphics/types/baseTexture.hpp>
+#include <graphics/types/UserInterfaceTexture.hpp>
 #include <graphics/types/drawData.hpp>
 
 namespace Player {
+/**
+ * @brief Class to hold UI elements such as health and energy pool
+ */
 class Indicator {
   public:
-    Indicator(int& value, Common::typeScale& scale, const int& marginBottom, Graphics::BaseTexture* base, Graphics::BaseTexture* indicator);
+    /**
+     * @brief Constructor
+     * @param value Reference to the value that will be used
+     * @param scale Scaling factor of game
+     * @param base Base texture
+     * @param indicator Indicator texture
+     */
+    Indicator(int& value, Common::typeScale& scale,
+              Graphics::UserInterfaceTexture* base,
+              Graphics::UserInterfaceTexture* indicator);
     void updateIndicator();
 
     /**
@@ -19,16 +31,13 @@ class Indicator {
   protected:
   private:
     int& mValue; // Players current health
-
-    const int mMarginBottom; // Margin to bottom of screen
-
-    SDL_FRect              mBaseDestination;       // Destination for background
+        SDL_FRect              mBaseDestination;       // Destination for background
     SDL_FRect              mIndicatorDestination; // Destination for indication bar
     Graphics::typeDrawData mBaseDrawData;          // Draw data for base
     Graphics::typeDrawData mIndicatorDrawData;    // Draw data for indicator
 
     Common::typeScale&     mScale;     // Current game scaling
-    Graphics::BaseTexture* pBase;      // Base graphic
-    Graphics::BaseTexture* pIndicator; // Indicator graphic
+    Graphics::UserInterfaceTexture* pBase;      // Base graphic
+    Graphics::UserInterfaceTexture* pIndicator; // Indicator graphic
 };
 }
