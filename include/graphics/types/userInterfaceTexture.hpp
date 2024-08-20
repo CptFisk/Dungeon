@@ -28,21 +28,25 @@ class UserInterfaceTexture : public Texture {
      * @return Margin top
      */
     [[nodiscard]] [[maybe_unused]] int getMarginTop() const;
+    [[nodiscard]] [[maybe_unused]] int getMarginTopF() const;
     /**
      * brief Return the margin for element to bottom of screen
      * @return Margin bottom
      */
     [[nodiscard]] [[maybe_unused]]int getMarginBottom() const;
+    [[nodiscard]] [[maybe_unused]]int getMarginBottomF() const;
     /**
      * brief Return the margin for element to the left side of screen
      * @return Margin left
      */
     [[nodiscard]] [[maybe_unused]]int getMarginLeft() const;
+    [[nodiscard]] [[maybe_unused]]int getMarginLeftF() const;
     /**
      * brief Return the margin for element to the right side of screen
      * @return Margin right
      */
     [[nodiscard]] [[maybe_unused]]int getMarginRight() const;
+    [[nodiscard]] [[maybe_unused]]int getMarginRightF() const;
 
   protected:
   private:
