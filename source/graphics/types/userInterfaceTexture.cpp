@@ -14,19 +14,19 @@ UserInterfaceTexture::getMarginTop() const {
     return mMarginTop;
 }
 
-int
+float
 UserInterfaceTexture::getMarginTopF() const {
     return static_cast<float>(mMarginTop);
 }
 
 int
 UserInterfaceTexture::getMarginBottom() const {
-    return mMarginBottom;
+    return mMarginBottom + mHeight;
 }
 
-int
+float
 UserInterfaceTexture::getMarginBottomF() const {
-    return static_cast<float>(mMarginBottom);
+    return static_cast<float>(mMarginBottom + mHeight);
 }
 
 int
@@ -34,18 +34,18 @@ UserInterfaceTexture::getMarginLeft() const {
     return mMarginLeft;
 }
 
-int
+float
 UserInterfaceTexture::getMarginLeftF() const {
     return static_cast<float>(mMarginLeft);
 }
 
 int
 UserInterfaceTexture::getMarginRight() const {
-    return mMarginRight;
+    return mMarginRight + mWidth;
 }
 
-int
+float
 UserInterfaceTexture::getMarginRightF() const {
-    return static_cast<float>(mMarginRight);
+    return static_cast<float>(mMarginRight  + mWidth);
 }
 }

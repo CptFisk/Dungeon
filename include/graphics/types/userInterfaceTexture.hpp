@@ -20,33 +20,28 @@ class UserInterfaceTexture : public Texture {
      * @param left Margin left
      * @param right Margin right
      */
-    UserInterfaceTexture(SDL_Texture* texture, const int& w, const int& h, const int& top, const int& bottom, const int& left, const int& right);
+    UserInterfaceTexture(SDL_Texture* texture,
+                         const int&   w,
+                         const int&   h,
+                         const int&   top,
+                         const int&   bottom,
+                         const int&   left,
+                         const int&   right);
     ~UserInterfaceTexture() = default;
 
     /**
-     * brief Return the margin for element to top of screen
-     * @return Margin top
+     * @brief Return the margin (spacing) to a element from that side of the screen.
+     * @brief When requesting margin for right and bottom, compensation for the texture size have been made
+     * @return value as the specific type
      */
-    [[nodiscard]] [[maybe_unused]] int getMarginTop() const;
-    [[nodiscard]] [[maybe_unused]] int getMarginTopF() const;
-    /**
-     * brief Return the margin for element to bottom of screen
-     * @return Margin bottom
-     */
-    [[nodiscard]] [[maybe_unused]]int getMarginBottom() const;
-    [[nodiscard]] [[maybe_unused]]int getMarginBottomF() const;
-    /**
-     * brief Return the margin for element to the left side of screen
-     * @return Margin left
-     */
-    [[nodiscard]] [[maybe_unused]]int getMarginLeft() const;
-    [[nodiscard]] [[maybe_unused]]int getMarginLeftF() const;
-    /**
-     * brief Return the margin for element to the right side of screen
-     * @return Margin right
-     */
-    [[nodiscard]] [[maybe_unused]]int getMarginRight() const;
-    [[nodiscard]] [[maybe_unused]]int getMarginRightF() const;
+    [[nodiscard]] [[maybe_unused]] int   getMarginTop() const;
+    [[nodiscard]] [[maybe_unused]] float getMarginTopF() const;
+    [[nodiscard]] [[maybe_unused]] int   getMarginBottom() const;
+    [[nodiscard]] [[maybe_unused]] float getMarginBottomF() const;
+    [[nodiscard]] [[maybe_unused]] int   getMarginLeft() const;
+    [[nodiscard]] [[maybe_unused]] float getMarginLeftF() const;
+    [[nodiscard]] [[maybe_unused]] int   getMarginRight() const;
+    [[nodiscard]] [[maybe_unused]] float getMarginRightF() const;
 
   protected:
   private:
