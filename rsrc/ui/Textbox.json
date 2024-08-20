@@ -1,6 +1,6 @@
 {
   "Header": {
-    "Type": "BaseTexture"
+    "Type": "UserInterface"
   },
   "Data": {
     "Objects": [
@@ -11,7 +11,9 @@
         "Column": 1,
         "Length": 1,
         "Height": 16,
-        "Width": 64
+        "Width": 64,
+        "MarginBottom": 5,
+        "MarginLeft" : 5
       },
       {
         "File": "rsrc/ui/Textbox.png",
@@ -20,7 +22,9 @@
         "Column": 1,
         "Length": 1,
         "Height": 16,
-        "Width": 64
+        "Width": 64,
+        "MarginBottom" : 5,
+        "MarginRight" : 5
       },
       {
         "File": "rsrc/ui/Textbox.png",
@@ -29,7 +33,8 @@
         "Column": 1,
         "Length": 1,
         "Height": 16,
-        "Width": 64
+        "Width": 64,
+        "MarginBottom" : 5
       }
     ]
   }
