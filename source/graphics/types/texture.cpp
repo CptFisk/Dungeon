@@ -23,9 +23,19 @@ Texture::getWidth() const {
     return mWidth;
 }
 
+float
+Texture::getWidthF() const {
+    return static_cast<float>(mWidth);
+}
+
 int
 Texture::getHeight() const {
     return mHeight;
+}
+
+float
+Texture::getHeightF() const {
+    return static_cast<float>(mHeight);
 }
 
 TextureTypes

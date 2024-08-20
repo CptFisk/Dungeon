@@ -21,10 +21,20 @@ class Texture {
      */
     [[nodiscard]] int getWidth() const;
     /**
+     * @brief Get the width of texture as float
+     * @return
+     */
+    [[nodiscard]] float getWidthF() const;
+    /**
      * @brief Get the height of the object
      *
      */
     [[nodiscard]] int getHeight() const;
+    /**
+     * @brief Get the height of the object as float
+     *
+     */
+    [[nodiscard]] float getHeightF() const;
     /**
      * @brief Get the type object
      */
