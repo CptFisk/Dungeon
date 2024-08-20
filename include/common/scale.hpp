@@ -11,13 +11,17 @@ struct typeScale {
     float factorX;       // Value used to scale the width of each level, 1 means 16 squares width
     float factorY;       // Value used to scale the height of each level, 1 means 16 squares width
     int   windowWidth;   // Window width
+    float windowWidthF;  // Window width (float)
     int   windowHeight;  // Window Height
-    float selectedScale; // Slace that we stick with
+    float windowHeightF; // Window width (float)
+    float selectedScale; // Scale that we stick with
     typeScale()
       : factorX(0.0f)
       , factorY(0.0f)
       , windowWidth(0)
       , windowHeight(0)
+      , windowWidthF(0.0f)
+      , windowHeightF(0.0f)
       , selectedScale(0.0f) {}
 };
 
