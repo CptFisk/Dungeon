@@ -67,9 +67,9 @@ class Texture {
   protected:
     std::vector<SDL_Rect> mViewports;
     SDL_Texture*          pTexture; // SDL_Texture
+    const int             mHeight;  // Texture Height
+    const int             mWidth;   // Texture width
   private:
-    const int          mHeight; // Texture Height
-    const int          mWidth;  // Texture width
-    const TextureTypes mType;   // Texture type
+    const TextureTypes mType; // Texture type
 };
 }
