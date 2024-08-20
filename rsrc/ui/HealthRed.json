@@ -10,9 +10,9 @@
                 "Row": 1,
                 "Column": 1,
                 "Length": 1,
-                "Height": 16,
-                "Width": 64,
-                "MarginBottom" : 27,
+                "Height": 2,
+                "Width": 45,
+                "MarginBottom" : 25,
                 "MarginLeft" : 32
             }
         ]
