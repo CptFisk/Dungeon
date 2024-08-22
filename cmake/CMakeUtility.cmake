@@ -1,5 +1,12 @@
 message(STATUS "Utility library")
+project(UtilityLibrary)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
 set(LIB_UTILITY Utility)
+
+enable_testing()
 
 add_library(
         ${LIB_UTILITY}
@@ -21,3 +28,23 @@ target_link_libraries(
         PRIVATE
         SDL2::SDL2
 )
+
+add_executable(
+        UtilityTests
+        ${CMAKE_SOURCE_DIR}/test/utility/math.cpp  #
+)
+
+target_include_directories(
+        UtilityTests
+        PRIVATE
+        ${CMAKE_SOURCE_DIR}/include
+)
+
+# Link the utility library and testing libraries to the test executable
+target_link_libraries(
+        UtilityTests
+        ${LIB_UTILITY}
+)
+
+add_test(NAME MathTests COMMAND UtilityTests)
+

@@ -11,4 +11,25 @@ namespace Utility {
  */
 std::vector<int>
 splitNumbers(int n);
+
+template <typename T>
+bool allEqual(T value){
+    return true;
+}
+
+template <typename T, typename... Args>
+bool allEqual(T first, Args... args){
+    return ((first == args) && ...);
+}
+
+template <typename T>
+bool isAnyEqualTo(T value, T compareValue) {
+    return value == compareValue;
+}
+
+template <typename T, typename... Args>
+bool isAnyEqualTo(T first, T compareValue, Args... args) {
+    return (first == compareValue) || isAnyEqualTo(args..., compareValue);
+}
+
 }
