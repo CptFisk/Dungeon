@@ -18,7 +18,7 @@ class LightningTexture : public BaseTexture {
      */
     void addViewportDone();
     /**
-     * @brief Update the animationframe for the texture
+     * @brief Update the animation frame for the texture
      */
     void               updateTexture();
     [[nodiscard]] bool done() const;     // Animation is last frame
