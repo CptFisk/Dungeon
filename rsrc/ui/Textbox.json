@@ -6,7 +6,7 @@
     "Objects": [
       {
         "File": "rsrc/ui/Textbox.png",
-        "Name": "TextboxStart",
+        "Name": "TextboxLargeStart",
         "Row": 1,
         "Column": 1,
         "Length": 1,
@@ -17,7 +17,7 @@
       },
       {
         "File": "rsrc/ui/Textbox.png",
-        "Name": "TextboxEnd",
+        "Name": "TextboxLargeEnd",
         "Row": 2,
         "Column": 1,
         "Length": 1,
@@ -28,7 +28,7 @@
       },
       {
         "File": "rsrc/ui/Textbox.png",
-        "Name": "TextboxCenter",
+        "Name": "TextboxLargeCenter",
         "Row": 3,
         "Column": 1,
         "Length": 1,
