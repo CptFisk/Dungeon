@@ -67,13 +67,14 @@ Engine::createSegments(std::vector<typeSegmentData>& segment, const uint8_t& ani
                  * It appears that SDL_CreateTexture dont always provide a 100% clean texture, resulting in that we sometime
                  * inherit older parts, we first need to make sure that its cleared.
                  */
-                SDL_SetRenderTarget(pRenderer, texture);
-                SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 0);
-                SDL_RenderClear(pRenderer);
+                ASSERT_WITH_MESSAGE(texture == nullptr, SDL_GetError())
+                ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(pRenderer, texture) != 0, SDL_GetError())
+                ASSERT_WITH_MESSAGE(SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 0) != 0, SDL_GetError())
+                ASSERT_WITH_MESSAGE(SDL_RenderClear(pRenderer) != 0, SDL_GetError())
 
-                SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
-                SDL_SetTextureAlphaMod(texture, 255);
-                SDL_SetRenderTarget(pRenderer, nullptr);
+                ASSERT_WITH_MESSAGE(SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND) != 0, SDL_GetError())
+                ASSERT_WITH_MESSAGE(SDL_SetTextureAlphaMod(texture, 255) != 0, SDL_GetError())
+                ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(pRenderer, nullptr) != 0, SDL_GetError())
                 // Creating all layers
                 layers.emplace_back(texture);
             }
