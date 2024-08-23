@@ -1,0 +1,20 @@
+{
+  "Header": {
+    "Type": "UserInterface"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/ui/TextboxBigEnd.png",
+        "Name": "TextboxBigEnd",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 64,
+        "Width": 16,
+        "MarginBottom" : 16,
+        "MarginLeft" : 16
+      }
+    ]
+  }
+}
