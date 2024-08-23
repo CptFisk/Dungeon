@@ -14,6 +14,7 @@
 #include <set>
 #include <string>
 #include <thread>
+#include <ui/textbox.hpp>
 #include <utility/timer.hpp>
 #include <utility>
 
@@ -72,13 +73,14 @@ class Engine {
         float Y;
     } offset;
 
-    std::unique_ptr<Common::InitHandler> mInitHandler;
+    Common::InitHandler mInitHandler;
     std::unique_ptr<Player::Player>      mPlayer;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
     std::unique_ptr<Player::Indicator>   mHealth;
     std::unique_ptr<Player::Indicator>   mEnergy;
     std::unique_ptr<Common::Perspective> mPerspective;
     std::unique_ptr<LoadingScreen>       mLoadingScreen;
+    std::unique_ptr<UI::Textbox>         mTextbox;
 
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;

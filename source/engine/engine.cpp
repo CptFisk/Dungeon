@@ -11,8 +11,7 @@
 namespace Engine {
 
 Engine::Engine()
-  : mInitHandler(std::make_unique<Common::InitHandler>())
-  , pPlayerPosition(nullptr)
+  : pPlayerPosition(nullptr)
   , pPlayerTexture(nullptr)
   , pPlayerView(nullptr)
   , pWindow(nullptr)
@@ -26,7 +25,7 @@ Engine::Engine()
   , mPlayerEnergy(50)
   , mEvent{}
   , Background{}
-  , mSegments{} {}
+  , mSegments{}{}
 
 Engine::~Engine() {
     // De-spawn all threads
@@ -47,7 +46,7 @@ Engine::~Engine() {
         delete projectile;
     }
     mGraphics.reset(); // Kill graphics
-    mInitHandler->shutdown();
+    mInitHandler.shutdown();
 }
 
 Common::ActionManager&
@@ -170,7 +169,7 @@ Engine::mainLoop() {
         drawNumbers();
 
         drawLevel(mSegments.Lightning, mSegments.CurrentLayerLightning);
-        for(auto drawData : mHealth->getIndicator()){
+        for (auto drawData : mHealth->getIndicator()) {
             SDL_RenderCopyF(pRenderer, drawData.Texture, drawData.Viewport, drawData.Position);
         }
         present();
