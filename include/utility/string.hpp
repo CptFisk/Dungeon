@@ -17,6 +17,12 @@ isCharacter(const char& c) {
     return (v >= 65 && v <= 90) ? true : false;
 }
 
+constexpr bool
+isNumber(const char& c) {
+    const int v = static_cast<int>(c);
+    return (c >= 48 && c <= 57) ? true : false;
+}
+
 /**
  * @brief Return the value of a character. Aa = 0, Bb = 1 and so on.
  * @brief If the character is illegal it will return -1

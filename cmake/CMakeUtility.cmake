@@ -30,21 +30,40 @@ target_link_libraries(
 )
 
 add_executable(
-        UtilityTests
-        ${CMAKE_SOURCE_DIR}/test/utility/math.cpp  #
+        MathTest
+        ${CMAKE_SOURCE_DIR}/test/utility/math.cpp
+)
+
+add_executable(
+        StringTest
+        ${CMAKE_SOURCE_DIR}/test/utility/string.cpp
 )
 
 target_include_directories(
-        UtilityTests
+        MathTest
         PRIVATE
         ${CMAKE_SOURCE_DIR}/include
+
+)
+
+target_include_directories(
+        StringTest
+        PRIVATE
+        ${CMAKE_SOURCE_DIR}/include
+
 )
 
 # Link the utility library and testing libraries to the test executable
 target_link_libraries(
-        UtilityTests
+        MathTest
         ${LIB_UTILITY}
 )
 
-add_test(NAME MathTests COMMAND UtilityTests)
+target_link_libraries(
+        StringTest
+        ${LIB_UTILITY}
+)
+
+add_test(NAME MathTest COMMAND MathTest)
+add_test(NAME StringTest COMMAND StringTest)
 
