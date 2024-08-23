@@ -1,6 +1,6 @@
 #include <engine/engine.hpp>
 
-namespace Engine{
+namespace Engine {
 void
 Engine::startup() {
     // Starting interrupts
@@ -8,17 +8,10 @@ Engine::startup() {
     mThreads.push_back(spawnInterrupt(100));
     mThreads.push_back(spawnInterrupt(500));
     // 1280 960
-    mInitHandler->addInitializer(std::make_shared<Common::SDLInitializer>(pWindow, pRenderer, 1920, 1080, false, "Vera adventure"));
-    mInitHandler->startup();
+    mInitHandler.addInitializer(std::make_shared<Common::SDLInitializer>(pWindow, pRenderer, 1920, 1080, false, "Vera adventure"));
+    mInitHandler.startup();
     // 1920 1080
 
-    /*
-    mLoadingScreen = std::make_unique<LoadinasgScreen>(pRenderer, mMutex);
-
-    mLoading = std::thread([&]() {
-        mLoadingScreen->run();s
-    });
-    */
     Common::calculateGameScale(mScale, pWindow);
     SDL_RenderSetScale(pRenderer, mScale.selectedScale, mScale.selectedScale);
     mActionManager = std::make_unique<Common::ActionManager>(pRenderer, mScale);
@@ -33,7 +26,24 @@ Engine::startup() {
     loadLevel("554.map");
     SDL_RenderClear(pRenderer);
 
-    mHealth = std::make_unique<Player::Indicator>(mPlayerHealth, mScale, 36.0f, GET_BASE("HealthBase"), GET_BASE("HealthRed"));
+
+    mTextbox = std::make_unique<UI::Textbox>(pRenderer, mScale);
+    //Textbox
+    mTextbox->addElements(UI::TextboxSize::Small,
+                          GET_USERINTERFACE("TextboxSmallStart"),
+                          GET_USERINTERFACE("TextboxSmallCenter"),
+                          GET_USERINTERFACE("TextboxSmallEnd"));
+    mTextbox->addElements(UI::TextboxSize::Medium,
+                          GET_USERINTERFACE("TextboxMediumStart"),
+                          GET_USERINTERFACE("TextboxMediumCenter"),
+                          GET_USERINTERFACE("TextboxMediumEnd"));
+    mTextbox->addElements(UI::TextboxSize::Large,
+                          GET_USERINTERFACE("TextboxLargeStart"),
+                          GET_USERINTERFACE("TextboxLargeCenter"),
+                          GET_USERINTERFACE("TextboxLargeEnd"));
+    mTextbox->generateBoxes();
+
+    mHealth = std::make_unique<Player::Indicator>(mPlayerHealth, mScale, GET_USERINTERFACE("HealthBase"), GET_USERINTERFACE("HealthRed"));
     /*
   mEnergy =
     std::make_unique<Player::Indicator>(mVisibleUI, mPlayerEnergy, 16.0f, pRenderer, GET_ANIMATED("Bolt"), GET_NUMBER("NumberWhite"));
@@ -58,7 +68,6 @@ Engine::startup() {
     mParticles = std::make_shared<Objects::Particle>(GET_GENERATED("FAE2C3")->getTexture(), 100, 0.5f, 0.5f);
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
-
     mInterrupts[10]->addFunction([&]() {
         {
             std::lock_guard<std::mutex> lock(mMutex);

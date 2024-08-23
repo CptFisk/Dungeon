@@ -1,0 +1,20 @@
+{
+  "Header": {
+    "Type": "UserInterface"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "File": "rsrc/ui/TextboxMediumCenter.png",
+        "Name": "TextboxMediumCenter",
+        "Row": 1,
+        "Column": 1,
+        "Length": 1,
+        "Height": 48,
+        "Width": 16,
+        "MarginBottom" : 16,
+        "MarginLeft" : 16
+      }
+    ]
+  }
+}
