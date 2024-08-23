@@ -5,7 +5,7 @@
 
 namespace Graphics {
 /**
- * @brief Base class containting standard information about images.
+ * @brief Base class containing standard information about images.
  */
 class Texture {
   public:
@@ -17,28 +17,38 @@ class Texture {
      */
     [[nodiscard]] SDL_Texture*& getTexture();
     /**
+     * @brief Change the value of @refitem mWidth, not that this dont change the size of SDL_Texture*
+     * @param width New width
+     */
+    [[maybe_unused]] void setWidth(const int& width);
+    /**
+     * @brief Change the value of @refitem mHeight, not that this dont change the size of SDL_Texture*
+     * @param width New height
+     */
+    [[maybe_unused]] void setHeight(const int& height);
+    /**
      * @brief Get the width of the texture
      */
-    [[nodiscard]] int getWidth() const;
+    [[nodiscard]] [[maybe_unused]] constexpr int getWidth() const { return mWidth; };
     /**
      * @brief Get the width of texture as float
      * @return
      */
-    [[nodiscard]] float getWidthF() const;
+    [[nodiscard]] [[maybe_unused]] constexpr float getWidthF() const { return static_cast<float>(mWidth); };
     /**
      * @brief Get the height of the object
      *
      */
-    [[nodiscard]] int getHeight() const;
+    [[nodiscard]] [[maybe_unused]] constexpr int getHeight() const { return mHeight; };
     /**
      * @brief Get the height of the object as float
      *
      */
-    [[nodiscard]] float getHeightF() const;
+    [[nodiscard]] [[maybe_unused]] constexpr float getHeightF() const { return static_cast<float>(mHeight); };
     /**
      * @brief Get the type object
      */
-    [[nodiscard]] TextureTypes getType() const;
+    [[nodiscard]] constexpr TextureTypes getType() const { return mType; };
     /**
      * @brief Add a viewport to the graphic
      *
@@ -67,8 +77,8 @@ class Texture {
   protected:
     std::vector<SDL_Rect> mViewports;
     SDL_Texture*          pTexture; // SDL_Texture
-    const int             mHeight;  // Texture Height
-    const int             mWidth;   // Texture width
+    int                   mHeight;  // Texture Height
+    int                   mWidth;   // Texture width
   private:
     const TextureTypes mType; // Texture type
 };

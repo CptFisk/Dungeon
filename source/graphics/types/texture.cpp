@@ -18,29 +18,14 @@ Texture::getTexture() {
     return pTexture;
 }
 
-int
-Texture::getWidth() const {
-    return mWidth;
+void
+Texture::setHeight(const int& height) {
+    mHeight = height;
 }
 
-float
-Texture::getWidthF() const {
-    return static_cast<float>(mWidth);
-}
-
-int
-Texture::getHeight() const {
-    return mHeight;
-}
-
-float
-Texture::getHeightF() const {
-    return static_cast<float>(mHeight);
-}
-
-TextureTypes
-Texture::getType() const {
-    return mType;
+void
+Texture::setWidth(const int& width) {
+    mWidth = width;
 }
 
 void
