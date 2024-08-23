@@ -5,8 +5,8 @@
   "Data": {
     "Objects": [
       {
-        "File": "rsrc/ui/TextboxBigEnd.png",
-        "Name": "TextboxBigEnd",
+        "File": "rsrc/ui/TextboxLargeCenter.png",
+        "Name": "TextboxLargeCenter",
         "Row": 1,
         "Column": 1,
         "Length": 1,
