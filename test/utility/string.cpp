@@ -58,6 +58,9 @@ int main(){
     assert(Utility::isCharacter('Y') == true);
     assert(Utility::isCharacter('Z') == true);
 
+    assert(Utility::isCharacter("Hello world") == true);
+    assert(Utility::isCharacter("Hello world123") != true);
+
     //Failing
     assert(Utility::isCharacter('!') != true);
     assert(Utility::isCharacter('"') != true);
@@ -75,6 +78,9 @@ int main(){
     assert(Utility::isNumber('7') == true);
     assert(Utility::isNumber('8') == true);
     assert(Utility::isNumber('9') == true);
+
+    assert(Utility::isNumber("1234") == true);
+    assert(Utility::isNumber("123A") != true);
 
     //Failing
     assert(Utility::isNumber('a') != true);

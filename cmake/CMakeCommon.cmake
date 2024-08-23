@@ -31,6 +31,7 @@ add_library(
         ${CMAKE_SOURCE_DIR}/source/graphics/types/textTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/numberTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/userInterfaceTexture.cpp
+        ${CMAKE_SOURCE_DIR}/source/graphics/types/disappearingText.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/numbers.cpp
         
         ${CMAKE_SOURCE_DIR}/source/loaders/loadGraphics.cpp
