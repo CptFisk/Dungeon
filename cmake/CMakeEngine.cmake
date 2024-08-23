@@ -27,6 +27,8 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/monster/slime.cpp
         ${CMAKE_SOURCE_DIR}/source/monster/caveCrawler.cpp
 
+        ${CMAKE_SOURCE_DIR}/source/ui/textbox.cpp
+
         ${HELPERS}
 )
 
