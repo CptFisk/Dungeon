@@ -34,14 +34,23 @@ class UserInterfaceTexture : public Texture {
      * @brief When requesting margin for right and bottom, compensation for the texture size have been made
      * @return value as the specific type
      */
-    [[nodiscard]] [[maybe_unused]] int   getMarginTop() const;
-    [[nodiscard]] [[maybe_unused]] float getMarginTopF() const;
-    [[nodiscard]] [[maybe_unused]] int   getMarginBottom() const;
-    [[nodiscard]] [[maybe_unused]] float getMarginBottomF() const;
-    [[nodiscard]] [[maybe_unused]] int   getMarginLeft() const;
-    [[nodiscard]] [[maybe_unused]] float getMarginLeftF() const;
-    [[nodiscard]] [[maybe_unused]] int   getMarginRight() const;
-    [[nodiscard]] [[maybe_unused]] float getMarginRightF() const;
+    [[nodiscard]] [[maybe_unused]] constexpr int   getMarginTop() const { return mMarginTop; };
+    [[nodiscard]] [[maybe_unused]] constexpr float getMarginTopF() const { return static_cast<float>(mMarginTop); };
+    [[nodiscard]] [[maybe_unused]] constexpr int   getMarginBottom() const { return mMarginBottom + mHeight; };
+    [[nodiscard]] [[maybe_unused]] constexpr float getMarginBottomF() const { return static_cast<float>(mMarginBottom + mHeight); };
+    [[nodiscard]] [[maybe_unused]] constexpr int   getMarginLeft() const { return mMarginLeft; };
+    [[nodiscard]] [[maybe_unused]] constexpr float getMarginLeftF() const { return static_cast<float>(mMarginLeft); };
+    [[nodiscard]] [[maybe_unused]] constexpr int   getMarginRight() const { return mMarginRight + mWidth; };
+    [[nodiscard]] [[maybe_unused]] constexpr float getMarginRightF() const { return static_cast<float>(mMarginRight + mWidth); };
+    /**
+     * @brief Return the total width + margin for a element, only usable on top and left
+     * @example getTotalTop will return margin to top + graphic height
+     * @return value as specific type
+     */
+    [[nodiscard]] [[maybe_unused]] constexpr int   getTotalTop() const { return mMarginTop + mHeight; };
+    [[nodiscard]] [[maybe_unused]] constexpr float getTotalTopF() const { return static_cast<float>(mMarginTop + mHeight); };
+    [[nodiscard]] [[maybe_unused]] constexpr int   getTotalLeft() const { return mMarginLeft + mWidth; };
+    [[nodiscard]] [[maybe_unused]] constexpr float getTotalLeftF() const { return static_cast<float>(mMarginLeft + mWidth); };
 
   protected:
   private:

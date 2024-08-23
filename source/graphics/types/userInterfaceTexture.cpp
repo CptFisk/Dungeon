@@ -9,43 +9,4 @@ UserInterfaceTexture::UserInterfaceTexture(SDL_Texture* texture, const int& w, c
   , mMarginRight(right)
   , Texture(texture, w, h, TextureTypes::UserInterface) {}
 
-int
-UserInterfaceTexture::getMarginTop() const {
-    return mMarginTop;
-}
-
-float
-UserInterfaceTexture::getMarginTopF() const {
-    return static_cast<float>(mMarginTop);
-}
-
-int
-UserInterfaceTexture::getMarginBottom() const {
-    return mMarginBottom + mHeight;
-}
-
-float
-UserInterfaceTexture::getMarginBottomF() const {
-    return static_cast<float>(mMarginBottom + mHeight);
-}
-
-int
-UserInterfaceTexture::getMarginLeft() const {
-    return mMarginLeft;
-}
-
-float
-UserInterfaceTexture::getMarginLeftF() const {
-    return static_cast<float>(mMarginLeft);
-}
-
-int
-UserInterfaceTexture::getMarginRight() const {
-    return mMarginRight + mWidth;
-}
-
-float
-UserInterfaceTexture::getMarginRightF() const {
-    return static_cast<float>(mMarginRight  + mWidth);
-}
 }
