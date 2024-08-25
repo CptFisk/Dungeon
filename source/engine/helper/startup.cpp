@@ -1,4 +1,7 @@
 #include <engine/engine.hpp>
+#include <common/initializer/initializer.hpp>
+#include <common/initializer/sdl.hpp>
+#include <common/initializer/sdlTTF.hpp>
 
 namespace Engine {
 void
@@ -9,6 +12,7 @@ Engine::startup() {
     mThreads.push_back(spawnInterrupt(500));
     // 1280 960
     mInitHandler.addInitializer(std::make_shared<Common::SDLInitializer>(pWindow, pRenderer, 1920, 1080, false, "Vera adventure"));
+    mInitHandler.addInitializer(std::make_shared<Common::SDLTTFInitializer>());
     mInitHandler.startup();
     // 1920 1080
 

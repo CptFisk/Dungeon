@@ -6,6 +6,7 @@ add_library(
         STATIC
         ${CMAKE_SOURCE_DIR}/source/common/initializer/initializer.cpp
         ${CMAKE_SOURCE_DIR}/source/common/initializer/sdl.cpp
+        ${CMAKE_SOURCE_DIR}/source/common/initializer/sdlTTF.cpp
         ${CMAKE_SOURCE_DIR}/source/common/initializer/imgui.cpp
 
         ${CMAKE_SOURCE_DIR}/source/level/types/header.cpp
@@ -59,6 +60,7 @@ target_link_libraries(
         PRIVATE
         SDL2::SDL2
         SDL2_image::SDL2_image
+        SDL2_ttf::SDL2_ttf
         nlohmann_json::nlohmann_json
         ${LIB_IMGUI}
 )
