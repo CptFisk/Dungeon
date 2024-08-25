@@ -18,12 +18,12 @@ class AnimatedTexture : public BaseTexture {
      */
     void addViewportDone();
     /**
-     * @brief Update the animationframe for the texture
+     * @brief Update the animation frame for the texture
      */
-    void               updateTexture();
-    void               runCycles(const int& cycles);
-    [[nodiscard]] bool done() const;     // Animation is last frame
-    [[nodiscard]] int  getTicks() const; // Return the maximum number of ticks
+    void                  updateTexture();
+    [[maybe_unused]] void runCycles(const int& cycles);
+    [[nodiscard]] bool    done() const;     // Animation is last frame
+    [[nodiscard]] int     getTicks() const; // Return the maximum number of ticks
 
   private:
   protected:
