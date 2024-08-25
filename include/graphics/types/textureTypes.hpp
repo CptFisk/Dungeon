@@ -3,12 +3,11 @@
 
 namespace Graphics {
 
-enum class TextureTypes { Undefined, Text, Number, BaseTexture, AnimatedTexture, GeneratedTexture, LightningTexture, UserInterface };
+enum class TextureTypes { Undefined, Font, BaseTexture, AnimatedTexture, GeneratedTexture, LightningTexture, UserInterface };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TextureTypes,
                              { { TextureTypes::Undefined, "Undefined" },
-                               { TextureTypes::Text, "Text" },
-                               { TextureTypes::Number, "Number" },
+                               { TextureTypes::Font, "Font" },
                                { TextureTypes::BaseTexture, "BaseTexture" },
                                { TextureTypes::AnimatedTexture, "AnimatedTexture" },
                                { TextureTypes::GeneratedTexture, "GeneratedTexture" },

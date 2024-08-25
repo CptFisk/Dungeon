@@ -29,8 +29,6 @@ add_library(
         ${CMAKE_SOURCE_DIR}/source/graphics/types/animatedTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/lightningTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/generatedTexture.cpp
-        ${CMAKE_SOURCE_DIR}/source/graphics/types/textTexture.cpp
-        ${CMAKE_SOURCE_DIR}/source/graphics/types/numberTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/userInterfaceTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/disappearingText.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/numbers.cpp
@@ -39,9 +37,7 @@ add_library(
         ${CMAKE_SOURCE_DIR}/source/loaders/loadBaseTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadAnimatedTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadGeneratedTexture.cpp
-        ${CMAKE_SOURCE_DIR}/source/loaders/loadNumberTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadLightningTexture.cpp
-        ${CMAKE_SOURCE_DIR}/source/loaders/loadTextTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadUserInterfaceTexture.cpp
 
         ${CMAKE_SOURCE_DIR}/source/level/file.cpp
