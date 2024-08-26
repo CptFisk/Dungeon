@@ -41,6 +41,12 @@ Graphics::getTexture(const std::string& name) {
     return mGraphics[name];
 }
 
+SDL_Texture*
+Graphics::getSentence(const std::string& name, const std::string& sentence) {
+    ASSERT_WITH_MESSAGE(mFonts.find(name) == mFonts.end(), "Font dont exist")
+    return mFonts[name]->generateSentence(sentence);
+}
+
 void
 Graphics::addTexture(const std::string& name, Texture* texture) {
     ASSERT_WITH_MESSAGE(mGraphics.find(name) != mGraphics.end(), name << " already exists")

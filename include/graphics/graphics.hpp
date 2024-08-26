@@ -5,11 +5,11 @@
 #include <error.hpp>
 #include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/baseTexture.hpp>
+#include <graphics/types/font.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <graphics/types/lightningTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
 #include <graphics/types/userInterfaceTexture.hpp>
-#include <graphics/types/font.hpp>
 #include <iostream>
 #include <string>
 #include <typeindex>
@@ -30,8 +30,8 @@ class Graphics {
     ~Graphics();
     void init();
 
-
-    Texture* getTexture(const std::string& name);
+    Texture*     getTexture(const std::string& name);
+    SDL_Texture* getSentence(const std::string& font, const std::string& sentence);
     /**
      * @brief Add a new texture to the list, the functions handles different types and bind them with corresponding functions
      * @param name Name of texture
@@ -89,7 +89,7 @@ class Graphics {
 
   private:
     std::unordered_map<std::string, Texture*> mGraphics; // Storage for all textures
-    std::unordered_map<std::string, Font*>    mFonts;   //Storage for all fonts
+    std::unordered_map<std::string, Font*>    mFonts;    // Storage for all fonts
     SDL_Renderer*                             pRenderer;
 
     std::vector<Texture**>         mAnimatedTextures;  // Textures that should be updated cyclic
