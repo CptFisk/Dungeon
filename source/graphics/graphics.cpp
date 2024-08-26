@@ -15,12 +15,6 @@ Graphics::updateAnimatedTexture() {
             case TextureTypes::LightningTexture:
                 dynamic_cast<LightningTexture*>(*object)->updateTexture();
                 break;
-            case TextureTypes::Text:
-                dynamic_cast<TextTexture*>(*object)->updateTexture();
-                break;
-            case TextureTypes::Number:
-                dynamic_cast<NumberTexture*>(*object)->updateTexture();
-                break;
             default:
                 ASSERT_WITH_MESSAGE(true, "Wrong type!")
         }
@@ -32,11 +26,45 @@ Graphics::~Graphics() {
     for (auto& [name, data] : mGraphics) {
         delete data;
     }
+    for(auto& [name, data] : mFonts)
+        delete data;
 }
 
 void
 Graphics::init() {
     loadGraphics("rsrc");
+}
+
+Texture*
+Graphics::getTexture(const std::string& name) {
+    ASSERT_WITH_MESSAGE(mGraphics.find(name) == mGraphics.end(), name << " dont exist");
+    return mGraphics[name];
+}
+
+void
+Graphics::addTexture(const std::string& name, Texture* texture) {
+    ASSERT_WITH_MESSAGE(mGraphics.find(name) != mGraphics.end(), name << " already exists")
+
+    switch (texture->getType()) {
+        case TextureTypes::GeneratedTexture:
+        case TextureTypes::BaseTexture:
+        case TextureTypes::UserInterface:
+            mGraphics[name] = texture;
+            break;
+        case TextureTypes::AnimatedTexture:
+        case TextureTypes::LightningTexture:
+            mGraphics[name] = texture;
+            mAnimatedTextures.push_back(&mGraphics[name]);
+            break;
+        default:
+            ASSERT_WITH_MESSAGE(true, "Cant get type")
+    }
+}
+
+void
+Graphics::addFont(const std::string& name, Font* font) {
+    ASSERT_WITH_MESSAGE(mFonts.find(name) != mFonts.end(), name << " already exist")
+    mFonts[name] = font;
 }
 
 TextureTypes

@@ -4,15 +4,17 @@ include(FetchContent)
 
 #SDL
 FetchContent_Declare(SDL URL https://github.com/libsdl-org/SDL/archive/refs/tags/release-2.30.3.tar.gz)
-
 #SDL_Image
 FetchContent_Declare(SDL_image URL https://github.com/libsdl-org/SDL_image/archive/refs/tags/release-2.8.2.tar.gz)
+#SDL_TTF
+FetchContent_Declare(SDL_TTF URL https://github.com/libsdl-org/SDL_ttf/releases/download/release-2.22.0/SDL2_ttf-2.22.0.tar.gz)
+set(SDL2TTF_VENDORED ON)
 #JSON
 FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
 #Imgui
 FetchContent_Declare(imgui URL https://github.com/ocornut/imgui/archive/refs/tags/v1.90.6.tar.gz)
 
-FetchContent_MakeAvailable(SDL SDL_image json imgui)
+FetchContent_MakeAvailable(SDL SDL_image SDL_TTF json imgui)
 
 add_library(${LIB_IMGUI}
         STATIC

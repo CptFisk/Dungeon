@@ -43,14 +43,11 @@ Graphics::loadJSON(const std::string& fileName) {
         case TextureTypes::LightningTexture:
             loadLightningTexture(jsonString);
             break;
-        case TextureTypes::Text:
-            loadTextTexture(jsonString);
-            break;
-        case TextureTypes::Number:
-            loadNumberTexture(jsonString);
-            break;
         case TextureTypes::UserInterface:
             loadUserInterfaceTexture(jsonString);
+            break;
+        case TextureTypes::Font:
+            loadFontTexture(jsonString);
             break;
     }
 }

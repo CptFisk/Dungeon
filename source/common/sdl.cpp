@@ -40,4 +40,11 @@ loadImage(SDL_Renderer* renderer, const std::string& filename) {
     return texture;
 }
 
+TTF_Font*
+loadFont(const std::string& path, const int& size){
+    const auto font = TTF_OpenFont(path.c_str(), size);
+    ASSERT_WITH_MESSAGE(font == nullptr, SDL_GetError())
+    return font;
+}
+
 }

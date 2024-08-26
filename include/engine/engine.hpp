@@ -17,6 +17,7 @@
 #include <ui/textbox.hpp>
 #include <utility/timer.hpp>
 #include <utility>
+#include <common/initializer/initializer.hpp>
 
 namespace Engine {
 class Engine {

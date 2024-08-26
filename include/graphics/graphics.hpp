@@ -7,10 +7,9 @@
 #include <graphics/types/baseTexture.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <graphics/types/lightningTexture.hpp>
-#include <graphics/types/numberTexture.hpp>
-#include <graphics/types/textTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
 #include <graphics/types/userInterfaceTexture.hpp>
+#include <graphics/types/font.hpp>
 #include <iostream>
 #include <string>
 #include <typeindex>
@@ -20,8 +19,6 @@
 #define GET_ANIMATED(VAR)      (dynamic_cast<Graphics::AnimatedTexture*>(mGraphics->getTexture(VAR)))
 #define GET_BASE(VAR)          (dynamic_cast<Graphics::BaseTexture*>(mGraphics->getTexture(VAR)))
 #define GET_GENERATED(VAR)     (dynamic_cast<Graphics::GeneratedTexture*>(mGraphics->getTexture(VAR)))
-#define GET_NUMBER(VAR)        (dynamic_cast<Graphics::NumberTexture*>(mGraphics->getTexture(VAR)))
-#define GET_TEXT(VAR)          (dynamic_cast<Graphics::TextTexture*>(mGraphics->getTexture(VAR)))
 #define GET_LIGHTNING(VAR)     (dynamic_cast<Graphics::LightningTexture*>(mGraphics->getTexture(VAR)))
 #define GET_USERINTERFACE(VAR) (dynamic_cast<Graphics::UserInterfaceTexture*>(mGraphics->getTexture(VAR)))
 
@@ -33,31 +30,15 @@ class Graphics {
     ~Graphics();
     void init();
 
-    Texture* getTexture(const std::string& name) {
-        ASSERT_WITH_MESSAGE(mGraphics.find(name) == mGraphics.end(), name << " dont exist");
-        return mGraphics[name];
-    }
 
-    void addTexture(const std::string& name, Texture* texture) {
-        ASSERT_WITH_MESSAGE(mGraphics.find(name) != mGraphics.end(), name << " already exists")
-
-        switch (texture->getType()) {
-            case TextureTypes::GeneratedTexture:
-            case TextureTypes::BaseTexture:
-            case TextureTypes::UserInterface:
-                mGraphics[name] = texture;
-                break;
-            case TextureTypes::AnimatedTexture:
-            case TextureTypes::LightningTexture:
-            case TextureTypes::Text:
-            case TextureTypes::Number:
-                mGraphics[name] = texture;
-                mAnimatedTextures.push_back(&mGraphics[name]);
-                break;
-            default:
-                ASSERT_WITH_MESSAGE(true, "Cant get type")
-        }
-    }
+    Texture* getTexture(const std::string& name);
+    /**
+     * @brief Add a new texture to the list, the functions handles different types and bind them with corresponding functions
+     * @param name Name of texture
+     * @param texture Texture* class (or child=
+     */
+    void addTexture(const std::string& name, Texture* texture);
+    void addFont(const std::string& name, Font* font);
     /**
      * @brief Update all animated textures
      *
@@ -86,8 +67,7 @@ class Graphics {
     void loadAnimatedTexture(const std::string& jsonString);
     void loadLightningTexture(const std::string& jsonString); // Sub function for lightning effects
     void loadGeneratedTexture(const std::string& jsonString);
-    void loadTextTexture(const std::string& jsonString);          // Sub function for text textures
-    void loadNumberTexture(const std::string& jsonString);        // Sub function for number textures
+    void loadFontTexture(const std::string& jsonString);          // Load a font
     void loadUserInterfaceTexture(const std::string& jsonString); // Sub function for loading UI elements
     // Functions to generate shapes
     void generateSquare(const std::string& name,
@@ -109,6 +89,7 @@ class Graphics {
 
   private:
     std::unordered_map<std::string, Texture*> mGraphics; // Storage for all textures
+    std::unordered_map<std::string, Font*>    mFonts;   //Storage for all fonts
     SDL_Renderer*                             pRenderer;
 
     std::vector<Texture**>         mAnimatedTextures;  // Textures that should be updated cyclic
