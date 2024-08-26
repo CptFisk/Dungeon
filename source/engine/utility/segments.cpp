@@ -137,9 +137,6 @@ Engine::addToSegment(std::vector<typeSegmentData>& segment, const int& pos, cons
                 case Graphics::TextureTypes::GeneratedTexture:
                     std::cerr << "GENERATED" << std::endl;
                     break;
-                case Graphics::TextureTypes::Text:
-                    std::cerr << "TEXT" << std::endl;
-                    break;
                 case Graphics::TextureTypes::Undefined:
                     std::cerr << name << std::endl;
                     std::cerr << "UNDEFINED" << std::endl;
