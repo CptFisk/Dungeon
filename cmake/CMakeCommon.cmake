@@ -31,14 +31,16 @@ add_library(
         ${CMAKE_SOURCE_DIR}/source/graphics/types/generatedTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/userInterfaceTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/disappearingText.cpp
+        ${CMAKE_SOURCE_DIR}/source/graphics/types/font.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/numbers.cpp
-        
+
         ${CMAKE_SOURCE_DIR}/source/loaders/loadGraphics.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadBaseTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadAnimatedTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadGeneratedTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadLightningTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadUserInterfaceTexture.cpp
+        ${CMAKE_SOURCE_DIR}/source/loaders/loadFontTexture.cpp
 
         ${CMAKE_SOURCE_DIR}/source/level/file.cpp
 )
