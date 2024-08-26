@@ -1,0 +1,13 @@
+{
+  "Header": {
+    "Type": "Font"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "Name" : "8bit16",
+        "File" : "rsrc/font/8bit16.ttf"
+      }
+    ]
+  }
+}
