@@ -3,7 +3,7 @@
 #include <backends/imgui_impl_sdlrenderer2.h>
 
 namespace Common {
-ImGuiInitializer::ImGuiInitializer(SDL_Window** window, SDL_Renderer** render)
+ImGuiInitializer::ImGuiInitializer(SDL_Window*&window, SDL_Renderer*& render)
   : io(ImGui::GetIO())
   , pWindow(window)
   , pRenderer(render) {}
@@ -15,8 +15,8 @@ ImGuiInitializer::startup() {
     io.ConfigFlags != ImGuiConfigFlags_NavEnableGamepad;
     ImGui::StyleColorsLight();
 
-    ImGui_ImplSDL2_InitForSDLRenderer(*pWindow, *pRenderer);
-    ImGui_ImplSDLRenderer2_Init(*pRenderer);
+    ImGui_ImplSDL2_InitForSDLRenderer(pWindow, pRenderer);
+    ImGui_ImplSDLRenderer2_Init(pRenderer);
     ImGui_ImplSDLRenderer2_NewFrame();
     ImGui_ImplSDL2_NewFrame();
 }
