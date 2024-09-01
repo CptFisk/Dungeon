@@ -16,6 +16,9 @@ elseif(CMAKE_BUILD_TYPE MATCHES Release)
     set(RELEASE_MODE TRUE)
 endif()
 
+set(DEBUG_MODE ${DEBUG_MODE} PARENT_SCOPE)
+set(RELEASE_MODE ${RELEASE_MODE} PARENT_SCOPE)
+
 include(ExternalProject)
 include(cmake/CMakeVendor.cmake)
 include(cmake/CMakeCommon.cmake)
@@ -50,6 +53,6 @@ file(
 
 configure_file(cmake.hpp.in cmake.hpp @ONLY)
 
-if(WIN32)
-    set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
+if(WIN32 AND RELEASE_MODE)
+    #set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
 endif()
