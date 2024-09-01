@@ -2,12 +2,13 @@
 #include <graphics/json/jsonHeader.hpp>
 #include <nlohmann/json.hpp>
 #include <utility/file.hpp>
-
+#include <chrono>
 using json = nlohmann::json;
 
 namespace Graphics {
 void
 Graphics::loadGraphics(const std::string& folderPath) {
+    const auto start = std::chrono::high_resolution_clock::now();
     // Fetch all the folders
     const auto folders = Utility::getFolders(folderPath);
     for (const auto& folder : folders) {
@@ -18,6 +19,8 @@ Graphics::loadGraphics(const std::string& folderPath) {
             loadJSON(file.string());
         }
     }
+    const auto time = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start);
+    std::cout << "Loading time: " << time.count() << " ms" << std::endl;
 }
 
 void
