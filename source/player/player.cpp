@@ -46,6 +46,11 @@ Player::getPlayerCenter() {
     return mPlayerCenter;
 }
 
+SDL_Point
+Player::getPlayerCoordinates() const {
+    return { INT(mPlayerCenter.x / 16), INT(mPlayerCenter.y / 16) };
+}
+
 SDL_FRect*
 Player::getInteractionArea() {
     return &mInteraction;
