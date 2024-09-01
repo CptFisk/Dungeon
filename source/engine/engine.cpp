@@ -3,6 +3,7 @@
 #include <cmake.hpp>
 #include <common/handlers.hpp>
 #include <common/scale.hpp>
+#include <engine/debug/fps.hpp>
 #include <engine/engine.hpp>
 #include <utility/file.hpp>
 #include <utility/textures.hpp>
@@ -25,7 +26,7 @@ Engine::Engine()
   , mPlayerEnergy(50)
   , mEvent{}
   , Background{}
-  , mSegments{}{}
+  , mSegments{} {}
 
 Engine::~Engine() {
     // De-spawn all threads
@@ -115,13 +116,11 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
-    // mPlayer->spawn(9, 119);
-    mPlayer->spawn(51, 119);
+    mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
     while (mRun) {
         mFPSTimer.start();
-
         SDL_SetRenderTarget(pRenderer, nullptr);
         SDL_RenderClear(pRenderer);
         while (SDL_PollEvent(&mEvent)) {
@@ -152,13 +151,12 @@ Engine::mainLoop() {
         drawLevel(mSegments.Bottom, mSegments.CurrentLayerBottom);
         // Show interaction box during debug
 
-#ifdef DEBUG_MODE
         // Display interaction area
         mPerspective->render(GET_GENERATED("0000FF")->getTexture(), nullptr, mPlayer->getInteractionArea());
         // Display player center
         SDL_FRect middle{ mPlayer->getPlayerCenter().x, mPlayer->getPlayerCenter().y, 1.0f, 1.0f };
         mPerspective->render(GET_GENERATED("A349A4")->getTexture(), nullptr, &middle);
-#endif
+
         monsters();
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
         projectiles();
@@ -172,6 +170,19 @@ Engine::mainLoop() {
         for (auto drawData : mHealth->getIndicator()) {
             SDL_RenderCopyF(pRenderer, drawData.Texture, drawData.Viewport, drawData.Position);
         }
+
+#ifdef DEBUG_MODE
+        auto fpsPos = SDL_Rect{ 10, 10, 0, 0 };
+        auto fps    = mGraphics->getSentence("8bit16", "FPS: " + std::to_string(Debug::getFPS()));
+        SDL_QueryTexture(fps, nullptr, nullptr, &fpsPos.w, &fpsPos.h);
+        SDL_RenderCopy(pRenderer, fps, nullptr, &fpsPos);
+        auto playerPos = SDL_Rect{ 10, 15 + fpsPos.h, 0, 0 };
+        auto p         = mPlayer->getPlayerCoordinates();
+        auto player    = mGraphics->getSentence("8bit16", std::to_string(p.x) + " " + std::to_string(p.y));
+        SDL_QueryTexture(player, nullptr, nullptr, &playerPos.w, &playerPos.h);
+        SDL_RenderCopy(pRenderer, player, nullptr, &playerPos);
+#endif
+
         present();
 
         auto ticks = mFPSTimer.getTicks();
@@ -278,5 +289,4 @@ void
 Engine::present() {
     SDL_RenderPresent(pRenderer);
 }
-
 }
