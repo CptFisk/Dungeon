@@ -2,17 +2,28 @@
 
 namespace Common {
 #ifdef GAME_MODE
-Perspective::Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY, SDL_FPoint& playerCenter)
+Perspective::Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY, SDL_FPoint& playerCenter, Common::typeScale& scale)
   : pRenderer(renderer)
   , mOffset{ offsetX, offsetY }
-  , pPlayerCenter(playerCenter) {}
+  , mPlayerCenter(playerCenter)
+  , mScale(scale)
+  , halfX{}
+  , halfY{} {
+    updateScale();
+}
 #endif
 
 #ifdef EDITOR_MODE
 Perspective::Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY)
   : pRenderer(renderer)
-  , mOffset{ offsetX, offsetY }{}
+  , mOffset{ offsetX, offsetY } {}
 #endif
+
+void
+Perspective::updateScale() {
+    halfX = (256 * mScale.factorX) / 2.0f;
+    halfY = (192 * mScale.factorY) / 2.0f;
+}
 
 void
 Perspective::render(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* position) {
@@ -27,44 +38,26 @@ Perspective::renderRotated(SDL_Texture* texture, const SDL_Rect* viewport, SDL_F
     SDL_FRect pos = *position;
     pos.x += mOffset.x;
     pos.y += mOffset.y;
-    SDL_RenderCopyExF(pRenderer, texture, viewport,&pos, angle, nullptr, SDL_FLIP_NONE);
+    SDL_RenderCopyExF(pRenderer, texture, viewport, &pos, angle, nullptr, SDL_FLIP_NONE);
 }
 
 void
 Perspective::move(Directions direction, const float& velocity) {
     switch (direction) {
         case NORTH:
-#ifdef GAME_MODE
             if (mOffset.y < 0)
-#endif
-#ifdef EDITOR_MODE
-                if (mOffset.y < 0)
-#endif
-                    mOffset.y += velocity;
+                mOffset.y += velocity;
             break;
         case EAST:
-#ifdef GAME_MODE
-            if (mOffset.x <= 0 && pPlayerCenter.x > halfX)
-#endif
-#ifdef EDITOR_MODE
-
-#endif
+            if (mOffset.x <= 0 && mPlayerCenter.x > halfX)
                 mOffset.x -= velocity;
             break;
         case SOUTH:
-#ifdef GAME_MODE
-            if (mOffset.y <= 0 && pPlayerCenter.y > halfY)
-#else
-            if (mOffset.y <= 0)
-#endif
+            if (mOffset.y <= 0 && mPlayerCenter.y > halfY)
                 mOffset.y -= velocity;
             break;
         case WEST:
-#ifdef GAME_MODE
             if (mOffset.x < 0)
-#else
-            if (mOffset.x < 0)
-#endif
                 mOffset.x += velocity;
             break;
         default:
@@ -80,8 +73,8 @@ Perspective::center(const SDL_FPoint& point, const float& offset) {
 void
 Perspective::center(const float& x, const float& y) {
     // First we calculate what is the center of the screen
-    constexpr auto centerX = 8 * 16; // Half the screen (16 block in width, each block is 16*16 pixels)
-    constexpr auto centerY = 6 * 16; // Half the screen (12 block in height, each block is 16*16 pixels)
+    const auto centerX = 8 * 16 * mScale.factorX; // Half the screen (16 block in width, each block is 16*16 pixels)
+    const auto centerY = 6 * 16 * mScale.factorY; // Half the screen (12 block in height, each block is 16*16 pixels)
 
     mOffset.x = std::min(0.0f, centerX - x);
     mOffset.y = std::min(0.0f, centerY - y);
