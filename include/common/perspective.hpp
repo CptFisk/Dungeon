@@ -11,14 +11,18 @@ class Perspective {
     Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY, SDL_FPoint& playerCenter, Common::typeScale& scale);
 #endif
 #ifdef EDITOR_MODE
-    Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY);
+    Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY, Common::typeScale& scale);
 #endif
 
     void render(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* position);
     void renderRotated(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* position, const float& angle);
 
+#ifdef GAME_MODE
     void move(Directions direction, const float& velocity); // Move the camera
-
+#endif
+#ifdef EDITOR_MODE
+    void move(Directions direction, const float& velocity); // Move the camera
+#endif
     void center(const SDL_FPoint& point, const float& offset);
     void center(const float& x, const float& y);
 

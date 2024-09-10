@@ -14,8 +14,9 @@ Perspective::Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY
 #endif
 
 #ifdef EDITOR_MODE
-Perspective::Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY)
+Perspective::Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY, Common::typeScale& scale)
   : pRenderer(renderer)
+  , mScale(scale)
   , mOffset{ offsetX, offsetY } {}
 #endif
 
@@ -41,6 +42,7 @@ Perspective::renderRotated(SDL_Texture* texture, const SDL_Rect* viewport, SDL_F
     SDL_RenderCopyExF(pRenderer, texture, viewport, &pos, angle, nullptr, SDL_FLIP_NONE);
 }
 
+#ifdef GAME_MODE
 void
 Perspective::move(Directions direction, const float& velocity) {
     switch (direction) {
@@ -64,6 +66,33 @@ Perspective::move(Directions direction, const float& velocity) {
             break;
     }
 }
+#endif
+#ifdef EDITOR_MODE
+void
+Perspective::move(Directions direction, const float& velocity) {
+    switch (direction) {
+        case NORTH:
+            if (mOffset.y < 0)
+                mOffset.y += velocity;
+            break;
+        case EAST:
+            if (mOffset.x <= 0)
+                mOffset.x -= velocity;
+            break;
+        case SOUTH:
+            if (mOffset.y <= 0)
+                mOffset.y -= velocity;
+            break;
+        case WEST:
+            if (mOffset.x < 0)
+                mOffset.x += velocity;
+            break;
+        default:
+            break;
+    }
+}
+#endif
+
 
 void
 Perspective::center(const SDL_FPoint& point, const float& offset) {
