@@ -137,8 +137,7 @@ class Editor {
     // Map data
     Level::typeHeaderData             fileHeader;
     Level::typeAssets                 fileAssets; // List of all the assets that exist in the current map.
-    Level::typeSpawn                  fileSpawns;
-    std::vector<Level::typeDoorsData> fileDoors; // Contains all doors
+    std::vector<Level::typeDoorsData> fileDoors;  // Contains all doors
     std::vector<Level::typeWarpData>  fileWarps;
 
     std::vector<Tile*>                   editorTiles; // All tiles in the game.

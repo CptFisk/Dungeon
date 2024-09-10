@@ -42,7 +42,7 @@ readLevelData(const std::string& filename) {
 
     file.close();
     // Generating response
-    return typeLevelData{ header, assets, tiles, doors, warps, typeSpawn() };
+    return typeLevelData{ header, assets, tiles, doors, warps };
 }
 
 }
