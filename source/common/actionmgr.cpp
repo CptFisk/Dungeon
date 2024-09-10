@@ -1,5 +1,7 @@
 #include <common/actionmgr.hpp>
-#include <iostream>
+#include <global.hpp>
+#include <cmake.hpp>
+
 namespace Common {
 
 ActionManager::ActionManager(SDL_Renderer*& renderer, Common::typeScale& scale)
@@ -37,8 +39,14 @@ ActionManager::eventHandler(SDL_Event* event) {
             for (auto& [name, key] : mMouse) {
                 if (key == event->button.button) {
                     mActive[name] = true;
-                    mouseX        = (event->button.x) / mScale.selectedScale;
-                    mouseY        = (event->button.y) / mScale.selectedScale;
+#ifdef GAME_MODE
+                    mouseX        = INT(FLOAT(event->button.x) / mScale.selectedScale);
+                    mouseY        = INT(FLOAT(event->button.y) / mScale.selectedScale);
+#endif
+#ifdef EDITOR_MODE
+                    mouseX        = event->button.x;
+                    mouseY        = event->button.y;
+#endif
                 }
             }
             break;
