@@ -22,15 +22,6 @@ getIndex(const int& x, const int& y, const int& maxX) {
     return _x + _y * _width;
 }
 
-std::optional<std::pair<int, int>>
-getCoords(const int& pos, const int& width, const int& height) {
-    if (pos > width * height || width == 0 || height == 0)
-        return std::nullopt;
-    const int x = pos % width;
-    const int y = pos / width;
-    return std::make_pair(x, y);
-}
-
 int findLcm(const std::vector<int>& values){
     if(values.empty())
         return 0;

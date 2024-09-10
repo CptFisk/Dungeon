@@ -29,8 +29,14 @@ getClickCoords(const float& x, const float& y, const typeScale& scale){
  * @param pos
  * @return
  */
-std::optional<std::pair<int,int>>
-getCoords(const int& pos, const int& width, const int& height);
+constexpr std::optional<std::pair<int,int>>
+getCoords(const int& pos, const int& width, const int& height){
+    if (pos > width * height || width == 0 || height == 0)
+        return std::nullopt;
+    const int x = pos % width;
+    const int y = pos / width;
+    return std::make_pair(x, y);
+}
 
 int findLcm(const std::vector<int>& values);
 int lcm(const int& a, const int &b);
