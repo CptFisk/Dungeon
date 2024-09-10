@@ -7,7 +7,6 @@ add_executable(
 
         ${CMAKE_SOURCE_DIR}/editor.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/editor.cpp
-        ${CMAKE_SOURCE_DIR}/source/editor/visualTile.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/loadLevel.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui.cpp
 
