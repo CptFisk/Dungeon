@@ -2,14 +2,15 @@
 #include <SDL.h>
 #include <cmake.hpp>
 #include <common/scale.hpp>
-#include <common/structures.hpp>
 #include <editor/utility/mouse.hpp>
 #include <editor/utility/mouseLightning.hpp>
-#include <graphics/structures.hpp>
-#include <graphics/types/simpleTexture.hpp>
+#include <graphics/types/drawData.hpp>
+#include <graphics/types/font.hpp>
+#include <graphics/types/generatedTexture.hpp>
 #include <graphicsForward.hpp>
 #include <level/types/assets.hpp>
 #include <level/types/tile.hpp>
+#include <memory>
 #include <set>
 #include <variant>
 #include <vector>
@@ -29,11 +30,7 @@ struct tileData {
  */
 class Tile {
   public:
-    Tile(const int&                   x,
-         const int&                   y,
-         const Common::typeScale&     scale,
-         Graphics::typeSimpleTexture& number,
-         SDL_Renderer*                renderer); // Used in editor mode
+    Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics::Font* font, SDL_Renderer* renderer);
     ~Tile();
 
     [[maybe_unused]] void clear(); // Clear vector
@@ -64,7 +61,7 @@ class Tile {
      * @brief Add a new value to the tile type
      * @param value
      */
-    void addType(const Level::TileType& value, SDL_Texture* overlay);
+    void addType(const Level::TileType& value, Graphics::GeneratedTexture* overlay);
     /**
      * @brief Clear all types from a tile
      */
@@ -76,36 +73,36 @@ class Tile {
      * @param size Size of the effect
      */
     void addLightning(const LightningShape& shape, const LightningColour& colour, const LightningSize& size);
-    [[nodiscard]] std::vector<Common::typeDrawData> getBaseDrawData();
-    [[nodiscard]] std::vector<Common::typeDrawData> getTopDrawData();
+    [[nodiscard]] std::vector<Graphics::typeDrawData> getBaseDrawData();
+    [[nodiscard]] std::vector<Graphics::typeDrawData> getTopDrawData();
 
-    [[nodiscard]] Common::typeDrawData getNumbers(); // Return a graphic that display the number of graphics used
-    [[nodiscard]] Common::typeDrawData getOverlay();
+    [[nodiscard]] Graphics::typeDrawData getNumbers(); // Return a graphic that display the number of graphics used
+    [[nodiscard]] Graphics::typeDrawData getOverlay();
 
     [[nodiscard]] bool elementExist(SDL_Texture* texture, const uint8_t& id) const;
     void               removeElement(SDL_Texture* texture, const uint8_t& id);
 
     [[nodiscard]] Level::typeTileData getTileData() const;
 
-    void addOverlay(SDL_Texture* overlay);
+    void addOverlay(Graphics::GeneratedTexture* overlay);
 
   private:
     void generateOverlay();
 
   protected:
-    SDL_Renderer*           pRenderer;        // Used for generating overlays
-    const float             xPos;             // Position in map
-    const float             yPos;             // Position in map
-    SDL_FRect               standardPosition; // Position on the map
-    const Common::typeScale scale;            // Scale of resolution
+    SDL_Renderer*            pRenderer;         // Used for generating overlays
+    const float              mPosX;             // Position in map
+    const float              mPosY;             // Position in map
+    SDL_FRect                mStandardPosition; // Position on the map
+    const Common::typeScale& mScale;            // Scale of resolution
 
-    Level::typeTileData tileData; // Tile data
+    Level::typeTileData mTileData; // Tile data
 
-    std::set<SDL_Texture*>            overlays; // All overlays
-    Graphics::typeSimpleTexture&      numbers;  // Graphics to hold numbers
-    std::vector<Common::typeDrawData> baseLayer;
-    std::vector<Common::typeDrawData> topLayer;
-    bool                              lastLayer; // False = baseLayer, True = topLayer
-    Common::typeDrawData              mOverlay;  // Overlay
+    std::set<SDL_Texture*>              mOverlays; // All overlays
+    Graphics::Font*                     pFont;     // Graphics to fonts
+    std::vector<Graphics::typeDrawData> mBaseLayer;
+    std::vector<Graphics::typeDrawData> mTopLayer;
+    bool                                mLastLayer; // False = baseLayer, True = topLayer
+    Graphics::typeDrawData              mOverlay;   // Overlay
 };
 }

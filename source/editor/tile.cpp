@@ -1,24 +1,25 @@
 #include <algorithm>
 #include <editor/tile.hpp>
 #include <global.hpp>
-#include <graphics/animatedTexture.hpp>
 #include <graphics/graphics.hpp>
+#include <graphics/types/animatedTexture.hpp>
+#include <graphics/types/baseTexture.hpp>
 #include <iostream>
+#include <monster/definition.hpp>
 #include <utility/bits.hpp>
 #include <utility/vector.hpp>
-#include <monster/definition.hpp>
 
 namespace Editor {
 
-Tile::Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics::typeSimpleTexture& number, SDL_Renderer* renderer)
+Tile::Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics::Font* font, SDL_Renderer* renderer)
   : pRenderer(renderer)
-  , xPos(static_cast<float>(x) * 16.0f * scale.factorX)
-  , yPos(static_cast<float>(y) * 16.0f * scale.factorY)
-  , scale(scale)
-  , numbers(number)
-  , tileData{}
-  , lastLayer(false)
-  , standardPosition(xPos, yPos, 16.0f * scale.factorX, 16.0f * scale.factorY)
+  , mPosX(static_cast<float>(x) * 16.0f * scale.selectedScale)
+  , mPosY(static_cast<float>(y) * 16.0f * scale.selectedScale)
+  , mScale(scale)
+  , pFont(font)
+  , mTileData{}
+  , mLastLayer(false)
+  , mStandardPosition(mPosX, mPosY, 16.0f * scale.selectedScale, 16.0f * scale.selectedScale)
   , mOverlay{} {
     generateOverlay();
 }
@@ -35,10 +36,10 @@ Tile::generateOverlay() {
         SDL_DestroyTexture(mOverlay.Texture);
     // Setup overlay
     mOverlay.Texture = SDL_CreateTexture(
-      pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, INT(16.0f * scale.factorX), INT(16.0f * scale.factorY));
+      pRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, INT(16.0f * mScale.selectedScale), INT(16.0f * mScale.selectedScale));
     if (mOverlay.Texture == nullptr)
         std::cout << "Error in creating texture" << std::endl;
-    mOverlay.Position = &standardPosition;
+    mOverlay.Position = &mStandardPosition;
     mOverlay.Viewport = nullptr;
     SDL_SetTextureBlendMode(mOverlay.Texture, SDL_BLENDMODE_BLEND);
     SDL_SetTextureAlphaMod(mOverlay.Texture, 127);
@@ -46,16 +47,16 @@ Tile::generateOverlay() {
 
 void
 Tile::clear() {
-    for (auto& element : baseLayer) {
+    for (auto& element : mBaseLayer) {
         delete element.Position;
     }
-    for (auto& element : topLayer) {
+    for (auto& element : mTopLayer) {
         delete element.Position;
     }
-    baseLayer.clear();
-    topLayer.clear();
-    overlays.clear();
-    tileData = {};
+    mBaseLayer.clear();
+    mTopLayer.clear();
+    mOverlays.clear();
+    mTileData = {};
 }
 
 int
@@ -71,39 +72,26 @@ Tile::addData(const std::string&                         asset,
               Level::typeAssets&                         assetList,
               const std::shared_ptr<Graphics::Graphics>& graphics,
               const Mouse&                               mouse) {
-    auto&      data           = mouse == Mouse::TEXTURE ? baseLayer : topLayer;
+    auto&      data           = mouse == Mouse::TEXTURE ? mBaseLayer : mTopLayer;
     auto       tileType       = mouse == Mouse::TEXTURE ? Level::TileType::BASE_TEXTURE : Level::TileType::TOP_TEXTURE;
     const auto type           = graphics->getTextureType(asset);
     int        animationValue = 0;
     switch (type) {
-        case Graphics::TextureTypes::BaseTexture:
-            if (graphics->getTexture<Graphics::typeSimpleTexture>(asset) != nullptr) {
-                // The asset exist and we can use it
-                data.emplace_back(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->getTexture(),
-                                  &graphics->getTexture<Graphics::typeSimpleTexture>(asset)->getRandomView(),
-                                  new SDL_FRect{
-                                    xPos,
-                                    yPos,
-                                    FLOAT(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Width) * scale.factorX,
-                                    FLOAT(graphics->getTexture<Graphics::typeSimpleTexture>(asset)->Height) * scale.factorY,
-                                  });
-            }
-            break;
-        case Graphics::TextureTypes::AnimatedTexture:
-            if (graphics->getTexture<Graphics::AnimatedTexture*>(asset) != nullptr) {
-                // The asset exist and we can use it
-                data.emplace_back((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getTexture(),
-                                  (*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getViewport(),
-                                  new SDL_FRect{
-                                    xPos,
-                                    yPos,
-                                    FLOAT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Width) * scale.factorX,
-                                    FLOAT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->Height) * scale.factorY,
-                                  });
-                animationValue = INT((*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getViewports().size() *
-                                     (*graphics->getTexture<Graphics::AnimatedTexture*>(asset))->getTicks());
-            }
-            break;
+        case Graphics::TextureTypes::BaseTexture: {
+            auto texture = dynamic_cast<Graphics::BaseTexture*>(graphics->getTexture(asset));
+            data.emplace_back(
+              texture->getTexture(),
+              &texture->getRandomViewport(),
+              new SDL_FRect{ mPosX, mPosY, texture->getWidthF() * mScale.selectedScale, texture->getHeightF() * mScale.selectedScale });
+        } break;
+        case Graphics::TextureTypes::AnimatedTexture: {
+            auto texture = dynamic_cast<Graphics::AnimatedTexture*>(graphics->getTexture(asset));
+            data.emplace_back(
+              texture->getTexture(),
+              texture->getAnimatedViewport(),
+              new SDL_FRect{ mPosX, mPosY, texture->getWidthF() * mScale.selectedScale, texture->getHeightF() * mScale.selectedScale });
+            animationValue = texture->getViewports().size() * texture->getTicks();
+        } break;
         default:;
     }
     // Handles the list of assets
@@ -111,63 +99,62 @@ Tile::addData(const std::string&                         asset,
         // The item exist in asset list. Append it to the end of our graphics
         switch (mouse) {
             case Mouse::TEXTURE:
-                tileData.Base.emplace_back(Level::findAsset(asset, assetList).value());
+                mTileData.Base.emplace_back(Level::findAsset(asset, assetList).value());
                 break;
             case Mouse::TOP_LAYER:
-                tileData.Top.emplace_back(Level::findAsset(asset, assetList).value());
+                mTileData.Top.emplace_back(Level::findAsset(asset, assetList).value());
                 break;
             default:;
         }
     } else {
         switch (mouse) {
             case Mouse::TEXTURE:
-                tileData.Base.emplace_back(Level::addAsset(asset, assetList));
+                mTileData.Base.emplace_back(Level::addAsset(asset, assetList));
                 break;
             case Mouse::TOP_LAYER:
-                tileData.Top.emplace_back(Level::addAsset(asset, assetList));
+                mTileData.Top.emplace_back(Level::addAsset(asset, assetList));
                 break;
             default:;
         }
     }
-    tileData.Type.set(tileType);
+    mTileData.Type.set(tileType);
     return animationValue;
 }
 
 void
 Tile::clearLastData() {
-    if (!lastLayer && !baseLayer.empty()) {
-        baseLayer.pop_back();
-        tileData.Base.pop_back();
-    }else if(!topLayer.empty()){
-        topLayer.pop_back();
-        tileData.Top.pop_back();
+    if (!mLastLayer && !mBaseLayer.empty()) {
+        mBaseLayer.pop_back();
+        mTileData.Base.pop_back();
+    } else if (!mTopLayer.empty()) {
+        mTopLayer.pop_back();
+        mTileData.Top.pop_back();
     }
 }
 
 void
 Tile::addMonster(const int& id, SDL_Texture* texture, const SDL_Rect& viewport) {
-    //Add graphics
+    // Add graphics
     SDL_SetRenderTarget(pRenderer, mOverlay.Texture);
-    const auto destination = SDL_FRect{ 0.0f, 0.0f * scale.factorY, 16.0f * scale.factorX, 16.0f * scale.factorY };
+    const auto destination = SDL_FRect{ 0.0f, 0.0f, 16.0f * mScale.selectedScale, 16.0f * mScale.selectedScale };
     SDL_RenderCopyF(pRenderer, texture, &viewport, &destination);
     SDL_SetRenderTarget(pRenderer, nullptr);
 
-    Utility::setBitValue(tileData.Type, 10,17, id);
+    Utility::setBitValue(mTileData.Type, 10, 17, id);
 }
 
 void
-Tile::addOverlay(SDL_Texture* overlay) {
+Tile::addOverlay(Graphics::GeneratedTexture* overlay) {
     SDL_FRect destination;
-    if (overlays.empty()) {
+    if (mOverlays.empty()) {
         SDL_SetRenderTarget(pRenderer, mOverlay.Texture);
-        SDL_RenderCopyF(pRenderer, overlay, nullptr, nullptr);
+        SDL_RenderCopyF(pRenderer, overlay->getTexture(), nullptr, nullptr);
     } else {
-        switch (overlays.size()) {
+        switch (mOverlays.size()) {
             case 1:
                 SDL_SetRenderTarget(pRenderer, mOverlay.Texture);
-                destination = SDL_FRect{ 0.0f, 8.0f * scale.factorY, 16.0f * scale.factorX, 8.0f * scale.factorY };
-                SDL_RenderCopyF(pRenderer, overlay, nullptr, &destination);
-
+                destination = SDL_FRect{ 0.0f, 8.0f * mScale.selectedScale * 16.0f * mScale.selectedScale, 8.0f * mScale.selectedScale };
+                SDL_RenderCopyF(pRenderer, overlay->getTexture(), nullptr, &destination);
                 break;
             case 2:
                 break;
@@ -178,19 +165,19 @@ Tile::addOverlay(SDL_Texture* overlay) {
         }
     }
     SDL_SetRenderTarget(pRenderer, nullptr);
-    overlays.insert(overlay);
+    mOverlays.insert(overlay->getTexture());
 }
 
 void
-Tile::addType(const Level::TileType& value, SDL_Texture* overlay) {
-    tileData.Type.set(value);
-    if (overlays.find(overlay) == overlays.end())
+Tile::addType(const Level::TileType& value, Graphics::GeneratedTexture* overlay) {
+    mTileData.Type.set(value);
+    if (mOverlays.find(overlay->getTexture()) == mOverlays.end())
         addOverlay(overlay);
 }
 
 void
 Tile::clearType() {
-    Utility::resetBits(tileData.Type, std::bitset<32>(0xFFFFFFFC)); // Clear all types
+    Utility::resetBits(mTileData.Type, std::bitset<32>(0xFFFFFFFC)); // Clear all types
     generateOverlay();
 }
 
@@ -200,53 +187,56 @@ Tile::addLightning(const Editor::LightningShape& shape, const Editor::LightningC
     Since the enums for shape, colour and size have the same values as the one in Level::Types they can be cast directly
         between each other.
     */
-    tileData.Type.set(shape);
-    tileData.Type.set(colour);
-    tileData.Type.set(size);
+    mTileData.Type.set(shape);
+    mTileData.Type.set(colour);
+    mTileData.Type.set(size);
 }
 
-std::vector<Common::typeDrawData>
+std::vector<Graphics::typeDrawData>
 Tile::getBaseDrawData() {
-    return baseLayer;
+    return mBaseLayer;
 }
 
-std::vector<Common::typeDrawData>
+std::vector<Graphics::typeDrawData>
 Tile::getTopDrawData() {
-    return topLayer;
+    return mTopLayer;
 }
 
-Common::typeDrawData
+Graphics::typeDrawData
 Tile::getNumbers() {
-    return { numbers.getTexture(), &numbers.getView(baseLayer.size()), &standardPosition };
+    return Graphics::typeDrawData();
+    // return { mNumbers.getTexture(), &numbers.getView(baseLayer.size()), &standardPosition };
 }
 
-Common::typeDrawData
+Graphics::typeDrawData
 Tile::getOverlay() {
     return mOverlay;
 }
 
 bool
 Tile::elementExist(SDL_Texture* texture, const uint8_t& id) const {
-    auto t1 = std::find_if(baseLayer.begin(), baseLayer.end(), [&texture](const Common::typeDrawData& d) { return d.Texture == texture; });
-    auto t2 = std::find_if(topLayer.begin(), topLayer.end(), [&texture](const Common::typeDrawData& d) { return d.Texture == texture; });
-    auto i1 = std::find_if(tileData.Base.begin(), tileData.Base.end(), [&id](const uint8_t& d) { return d == id; });
-    auto i2 = std::find_if(tileData.Top.begin(), tileData.Top.end(), [&id](const uint8_t& d) { return d == id; });
-    return t1 != baseLayer.end() || t2 != topLayer.end() || i1 != tileData.Base.end() || i2 != tileData.Top.end() ? true : false;
+    auto t1 =
+      std::find_if(mBaseLayer.begin(), mBaseLayer.end(), [&texture](const Graphics::typeDrawData& d) { return d.Texture == texture; });
+    auto t2 =
+      std::find_if(mTopLayer.begin(), mTopLayer.end(), [&texture](const Graphics::typeDrawData& d) { return d.Texture == texture; });
+    auto i1 = std::find_if(mTileData.Base.begin(), mTileData.Base.end(), [&id](const uint8_t& d) { return d == id; });
+    auto i2 = std::find_if(mTileData.Top.begin(), mTileData.Top.end(), [&id](const uint8_t& d) { return d == id; });
+    return t1 != mBaseLayer.end() || t2 != mTopLayer.end() || i1 != mTileData.Base.end() || i2 != mTileData.Top.end() ? true : false;
 }
 
 void
 Tile::removeElement(SDL_Texture* texture, const uint8_t& id) {
     // Remove from all the vectors
-    Utility::removeElementInVector(baseLayer, [texture](const Common::typeDrawData a) { return a.Texture == texture; });
-    Utility::removeElementInVector(topLayer, [texture](const Common::typeDrawData a) { return a.Texture == texture; });
-    Utility::removeElementInVector(tileData.Base, [id](const uint8_t& a) { return a == id; });
-    Utility::removeElementInVector(tileData.Top, [id](const uint8_t& a) { return a == id; });
+    Utility::removeElementInVector(mBaseLayer, [texture](const Graphics::typeDrawData a) { return a.Texture == texture; });
+    Utility::removeElementInVector(mTopLayer, [texture](const Graphics::typeDrawData a) { return a.Texture == texture; });
+    Utility::removeElementInVector(mTileData.Base, [id](const uint8_t& a) { return a == id; });
+    Utility::removeElementInVector(mTileData.Top, [id](const uint8_t& a) { return a == id; });
     // Now lower all the values that was above the  id for base and top
-    for (auto& element : tileData.Base) {
+    for (auto& element : mTileData.Base) {
         if (element > id)
             --element;
     }
-    for (auto& element : tileData.Top) {
+    for (auto& element : mTileData.Top) {
         if (element > id)
             --element;
     }
@@ -254,7 +244,7 @@ Tile::removeElement(SDL_Texture* texture, const uint8_t& id) {
 
 Level::typeTileData
 Tile::getTileData() const {
-    return tileData;
+    return mTileData;
 }
 
 }
