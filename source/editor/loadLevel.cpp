@@ -8,7 +8,7 @@ namespace Editor {
  * @brief The reason for this is that the editor handle so much more than just a normal tile drawing.
  */
 void
-Editor::loadLevel(const Level::typeLevelData& data) {
+Editor::loadLevel(const Level::typeEditorFile& data) {
     const auto header = data.Header;
     const auto assets = data.Assets;
     const auto tiles  = data.Tiles;

@@ -26,7 +26,7 @@ Editor::uiMenu() {
             if (ImGui::BeginMenu("Load project")) {
                 for (const auto& file : mMapFiles) {
                     if (ImGui::MenuItem(file.c_str()))
-                        loadLevel(Level::readLevelData(file));
+                        loadLevel(Level::readEditorData(file));
                 }
                 ImGui::EndMenu();
             }
@@ -39,10 +39,10 @@ Editor::uiMenu() {
                     tiles.Tiles[i] = editorTiles[i]->getTileData();
                 }
 
-                Level::typeLevelData map = { fileHeader, fileAssets, tiles, fileDoors, fileWarps };
+                Level::typeEditorFile      map = { fileHeader, fileAssets, tiles, fileDoors, fileWarps };
                 const std::string          fileName =
                   UINT8_STRING(fileHeader.MapCoordinate.X) + UINT8_STRING(fileHeader.MapCoordinate.Y) + UINT8_STRING(fileHeader.MapCoordinate.Z);
-                Level::writeLevelDataToFile("levels/" + fileName + ".map", map);
+                Level::writeEditorData("levels/" + fileName + ".map", map);
             }
             ImGui::EndMenu();
         }

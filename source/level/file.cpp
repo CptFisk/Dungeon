@@ -8,7 +8,7 @@
 namespace Level {
 
 void
-writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
+writeEditorData(const std::string& filename, const typeEditorFile& data) {
     std::ofstream file(filename, std::ios::binary);
     if (!file.is_open())
         throw std::runtime_error("Cant write to file");
@@ -22,8 +22,8 @@ writeLevelDataToFile(const std::string& filename, const typeLevelData& data) {
     file.close();
 }
 
-Level::typeLevelData
-readLevelData(const std::string& filename) {
+Level::typeEditorFile
+readEditorData(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
     if (!file)
         throw std::runtime_error("Cant load file: " + filename);
@@ -42,7 +42,7 @@ readLevelData(const std::string& filename) {
 
     file.close();
     // Generating response
-    return typeLevelData{ header, assets, tiles, doors, warps };
+    return typeEditorFile{ header, assets, tiles, doors, warps };
 }
 
 }

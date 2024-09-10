@@ -36,7 +36,7 @@ class Editor {
   protected:
     std::thread spawnInterrupt(const long& time); // Spawn a thread
 
-    void loadLevel(const Level::typeLevelData& data);
+    void loadLevel(const Level::typeEditorFile& data);
     void removeSpecificTexture(const std::string& name, std::vector<Tile*>& tiles, const uint8_t& id);
 
     [[maybe_unused]] void        displayElement(const std::string& element);

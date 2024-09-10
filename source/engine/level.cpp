@@ -16,7 +16,7 @@ Engine::loadLevel(const std::string& filename) {
     if (mLevelLoaded)
         clearLoadedLevel();
 
-    auto data = Level::readLevelData("levels/" + filename);
+    auto data = Level::readEditorData("levels/" + filename);
     mHeader   = data.Header; // Catch header
     mFilename = filename;
 

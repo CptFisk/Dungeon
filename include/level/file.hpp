@@ -12,17 +12,20 @@
 
 namespace Level {
 
-struct typeLevelData {
+/**
+ * @brief Structure used for editor files
+ */
+struct typeEditorFile {
     typeHeaderData             Header;
     typeAssets                 Assets;
     typeTiles                  Tiles;
     std::vector<typeDoorsData> Doors;
     std::vector<typeWarpData>  Warps;
-    typeLevelData(typeHeaderData              header,
-                  typeAssets                  assets,
-                  typeTiles                   tiles,
-                  std::vector<typeDoorsData>& doors,
-                  std::vector<typeWarpData>&  warps)
+    typeEditorFile(typeHeaderData              header,
+                   typeAssets                  assets,
+                   typeTiles                   tiles,
+                   std::vector<typeDoorsData>& doors,
+                   std::vector<typeWarpData>&  warps)
       : Header(std::move(header))
       , Assets(std::move(assets))
       , Tiles(std::move(tiles))
@@ -31,19 +34,19 @@ struct typeLevelData {
 };
 
 /**
- * @brief Write the current struct to a file
+ * @brief Write data to a editor file, so it can be edited later
  * @param filename Name of the file
  * @param data Data structure
  */
 void
-writeLevelDataToFile(const std::string& filename, const typeLevelData& data);
+writeEditorData(const std::string& filename, const typeEditorFile& data);
 
 /**
- * @brief Load a file and return a map
+ * @brief Load a editor file and return structures into the level editor
  * @param filename
  * @return Pointer to the map
  */
-typeLevelData
-readLevelData(const std::string& filename);
+typeEditorFile
+readEditorData(const std::string& filename);
 
 }
