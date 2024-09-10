@@ -48,6 +48,7 @@ target_link_libraries(
         PRIVATE
         SDL2::SDL2
         SDL2_image::SDL2_image
+        SDL2_ttf::SDL2_ttf
         nlohmann_json::nlohmann_json
         ${LIB_IMGUI}
         ${LIB_COMMON}
