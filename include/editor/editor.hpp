@@ -1,14 +1,13 @@
 #pragma once
 #include <SDL.h>
 #include <common/include.hpp>
+#include <common/initializer/initializer.hpp>
 #include <common/perspective.hpp>
 #include <editor/tile.hpp>
 #include <editor/utility/mouse.hpp>
 #include <editor/utility/mouseLightning.hpp>
-#include <editor/visualTile.hpp>
 #include <global.hpp>
 #include <graphics/graphics.hpp>
-#include <graphics/structures.hpp>
 #include <level/file.hpp>
 #include <list>
 #include <memory>
