@@ -73,6 +73,12 @@ Graphics::addFont(const std::string& name, Font* font) {
     mFonts[name] = font;
 }
 
+Font*
+Graphics::getFont(const std::string& name) {
+    ASSERT_WITH_MESSAGE(mFonts.find(name) == mFonts.end(), name << " dont exist");
+    return mFonts[name];
+}
+
 TextureTypes
 Graphics::getTextureType(const std::string& texture) {
     auto it = mGraphics.find(texture);

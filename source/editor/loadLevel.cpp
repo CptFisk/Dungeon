@@ -34,7 +34,7 @@ Editor::loadLevel(const Level::typeLevelData& data) {
                 std::cout << "FAILURE";
             }
             // Generating both tiles and visual overlay
-            editorTiles.push_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
+            editorTiles.push_back(new Tile(x, y, mScale, GET_FONT("8bit16"), pRenderer));
             for (const auto& id : tile.Base) {
                 if (id <= assets.Assets.size()) {
                     const auto asset           = data.Assets.Assets[INT(id)];
@@ -45,33 +45,33 @@ Editor::loadLevel(const Level::typeLevelData& data) {
             for (const auto& id : tile.Top) {
                 const auto asset          = data.Assets.Assets[INT(id)];
                 animationValuesTop[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, true);
-                editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::TOP_LAYER)));
+                editorTiles[pos]->addOverlay(GET_GENERATED(getMouseColorCode(Mouse::TOP_LAYER)));
                 mLevelCoords.emplace(x, y);
             }
             if (Utility::isAnyBitSet(tile.Type, std::bitset<32>(LIGHT_BITS))) {
-                LightningShape  shape  = static_cast<LightningShape>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_SHAPE)));
-                LightningColour colour = static_cast<LightningColour>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_COLOUR)));
-                LightningSize   size   = static_cast<LightningSize>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_SIZE)));
+                auto  shape  = static_cast<LightningShape>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_SHAPE)));
+                auto colour = static_cast<LightningColour>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_COLOUR)));
+                auto   size   = static_cast<LightningSize>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_SIZE)));
                 editorTiles[pos]->addLightning(shape, colour, size);
-                editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::LIGHTNING)));
+                editorTiles[pos]->addOverlay(GET_GENERATED(getMouseColorCode(Mouse::LIGHTNING)));
             }
             if (tile.Type.test(Level::TileType::WALL)) {
-                editorTiles[pos]->addType(Level::TileType::WALL, *GET_SDL(getMouseColorCode(Mouse::WALL)));
+                editorTiles[pos]->addType(Level::TileType::WALL, GET_GENERATED(getMouseColorCode(Mouse::WALL)));
             }
             if (tile.Type.test(Level::TileType::OBSTACLE)) {
-                editorTiles[pos]->addType(Level::TileType::OBSTACLE, *GET_SDL(getMouseColorCode(Mouse::OBSTACLE)));
+                editorTiles[pos]->addType(Level::TileType::OBSTACLE, GET_GENERATED(getMouseColorCode(Mouse::OBSTACLE)));
             }
             if (tile.Type.test(Level::TileType::UP)) {
-                editorTiles[pos]->addType(Level::TileType::UP, *GET_SDL(getMouseColorCode(Mouse::UP)));
+                editorTiles[pos]->addType(Level::TileType::UP, GET_GENERATED(getMouseColorCode(Mouse::UP)));
             }
             if (tile.Type.test(Level::TileType::DOWN)) {
-                editorTiles[pos]->addType(Level::TileType::DOWN, *GET_SDL(getMouseColorCode(Mouse::DOWN)));
+                editorTiles[pos]->addType(Level::TileType::DOWN, GET_GENERATED(getMouseColorCode(Mouse::DOWN)));
             }
             if (Utility::isAnyBitSet(tile.Type, std::bitset<32>(MONSTER_BITS))) {
                 const auto monsterId = Utility::getBitValue<32, int>(tile.Type, 10, 17);
                 const auto texture   = GET_ANIMATED(Monster::monsters[monsterId].DefaultImage);
                 if (texture != nullptr) {
-                    editorTiles[pos]->addMonster(monsterId, (*texture)->getTexture(), (*texture)->getViewports().front());
+                    editorTiles[pos]->addMonster(monsterId, texture->getTexture(), texture->getViewports().front());
                 }
             }
             pos++;

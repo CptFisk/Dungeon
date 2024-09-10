@@ -21,6 +21,7 @@
 #define GET_GENERATED(VAR)     (dynamic_cast<Graphics::GeneratedTexture*>(mGraphics->getTexture(VAR)))
 #define GET_LIGHTNING(VAR)     (dynamic_cast<Graphics::LightningTexture*>(mGraphics->getTexture(VAR)))
 #define GET_USERINTERFACE(VAR) (dynamic_cast<Graphics::UserInterfaceTexture*>(mGraphics->getTexture(VAR)))
+#define GET_FONT(VAR)          (mGraphics->getFont(VAR))
 
 namespace Graphics {
 
@@ -37,8 +38,9 @@ class Graphics {
      * @param name Name of texture
      * @param texture Texture* class (or child=
      */
-    void addTexture(const std::string& name, Texture* texture);
-    void addFont(const std::string& name, Font* font);
+    void  addTexture(const std::string& name, Texture* texture);
+    void  addFont(const std::string& name, Font* font);
+    Font* getFont(const std::string& name);
     /**
      * @brief Update all animated textures
      *

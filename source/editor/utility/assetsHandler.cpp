@@ -6,12 +6,10 @@ Editor::removeSpecificTexture(const std::string& name, std::vector<Tile*>& tiles
     SDL_Texture* texture = nullptr;
     switch (mGraphics->getTextureType(name)) {
         case Graphics::TextureTypes::BaseTexture:
-            if (GET_SIMPLE(name) != nullptr)
-                texture = GET_SIMPLE(name)->Texture;
+            texture = GET_BASE(name)->getTexture();
             break;
         case Graphics::TextureTypes::AnimatedTexture:
-            if (GET_ANIMATED(name) != nullptr)
-                texture = (*GET_ANIMATED(name))->getTexture();
+            texture = GET_ANIMATED(name)->getTexture();
             break;
         default:
             break;

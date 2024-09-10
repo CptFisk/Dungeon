@@ -35,7 +35,7 @@ Editor::uiHeader(typeWindowCovering& area, bool& open, Level::typeHeaderData& he
                 for (int y = 0; y < MAP_WIDTH; y++) {
                     for (int x = 0; x < MAP_WIDTH; x++) {
                         // Generating both tiles and visual overlay
-                        editorTiles.emplace_back(new Tile(x, y, mScale, *GET_SIMPLE("NumbersWhite"), pRenderer));
+                        editorTiles.emplace_back(new Tile(x, y, mScale, GET_FONT("8bit16"), pRenderer));
                     }
                 }
             } else {
