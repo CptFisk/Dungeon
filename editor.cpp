@@ -8,6 +8,7 @@ main() {
     ImGui::CreateContext();
 
     Editor::Editor editor(1280, 1024);
+    editor.startup();
     editor.getActionManager().registerMouseAction("Click", SDL_BUTTON_LEFT);
     editor.getActionManager().registerKeyboardAction("CameraNorth", SDLK_w);
     editor.getActionManager().registerKeyboardAction("CameraEast", SDLK_d);
@@ -58,8 +59,6 @@ main() {
           }
       },
       editor.getProcessing());
-
-    editor.startup();
     editor.mainLoop();
 
     return 0;
