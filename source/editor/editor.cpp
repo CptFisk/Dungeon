@@ -1,6 +1,8 @@
 #include <backends/imgui_impl_sdl2.h>
 #include <backends/imgui_impl_sdlrenderer2.h>
 #include <common/initializer/imgui.hpp>
+#include <common/initializer/sdl.hpp>
+#include <common/initializer/sdlTTF.hpp>
 #include <common/interrupt.hpp>
 #include <common/math.hpp>
 #include <common/scale.hpp>
@@ -31,7 +33,6 @@ Editor::Editor(const int& w, const int& h)
   , mLightningShape(LightningShape::LIGHT_CIRCLE)
   , mLightningSize(LightningSize::LIGHT_SMALL)
   , mHideAllWindows(false)
-  , mActionManager(std::make_unique<Common::ActionManager>())
   , mOffset(0.0, 0.0) {}
 
 Editor::~Editor() {
@@ -59,16 +60,16 @@ Editor::getActionManager() {
 void
 Editor::startup() {
     mThreads.push_back(spawnInterrupt(10));
-
     mInitHandler->addInitializer(
-      std::make_shared<Common::SDLInitializer>(pWindow, pRenderer, requestDimensionW, requestDimensionH, "Editor"));
-    mInitHandler->addInitializer(std::make_shared<Common::ImGuiInitializer>(&pWindow, &pRenderer));
+      std::make_shared<Common::SDLInitializer>(pWindow, pRenderer, requestDimensionW, requestDimensionH, false, "Editor"));
+    mInitHandler->addInitializer(std::make_shared<Common::SDLTTFInitializer>());
+    mInitHandler->addInitializer(std::make_shared<Common::ImGuiInitializer>(pWindow, pRenderer));
     mInitHandler->startup();
 
     Common::calculateGameScale(mScale, pWindow);
 
     // Setup perspective
-    mPerspective = std::make_unique<Common::Perspective>(pRenderer, mOffset.X, mOffset.Y);
+    mPerspective = std::make_unique<Common::Perspective>(pRenderer, mOffset.X, mOffset.Y, mScale);
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
@@ -78,6 +79,7 @@ Editor::startup() {
         std::sort(mTextures.begin(), mTextures.end());
         mSelectedTexture = mTextures[0];
     }
+    mActionManager = std::make_unique<Common::ActionManager>(pRenderer, mScale);
 
     Common::addEventWatcher([&](SDL_Event* evt) { return mActionManager->eventHandler(evt); }, mEventWatcher);
     // Update all graphics
@@ -242,7 +244,7 @@ Editor::click() {
             const auto asset = mSelectedTexture.second;
             switch (mMouse) {
                 case Mouse::TOP_LAYER:
-                    editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::TOP_LAYER)));
+                    editorTiles[pos]->addOverlay(GET_GENERATED(getMouseColorCode(Mouse::TOP_LAYER)));
                 case Mouse::TEXTURE:
                     mLevelCoords.emplace(Common::getClickCoords(FLOAT(x) + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale));
                     animationValuesBase[asset] = editorTiles[pos]->addData(asset, fileAssets, mGraphics, mMouse);
@@ -263,16 +265,16 @@ Editor::click() {
                     editorTiles[pos]->clearType();
                     break;
                 case Mouse::WALL:
-                    editorTiles[pos]->addType(Level::TileType::WALL, *GET_SDL(getMouseColorCode(Mouse::WALL)));
+                    editorTiles[pos]->addType(Level::TileType::WALL, GET_GENERATED(getMouseColorCode(Mouse::WALL)));
                     break;
                 case Mouse::OBSTACLE:
-                    editorTiles[pos]->addType(Level::TileType::OBSTACLE, *GET_SDL(getMouseColorCode(Mouse::OBSTACLE)));
+                    editorTiles[pos]->addType(Level::TileType::OBSTACLE, GET_GENERATED(getMouseColorCode(Mouse::OBSTACLE)));
                     break;
                 case Mouse::UP:
-                    editorTiles[pos]->addType(Level::TileType::UP, *GET_SDL(getMouseColorCode(Mouse::UP)));
+                    editorTiles[pos]->addType(Level::TileType::UP, GET_GENERATED(getMouseColorCode(Mouse::UP)));
                     break;
                 case Mouse::DOWN:
-                    editorTiles[pos]->addType(Level::TileType::DOWN, *GET_SDL(getMouseColorCode(Mouse::DOWN)));
+                    editorTiles[pos]->addType(Level::TileType::DOWN, GET_GENERATED(getMouseColorCode(Mouse::DOWN)));
                     break;
                 case Mouse::DOOR:
                     popupPosition.x = static_cast<float>(x);
@@ -286,12 +288,12 @@ Editor::click() {
                     break;
                 case Mouse::LIGHTNING:
                     editorTiles[pos]->addLightning(mLightningShape, mLightningColour, mLightningSize);
-                    editorTiles[pos]->addOverlay(*GET_SDL(getMouseColorCode(Mouse::LIGHTNING)));
+                    editorTiles[pos]->addOverlay(GET_GENERATED(getMouseColorCode(Mouse::LIGHTNING)));
                     break;
                 case Mouse::MONSTER: {
                     auto texture = GET_ANIMATED(Monster::monsters[mSelectedMonster].DefaultImage);
                     if (texture != nullptr) {
-                        editorTiles[pos]->addMonster(mSelectedMonster, (*texture)->getTexture(), (*texture)->getViewports().front());
+                        editorTiles[pos]->addMonster(mSelectedMonster, texture->getTexture(), texture->getViewports().front());
                     }
                 } break;
                 case Mouse::DEFAULT:
