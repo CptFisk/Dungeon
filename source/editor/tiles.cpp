@@ -1,5 +1,4 @@
 #include <common/math.hpp>
-#include <common/structures.hpp>
 #include <editor/editor.hpp>
 #include <global.hpp>
 
@@ -9,10 +8,10 @@ Editor::uiTiles() {
     if (editorTiles.empty())
         return; // Break on empty
 
-    const auto minX = std::max(INT((mOffset.X / -1.0f) / (16.0f * mScale.factorX) - 3.0f), 0);
-    const auto minY = std::max(INT((mOffset.Y / -1.0f) / (16.0f * mScale.factorY) - 3.0f), 0);
-    const auto maxX = std::min(minX + 20, MAP_WIDTH);
-    const auto maxY = std::min(minY + 16, MAP_WIDTH);
+    const auto minX = std::max(INT((mOffset.X / -1.0f) / (16.0f * mScale.selectedScale) - 3.0f), 0);
+    const auto minY = std::max(INT((mOffset.Y / -1.0f) / (16.0f * mScale.selectedScale) - 3.0f), 0);
+    const auto maxX = std::min(minX + 40, MAP_WIDTH);
+    const auto maxY = std::min(minY + 40, MAP_WIDTH);
 
     int  layer      = 0;
     bool layersLeft = false;
@@ -57,36 +56,5 @@ Editor::uiTiles() {
             }
         }
     }
-    /*
-    if (showOverlay) {
-        // Doors are drawn outside
-        for (const auto& door : fileDoors) {
-            SDL_FRect position = { FLOAT(door.X) * 16.0f * mScale.factorX,
-                                   FLOAT(door.Y) * 16.0f * mScale.factorY,
-                                   16.0f * mScale.factorX,
-                                   16.0f * mScale.factorY };
-            mPerspective->render(*GET_SDL("A89AE7"), nullptr, &position);
-        }
-        for (const auto warp : fileWarps) {
-            SDL_FRect oPosition = {
-                FLOAT(warp.Origin.X) * 16.0f * mScale.factorX,
-                FLOAT(warp.Origin.Y) * 16.0f * mScale.factorY,
-                16.0f * mScale.factorX,
-                16.0f * mScale.factorY
-            };
-            SDL_FRect dPosition = {
-                FLOAT(warp.Destination.X) * 16.0f * mScale.factorX,
-                FLOAT(warp.Destination.Y) * 16.0f * mScale.factorY,
-                16.0f * mScale.factorX,
-                16.0f * mScale.factorY
-            };
-            mPerspective->render(*GET_SDL("CF2B0B"), nullptr, &oPosition);
-            mPerspective->render(*GET_SDL("8CCFCD"), nullptr, &dPosition);
-        }
-
-        // Display player spawn
-        mPerspective->render(*GET_SDL("0000FF"), nullptr, &mPlayerSpawn);
-    }
-     */
 }
 }
