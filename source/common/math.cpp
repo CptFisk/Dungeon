@@ -22,13 +22,6 @@ getIndex(const int& x, const int& y, const int& maxX) {
     return _x + _y * _width;
 }
 
-std::pair<int, int>
-getClickCoords(const float& x, const float& y, const typeScale& scale) {
-    auto _x = std::floor(static_cast<float>(x) / (16.0f * scale.factorX));
-    auto _y = std::floor(static_cast<float>(y) / (16.0f * scale.factorY));
-    return std::make_pair(_x, _y);
-}
-
 std::optional<std::pair<int, int>>
 getCoords(const int& pos, const int& width, const int& height) {
     if (pos > width * height || width == 0 || height == 0)

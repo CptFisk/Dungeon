@@ -15,8 +15,12 @@ std::optional<int>
 getIndex(const int& x, const int& y, const int& maxX);
 
 // Return the coordinates that you click on
-std::pair<int, int>
-getClickCoords(const float& x, const float& y, const typeScale& scale);
+constexpr std::pair<int, int>
+getClickCoords(const float& x, const float& y, const typeScale& scale){
+    const auto _x = std::floor(static_cast<float>(x) / (16.0f * scale.selectedScale));
+    const auto _y = std::floor(static_cast<float>(y) / (16.0f * scale.selectedScale));
+    return std::make_pair(_x, _y);
+}
 
 /**
  * @brief Return coordinates based index position.
