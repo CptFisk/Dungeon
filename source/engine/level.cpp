@@ -58,9 +58,7 @@ Engine::loadLevel(const std::string& filename) {
             const auto id    = INT(it->Base.front());
             const auto asset = data.Assets.Assets[id];
             addToSegment(mSegments.Bottom, pos, asset);
-
             it->Base.erase(it->Base.begin()); // Remove this element, it has been displayed
-
             if (!it->Base.empty())
                 layersLeft = true; // There is more
         }

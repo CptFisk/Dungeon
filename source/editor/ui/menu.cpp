@@ -1,6 +1,8 @@
 #include <editor/editor.hpp>
+#include <common/segment.hpp>
 #include <imgui.h>
 #include <string>
+#include <SDL_image.h>
 
 // Internal function to find LCM for animation values
 int
@@ -30,9 +32,51 @@ Editor::uiMenu() {
                 }
                 ImGui::EndMenu();
             }
+            if(ImGui::MenuItem("Export map", nullptr,nullptr, mMapLoaded)){
+                Common::typeSegment segments;
+                const auto animationBase = findAnimationValue(animationValuesBase);
+                const auto animationTop = findAnimationValue(animationValuesTop);
+
+                //Convert editorTiles to "normal tiles"
+                Level::typeTiles tiles(editorTiles.size());
+                for (int i = 0; i < editorTiles.size(); i++) {
+                    tiles.Tiles[i] = editorTiles[i]->getTileData();
+                }
+                Common::createMap(pRenderer, mGraphics, segments, animationBase, animationTop, tiles, fileAssets);
+                for(int i = 0; i < segments.Bottom.Layers.size(); i++){
+                    int width, height;
+                    SDL_QueryTexture(segments.Bottom.Layers[i], nullptr, nullptr, &width, &height);
+
+                    // Set the texture's blend mode to ensure proper handling of transparency
+                    SDL_SetTextureBlendMode(segments.Bottom.Layers[i], SDL_BLENDMODE_BLEND);
+
+                    // Create an SDL_Surface with the same dimensions and RGBA32 format
+                    SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
+
+                    if (!surface) {
+                        printf("SDL_CreateRGBSurfaceWithFormat failed: %s\n", SDL_GetError());
+                        return;
+                    }
+
+                    // Set the render target to the texture
+                    SDL_SetRenderTarget(pRenderer, segments.Bottom.Layers[i]);
+
+                    // Use SDL_RenderReadPixels to copy the texture's pixel data into the surface
+                    if (SDL_RenderReadPixels(pRenderer, nullptr, surface->format->format, surface->pixels, surface->pitch) != 0) {
+                        printf("SDL_RenderReadPixels failed: %s\n", SDL_GetError());
+                    }
+
+                    // Reset the render target to the default (usually the window)
+                    SDL_SetRenderTarget(pRenderer, NULL);
+
+                    // Save the surface as a PNG file with transparency
+                    if (IMG_SavePNG(surface, (std::to_string(i) + "file.png").c_str()) != 0) {
+                        printf("IMG_SavePNG failed: %s\n", SDL_GetError());
+                    }
+                    SDL_FreeSurface(surface);
+                }
+            }
             if (ImGui::MenuItem("Save project")) {
-                fileAssets.AnimationValueBase = findAnimationValue(animationValuesBase);
-                fileAssets.AnimationValueTop = findAnimationValue(animationValuesTop);
 
                 Level::typeTiles tiles(editorTiles.size());
                 for (int i = 0; i < editorTiles.size(); i++) {

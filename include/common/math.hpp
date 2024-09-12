@@ -1,9 +1,9 @@
 #pragma once
 #include <common/scale.hpp>
-#include <level/file.hpp>
+#include <error.hpp>
+#include <level/editorFile.hpp>
 #include <optional>
 #include <utility>
-#include <error.hpp>
 
 namespace Common {
 

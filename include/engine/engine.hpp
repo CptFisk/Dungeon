@@ -1,9 +1,10 @@
 #pragma once
 #include <common/include.hpp>
+#include <common/initializer/initializer.hpp>
 #include <engine/include.hpp>
 #include <graphics/graphics.hpp>
 #include <graphics/numbers.hpp>
-#include <level/file.hpp>
+#include <level/editorFile.hpp>
 #include <list>
 #include <memory>
 #include <monster/include.hpp>
@@ -17,7 +18,6 @@
 #include <ui/textbox.hpp>
 #include <utility/timer.hpp>
 #include <utility>
-#include <common/initializer/initializer.hpp>
 
 namespace Engine {
 class Engine {

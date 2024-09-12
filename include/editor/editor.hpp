@@ -8,7 +8,7 @@
 #include <editor/utility/mouseLightning.hpp>
 #include <global.hpp>
 #include <graphics/graphics.hpp>
-#include <level/file.hpp>
+#include <level/editorFile.hpp>
 #include <list>
 #include <memory>
 #include <set>

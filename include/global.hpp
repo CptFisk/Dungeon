@@ -11,8 +11,9 @@
 #define STRING_UINT8(x) static_cast<uint8_t>(std::stoi(x))
 
 // Map size
-const int     MAP_WIDTH = 128;
-constexpr int MAP_SIZE  = MAP_WIDTH * MAP_WIDTH;
+const int     MAP_WIDTH    = 128;
+const int     SEGMENT_SIZE = 128;
+constexpr int MAP_SIZE     = MAP_WIDTH * MAP_WIDTH;
 
 const int               LIGHT_ANIMATION_FRAMES = 7;          // Constant for how many frames a light-effect exist of
 const unsigned long int LIGHT_BITS             = 0xFF000000; // Used to mask out bit 24-31
