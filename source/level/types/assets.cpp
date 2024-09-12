@@ -61,22 +61,5 @@ findAsset(const std::string& asset, const typeAssets& map) {
     return std::nullopt;
 }
 
-bool
-removeAsset(const std::string& assetName, typeAssets& map) {
-    // Calculate our id
-    int  assetId;
-    bool found = false;
-    for (auto it = map.Assets.begin(); it != map.Assets.end(); ++it) {
-        if (*it == assetName) {
-            assetId = static_cast<int>(std::distance(map.Assets.begin(), it));
-            map.Assets.erase(it);
-            found = true;
-            break; // Stop the loop
-        }
-    }
-    if (!found)
-        return false;
-    return true;
-}
 
 }
