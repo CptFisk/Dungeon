@@ -3,6 +3,7 @@
 #include <level/file.hpp>
 #include <optional>
 #include <utility>
+#include <error.hpp>
 
 namespace Common {
 
@@ -29,10 +30,9 @@ getClickCoords(const float& x, const float& y, const typeScale& scale){
  * @param pos
  * @return
  */
-constexpr std::optional<std::pair<int,int>>
+constexpr std::pair<int,int>
 getCoords(const int& pos, const int& width, const int& height){
-    if (pos > width * height || width == 0 || height == 0)
-        return std::nullopt;
+    ASSERT_WITH_MESSAGE(pos > width * height || width == 0 || height == 0, "Invalid values")
     const int x = pos % width;
     const int y = pos / width;
     return std::make_pair(x, y);
