@@ -18,18 +18,17 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/editor/ui/textures.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui/functions.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui/monster.cpp
-
-        ${CMAKE_SOURCE_DIR}/source/editor/menu.cpp
+        ${CMAKE_SOURCE_DIR}/source/editor/ui/menu.cpp
 
 
         ${CMAKE_SOURCE_DIR}/source/editor/grid.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/tiles.cpp
 
         ${CMAKE_SOURCE_DIR}/source/editor/tile.cpp
-
         ${CMAKE_SOURCE_DIR}/source/editor/warps.cpp
 
         ${CMAKE_SOURCE_DIR}/source/editor/utility/assetsHandler.cpp
+        ${CMAKE_SOURCE_DIR}/source/editor/utility/mouse.cpp
 )
 
 

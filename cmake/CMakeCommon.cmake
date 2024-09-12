@@ -22,6 +22,7 @@ add_library(
         ${CMAKE_SOURCE_DIR}/source/common/sdl.cpp
         ${CMAKE_SOURCE_DIR}/source/common/perspective.cpp
         ${CMAKE_SOURCE_DIR}/source/common/interrupt.cpp
+        ${CMAKE_SOURCE_DIR}/source/common/segment.cpp
 
         ${CMAKE_SOURCE_DIR}/source/graphics/graphics.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/texture.cpp
