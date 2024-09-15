@@ -61,7 +61,7 @@ Tile::clear() {
 
 int
 Tile::addData(const std::string&                         asset,
-              Level::typeAssets&                         assetList,
+              File::typeAssets&                         assetList,
               const std::shared_ptr<Graphics::Graphics>& graphics,
               const bool&                                mode) {
     return addData(asset, assetList, graphics, mode ? Mouse::TOP_LAYER : Mouse::TEXTURE);
@@ -69,11 +69,11 @@ Tile::addData(const std::string&                         asset,
 
 int
 Tile::addData(const std::string&                         asset,
-              Level::typeAssets&                         assetList,
+              File::typeAssets&                         assetList,
               const std::shared_ptr<Graphics::Graphics>& graphics,
               const Mouse&                               mouse) {
     auto&      data           = mouse == Mouse::TEXTURE ? mBaseLayer : mTopLayer;
-    auto       tileType       = mouse == Mouse::TEXTURE ? Level::TileType::BASE_TEXTURE : Level::TileType::TOP_TEXTURE;
+    auto       tileType       = mouse == Mouse::TEXTURE ? File::TileType::BASE_TEXTURE : File::TileType::TOP_TEXTURE;
     const auto type           = graphics->getTextureType(asset);
     int        animationValue = 0;
     switch (type) {
@@ -95,24 +95,24 @@ Tile::addData(const std::string&                         asset,
         default:;
     }
     // Handles the list of assets
-    if (Level::findAsset(asset, assetList).has_value()) {
+    if (File::findAsset(asset, assetList).has_value()) {
         // The item exist in asset list. Append it to the end of our graphics
         switch (mouse) {
             case Mouse::TEXTURE:
-                mTileData.Base.emplace_back(Level::findAsset(asset, assetList).value());
+                mTileData.Base.emplace_back(File::findAsset(asset, assetList).value());
                 break;
             case Mouse::TOP_LAYER:
-                mTileData.Top.emplace_back(Level::findAsset(asset, assetList).value());
+                mTileData.Top.emplace_back(File::findAsset(asset, assetList).value());
                 break;
             default:;
         }
     } else {
         switch (mouse) {
             case Mouse::TEXTURE:
-                mTileData.Base.emplace_back(Level::addAsset(asset, assetList));
+                mTileData.Base.emplace_back(File::addAsset(asset, assetList));
                 break;
             case Mouse::TOP_LAYER:
-                mTileData.Top.emplace_back(Level::addAsset(asset, assetList));
+                mTileData.Top.emplace_back(File::addAsset(asset, assetList));
                 break;
             default:;
         }
@@ -169,7 +169,7 @@ Tile::addOverlay(Graphics::GeneratedTexture* overlay) {
 }
 
 void
-Tile::addType(const Level::TileType& value, Graphics::GeneratedTexture* overlay) {
+Tile::addType(const File::TileType& value, Graphics::GeneratedTexture* overlay) {
     mTileData.Type.set(value);
     if (mOverlays.find(overlay->getTexture()) == mOverlays.end())
         addOverlay(overlay);
@@ -184,7 +184,7 @@ Tile::clearType() {
 void
 Tile::addLightning(const Editor::LightningShape& shape, const Editor::LightningColour& colour, const Editor::LightningSize& size) {
     /*
-    Since the enums for shape, colour and size have the same values as the one in Level::Types they can be cast directly
+    Since the enums for shape, colour and size have the same values as the one in File::Types they can be cast directly
         between each other.
     */
     mTileData.Type.set(shape);
@@ -242,7 +242,7 @@ Tile::removeElement(SDL_Texture* texture, const uint8_t& id) {
     }
 }
 
-Level::typeTileData
+File::typeTileData
 Tile::getTileData() const {
     return mTileData;
 }

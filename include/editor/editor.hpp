@@ -8,7 +8,7 @@
 #include <editor/utility/mouseLightning.hpp>
 #include <global.hpp>
 #include <graphics/graphics.hpp>
-#include <level/editorFile.hpp>
+#include <file/editorFile.hpp>
 #include <list>
 #include <memory>
 #include <set>
@@ -36,7 +36,7 @@ class Editor {
   protected:
     std::thread spawnInterrupt(const long& time); // Spawn a thread
 
-    void loadLevel(const Level::typeEditorFile& data);
+    void loadLevel(const File::typeEditorFile& data);
     void removeSpecificTexture(const std::string& name, std::vector<Tile*>& tiles, const uint8_t& id);
 
     [[maybe_unused]] void        displayElement(const std::string& element);
@@ -54,9 +54,9 @@ class Editor {
     };
 
     void uiMenu();                                                                      // Top menu
-    void uiHeader(typeWindowCovering& area, bool& open, Level::typeHeaderData& header); // Display current open project settings
+    void uiHeader(typeWindowCovering& area, bool& open, File::typeHeaderData& header); // Display current open project settings
     void uiDrawGrid();                                                                  // Draw a basic grid over the area
-    void uiAssets(typeWindowCovering& area, bool& open, Level::typeAssets& assets);     // Display the metadata related to the map
+    void uiAssets(typeWindowCovering& area, bool& open, File::typeAssets& assets);     // Display the metadata related to the map
     void uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse);
     void uiMouseLightning(typeWindowCovering& area,
                           bool&               open,
@@ -135,10 +135,10 @@ class Editor {
     bool                                                   showGrid;
 
     // Map data
-    Level::typeHeaderData             fileHeader;
-    Level::typeAssets                 fileAssets; // List of all the assets that exist in the current map.
-    std::vector<Level::typeDoorsData> fileDoors;  // Contains all doors
-    std::vector<Level::typeWarpData>  fileWarps;
+    File::typeHeaderData             fileHeader;
+    File::typeAssets                 fileAssets; // List of all the assets that exist in the current map.
+    std::vector<File::typeDoorsData> fileDoors;  // Contains all doors
+    std::vector<File::typeWarpData>  fileWarps;
 
     std::vector<Tile*>                   editorTiles; // All tiles in the game.
     std::unordered_map<std::string, int> animationValuesBase;

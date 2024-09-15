@@ -56,8 +56,8 @@ createMap(SDL_Renderer*&                       renderer,
           typeSegment&                         segments,
           const int&                           animationBase,
           const int&                           animationTop,
-          Level::typeTiles& tiles,
-          Level::typeAssets&                   assets);
+          File::typeTiles& tiles,
+          File::typeAssets&                   assets);
 
 /**
  * @brief Add a smaller texture to the bigger picture

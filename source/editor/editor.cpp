@@ -7,7 +7,7 @@
 #include <common/math.hpp>
 #include <common/scale.hpp>
 #include <editor/editor.hpp>
-#include <level/editorFile.hpp>
+#include <file/editorFile.hpp>
 #include <monster/definition.hpp>
 #include <utility/file.hpp>
 
@@ -265,16 +265,16 @@ Editor::click() {
                     editorTiles[pos]->clearType();
                     break;
                 case Mouse::WALL:
-                    editorTiles[pos]->addType(Level::TileType::WALL, GET_GENERATED(getMouseColorCode(Mouse::WALL)));
+                    editorTiles[pos]->addType(File::TileType::WALL, GET_GENERATED(getMouseColorCode(Mouse::WALL)));
                     break;
                 case Mouse::OBSTACLE:
-                    editorTiles[pos]->addType(Level::TileType::OBSTACLE, GET_GENERATED(getMouseColorCode(Mouse::OBSTACLE)));
+                    editorTiles[pos]->addType(File::TileType::OBSTACLE, GET_GENERATED(getMouseColorCode(Mouse::OBSTACLE)));
                     break;
                 case Mouse::UP:
-                    editorTiles[pos]->addType(Level::TileType::UP, GET_GENERATED(getMouseColorCode(Mouse::UP)));
+                    editorTiles[pos]->addType(File::TileType::UP, GET_GENERATED(getMouseColorCode(Mouse::UP)));
                     break;
                 case Mouse::DOWN:
-                    editorTiles[pos]->addType(Level::TileType::DOWN, GET_GENERATED(getMouseColorCode(Mouse::DOWN)));
+                    editorTiles[pos]->addType(File::TileType::DOWN, GET_GENERATED(getMouseColorCode(Mouse::DOWN)));
                     break;
                 case Mouse::DOOR:
                     popupPosition.x = static_cast<float>(x);

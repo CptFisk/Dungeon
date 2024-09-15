@@ -7,7 +7,7 @@
 namespace Editor {
 
 void
-Editor::uiAssets(typeWindowCovering& area, bool& open, Level::typeAssets& assets) {
+Editor::uiAssets(typeWindowCovering& area, bool& open, File::typeAssets& assets) {
     if (ImGui::Begin("Assets", &open, ImGuiWindowFlags_AlwaysAutoResize)) {
         ImGui::Text("Assets");
         uint8_t pos = 0;

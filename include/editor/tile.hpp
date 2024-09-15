@@ -8,8 +8,8 @@
 #include <graphics/types/font.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <graphicsForward.hpp>
-#include <level/types/assets.hpp>
-#include <level/types/tile.hpp>
+#include <file/types/editorAssets.hpp>
+#include <file/types/editorTile.hpp>
 #include <memory>
 #include <set>
 #include <variant>
@@ -45,11 +45,11 @@ class Tile {
      * @return Value of animation value, if static texture returns 0
      */
     int addData(const std::string&                         asset,
-                Level::typeAssets&                         assetList,
+                File::typeAssets&                         assetList,
                 const std::shared_ptr<Graphics::Graphics>& graphics,
                 const bool&                                mode);
     int addData(const std::string&                         asset,
-                Level::typeAssets&                         assetList,
+                File::typeAssets&                         assetList,
                 const std::shared_ptr<Graphics::Graphics>& graphics,
                 const Mouse&                               mouse);
     /**
@@ -61,7 +61,7 @@ class Tile {
      * @brief Add a new value to the tile type
      * @param value
      */
-    void addType(const Level::TileType& value, Graphics::GeneratedTexture* overlay);
+    void addType(const File::TileType& value, Graphics::GeneratedTexture* overlay);
     /**
      * @brief Clear all types from a tile
      */
@@ -82,7 +82,7 @@ class Tile {
     [[nodiscard]] bool elementExist(SDL_Texture* texture, const uint8_t& id) const;
     void               removeElement(SDL_Texture* texture, const uint8_t& id);
 
-    [[nodiscard]] Level::typeTileData getTileData() const;
+    [[nodiscard]] File::typeTileData getTileData() const;
 
     void addOverlay(Graphics::GeneratedTexture* overlay);
 
@@ -96,7 +96,7 @@ class Tile {
     SDL_FRect                mStandardPosition; // Position on the map
     const Common::typeScale& mScale;            // Scale of resolution
 
-    Level::typeTileData mTileData; // Tile data
+    File::typeTileData mTileData; // Tile data
 
     std::set<SDL_Texture*>              mOverlays; // All overlays
     Graphics::Font*                     pFont;     // Graphics to fonts

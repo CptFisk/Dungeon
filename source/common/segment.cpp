@@ -3,7 +3,7 @@
 #include <editor/tile.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
-#include <level/types/tile.hpp>
+#include <file/types/editorTile.hpp>
 #include <utility/bits.hpp>
 #include <utility/scale.hpp>
 
@@ -42,8 +42,8 @@ createMap(SDL_Renderer*&                       renderer,
           typeSegment&                         segments,
           const int&                           animationBase,
           const int&                           animationTop,
-          Level::typeTiles&              tiles,
-          Level::typeAssets&                   assets) {
+          File::typeTiles&              tiles,
+          File::typeAssets&                   assets) {
     // Create segments
     Common::createSegments(renderer, segments.Bottom, animationBase, segments.MaxLayerBottom);
     Common::createSegments(renderer, segments.Top, animationTop, segments.MaxLayerTop);
@@ -64,7 +64,7 @@ createMap(SDL_Renderer*&                       renderer,
         const auto& [x, y] = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
         auto &tile          = (*it);
         // Base graphics
-        if ((tile.Type.test(Level::TileType::BASE_TEXTURE) || tile.Type.test(Level::TileType::TOP_TEXTURE)) && !tile.Base.empty()) {
+        if ((tile.Type.test(File::TileType::BASE_TEXTURE) || tile.Type.test(File::TileType::TOP_TEXTURE)) && !tile.Base.empty()) {
             const auto id    = tile.Base.front();
             const auto asset = assets.Assets[id];
             addToSegment(renderer, graphics, segments.Bottom, x, y, asset);
@@ -73,7 +73,7 @@ createMap(SDL_Renderer*&                       renderer,
                 layersLeft = true;
         }
         // Overlay
-        if (tile.Type.test(Level::TileType::TOP_TEXTURE) && !tile.Top.empty()) {
+        if (tile.Type.test(File::TileType::TOP_TEXTURE) && !tile.Top.empty()) {
             const auto id    = INT(tile.Top.front());
             const auto asset = assets.Assets[id];
             addToSegment(renderer, graphics, segments.Top, x, y, asset);
@@ -198,34 +198,34 @@ addLightning(SDL_Renderer*&                       renderer,
              const int&                           pos) {
     std::string textureName = "Light";
     switch (Utility::getSetBit(bitset, std::bitset<32>(LIGHT_SHAPE))) {
-        case Level::LIGHT_CIRCLE:
+        case File::LIGHT_CIRCLE:
             textureName += "Circle";
             break;
-        case Level::LIGHT_SQUARE:
+        case File::LIGHT_SQUARE:
             textureName += "Square";
             break;
         default:
             return;
     }
     switch (Utility::getSetBit(bitset, std::bitset<32>(LIGHT_COLOUR))) {
-        case Level::LIGHT_RED:
+        case File::LIGHT_RED:
             textureName += "Red";
             break;
-        case Level::LIGHT_YELLOW:
+        case File::LIGHT_YELLOW:
             textureName += "Yellow";
             break;
-        case Level::LIGHT_WHITE:
+        case File::LIGHT_WHITE:
             textureName += "White";
             break;
         default:
             return;
     }
     switch (Utility::getSetBit(bitset, std::bitset<32>(LIGHT_SIZE))) {
-        case Level::LIGHT_BIG:
+        case File::LIGHT_BIG:
             // addToSegment(renderer, graphics, segments.Lightning, pos, textureName + "Big");
-        case Level::LIGHT_MEDIUM:
+        case File::LIGHT_MEDIUM:
             // addToSegment(renderer, graphics, segments.Lightning, pos, textureName + "Medium");
-        case Level::LIGHT_SMALL:
+        case File::LIGHT_SMALL:
             // addToSegment(renderer, graphics, segments.Lightning, pos, textureName + "Small");
             break;
         default:

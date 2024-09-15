@@ -1,6 +1,6 @@
 #pragma once
 #include <SDL.h>
-#include <level/types/warp.hpp>
+#include <level/types/editorWarp.hpp>
 #include <string>
 
 namespace Objects {

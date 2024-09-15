@@ -3,7 +3,7 @@
 namespace Editor {
 
 inline std::string
-createText(const Level::type3DMapCoordinate& level, const Level::type2DMapCoordinate& destination) {
+createText(const File::type3DMapCoordinate& level, const File::type2DMapCoordinate& destination) {
     const auto file = "{" + UINT8_STRING(level.X) + "," + UINT8_STRING(level.Y) + "," + UINT8_STRING(level.Z) + "}";
     const auto dest = "[" + UINT8_STRING(destination.X) + "," + UINT8_STRING(destination.Y) + "]";
     return file + "->" + dest;
@@ -45,10 +45,10 @@ Editor::uiWarpsPopup() {
             ImGui::BeginChild("fileName", ImVec2(300, 0), ImGuiChildFlags_AutoResizeY);
 
             if (ImGui::Button("Create", ImVec2(300, 0))) {
-                Level::type2DMapCoordinate origin{ UINT8(coords.first), UINT8(coords.second) };
-                Level::type3DMapCoordinate level{ STRING_UINT8(fileX), STRING_UINT8(fileY), STRING_UINT8(fileZ) };
-                Level::type2DMapCoordinate destination{ STRING_UINT8(destX), STRING_UINT8(destX) };
-                fileWarps.emplace_back(Level::typeWarpData{ origin, level, destination });
+                File::type2DMapCoordinate origin{ UINT8(coords.first), UINT8(coords.second) };
+                File::type3DMapCoordinate level{ STRING_UINT8(fileX), STRING_UINT8(fileY), STRING_UINT8(fileZ) };
+                File::type2DMapCoordinate destination{ STRING_UINT8(destX), STRING_UINT8(destX) };
+                fileWarps.emplace_back(File::typeWarpData{ origin, level, destination });
                 initialized = false;
                 hideElement("WarpsPopup"); // Hide window after mouse click
             }

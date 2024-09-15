@@ -8,7 +8,7 @@ namespace Editor {
  * @brief The reason for this is that the editor handle so much more than just a normal tile drawing.
  */
 void
-Editor::loadLevel(const Level::typeEditorFile& data) {
+Editor::loadLevel(const File::typeEditorFile& data) {
     const auto header = data.Header;
     const auto assets = data.Assets;
     const auto tiles  = data.Tiles;
@@ -55,17 +55,17 @@ Editor::loadLevel(const Level::typeEditorFile& data) {
                 editorTiles[pos]->addLightning(shape, colour, size);
                 editorTiles[pos]->addOverlay(GET_GENERATED(getMouseColorCode(Mouse::LIGHTNING)));
             }
-            if (tile.Type.test(Level::TileType::WALL)) {
-                editorTiles[pos]->addType(Level::TileType::WALL, GET_GENERATED(getMouseColorCode(Mouse::WALL)));
+            if (tile.Type.test(File::TileType::WALL)) {
+                editorTiles[pos]->addType(File::TileType::WALL, GET_GENERATED(getMouseColorCode(Mouse::WALL)));
             }
-            if (tile.Type.test(Level::TileType::OBSTACLE)) {
-                editorTiles[pos]->addType(Level::TileType::OBSTACLE, GET_GENERATED(getMouseColorCode(Mouse::OBSTACLE)));
+            if (tile.Type.test(File::TileType::OBSTACLE)) {
+                editorTiles[pos]->addType(File::TileType::OBSTACLE, GET_GENERATED(getMouseColorCode(Mouse::OBSTACLE)));
             }
-            if (tile.Type.test(Level::TileType::UP)) {
-                editorTiles[pos]->addType(Level::TileType::UP, GET_GENERATED(getMouseColorCode(Mouse::UP)));
+            if (tile.Type.test(File::TileType::UP)) {
+                editorTiles[pos]->addType(File::TileType::UP, GET_GENERATED(getMouseColorCode(Mouse::UP)));
             }
-            if (tile.Type.test(Level::TileType::DOWN)) {
-                editorTiles[pos]->addType(Level::TileType::DOWN, GET_GENERATED(getMouseColorCode(Mouse::DOWN)));
+            if (tile.Type.test(File::TileType::DOWN)) {
+                editorTiles[pos]->addType(File::TileType::DOWN, GET_GENERATED(getMouseColorCode(Mouse::DOWN)));
             }
             if (Utility::isAnyBitSet(tile.Type, std::bitset<32>(MONSTER_BITS))) {
                 const auto monsterId = Utility::getBitValue<32, int>(tile.Type, 10, 17);

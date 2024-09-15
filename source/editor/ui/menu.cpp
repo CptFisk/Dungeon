@@ -21,14 +21,14 @@ Editor::uiMenu() {
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("New project")) {
-                fileHeader = Level::typeHeaderData{};
+                fileHeader = File::typeHeaderData{};
                 fileAssets.Assets.clear(); // Clear the vector, we start blank
                 displayElement("Header");
             }
             if (ImGui::BeginMenu("Load project")) {
                 for (const auto& file : mMapFiles) {
                     if (ImGui::MenuItem(file.c_str()))
-                        loadLevel(Level::readEditorData(file));
+                        loadLevel(File::readEditorData(file));
                 }
                 ImGui::EndMenu();
             }
@@ -38,7 +38,7 @@ Editor::uiMenu() {
                 const auto animationTop = findAnimationValue(animationValuesTop);
 
                 //Convert editorTiles to "normal tiles"
-                Level::typeTiles tiles(editorTiles.size());
+                File::typeTiles tiles(editorTiles.size());
                 for (int i = 0; i < editorTiles.size(); i++) {
                     tiles.Tiles[i] = editorTiles[i]->getTileData();
                 }
@@ -78,15 +78,15 @@ Editor::uiMenu() {
             }
             if (ImGui::MenuItem("Save project")) {
 
-                Level::typeTiles tiles(editorTiles.size());
+                File::typeTiles tiles(editorTiles.size());
                 for (int i = 0; i < editorTiles.size(); i++) {
                     tiles.Tiles[i] = editorTiles[i]->getTileData();
                 }
 
-                Level::typeEditorFile      map = { fileHeader, fileAssets, tiles, fileDoors, fileWarps };
+                File::typeEditorFile      map = { fileHeader, fileAssets, tiles, fileDoors, fileWarps };
                 const std::string          fileName =
                   UINT8_STRING(fileHeader.MapCoordinate.X) + UINT8_STRING(fileHeader.MapCoordinate.Y) + UINT8_STRING(fileHeader.MapCoordinate.Z);
-                Level::writeEditorData("levels/" + fileName + ".map", map);
+                File::writeEditorData("levels/" + fileName + ".map", map);
             }
             ImGui::EndMenu();
         }

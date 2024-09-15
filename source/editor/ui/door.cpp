@@ -6,7 +6,7 @@
 namespace Editor {
 
 inline std::string
-createText(const Level::typeDoorsData& data) {
+createText(const File::typeDoorsData& data) {
     const auto x = std::to_string(static_cast<unsigned int>(data.X));
     const auto y = std::to_string(static_cast<unsigned int>(data.Y));
     return "[" + x + "," + y + "]";
@@ -42,7 +42,7 @@ Editor::uiDoorPopup() {
             const auto x      = mActionManager->mouseX;
             const auto y      = mActionManager->mouseY;
             auto       coords = Common::getClickCoords(x + (mOffset.X / -1.0f), y + (mOffset.Y / -1.0f), mScale);
-            fileDoors.emplace_back(Level::typeDoorsData(coords.first, coords.second, ""));
+            fileDoors.emplace_back(File::typeDoorsData(coords.first, coords.second, ""));
             hideElement("DoorsPopup"); // Hide window after mouse click
         }
         if (ImGui::MenuItem("Abort"))
