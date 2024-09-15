@@ -1,9 +1,9 @@
 #include <algorithm>
 #include <global.hpp>
 #include <iostream>
-#include <level/types/assets.hpp>
+#include <file/types/editorAssets.hpp>
 
-namespace Level {
+namespace File {
 
 void
 readAssetData(std::ifstream& file, typeAssets& data) {

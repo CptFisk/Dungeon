@@ -3,9 +3,9 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <level/types/coordinate.hpp>
+#include <file/types/coordinate.hpp>
 
-namespace Level{
+namespace File{
 
 struct typeHeaderData {
     type3DMapCoordinate MapCoordinate;

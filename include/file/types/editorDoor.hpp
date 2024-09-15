@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace Level {
+namespace File {
 struct typeDoorsData {
     uint8_t     X;              // X-coordinate
     uint8_t     Y;              // Y-coordinate

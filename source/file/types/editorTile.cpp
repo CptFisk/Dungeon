@@ -1,8 +1,8 @@
 #include <global.hpp>
 #include <iostream>
-#include <level/types/tile.hpp>
+#include <file/types/editorTile.hpp>
 
-namespace Level {
+namespace File {
 
 void
 readTileData(std::ifstream& file, typeTiles& data) {

@@ -51,4 +51,5 @@ target_link_libraries(
         ${LIB_IMGUI}
         ${LIB_COMMON}
         ${LIB_UTILITY}
+        ${LIB_FILE}
 )

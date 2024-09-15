@@ -1,8 +1,8 @@
-#include <level/types/header.hpp>
-#include <iostream>
 #include <global.hpp>
+#include <iostream>
+#include <file/types/editorHeader.hpp>
 
-namespace Level {
+namespace File {
 void
 readHeaderData(std::ifstream& file, typeHeaderData& data) {
     try {

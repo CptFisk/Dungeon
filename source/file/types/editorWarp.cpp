@@ -1,8 +1,8 @@
 #include <global.hpp>
 #include <iostream>
-#include <level/types/warp.hpp>
+#include <file/types/editorWarp.hpp>
 
-namespace Level {
+namespace File {
 
 void
 readWarpData(std::ifstream& file, std::vector<typeWarpData>& data) {

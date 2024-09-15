@@ -1,11 +1,11 @@
 #pragma once
 #include <cstdint>
 #include <fstream>
-#include <level/types/coordinate.hpp>
+#include <file/types/coordinate.hpp>
 #include <string>
 #include <vector>
 
-namespace Level {
+namespace File {
 
 struct typeWarpData {
     type2DMapCoordinate Origin;

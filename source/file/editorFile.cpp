@@ -1,11 +1,12 @@
-#include <algorithm>
 #include <fstream>
-#include <iostream>
-#include <level/editorFile.hpp>
-#include <level/types/header.hpp>
-#include <stdexcept>
+#include <file/editorFile.hpp>
+#include <file/types/editorHeader.hpp>
+#include <file/types/editorAssets.hpp>
+#include <file/types/editorTile.hpp>
+#include <file/types/editorDoor.hpp>
+#include <file/types/editorWarp.hpp>
 
-namespace Level {
+namespace File {
 
 void
 writeEditorData(const std::string& filename, const typeEditorFile& data) {
@@ -22,7 +23,7 @@ writeEditorData(const std::string& filename, const typeEditorFile& data) {
     file.close();
 }
 
-Level::typeEditorFile
+typeEditorFile
 readEditorData(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
     if (!file)

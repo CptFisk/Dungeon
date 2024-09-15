@@ -1,16 +1,16 @@
 #pragma once
 #include <SDL.h>
 #include <cstdint>
-#include <level/types/assets.hpp>
-#include <level/types/door.hpp>
-#include <level/types/header.hpp>
-#include <level/types/tile.hpp>
-#include <level/types/warp.hpp>
+#include <file/types/editorAssets.hpp>
+#include <file/types/editorDoor.hpp>
+#include <file/types/editorHeader.hpp>
+#include <file/types/editorTile.hpp>
+#include <file/types/editorWarp.hpp>
 #include <optional>
 #include <string>
 #include <vector>
 
-namespace Level {
+namespace File {
 
 /**
  * @brief Structure used for editor files

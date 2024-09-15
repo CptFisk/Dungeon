@@ -1,8 +1,8 @@
 #include <global.hpp>
 #include <iostream>
-#include <level/types/door.hpp>
+#include <file/types/editorDoor.hpp>
 
-namespace Level{
+namespace File{
 
 void
 readDoorData(std::ifstream& file, std::vector<typeDoorsData>& data){

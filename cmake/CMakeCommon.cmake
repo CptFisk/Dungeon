@@ -9,12 +9,6 @@ add_library(
         ${CMAKE_SOURCE_DIR}/source/common/initializer/sdlTTF.cpp
         ${CMAKE_SOURCE_DIR}/source/common/initializer/imgui.cpp
 
-        ${CMAKE_SOURCE_DIR}/source/level/types/header.cpp
-        ${CMAKE_SOURCE_DIR}/source/level/types/assets.cpp
-        ${CMAKE_SOURCE_DIR}/source/level/types/tile.cpp
-        ${CMAKE_SOURCE_DIR}/source/level/types/door.cpp
-        ${CMAKE_SOURCE_DIR}/source/level/types/warp.cpp
-
         ${CMAKE_SOURCE_DIR}/source/common/handlers.cpp
         ${CMAKE_SOURCE_DIR}/source/common/actionmgr.cpp
         ${CMAKE_SOURCE_DIR}/source/common/scale.cpp
@@ -42,8 +36,6 @@ add_library(
         ${CMAKE_SOURCE_DIR}/source/loaders/loadLightningTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadUserInterfaceTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadFontTexture.cpp
-
-        ${CMAKE_SOURCE_DIR}/source/level/file.cpp
 )
 
 target_include_directories(
