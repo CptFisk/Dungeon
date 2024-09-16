@@ -2,7 +2,6 @@
 #include <common/sdl.hpp>
 #include <error.hpp>
 
-
 namespace Common {
 SDL_FRect
 newSDL_FRect(const std::pair<int, int>& coords) {
@@ -41,10 +40,24 @@ loadImage(SDL_Renderer* renderer, const std::string& filename) {
 }
 
 TTF_Font*
-loadFont(const std::string& path, const int& size){
+loadFont(const std::string& path, const int& size) {
     const auto font = TTF_OpenFont(path.c_str(), size);
     ASSERT_WITH_MESSAGE(font == nullptr, SDL_GetError())
     return font;
 }
 
+SDL_Surface*
+SDL_TextureToSurface(SDL_Texture* texture, SDL_Renderer* renderer) {
+    int width, height;
+    SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+
+    // Create surface
+    SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
+    ASSERT_WITH_MESSAGE(surface == nullptr, SDL_GetError)
+    ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(renderer, texture) != 0, SDL_GetError)
+    ASSERT_WITH_MESSAGE(SDL_RenderReadPixels(renderer, nullptr, surface->format->format, surface->pixels, surface->pitch) != 0,
+                        SDL_GetError())
+    ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(renderer, nullptr) != 0, SDL_GetError())
+    return surface;
+}
 }
