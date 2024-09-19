@@ -9,7 +9,7 @@
 namespace File {
 
 void
-writeEditorData(const std::string& filename, const typeEditorFile& data) {
+writeEditorFile(const std::string& filename, const typeEditorFile& data) {
     std::ofstream file(filename, std::ios::binary);
     if (!file.is_open())
         throw std::runtime_error("Cant write to file");
@@ -24,7 +24,7 @@ writeEditorData(const std::string& filename, const typeEditorFile& data) {
 }
 
 typeEditorFile
-readEditorData(const std::string& filename) {
+readEditorFile(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
     if (!file)
         throw std::runtime_error("Cant load file: " + filename);

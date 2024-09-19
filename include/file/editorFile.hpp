@@ -39,7 +39,7 @@ struct typeEditorFile {
  * @param data Data structure
  */
 void
-writeEditorData(const std::string& filename, const typeEditorFile& data);
+writeEditorFile(const std::string& filename, const typeEditorFile& data);
 
 /**
  * @brief Load a editor file and return structures into the level editor
@@ -47,6 +47,6 @@ writeEditorData(const std::string& filename, const typeEditorFile& data);
  * @return Pointer to the map
  */
 typeEditorFile
-readEditorData(const std::string& filename);
+readEditorFile(const std::string& filename);
 
 }

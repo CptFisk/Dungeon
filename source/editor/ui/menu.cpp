@@ -1,8 +1,14 @@
-#include <editor/editor.hpp>
 #include <common/segment.hpp>
+#include <editor/editor.hpp>
+#include <file/engineFile.hpp>
+#include <file/export.hpp>
 #include <imgui.h>
 #include <string>
-#include <SDL_image.h>
+
+std::string
+generateFileName(const File::type3DMapCoordinate& coords, const std::string& extension) {
+    return std::string(UINT8_STRING(coords.X) + UINT8_STRING(coords.Y) + UINT8_STRING(coords.Z)) + extension;
+}
 
 // Internal function to find LCM for animation values
 int
@@ -28,53 +34,24 @@ Editor::uiMenu() {
             if (ImGui::BeginMenu("Load project")) {
                 for (const auto& file : mMapFiles) {
                     if (ImGui::MenuItem(file.c_str()))
-                        loadLevel(File::readEditorData(file));
+                        loadLevel(File::readEditorFile(file));
                 }
                 ImGui::EndMenu();
             }
-            if(ImGui::MenuItem("Export map", nullptr,nullptr, mMapLoaded)){
+            if (ImGui::MenuItem("Export map", nullptr, nullptr, mMapLoaded)) {
                 Common::typeSegment segments;
-                const auto animationBase = findAnimationValue(animationValuesBase);
-                const auto animationTop = findAnimationValue(animationValuesTop);
+                const auto          animationBase = findAnimationValue(animationValuesBase);
+                const auto          animationTop  = findAnimationValue(animationValuesTop);
 
-                //Convert editorTiles to "normal tiles"
+                // Convert editorTiles to "normal tiles"
                 File::typeTiles tiles(editorTiles.size());
                 for (int i = 0; i < editorTiles.size(); i++) {
                     tiles.Tiles[i] = editorTiles[i]->getTileData();
                 }
                 Common::createMap(pRenderer, mGraphics, segments, animationBase, animationTop, tiles, fileAssets);
-                for(int i = 0; i < segments.Bottom.Layers.size(); i++){
-                    int width, height;
-                    SDL_QueryTexture(segments.Bottom.Layers[i], nullptr, nullptr, &width, &height);
-
-                    // Set the texture's blend mode to ensure proper handling of transparency
-                    SDL_SetTextureBlendMode(segments.Bottom.Layers[i], SDL_BLENDMODE_BLEND);
-
-                    // Create an SDL_Surface with the same dimensions and RGBA32 format
-                    SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
-
-                    if (!surface) {
-                        printf("SDL_CreateRGBSurfaceWithFormat failed: %s\n", SDL_GetError());
-                        return;
-                    }
-
-                    // Set the render target to the texture
-                    SDL_SetRenderTarget(pRenderer, segments.Bottom.Layers[i]);
-
-                    // Use SDL_RenderReadPixels to copy the texture's pixel data into the surface
-                    if (SDL_RenderReadPixels(pRenderer, nullptr, surface->format->format, surface->pixels, surface->pitch) != 0) {
-                        printf("SDL_RenderReadPixels failed: %s\n", SDL_GetError());
-                    }
-
-                    // Reset the render target to the default (usually the window)
-                    SDL_SetRenderTarget(pRenderer, NULL);
-
-                    // Save the surface as a PNG file with transparency
-                    if (IMG_SavePNG(surface, (std::to_string(i) + "file.png").c_str()) != 0) {
-                        printf("IMG_SavePNG failed: %s\n", SDL_GetError());
-                    }
-                    SDL_FreeSurface(surface);
-                }
+                // Constructing filename
+                const auto fileName = generateFileName(fileHeader.MapCoordinate, ".lvl");
+                File::writeEngineData("levels/" + fileName, pRenderer, segments);
             }
             if (ImGui::MenuItem("Save project")) {
 
@@ -83,10 +60,10 @@ Editor::uiMenu() {
                     tiles.Tiles[i] = editorTiles[i]->getTileData();
                 }
 
-                File::typeEditorFile      map = { fileHeader, fileAssets, tiles, fileDoors, fileWarps };
-                const std::string          fileName =
-                  UINT8_STRING(fileHeader.MapCoordinate.X) + UINT8_STRING(fileHeader.MapCoordinate.Y) + UINT8_STRING(fileHeader.MapCoordinate.Z);
-                File::writeEditorData("levels/" + fileName + ".map", map);
+                File::typeEditorFile map = { fileHeader, fileAssets, tiles, fileDoors, fileWarps };
+
+                const auto fileName = generateFileName(fileHeader.MapCoordinate, ".map");
+                File::writeEditorFile("levels/" + fileName, map);
             }
             ImGui::EndMenu();
         }
