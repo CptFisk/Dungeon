@@ -1,29 +1,29 @@
 #pragma once
 #include <SDL.h>
-#include <level/types/editorWarp.hpp>
+#include <common/coordinates.hpp>
 #include <string>
 
 namespace Objects {
 class Warp {
   public:
-    Warp(const Level::type3DMapCoordinate& level,
-         const Level::type2DMapCoordinate& destination);
+    Warp(const Common::type3DMapCoordinate& level,
+         const Common::type2DMapCoordinate& destination);
     ~Warp();
 
     /**
      * @brief Return the level that is the destination
      */
-    [[nodiscard]] Level::type3DMapCoordinate getLevel() const;
+    [[nodiscard]] Common::type3DMapCoordinate getLevel() const;
     /**
      * @brief Return the destination on the level
      */
-    [[nodiscard]] Level::type2DMapCoordinate getDestination() const;
+    [[nodiscard]] Common::type2DMapCoordinate getDestination() const;
     /**
      * @brief Return the level, but as a string
      */
   protected:
   private:
-    const Level::type2DMapCoordinate mDestination;
-    const Level::type3DMapCoordinate mLevel;
+    const Common::type2DMapCoordinate mDestination;
+    const Common::type3DMapCoordinate mLevel;
 };
 }

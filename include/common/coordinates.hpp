@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 
-namespace File {
+namespace Common {
 struct type3DMapCoordinate {
     uint8_t X;
     uint8_t Y;
