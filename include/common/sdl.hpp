@@ -38,15 +38,5 @@ loadImage(SDL_Renderer* renderer, const std::string& filename);
 TTF_Font*
 loadFont(const std::string& path, const int& size);
 
-/**
- * @brief Convert a SDL_Texture* into a SDL_Surface. Memory handling and de-allocation is not handled inside function
- * @brief Errors is handled inside block and will terminate
- * @param texture SDL_Texture pointer
- * @param SDL_Renderer SDL_Renderer pointer
- * @return SDL_Surface*
- */
-[[maybe_unused]]
-SDL_Surface*
-SDL_TextureToSurface(SDL_Texture* texture, SDL_Renderer* renderer);
 
 }

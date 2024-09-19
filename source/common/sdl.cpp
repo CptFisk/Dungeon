@@ -46,18 +46,4 @@ loadFont(const std::string& path, const int& size) {
     return font;
 }
 
-SDL_Surface*
-SDL_TextureToSurface(SDL_Texture* texture, SDL_Renderer* renderer) {
-    int width, height;
-    SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
-
-    // Create surface
-    SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
-    ASSERT_WITH_MESSAGE(surface == nullptr, SDL_GetError)
-    ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(renderer, texture) != 0, SDL_GetError)
-    ASSERT_WITH_MESSAGE(SDL_RenderReadPixels(renderer, nullptr, surface->format->format, surface->pixels, surface->pitch) != 0,
-                        SDL_GetError())
-    ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(renderer, nullptr) != 0, SDL_GetError())
-    return surface;
-}
 }
