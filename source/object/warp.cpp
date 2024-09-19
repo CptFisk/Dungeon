@@ -1,4 +1,3 @@
-#include <common/sdl.hpp>
 #include <object/warp.hpp>
 
 namespace Objects {
