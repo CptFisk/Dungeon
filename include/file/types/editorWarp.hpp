@@ -1,23 +1,25 @@
 #pragma once
+#include <common/coordinates.hpp>
 #include <cstdint>
 #include <fstream>
-#include <file/types/coordinate.hpp>
 #include <string>
 #include <vector>
 
 namespace File {
 
 struct typeWarpData {
-    type2DMapCoordinate Origin;
-    type3DMapCoordinate Level;       // Level that contains the coordinate
-    type2DMapCoordinate Destination; // Destination on the level
+    Common::type2DMapCoordinate Origin;
+    Common::type3DMapCoordinate Level;       // Level that contains the coordinate
+    Common::type2DMapCoordinate Destination; // Destination on the level
 
     typeWarpData()
       : Origin{}
       , Level{}
       , Destination{} {}
 
-    typeWarpData(const type2DMapCoordinate& origin, const type3DMapCoordinate& level, const type2DMapCoordinate& destination)
+    typeWarpData(const Common::type2DMapCoordinate& origin,
+                 const Common::type3DMapCoordinate& level,
+                 const Common::type2DMapCoordinate& destination)
       : Origin(origin)
       , Level(level)
       , Destination(destination) {}

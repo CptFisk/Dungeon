@@ -3,12 +3,12 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <file/types/coordinate.hpp>
+#include <common/coordinates.hpp>
 
 namespace File{
 
 struct typeHeaderData {
-    type3DMapCoordinate MapCoordinate;
+    Common::type3DMapCoordinate MapCoordinate;
 
     struct Colour {
         uint8_t BackgroundRed;   // RGB colour of background
