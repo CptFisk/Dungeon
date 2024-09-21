@@ -17,7 +17,10 @@ Engine::loadLevel(const std::string& filename) {
     // If a map is loaded, unload it.
     if (mLevelLoaded)
         clearLoadedLevel();
+    const auto start = std::chrono::high_resolution_clock::now();
     auto data      = File::readEngineData("levels/" + filename, pRenderer);
+    const auto time = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start);
+    std::cout << "Loading time: " << time.count() << " ms" << std::endl;
     mMapCoordinate = data.Header.MapCoordinate;
     mColour        = data.Header.Colour;
     mOnLoad        = data.Header.OnLoad;

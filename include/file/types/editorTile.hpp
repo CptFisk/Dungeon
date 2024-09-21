@@ -6,9 +6,10 @@
 
 namespace File {
 /**
- * All this types is only used for generating and loading a pre-defined map file.
+ * @brief All this types is only used for generating and loading a pre-defined map file in editor mode.
+ * @brief the engine is using its own structure
  */
-enum TileType : uint32_t {
+enum TileEditorType : uint32_t {
     BASE_TEXTURE = 0, // Textures for base-layer
     TOP_TEXTURE  = 1, // Class AnimatedTexture
     WALL         = 2, // Blocks all movement

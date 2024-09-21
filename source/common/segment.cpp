@@ -54,7 +54,7 @@ createMap(SDL_Renderer*&                       renderer,
         const auto& [x, y] = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
         auto &tile          = (*it);
         // Base graphics
-        if ((tile.Type.test(File::TileType::BASE_TEXTURE) || tile.Type.test(File::TileType::TOP_TEXTURE)) && !tile.Base.empty()) {
+        if ((tile.Type.test(File::TileEditorType::BASE_TEXTURE) || tile.Type.test(File::TileEditorType::TOP_TEXTURE)) && !tile.Base.empty()) {
             const auto id    = tile.Base.front();
             const auto asset = assets.Assets[id];
             addToSegment(renderer, graphics, segments.Bottom, x, y, asset);
@@ -63,7 +63,7 @@ createMap(SDL_Renderer*&                       renderer,
                 layersLeft = true;
         }
         // Overlay
-        if (tile.Type.test(File::TileType::TOP_TEXTURE) && !tile.Top.empty()) {
+        if (tile.Type.test(File::TileEditorType::TOP_TEXTURE) && !tile.Top.empty()) {
             const auto id    = INT(tile.Top.front());
             const auto asset = assets.Assets[id];
             addToSegment(renderer, graphics, segments.Top, x, y, asset);
