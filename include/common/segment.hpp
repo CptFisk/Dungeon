@@ -9,9 +9,6 @@
 
 namespace Common {
 
-void
-createMap();
-
 /**
  * @brief Create segments that later can be used to generate the bigger picture
  * @param renderer Reference to the renderer
@@ -48,11 +45,6 @@ addToSegment(SDL_Renderer*&                       renderer,
              const int&                           y,
              const std::string&                   name);
 
-/**
- * @brief Clear all data inside a typeSegmentData
- */
-void
-clearTypeSegmentData(typeSegmentData& data);
 /**
  * @brief Clear all data inside typeSegment
  * @param data

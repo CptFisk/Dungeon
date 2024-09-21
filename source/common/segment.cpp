@@ -10,30 +10,20 @@
 namespace Common {
 
 void
-clearTypeSegmentData(typeSegmentData& data) {
-    for (auto& texture : data.Layers) {
-        if (texture)
-            SDL_DestroyTexture(texture);
-    }
-}
-
-void
 clearTypeSegment(typeSegment& data) {
-    /*
-    for (auto& bottom : data.Bottom)
-        clearTypeSegmentData(bottom);
-    for (auto& top : data.Top)
-        clearTypeSegmentData(top);
-    for (auto& lightning : data.Lightning)
-        clearTypeSegmentData(lightning);
-    data.Bottom.clear();
-    data.Top.clear();
-    data.Lightning.clear();
+    for (auto& texture : data.Bottom.Layers)
+        SDL_DestroyTexture(texture);
+    for (auto& texture : data.Top.Layers)
+        SDL_DestroyTexture(texture);
+    for (auto& texture : data.Lightning.Layers)
+        SDL_DestroyTexture(texture);
+    data.Bottom.Layers.clear();
+    data.Top.Layers.clear();
+    data.Lightning.Layers.clear();
     data.MaxLayerBottom     = {};
     data.CurrentLayerBottom = {};
     data.MaxLayerTop        = {};
     data.CurrentLayerTop    = {};
-     */
 }
 
 void
