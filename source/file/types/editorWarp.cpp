@@ -11,9 +11,9 @@ readWarpData(std::ifstream& file, std::vector<typeWarpData>& data) {
     file.read(reinterpret_cast<char*>(&readSize), sizeof(readSize));
     for (int i = 0; i < readSize; i++) {
         try {
-            type2DMapCoordinate origin{};
-            type3DMapCoordinate level{};
-            type2DMapCoordinate destination{};
+            Common::type2DMapCoordinate origin{};
+            Common::type3DMapCoordinate level{};
+            Common::type2DMapCoordinate destination{};
 
             file.read(reinterpret_cast<char*>(&origin), sizeof(origin));
             file.read(reinterpret_cast<char*>(&level), sizeof(level));

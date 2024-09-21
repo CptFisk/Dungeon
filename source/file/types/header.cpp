@@ -1,6 +1,6 @@
+#include <file/types/header.hpp>
 #include <global.hpp>
 #include <iostream>
-#include <file/types/editorHeader.hpp>
 
 namespace File {
 void

@@ -3,22 +3,14 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <common/colour.hpp>
 #include <common/coordinates.hpp>
 
 namespace File{
 
 struct typeHeaderData {
     Common::type3DMapCoordinate MapCoordinate;
-
-    struct Colour {
-        uint8_t BackgroundRed;   // RGB colour of background
-        uint8_t BackgroundGreen; // RGB colour of background
-        uint8_t BackgroundBlue;  // RGB colour of background
-        Colour()
-          : BackgroundRed(0)
-          , BackgroundGreen(0)
-          , BackgroundBlue(0){};
-    } Colour;
+    Common::typeColour Colour;
 
     std::vector<std::string> OnLoad;
     std::vector<std::string> OnExit;

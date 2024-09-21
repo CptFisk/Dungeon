@@ -13,10 +13,11 @@ add_library(
         ${CMAKE_SOURCE_DIR}/source/file/import.cpp
         ${CMAKE_SOURCE_DIR}/source/file/editorFile.cpp
         ${CMAKE_SOURCE_DIR}/source/file/engineFile.cpp
+        ${CMAKE_SOURCE_DIR}/source/file/types/header.cpp
+
         #Editor
         ${CMAKE_SOURCE_DIR}/source/file/types/editorAssets.cpp
         ${CMAKE_SOURCE_DIR}/source/file/types/editorDoor.cpp
-        ${CMAKE_SOURCE_DIR}/source/file/types/editorHeader.cpp
         ${CMAKE_SOURCE_DIR}/source/file/types/editorTile.cpp
         ${CMAKE_SOURCE_DIR}/source/file/types/editorWarp.cpp
 

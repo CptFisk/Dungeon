@@ -1,13 +1,16 @@
 #pragma once
 #include <file/types/engineLayers.hpp>
+#include <file/types/header.hpp>
 
 namespace File {
 
 struct typeEngineFile {
-    typeEngineLayers Layers;    //Graphical layers
+    typeHeaderData   Header; // Header, common for all files
+    typeEngineLayers Layers; // Graphical layers
 
     typeEngineFile()
-      : Layers{} {}
+      : Header{}
+      , Layers{} {}
 };
 
 /**
@@ -16,6 +19,6 @@ struct typeEngineFile {
  * @param data Data structure
  */
 void
-writeEngineData(const std::string& filename, SDL_Renderer*& renderer, const Common::typeSegment& data);
+writeEngineData(const std::string& filename, SDL_Renderer*& renderer, const typeHeaderData& header, const Common::typeSegment& data);
 
 }

@@ -6,7 +6,7 @@
 #include <string>
 
 std::string
-generateFileName(const File::type3DMapCoordinate& coords, const std::string& extension) {
+generateFileName(const Common::type3DMapCoordinate& coords, const std::string& extension) {
     return std::string(UINT8_STRING(coords.X) + UINT8_STRING(coords.Y) + UINT8_STRING(coords.Z)) + extension;
 }
 
@@ -51,7 +51,8 @@ Editor::uiMenu() {
                 Common::createMap(pRenderer, mGraphics, segments, animationBase, animationTop, tiles, fileAssets);
                 // Constructing filename
                 const auto fileName = generateFileName(fileHeader.MapCoordinate, ".lvl");
-                File::writeEngineData("levels/" + fileName, pRenderer, segments);
+                File::writeEngineData("levels/" + fileName, pRenderer, fileHeader, segments);
+                Common::clearTypeSegment(segments);
             }
             if (ImGui::MenuItem("Save project")) {
 

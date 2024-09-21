@@ -1,10 +1,10 @@
 #pragma once
 #include <common/include.hpp>
 #include <common/initializer/initializer.hpp>
+#include <common/segment.hpp>
 #include <engine/include.hpp>
 #include <graphics/graphics.hpp>
 #include <graphics/numbers.hpp>
-#include <level/editorFile.hpp>
 #include <list>
 #include <memory>
 #include <monster/include.hpp>
@@ -53,7 +53,7 @@ class Engine {
 
     void drawProjectiles();
     void drawNumbers();
-    void drawLevel(std::vector<typeSegmentData>& data, const int& currentLayer);
+    void drawLevel(Common::typeSegmentData& data, const int& currentLayer);
 
     void        drawDarkness();
     std::thread spawnInterrupt(const long& time); // Spawn a thread
@@ -74,7 +74,7 @@ class Engine {
         float Y;
     } offset;
 
-    Common::InitHandler mInitHandler;
+    Common::InitHandler                  mInitHandler;
     std::unique_ptr<Player::Player>      mPlayer;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
     std::unique_ptr<Player::Indicator>   mHealth;
@@ -125,20 +125,6 @@ class Engine {
     bool movement(const SDL_FPoint& other, const Directions& direction);
     // Load a level
     void loadLevel(const std::string& filename);
-
-    // Segmentations
-    void createSegments(std::vector<typeSegmentData>& segment, const uint8_t& animationValue, int& maxValue);
-    void addToSegment(std::vector<typeSegmentData>& segment, const int& pos, const std::string& name);
-    /**
-     * @brief Add a alpha-channel value and blend mode to a segment
-     * @param segment Segment
-     * @param blendMode Blend-mode to use, see SDL_BlendMode for reference
-     * @param value  alpha value to use, 100 means full transparency and 0 means none
-     */
-    void                        setSegmentAlpha(std::vector<typeSegmentData>& segments, const SDL_BlendMode& blendMode, const int& value);
-    void                        addLightning(const std::bitset<32> bitset, const int& pos);
-    [[nodiscard]] static size_t getSegment(const std::pair<int, int>& coord);
-
     void clearLoadedLevel();
 
     /**
@@ -148,14 +134,13 @@ class Engine {
      * @example render(frame[0]);
      * @example }
      */
-    typeSegment                             mSegments;
+    Common::typeSegment                     mSegments;
     std::vector<std::bitset<8>>             levelObjects;
     std::vector<Objects::Door*>             doors; // All doors on the map
     std::unordered_map<int, Objects::Warp*> warp;  // Warp locations
 
     // Level data
     bool                  mLevelLoaded;
-    Level::typeHeaderData mHeader;
     std::string           mFilename; // Name of the current loaded map
     static const int      segmentSizeX = 128;
     static const int      segmentSizeY = 128;

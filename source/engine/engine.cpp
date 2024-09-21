@@ -25,8 +25,7 @@ Engine::Engine()
   , mPlayerHealth(100)
   , mPlayerEnergy(50)
   , mEvent{}
-  , Background{}
-  , mSegments{} {}
+  , Background{} {}
 
 Engine::~Engine() {
     // De-spawn all threads
@@ -268,11 +267,9 @@ Engine::drawNumbers() {
 }
 
 void
-Engine::drawLevel(std::vector<typeSegmentData>& data, const int& currentLayer) {
+Engine::drawLevel(Common::typeSegmentData& data, const int& currentLayer) {
     std::lock_guard<std::mutex> lock(mMutex);
-    for (auto& segment : data) {
-        mPerspective->render(segment.Layers[currentLayer], nullptr, &segment.Position);
-    }
+    mPerspective->render(data.Layers[currentLayer], nullptr, &data.Position);
 }
 
 std::thread

@@ -49,4 +49,5 @@ target_link_libraries(
         nlohmann_json::nlohmann_json
         ${LIB_COMMON}
         ${LIB_UTILITY}
+        ${LIB_FILE}
 )

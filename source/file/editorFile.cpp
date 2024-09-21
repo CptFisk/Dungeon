@@ -1,10 +1,10 @@
-#include <fstream>
 #include <file/editorFile.hpp>
-#include <file/types/editorHeader.hpp>
 #include <file/types/editorAssets.hpp>
-#include <file/types/editorTile.hpp>
 #include <file/types/editorDoor.hpp>
+#include <file/types/editorTile.hpp>
 #include <file/types/editorWarp.hpp>
+#include <file/types/header.hpp>
+#include <fstream>
 
 namespace File {
 
