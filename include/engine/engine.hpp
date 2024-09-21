@@ -140,11 +140,17 @@ class Engine {
     std::unordered_map<int, Objects::Warp*> warp;  // Warp locations
 
     // Level data
-    bool                  mLevelLoaded;
-    std::string           mFilename; // Name of the current loaded map
-    static const int      segmentSizeX = 128;
-    static const int      segmentSizeY = 128;
-    SDL_Texture*          pDarkness;
+    Common::type3DMapCoordinate mMapCoordinate;
+    Common::typeColour          mColour;
+
+    std::vector<std::string> mOnLoad;
+    std::vector<std::string> mOnExit;
+
+    bool             mLevelLoaded;
+    std::string      mFilename; // Name of the current loaded map
+    static const int segmentSizeX = 128;
+    static const int segmentSizeY = 128;
+    SDL_Texture*     pDarkness;
 };
 
 extern Engine engine;

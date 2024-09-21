@@ -25,7 +25,9 @@ Engine::Engine()
   , mPlayerHealth(100)
   , mPlayerEnergy(50)
   , mEvent{}
-  , Background{} {}
+  , Background{}
+  , mMapCoordinate{}
+  , mColour{} {}
 
 Engine::~Engine() {
     // De-spawn all threads

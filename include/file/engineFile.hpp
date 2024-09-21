@@ -13,6 +13,9 @@ struct typeEngineFile {
       , Layers{} {}
 };
 
+typeEngineFile
+readEngineData(const std::string& filename, SDL_Renderer*& renderer);
+
 /**
  * @brief Write data to a editor file, so it can be edited later
  * @param filename Name of the file

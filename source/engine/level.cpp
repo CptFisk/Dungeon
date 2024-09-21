@@ -2,12 +2,14 @@
 #include <common/math.hpp>
 #include <engine/engine.hpp>
 #include <engine/helper/functions.hpp>
+#include <file/engineFile.hpp>
 #include <global.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
 #include <utility/bits.hpp>
 #include <utility/math.hpp>
 #include <utility/textures.hpp>
+
 namespace Engine {
 
 void
@@ -15,7 +17,36 @@ Engine::loadLevel(const std::string& filename) {
     // If a map is loaded, unload it.
     if (mLevelLoaded)
         clearLoadedLevel();
+    auto data      = File::readEngineData("levels/" + filename, pRenderer);
+    mMapCoordinate = data.Header.MapCoordinate;
+    mColour        = data.Header.Colour;
+    mOnLoad        = data.Header.OnLoad;
+    mOnLoad        = data.Header.OnExit;
 
+    mSegments.Bottom.Layers      = data.Layers.Bottom;
+    mSegments.Bottom.Position    = SDL_FRect{ 0, 0, 2048, 2048 };
+    mSegments.CurrentLayerBottom = 0;
+    mSegments.MaxLayerBottom     = data.Layers.Bottom.size();
+
+    mSegments.Top.Layers      = data.Layers.Top;
+    mSegments.Top.Position    = SDL_FRect{ 0, 0, 2048, 2048 };
+    mSegments.CurrentLayerTop = 0;
+    mSegments.MaxLayerTop     = data.Layers.Top.size();
+
+    mSegments.Lightning.Layers      = data.Layers.Lightning;
+    mSegments.Lightning.Position    = SDL_FRect{ 0, 0, 2048, 2048 };
+    mSegments.CurrentLayerLightning = 0;
+    mSegments.MaxLayerLightning     = data.Layers.Lightning.size();
+
+    mLevelLoaded = true;
+    // Run all startup functions
+    for (const auto& name : data.Header.OnLoad) {
+        auto function = getExternalFunction(name);
+        ASSERT_WITH_MESSAGE(!function, "Function: " << name << " could not load")
+        function();
+    }
+
+    /*
     auto data = Level::readEditorData("levels/" + filename);
     mHeader   = data.Header; // Catch header
     mFilename = filename;
@@ -46,6 +77,7 @@ Engine::loadLevel(const std::string& filename) {
      * If no more layers is found when we have reached the end we continue. This is to make sure that all drawings
      * appears in the correct order.
      */
+    /*
     do {
         if (it == data.Tiles.Tiles.end()) {
             it         = data.Tiles.Tiles.begin();
@@ -138,10 +170,12 @@ Engine::loadLevel(const std::string& filename) {
         else
             std::cerr << "Function: " << name << " could not be found" << std::endl;
     }
+    */
 }
 
 bool
 Engine::movementWalls(const SDL_FPoint& other, const float& x, const float& y) {
+    /*
     auto posX = INT(other.x + x);
     auto posY = INT(other.y + y);
 
@@ -153,6 +187,7 @@ Engine::movementWalls(const SDL_FPoint& other, const float& x, const float& y) {
     }
     if ((levelObjects[index.value()].test(Level::TileType::WALL) || levelObjects[index.value()].test(Level::TileType::OBSTACLE)))
         return false;
+        */
     return true;
 }
 
@@ -163,6 +198,7 @@ Engine::movement(const SDL_FPoint& other, const Directions& direction) {
 
 bool
 Engine::movement(const SDL_FRect& other, const Directions& direction) {
+    /*
     auto pos = other;
 
     const float threshold = 1.0f;
@@ -214,13 +250,14 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
                 return false;
         }
     }
+     */
     return true;
 }
 
 void
 Engine::clearLoadedLevel() {
     // Run functions on unLoad
-    for (const auto& name : mHeader.OnExit) {
+    for (const auto& name : mOnExit) {
         auto function = getExternalFunction(name);
         if (function)
             function();
@@ -233,9 +270,10 @@ Engine::clearLoadedLevel() {
     mActiveMonsters.clear();
 
     // Reset all values
-    mLevelLoaded = false;
-    mHeader      = {};
-    mFilename    = {};
+    mLevelLoaded   = false;
+    mMapCoordinate = {};
+    mColour        = {};
+    mFilename      = {};
 
     // Clear segments
     clearTypeSegment(mSegments);

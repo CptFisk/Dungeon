@@ -47,7 +47,7 @@ writeLayer(std::ofstream& file, SDL_Renderer*& renderer, const Common::typeSegme
         std::vector<char> buffer;
         ASSERT_WITH_MESSAGE(!savePngToBuffer(surface, buffer), "Buffer was not created") // Error handling
         const auto size = buffer.size();
-        file.write(reinterpret_cast<const char*>(&buffer), sizeof(size));
+        file.write(reinterpret_cast<const char*>(&size), sizeof(size));
         file.write(reinterpret_cast<const char*>(buffer.data()), size);
         SDL_FreeSurface(surface); // Cleaning
     }

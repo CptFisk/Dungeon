@@ -28,7 +28,7 @@ Engine::startup() {
     mPlayer = std::make_unique<Player::Player>();
     // Generate all monster data
     createMonsters();
-    loadLevel("555.map");
+    loadLevel("555.lvl");
     SDL_RenderClear(pRenderer);
 
     mTextbox = std::make_unique<UI::Textbox>(pRenderer, mScale);
