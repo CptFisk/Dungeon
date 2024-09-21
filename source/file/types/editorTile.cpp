@@ -5,7 +5,7 @@
 namespace File {
 
 void
-readTileData(std::ifstream& file, typeTiles& data) {
+readEditorTileData(std::ifstream& file, typeEditorTiles& data) {
     for (int i = 0; i < MAP_SIZE; i++) {
         try {
             typeTileData tileData;
@@ -36,7 +36,7 @@ readTileData(std::ifstream& file, typeTiles& data) {
 }
 
 void
-writeTileData(std::ofstream& file, const typeTiles& data) {
+writeEditorTileData(std::ofstream& file, const typeEditorTiles& data) {
     try {
         for (const auto& tile : data.Tiles) {
             auto type = static_cast<uint32_t>(tile.Type.to_ulong());

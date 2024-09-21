@@ -44,7 +44,7 @@ Editor::uiMenu() {
                 const auto          animationTop  = findAnimationValue(animationValuesTop);
 
                 // Convert editorTiles to "normal tiles"
-                File::typeTiles tiles(editorTiles.size());
+                File::typeEditorTiles tiles(editorTiles.size());
                 for (int i = 0; i < editorTiles.size(); i++) {
                     tiles.Tiles[i] = editorTiles[i]->getTileData();
                 }
@@ -56,7 +56,7 @@ Editor::uiMenu() {
             }
             if (ImGui::MenuItem("Save project")) {
 
-                File::typeTiles tiles(editorTiles.size());
+                File::typeEditorTiles tiles(editorTiles.size());
                 for (int i = 0; i < editorTiles.size(); i++) {
                     tiles.Tiles[i] = editorTiles[i]->getTileData();
                 }

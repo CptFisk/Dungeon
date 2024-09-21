@@ -16,7 +16,7 @@ writeEditorFile(const std::string& filename, const typeEditorFile& data) {
     // Write header
     writeHeaderData(file, data.Header);
     writeAssetData(file, data.Assets);
-    writeTileData(file, data.Tiles);
+    writeEditorTileData(file, data.Tiles);
     writeDoorData(file, data.Doors);
     writeWarpData(file, data.Warps);
 
@@ -30,14 +30,14 @@ readEditorFile(const std::string& filename) {
         throw std::runtime_error("Cant load file: " + filename);
     typeHeaderData             header = {};
     typeAssets                 assets;
-    typeTiles                  tiles(MAP_SIZE);
+    typeEditorTiles            tiles(MAP_SIZE);
     std::vector<typeDoorsData> doors;
     std::vector<typeWarpData>  warps;
 
     // Read the size of how many assets is stored in the file
     readHeaderData(file, header);
     readAssetData(file, assets);
-    readTileData(file, tiles);
+    readEditorTileData(file, tiles);
     readDoorData(file, doors);
     readWarpData(file, warps);
 

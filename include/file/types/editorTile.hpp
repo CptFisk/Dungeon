@@ -61,14 +61,14 @@ struct typeTileData {
  * @var Size Contains the size of x*y
  * @var Tiles Contains all the tiles.
  */
-struct typeTiles {
+struct typeEditorTiles {
     uint16_t                  Size; // Number of tiles defined
     std::vector<typeTileData> Tiles;
 
-    typeTiles()
+    typeEditorTiles()
       : Size(0) {}
 
-    explicit typeTiles(uint16_t size)
+    explicit typeEditorTiles(uint16_t size)
       : Size(size) {
         Tiles.resize(size);
     }
@@ -78,11 +78,11 @@ struct typeTiles {
  * @brief Read tiles from a filestream
  */
 void
-readTileData(std::ifstream& file, typeTiles& data);
+readEditorTileData(std::ifstream& file, typeEditorTiles& data);
 
 /**
  * @brief Write tiles to a filestream
  */
 void
-writeTileData(std::ofstream& file, const typeTiles& data);
+writeEditorTileData(std::ofstream& file, const typeEditorTiles& data);
 }

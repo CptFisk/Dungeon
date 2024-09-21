@@ -25,7 +25,7 @@ createMap(SDL_Renderer*&                       renderer,
           typeSegment&                         segments,
           const int&                           animationBase,
           const int&                           animationTop,
-          File::typeTiles& tiles,
+          File::typeEditorTiles& tiles,
           File::typeAssets&                   assets);
 
 /**

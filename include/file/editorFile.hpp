@@ -18,12 +18,12 @@ namespace File {
 struct typeEditorFile {
     typeHeaderData             Header;
     typeAssets                 Assets;
-    typeTiles                  Tiles;
+    typeEditorTiles            Tiles;
     std::vector<typeDoorsData> Doors;
     std::vector<typeWarpData>  Warps;
     typeEditorFile(typeHeaderData              header,
                    typeAssets                  assets,
-                   typeTiles                   tiles,
+                   typeEditorTiles             tiles,
                    std::vector<typeDoorsData>& doors,
                    std::vector<typeWarpData>&  warps)
       : Header(std::move(header))
