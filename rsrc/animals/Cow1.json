@@ -1,0 +1,82 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/animals/Cow1.png",
+    "Objects": [
+      {
+        "Name": "Cow1South",
+        "Column": 1,
+        "Row": 1,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 24
+      },
+      {
+        "Name": "Cow1SouthIdle",
+        "Column": 4,
+        "Row": 1,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 24
+      },
+      {
+        "Name": "Cow1West",
+        "Column": 1,
+        "Row": 2,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 26,
+        "Height": 20
+      },
+      {
+        "Name": "Cow1WestIdle",
+        "Column": 4,
+        "Row": 2,
+        "Length": 4,
+        "Ticks": 10,
+        "Width": 26,
+        "Height": 20
+      },
+      {
+        "Name": "Cow1East",
+        "Column": 1,
+        "Row": 3,
+        "Length": 2,
+        "Ticks": 10,
+        "Width": 26,
+        "Height": 20
+      },
+      {
+        "Name": "Cow1EastIdle",
+        "Column": 4,
+        "Row": 3,
+        "Length": 2,
+        "Ticks": 10,
+        "Width": 26,
+        "Height": 20
+      },
+      {
+        "Name": "Cow1North",
+        "Column": 1,
+        "Row": 5,
+        "Length": 2,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 24
+      },
+      {
+        "Name": "Cow1NorthIdle",
+        "Column": 4,
+        "Row": 5,
+        "Length": 2,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 24
+      }
+    ]
+  }
+}
