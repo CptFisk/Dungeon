@@ -43,15 +43,15 @@ Editor::uiMenu() {
                 const auto          animationBase = findAnimationValue(animationValuesBase);
                 const auto          animationTop  = findAnimationValue(animationValuesTop);
 
-                // Convert editorTiles to "normal tiles"
-                File::typeEditorTiles tiles(editorTiles.size());
+                File::typeEditorTiles tiles(editorTiles.size());       // Locally, only used to generate map
                 for (int i = 0; i < editorTiles.size(); i++) {
-                    tiles.Tiles[i] = editorTiles[i]->getTileData();
+                    tiles.Tiles[i]       = editorTiles[i]->getTileData();
                 }
                 Common::createMap(pRenderer, mGraphics, segments, animationBase, animationTop, tiles, fileAssets);
                 // Constructing filename
                 const auto fileName = generateFileName(fileHeader.MapCoordinate, ".lvl");
-                File::writeEngineData("levels/" + fileName, pRenderer, fileHeader, segments);
+
+                File::writeEngineData("levels/" + fileName, pRenderer, fileHeader, segments, tiles);
                 Common::clearTypeSegment(segments);
             }
             if (ImGui::MenuItem("Save project")) {

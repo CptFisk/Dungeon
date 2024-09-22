@@ -29,17 +29,59 @@ Engine::loadLevel(const std::string& filename) {
     mSegments.Bottom.Layers      = data.Layers.Bottom;
     mSegments.Bottom.Position    = SDL_FRect{ 0, 0, 2048, 2048 };
     mSegments.CurrentLayerBottom = 0;
-    mSegments.MaxLayerBottom     = data.Layers.Bottom.size();
+    mSegments.MaxLayerBottom     = UINT8(data.Layers.Bottom.size());
 
     mSegments.Top.Layers      = data.Layers.Top;
     mSegments.Top.Position    = SDL_FRect{ 0, 0, 2048, 2048 };
     mSegments.CurrentLayerTop = 0;
-    mSegments.MaxLayerTop     = data.Layers.Top.size();
+    mSegments.MaxLayerTop     = UINT8(data.Layers.Top.size());
 
     mSegments.Lightning.Layers      = data.Layers.Lightning;
     mSegments.Lightning.Position    = SDL_FRect{ 0, 0, 2048, 2048 };
     mSegments.CurrentLayerLightning = 0;
-    mSegments.MaxLayerLightning     = data.Layers.Lightning.size();
+    mSegments.MaxLayerLightning     = UINT8(data.Layers.Lightning.size());
+
+    int pos = 0;
+    for(auto& tile : data.Tiles){
+        const auto& [x,y]  = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
+        if (tile.test(Common::TileType::OBSTACLE)) {
+            levelObjects[pos].set(Common::TileType::OBSTACLE);
+        }
+        // Add walls
+        if (tile.test(Common::TileType::WALL)) {
+            levelObjects[pos].set(Common::TileType::WALL);
+        }
+        // Add transportation up
+        if (tile.test(Common::TileType::UP)) {
+            if (mMapCoordinate.Z > 0) {
+                const auto origin = mMapCoordinate;
+                // Reduce our Z-layer by one
+                Common::type3DMapCoordinate level(origin.X, origin.Y, origin.Z + 1);
+                Common::type2DMapCoordinate destination(x, y + 1);
+                warp[pos] = new Objects::Warp(level, destination);
+            } else {
+                std::cerr << "Not a valid coordinate" << std::endl;
+            }
+        }
+        // Add transportation down
+        if (tile.test(Common::TileType::DOWN)) {
+            if (mMapCoordinate.Z > 0) {
+                const auto origin = mMapCoordinate;
+                // Reduce our Z-layer by one
+                Common::type3DMapCoordinate level(origin.X, origin.Y, origin.Z - 1);
+                Common::type2DMapCoordinate destination(x, y + 1);
+                warp[pos] = new Objects::Warp(level, destination);
+            } else {
+                std::cerr << "Not a valid coordinate" << std::endl;
+            }
+        }
+        if (Utility::isAnyBitSet((tile), std::bitset<32>(MONSTER_BITS))) {
+            // Extract the id
+            auto monsterId = static_cast<Monster::Type>(Utility::getBitValue<32, int>(tile, 10, 17));
+            mActiveMonsters.push_back(mMonsters[monsterId]->spawn(x, y));
+        }
+        pos++;
+    }
 
     mLevelLoaded = true;
     // Run all startup functions
