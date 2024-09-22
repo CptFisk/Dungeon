@@ -55,17 +55,17 @@ Editor::loadLevel(const File::typeEditorFile& data) {
                 editorTiles[pos]->addLightning(shape, colour, size);
                 editorTiles[pos]->addOverlay(GET_GENERATED(getMouseColorCode(Mouse::LIGHTNING)));
             }
-            if (tile.Type.test(File::TileEditorType::WALL)) {
-                editorTiles[pos]->addType(File::TileEditorType::WALL, GET_GENERATED(getMouseColorCode(Mouse::WALL)));
+            if (tile.Type.test(Common::TileType::WALL)) {
+                editorTiles[pos]->addType(Common::TileType::WALL, GET_GENERATED(getMouseColorCode(Mouse::WALL)));
             }
-            if (tile.Type.test(File::TileEditorType::OBSTACLE)) {
-                editorTiles[pos]->addType(File::TileEditorType::OBSTACLE, GET_GENERATED(getMouseColorCode(Mouse::OBSTACLE)));
+            if (tile.Type.test(Common::TileType::OBSTACLE)) {
+                editorTiles[pos]->addType(Common::TileType::OBSTACLE, GET_GENERATED(getMouseColorCode(Mouse::OBSTACLE)));
             }
-            if (tile.Type.test(File::TileEditorType::UP)) {
-                editorTiles[pos]->addType(File::TileEditorType::UP, GET_GENERATED(getMouseColorCode(Mouse::UP)));
+            if (tile.Type.test(Common::TileType::UP)) {
+                editorTiles[pos]->addType(Common::TileType::UP, GET_GENERATED(getMouseColorCode(Mouse::UP)));
             }
-            if (tile.Type.test(File::TileEditorType::DOWN)) {
-                editorTiles[pos]->addType(File::TileEditorType::DOWN, GET_GENERATED(getMouseColorCode(Mouse::DOWN)));
+            if (tile.Type.test(Common::TileType::DOWN)) {
+                editorTiles[pos]->addType(Common::TileType::DOWN, GET_GENERATED(getMouseColorCode(Mouse::DOWN)));
             }
             if (Utility::isAnyBitSet(tile.Type, std::bitset<32>(MONSTER_BITS))) {
                 const auto monsterId = Utility::getBitValue<32, int>(tile.Type, 10, 17);

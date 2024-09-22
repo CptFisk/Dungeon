@@ -73,7 +73,7 @@ Tile::addData(const std::string&                         asset,
               const std::shared_ptr<Graphics::Graphics>& graphics,
               const Mouse&                               mouse) {
     auto&      data           = mouse == Mouse::TEXTURE ? mBaseLayer : mTopLayer;
-    auto       tileType       = mouse == Mouse::TEXTURE ? File::TileEditorType::BASE_TEXTURE : File::TileEditorType::TOP_TEXTURE;
+    auto       tileType       = mouse == Mouse::TEXTURE ? Common::TileType::BASE_TEXTURE : Common::TileType::TOP_TEXTURE;
     const auto type           = graphics->getTextureType(asset);
     int        animationValue = 0;
     switch (type) {
@@ -169,7 +169,7 @@ Tile::addOverlay(Graphics::GeneratedTexture* overlay) {
 }
 
 void
-Tile::addType(const File::TileEditorType& value, Graphics::GeneratedTexture* overlay) {
+Tile::addType(const Common::TileType& value, Graphics::GeneratedTexture* overlay) {
     mTileData.Type.set(value);
     if (mOverlays.find(overlay->getTexture()) == mOverlays.end())
         addOverlay(overlay);

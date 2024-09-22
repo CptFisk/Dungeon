@@ -14,6 +14,7 @@
 #include <set>
 #include <variant>
 #include <vector>
+#include <common/tile.hpp>
 
 namespace Editor {
 /**
@@ -61,7 +62,7 @@ class Tile {
      * @brief Add a new value to the tile type
      * @param value
      */
-    void addType(const File::TileEditorType& value, Graphics::GeneratedTexture* overlay);
+    void addType(const Common::TileType& value, Graphics::GeneratedTexture* overlay);
     /**
      * @brief Clear all types from a tile
      */

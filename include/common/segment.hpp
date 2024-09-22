@@ -25,8 +25,8 @@ createMap(SDL_Renderer*&                       renderer,
           typeSegment&                         segments,
           const int&                           animationBase,
           const int&                           animationTop,
-          File::typeEditorTiles& tiles,
-          File::typeAssets&                   assets);
+          File::typeEditorTiles&               tiles,
+          File::typeAssets&                    assets);
 
 /**
  * @brief Add a smaller texture to the bigger picture
@@ -65,14 +65,16 @@ setSegmentAlpha(typeSegmentData& segment, const SDL_BlendMode& blendMode, const 
  * @brief Add lightning to a texture
  * @param renderer Reference to the renderer, later used when calling addSegment
  * @param graphics Reference to graphic handler, later used when calling addSegment
- * @param segments Segment that shall receive the lightning effect
- * @param bitset Bitset for lightning
- * @param pos Current position
+ * @param bitset Tile data
+ * @param segment Reference to the segment, in this case Lightning
+ * @param x X-position
+ * @param y Y-position
  */
 void
 addLightning(SDL_Renderer*&                       renderer,
              std::shared_ptr<Graphics::Graphics>& graphics,
-             typeSegment&                         segments,
              const std::bitset<32>&               bitset,
-             const int&                           pos);
+             Common::typeSegmentData&             segment,
+             const int&                           x,
+             const int&                           y);
 }

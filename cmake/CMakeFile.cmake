@@ -23,6 +23,7 @@ add_library(
 
         #Engine
         ${CMAKE_SOURCE_DIR}/source/file/types/engineHeader.cpp
+        ${CMAKE_SOURCE_DIR}/source/file/types/engineTile.cpp
         ${CMAKE_SOURCE_DIR}/source/file/types/engineLayers.cpp
 )
 

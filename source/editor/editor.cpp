@@ -265,16 +265,16 @@ Editor::click() {
                     editorTiles[pos]->clearType();
                     break;
                 case Mouse::WALL:
-                    editorTiles[pos]->addType(File::TileEditorType::WALL, GET_GENERATED(getMouseColorCode(Mouse::WALL)));
+                    editorTiles[pos]->addType(Common::TileType::WALL, GET_GENERATED(getMouseColorCode(Mouse::WALL)));
                     break;
                 case Mouse::OBSTACLE:
-                    editorTiles[pos]->addType(File::TileEditorType::OBSTACLE, GET_GENERATED(getMouseColorCode(Mouse::OBSTACLE)));
+                    editorTiles[pos]->addType(Common::TileType::OBSTACLE, GET_GENERATED(getMouseColorCode(Mouse::OBSTACLE)));
                     break;
                 case Mouse::UP:
-                    editorTiles[pos]->addType(File::TileEditorType::UP, GET_GENERATED(getMouseColorCode(Mouse::UP)));
+                    editorTiles[pos]->addType(Common::TileType::UP, GET_GENERATED(getMouseColorCode(Mouse::UP)));
                     break;
                 case Mouse::DOWN:
-                    editorTiles[pos]->addType(File::TileEditorType::DOWN, GET_GENERATED(getMouseColorCode(Mouse::DOWN)));
+                    editorTiles[pos]->addType(Common::TileType::DOWN, GET_GENERATED(getMouseColorCode(Mouse::DOWN)));
                     break;
                 case Mouse::DOOR:
                     popupPosition.x = static_cast<float>(x);

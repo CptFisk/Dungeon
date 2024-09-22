@@ -1,9 +1,9 @@
 #include <common/math.hpp>
 #include <common/segment.hpp>
 #include <editor/tile.hpp>
+#include <file/types/editorTile.hpp>
 #include <graphics/graphics.hpp>
 #include <iostream>
-#include <file/types/editorTile.hpp>
 #include <utility/bits.hpp>
 #include <utility/scale.hpp>
 
@@ -32,8 +32,8 @@ createMap(SDL_Renderer*&                       renderer,
           typeSegment&                         segments,
           const int&                           animationBase,
           const int&                           animationTop,
-          File::typeEditorTiles&              tiles,
-          File::typeAssets&                   assets) {
+          File::typeEditorTiles&               tiles,
+          File::typeAssets&                    assets) {
     // Create segments
     Common::createSegments(renderer, segments.Bottom, animationBase, segments.MaxLayerBottom);
     Common::createSegments(renderer, segments.Top, animationTop, segments.MaxLayerTop);
@@ -52,9 +52,9 @@ createMap(SDL_Renderer*&                       renderer,
             layersLeft = false;
         }
         const auto& [x, y] = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
-        auto &tile          = (*it);
+        auto& tile         = (*it);
         // Base graphics
-        if ((tile.Type.test(File::TileEditorType::BASE_TEXTURE) || tile.Type.test(File::TileEditorType::TOP_TEXTURE)) && !tile.Base.empty()) {
+        if ((tile.Type.test(Common::TileType::BASE_TEXTURE) || tile.Type.test(Common::TileType::TOP_TEXTURE)) && !tile.Base.empty()) {
             const auto id    = tile.Base.front();
             const auto asset = assets.Assets[id];
             addToSegment(renderer, graphics, segments.Bottom, x, y, asset);
@@ -63,13 +63,18 @@ createMap(SDL_Renderer*&                       renderer,
                 layersLeft = true;
         }
         // Overlay
-        if (tile.Type.test(File::TileEditorType::TOP_TEXTURE) && !tile.Top.empty()) {
+        if (tile.Type.test(Common::TileType::TOP_TEXTURE) && !tile.Top.empty()) {
             const auto id    = INT(tile.Top.front());
             const auto asset = assets.Assets[id];
             addToSegment(renderer, graphics, segments.Top, x, y, asset);
             tile.Top.erase(tile.Top.begin()); // Remove element
             if (!tile.Top.empty())
                 layersLeft = true;
+        }
+        if (Utility::isAnyBitSet((it->Type), std::bitset<32>(LIGHT_BITS))) {
+            auto b = it->Type;
+            addLightning(renderer, graphics, (it->Type), segments.Lightning, x, y);
+            Utility::resetBits(it->Type, std::bitset<32>(LIGHT_BITS));
         }
         pos++;
     } while (!(++it == tiles.Tiles.end() && !layersLeft));
@@ -183,40 +188,41 @@ setSegmentAlpha(typeSegmentData& segment, const SDL_BlendMode& blendMode, const 
 void
 addLightning(SDL_Renderer*&                       renderer,
              std::shared_ptr<Graphics::Graphics>& graphics,
-             typeSegment&                         segments,
              const std::bitset<32>&               bitset,
-             const int&                           pos) {
+             Common::typeSegmentData&             segment,
+             const int&                           x,
+             const int&                           y) {
     std::string textureName = "Light";
     switch (Utility::getSetBit(bitset, std::bitset<32>(LIGHT_SHAPE))) {
-        case File::LIGHT_CIRCLE:
+        case Common::LIGHT_CIRCLE:
             textureName += "Circle";
             break;
-        case File::LIGHT_SQUARE:
+        case Common::LIGHT_SQUARE:
             textureName += "Square";
             break;
         default:
             return;
     }
     switch (Utility::getSetBit(bitset, std::bitset<32>(LIGHT_COLOUR))) {
-        case File::LIGHT_RED:
+        case Common::LIGHT_RED:
             textureName += "Red";
             break;
-        case File::LIGHT_YELLOW:
+        case Common::LIGHT_YELLOW:
             textureName += "Yellow";
             break;
-        case File::LIGHT_WHITE:
+        case Common::LIGHT_WHITE:
             textureName += "White";
             break;
         default:
             return;
     }
     switch (Utility::getSetBit(bitset, std::bitset<32>(LIGHT_SIZE))) {
-        case File::LIGHT_BIG:
-            // addToSegment(renderer, graphics, segments.Lightning, pos, textureName + "Big");
-        case File::LIGHT_MEDIUM:
-            // addToSegment(renderer, graphics, segments.Lightning, pos, textureName + "Medium");
-        case File::LIGHT_SMALL:
-            // addToSegment(renderer, graphics, segments.Lightning, pos, textureName + "Small");
+        case Common::LIGHT_BIG:
+            addToSegment(renderer, graphics, segment, x, y, textureName + "Big");
+        case Common::LIGHT_MEDIUM:
+            addToSegment(renderer, graphics, segment, x, y, textureName + "Medium");
+        case Common::LIGHT_SMALL:
+            addToSegment(renderer, graphics, segment, x, y, textureName + "Small");
             break;
         default:
             return;

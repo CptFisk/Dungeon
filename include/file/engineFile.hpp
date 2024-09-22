@@ -1,5 +1,6 @@
 #pragma once
 #include <file/types/engineLayers.hpp>
+#include <file/types/engineTile.hpp>
 #include <file/types/header.hpp>
 
 namespace File {
@@ -7,10 +8,11 @@ namespace File {
 struct typeEngineFile {
     typeHeaderData   Header; // Header, common for all files
     typeEngineLayers Layers; // Graphical layers
-
+    typeEngineTiles  Tiles;  // Optimal tile structure
     typeEngineFile()
       : Header{}
-      , Layers{} {}
+      , Layers{}
+      , Tiles{} {}
 };
 
 typeEngineFile
