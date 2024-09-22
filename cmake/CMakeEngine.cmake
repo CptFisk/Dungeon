@@ -25,6 +25,9 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/monster/monster.cpp
         ${CMAKE_SOURCE_DIR}/source/monster/slime.cpp
         ${CMAKE_SOURCE_DIR}/source/monster/caveCrawler.cpp
+        ${CMAKE_SOURCE_DIR}/source/monster/beanMan.cpp
+
+        ${CMAKE_SOURCE_DIR}/source/npc/npc.cpp
 
         ${CMAKE_SOURCE_DIR}/source/ui/textbox.cpp
 

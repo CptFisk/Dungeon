@@ -61,6 +61,17 @@ Engine::createMonsters() {
     mMonsters[Monster::Type::SLIME_RED]->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, GET_ANIMATED("SlimeRedSouth"));
     mMonsters[Monster::Type::SLIME_RED]->addAnimatedTexture(Objects::IDLE, Directions::WEST, GET_ANIMATED("SlimeRedWest"));
     mMonsters[Monster::Type::SLIME_RED]->addAnimatedTexture(Objects::DYING, Directions::ALL, GET_ANIMATED("SlimeRedDead"));
+
+    mMonsters[Monster::Type::BEAN_MAN] = new Monster::BeanMan(110, 1.0f, playerCenter, checkWall);
+    mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("BeanManNorth"));
+    mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("BeanManEast"));
+    mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, GET_ANIMATED("BeanManSouth"));
+    mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::MOVE, Directions::WEST, GET_ANIMATED("BeanManWest"));
+    mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::IDLE, Directions::NORTH, GET_ANIMATED("BeanManNorthIdle"));
+    mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::IDLE, Directions::EAST, GET_ANIMATED("BeanManEastIdle"));
+    mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, GET_ANIMATED("BeanManSouthIdle"));
+    mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::IDLE, Directions::WEST, GET_ANIMATED("BeanManWestIdle"));
+    mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::DYING, Directions::ALL, GET_ANIMATED("BeanManDead"));
 }
 
 };
