@@ -41,7 +41,13 @@ Engine::loadLevel(const std::string& filename) {
     mSegments.CurrentLayerLightning = 0;
     mSegments.MaxLayerLightning     = UINT8(data.Layers.Lightning.size());
 
+    // Set background colors
+    Background.Red   = data.Header.Colour.BackgroundRed;
+    Background.Green = data.Header.Colour.BackgroundGreen;
+    Background.Blue  = data.Header.Colour.BackgroundBlue;
+
     int pos = 0;
+    levelObjects = std::vector<std::bitset<8>>(MAP_SIZE);
     for(auto& tile : data.Tiles){
         const auto& [x,y]  = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
         if (tile.test(Common::TileType::OBSTACLE)) {
@@ -220,7 +226,7 @@ Engine::loadLevel(const std::string& filename) {
 
 bool
 Engine::movementWalls(const SDL_FPoint& other, const float& x, const float& y) {
-    /*
+
     auto posX = INT(other.x + x);
     auto posY = INT(other.y + y);
 
@@ -230,9 +236,9 @@ Engine::movementWalls(const SDL_FPoint& other, const float& x, const float& y) {
     if (!index.has_value()) {
         return false;
     }
-    if ((levelObjects[index.value()].test(Level::TileType::WALL) || levelObjects[index.value()].test(Level::TileType::OBSTACLE)))
+    if ((levelObjects[index.value()].test(Common::TileType::WALL) || levelObjects[index.value()].test(Common::TileType::OBSTACLE)))
         return false;
-        */
+
     return true;
 }
 
@@ -243,7 +249,6 @@ Engine::movement(const SDL_FPoint& other, const Directions& direction) {
 
 bool
 Engine::movement(const SDL_FRect& other, const Directions& direction) {
-    /*
     auto pos = other;
 
     const float threshold = 1.0f;
@@ -272,15 +277,15 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
     const auto index = Common::getIndex(playerX, playerY, MAP_WIDTH);
     if (!index.has_value())
         return false;
-    if ((levelObjects[index.value()].test(Level::TileType::WALL) || levelObjects[index.value()].test(Level::TileType::OBSTACLE)))
+    if ((levelObjects[index.value()].test(Common::TileType::WALL) || levelObjects[index.value()].test(Common::TileType::OBSTACLE)))
         return false;
     auto it = warp.find(index.value());
     if (it != warp.end()) {
         auto       object = it->second;
         const auto level  = object->getLevel();
-        if (level != mHeader.MapCoordinate) {
+        if (level != mMapCoordinate) {
             const auto destination = object->getDestination(); // Need to store before swapping map
-            loadLevel(object->getLevel().toString() + ".map");
+            loadLevel(object->getLevel().toString() + ".lvl");
             mPlayer->spawn(destination);
             mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
         } else {
@@ -295,7 +300,6 @@ Engine::movement(const SDL_FRect& other, const Directions& direction) {
                 return false;
         }
     }
-     */
     return true;
 }
 
