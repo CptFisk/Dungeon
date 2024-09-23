@@ -1,0 +1,19 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/projectiles/PurpleBall.png",
+    "Objects": [
+      {
+        "Name": "PurpleBall",
+        "Column": 1,
+        "Row": 1,
+        "Length": 1,
+        "Ticks": 1,
+        "Width": 8,
+        "Height": 8
+      }
+    ]
+  }
+}
