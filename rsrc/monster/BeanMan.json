@@ -9,16 +9,7 @@
         "Name": "BeanManSouth",
         "Column": 1,
         "Row": 1,
-        "Length": 2,
-        "Ticks": 10,
-        "Width": 12,
-        "Height": 13
-      },
-      {
-        "Name": "BeanManSouthIdle",
-        "Column": 2,
-        "Row": 1,
-        "Length": 2,
+        "Length": 3,
         "Ticks": 10,
         "Width": 12,
         "Height": 13
@@ -27,34 +18,17 @@
         "Name": "BeanManWest",
         "Column": 1,
         "Row": 2,
-        "Length": 2,
+        "Length": 3,
         "Ticks": 10,
         "Width": 12,
         "Height": 13
       },
-      {
-        "Name": "BeanManWestIdle",
-        "Column": 2,
-        "Row": 2,
-        "Length": 2,
-        "Ticks": 10,
-        "Width": 12,
-        "Height": 13
-      },
+
       {
         "Name": "BeanManEast",
         "Column": 1,
         "Row": 3,
-        "Length": 2,
-        "Ticks": 10,
-        "Width": 12,
-        "Height": 13
-      },
-      {
-        "Name": "BeanManEastIdle",
-        "Column": 2,
-        "Row": 3,
-        "Length": 2,
+        "Length": 3,
         "Ticks": 10,
         "Width": 12,
         "Height": 13
@@ -63,16 +37,7 @@
         "Name": "BeanManNorth",
         "Column": 1,
         "Row": 4,
-        "Length": 2,
-        "Ticks": 10,
-        "Width": 12,
-        "Height": 13
-      },
-      {
-        "Name": "BeanManNorthIdle",
-        "Column": 2,
-        "Row": 4,
-        "Length": 2,
+        "Length": 3,
         "Ticks": 10,
         "Width": 12,
         "Height": 13
@@ -81,7 +46,7 @@
         "Name": "BeanManDead",
         "Column": 1,
         "Row": 5,
-        "Length": 2,
+        "Length": 3,
         "Ticks": 10,
         "Width": 12,
         "Height": 13
