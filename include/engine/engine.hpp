@@ -100,6 +100,8 @@ class Engine {
     SDL_Rect**    pPlayerView;
     SDL_FRect*    pPlayerPosition;
     int           mPlayerHealth;
+    int           mPlayerMaxHealth;
+    int t;
     int           mPlayerEnergy;
 
     // Monster blueprints
@@ -140,9 +142,9 @@ class Engine {
     std::vector<std::string> mOnLoad;
     std::vector<std::string> mOnExit;
 
-    bool             mLevelLoaded;
-    std::string      mFilename; // Name of the current loaded map
-    SDL_Texture*     pDarkness;
+    bool         mLevelLoaded;
+    std::string  mFilename; // Name of the current loaded map
+    SDL_Texture* pDarkness;
 };
 
 extern Engine engine;

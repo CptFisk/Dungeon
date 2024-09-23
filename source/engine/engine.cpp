@@ -6,6 +6,7 @@
 #include <engine/debug/fps.hpp>
 #include <engine/engine.hpp>
 #include <utility/file.hpp>
+#include <utility/math.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
 
@@ -23,6 +24,7 @@ Engine::Engine()
   , mVisibleUI(true)
   , mLevelLoaded(false)
   , mPlayerHealth(100)
+  , mPlayerMaxHealth(100)
   , mPlayerEnergy(50)
   , mEvent{}
   , mMapCoordinate{}
@@ -77,12 +79,20 @@ Engine::terminate() {
 
 void
 Engine::click() {
-    const auto click = SDL_FPoint{ FLOAT(mActionManager->mouseX) + (mPerspective->mOffset.x / -1.0f),
+    const auto click  = SDL_FPoint{ FLOAT(mActionManager->mouseX) + (mPerspective->mOffset.x / -1.0f),
                                    FLOAT(mActionManager->mouseY) + (mPerspective->mOffset.y / -1.0f) };
-    const auto angle = Utility::getAngle(click, mPlayer->getPlayerCenter());
+    const auto angle  = Utility::getAngle(click, mPlayer->getPlayerCenter());
+    const auto iAngle = static_cast<double>(INT(angle + 180) % 360);
     mPlayerEnergy -= 3; // Reduce energy
-    Objects::typeProjectileStruct setup{ GET_ANIMATED("Fireball"), GET_GENERATED("RedCircle")->getTexture(), angle, 100, 5.0 };
-    mProjectiles.push_back(new Objects::Projectile(setup, { pPlayerPosition->x, pPlayerPosition->y }, pRenderer, mParticles));
+
+    mProjectiles.push_back(new Objects::Projectile(GET_ANIMATED("PurpleBall"),              // Animated texture
+                                                   nullptr,                                 // Lightning effect
+                                                   Utility::offsetAngle(click, iAngle, 13), // Start position
+                                                   iAngle,                                  // Angle
+                                                   100,                                     // Duration
+                                                   5.0f,                                    // Velocity
+                                                   2,                                       // Damage
+                                                   mParticles));                            // Particles
 }
 
 void
@@ -199,7 +209,7 @@ Engine::projectiles() {
         (*it)->move(); // Move it
         // Check monster for collision
         for (auto it2 = mActiveMonsters.begin(); it2 != mActiveMonsters.end();) {
-            if (Utility::isOverlapping(*(*it)->getPosition(), *(*it2)->getPosition())) {
+            if (Utility::isOverlapping((*it)->getProjectileCenter(), *(*it2)->getPosition())) {
                 const auto damage = (*it)->getDamage();
                 delete *it;                  // Free memory
                 it = mProjectiles.erase(it); // Move iterator
@@ -213,6 +223,15 @@ Engine::projectiles() {
                 break;
             } else
                 ++it2;
+        }
+        if (Utility::isOverlapping((*it)->getProjectileCenter(), *mPlayer->getTexturePosition())) {
+            if ((mPlayerHealth -= (*it)->getDamage()) <= 0) {
+                std::cout << "Player died " << std::endl;
+            }
+            mHealth->updateIndicator();       // Update health bar
+            delete *it;                       // Free memory
+            it      = mProjectiles.erase(it); // Move iterator
+            removed = true;
         }
         if (!removed) {
             if ((*it)->getNewDuration() < 0) {
@@ -241,11 +260,12 @@ Engine::monsters() {
 void
 Engine::drawProjectiles() {
     for (const auto& projectile : mProjectiles) {
-        const auto lightning = projectile->getLightning();
-        const auto object    = projectile->getProjectile();
-        if (lightning.Texture != nullptr)
-            mPerspective->render(lightning.Texture, lightning.Viewport, lightning.Position);
+        const auto& object    = projectile->getProjectile();
         mPerspective->renderRotated(object.Texture, object.Viewport, object.Position, object.Angle);
+        if(projectile->effectsEnabled()){
+            const auto& effect = projectile->getEffect();
+            mPerspective->render(effect.Texture, effect.Viewport, effect.Position);
+        }
     }
     for (auto& projectile : mParticles->getDrawData()) {
         mPerspective->render(projectile.Texture, projectile.Viewport, projectile.Position);
