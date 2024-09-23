@@ -24,7 +24,7 @@ class BaseMonster {
      * @brief Return the status of mInflictDamage
      * @return True means that the monster can hurt you
      */
-    bool inflictDamage() const;
+    [[nodiscard]] bool inflictDamage() const;
 
     void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
 
