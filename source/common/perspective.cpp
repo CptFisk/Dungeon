@@ -35,7 +35,7 @@ Perspective::render(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* p
 }
 
 void
-Perspective::renderRotated(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* position, const float& angle) {
+Perspective::renderRotated(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* position, const double& angle) {
     SDL_FRect pos = *position;
     pos.x += mOffset.x;
     pos.y += mOffset.y;

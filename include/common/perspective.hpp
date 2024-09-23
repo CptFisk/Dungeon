@@ -15,7 +15,7 @@ class Perspective {
 #endif
 
     void render(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* position);
-    void renderRotated(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* position, const float& angle);
+    void renderRotated(SDL_Texture* texture, const SDL_Rect* viewport, SDL_FRect* position, const double& angle);
 
 #ifdef GAME_MODE
     void move(Directions direction, const float& velocity); // Move the camera
