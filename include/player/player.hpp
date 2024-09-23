@@ -1,8 +1,8 @@
 #pragma once
 #include <SDL.h>
+#include <common/coordinates.hpp>
 #include <global.hpp>
 #include <graphics/types/animatedTexture.hpp>
-#include <common/coordinates.hpp>
 #include <map>
 #include <object/objects.hpp>
 #include <utility>
@@ -13,12 +13,12 @@ class Player {
     Player();
     ~Player();
 
-    SDL_Texture** getTexture();
-    SDL_Rect**    getTextureViewport();
-    SDL_FRect*    getTexturePosition();
-    SDL_FPoint&   getPlayerCenter();
-    SDL_Point     getPlayerCoordinates() const;
-    SDL_FRect*    getInteractionArea();
+    SDL_Texture**           getTexture();
+    SDL_Rect**              getTextureViewport();
+    SDL_FRect*              getTexturePosition();
+    SDL_FPoint&             getPlayerCenter();
+    [[nodiscard]] SDL_Point getPlayerCoordinates() const;
+    SDL_FRect*              getInteractionArea();
     /**
      * @brief Move the player to a specific grid coordinate
      * @param x X-coordinate
@@ -52,6 +52,6 @@ class Player {
     SDL_Texture* mCurrentTexture;
     SDL_Rect*    mCurrentViewport;
     SDL_FPoint   mPlayerCenter;
-    SDL_FRect    mInteraction; // Small box in front of the player that is used to determine if we interact with a object
+    SDL_FRect    mInteraction; // Small box in front of the player that is used to determine if we interact with an object
 };
 }
