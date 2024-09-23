@@ -9,10 +9,10 @@
         "Name": "PurpleBall",
         "Column": 1,
         "Row": 1,
-        "Length": 1,
+        "Length": 4,
         "Ticks": 1,
-        "Width": 8,
-        "Height": 8
+        "Width": 2,
+        "Height": 2
       }
     ]
   }
