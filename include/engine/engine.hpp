@@ -64,12 +64,6 @@ class Engine {
     Common::typeScale mScale;
 
     struct {
-        Uint8 Red;
-        Uint8 Green;
-        Uint8 Blue;
-    } Background;
-
-    struct {
         float X;
         float Y;
     } offset;
@@ -148,8 +142,6 @@ class Engine {
 
     bool             mLevelLoaded;
     std::string      mFilename; // Name of the current loaded map
-    static const int segmentSizeX = 128;
-    static const int segmentSizeY = 128;
     SDL_Texture*     pDarkness;
 };
 

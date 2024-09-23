@@ -18,8 +18,8 @@ Engine::loadLevel(const std::string& filename) {
     if (mLevelLoaded)
         clearLoadedLevel();
     const auto start = std::chrono::high_resolution_clock::now();
-    auto data      = File::readEngineData("levels/" + filename, pRenderer);
-    const auto time = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start);
+    auto       data  = File::readEngineData("levels/" + filename, pRenderer);
+    const auto time  = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start);
     std::cout << "Loading time: " << time.count() << " ms" << std::endl;
     mMapCoordinate = data.Header.MapCoordinate;
     mColour        = data.Header.Colour;
@@ -42,14 +42,14 @@ Engine::loadLevel(const std::string& filename) {
     mSegments.MaxLayerLightning     = UINT8(data.Layers.Lightning.size());
 
     // Set background colors
-    Background.Red   = data.Header.Colour.BackgroundRed;
-    Background.Green = data.Header.Colour.BackgroundGreen;
-    Background.Blue  = data.Header.Colour.BackgroundBlue;
+    mColour.BackgroundRed   = data.Header.Colour.BackgroundRed;
+    mColour.BackgroundGreen = data.Header.Colour.BackgroundGreen;
+    mColour.BackgroundBlue  = data.Header.Colour.BackgroundBlue;
 
-    int pos = 0;
+    int pos      = 0;
     levelObjects = std::vector<std::bitset<8>>(MAP_SIZE);
-    for(auto& tile : data.Tiles){
-        const auto& [x,y]  = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
+    for (auto& tile : data.Tiles) {
+        const auto& [x, y] = Common::getCoords(pos, MAP_WIDTH, MAP_WIDTH);
         if (tile.test(Common::TileType::OBSTACLE)) {
             levelObjects[pos].set(Common::TileType::OBSTACLE);
         }

@@ -25,7 +25,6 @@ Engine::Engine()
   , mPlayerHealth(100)
   , mPlayerEnergy(50)
   , mEvent{}
-  , Background{}
   , mMapCoordinate{}
   , mColour{} {}
 
@@ -148,7 +147,7 @@ Engine::mainLoop() {
             timer.start();
         }
         // Apply background color
-        SDL_SetRenderDrawColor(pRenderer, Background.Red, Background.Green, Background.Blue, SDL_ALPHA_OPAQUE);
+        SDL_SetRenderDrawColor(pRenderer, mColour.BackgroundRed, mColour.BackgroundGreen, mColour.BackgroundBlue, SDL_ALPHA_OPAQUE);
         drawLevel(mSegments.Bottom, mSegments.CurrentLayerBottom);
         // Show interaction box during debug
 
