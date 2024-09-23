@@ -47,7 +47,8 @@ Engine::startup() {
                           GET_USERINTERFACE("TextboxLargeEnd"));
     mTextbox->generateBoxes();
 
-    mHealth = std::make_unique<Player::Indicator>(mPlayerHealth, mScale, GET_USERINTERFACE("HealthBase"), GET_USERINTERFACE("HealthRed"));
+    mHealth = std::make_unique<Player::Indicator>(
+      mPlayerHealth, mPlayerMaxHealth, mScale, GET_USERINTERFACE("HealthBase"), GET_USERINTERFACE("HealthRed"));
     /*
   mEnergy =
     std::make_unique<Player::Indicator>(mVisibleUI, mPlayerEnergy, 16.0f, pRenderer, GET_ANIMATED("Bolt"), GET_NUMBER("NumberWhite"));
