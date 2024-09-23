@@ -3,8 +3,13 @@
 #include <utility/math.hpp>
 
 namespace Player {
-Indicator::Indicator(int& value, Common::typeScale& scale, Graphics::UserInterfaceTexture* base, Graphics::UserInterfaceTexture* indicator)
+Indicator::Indicator(int&                            value,
+                     int&                            maxValue,
+                     Common::typeScale&              scale,
+                     Graphics::UserInterfaceTexture* base,
+                     Graphics::UserInterfaceTexture* indicator)
   : mValue(value)
+  , mMaxValue(maxValue)
   , mScale(scale)
   , pBase(base)
   , pIndicator(indicator)
@@ -26,7 +31,7 @@ Indicator::updateIndicator() {
     // Positions for Indicator
     mIndicatorDestination = { pIndicator->getMarginLeftF(),
                               FLOAT(INT(FLOAT(mScale.windowHeight) / mScale.selectedScale) - pIndicator->getMarginBottom()),
-                              pIndicator->getWidthF(),
+                              pIndicator->getWidthF() * (FLOAT(mValue) / FLOAT(mMaxValue)),
                               pIndicator->getHeightF() };
 }
 
