@@ -36,7 +36,7 @@ struct typeDrawDataAngled {
     SDL_Texture* Texture;
     SDL_Rect*    Viewport;
     SDL_FRect*   Position;
-    const float  Angle;
+    const double  Angle;
 };
 
 }
