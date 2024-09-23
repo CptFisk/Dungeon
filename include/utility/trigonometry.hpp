@@ -13,8 +13,7 @@ calculateVector(const double& angle, const float& velocity) {
     const auto angleRadians = angle * M_PI / 180.0f;
     const auto dx           = velocity * cos(angleRadians);
     const auto dy           = velocity * sin(angleRadians);
-    auto       result       = SDL_FPoint{ static_cast<float>(dx), static_cast<float>(dy) };
-    return result;
+    return SDL_FPoint{ static_cast<float>(dx), static_cast<float>(dy) };
 }
 
 /***
