@@ -6,7 +6,6 @@
 #include <object/particle.hpp>
 #include <utility>
 
-
 namespace Objects {
 struct typeProjectileStruct {
     Graphics::AnimatedTexture* Projectile; // Projectile texture
@@ -23,15 +22,15 @@ class Projectile {
     Projectile(const typeProjectileStruct&    setup,
                const std::pair<float, float>& playerPosition,
                SDL_Renderer*                  renderer,
-               std::shared_ptr<Particle>      particle); // Constructor
+               const std::shared_ptr<Particle>& particle); // Constructor
     ~Projectile();
 
     SDL_FRect* getPosition(); // Returns a pointer to the current position
 
-    int                          getNewDuration(); // Calculate and return the new duration
-    int                          getDamage() const;
-    Graphics::typeDrawData       getLightning();  // Return draw data for lightning
-    Graphics::typeDrawDataAngled getProjectile(); // Return draw data for the projectile
+    [[nodiscard]] int                          getNewDuration(); // Calculate and return the new duration
+    [[nodiscard]] int                          getDamage() const;
+    [[nodiscard]] Graphics::typeDrawData       getLightning();  // Return draw data for lightning
+    [[nodiscard]] Graphics::typeDrawDataAngled getProjectile(); // Return draw data for the projectile
 
     void move(); // All functions related to movement
   private:

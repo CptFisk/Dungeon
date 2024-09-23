@@ -1,5 +1,4 @@
 #include <object/projectile.hpp>
-#include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
 
 namespace Objects {
@@ -7,7 +6,7 @@ namespace Objects {
 Projectile::Projectile(const Objects::typeProjectileStruct& setup,
                        const std::pair<float, float>&       playerPosition,
                        SDL_Renderer*                        renderer,
-                       std::shared_ptr<Particle>            particle)
+                       const std::shared_ptr<Particle>&     particle)
   : pProjectile(setup.Projectile)
   , mParticle(particle)
   , pLightning(setup.Lightning)
@@ -46,9 +45,7 @@ Projectile::getProjectile() {
 void
 Projectile::move() {
     // Move to new position
-
     auto delta = Utility::calculateVector(mAngle, mVelocity);
-
     mCurrentPosition.x += delta.x;
     mCurrentPosition.y += delta.y;
     mLightningPosition.x += delta.x;
