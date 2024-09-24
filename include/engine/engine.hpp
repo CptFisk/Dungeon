@@ -37,12 +37,12 @@ class Engine {
     void terminate();
     void click(); // Mouse click
     // Player movement
-    void      movePlayer(Directions direction);
-    void      setPlayerAction(Objects::State action);
-    void      resetPlayerMomentum();
-    void      interact();
-    void      setDarkness(const unsigned int& v);
-    bool      movementWalls(const SDL_FPoint& other, const float& x, const float& y);
+    void movePlayer(Directions direction);
+    void setPlayerAction(Objects::State action);
+    void resetPlayerMomentum();
+    void interact();
+    void setDarkness(const unsigned int& v);
+
     SDL_Event mEvent;
 
   protected:
@@ -54,6 +54,25 @@ class Engine {
     void drawProjectiles();
     void drawNumbers();
     void drawLevel(Common::typeSegmentData& data, const int& currentLayer);
+    /**
+     * @brief Spawns a new particle
+     * @param friendly False if it can hurt the player, otherwise true
+     * @param texture Texture for projectile
+     * @param effect Texture for effect
+     * @param startPoint Start position for the projectile
+     * @param angle Angle to fly
+     * @param duration How long the projectile exist
+     * @param velocity Speed for the projectile
+     * @param damage How much it will hurt
+     */
+    void createProjectile(const bool&                friendly,
+                          Graphics::AnimatedTexture* texture,
+                          Graphics::AnimatedTexture* effect,
+                          const SDL_FPoint&          startPoint,
+                          const double&              angle,
+                          const int&                 duration,
+                          const float&               velocity,
+                          const int&                 damage);
 
     void        drawDarkness();
     std::thread spawnInterrupt(const long& time); // Spawn a thread
@@ -101,7 +120,6 @@ class Engine {
     SDL_FRect*    pPlayerPosition;
     int           mPlayerHealth;
     int           mPlayerMaxHealth;
-    int t;
     int           mPlayerEnergy;
 
     // Monster blueprints
@@ -119,6 +137,8 @@ class Engine {
      */
     bool movement(const SDL_FRect& other, const Directions& direction);
     bool movement(const SDL_FPoint& other, const Directions& direction);
+    bool movementWalls(const SDL_FPoint& other, const float& x, const float& y);
+
     // Load a level
     void loadLevel(const std::string& filename);
     void clearLoadedLevel();

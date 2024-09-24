@@ -85,14 +85,7 @@ Engine::click() {
     const auto iAngle = static_cast<double>(INT(angle + 180) % 360);
     mPlayerEnergy -= 3; // Reduce energy
 
-    mProjectiles.push_back(new Objects::Projectile(GET_ANIMATED("PurpleBall"),              // Animated texture
-                                                   nullptr,                                 // Lightning effect
-                                                   Utility::offsetAngle(click, iAngle, 13), // Start position
-                                                   iAngle,                                  // Angle
-                                                   100,                                     // Duration
-                                                   5.0f,                                    // Velocity
-                                                   2,                                       // Damage
-                                                   mParticles));                            // Particles
+    Utility::offsetAngle(click, iAngle, 13); // Start position
 }
 
 void
@@ -208,30 +201,34 @@ Engine::projectiles() {
         bool removed = false;
         (*it)->move(); // Move it
         // Check monster for collision
-        for (auto it2 = mActiveMonsters.begin(); it2 != mActiveMonsters.end();) {
-            if (Utility::isOverlapping((*it)->getProjectileCenter(), *(*it2)->getPosition())) {
-                const auto damage = (*it)->getDamage();
-                delete *it;                  // Free memory
-                it = mProjectiles.erase(it); // Move iterator
-                (*it2)->damageMonster(damage);
-                // Display the damage
-                /*
-                mNumbers.push_back(
-                  Graphics::Number({ (*it2)->getPosition()->x, (*it2)->getPosition()->y }, damage, 100, *GET_SIMPLE("NumbersWhite"), 0.5f));
-                  */
-                removed = true;
-                break;
-            } else
-                ++it2;
-        }
-        if (Utility::isOverlapping((*it)->getProjectileCenter(), *mPlayer->getTexturePosition())) {
-            if ((mPlayerHealth -= (*it)->getDamage()) <= 0) {
-                std::cout << "Player died " << std::endl;
+        if ((*it)->getFriendly()) {
+            for (auto it2 = mActiveMonsters.begin(); it2 != mActiveMonsters.end();) {
+                if (Utility::isOverlapping((*it)->getProjectileCenter(), *(*it2)->getPosition())) {
+                    const auto damage = (*it)->getDamage();
+                    delete *it;                  // Free memory
+                    it = mProjectiles.erase(it); // Move iterator
+                    (*it2)->damageMonster(damage);
+                    // Display the damage
+                    /*
+                    mNumbers.push_back(
+                      Graphics::Number({ (*it2)->getPosition()->x, (*it2)->getPosition()->y }, damage, 100, *GET_SIMPLE("NumbersWhite"),
+                    0.5f));
+                      */
+                    removed = true;
+                    break;
+                } else
+                    ++it2;
             }
-            mHealth->updateIndicator();       // Update health bar
-            delete *it;                       // Free memory
-            it      = mProjectiles.erase(it); // Move iterator
-            removed = true;
+        } else {
+            if (Utility::isOverlapping((*it)->getProjectileCenter(), *mPlayer->getTexturePosition())) {
+                if ((mPlayerHealth -= (*it)->getDamage()) <= 0) {
+                    std::cout << "Player died " << std::endl;
+                }
+                mHealth->updateIndicator();       // Update health bar
+                delete *it;                       // Free memory
+                it      = mProjectiles.erase(it); // Move iterator
+                removed = true;
+            }
         }
         if (!removed) {
             if ((*it)->getNewDuration() < 0) {
@@ -260,9 +257,9 @@ Engine::monsters() {
 void
 Engine::drawProjectiles() {
     for (const auto& projectile : mProjectiles) {
-        const auto& object    = projectile->getProjectile();
+        const auto& object = projectile->getProjectile();
         mPerspective->renderRotated(object.Texture, object.Viewport, object.Position, object.Angle);
-        if(projectile->effectsEnabled()){
+        if (projectile->effectsEnabled()) {
             const auto& effect = projectile->getEffect();
             mPerspective->render(effect.Texture, effect.Viewport, effect.Position);
         }
@@ -306,5 +303,26 @@ Engine::spawnInterrupt(const long& time) {
 void
 Engine::present() {
     SDL_RenderPresent(pRenderer);
+}
+
+void
+Engine::createProjectile(const bool&                friendly,
+                         Graphics::AnimatedTexture* texture,
+                         Graphics::AnimatedTexture* effect,
+                         const SDL_FPoint&          startPoint,
+                         const double&              angle,
+                         const int&                 duration,
+                         const float&               velocity,
+                         const int&                 damage) {
+
+    mProjectiles.push_back(new Objects::Projectile(friendly, // Is cast by the player
+                                                   texture,  // Animated texture
+                                                   effect,   // Effect
+                                                   startPoint,
+                                                   angle,        // Angle
+                                                   duration,     // Duration
+                                                   velocity,     // Velocity
+                                                   damage,       // Damage
+                                                   mParticles)); // Particles
 }
 }
