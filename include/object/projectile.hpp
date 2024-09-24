@@ -13,7 +13,8 @@ class Projectile {
     const int PARTICLE_CHANCE = 3; // Chance that a particle spawn
 
   public:
-    Projectile(Graphics::AnimatedTexture*       texture,
+    Projectile(const bool                       friendly,
+               Graphics::AnimatedTexture*       texture,
                Graphics::BaseTexture*           effect,
                const SDL_FPoint&                startPosition,
                const double&                    angle,
@@ -23,8 +24,9 @@ class Projectile {
                const std::shared_ptr<Particle>& particle); // Constructor
     ~Projectile();
 
-    SDL_FRect* getPosition(); // Returns a pointer to the current position
-    [[nodiscard]] bool effectsEnabled() const;
+    SDL_FRect*                                 getPosition(); // Returns a pointer to the current position
+    [[nodiscard]] bool                         getFriendly();    //Return true if the projectile can only hurt monsters
+    [[nodiscard]] bool                         effectsEnabled() const;
     [[nodiscard]] int                          getNewDuration(); // Calculate and return the new duration
     [[nodiscard]] int                          getDamage() const;
     [[nodiscard]] Graphics::typeDrawData       getEffect();                 // Return draw data for lightning
@@ -34,6 +36,7 @@ class Projectile {
     void move(); // All functions related to movement
   private:
   protected:
+    const bool mFriendly;        // True if it cant hurt the player
     const bool mParticleEnabled; // If particle was enabled
     const bool mEffectEnabled;
 

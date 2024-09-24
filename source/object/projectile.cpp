@@ -3,7 +3,8 @@
 
 namespace Objects {
 
-Projectile::Projectile(Graphics::AnimatedTexture*       texture,
+Projectile::Projectile(const bool                       friendly,
+                       Graphics::AnimatedTexture*       texture,
                        Graphics::BaseTexture*           effect,
                        const SDL_FPoint&                startPosition,
                        const double&                    angle,
@@ -11,7 +12,8 @@ Projectile::Projectile(Graphics::AnimatedTexture*       texture,
                        const float&                     velocity,
                        const int&                       damage,
                        const std::shared_ptr<Particle>& particle)
-  : pProjectile(texture)
+  : mFriendly(friendly)
+  , pProjectile(texture)
   , mParticle(particle)
   , pEffect(effect)
   , mDuration(duration)
@@ -67,6 +69,11 @@ Projectile::move() {
 
     mEffectPosition.x += delta.x;
     mEffectPosition.y += delta.y;
+}
+
+bool
+Projectile::getFriendly() {
+    return mFriendly;
 }
 
 bool
