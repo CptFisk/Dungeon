@@ -122,11 +122,20 @@ class Engine {
     int           mPlayerMaxHealth;
     int           mPlayerEnergy;
 
-    // Monster blueprints
+#pragma region Monsters
+    /**
+     * @brief Function that is used to populate @ref mMonsters
+     */
     void                                                     createMonsters();
+    /**
+     * @brief Map that contains a blue-print for each monster. The monsters is added to the map through the function @ref createMonsters().
+     */
     std::unordered_map<Monster::Type, Monster::BaseMonster*> mMonsters;
+    /**
+     * @brief Map that contains all ACTIVE monsters that is alive on the map, this vector should be cleared once a map is reloaded.
+     */
     std::vector<Monster::BaseMonster*>                       mActiveMonsters;
-
+#pragma endregion
     // Visible numbers
     std::vector<Graphics::Number> mNumbers; // Visible numbers
 
