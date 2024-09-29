@@ -69,7 +69,7 @@ Editor::loadLevel(const File::typeEditorFile& data) {
             }
             if (Utility::isAnyBitSet(tile.Type, std::bitset<32>(MONSTER_BITS))) {
                 const auto monsterId = Utility::getBitValue<32, int>(tile.Type, 10, 17);
-                const auto texture   = GET_ANIMATED(Monster::monsters[monsterId].DefaultImage);
+                const auto texture   = GET_ANIMATED(Monster::monsters[monsterId].second);
                 if (texture != nullptr) {
                     editorTiles[pos]->addMonster(monsterId, texture->getTexture(), texture->getViewports().front());
                 }
