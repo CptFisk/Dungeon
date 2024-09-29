@@ -1,5 +1,6 @@
 #include <editor/editor.hpp>
 #include <monster/definition.hpp>
+#include <npc/definition.hpp>
 #include <utility/bits.hpp>
 
 namespace Editor {
@@ -49,9 +50,9 @@ Editor::loadLevel(const File::typeEditorFile& data) {
                 mLevelCoords.emplace(x, y);
             }
             if (Utility::isAnyBitSet(tile.Type, std::bitset<32>(LIGHT_BITS))) {
-                auto  shape  = static_cast<LightningShape>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_SHAPE)));
+                auto shape  = static_cast<LightningShape>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_SHAPE)));
                 auto colour = static_cast<LightningColour>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_COLOUR)));
-                auto   size   = static_cast<LightningSize>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_SIZE)));
+                auto size   = static_cast<LightningSize>(Utility::getSetBit(tile.Type, std::bitset<32>(LIGHT_SIZE)));
                 editorTiles[pos]->addLightning(shape, colour, size);
                 editorTiles[pos]->addOverlay(GET_GENERATED(getMouseColorCode(Mouse::LIGHTNING)));
             }
@@ -70,10 +71,14 @@ Editor::loadLevel(const File::typeEditorFile& data) {
             if (Utility::isAnyBitSet(tile.Type, std::bitset<32>(MONSTER_BITS))) {
                 const auto monsterId = Utility::getBitValue<32, int>(tile.Type, 10, 17);
                 const auto texture   = GET_ANIMATED(Monster::monsters[monsterId].second);
-                if (texture != nullptr) {
-                    editorTiles[pos]->addMonster(monsterId, texture->getTexture(), texture->getViewports().front());
-                }
+                editorTiles[pos]->addUnit(monsterId, texture->getTexture(), texture->getViewports().front(), 10, 17);
             }
+            if (Utility::isAnyBitSet(tile.Type, std::bitset<32>(NPC_BITS))) {
+                const auto npcId   = Utility::getBitValue<32, int>(tile.Type, 18, 23);
+                const auto texture = GET_ANIMATED(Npc::npc[npcId].second);
+                editorTiles[pos]->addUnit(npcId, texture->getTexture(), texture->getViewports().front(), 18, 23);
+            }
+
             pos++;
         }
     }
