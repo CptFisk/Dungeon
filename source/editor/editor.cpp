@@ -296,12 +296,20 @@ Editor::click() {
                     editorTiles[pos]->addLightning(mLightningShape, mLightningColour, mLightningSize);
                     editorTiles[pos]->addOverlay(GET_GENERATED(getMouseColorCode(Mouse::LIGHTNING)));
                     break;
-                case Mouse::MONSTER: {
-                    auto texture = GET_ANIMATED(Monster::monsters[mSelectedMonster].second);
-                    if (texture != nullptr) {
-                        editorTiles[pos]->addMonster(mSelectedMonster, texture->getTexture(), texture->getViewports().front());
-                    }
-                } break;
+                case Mouse::MONSTER:
+                    editorTiles[pos]->addUnit(mSelectedMonster,
+                                              GET_ANIMATED(Monster::monsters[mSelectedMonster].second)->getTexture(),
+                                              GET_ANIMATED(Monster::monsters[mSelectedMonster].second)->getViewports().front(),
+                                              10,
+                                              17);
+                    break;
+                case Mouse::NPC:
+                    editorTiles[pos]->addUnit(mSelectedNpc,
+                                              GET_ANIMATED(Npc::npc[mSelectedNpc].second)->getTexture(),
+                                              GET_ANIMATED(Npc::npc[mSelectedNpc].second)->getViewports().front(),
+                                              18,
+                                              23);
+                    break;
                 case Mouse::DEFAULT:
                 default:
                     break;
@@ -319,5 +327,4 @@ Editor::spawnInterrupt(const long& time) {
     });
     return thread;
 }
-
 }
