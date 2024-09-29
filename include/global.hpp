@@ -11,28 +11,32 @@
 #define STRING_UINT8(x) static_cast<uint8_t>(std::stoi(x))
 
 // Map size
-const int     MAP_WIDTH    = 128;
-const int     SEGMENT_SIZE = 128;
-constexpr int MAP_SIZE     = MAP_WIDTH * MAP_WIDTH;
+[[maybe_unused]] const int     MAP_WIDTH    = 128;
+[[maybe_unused]] const int     SEGMENT_SIZE = 128;
+[[maybe_unused]] constexpr int MAP_SIZE     = MAP_WIDTH * MAP_WIDTH;
 
-const int               LIGHT_ANIMATION_FRAMES = 7;          // Constant for how many frames a light-effect exist of
-const unsigned long int LIGHT_BITS             = 0xFF000000; // Used to mask out bit 24-31
-const unsigned long int LIGHT_COLOUR           = 0x7000000;
-const unsigned long int LIGHT_SHAPE            = 0x18000000;
-const unsigned long int LIGHT_SIZE             = 0xE0000000;
+#pragma region Bitmask
+[[maybe_unused]] const int LIGHT_ANIMATION_FRAMES = 7; // Constant for how many frames a light-effect exist of
 
-const unsigned long int MONSTER_BITS = 0x3FC00; // Bitmask for monsters
+[[maybe_unused]] const unsigned long int LIGHT_BITS   = 0xFF000000; // Used to mask out bit 24-31
+[[maybe_unused]] const unsigned long int LIGHT_COLOUR = 0x7000000;
+[[maybe_unused]] const unsigned long int LIGHT_SHAPE  = 0x18000000;
+[[maybe_unused]] const unsigned long int LIGHT_SIZE   = 0xE0000000;
+
+[[maybe_unused]] const unsigned long int MONSTER_BITS = 0x3FC00;  // Bitmask for monsters
+[[maybe_unused]] const unsigned long int NPC_BITS     = 0xFC0000; // Bitmask for NPC:s
+#pragma endregion
 
 enum Directions : uint8_t {
-    NORTH      = 1 << 0,
-    EAST       = 1 << 1,
-    SOUTH      = 1 << 2,
-    WEST       = 1 << 3,
-    NORTH_EAST = NORTH | EAST,
-    NORTH_WEST = NORTH | WEST,
-    SOUTH_EAST = SOUTH | EAST,
-    SOUTH_WEST = SOUTH | WEST,
-    ALL        = NORTH | EAST | SOUTH | WEST
+    NORTH                       = 1 << 0,
+    EAST                        = 1 << 1,
+    SOUTH                       = 1 << 2,
+    WEST                        = 1 << 3,
+    NORTH_EAST [[maybe_unused]] = NORTH | EAST,
+    NORTH_WEST [[maybe_unused]] = NORTH | WEST,
+    SOUTH_EAST [[maybe_unused]] = SOUTH | EAST,
+    SOUTH_WEST [[maybe_unused]] = SOUTH | WEST,
+    ALL [[maybe_unused]]        = NORTH | EAST | SOUTH | WEST
 };
 
 /**
