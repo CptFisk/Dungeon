@@ -23,7 +23,17 @@ const unsigned long int LIGHT_SIZE             = 0xE0000000;
 
 const unsigned long int MONSTER_BITS = 0x3FC00; // Bitmask for monsters
 
-enum Directions : uint8_t { NORTH = 1 << 0, EAST = 1 << 1, SOUTH = 1 << 2, WEST = 1 << 3, ALL = NORTH | EAST | SOUTH | WEST };
+enum Directions : uint8_t {
+    NORTH      = 1 << 0,
+    EAST       = 1 << 1,
+    SOUTH      = 1 << 2,
+    WEST       = 1 << 3,
+    NORTH_EAST = NORTH | EAST,
+    NORTH_WEST = NORTH | WEST,
+    SOUTH_EAST = SOUTH | EAST,
+    SOUTH_WEST = SOUTH | WEST,
+    ALL        = NORTH | EAST | SOUTH | WEST
+};
 
 /**
  * @brief Returns a random direction
