@@ -9,6 +9,7 @@
 #include <editor/editor.hpp>
 #include <file/editorFile.hpp>
 #include <monster/definition.hpp>
+#include <npc/definition.hpp>
 #include <utility/file.hpp>
 
 namespace Editor {
@@ -28,6 +29,7 @@ Editor::Editor(const int& w, const int& h)
   , editorTiles{}
   , mScale{}
   , mSelectedMonster(1)
+  , mSelectedNpc(1)
   , mMouse(Mouse::DEFAULT)
   , mLightningColour(LightningColour::LIGHT_YELLOW)
   , mLightningShape(LightningShape::LIGHT_CIRCLE)
@@ -100,7 +102,11 @@ Editor::startup() {
     mElements["Warps"]      = [this]() { uiWarps(); };
     mElements["OnLoad"]     = [this]() { uiFunctions(mWindows["OnLoad"], mWindowOpen["OnLoad"], fileHeader.OnLoad, "On load"); };
     mElements["OnExit"]     = [this]() { uiFunctions(mWindows["OnExit"], mWindowOpen["OnExit"], fileHeader.OnExit, "On exit"); };
-    mElements["Monster"]    = [this]() { uiMonster(mWindows["Monster"], mWindowOpen["Monster"]); };
+    // mElements["Monster"]    = [this]() { uiMonster(mWindows["Monster"], mWindowOpen["Monster"]); };
+    mElements["Monster"] = [this]() {
+        uiUnit(mWindows["Monster"], mWindowOpen["Monster"], Monster::monsters, "Monster", mSelectedMonster);
+    };
+    mElements["Npc"] = [this]() { uiUnit(mWindows["Npc"], mWindowOpen["Npc"], Npc::npc, "Npc", mSelectedNpc); };
     displayElement("TopMenu");
 
     for (const auto& file : Utility::getFiles("levels", ".map")) {
@@ -291,7 +297,7 @@ Editor::click() {
                     editorTiles[pos]->addOverlay(GET_GENERATED(getMouseColorCode(Mouse::LIGHTNING)));
                     break;
                 case Mouse::MONSTER: {
-                    auto texture = GET_ANIMATED(Monster::monsters[mSelectedMonster].DefaultImage);
+                    auto texture = GET_ANIMATED(Monster::monsters[mSelectedMonster].second);
                     if (texture != nullptr) {
                         editorTiles[pos]->addMonster(mSelectedMonster, texture->getTexture(), texture->getViewports().front());
                     }

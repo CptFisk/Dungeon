@@ -6,9 +6,9 @@
 #include <editor/tile.hpp>
 #include <editor/utility/mouse.hpp>
 #include <editor/utility/mouseLightning.hpp>
+#include <file/editorFile.hpp>
 #include <global.hpp>
 #include <graphics/graphics.hpp>
-#include <file/editorFile.hpp>
 #include <list>
 #include <memory>
 #include <set>
@@ -39,6 +39,13 @@ class Editor {
     void loadLevel(const File::typeEditorFile& data);
     void removeSpecificTexture(const std::string& name, std::vector<Tile*>& tiles, const uint8_t& id);
 
+    // Windows
+    struct typeWindowCovering {
+        ImVec2 Position;
+        ImVec2 Size;
+    };
+
+#pragma region UI
     [[maybe_unused]] void        displayElement(const std::string& element);
     [[maybe_unused]] void        hideElement(const std::string& element);
     [[maybe_unused]] void        hideAllElements();
@@ -47,15 +54,9 @@ class Editor {
     [[maybe_unused]] bool        clickOnUi(const int& x, const int& y);
     [[maybe_unused]] static bool isOverlap(const float& value, const float& low, const float& high);
 
-    // Windows
-    struct typeWindowCovering {
-        ImVec2 Position;
-        ImVec2 Size;
-    };
-
-    void uiMenu();                                                                      // Top menu
+    void uiMenu();                                                                     // Top menu
     void uiHeader(typeWindowCovering& area, bool& open, File::typeHeaderData& header); // Display current open project settings
-    void uiDrawGrid();                                                                  // Draw a basic grid over the area
+    void uiDrawGrid();                                                                 // Draw a basic grid over the area
     void uiAssets(typeWindowCovering& area, bool& open, File::typeAssets& assets);     // Display the metadata related to the map
     void uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse);
     void uiMouseLightning(typeWindowCovering& area,
@@ -64,13 +65,28 @@ class Editor {
                           LightningShape&     shape,
                           LightningColour&    colour,
                           LightningSize&      size);
-    void uiMonster(typeWindowCovering& area, bool& open);
+    /**
+     * @brief Used to display Monster/Npc selector
+     * @param area Reference to the position inside the map of what the element covers
+     * @param open Is the element open
+     * @param elements List of the creature, Npc::npc or Monsters::monsters
+     * @param element Name of the window, only used for UI purpose
+     * @param selector Reference to the selector
+     * @example uiUnit(mWindows["Npc"], mWindowOpen["Npc"], Npc::npc, "Npc", mSelectedNpc);
+     */
+    void uiUnit(Editor::Editor::typeWindowCovering&                    area,
+                bool&                                                  open,
+                const std::vector<std::pair<std::string, std::string>>& elements,
+                const std::string&                                     element,
+                int&                                                   selector);
     void uiFunctions(typeWindowCovering& area, bool& open, std::vector<std::string>& elements, const std::string& title);
     void uiTiles();
     void uiDoor(bool& open);
     void uiWarpsPopup();
     void uiWarps();
     void uiDoorPopup(); // Popup for door options
+#pragma endregion
+
     void uiTexture(typeWindowCovering&                                                area,
                    bool&                                                              open,
                    const std::vector<std::pair<Graphics::TextureTypes, std::string>>& textures,
@@ -99,7 +115,9 @@ class Editor {
 
     std::vector<std::pair<Graphics::TextureTypes, std::string>> mTextures;        // All textures that we can use
     std::pair<Graphics::TextureTypes, std::string>              mSelectedTexture; // The selected texture
-    int                                                         mSelectedMonster; // Selected monster
+
+    int mSelectedMonster; // Selected monster
+    int mSelectedNpc;
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;
     std::list<std::function<bool(SDL_Event*)>>                             mEventWatcher; // List of all event to watch for
