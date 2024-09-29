@@ -97,6 +97,8 @@ Editor::uiMenu() {
                 displayElement("Textures");
             if (ImGui::MenuItem("Monster"))
                 displayElement("Monster");
+            if (ImGui::MenuItem("Npc"))
+                displayElement("Npc");
             if (ImGui::MenuItem("Doors"))
                 displayElement("Doors");
             if (ImGui::MenuItem("Warps"))
