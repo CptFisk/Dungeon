@@ -1,9 +1,15 @@
+cmake_minimum_required(VERSION 2.8.12...3.21)
+cmake_policy(SET CMP0135 NEW)
+
 message(STATUS "Vendor libs")
 set(LIB_IMGUI DearImGui)
 include(FetchContent)
 
 #SDL
-FetchContent_Declare(SDL URL https://github.com/libsdl-org/SDL/archive/refs/tags/release-2.30.3.tar.gz)
+FetchContent_Declare(SDL
+        URL https://github.com/libsdl-org/SDL/archive/refs/tags/release-2.30.3.tar.gz
+        DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+)
 #SDL_Image
 FetchContent_Declare(SDL_image URL https://github.com/libsdl-org/SDL_image/archive/refs/tags/release-2.8.2.tar.gz)
 #SDL_TTF
