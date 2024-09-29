@@ -133,14 +133,15 @@ Tile::clearLastData() {
 }
 
 void
-Tile::addMonster(const int& id, SDL_Texture* texture, const SDL_Rect& viewport) {
+Tile::addUnit(const int& id, SDL_Texture* texture, const SDL_Rect& viewport, const int& start, const int& stop) {
     // Add graphics
     SDL_SetRenderTarget(pRenderer, mOverlay.Texture);
     const auto destination = SDL_FRect{ 0.0f, 0.0f, 16.0f * mScale.selectedScale, 16.0f * mScale.selectedScale };
     SDL_RenderCopyF(pRenderer, texture, &viewport, &destination);
     SDL_SetRenderTarget(pRenderer, nullptr);
 
-    Utility::setBitValue(mTileData.Type, 10, 17, id);
+    //Utility::setBitValue(mTileData.Type, 10, 17, id);
+    Utility::setBitValue(mTileData.Type, start, stop, id);
 }
 
 void

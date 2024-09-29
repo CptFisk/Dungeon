@@ -2,19 +2,19 @@
 #include <SDL.h>
 #include <cmake.hpp>
 #include <common/scale.hpp>
+#include <common/tile.hpp>
 #include <editor/utility/mouse.hpp>
 #include <editor/utility/mouseLightning.hpp>
+#include <file/types/editorAssets.hpp>
+#include <file/types/editorTile.hpp>
 #include <graphics/types/drawData.hpp>
 #include <graphics/types/font.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <graphicsForward.hpp>
-#include <file/types/editorAssets.hpp>
-#include <file/types/editorTile.hpp>
 #include <memory>
 #include <set>
 #include <variant>
 #include <vector>
-#include <common/tile.hpp>
 
 namespace Editor {
 /**
@@ -46,18 +46,18 @@ class Tile {
      * @return Value of animation value, if static texture returns 0
      */
     int addData(const std::string&                         asset,
-                File::typeAssets&                         assetList,
+                File::typeAssets&                          assetList,
                 const std::shared_ptr<Graphics::Graphics>& graphics,
                 const bool&                                mode);
     int addData(const std::string&                         asset,
-                File::typeAssets&                         assetList,
+                File::typeAssets&                          assetList,
                 const std::shared_ptr<Graphics::Graphics>& graphics,
                 const Mouse&                               mouse);
     /**
      * @brief Clear the last data that was added
      */
     void clearLastData();
-    void addMonster(const int& id, SDL_Texture* texture, const SDL_Rect& viewport);
+    void addUnit(const int& id, SDL_Texture* texture, const SDL_Rect& viewport, const int& start, const int& stop);
     /**
      * @brief Add a new value to the tile type
      * @param value
