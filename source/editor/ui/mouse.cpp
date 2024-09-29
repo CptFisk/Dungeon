@@ -25,7 +25,12 @@ Editor::uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse) {
         mouseButton(mouse, Mouse::DOWN, "Down");
         mouseButton(mouse, Mouse::DOOR, "Door");
         mouseButton(mouse, Mouse::WARP, "Warp");
-        mouseButton(mouse, Mouse::MONSTER, "Monster");
+        if(mouseButton(mouse, Mouse::MONSTER, "Monster"))
+            displayElement("Monster");
+        if(mouseButton(mouse, Mouse::NPC, "Npc"))
+            displayElement("Npc");
+
+
         area = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::End();
     }

@@ -21,7 +21,8 @@ enum Mouse {
     WARP,         // Create a warp-zone.
     TOP_LAYER,    // Layer that the player can walk under
     LIGHTNING,    // Add lightning effects
-    MONSTER       // Bind a monster to a tile
+    MONSTER,      // Bind a monster to a tile
+    NPC           // Bind a npc to a tile
 };
 
 /**
