@@ -1,13 +1,8 @@
 #pragma once
-#include <array>
 #include <string>
+#include <vector>
 
 namespace Monster {
-
-struct MonsterData {
-    std::string Name;
-    std::string DefaultImage;
-};
 
 enum class Type {
     SPARE1          = 1, // Spare
@@ -20,7 +15,7 @@ enum class Type {
     BEAN_MAN_FLOWER = 8  // Green bean man with a flower
 };
 
-const std::array<MonsterData, 9> monsters = { {
+const std::vector<std::pair<std::string, std::string>> monsters = { {
   { "", "" },                                 // Default blank
   { "SPARE1", "SPARE" },                      // Slime
   { "Cave Crawler", "CaveCrawlerSouth" },     // Cave Crawler
