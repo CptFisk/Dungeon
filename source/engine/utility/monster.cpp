@@ -4,10 +4,7 @@ namespace Engine {
 void
 Engine::createMonsters() {
     // Functions that will be bind
-    auto checkWall        = [&](const SDL_FPoint& point, const float& x, const float& y) { return movementWalls(point, x, y); };
-    auto purpleProjectile = [&](const SDL_FPoint& startPosition, const double& angle) {
-        createProjectile(false, GET_ANIMATED("PurpleBall"), nullptr, startPosition, angle, 50, 2, 10);
-    };
+    auto checkWall = [&](const SDL_FPoint& point, const float& x, const float& y) { return movementWalls(point, x, y); };
 
     auto& playerCenter = mPlayer->getPlayerCenter();
 
@@ -66,7 +63,21 @@ Engine::createMonsters() {
     mMonsters[Monster::Type::SLIME_RED]->addAnimatedTexture(Objects::IDLE, Directions::WEST, GET_ANIMATED("SlimeRedWest"));
     mMonsters[Monster::Type::SLIME_RED]->addAnimatedTexture(Objects::DYING, Directions::ALL, GET_ANIMATED("SlimeRedDead"));
 
-    mMonsters[Monster::Type::BEAN_MAN] = new Monster::BeanMan(110, 0.2f, playerCenter, checkWall, purpleProjectile);
+    mMonsters[Monster::Type::BEAN_MAN] =
+      new Monster::BeanMan(12,           // Width
+                           13,           // Height
+                           110,          // Health
+                           0.2f,         // Velocity
+                           playerCenter, // Player position
+                           checkWall,    // Function to check for walls
+                           [&](const SDL_FPoint& startPosition, const double& angle, int& delay) {
+                               if ((delay % 10) == 0) {
+                                   createProjectile(false, GET_ANIMATED("PurpleBall"), nullptr, startPosition, angle, 50, 2, 10);
+                                   if (delay == 30)
+                                       return true;
+                               }
+                               return false;
+                           });
     mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("BeanManNorth"));
     mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("BeanManEast"));
     mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, GET_ANIMATED("BeanManSouth"));
@@ -75,7 +86,36 @@ Engine::createMonsters() {
     mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::IDLE, Directions::EAST, GET_ANIMATED("BeanManEast"));
     mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, GET_ANIMATED("BeanManSouth"));
     mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::IDLE, Directions::WEST, GET_ANIMATED("BeanManWest"));
+    mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::ATTACK, Directions::NORTH, GET_ANIMATED("BeanManNorth"));
+    mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::ATTACK, Directions::EAST, GET_ANIMATED("BeanManEast"));
+    mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::ATTACK, Directions::SOUTH, GET_ANIMATED("BeanManSouth"));
+    mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::ATTACK, Directions::WEST, GET_ANIMATED("BeanManWest"));
     mMonsters[Monster::Type::BEAN_MAN]->addAnimatedTexture(Objects::DYING, Directions::ALL, GET_ANIMATED("BeanManDead"));
-}
 
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER] =
+      new Monster::BeanMan(12,           // Width
+                           14,           // Height
+                           110,          // Health
+                           0.2f,         // Velocity
+                           playerCenter, // Player position
+                           checkWall,    // Function to check for walls
+                           [&](const SDL_FPoint& startPosition, const double& angle, int& delay) {
+                               for (int i = 0; i <= 18; i++)
+                                   createProjectile(false, GET_ANIMATED("PurpleBall"), nullptr, startPosition, i * 20, 200, 0.75f, 10);
+                               return true;
+                           });
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("BeanManFlowerNorth"));
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("BeanManFlowerEast"));
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, GET_ANIMATED("BeanManFlowerSouth"));
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::MOVE, Directions::WEST, GET_ANIMATED("BeanManFlowerWest"));
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::IDLE, Directions::NORTH, GET_ANIMATED("BeanManFlowerNorth"));
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::IDLE, Directions::EAST, GET_ANIMATED("BeanManFlowerEast"));
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, GET_ANIMATED("BeanManFlowerSouth"));
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::IDLE, Directions::WEST, GET_ANIMATED("BeanManFlowerWest"));
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::ATTACK, Directions::NORTH, GET_ANIMATED("BeanManFlowerNorth"));
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::ATTACK, Directions::EAST, GET_ANIMATED("BeanManFlowerEast"));
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::ATTACK, Directions::SOUTH, GET_ANIMATED("BeanManFlowerSouth"));
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::ATTACK, Directions::WEST, GET_ANIMATED("BeanManFlowerWest"));
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::DYING, Directions::ALL, GET_ANIMATED("BeanManFlowerDead"));
+}
 };
