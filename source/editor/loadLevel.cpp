@@ -75,7 +75,7 @@ Editor::loadLevel(const File::typeEditorFile& data) {
             }
             if (Utility::isAnyBitSet(tile.Type, std::bitset<32>(NPC_BITS))) {
                 const auto npcId   = Utility::getBitValue<32, int>(tile.Type, 18, 23);
-                const auto texture = GET_ANIMATED(Npc::npc[npcId].second);
+                const auto texture = GET_ANIMATED(NPC::npc[npcId].second);
                 editorTiles[pos]->addUnit(npcId, texture->getTexture(), texture->getViewports().front(), 18, 23);
             }
 

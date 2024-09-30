@@ -106,7 +106,7 @@ Editor::startup() {
     mElements["Monster"] = [this]() {
         uiUnit(mWindows["Monster"], mWindowOpen["Monster"], Monster::monsters, "Monster", mSelectedMonster);
     };
-    mElements["Npc"] = [this]() { uiUnit(mWindows["Npc"], mWindowOpen["Npc"], Npc::npc, "Npc", mSelectedNpc); };
+    mElements["Npc"] = [this]() { uiUnit(mWindows["Npc"], mWindowOpen["Npc"], NPC::npc, "Npc", mSelectedNpc); };
     displayElement("TopMenu");
 
     for (const auto& file : Utility::getFiles("levels", ".map")) {
@@ -305,8 +305,8 @@ Editor::click() {
                     break;
                 case Mouse::NPC:
                     editorTiles[pos]->addUnit(mSelectedNpc,
-                                              GET_ANIMATED(Npc::npc[mSelectedNpc].second)->getTexture(),
-                                              GET_ANIMATED(Npc::npc[mSelectedNpc].second)->getViewports().front(),
+                                              GET_ANIMATED(NPC::npc[mSelectedNpc].second)->getTexture(),
+                                              GET_ANIMATED(NPC::npc[mSelectedNpc].second)->getViewports().front(),
                                               18,
                                               23);
                     break;

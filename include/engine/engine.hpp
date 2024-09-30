@@ -141,11 +141,15 @@ class Engine {
     /**
      * @brief Function that is used to populate @ref mNPC
      */
-    void                                         createNPC();
+    void createNPC();
     /**
      * @brief Map that contains a blue-print for each NPC. The monsters is added to the map through the function @ref createNPC().
      */
-    std::unordered_map<Npc::Type, Npc::BaseNPC*> mNPCs;
+    std::unordered_map<NPC::Type, NPC::BaseNPC*> mNPCs;
+    /**
+     * @brief Map that contains all ACTIVE NPC that is alive on the map, this vector should be cleared once a map is reloaded.
+     */
+    std::vector<NPC::BaseNPC*>                   mActiveNPCs;
 
 #pragma endregion
     // Visible numbers

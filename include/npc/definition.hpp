@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-namespace Npc {
+namespace NPC {
 
 enum class Type {
     COW = 1 // Our own special cow
