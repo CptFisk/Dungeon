@@ -12,7 +12,7 @@ enum TileType : uint32_t {
     OBSTACLE [[maybe_unused]]     = 3, // Possible to "fly" over
     UP [[maybe_unused]]           = 4, // Warp the player down one Z-layer
     DOWN [[maybe_unused]]         = 5, // Warp the player up one Z-layer
-    SPARE6 [[maybe_unused]]       = 6,
+    NPC_WALL [[maybe_unused]]     = 6, // Wall that NPC cant move pass
     SPARE7 [[maybe_unused]]       = 7,
     SPARE8 [[maybe_unused]]       = 8,
     SPARE9 [[maybe_unused]]       = 9,
