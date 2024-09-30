@@ -160,7 +160,7 @@ Engine::mainLoop() {
         SDL_FRect middle{ mPlayer->getPlayerCenter().x, mPlayer->getPlayerCenter().y, 1.0f, 1.0f };
         mPerspective->render(GET_GENERATED("A349A4")->getTexture(), nullptr, &middle);
 
-        monsters();
+        units();
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
         projectiles();
         drawProjectiles();
@@ -242,7 +242,8 @@ Engine::projectiles() {
 }
 
 void
-Engine::monsters() {
+Engine::units() {
+    // Monsters
     for (auto it = mActiveMonsters.begin(); it != mActiveMonsters.end();) {
         if ((*it)->getState() == Objects::DEAD) {
             it = mActiveMonsters.erase(it);
@@ -251,6 +252,11 @@ Engine::monsters() {
             mPerspective->render(data.Texture, data.Viewport, data.Position);
             ++it;
         }
+    }
+    //Npc cant die, at least for now
+    for(auto& npc : mActiveNPCs){
+        const auto& data = npc->getNpc();
+        mPerspective->render(data.Texture, data.Viewport, data.Position);
     }
 }
 

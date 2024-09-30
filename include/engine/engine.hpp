@@ -49,7 +49,7 @@ class Engine {
   protected:
     std::mutex mMutex;
     void       present();
-    void       monsters();
+    void       units();
     void       projectiles();
 
     void drawProjectiles();
@@ -129,11 +129,11 @@ class Engine {
      */
     void createMonsters();
     /**
-     * @brief Map that contains a blue-print for each monster. The monsters is added to the map through the function @ref createMonsters().
+     * @brief Map that contains a blue-print for each monster. The units is added to the map through the function @ref createMonsters().
      */
     std::unordered_map<Monster::Type, Monster::BaseMonster*> mMonsters;
     /**
-     * @brief Map that contains all ACTIVE monsters that is alive on the map, this vector should be cleared once a map is reloaded.
+     * @brief Map that contains all ACTIVE units that is alive on the map, this vector should be cleared once a map is reloaded.
      */
     std::vector<Monster::BaseMonster*> mActiveMonsters;
 #pragma endregion
@@ -143,7 +143,7 @@ class Engine {
      */
     void createNPC();
     /**
-     * @brief Map that contains a blue-print for each NPC. The monsters is added to the map through the function @ref createNPC().
+     * @brief Map that contains a blue-print for each NPC. The units is added to the map through the function @ref createNPC().
      */
     std::unordered_map<NPC::Type, NPC::BaseNPC*> mNPCs;
     /**
