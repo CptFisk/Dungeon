@@ -44,7 +44,7 @@ BaseMonster::damageMonster(const int& damage) {
     }
 }
 
-[[maybe_unused]] bool
+ bool
 BaseMonster::inflictDamage() const {
     return mInflictDamage;
 }
@@ -67,7 +67,7 @@ BaseMonster::addAnimatedTexture(Objects::State action, Directions direction, Gra
     mTextures[{ action, direction }] = texture;
 }
 
-[[maybe_unused]] void
+void
 BaseMonster::setDirection(Directions direction) {
     mDirection = direction;
     updateReferences();
