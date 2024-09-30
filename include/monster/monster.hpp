@@ -10,7 +10,7 @@ class BaseMonster {
     BaseMonster(const int&                                                         health,
                 const float&                                                       velocity,
                 SDL_FPoint&                                                        playerCenter,
-                std::function<bool(const SDL_FPoint&, const float&, const float&)> checkWalls);
+                std::function<bool(const SDL_FPoint&, const float&, const float&)>& checkWalls);
     BaseMonster(const BaseMonster& other);
     virtual ~BaseMonster();
 
@@ -24,12 +24,12 @@ class BaseMonster {
      * @brief Return the status of mInflictDamage
      * @return True means that the monster can hurt you
      */
-    [[nodiscard]] bool inflictDamage() const;
+    [[maybe_unused]] [[nodiscard]] bool inflictDamage() const;
 
     void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
 
-    void setAction(Objects::State action);
-    void setDirection(Directions direction);
+    [[maybe_unused]] void setAction(Objects::State action);
+    [[maybe_unused]] void setDirection(Directions direction);
     void updatePosition(const float& x, const float& y);
 
     virtual void interact() = 0;

@@ -4,7 +4,7 @@ namespace Monster {
 BaseMonster::BaseMonster(const int&                                                         health,
                          const float&                                                       velocity,
                          SDL_FPoint&                                                        playerCenter,
-                         std::function<bool(const SDL_FPoint&, const float&, const float&)> checkWalls)
+                         std::function<bool(const SDL_FPoint&, const float&, const float&)>& checkWalls)
   : mInflictDamage(true)
   , mHealth(health)
   , mVelocity(velocity)
@@ -22,7 +22,8 @@ BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   , mVelocity(other.mVelocity)
   , mState(other.mState)
   , mTextures(other.mTextures)
-  , mMonsterPosition{}
+  , mMonsterPosition(other.mMonsterPosition)
+  , mMonsterCenter(other.mMonsterCenter)
   , mDirection(SOUTH)
   , fCheckWalls(other.fCheckWalls)
   , mInflictDamage(false)
@@ -43,7 +44,7 @@ BaseMonster::damageMonster(const int& damage) {
     }
 }
 
-bool
+[[maybe_unused]] bool
 BaseMonster::inflictDamage() const {
     return mInflictDamage;
 }
@@ -66,7 +67,7 @@ BaseMonster::addAnimatedTexture(Objects::State action, Directions direction, Gra
     mTextures[{ action, direction }] = texture;
 }
 
-void
+[[maybe_unused]] void
 BaseMonster::setDirection(Directions direction) {
     mDirection = direction;
     updateReferences();
@@ -91,7 +92,7 @@ BaseMonster::getPosition() {
     return &mMonsterPosition;
 }
 
-void
+[[maybe_unused]] void
 BaseMonster::setAction(Objects::State action) {
     mState = action;
     updateReferences();
