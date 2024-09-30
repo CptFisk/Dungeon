@@ -9,6 +9,7 @@
 #include <memory>
 #include <monster/include.hpp>
 #include <mutex>
+#include <npc/include.hpp>
 #include <object/include.hpp>
 #include <player/indicator.hpp>
 #include <player/player.hpp>
@@ -126,7 +127,7 @@ class Engine {
     /**
      * @brief Function that is used to populate @ref mMonsters
      */
-    void                                                     createMonsters();
+    void createMonsters();
     /**
      * @brief Map that contains a blue-print for each monster. The monsters is added to the map through the function @ref createMonsters().
      */
@@ -134,7 +135,18 @@ class Engine {
     /**
      * @brief Map that contains all ACTIVE monsters that is alive on the map, this vector should be cleared once a map is reloaded.
      */
-    std::vector<Monster::BaseMonster*>                       mActiveMonsters;
+    std::vector<Monster::BaseMonster*> mActiveMonsters;
+#pragma endregion
+#pragma region NPC
+    /**
+     * @brief Function that is used to populate @ref mNPC
+     */
+    void                                         createNPC();
+    /**
+     * @brief Map that contains a blue-print for each NPC. The monsters is added to the map through the function @ref createNPC().
+     */
+    std::unordered_map<Npc::Type, Npc::BaseNPC*> mNPCs;
+
 #pragma endregion
     // Visible numbers
     std::vector<Graphics::Number> mNumbers; // Visible numbers

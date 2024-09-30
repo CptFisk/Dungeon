@@ -11,7 +11,8 @@ add_executable(
 
         ${CMAKE_SOURCE_DIR}/source/engine/level.cpp
 
-        ${CMAKE_SOURCE_DIR}/source/engine/utility/monster.cpp
+        ${CMAKE_SOURCE_DIR}/source/engine/utility/monsterFactory.cpp
+        ${CMAKE_SOURCE_DIR}/source/engine/utility/npcFactory.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/utility/darkness.cpp
 
         ${CMAKE_SOURCE_DIR}/source/player/player.cpp
