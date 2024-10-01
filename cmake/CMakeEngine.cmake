@@ -29,6 +29,7 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/monster/beanMan.cpp
 
         ${CMAKE_SOURCE_DIR}/source/npc/npc.cpp
+        ${CMAKE_SOURCE_DIR}/source/npc/cow.cpp
 
         ${CMAKE_SOURCE_DIR}/source/ui/textbox.cpp
 

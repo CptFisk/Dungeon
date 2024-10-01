@@ -91,6 +91,7 @@ Engine::loadLevel(const std::string& filename) {
         if (Utility::isAnyBitSet(tile, std::bitset<32>(NPC_BITS))) {
             auto npcId = static_cast<NPC::Type>(Utility::getBitValue<32, int>(tile, 18, 23));
             mActiveNPCs.push_back(mNPCs[npcId]->spawn(x, y));
+            mActiveNPCs.back()->setDirection(NORTH);
         }
         pos++;
     }

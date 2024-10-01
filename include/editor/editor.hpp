@@ -69,7 +69,7 @@ class Editor {
      * @brief Used to display Monster/Npc selector
      * @param area Reference to the position inside the map of what the element covers
      * @param open Is the element open
-     * @param elements List of the creature, Npc::npc or Monsters::monsters
+     * @param elements List of the creature, Npc::npc or Monsters::units
      * @param element Name of the window, only used for UI purpose
      * @param selector Reference to the selector
      * @example uiUnit(mWindows["Npc"], mWindowOpen["Npc"], Npc::npc, "Npc", mSelectedNpc);

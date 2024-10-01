@@ -28,6 +28,8 @@ Engine::startup() {
     mPlayer = std::make_unique<Player::Player>();
     // Generate all monster data
     createMonsters();
+    createNPC();
+
     loadLevel("555.lvl");
     SDL_RenderClear(pRenderer);
 
