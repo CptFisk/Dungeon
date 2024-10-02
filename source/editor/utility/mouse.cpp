@@ -16,6 +16,8 @@ getMouseColorCode(const Mouse& mouse){
             return "#D86DCD";
         case Mouse::OBSTACLE:
             return "#BE5014";
+        case Mouse::NPC_WALL:
+            return "#FFF4AE";
         case Mouse::SPARE:
             return "#E8E8E8";
         case Mouse::DOOR:

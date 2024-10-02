@@ -19,17 +19,17 @@ Editor::uiMouse(typeWindowCovering& area, bool& open, Mouse& mouse) {
         mouseButton(mouse, Mouse::TOP_LAYER, "Top layer");
         mouseButton(mouse, Mouse::WALL, "Wall");
         mouseButton(mouse, Mouse::OBSTACLE, "Obstacle");
+        mouseButton(mouse, Mouse::NPC_WALL, "NPC-Wall");
 
         ImGui::SeparatorText("Interaction");
         mouseButton(mouse, Mouse::UP, "Up");
         mouseButton(mouse, Mouse::DOWN, "Down");
         mouseButton(mouse, Mouse::DOOR, "Door");
         mouseButton(mouse, Mouse::WARP, "Warp");
-        if(mouseButton(mouse, Mouse::MONSTER, "Monster"))
+        if (mouseButton(mouse, Mouse::MONSTER, "Monster"))
             displayElement("Monster");
-        if(mouseButton(mouse, Mouse::NPC, "Npc"))
+        if (mouseButton(mouse, Mouse::NPC, "Npc"))
             displayElement("Npc");
-
 
         area = { ImGui::GetWindowPos(), ImGui::GetWindowSize() };
         ImGui::End();

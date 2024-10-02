@@ -12,7 +12,7 @@ add_executable(
 
         ${CMAKE_SOURCE_DIR}/source/editor/ui/door.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui/header.cpp
-        ${CMAKE_SOURCE_DIR}/source/editor/ui/mouse.cpp
+        ${CMAKE_SOURCE_DIR}/source/editor/ui/uiMouse.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui/mouseLightning.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui/assets.cpp
         ${CMAKE_SOURCE_DIR}/source/editor/ui/textures.cpp

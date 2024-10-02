@@ -16,13 +16,14 @@ enum Mouse {
     DOWN,         // Add a warp down
     WALL,         // Make a wall
     OBSTACLE,     // Make an obstacle
+    NPC_WALL,     // Wall that is only used for NPC:s
     SPARE,        // Previously player spawn
     DOOR,         // Create a door
     WARP,         // Create a warp-zone.
     TOP_LAYER,    // Layer that the player can walk under
     LIGHTNING,    // Add lightning effects
     MONSTER,      // Bind a monster to a tile
-    NPC           // Bind a npc to a tile
+    NPC,          // Bind a npc to a tile
 };
 
 /**
