@@ -82,10 +82,10 @@ Engine::click() {
     const auto click  = SDL_FPoint{ FLOAT(mActionManager->mouseX) + (mPerspective->mOffset.x / -1.0f),
                                    FLOAT(mActionManager->mouseY) + (mPerspective->mOffset.y / -1.0f) };
     const auto angle  = Utility::getAngle(click, mPlayer->getPlayerCenter());
-    const auto iAngle = static_cast<double>(INT(angle + 180) % 360);
     mPlayerEnergy -= 3; // Reduce energy
 
-    Utility::offsetAngle(click, iAngle, 13); // Start position
+    createProjectile(
+      true, GET_ANIMATED("Fireball"), nullptr, Utility::offsetAngle(mPlayer->getPlayerCenter(), angle, 0), angle, 200, 0.75f, 10);
 }
 
 void
@@ -253,8 +253,8 @@ Engine::units() {
             ++it;
         }
     }
-    //Npc cant die, at least for now
-    for(auto& npc : mActiveNPCs){
+    // Npc cant die, at least for now
+    for (auto& npc : mActiveNPCs) {
         const auto& data = npc->getNpc();
         mPerspective->render(data.Texture, data.Viewport, data.Position);
     }
