@@ -106,7 +106,7 @@ Engine::loadLevel(const std::string& filename) {
 }
 
 bool
-Engine::wallCheck(const SDL_FPoint& other, const float& x, const float& y, const long unsigned int& mask) {
+Engine::wallCheck(const SDL_FPoint& other, const float& x, const float& y, const long unsigned int& mask, bool playerCheck) {
 
     auto posX = INT(other.x + x);
     auto posY = INT(other.y + y);
@@ -119,7 +119,8 @@ Engine::wallCheck(const SDL_FPoint& other, const float& x, const float& y, const
 
     if (Utility::isAnyBitSet(levelObjects[index.value()], std::bitset<8>(mask)))
         return false;
-
+    if(playerCheck && Utility::isOverlapping(other, *pPlayerPosition))
+        return false;
     return true;
 }
 

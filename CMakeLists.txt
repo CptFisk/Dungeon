@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 2.8.12...3.21)
 project("Veras adventure")
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_ENABLE_EXPORTS ON)
+
 option(BUILD_GAME "Build game" ON)
 
 if (BUILD_GAME)

@@ -276,6 +276,9 @@ Editor::click() {
                 case Mouse::OBSTACLE:
                     editorTiles[pos]->addType(Common::TileType::OBSTACLE, GET_GENERATED(getMouseColorCode(Mouse::OBSTACLE)));
                     break;
+                case Mouse::NPC_WALL:
+                    editorTiles[pos]->addType(Common::TileType::NPC_WALL, GET_GENERATED(getMouseColorCode(Mouse::NPC_WALL)));
+                    break;
                 case Mouse::UP:
                     editorTiles[pos]->addType(Common::TileType::UP, GET_GENERATED(getMouseColorCode(Mouse::UP)));
                     break;

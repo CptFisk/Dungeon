@@ -9,7 +9,7 @@ Engine::createMonsters() {
 
     mMonsters[Monster::Type::CAVE_CRAWLER] =
       new Monster::CaveCrawler(75, 0.2f, playerCenter, [&](const SDL_FPoint& point, const float& x, const float& y) {
-          return wallCheck(point, x, y, WALL_OBSTACLE);
+          return wallCheck(point, x, y, WALL_OBSTACLE, false);
       });
     mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("CaveCrawlerNorth"));
     mMonsters[Monster::Type::CAVE_CRAWLER]->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("CaveCrawlerEast"));
@@ -23,7 +23,7 @@ Engine::createMonsters() {
 
     mMonsters[Monster::Type::SLIME_BLUE] =
       new Monster::Slime(30, 0.2f, 8.0f, playerCenter, [&](const SDL_FPoint& point, const float& x, const float& y) {
-          return wallCheck(point, x, y, WALL_OBSTACLE);
+          return wallCheck(point, x, y, WALL_OBSTACLE, false);
       });
     mMonsters[Monster::Type::SLIME_BLUE]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("SlimeBlueNorth"));
     mMonsters[Monster::Type::SLIME_BLUE]->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("SlimeBlueEast"));
@@ -37,7 +37,7 @@ Engine::createMonsters() {
 
     mMonsters[Monster::Type::SLIME_GREEN] =
       new Monster::Slime(60, 0.25f, 7.0f, playerCenter, [&](const SDL_FPoint& point, const float& x, const float& y) {
-          return wallCheck(point, x, y, WALL_OBSTACLE);
+          return wallCheck(point, x, y, WALL_OBSTACLE, false);
       });
     mMonsters[Monster::Type::SLIME_GREEN]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("SlimeGreenNorth"));
     mMonsters[Monster::Type::SLIME_GREEN]->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("SlimeGreenEast"));
@@ -51,7 +51,7 @@ Engine::createMonsters() {
 
     mMonsters[Monster::Type::SLIME_PURPLE] =
       new Monster::Slime(90, 0.3f, 6.5f, playerCenter, [&](const SDL_FPoint& point, const float& x, const float& y) {
-          return wallCheck(point, x, y, WALL_OBSTACLE);
+          return wallCheck(point, x, y, WALL_OBSTACLE, false);
       });
     mMonsters[Monster::Type::SLIME_PURPLE]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("SlimePurpleNorth"));
     mMonsters[Monster::Type::SLIME_PURPLE]->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("SlimePurpleEast"));
@@ -65,7 +65,7 @@ Engine::createMonsters() {
 
     mMonsters[Monster::Type::SLIME_RED] =
       new Monster::Slime(120, 0.5, 5.0f, playerCenter, [&](const SDL_FPoint& point, const float& x, const float& y) {
-          return wallCheck(point, x, y, WALL_OBSTACLE);
+          return wallCheck(point, x, y, WALL_OBSTACLE, false);
       });
     mMonsters[Monster::Type::SLIME_RED]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("SlimeRedNorth"));
     mMonsters[Monster::Type::SLIME_RED]->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("SlimeRedEast"));
@@ -84,7 +84,7 @@ Engine::createMonsters() {
       0.2f,         // Velocity
       playerCenter, // Player position
       [&](const SDL_FPoint& point, const float& x, const float& y) {
-          return wallCheck(point, x, y, WALL_OBSTACLE);
+          return wallCheck(point, x, y, WALL_OBSTACLE, false);
       }, // Function to check for walls
       [&](const SDL_FPoint& startPosition, const double& angle, int& delay) {
           if ((delay % 10) == 0) {
@@ -115,7 +115,7 @@ Engine::createMonsters() {
       0.2f,         // Velocity
       playerCenter, // Player position
       [&](const SDL_FPoint& point, const float& x, const float& y) {
-          return wallCheck(point, x, y, WALL_OBSTACLE);
+          return wallCheck(point, x, y, WALL_OBSTACLE, false);
       }, // Function to check for walls
       [&](const SDL_FPoint& startPosition, const double& angle, int& delay) {
           for (int i = 0; i <= 18; i++)
