@@ -18,7 +18,7 @@ Engine::startup() {
     // 1920 1080
 
     Common::calculateGameScale(mScale, pWindow);
-    SDL_RenderSetScale(pRenderer, mScale.selectedScale, mScale.selectedScale);
+    SDL_RenderSetScale(pRenderer, static_cast<int>(mScale.selectedScale), static_cast<int>(mScale.selectedScale));
     mActionManager = std::make_unique<Common::ActionManager>(pRenderer, mScale);
 
     // Generate graphics
