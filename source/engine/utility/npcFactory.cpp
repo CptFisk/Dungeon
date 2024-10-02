@@ -4,7 +4,7 @@ namespace Engine {
 
 void
 Engine::createNPC() {
-    mNPCs[NPC::Type::COW] = new NPC::Cow([&](const SDL_FPoint& point, const float& x, const float& y) { return movementWalls(point, x, y); });
+    mNPCs[NPC::Type::COW] = new NPC::Cow([&](const SDL_FPoint& point, const float& x, const float& y) { return wallCheck(point, x, y, WALL_OBSTACLE_NPC); });
     mNPCs[NPC::Type::COW]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("Cow1North"));
     mNPCs[NPC::Type::COW]->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("Cow1East"));
     mNPCs[NPC::Type::COW]->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, GET_ANIMATED("Cow1South"));
