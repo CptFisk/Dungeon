@@ -106,18 +106,18 @@ Engine::loadLevel(const std::string& filename) {
 }
 
 bool
-Engine::movementWalls(const SDL_FPoint& other, const float& x, const float& y) {
+Engine::wallCheck(const SDL_FPoint& other, const float& x, const float& y, const long unsigned int& mask) {
 
     auto posX = INT(other.x + x);
     auto posY = INT(other.y + y);
 
     // We divide by 16 to get a coordinate rather than pixel
     const auto index = Common::getIndex(posX / 16, posY / 16, MAP_WIDTH);
-
     if (!index.has_value()) {
         return false;
     }
-    if ((levelObjects[index.value()].test(Common::TileType::WALL) || levelObjects[index.value()].test(Common::TileType::OBSTACLE)))
+
+    if (Utility::isAnyBitSet(levelObjects[index.value()], std::bitset<8>(mask)))
         return false;
 
     return true;

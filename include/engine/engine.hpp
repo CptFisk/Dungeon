@@ -162,7 +162,7 @@ class Engine {
      */
     bool movement(const SDL_FRect& other, const Directions& direction);
     bool movement(const SDL_FPoint& other, const Directions& direction);
-    bool movementWalls(const SDL_FPoint& other, const float& x, const float& y);
+    bool wallCheck(const SDL_FPoint& other, const float& x, const float& y, const long unsigned int& mask);
 
     // Load a level
     void loadLevel(const std::string& filename);
