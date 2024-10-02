@@ -25,6 +25,9 @@
 
 [[maybe_unused]] const unsigned long int MONSTER_BITS = 0x3FC00;  // Bitmask for monsters
 [[maybe_unused]] const unsigned long int NPC_BITS     = 0xFC0000; // Bitmask for NPC:s
+
+[[maybe_unused]] const unsigned long int WALL_OBSTACLE = 0xC;   //Walls and obstacle
+[[maybe_unused]] const unsigned long int WALL_OBSTACLE_NPC = 0x4C;
 #pragma endregion
 
 enum Directions : uint8_t {
