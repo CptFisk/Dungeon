@@ -6,6 +6,11 @@
 namespace Graphics {
 
 void
+Graphics::loadFontTexture(const std::string& jsonString) {
+
+}
+
+void
 Graphics::loadFontTTFTexture(const std::string& jsonString) {
     Common::typeFontTTFTextureData jsonData;
     try {

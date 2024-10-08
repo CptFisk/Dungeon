@@ -50,6 +50,9 @@ Graphics::loadJSON(const std::string& fileName) {
             loadUserInterfaceTexture(jsonString);
             break;
         case TextureTypes::Font:
+            loadFontTexture(jsonString);
+            break;
+        case TextureTypes::FontTTF:
             loadFontTTFTexture(jsonString);
             break;
     }

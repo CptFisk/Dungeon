@@ -26,7 +26,7 @@ Graphics::~Graphics() {
     for (auto& [name, data] : mGraphics) {
         delete data;
     }
-    for(auto& [name, data] : mFonts)
+    for(auto& [name, data] : mFontsTTF)
         delete data;
 }
 
@@ -43,8 +43,8 @@ Graphics::getTexture(const std::string& name) {
 
 SDL_Texture*
 Graphics::getSentence(const std::string& name, const std::string& sentence) {
-    ASSERT_WITH_MESSAGE(mFonts.find(name) == mFonts.end(), "Font dont exist")
-    return mFonts[name]->generateSentence(sentence);
+    ASSERT_WITH_MESSAGE(mFontsTTF.find(name) == mFontsTTF.end(), "Font dont exist")
+    return mFontsTTF[name]->generateSentence(sentence);
 }
 
 void
@@ -69,14 +69,14 @@ Graphics::addTexture(const std::string& name, Texture* texture) {
 
 void
 Graphics::addFont(const std::string& name, FontTTF* font) {
-    ASSERT_WITH_MESSAGE(mFonts.find(name) != mFonts.end(), name << " already exist")
-    mFonts[name] = font;
+    ASSERT_WITH_MESSAGE(mFontsTTF.find(name) != mFontsTTF.end(), name << " already exist")
+    mFontsTTF[name] = font;
 }
 
 FontTTF*
 Graphics::getFont(const std::string& name) {
-    ASSERT_WITH_MESSAGE(mFonts.find(name) == mFonts.end(), name << " dont exist");
-    return mFonts[name];
+    ASSERT_WITH_MESSAGE(mFontsTTF.find(name) == mFontsTTF.end(), name << " dont exist");
+    return mFontsTTF[name];
 }
 
 TextureTypes
