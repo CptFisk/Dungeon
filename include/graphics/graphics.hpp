@@ -69,7 +69,7 @@ class Graphics {
     void loadAnimatedTexture(const std::string& jsonString);
     void loadLightningTexture(const std::string& jsonString); // Sub function for lightning effects
     void loadGeneratedTexture(const std::string& jsonString);
-    void loadFontTexture(const std::string& jsonString);          // Load a font
+    void loadFontTTFTexture(const std::string& jsonString);          // Load a font
     void loadUserInterfaceTexture(const std::string& jsonString); // Sub function for loading UI elements
     // Functions to generate shapes
     void generateSquare(const std::string& name,
