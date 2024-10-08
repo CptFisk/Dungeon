@@ -68,12 +68,12 @@ Graphics::addTexture(const std::string& name, Texture* texture) {
 }
 
 void
-Graphics::addFont(const std::string& name, Font* font) {
+Graphics::addFont(const std::string& name, FontTTF* font) {
     ASSERT_WITH_MESSAGE(mFonts.find(name) != mFonts.end(), name << " already exist")
     mFonts[name] = font;
 }
 
-Font*
+FontTTF*
 Graphics::getFont(const std::string& name) {
     ASSERT_WITH_MESSAGE(mFonts.find(name) == mFonts.end(), name << " dont exist");
     return mFonts[name];

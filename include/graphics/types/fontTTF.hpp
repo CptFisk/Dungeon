@@ -5,10 +5,10 @@
 #include <unordered_map>
 
 namespace Graphics {
-class Font {
+class FontTTF {
   public:
-    Font(SDL_Renderer* renderer, TTF_Font* font, const std::string& name);
-    ~Font();
+    FontTTF(SDL_Renderer* renderer, TTF_Font* font, const std::string& name);
+    ~FontTTF();
     /**
      * @brief Generate a sentence
      * @param sentence Sentence to be generated
@@ -17,11 +17,11 @@ class Font {
      */
     [[nodiscard]] SDL_Texture*& generateSentence(const std::string& sentence, SDL_Color colour = { 0, 0, 0, 255 });
     /**
-     * @brief Get text dimenstions
+     * @brief Get text dimensions
      * @param w
      * @param h
      */
-    static void getDimensions(int& w, int& h, SDL_Texture*);
+    [[maybe_unused]] static void getDimensions(int& w, int& h, SDL_Texture*);
     /**
      * @brief Clear all generated surfaces
      */

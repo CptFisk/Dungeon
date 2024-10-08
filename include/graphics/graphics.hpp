@@ -5,7 +5,7 @@
 #include <error.hpp>
 #include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/baseTexture.hpp>
-#include <graphics/types/font.hpp>
+#include <graphics/types/fontTTF.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <graphics/types/lightningTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
@@ -39,8 +39,8 @@ class Graphics {
      * @param texture Texture* class (or child=
      */
     void  addTexture(const std::string& name, Texture* texture);
-    void  addFont(const std::string& name, Font* font);
-    Font* getFont(const std::string& name);
+    void  addFont(const std::string& name, FontTTF* font);
+    FontTTF* getFont(const std::string& name);
     /**
      * @brief Update all animated textures
      *
@@ -91,7 +91,7 @@ class Graphics {
 
   private:
     std::unordered_map<std::string, Texture*> mGraphics; // Storage for all textures
-    std::unordered_map<std::string, Font*>    mFonts;    // Storage for all fonts
+    std::unordered_map<std::string, FontTTF*>    mFonts;    // Storage for all fonts
     SDL_Renderer*                             pRenderer;
 
     std::vector<Texture**>         mAnimatedTextures;  // Textures that should be updated cyclic

@@ -19,15 +19,14 @@ add_library(
         ${CMAKE_SOURCE_DIR}/source/common/segment.cpp
 
         ${CMAKE_SOURCE_DIR}/source/graphics/graphics.cpp
+        ${CMAKE_SOURCE_DIR}/source/graphics/floatingText.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/texture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/baseTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/animatedTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/lightningTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/generatedTexture.cpp
         ${CMAKE_SOURCE_DIR}/source/graphics/types/userInterfaceTexture.cpp
-        ${CMAKE_SOURCE_DIR}/source/graphics/types/disappearingText.cpp
-        ${CMAKE_SOURCE_DIR}/source/graphics/types/font.cpp
-        ${CMAKE_SOURCE_DIR}/source/graphics/numbers.cpp
+        ${CMAKE_SOURCE_DIR}/source/graphics/types/fontTTF.cpp
 
         ${CMAKE_SOURCE_DIR}/source/loaders/loadGraphics.cpp
         ${CMAKE_SOURCE_DIR}/source/loaders/loadBaseTexture.cpp

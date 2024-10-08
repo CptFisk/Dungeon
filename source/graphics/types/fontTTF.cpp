@@ -1,20 +1,20 @@
 #include <error.hpp>
-#include <graphics/types/font.hpp>
+#include <graphics/types/fontTTF.hpp>
 
 namespace Graphics {
 
-Font::Font(SDL_Renderer* renderer, TTF_Font* font, const std::string& name)
+FontTTF::FontTTF(SDL_Renderer* renderer, TTF_Font* font, const std::string& name)
   : pRenderer(renderer)
   , pFont(font)
   , mName(name) {}
 
-Font::~Font() {
+FontTTF::~FontTTF() {
     clear();
     TTF_CloseFont(pFont);
 }
 
 SDL_Texture*&
-Font::generateSentence(const std::string& sentence, SDL_Color color) {
+FontTTF::generateSentence(const std::string& sentence, SDL_Color color) {
     if (mGenerated.find(sentence) != mGenerated.end())
         return mGenerated[sentence];
     auto surface = TTF_RenderText_Solid(pFont, sentence.c_str(), color);
@@ -26,13 +26,13 @@ Font::generateSentence(const std::string& sentence, SDL_Color color) {
     return mGenerated[sentence];
 }
 
-void
-Font::getDimensions(int& w, int& h, SDL_Texture* texture) {
+[[maybe_unused]] void
+FontTTF::getDimensions(int& w, int& h, SDL_Texture* texture) {
     ASSERT_WITH_MESSAGE(SDL_QueryTexture(texture, nullptr, nullptr, &w, &h) != 0, SDL_GetError())
 }
 
 void
-Font::clear() {
+FontTTF::clear() {
     for (auto& [name, texture] : mGenerated)
         SDL_DestroyTexture(texture);
     mGenerated.clear();

@@ -11,7 +11,7 @@
 
 namespace Editor {
 
-Tile::Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics::Font* font, SDL_Renderer* renderer)
+Tile::Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics::FontTTF* font, SDL_Renderer* renderer)
   : pRenderer(renderer)
   , mPosX(static_cast<float>(x) * 16.0f * scale.selectedScale)
   , mPosY(static_cast<float>(y) * 16.0f * scale.selectedScale)

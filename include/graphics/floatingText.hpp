@@ -18,16 +18,12 @@ namespace Graphics {
 class FloatingText {
   public:
     FloatingText(SDL_FPoint position, const int& value, const int& visibility, SDL_Texture*& texture, const float& scale = 1.0f);
+    ~FloatingText() = default;
 
-    FloatingText& operator=(const FloatingText& other);
-
-    bool         expired(); // Returns true if the element have expired and should be removed
     typeDrawData getFloatingText();
 
   private:
   protected:
-    int       mTicks;    // Current ticks
-    const int mMaxTicks; // Maximum ticks
 
     SDL_Texture* pTexture; // Reference to "font"
     SDL_FRect    mPosition;

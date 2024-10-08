@@ -6,7 +6,7 @@
     "Objects": [
       {
         "Name" : "8bit16",
-        "File" : "rsrc/font/8bit16.ttf"
+        "File" : "rsrc/font/font.ttf"
       }
     ]
   }

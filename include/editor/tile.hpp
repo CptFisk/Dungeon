@@ -8,7 +8,7 @@
 #include <file/types/editorAssets.hpp>
 #include <file/types/editorTile.hpp>
 #include <graphics/types/drawData.hpp>
-#include <graphics/types/font.hpp>
+#include <graphics/types/fontTTF.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <graphicsForward.hpp>
 #include <memory>
@@ -31,7 +31,7 @@ struct tileData {
  */
 class Tile {
   public:
-    Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics::Font* font, SDL_Renderer* renderer);
+    Tile(const int& x, const int& y, const Common::typeScale& scale, Graphics::FontTTF* font, SDL_Renderer* renderer);
     ~Tile();
 
     [[maybe_unused]] void clear(); // Clear vector
@@ -100,7 +100,7 @@ class Tile {
     File::typeTileData mTileData; // Tile data
 
     std::set<SDL_Texture*>              mOverlays; // All overlays
-    Graphics::Font*                     pFont;     // Graphics to fonts
+    Graphics::FontTTF*                     pFont;     // Graphics to fonts
     std::vector<Graphics::typeDrawData> mBaseLayer;
     std::vector<Graphics::typeDrawData> mTopLayer;
     bool                                mLastLayer; // False = baseLayer, True = topLayer

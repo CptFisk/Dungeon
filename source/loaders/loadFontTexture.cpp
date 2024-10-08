@@ -14,7 +14,7 @@ Graphics::loadFontTexture(const std::string& jsonString) {
         ASSERT_WITH_MESSAGE(false, e.what());
     }
     for (const auto& data : jsonData.Objects) {
-        auto font = new Font(pRenderer, Common::loadFont(data.File, 8), data.Name);
+        auto font = new FontTTF(pRenderer, Common::loadFont(data.File, 6), data.Name);
         addFont(data.Name, font);
     }
 }

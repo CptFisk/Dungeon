@@ -283,13 +283,16 @@ Engine::drawProjectiles() {
 void
 Engine::drawFloatingText() {
     for (auto it = mFloatingText.begin(); it != mFloatingText.end();) {
-        if ((*it).expired())
+        /*
+        if ((*it)->expired()) {
+            delete (*it);
             it = mFloatingText.erase(it);
-        else {
-            auto data = (*it).getFloatingText();
+        }else {
+            auto data = (*it)->getFloatingText();
             mPerspective->render(data.Texture, data.Viewport, data.Position);
         }
         ++it;
+         */
     }
 }
 
