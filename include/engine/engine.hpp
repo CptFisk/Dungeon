@@ -3,8 +3,8 @@
 #include <common/initializer/initializer.hpp>
 #include <common/segment.hpp>
 #include <engine/include.hpp>
+#include <graphics/floatingText.hpp>
 #include <graphics/graphics.hpp>
-#include <graphics/numbers.hpp>
 #include <list>
 #include <memory>
 #include <monster/include.hpp>
@@ -53,7 +53,7 @@ class Engine {
     void       projectiles();
 
     void drawProjectiles();
-    void drawNumbers();
+    void drawFloatingText();
     void drawLevel(Common::typeSegmentData& data, const int& currentLayer);
     /**
      * @brief Spawns a new particle
@@ -149,11 +149,10 @@ class Engine {
     /**
      * @brief Map that contains all ACTIVE NPC that is alive on the map, this vector should be cleared once a map is reloaded.
      */
-    std::vector<NPC::BaseNPC*>                   mActiveNPCs;
+    std::vector<NPC::BaseNPC*> mActiveNPCs;
 
 #pragma endregion
-    // Visible numbers
-    std::vector<Graphics::Number> mNumbers; // Visible numbers
+    std::vector<Graphics::FloatingText> mFloatingText; // Floating texts
 
     /**
      * @breif Check if movement is allowed, or if it collides with other objects

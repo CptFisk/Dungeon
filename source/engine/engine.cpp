@@ -79,9 +79,9 @@ Engine::terminate() {
 
 void
 Engine::click() {
-    const auto click  = SDL_FPoint{ FLOAT(mActionManager->mouseX) + (mPerspective->mOffset.x / -1.0f),
+    const auto click = SDL_FPoint{ FLOAT(mActionManager->mouseX) + (mPerspective->mOffset.x / -1.0f),
                                    FLOAT(mActionManager->mouseY) + (mPerspective->mOffset.y / -1.0f) };
-    const auto angle  = Utility::getAngle(click, mPlayer->getPlayerCenter());
+    const auto angle = Utility::getAngle(click, mPlayer->getPlayerCenter());
     mPlayerEnergy -= 3; // Reduce energy
 
     createProjectile(
@@ -121,6 +121,11 @@ void
 Engine::mainLoop() {
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
+
+    auto     t   = mGraphics->getFont("8bit16")->generateSentence("Hello");
+    SDL_Rect pos = { 4050, 0, 0 };
+    int      w, h;
+    SDL_QueryTexture(t, nullptr, nullptr, &pos.w, &pos.h);
 
     while (mRun) {
         mFPSTimer.start();
@@ -167,7 +172,7 @@ Engine::mainLoop() {
         drawLevel(mSegments.Top, mSegments.CurrentLayerTop);
         drawDarkness();
         // Positions
-        drawNumbers();
+        drawFloatingText();
 
         drawLevel(mSegments.Lightning, mSegments.CurrentLayerLightning);
         for (auto drawData : mHealth->getIndicator()) {
@@ -176,7 +181,7 @@ Engine::mainLoop() {
 
 #ifdef DEBUG_MODE
         auto fpsPos = SDL_Rect{ 10, 10, 0, 0 };
-        auto fps    = mGraphics->getSentence("8bit16", "FPS: " + std::to_string(Debug::getFPS()));
+        auto fps    = mGraphics->getSentence("8bit16", "FPS " + std::to_string(Debug::getFPS()));
         SDL_QueryTexture(fps, nullptr, nullptr, &fpsPos.w, &fpsPos.h);
         SDL_RenderCopy(pRenderer, fps, nullptr, &fpsPos);
         auto playerPos = SDL_Rect{ 10, 15 + fpsPos.h, 0, 0 };
@@ -185,7 +190,7 @@ Engine::mainLoop() {
         SDL_QueryTexture(player, nullptr, nullptr, &playerPos.w, &playerPos.h);
         SDL_RenderCopy(pRenderer, player, nullptr, &playerPos);
 #endif
-
+        SDL_RenderCopy(pRenderer, t, nullptr, &pos);
         present();
 
         auto ticks = mFPSTimer.getTicks();
@@ -276,17 +281,15 @@ Engine::drawProjectiles() {
 }
 
 void
-Engine::drawNumbers() {
-    for (auto it = mNumbers.begin(); it != mNumbers.end();) {
+Engine::drawFloatingText() {
+    for (auto it = mFloatingText.begin(); it != mFloatingText.end();) {
         if ((*it).expired())
-            it = mNumbers.erase(it);
+            it = mFloatingText.erase(it);
         else {
-            auto data = (*it).getNumber();
-            for (auto& [position, viewport] : data.Visuals) {
-                mPerspective->render(data.Texture, viewport, &position);
-            }
-            ++it;
+            auto data = (*it).getFloatingText();
+            mPerspective->render(data.Texture, data.Viewport, data.Position);
         }
+        ++it;
     }
 }
 
