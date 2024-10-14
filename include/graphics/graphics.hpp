@@ -39,8 +39,8 @@ class Graphics {
      * @param texture Texture* class (or child=
      */
     void     addTexture(const std::string& name, Texture* texture);
-    void     addFont(const std::string& name, FontTTF* font);
-    FontTTF* getFont(const std::string& name);
+    void     addTTFFont(const std::string& name, FontTTF* font);
+    FontTTF* getTTFFont(const std::string& name);
     /**
      * @brief Update all animated textures
      *

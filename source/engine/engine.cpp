@@ -122,7 +122,7 @@ Engine::mainLoop() {
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
-    auto     t   = mGraphics->getFont("8bit16")->generateSentence("Hello");
+    auto     t   = mGraphics->getTTFFont("8bit16")->generateSentence("Hello");
     SDL_Rect pos = { 4050, 0, 0 };
     int      w, h;
     SDL_QueryTexture(t, nullptr, nullptr, &pos.w, &pos.h);
