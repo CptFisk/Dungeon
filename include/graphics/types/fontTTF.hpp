@@ -37,7 +37,7 @@ class FontTTF {
     TTF_Font*         pFont;     // Reference to the font used
     const std::string mName;     // Font name, mostly stored as information
 
-    std::unordered_map<std::string, SDL_Texture*> mGenerated; // All textures that have been generated
+    std::unordered_map<std::string, SDL_Texture*> mTexts; // All textures that have been generated
 };
 
 }

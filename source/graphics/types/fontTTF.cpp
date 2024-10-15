@@ -15,15 +15,15 @@ FontTTF::~FontTTF() {
 
 SDL_Texture*&
 FontTTF::generateSentence(const std::string& sentence, SDL_Color color) {
-    if (mGenerated.find(sentence) != mGenerated.end())
-        return mGenerated[sentence];
+    if (mTexts.find(sentence) != mTexts.end())
+        return mTexts[sentence];
     auto surface = TTF_RenderText_Solid(pFont, sentence.c_str(), color);
     ASSERT_WITH_MESSAGE(surface == nullptr, SDL_GetError())
     auto texture = SDL_CreateTextureFromSurface(pRenderer, surface);
     ASSERT_WITH_MESSAGE(texture == nullptr, SDL_GetError())
     SDL_FreeSurface(surface); // Clear generated surface
-    mGenerated[sentence] = texture;
-    return mGenerated[sentence];
+    mTexts[sentence] = texture;
+    return mTexts[sentence];
 }
 
 [[maybe_unused]] void
@@ -33,9 +33,9 @@ FontTTF::getDimensions(int& w, int& h, SDL_Texture* texture) {
 
 void
 FontTTF::clear() {
-    for (auto& [name, texture] : mGenerated)
+    for (auto& [name, texture] : mTexts)
         SDL_DestroyTexture(texture);
-    mGenerated.clear();
+    mTexts.clear();
 }
 
 }
