@@ -1,0 +1,13 @@
+{
+  "Header": {
+    "Type": "Font"
+  },
+  "Data": {
+    "Objects": [
+      {
+        "Name" : "TextWhite",
+        "File" : "rsrc/font/TextWhite.png"
+      }
+    ]
+  }
+}
