@@ -6,6 +6,7 @@
 #include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/baseTexture.hpp>
 #include <graphics/types/fontTTF.hpp>
+#include <graphics/types/fontTexture.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <graphics/types/lightningTexture.hpp>
 #include <graphics/types/textureTypes.hpp>
@@ -21,7 +22,8 @@
 #define GET_GENERATED(VAR)     (dynamic_cast<Graphics::GeneratedTexture*>(mGraphics->getTexture(VAR)))
 #define GET_LIGHTNING(VAR)     (dynamic_cast<Graphics::LightningTexture*>(mGraphics->getTexture(VAR)))
 #define GET_USERINTERFACE(VAR) (dynamic_cast<Graphics::UserInterfaceTexture*>(mGraphics->getTexture(VAR)))
-#define GET_FONT(VAR)          (mGraphics->getFont(VAR))
+#define GET_FONT_TTF(VAR)      (mGraphics->getFont(VAR))
+#define GET_FONT(VAR)          (dynamic_cast<Graphics::FontTexture*>(mGraphics->getTexture(VAR)))
 
 namespace Graphics {
 

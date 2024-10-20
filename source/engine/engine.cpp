@@ -121,12 +121,9 @@ void
 Engine::mainLoop() {
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
-
-    auto     t   = mGraphics->getTTFFont("8bit16")->generateSentence("Hello");
-    SDL_Rect pos = { 4050, 0, 0 };
-    int      w, h;
-    SDL_QueryTexture(t, nullptr, nullptr, &pos.w, &pos.h);
-
+    auto tex  = GET_FONT("TextBlack")->generateSentence("Hello world");
+    auto _pos = SDL_Rect{ 50, 10, 0, 0 };
+    SDL_QueryTexture(tex, nullptr, nullptr, &_pos.w, &_pos.h);
     while (mRun) {
         mFPSTimer.start();
         SDL_SetRenderTarget(pRenderer, nullptr);
@@ -189,8 +186,8 @@ Engine::mainLoop() {
         auto player    = mGraphics->getSentence("8bit16", std::to_string(p.x) + " " + std::to_string(p.y));
         SDL_QueryTexture(player, nullptr, nullptr, &playerPos.w, &playerPos.h);
         SDL_RenderCopy(pRenderer, player, nullptr, &playerPos);
+        SDL_RenderCopy(pRenderer, tex, nullptr, &_pos);
 #endif
-        SDL_RenderCopy(pRenderer, t, nullptr, &pos);
         present();
 
         auto ticks = mFPSTimer.getTicks();
