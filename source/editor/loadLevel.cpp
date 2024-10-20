@@ -35,7 +35,7 @@ Editor::loadLevel(const File::typeEditorFile& data) {
                 std::cout << "FAILURE";
             }
             // Generating both tiles and visual overlay
-            editorTiles.push_back(new Tile(x, y, mScale, GET_FONT("8bit16"), pRenderer));
+            editorTiles.push_back(new Tile(x, y, mScale, GET_FONT_TTF("8bit16"), pRenderer));
             for (const auto& id : tile.Base) {
                 if (id <= assets.Assets.size()) {
                     const auto asset           = data.Assets.Assets[INT(id)];
