@@ -8,24 +8,22 @@
 
 namespace Graphics {
 /**
- * @brief Create a new visible number
- * @param position Position on the screen
- * @param value Value to be displayed
- * @param visibility Number of ticks it should be visible
- * @param texture Texture (font)
- * @param (optional) Scaling of texture, 1.0f = 8px;
+
  */
 class FloatingText {
   public:
-    FloatingText(SDL_FPoint position, const int& value, const int& visibility, SDL_Texture*& texture, const float& scale = 1.0f);
+    FloatingText(SDL_FPoint position, SDL_Texture*& texture, const int& w, const int& h, const double long& duration);
     ~FloatingText() = default;
+
+    bool expired();
 
     typeDrawData getFloatingText();
 
   private:
   protected:
-
-    SDL_Texture* pTexture; // Reference to "font"
-    SDL_FRect    mPosition;
+    const double long mDuration;
+    double long       mTicks;
+    SDL_Texture*      pTexture; // Reference to "font"
+    SDL_FRect         mPosition;
 };
 }

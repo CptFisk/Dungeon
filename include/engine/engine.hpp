@@ -152,7 +152,7 @@ class Engine {
     std::vector<NPC::BaseNPC*> mActiveNPCs;
 
 #pragma endregion
-    std::vector<Graphics::FloatingText> mFloatingText; // Floating texts
+    std::vector<Graphics::FloatingText*> mFloatingText; // Floating texts
 
     /**
      * @breif Check if movement is allowed, or if it collides with other objects

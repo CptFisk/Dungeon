@@ -122,8 +122,9 @@ Engine::mainLoop() {
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
     auto tex  = GET_FONT("TextBlack")->generateSentence("Hello world");
-    auto _pos = SDL_Rect{ 50, 10, 0, 0 };
-    SDL_QueryTexture(tex, nullptr, nullptr, &_pos.w, &_pos.h);
+    int w,h;
+    SDL_QueryTexture(tex, nullptr, nullptr, &w, &h);
+    mFloatingText.emplace_back(new Graphics::FloatingText(SDL_FPoint(10, 10), tex, w, h, 3000));
     while (mRun) {
         mFPSTimer.start();
         SDL_SetRenderTarget(pRenderer, nullptr);
@@ -186,7 +187,6 @@ Engine::mainLoop() {
         auto player    = mGraphics->getSentence("8bit16", std::to_string(p.x) + " " + std::to_string(p.y));
         SDL_QueryTexture(player, nullptr, nullptr, &playerPos.w, &playerPos.h);
         SDL_RenderCopy(pRenderer, player, nullptr, &playerPos);
-        SDL_RenderCopy(pRenderer, tex, nullptr, &_pos);
 #endif
         present();
 
@@ -280,16 +280,15 @@ Engine::drawProjectiles() {
 void
 Engine::drawFloatingText() {
     for (auto it = mFloatingText.begin(); it != mFloatingText.end();) {
-        /*
         if ((*it)->expired()) {
             delete (*it);
             it = mFloatingText.erase(it);
         }else {
             auto data = (*it)->getFloatingText();
-            mPerspective->render(data.Texture, data.Viewport, data.Position);
+            SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
+            //mPerspective->render(data.Texture, data.Viewport, data.Position);
+            ++it;
         }
-        ++it;
-         */
     }
 }
 
