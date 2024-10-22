@@ -44,6 +44,19 @@
         "Alpha": 80
       },
       {
+        "Name": "000000",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 0,
+        "Red2": 0,
+        "Green1": 0,
+        "Green2": 0,
+        "Blue1": 0,
+        "Blue2": 0,
+        "Alpha": 80
+      },
+      {
         "Name": "FF0000",
         "Shape": "Square",
         "Width": 1,
