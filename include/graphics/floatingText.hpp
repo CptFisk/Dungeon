@@ -10,10 +10,10 @@ namespace Graphics {
 /**
 
  */
-class FloatingText {
+class FloatingTexture {
   public:
-    FloatingText(SDL_FPoint position, SDL_Texture*& texture, const int& w, const int& h, const double long& duration);
-    ~FloatingText() = default;
+    FloatingTexture(SDL_FPoint position, SDL_Texture*& texture, const int& w, const int& h, const double long& duration);
+    ~FloatingTexture() = default;
 
     bool expired();
 
