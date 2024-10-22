@@ -2,11 +2,12 @@
 #include <utility/math.hpp>
 namespace Graphics {
 
-FloatingTexture::FloatingTexture(SDL_FPoint position, SDL_Texture*& texture, const int& w, const int& h, const double long& duration)
+FloatingTexture::FloatingTexture(SDL_FRect& position, SDL_Rect* viewport, SDL_Texture*& texture, const double long& duration)
   : pTexture(texture)
+  , pViewport(viewport)
   , mDuration(duration)
   , mTicks(0)
-  , mPosition{ position.x, position.y, static_cast<float>(w), static_cast<float>(h) } {}
+  , mPosition(position) {}
 
 bool
 FloatingTexture::expired() {
@@ -15,7 +16,7 @@ FloatingTexture::expired() {
 
 typeDrawData
 FloatingTexture::getFloatingText() {
-    return typeDrawData{ pTexture, nullptr, &mPosition };
+    return typeDrawData{ pTexture, pViewport, &mPosition };
 }
 
 }

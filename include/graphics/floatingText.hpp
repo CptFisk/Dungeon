@@ -12,7 +12,7 @@ namespace Graphics {
  */
 class FloatingTexture {
   public:
-    FloatingTexture(SDL_FPoint position, SDL_Texture*& texture, const int& w, const int& h, const double long& duration);
+    FloatingTexture(SDL_FRect& position, SDL_Rect* viewport, SDL_Texture*& texture, const double long& duration);
     ~FloatingTexture() = default;
 
     bool expired();
@@ -24,6 +24,7 @@ class FloatingTexture {
     const double long mDuration;
     double long       mTicks;
     SDL_Texture*      pTexture; // Reference to "font"
-    SDL_FRect         mPosition;
+    SDL_Rect*        pViewport;
+    SDL_FRect&        mPosition;
 };
 }
