@@ -42,6 +42,7 @@ target_include_directories(
         ${CMAKE_SOURCE_DIR}/include
         ${imgui_SOURCE_DIR}         #ImGui folders
         ${CMAKE_CURRENT_BINARY_DIR} #Needed for generated cmake.hpp
+        ${CMAKE_SOURCE_DIR}/lua
 )
 
 
@@ -55,4 +56,5 @@ target_link_libraries(
         ${LIB_COMMON}
         ${LIB_UTILITY}
         ${LIB_FILE}
+        lua
 )

@@ -48,6 +48,10 @@ Engine::~Engine() {
     for (auto& projectile : mProjectiles) {
         delete projectile;
     }
+    //Clear floating textures
+    for(auto& texture: mFloatingText){
+        delete texture;
+    }
     mGraphics.reset(); // Kill graphics
     mInitHandler.shutdown();
 }
@@ -121,10 +125,6 @@ void
 Engine::mainLoop() {
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
-    auto tex  = GET_FONT("TextBlack")->generateSentence("Hello world");
-    int w,h;
-    SDL_QueryTexture(tex, nullptr, nullptr, &w, &h);
-    mFloatingText.emplace_back(new Graphics::FloatingText(SDL_FPoint(10, 10), tex, w, h, 3000));
     while (mRun) {
         mFPSTimer.start();
         SDL_SetRenderTarget(pRenderer, nullptr);
@@ -210,12 +210,7 @@ Engine::projectiles() {
                     delete *it;                  // Free memory
                     it = mProjectiles.erase(it); // Move iterator
                     (*it2)->damageMonster(damage);
-                    // Display the damage
-                    /*
-                    mNumbers.push_back(
-                      Graphics::Number({ (*it2)->getPosition()->x, (*it2)->getPosition()->y }, damage, 100, *GET_SIMPLE("NumbersWhite"),
-                    0.5f));
-                      */
+                    mFloatingText.push_back(new Graphics::FloatingTexture(*(*it2)->getPosition(), nullptr, GET_GENERATED("000000")->getTexture(), 3000));
                     removed = true;
                     break;
                 } else
@@ -285,8 +280,8 @@ Engine::drawFloatingText() {
             it = mFloatingText.erase(it);
         }else {
             auto data = (*it)->getFloatingText();
-            SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
-            //mPerspective->render(data.Texture, data.Viewport, data.Position);
+            //SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
+            mPerspective->render(data.Texture, data.Viewport, data.Position);
             ++it;
         }
     }
