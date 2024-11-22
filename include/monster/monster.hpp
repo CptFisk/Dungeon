@@ -7,9 +7,9 @@ namespace Monster {
 
 class BaseMonster {
   public:
-    BaseMonster(const int&                                                         health,
-                const float&                                                       velocity,
-                SDL_FPoint&                                                        playerCenter,
+    BaseMonster(const int&                                                          health,
+                const float&                                                        velocity,
+                SDL_FPoint&                                                         playerCenter,
                 std::function<bool(const SDL_FPoint&, const float&, const float&)>& checkWalls);
     BaseMonster(const BaseMonster& other);
     virtual ~BaseMonster();
@@ -30,12 +30,13 @@ class BaseMonster {
 
     [[maybe_unused]] void setAction(Objects::State action);
     [[maybe_unused]] void setDirection(Directions direction);
-    void updatePosition(const float& x, const float& y);
+    void                  updatePosition(const float& x, const float& y);
 
     virtual void interact() = 0;
 
     Graphics::typeDrawData getMonster();
     SDL_FRect*             getPosition();
+    SDL_FPoint             getCenter();
     Objects::State         getState();
 
   private:

@@ -92,6 +92,11 @@ BaseMonster::getPosition() {
     return &mMonsterPosition;
 }
 
+SDL_FPoint
+BaseMonster::getCenter() {
+    return mMonsterCenter;
+}
+
 [[maybe_unused]] void
 BaseMonster::setAction(Objects::State action) {
     mState = action;

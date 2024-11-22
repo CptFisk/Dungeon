@@ -23,7 +23,7 @@ endif()
 set(DEBUG_MODE ${DEBUG_MODE} PARENT_SCOPE)
 set(RELEASE_MODE ${RELEASE_MODE} PARENT_SCOPE)
 
-include(lua/CMakeLists.txt)
+add_subdirectory(lua/)
 include(ExternalProject)
 include(cmake/CMakeVendor.cmake)
 include(cmake/CMakeCommon.cmake)

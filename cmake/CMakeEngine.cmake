@@ -11,6 +11,8 @@ add_executable(
 
         ${CMAKE_SOURCE_DIR}/source/engine/level.cpp
 
+        ${CMAKE_SOURCE_DIR}/source/engine/lua/luaManager.cpp
+
         ${CMAKE_SOURCE_DIR}/source/engine/utility/monsterFactory.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/utility/npcFactory.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/utility/darkness.cpp
@@ -32,7 +34,6 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/npc/cow.cpp
 
         ${CMAKE_SOURCE_DIR}/source/ui/textbox.cpp
-
         ${HELPERS}
 )
 
@@ -40,15 +41,17 @@ target_include_directories(
         ${PROJECT_NAME}
         PRIVATE
         ${CMAKE_SOURCE_DIR}/include
+        ${CMAKE_SOURCE_DIR}/lua
         ${imgui_SOURCE_DIR}         #ImGui folders
         ${CMAKE_CURRENT_BINARY_DIR} #Needed for generated cmake.hpp
-        ${CMAKE_SOURCE_DIR}/lua
+
 )
 
 
 target_link_libraries(
         ${PROJECT_NAME}
         PRIVATE
+        lua
         SDL2::SDL2
         SDL2_image::SDL2_image
         SDL2_ttf::SDL2_ttf
@@ -56,5 +59,4 @@ target_link_libraries(
         ${LIB_COMMON}
         ${LIB_UTILITY}
         ${LIB_FILE}
-        lua
 )

@@ -2,13 +2,13 @@
 
 #include <cmake.hpp>
 #include <common/handlers.hpp>
-#include <common/scale.hpp>
 #include <engine/debug/fps.hpp>
 #include <engine/engine.hpp>
 #include <utility/file.hpp>
 #include <utility/math.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
+#include <engine/lua/luaManager.hpp>
 
 namespace Engine {
 
@@ -123,6 +123,24 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
+    LuaManager l;
+    auto state = l.getState();
+
+    auto monster = mActiveMonsters.front();
+    l.executeScript("test.lua");
+
+    lua_getglobal(state, "Move");
+    auto monster_userData = static_cast<Monster::BaseMonster**>(lua_newuserdata(state, sizeof(Monster::BaseMonster*)));
+    *monster_userData = mActiveMonsters.front();
+
+    luaL_setmetatable(state, "MonsterMeta"); // Set the metatable for the userdata
+
+    if (lua_pcall(state, 1, 0, 0) != LUA_OK) {
+        std::cerr << "Error: " << lua_tostring(state, -1) << std::endl;
+        lua_pop(state, 1); // Remove error message from stack
+    }
+
+
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
     while (mRun) {

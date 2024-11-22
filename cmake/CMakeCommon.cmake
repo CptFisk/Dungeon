@@ -42,13 +42,14 @@ target_include_directories(
         ${LIB_COMMON}
         PRIVATE
         ${CMAKE_SOURCE_DIR}/include
+        ${CMAKE_SOURCE_DIR}/lua
         ${imgui_SOURCE_DIR}         #ImGui folders
         ${CMAKE_CURRENT_BINARY_DIR} #Needed for generated cmake.hpp
 )
 
 target_link_libraries(
         ${LIB_COMMON}
-        PRIVATE
+        PUBLIC
         SDL2::SDL2
         SDL2_image::SDL2_image
         SDL2_ttf::SDL2_ttf

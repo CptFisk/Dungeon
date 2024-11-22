@@ -11,7 +11,7 @@ Engine::setDarkness(const unsigned int& v) {
         pDarkness = nullptr; // Destroy link to texture if darkness should be removed
         return;
     }
-    const std::string name    = "Shadow" + std::to_string(50);
+    const std::string name    = "Shadow" + std::to_string(v);
     auto              texture = GET_GENERATED(name);
     pDarkness                 = texture->getTexture();
 }

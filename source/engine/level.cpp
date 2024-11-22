@@ -125,6 +125,18 @@ Engine::wallCheck(const SDL_FPoint& other, const float& x, const float& y, const
 }
 
 bool
+Engine::wallCheck(const float& x, const float& y, const long unsigned int& mask) {
+    auto posX = static_cast<int>(x);
+    auto posY = static_cast<int>(y);
+    const auto index = Common::getIndex(posX / 16, posY / 16, MAP_WIDTH);
+    if(!index.has_value())
+        return false;
+    if (Utility::isAnyBitSet(levelObjects[index.value()], std::bitset<8>(mask)))
+        return false;
+    return true;
+}
+
+bool
 Engine::movement(const SDL_FPoint& other, const Directions& direction) {
     return movement(SDL_FRect(other.x, other.y, 1.0f, 1.0f), direction);
 }

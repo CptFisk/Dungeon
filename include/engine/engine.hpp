@@ -43,7 +43,9 @@ class Engine {
     void resetPlayerMomentum();
     void interact();
     void setDarkness(const unsigned int& v);
-
+#pragma region LUA functions
+    bool wallCheck(const float& x, const float& y, const long unsigned int& mask);
+#pragma endregion
     SDL_Event mEvent;
 
   protected:
