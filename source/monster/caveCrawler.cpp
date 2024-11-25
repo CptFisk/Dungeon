@@ -5,7 +5,7 @@ CaveCrawler::CaveCrawler(const int&                                             
                          const float&                                                       velocity,
                          SDL_FPoint&                                                        playerCenter,
                          std::function<bool(const SDL_FPoint&, const float&, const float&)> checkWalls)
-  : BaseMonster(health, velocity, playerCenter, checkWalls) {}
+  : BaseMonster(health, velocity, "CaveCrawler", playerCenter, checkWalls) {}
 
 CaveCrawler::~CaveCrawler() = default;
 
@@ -20,6 +20,7 @@ CaveCrawler::spawn(const float& x, const float& y) const {
     obj->mMonsterPosition.h = MONSTER_HEIGHT;
     obj->mMonsterCenter.x   = xPos + (MONSTER_WIDTH / 2.0f);
     obj->mMonsterCenter.y   = yPos + (MONSTER_HEIGHT / 2.0f);
+    obj->luaFile = this->luaFile;
     return obj;
 }
 

@@ -1,11 +1,13 @@
 #include <monster/monster.hpp>
 
 namespace Monster {
-BaseMonster::BaseMonster(const int&                                                         health,
-                         const float&                                                       velocity,
-                         SDL_FPoint&                                                        playerCenter,
+BaseMonster::BaseMonster(const int&                                                          health,
+                         const float&                                                        velocity,
+                         const std::string&                                                  lua,
+                         SDL_FPoint&                                                         playerCenter,
                          std::function<bool(const SDL_FPoint&, const float&, const float&)>& checkWalls)
-  : mInflictDamage(true)
+  : luaFile(lua + ".lua")
+  , mInflictDamage(true)
   , mHealth(health)
   , mVelocity(velocity)
   , mTicks(0)
@@ -44,9 +46,14 @@ BaseMonster::damageMonster(const int& damage) {
     }
 }
 
- bool
+bool
 BaseMonster::inflictDamage() const {
     return mInflictDamage;
+}
+
+std::string
+BaseMonster::getLuaFile() const {
+    return luaFile;
 }
 
 void

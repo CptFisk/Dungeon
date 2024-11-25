@@ -130,6 +130,7 @@ class Engine {
      * @brief Function that is used to populate @ref mMonsters
      */
     void createMonsters();
+    void monsterActions();
     /**
      * @brief Map that contains a blue-print for each monster. The units is added to the map through the function @ref createMonsters().
      */

@@ -123,19 +123,6 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
-    Lua::LuaManager l;
-    auto state = l.getState();
-
-    l.executeScript("test.lua");
-
-    lua_getglobal(state, "Move");
-    l.createMonsterMetaTable(mActiveMonsters.front());
-
-    if (lua_pcall(state, 1, 0, 0) != LUA_OK) {
-        std::cerr << "Error: " << lua_tostring(state, -1) << std::endl;
-        lua_pop(state, 1); // Remove error message from stack
-    }
-
 
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
@@ -177,7 +164,8 @@ Engine::mainLoop() {
         SDL_FRect middle{ mPlayer->getPlayerCenter().x, mPlayer->getPlayerCenter().y, 1.0f, 1.0f };
         mPerspective->render(GET_GENERATED("A349A4")->getTexture(), nullptr, &middle);
 
-        units();
+        monsterActions();
+        units();    //Call all monster and§
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
         projectiles();
         drawProjectiles();
@@ -253,17 +241,27 @@ Engine::projectiles() {
 }
 
 void
-Engine::units() {
-    // Monsters
-    for (auto it = mActiveMonsters.begin(); it != mActiveMonsters.end();) {
-        if ((*it)->getState() == Objects::DEAD) {
-            it = mActiveMonsters.erase(it);
-        } else {
-            const auto data = (*it)->getMonster();
-            mPerspective->render(data.Texture, data.Viewport, data.Position);
-            ++it;
+Engine::monsterActions() {
+    Lua::LuaManager l;
+    auto state = l.getState();
+    for(auto &monster : mActiveMonsters){
+        const auto lua = monster->getLuaFile();
+
+        l.executeScript("test.lua");
+
+        lua_getglobal(state, "Move");
+        l.createMonsterMetaTable(monster);
+
+        if (lua_pcall(state, 1, 0, 0) != LUA_OK) {
+            std::cerr << "Error: " << lua_tostring(state, -1) << std::endl;
+            lua_pop(state, 1); // Remove error message from stack
         }
+
     }
+}
+
+void
+Engine::units() {
     // Npc cant die, at least for now
     for (auto& npc : mActiveNPCs) {
         const auto& data = npc->getNpc();

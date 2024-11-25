@@ -15,7 +15,7 @@ BeanMan::BeanMan(const float&                                                   
   , mReload(0)
   , mDelay(0)
   , fcProjectiles(projectiles)
-  , BaseMonster(health, velocity, playerCenter, checkWalls) {}
+  , BaseMonster(health, velocity, "BeanMan",playerCenter, checkWalls) {}
 
 BeanMan::~BeanMan() = default;
 
@@ -30,6 +30,7 @@ BeanMan::spawn(const float& x, const float& y) const {
     obj->mMonsterPosition.h = mMonsterHeight;
     obj->mMonsterCenter.x   = xPos + (mMonsterWidth / 2.0f);
     obj->mMonsterCenter.y   = yPos + (mMonsterHeight / 2.0f);
+    obj->luaFile = this->luaFile;
     return obj;
 }
 

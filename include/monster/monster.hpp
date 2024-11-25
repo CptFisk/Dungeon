@@ -9,6 +9,7 @@ class BaseMonster {
   public:
     BaseMonster(const int&                                                          health,
                 const float&                                                        velocity,
+                const std::string&                                                  lua,
                 SDL_FPoint&                                                         playerCenter,
                 std::function<bool(const SDL_FPoint&, const float&, const float&)>& checkWalls);
     BaseMonster(const BaseMonster& other);
@@ -25,6 +26,7 @@ class BaseMonster {
      * @return True means that the monster can hurt you
      */
     [[maybe_unused]] [[nodiscard]] bool inflictDamage() const;
+    [[nodiscard]] std::string           getLuaFile() const;
 
     void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
 
@@ -41,6 +43,7 @@ class BaseMonster {
 
   private:
   protected:
+    std::string luaFile; // Name of the lua file that will be executed
     const float mVelocity;
     int         mTicks;
     const int   DEATH_ANIMATION = 30;
