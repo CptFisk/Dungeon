@@ -247,9 +247,9 @@ Engine::monsterActions() {
     for(auto &monster : mActiveMonsters){
         const auto lua = monster->getLuaFile();
 
-        l.executeScript("test.lua");
+        l.executeScript("scripts/monster/" + lua);
 
-        lua_getglobal(state, "Move");
+        lua_getglobal(state, "Interact");
         l.createMonsterMetaTable(monster);
 
         if (lua_pcall(state, 1, 0, 0) != LUA_OK) {

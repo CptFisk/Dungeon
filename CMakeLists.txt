@@ -51,6 +51,7 @@ file(
         GLOB RSRC
         ${CMAKE_SOURCE_DIR}/rsrc
         ${CMAKE_SOURCE_DIR}/levels
+        ${CMAKE_SOURCE_DIR}/scripts
 )
 
 file(
