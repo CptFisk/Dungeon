@@ -35,6 +35,7 @@ set(PROJECT_ROOT_DIR "${CMAKE_SOURCE_DIR}")
 
 
 if (BUILD_GAME)
+    include(cmake/CmakeEngineLua.cmake)
     include(cmake/CMakeHelper.cmake)
     include(cmake/CMakeEngine.cmake)
 else ()

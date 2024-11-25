@@ -4,14 +4,13 @@ add_executable(
         ${PROJECT_NAME}
         ${COMMON_FILES}
         ${UTILITY_FILES}
+        ${HELPERS}
+        ${ENGINE_LUA}
         ${CMAKE_SOURCE_DIR}/game.cpp
 
         ${CMAKE_SOURCE_DIR}/source/engine/engine.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/loading.cpp
-
         ${CMAKE_SOURCE_DIR}/source/engine/level.cpp
-
-        ${CMAKE_SOURCE_DIR}/source/engine/lua/luaManager.cpp
 
         ${CMAKE_SOURCE_DIR}/source/engine/utility/monsterFactory.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/utility/npcFactory.cpp
@@ -34,7 +33,6 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/npc/cow.cpp
 
         ${CMAKE_SOURCE_DIR}/source/ui/textbox.cpp
-        ${HELPERS}
 )
 
 target_include_directories(
@@ -59,4 +57,5 @@ target_link_libraries(
         ${LIB_COMMON}
         ${LIB_UTILITY}
         ${LIB_FILE}
+        ${LUA_MANAGER}
 )

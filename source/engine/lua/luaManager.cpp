@@ -1,27 +1,16 @@
-#include <engine/lua/darkness.hpp>
 #include <engine/lua/luaManager.hpp>
-#include <engine/lua/monster.hpp>
 #include <lua.hpp>
-namespace Engine {
+#include <engine/lua/monster.hpp>
+
+namespace Lua {
 
 LuaManager::LuaManager() {
     L = luaL_newstate();
     luaopen_base(L);
+
+    registerMonster();
     // Register functions
-    lua_register(L,"SetDarkness",setDarkness);
-
-#pragma region Monster
-    luaL_newmetatable(L, "MonsterMeta");
-
-    lua_pushcfunction(L, Lua::monster_getCenter);
-    lua_setfield(L, -2, "GetCenter");
-
-    // Set __index field for method lookup
-    lua_pushvalue(L, -1);
-    lua_setfield(L, -2, "__index");
-
-    lua_pop(L, 1); // Pop metatable from stack
-#pragma endregion
+    // lua_register(L, "SetDarkness", setDarkness);
 }
 
 LuaManager::~LuaManager() {
@@ -31,6 +20,13 @@ LuaManager::~LuaManager() {
 lua_State*&
 LuaManager::getState() {
     return L;
+}
+
+void
+LuaManager::createMonsterMetaTable(Monster::BaseMonster*& monster) {
+    auto monsterData = static_cast<Monster::BaseMonster**>(lua_newuserdata(L, sizeof(Monster::BaseMonster*)));
+    *monsterData     = monster;
+    luaL_setmetatable(L, "MonsterMeta"); // Set the metatable for the userdata
 }
 
 bool
@@ -81,5 +77,19 @@ LuaManager::executeString(const std::string& code) {
             std::cerr << "Unsupported";
     }
     return result;
+}
+
+void
+LuaManager::registerMonster() {
+    luaL_newmetatable(L, "MonsterMeta");
+
+    lua_pushcfunction(L, Lua::monster_getCenter);
+    lua_setfield(L, -2, "GetCenter");
+
+    // Set __index field for method lookup
+    lua_pushvalue(L, -1);
+    lua_setfield(L, -2, "__index");
+
+    lua_pop(L, 1); // Pop metatable from stack
 }
 }

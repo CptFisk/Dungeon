@@ -138,7 +138,7 @@ Engine::wallCheck(const float& x, const float& y, const long unsigned int& mask)
 
 bool
 Engine::movement(const SDL_FPoint& other, const Directions& direction) {
-    return movement(SDL_FRect(other.x, other.y, 1.0f, 1.0f), direction);
+    return movement(SDL_FRect{other.x, other.y, 1.0f, 1.0f}, direction);
 }
 
 bool

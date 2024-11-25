@@ -123,17 +123,13 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
-    LuaManager l;
+    Lua::LuaManager l;
     auto state = l.getState();
 
-    auto monster = mActiveMonsters.front();
     l.executeScript("test.lua");
 
     lua_getglobal(state, "Move");
-    auto monster_userData = static_cast<Monster::BaseMonster**>(lua_newuserdata(state, sizeof(Monster::BaseMonster*)));
-    *monster_userData = mActiveMonsters.front();
-
-    luaL_setmetatable(state, "MonsterMeta"); // Set the metatable for the userdata
+    l.createMonsterMetaTable(mActiveMonsters.front());
 
     if (lua_pcall(state, 1, 0, 0) != LUA_OK) {
         std::cerr << "Error: " << lua_tostring(state, -1) << std::endl;

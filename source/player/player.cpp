@@ -3,7 +3,7 @@
 namespace Player {
 Player::Player()
   : mTexturePosition{ 0.0f, 0.0f, 12.0f, 18.0f }
-  , mInteraction(0.0f, 0.0f, 12.0f, 18.0f)
+  , mInteraction({0.0f, 0.0f, 12.0f, 18.0f})
   , mPlayerCenter{}
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)

@@ -17,10 +17,10 @@ Door::Door(const int& x, const int& y, Graphics::AnimatedTexture* opening, Graph
         std::cerr << "The animations need to have the same size" << std::endl;
         return;
     }
-    mPosition          = SDL_FRect((FLOAT(x) * 16.0f) + FLOAT(16 - opening->getWidth()),
-                          (FLOAT(y) * 16.0f) + FLOAT(16 - opening->getHeight()),
-                          opening->getWidth(),
-                          opening->getHeight());
+    mPosition          = SDL_FRect{ (FLOAT(x) * 16.0f) + FLOAT(16 - opening->getWidth()),
+                           (FLOAT(y) * 16.0f) + FLOAT(16 - opening->getHeight()),
+                           opening->getWidthF(),
+                           opening->getHeightF() };
     mDrawData.Position = &mPosition;
     if (open) {
         mDrawData.Viewport = &mAnimationClosingViewport.front();
