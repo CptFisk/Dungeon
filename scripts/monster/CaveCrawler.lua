@@ -1,0 +1,2 @@
+function Interact(monster)
+end
