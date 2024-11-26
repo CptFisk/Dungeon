@@ -6,18 +6,36 @@
 
 namespace Lua {
 
+/**
+ * @brief Returns a pointer to a Monster::BaseMonster*
+ * @param L Lua_state handler
+ * @param index index parameter
+ * @return
+ */
 Monster::BaseMonster*
-checkMonster(lua_State* L, int index) {
-    return *static_cast<Monster::BaseMonster**>(luaL_checkudata(L, index, "MonsterMeta"));
-}
+checkMonster(lua_State* L, int index);
+
+/**
+ * @brief Return monster center position through Monster->getCenter()
+ */
+int
+monster_getCenter(lua_State* L);
 
 int
-monster_getCenter(lua_State* L) {
-    auto monster = checkMonster(L, 1);
-    auto center  = monster->getCenter();
-    lua_pushnumber(L, center.x);
-    lua_pushnumber(L, center.y);
-    return 2;
-}
-}
+monster_setPosition(lua_State* L);
 
+int
+monster_movePosition(lua_State* L);
+
+/**
+ * @brief Return the monster velocity
+ */
+int
+monster_velocity(lua_State* L);
+
+int
+monster_setState(lua_State* L);
+
+int
+monster_getState(lua_State* L);
+}

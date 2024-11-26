@@ -36,20 +36,34 @@ class BaseMonster {
     virtual void interact() = 0;
 
     Graphics::typeDrawData getMonster();
-    SDL_FRect*             getPosition();
+    /**
+     * @brief Returns the monster position in top left corner as SDL_FRect
+     */
+    SDL_FRect* getPosition();
     /**
      * @brief Set position of the monster, the position is referred to as the center point
      * @param x X-Position
      * @param y Y-Position
      */
-    void           setPosition(const float& x, const float& y);
+    void setPosition(const float& x, const float& y);
     /**
      * @brief Move the monster from the original position, that number of values in x,y
      * @param x
      * @param y
      */
-    void           movePosition(const float& x, const float& y);
-    SDL_FPoint     getCenter();
+    void movePosition(const float& x, const float& y);
+    /**
+     * @brief Returns the monsters velocity
+     */
+    float      getVelocity() const;
+    /**
+     * @brief Return the monster center position
+     * @return
+     */
+    SDL_FPoint getCenter();
+    /**
+     * @brief Return the monsters current state
+     */
     Objects::State getState();
 
   private:

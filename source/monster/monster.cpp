@@ -98,6 +98,11 @@ BaseMonster::movePosition(const float& x, const float& y) {
     mMonsterCenter.y += y;
 }
 
+float
+BaseMonster::getVelocity() const {
+    return mVelocity;
+}
+
 Graphics::typeDrawData
 BaseMonster::getMonster() {
     interact();
