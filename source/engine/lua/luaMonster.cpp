@@ -1,41 +1,30 @@
 #include <engine/lua/luaManager.hpp>
-#include <engine/lua/monster.hpp>
+#include <engine/lua/luaMonster.hpp>
 #include <lua.hpp>
 
 namespace Lua {
 void
 LuaManager::registerMonster() {
     luaL_newmetatable(L, "MonsterMeta");
+    // Define the methods
+    static const luaL_Reg monster_methods[] = {
+        {"GetCenter", Lua::monster_getCenter},
+        {"SetPosition", Lua::monster_setPosition},
+        {"Move", Lua::monster_movePosition},
+        {"GetVelocity", Lua::monster_velocity},
+        {"GetState", Lua::monster_getState},
+        {"SetState", Lua::monster_setState},
+        {nullptr, nullptr} // Sentinel to indicate the end of the array
+    };
 
-#pragma region Movements
-    // Retrieve center position
-    lua_pushcfunction(L, Lua::monster_getCenter);
-    lua_setfield(L, -2, "GetCenter");
-
-    // Force a new position
-    lua_pushcfunction(L, Lua::monster_setPosition);
-    lua_setfield(L, -2, "SetPosition");
-
-    // Move relative
-    lua_pushcfunction(L, Lua::monster_movePosition);
-    lua_setfield(L, -2, "Move");
-
-    // Get velocity
-    lua_pushcfunction(L, Lua::monster_velocity);
-    lua_setfield(L, -2, "GetVelocity");
-#pragma endregion
-
-    lua_pushcfunction(L, Lua::monster_getState);
-    lua_setfield(L, -2, "GetState");
-
-    lua_pushcfunction(L, Lua::monster_setState);
-    lua_setfield(L, -2, "SetState");
+    // Register the methods to the metatable
+    luaL_setfuncs(L, monster_methods, 0);
 
     // Set __index field for method lookup
-    lua_pushvalue(L, -1);
-    lua_setfield(L, -2, "__index");
+    lua_pushvalue(L, -1); // Push the metatable itself
+    lua_setfield(L, -2, "__index"); // Set __index = metatable
 
-    lua_pop(L, 1); // Pop metatable from stack
+    lua_pop(L, 1); // Pop the metatable from the stack
 }
 Monster::BaseMonster*
 checkMonster(lua_State* L, int index) {

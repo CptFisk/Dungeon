@@ -1,4 +1,5 @@
 function Interact(monster)
-    local x, y = monster:GetCenter()
-    print(x, y)
+    local state = monster:GetState()
+    print(state)
+
 end

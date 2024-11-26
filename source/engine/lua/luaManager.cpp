@@ -1,5 +1,4 @@
 #include <engine/lua/luaManager.hpp>
-#include <engine/lua/monster.hpp>
 #include <lua.hpp>
 #include <object/objects.hpp>
 
@@ -10,6 +9,7 @@ LuaManager::LuaManager() {
     luaopen_base(L);
 
     registerObjectState();
+    registerUtility();
     registerMonster();
     // Register functions
     // lua_register(L, "SetDarkness", setDarkness);

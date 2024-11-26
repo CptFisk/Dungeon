@@ -256,7 +256,8 @@ Engine::monsterActions() {
             std::cerr << "Error: " << lua_tostring(state, -1) << std::endl;
             lua_pop(state, 1); // Remove error message from stack
         }
-
+        const auto& data = monster->getMonster();
+        mPerspective->render(data.Texture, data.Viewport, data.Position);
     }
 }
 
