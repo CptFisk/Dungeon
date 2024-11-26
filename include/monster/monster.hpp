@@ -32,14 +32,25 @@ class BaseMonster {
 
     [[maybe_unused]] void setState(Objects::State state);
     [[maybe_unused]] void setDirection(Directions direction);
-    void                  updatePosition(const float& x, const float& y);
 
     virtual void interact() = 0;
 
     Graphics::typeDrawData getMonster();
     SDL_FRect*             getPosition();
-    SDL_FPoint             getCenter();
-    Objects::State         getState();
+    /**
+     * @brief Set position of the monster, the position is referred to as the center point
+     * @param x X-Position
+     * @param y Y-Position
+     */
+    void           setPosition(const float& x, const float& y);
+    /**
+     * @brief Move the monster from the original position, that number of values in x,y
+     * @param x
+     * @param y
+     */
+    void           movePosition(const float& x, const float& y);
+    SDL_FPoint     getCenter();
+    Objects::State getState();
 
   private:
   protected:

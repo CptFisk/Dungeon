@@ -81,7 +81,17 @@ BaseMonster::setDirection(Directions direction) {
 }
 
 void
-BaseMonster::updatePosition(const float& x, const float& y) {
+BaseMonster::setPosition(const float& x, const float& y) {
+    auto _x            = x - (mMonsterPosition.w / 2.0f);
+    auto _y            = y - (mMonsterPosition.h / 2.0f);
+    mMonsterPosition.x = _x;
+    mMonsterPosition.y = _y;
+    mMonsterCenter.x   = _x;
+    mMonsterCenter.y   = _y;
+}
+
+void
+BaseMonster::movePosition(const float& x, const float& y) {
     mMonsterPosition.x += x;
     mMonsterPosition.y += y;
     mMonsterCenter.x += x;
@@ -106,7 +116,7 @@ BaseMonster::getCenter() {
 
 [[maybe_unused]] void
 BaseMonster::setState(Objects::State state) {
-    mState = action;
+    mState = state;
     updateReferences();
 }
 
