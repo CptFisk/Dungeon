@@ -1,6 +1,7 @@
 #include <engine/lua/luaManager.hpp>
-#include <lua.hpp>
 #include <engine/lua/monster.hpp>
+#include <lua.hpp>
+#include <object/objects.hpp>
 
 namespace Lua {
 
@@ -8,6 +9,7 @@ LuaManager::LuaManager() {
     L = luaL_newstate();
     luaopen_base(L);
 
+    registerObjectState();
     registerMonster();
     // Register functions
     // lua_register(L, "SetDarkness", setDarkness);
@@ -80,16 +82,23 @@ LuaManager::executeString(const std::string& code) {
 }
 
 void
-LuaManager::registerMonster() {
-    luaL_newmetatable(L, "MonsterMeta");
+LuaManager::registerObjectState() {
+    lua_newtable(L);
+    lua_pushinteger(L, Objects::IDLE);
+    lua_setfield(L, -2, "IDLE");
 
-    lua_pushcfunction(L, Lua::monster_getCenter);
-    lua_setfield(L, -2, "GetCenter");
+    lua_pushinteger(L, Objects::MOVE);
+    lua_setfield(L, -2, "MOVE");
 
-    // Set __index field for method lookup
-    lua_pushvalue(L, -1);
-    lua_setfield(L, -2, "__index");
+    lua_pushinteger(L, Objects::ATTACK);
+    lua_setfield(L, -2, "ATTACK");
 
-    lua_pop(L, 1); // Pop metatable from stack
+    lua_pushinteger(L, Objects::DYING);
+    lua_setfield(L, -2, "DYING");
+
+    lua_pushinteger(L, Objects::DEAD);
+    lua_setfield(L, -2, "DEAD");
+
+    lua_setglobal(L, "ObjectState");
 }
 }

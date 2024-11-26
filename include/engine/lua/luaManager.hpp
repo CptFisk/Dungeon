@@ -22,6 +22,7 @@ class LuaManager {
   protected:
   private:
     void registerMonster();
+    void registerObjectState();
     lua_State* L;
 };
 }
