@@ -105,7 +105,7 @@ BaseMonster::getCenter() {
 }
 
 [[maybe_unused]] void
-BaseMonster::setAction(Objects::State action) {
+BaseMonster::setState(Objects::State state) {
     mState = action;
     updateReferences();
 }

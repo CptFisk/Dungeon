@@ -30,7 +30,7 @@ class BaseMonster {
 
     void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
 
-    [[maybe_unused]] void setAction(Objects::State action);
+    [[maybe_unused]] void setState(Objects::State state);
     [[maybe_unused]] void setDirection(Directions direction);
     void                  updatePosition(const float& x, const float& y);
 
