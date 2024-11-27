@@ -50,7 +50,7 @@ getDistance(const SDL_FPoint& a, const SDL_FPoint& b) {
     // No need to worry about negative values since we square the numbers, removing all negative numbers
     const auto dx = a.x - b.x;
     const auto dy = a.y - b.y;
-    return (sqrt(dx * dy + dy * dy)) / 16.0f;
+    return (sqrt(dx * dx + dy * dy)) / 16.0f;
 }
 /**
  * @brief Return the distance between 2 SDL_FPoints (a^2 + b^2 = c^2)
