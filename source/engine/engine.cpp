@@ -4,11 +4,11 @@
 #include <common/handlers.hpp>
 #include <engine/debug/fps.hpp>
 #include <engine/engine.hpp>
+#include <engine/lua/luaManager.hpp>
 #include <utility/file.hpp>
 #include <utility/math.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
-#include <engine/lua/luaManager.hpp>
 
 namespace Engine {
 
@@ -28,7 +28,8 @@ Engine::Engine()
   , mPlayerEnergy(50)
   , mEvent{}
   , mMapCoordinate{}
-  , mColour{} {}
+  , mColour{}
+  , mLuaManager(std::make_unique<Lua::LuaManager>(*this)) {}
 
 Engine::~Engine() {
     // De-spawn all threads
@@ -48,8 +49,8 @@ Engine::~Engine() {
     for (auto& projectile : mProjectiles) {
         delete projectile;
     }
-    //Clear floating textures
-    for(auto& texture: mFloatingText){
+    // Clear floating textures
+    for (auto& texture : mFloatingText) {
         delete texture;
     }
     mGraphics.reset(); // Kill graphics
@@ -103,6 +104,11 @@ Engine::movePlayer(Directions direction) {
 void
 Engine::setPlayerAction(Objects::State action) {
     mPlayer->setAction(action);
+}
+
+Player::Player&
+Engine::getPlayer() {
+    return *mPlayer;
 }
 
 void
@@ -165,7 +171,7 @@ Engine::mainLoop() {
         mPerspective->render(GET_GENERATED("A349A4")->getTexture(), nullptr, &middle);
 
         monsterActions();
-        units();    //Call all monster and§
+        units();                                                              // Call all monster and§
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
         projectiles();
         drawProjectiles();
@@ -212,7 +218,8 @@ Engine::projectiles() {
                     delete *it;                  // Free memory
                     it = mProjectiles.erase(it); // Move iterator
                     (*it2)->damageMonster(damage);
-                    mFloatingText.push_back(new Graphics::FloatingTexture(*(*it2)->getPosition(), nullptr, GET_GENERATED("000000")->getTexture(), 3000));
+                    mFloatingText.push_back(
+                      new Graphics::FloatingTexture(*(*it2)->getPosition(), nullptr, GET_GENERATED("000000")->getTexture(), 3000));
                     removed = true;
                     break;
                 } else
@@ -242,15 +249,15 @@ Engine::projectiles() {
 
 void
 Engine::monsterActions() {
-    Lua::LuaManager l;
-    auto state = l.getState();
-    for(auto &monster : mActiveMonsters){
+
+    auto state = mLuaManager->getState();
+    for (auto& monster : mActiveMonsters) {
         const auto lua = monster->getLuaFile();
 
-        l.executeScript("scripts/monster/" + lua);
+        mLuaManager->executeScript("scripts/monster/" + lua);
 
         lua_getglobal(state, "Interact");
-        l.createMonsterMetaTable(monster);
+        mLuaManager->createMonsterMetaTable(monster);
 
         if (lua_pcall(state, 1, 0, 0) != LUA_OK) {
             std::cerr << "Error: " << lua_tostring(state, -1) << std::endl;
@@ -291,9 +298,9 @@ Engine::drawFloatingText() {
         if ((*it)->expired()) {
             delete (*it);
             it = mFloatingText.erase(it);
-        }else {
+        } else {
             auto data = (*it)->getFloatingText();
-            //SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
+            // SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
             mPerspective->render(data.Texture, data.Viewport, data.Position);
             ++it;
         }

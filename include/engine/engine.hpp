@@ -3,6 +3,7 @@
 #include <common/initializer/initializer.hpp>
 #include <common/segment.hpp>
 #include <engine/include.hpp>
+#include <engine/lua/luaManager.hpp>
 #include <graphics/floatingText.hpp>
 #include <graphics/graphics.hpp>
 #include <list>
@@ -37,9 +38,11 @@ class Engine {
 
     void terminate();
     void click(); // Mouse click
-    // Player movement
+#pragma region Player
     void movePlayer(Directions direction);
     void setPlayerAction(Objects::State action);
+    Player::Player& getPlayer();
+#pragma endregion
     void resetPlayerMomentum();
     void interact();
     void setDarkness(const unsigned int& v);
@@ -91,13 +94,14 @@ class Engine {
     } offset;
 
     Common::InitHandler                  mInitHandler;
-    std::unique_ptr<Player::Player>      mPlayer;
+    std::shared_ptr<Player::Player>      mPlayer;
     std::shared_ptr<Graphics::Graphics>  mGraphics;
     std::unique_ptr<Player::Indicator>   mHealth;
     std::unique_ptr<Player::Indicator>   mEnergy;
     std::unique_ptr<Common::Perspective> mPerspective;
     std::unique_ptr<LoadingScreen>       mLoadingScreen;
     std::unique_ptr<UI::Textbox>         mTextbox;
+    std::unique_ptr<Lua::LuaManager>     mLuaManager;
 
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;
