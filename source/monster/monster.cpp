@@ -105,7 +105,6 @@ BaseMonster::getVelocity() const {
 
 Graphics::typeDrawData
 BaseMonster::getMonster() {
-    interact();
     return Graphics::typeDrawData{ pCurrentTexture, pCurrentViewport, &mMonsterPosition };
 }
 
@@ -133,6 +132,19 @@ BaseMonster::getState() {
     }
     return mState;
 }
+
+void
+BaseMonster::setRetain(const std::string& param, std::any value) {
+    mRetains[param] = value;
+}
+
+std::optional<std::any>
+BaseMonster::getRetain(const std::string& param) {
+    if(mRetains.find(param) != mRetains.end())
+        return mRetains[param];
+    return std::nullopt;
+}
+
 
 void
 BaseMonster::updateReferences() {

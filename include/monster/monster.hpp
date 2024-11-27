@@ -2,6 +2,9 @@
 #include <global.hpp>
 #include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/drawData.hpp>
+#include <unordered_map>
+#include <any>
+#include <optional>
 
 namespace Monster {
 
@@ -65,6 +68,18 @@ class BaseMonster {
      * @brief Return the monsters current state
      */
     Objects::State getState();
+    /**
+     * @brief Returns a retained parameter from memory.
+     * @param param Name of parameter
+     * @return
+     */
+    [[nodiscard]] std::optional<std::any> getRetain(const std::string& param);
+    /**
+     * @brief Set a value for a parameter into retain memory. This can later be retried
+     * @param param
+     * @param value
+     */
+    void setRetain(const std::string& param, std::any value);
 
   private:
   protected:
@@ -92,5 +107,8 @@ class BaseMonster {
 
     // Global help functions
     std::function<bool(const SDL_FPoint&, const float&, const float&)> fCheckWalls;
+
+    //Memory functions for lua interface
+    std::unordered_map<std::string, std::any> mRetains;
 };
 }
