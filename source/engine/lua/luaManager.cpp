@@ -4,10 +4,12 @@
 
 namespace Lua {
 
-LuaManager::LuaManager() {
+LuaManager::LuaManager(Engine::Engine& engine)
+  : pEngine(engine) {
     L = luaL_newstate();
     luaopen_base(L);
 
+    registerPlayer();
     registerObjectState();
     registerUtility();
     registerMonster();

@@ -3,12 +3,12 @@
 #include <lua.hpp>
 #include <string>
 #include <monster/monster.hpp>
-
+#include <engineForward.hpp>
 namespace Lua {
 
 class LuaManager {
   public:
-    LuaManager();
+    LuaManager(Engine::Engine& engine);
     ~LuaManager();
 
     lua_State*& getState();
@@ -21,9 +21,14 @@ class LuaManager {
 
   protected:
   private:
+    Engine::Engine& pEngine;
+
+    //Register functions for lua interface
+    void registerPlayer();
     void registerMonster();
     void registerObjectState();
     void registerUtility();
+
     lua_State* L;
 };
 }
