@@ -25,7 +25,7 @@ Engine::startup() {
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
     mGraphics->init();
 
-    mPlayer = std::make_unique<Player::Player>();
+    mPlayer = std::make_shared<Player::Player>();
     // Generate all monster data
     createMonsters();
     createNPC();
