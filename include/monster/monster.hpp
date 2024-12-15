@@ -1,10 +1,10 @@
 #pragma once
+#include <any>
 #include <global.hpp>
 #include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/drawData.hpp>
-#include <unordered_map>
-#include <any>
 #include <optional>
+#include <unordered_map>
 
 namespace Monster {
 
@@ -56,9 +56,15 @@ class BaseMonster {
      */
     void movePosition(const float& x, const float& y);
     /**
+     * @brief Moves the monster in a specific angle with its base velocity (if not speicified)
+     * @param angle Angle used in movement
+     * @optional Velocity
+     */
+    void  moveAngle(const double& angle, std::optional<float> velocity);
+    /**
      * @brief Returns the monsters velocity
      */
-    float      getVelocity() const;
+    float getVelocity() const;
     /**
      * @brief Return the monster center position
      * @return
@@ -76,10 +82,10 @@ class BaseMonster {
     [[nodiscard]] std::optional<std::any> getRetain(const std::string& param);
     /**
      * @brief Set a value for a parameter into retain memory. This can later be retried
-     * @param param
-     * @param value
+     * @param param Key name
+     * @param value Value to be stored
      */
-    void setRetain(const std::string& param, std::any value);
+    void setRetain(const std::string& param, const std::any& value);
 
   private:
   protected:
@@ -108,7 +114,7 @@ class BaseMonster {
     // Global help functions
     std::function<bool(const SDL_FPoint&, const float&, const float&)> fCheckWalls;
 
-    //Memory functions for lua interface
+    // Memory functions for lua interface
     std::unordered_map<std::string, std::any> mRetains;
 };
 }

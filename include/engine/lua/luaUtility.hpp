@@ -6,4 +6,7 @@ namespace Lua {
 int
 utility_getDistance(lua_State* L);
 
+int
+utility_getAngle(lua_State* L);
+
 }

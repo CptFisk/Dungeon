@@ -1,5 +1,5 @@
 #include <monster/monster.hpp>
-
+#include <utility/trigonometry.hpp>
 namespace Monster {
 BaseMonster::BaseMonster(const int&                                                          health,
                          const float&                                                        velocity,
@@ -98,6 +98,13 @@ BaseMonster::movePosition(const float& x, const float& y) {
     mMonsterCenter.y += y;
 }
 
+void
+BaseMonster::moveAngle(const double& angle, std::optional<float> velocity) {
+    const auto& speed = velocity.has_value() ? velocity.value() : mVelocity;
+    const auto position = Utility::calculateVector(angle, mVelocity);
+    movePosition(position.x, position.y);
+}
+
 float
 BaseMonster::getVelocity() const {
     return mVelocity;
@@ -134,7 +141,7 @@ BaseMonster::getState() {
 }
 
 void
-BaseMonster::setRetain(const std::string& param, std::any value) {
+BaseMonster::setRetain(const std::string& param, const std::any& value) {
     mRetains[param] = value;
 }
 
