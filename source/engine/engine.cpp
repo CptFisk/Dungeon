@@ -1,6 +1,5 @@
 #include "engine/loading.hpp"
-
-#include <cmake.hpp>
+#include <items/inventory.hpp>
 #include <common/handlers.hpp>
 #include <engine/debug/fps.hpp>
 #include <engine/engine.hpp>
@@ -128,7 +127,7 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
-
+    Items::Inventory inventory(mScale, GET_USERINTERFACE("Inventory"), GET_USERINTERFACE("Selector"));
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
     while (mRun) {
@@ -195,6 +194,9 @@ Engine::mainLoop() {
         SDL_QueryTexture(player, nullptr, nullptr, &playerPos.w, &playerPos.h);
         SDL_RenderCopy(pRenderer, player, nullptr, &playerPos);
 #endif
+        auto d = inventory.getInventory();
+        SDL_FRect pos = {0,0,200,140};
+        SDL_RenderCopyF(pRenderer, d.Texture, d.Viewport,&pos);
         present();
 
         auto ticks = mFPSTimer.getTicks();

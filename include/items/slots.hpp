@@ -1,15 +1,22 @@
 #pragma once
+#include <cstdint>
 
 namespace Items {
-enum Slot {
-    Head,     // Head slot
-    Amulet,   // Amulet slot
-    Chest,    // Chest slot
-    Weapon1H, // Weapon 1H
-    Weapon2H, // Weapon 2H
-    Shield,   // Shield
-    Boots,    // Boots slot
-    Misc      // Might be set later
+enum class SlotType {
+    Undefined, // Not defined
+    Amulet,    // Amulet slot
+    Head,      // Head slot
+    Chest,     // Chest slot
+    Right,
+    Left,
+    Boots, // Boots slot
+    Bag,   // Might be set later
+    Spell
+};
+
+struct Slot {
+    SlotType Type; // Item type
+    int16_t  Id;   // Item id
 };
 
 }
