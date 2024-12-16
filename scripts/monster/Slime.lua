@@ -18,7 +18,7 @@ function Interact(monster)
         if(dist > 8) then
             monster:SetState(ObjectState.IDLE)
         else
-            local angle = GetAngle(mx,my,px,py)
+            local angle = GetAngle(px,py, mx,my)
             local x,y = GetVector(angle, monster:GetVelocity())
             print(x)
             print(y)
