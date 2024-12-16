@@ -1,11 +1,11 @@
 #include <engine/lua/luaManager.hpp>
 #include <lua.hpp>
 #include <object/objects.hpp>
+#include <engine/lua/luaUtility.hpp>
 
 namespace Lua {
 
-LuaManager::LuaManager(Engine::Engine& engine)
-  : pEngine(engine) {
+LuaManager::LuaManager() {
     L = luaL_newstate();
     luaopen_base(L);
 
@@ -13,8 +13,7 @@ LuaManager::LuaManager(Engine::Engine& engine)
     registerObjectState();
     registerUtility();
     registerMonster();
-    // Register functions
-    // lua_register(L, "SetDarkness", setDarkness);
+
 }
 
 LuaManager::~LuaManager() {
@@ -27,14 +26,14 @@ LuaManager::getState() {
 }
 
 void
-LuaManager::createMonsterMetaTable(Monster::BaseMonster*& monster) {
+LuaManager::createMonsterMetaTable(Monster::BaseMonster*& monster) const {
     auto monsterData = static_cast<Monster::BaseMonster**>(lua_newuserdata(L, sizeof(Monster::BaseMonster*)));
     *monsterData     = monster;
     luaL_setmetatable(L, "MonsterMeta"); // Set the metatable for the userdata
 }
 
 bool
-LuaManager::executeScript(const std::string& script) {
+LuaManager::executeScript(const std::string& script) const {
     if (luaL_dofile(L, script.c_str())) {
         std::cerr << "Error: " << lua_tostring(L, -1) << std::endl;
         lua_pop(L, 1);
@@ -103,4 +102,13 @@ LuaManager::registerObjectState() {
 
     lua_setglobal(L, "ObjectState");
 }
+
+void
+LuaManager::registerUtility() {
+    lua_register(L, "GetDistance", utility_getDistance);
+    lua_register(L, "GetAngle", utility_getAngle);
+    lua_register(L, "CheckObstacle", utility_wallObstacle);
+    lua_register(L, "GetVector", utility_getVector);
+}
+
 }

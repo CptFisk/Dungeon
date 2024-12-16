@@ -60,7 +60,7 @@ class BaseMonster {
      * @param angle Angle used in movement
      * @optional Velocity
      */
-    void  moveAngle(const double& angle, std::optional<float> velocity);
+    void moveAngle(const double& angle, std::optional<float> velocity);
     /**
      * @brief Returns the monsters velocity
      */

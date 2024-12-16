@@ -4,7 +4,6 @@
 #include <common/handlers.hpp>
 #include <engine/debug/fps.hpp>
 #include <engine/engine.hpp>
-#include <engine/lua/luaManager.hpp>
 #include <utility/file.hpp>
 #include <utility/math.hpp>
 #include <utility/textures.hpp>
@@ -29,7 +28,7 @@ Engine::Engine()
   , mEvent{}
   , mMapCoordinate{}
   , mColour{}
-  , mLuaManager(std::make_unique<Lua::LuaManager>(*this)) {}
+  , mLuaManager(std::make_unique<Lua::LuaManager>()) {}
 
 Engine::~Engine() {
     // De-spawn all threads

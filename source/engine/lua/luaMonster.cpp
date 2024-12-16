@@ -3,20 +3,22 @@
 #include <lua.hpp>
 
 namespace Lua {
+
 void
 LuaManager::registerMonster() {
     luaL_newmetatable(L, "MonsterMeta");
     // Define the methods
     static const luaL_Reg monster_methods[] = {
-        { "GetCenter", Lua::monster_getCenter },
-        { "SetPosition", Lua::monster_setPosition },
-        { "MoveAngle", Lua::monster_moveAngle },
-        { "Move", Lua::monster_movePosition },
-        { "GetVelocity", Lua::monster_velocity },
-        { "GetState", Lua::monster_getState },
-        { "SetState", Lua::monster_setState },
-        { "SetRetain", Lua::monster_setRetain },
-        { "GetRetain", Lua::monster_getRetain },
+        { "GetCenter", monster_getCenter },
+        { "SetPosition", monster_setPosition },
+        { "MovePosition", monster_movePosition },
+        { "MoveAngle", monster_moveAngle },
+        { "Move", monster_movePosition },
+        { "GetVelocity", monster_velocity },
+        { "GetState", monster_getState },
+        { "SetState", monster_setState },
+        { "SetRetain", monster_setRetain },
+        { "GetRetain", monster_getRetain },
         { nullptr, nullptr } // Sentinel to indicate the end of the array
     };
 
@@ -26,9 +28,11 @@ LuaManager::registerMonster() {
     // Set __index field for method lookup
     lua_pushvalue(L, -1);           // Push the metatable itself
     lua_setfield(L, -2, "__index"); // Set __index = metatable
-
-    lua_pop(L, 1); // Pop the metatable from the stack
+    lua_pop(L, 1);                  // Pop the metatable from the stack
 }
+
+}
+
 Monster::BaseMonster*
 checkMonster(lua_State* L, int index) {
     return *static_cast<Monster::BaseMonster**>(luaL_checkudata(L, index, "MonsterMeta"));
@@ -63,9 +67,9 @@ monster_movePosition(lua_State* L) {
 
 int
 monster_moveAngle(lua_State* L) {
-    auto monster = checkMonster(L, 1);
-    const auto angle = luaL_checknumber(L, 2);
-    if(lua_isnumber(L,3))
+    auto       monster = checkMonster(L, 1);
+    const auto angle   = luaL_checknumber(L, 2);
+    if (lua_isnumber(L, 3))
         monster->moveAngle(angle, luaL_checknumber(L, 3));
     monster->moveAngle(angle, std::nullopt);
     return 0;
@@ -143,6 +147,4 @@ monster_getRetain(lua_State* L) {
     else
         lua_pushnil(L);
     return 1;
-}
-
 }
