@@ -11,9 +11,7 @@
         "Column": 1,
         "Length": 1,
         "Height": 24,
-        "Width": 24,
-        "MarginTop" : 16,
-        "MarginLeft" : 16
+        "Width": 24
       }
     ]
   }
