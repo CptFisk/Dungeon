@@ -4,8 +4,7 @@ namespace Monster {
 BaseMonster::BaseMonster(const int&                                                          health,
                          const float&                                                        velocity,
                          const std::string&                                                  lua,
-                         SDL_FPoint&                                                         playerCenter,
-                         std::function<bool(const SDL_FPoint&, const float&, const float&)>& checkWalls)
+                         SDL_FPoint&                                                         playerCenter)
   : luaFile(lua + ".lua")
   , mInflictDamage(true)
   , mHealth(health)
@@ -16,7 +15,6 @@ BaseMonster::BaseMonster(const int&                                             
   , mPlayerCenter(playerCenter)
   , mState(Objects::IDLE)
   , mDirection(SOUTH)
-  , fCheckWalls(checkWalls)
   , DEATH_ANIMATION(20) {}
 
 BaseMonster::BaseMonster(const Monster::BaseMonster& other)
@@ -27,7 +25,6 @@ BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   , mMonsterPosition(other.mMonsterPosition)
   , mMonsterCenter(other.mMonsterCenter)
   , mDirection(SOUTH)
-  , fCheckWalls(other.fCheckWalls)
   , mInflictDamage(false)
   , pCurrentTexture(other.pCurrentTexture)
   , pCurrentViewport(other.pCurrentViewport)

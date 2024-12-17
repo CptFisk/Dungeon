@@ -5,12 +5,14 @@ namespace Monster {
 Slime::Slime(const int&                                                         health,
              const float&                                                       velocity,
              const float&                                                       radius,
-             SDL_FPoint&                                                        playerCenter,
-             std::function<bool(const SDL_FPoint&, const float&, const float&)> checkWalls)
+             SDL_FPoint&                                                        playerCenter)
   : mRadius(radius)
-  , BaseMonster(health, velocity, "Slime", playerCenter, checkWalls) {}
+  , BaseMonster(health, velocity, "Slime", playerCenter) {}
 
 Slime::~Slime() {}
+
+void
+Slime::attack() {}
 
 BaseMonster*
 Slime::spawn(const float& x, const float& y) const {
@@ -26,35 +28,5 @@ Slime::spawn(const float& x, const float& y) const {
     obj->mMonsterCenter.y   = yPos + (MONSTER_HEIGHT / 2.0f);
     obj->luaFile = this->luaFile;
     return obj;
-}
-
-void
-Slime::interact() {
-    switch (mState) {
-        case Objects::IDLE:
-            if (Utility::getDistance(mMonsterCenter, mPlayerCenter) <= mRadius) {
-                mState = Objects::MOVE;
-                mTicks = 0;
-            }
-
-            break;
-
-        case Objects::MOVE: {
-            if (Utility::getDistance(mMonsterCenter, mPlayerCenter) > mRadius) {
-                mState = Objects::IDLE;
-                mTicks = 0;
-            } else {
-                const auto angle    = Utility::getAngle(mPlayerCenter, mMonsterCenter);
-                const auto position = Utility::calculateVector(angle, mVelocity);
-                if (fCheckWalls(mMonsterCenter, position.x, position.y)) {
-                    mMonsterCenter.x += position.x;
-                    mMonsterCenter.y += position.y;
-                    mMonsterPosition.x += position.x;
-                    mMonsterPosition.y += position.y;
-                }
-            }
-        } break;
-    }
-    updateReferences();
 }
 }

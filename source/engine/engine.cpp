@@ -28,7 +28,7 @@ Engine::Engine()
   , mEvent{}
   , mMapCoordinate{}
   , mColour{}
-  , mGameMode(GameMode::Inventory)
+  , mGameMode(GameMode::Game)
   , mLuaManager(std::make_unique<Lua::LuaManager>()) {}
 
 Engine::~Engine() {
@@ -174,14 +174,15 @@ Engine::mainLoop() {
         }
 #pragma region Game events
         // Call all monster and nps
-        monsterActions();
-        units();
         projectiles();
 #pragma endregion
 #pragma region Common draws
         // Apply background color
         SDL_SetRenderDrawColor(pRenderer, mColour.BackgroundRed, mColour.BackgroundGreen, mColour.BackgroundBlue, SDL_ALPHA_OPAQUE);
         drawLevel(mSegments.Bottom, mSegments.CurrentLayerBottom);
+
+        monsterActions();
+        units();
 
         // Draw our cute hero
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition);

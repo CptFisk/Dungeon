@@ -3,11 +3,13 @@
 namespace Monster {
 CaveCrawler::CaveCrawler(const int&                                                         health,
                          const float&                                                       velocity,
-                         SDL_FPoint&                                                        playerCenter,
-                         std::function<bool(const SDL_FPoint&, const float&, const float&)> checkWalls)
-  : BaseMonster(health, velocity, "CaveCrawler", playerCenter, checkWalls) {}
+                         SDL_FPoint&                                                        playerCenter)
+  : BaseMonster(health, velocity, "CaveCrawler", playerCenter) {}
 
 CaveCrawler::~CaveCrawler() = default;
+
+void
+CaveCrawler::attack() {}
 
 BaseMonster*
 CaveCrawler::spawn(const float& x, const float& y) const {
@@ -23,7 +25,7 @@ CaveCrawler::spawn(const float& x, const float& y) const {
     obj->luaFile = this->luaFile;
     return obj;
 }
-
+/*
 void
 CaveCrawler::interact() {
     static float distance;
@@ -127,4 +129,5 @@ CaveCrawler::interact() {
             break;
     }
 }
+ */
 }

@@ -8,16 +8,20 @@ BeanMan::BeanMan(const float&                                                   
                  const int&                                                              health,
                  const float&                                                            velocity,
                  SDL_FPoint&                                                             playerCenter,
-                 std::function<bool(const SDL_FPoint&, const float&, const float&)>      checkWalls,
                  std::function<bool(const SDL_FPoint&, const double& angle, int& delay)> projectiles)
   : mMonsterWidth(width)
   , mMonsterHeight(height)
   , mReload(0)
   , mDelay(0)
   , fcProjectiles(projectiles)
-  , BaseMonster(health, velocity, "BeanMan",playerCenter, checkWalls) {}
+  , BaseMonster(health, velocity, "BeanMan",playerCenter) {}
 
 BeanMan::~BeanMan() = default;
+
+void
+BeanMan::attack(){
+
+}
 
 BaseMonster*
 BeanMan::spawn(const float& x, const float& y) const {
@@ -33,7 +37,7 @@ BeanMan::spawn(const float& x, const float& y) const {
     obj->luaFile = this->luaFile;
     return obj;
 }
-
+/*
 void
 BeanMan::interact() {
     switch (mState) {
@@ -77,6 +81,7 @@ BeanMan::interact() {
     mReload = std::max(0, --mReload);
     updateReferences();
 }
+ */
 
 /*
 SDL_FPoint

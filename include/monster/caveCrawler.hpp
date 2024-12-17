@@ -5,14 +5,11 @@
 namespace Monster {
 class CaveCrawler : public BaseMonster {
   public:
-    CaveCrawler(const int&                                                            health,
-                const float&                                                          velocity,
-                SDL_FPoint&                                                           playerCenter,
-                std::function<bool(const SDL_FPoint&, const float&, const float&)> checkWalls);
+    CaveCrawler(const int& health, const float& velocity, SDL_FPoint& playerCenter);
     ~CaveCrawler() override;
 
     [[nodiscard]] BaseMonster* spawn(const float& x, const float& y) const override;
-    void         interact() override;
+    void                       attack() override;
 
   protected:
   private:

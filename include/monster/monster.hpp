@@ -13,8 +13,7 @@ class BaseMonster {
     BaseMonster(const int&                                                          health,
                 const float&                                                        velocity,
                 const std::string&                                                  lua,
-                SDL_FPoint&                                                         playerCenter,
-                std::function<bool(const SDL_FPoint&, const float&, const float&)>& checkWalls);
+                SDL_FPoint&                                                         playerCenter);
     BaseMonster(const BaseMonster& other);
     virtual ~BaseMonster();
 
@@ -36,8 +35,6 @@ class BaseMonster {
     [[maybe_unused]] void setState(Objects::State state);
     [[maybe_unused]] void setDirection(Directions direction);
 
-    virtual void interact() = 0;
-
     Graphics::typeDrawData getMonster();
     /**
      * @brief Returns the monster position in top left corner as SDL_FRect
@@ -56,7 +53,7 @@ class BaseMonster {
      */
     void movePosition(const float& x, const float& y);
     /**
-     * @brief Moves the monster in a specific angle with its base velocity (if not speicified)
+     * @brief Moves the monster in a specific angle with its base velocity (if not specified)
      * @param angle Angle used in movement
      * @optional Velocity
      */
@@ -86,7 +83,10 @@ class BaseMonster {
      * @param value Value to be stored
      */
     void setRetain(const std::string& param, const std::any& value);
-
+    /**
+     * @brief Virtual function used to do special attack patterns
+     */
+    virtual void attack() = 0;
   private:
   protected:
     std::string luaFile; // Name of the lua file that will be executed
@@ -110,9 +110,6 @@ class BaseMonster {
     SDL_FPoint&  mPlayerCenter;    // Reference to the center of the player (used for targeting etc.)
 
     void updateReferences();
-
-    // Global help functions
-    std::function<bool(const SDL_FPoint&, const float&, const float&)> fCheckWalls;
 
     // Memory functions for lua interface
     std::unordered_map<std::string, std::any> mRetains;
