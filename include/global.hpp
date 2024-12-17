@@ -11,9 +11,12 @@
 #define STRING_UINT8(x) static_cast<uint8_t>(std::stoi(x))
 
 // Map size
-[[maybe_unused]] const int     MAP_WIDTH    = 128;
-[[maybe_unused]] const int     SEGMENT_SIZE = 128;
-[[maybe_unused]] constexpr int MAP_SIZE     = MAP_WIDTH * MAP_WIDTH;
+[[maybe_unused]] const int     MAP_WIDTH     = 128;
+[[maybe_unused]] const int     SEGMENT_SIZE  = 128;
+[[maybe_unused]] constexpr int MAP_SIZE      = MAP_WIDTH * MAP_WIDTH;
+[[maybe_unused]] const int     BLOCKS_WIDTH  = 24;
+[[maybe_unused]] const int     BLOCKS_HEIGHT = 18;
+[[maybe_unused]] const int     PIXEL_SIZE    = 16;
 
 #pragma region Bitmask
 [[maybe_unused]] const int LIGHT_ANIMATION_FRAMES = 7; // Constant for how many frames a light-effect exist of
@@ -26,7 +29,7 @@
 [[maybe_unused]] const unsigned long int MONSTER_BITS = 0x3FC00;  // Bitmask for monsters
 [[maybe_unused]] const unsigned long int NPC_BITS     = 0xFC0000; // Bitmask for NPC:s
 
-[[maybe_unused]] const unsigned long int WALL_OBSTACLE = 0xC;   //Walls and obstacle
+[[maybe_unused]] const unsigned long int WALL_OBSTACLE     = 0xC; // Walls and obstacle
 [[maybe_unused]] const unsigned long int WALL_OBSTACLE_NPC = 0x4C;
 #pragma endregion
 
@@ -45,11 +48,7 @@ enum Directions : uint8_t {
 /**
  * @brief Different game-modes, used to handle inputs and other actions
  */
-enum class GameMode{
-    Menu,
-    Game,
-    Inventory
-};
+enum class GameMode { Menu, Game, Inventory };
 
 /**
  * @brief Returns a random direction

@@ -1,4 +1,5 @@
 #include <common/perspective.hpp>
+#include <global.hpp>
 
 namespace Common {
 #ifdef GAME_MODE
@@ -22,8 +23,8 @@ Perspective::Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY
 
 void
 Perspective::updateScale() {
-    halfX = (256 * mScale.factorX) / 2.0f;
-    halfY = (192 * mScale.factorY) / 2.0f;
+    halfX = (BLOCKS_WIDTH * PIXEL_SIZE * mScale.factorX) / 2.0f;
+    halfY = (BLOCKS_HEIGHT * PIXEL_SIZE * mScale.factorY) / 2.0f;
 }
 
 void
@@ -93,7 +94,6 @@ Perspective::move(Directions direction, const float& velocity) {
 }
 #endif
 
-
 void
 Perspective::center(const SDL_FPoint& point, const float& offset) {
     center(point.x + offset, point.y + offset);
@@ -102,8 +102,8 @@ Perspective::center(const SDL_FPoint& point, const float& offset) {
 void
 Perspective::center(const float& x, const float& y) {
     // First we calculate what is the center of the screen
-    const auto centerX = 8 * 16 * mScale.factorX; // Half the screen (16 block in width, each block is 16*16 pixels)
-    const auto centerY = 6 * 16 * mScale.factorY; // Half the screen (12 block in height, each block is 16*16 pixels)
+    const auto centerX = (BLOCKS_WIDTH / 2) * PIXEL_SIZE * mScale.factorX;
+    const auto centerY = (BLOCKS_HEIGHT / 2) * PIXEL_SIZE * mScale.factorY;
 
     mOffset.x = std::min(0.0f, centerX - x);
     mOffset.y = std::min(0.0f, centerY - y);
