@@ -33,6 +33,18 @@ getAngle(const SDL_FPoint& a, const SDL_FPoint& b) {
         angleDegrees += 360;
     return angleDegrees;
 }
+/**
+ * @brief Calculate a new position against a start position with a angle and distance
+ * @param start Start position
+ * @param angle Angle to be used
+ * @param distance Distance from center position
+ * @return
+ */
+constexpr SDL_FPoint
+offsetAngle(const SDL_FPoint& start, const double& angle, const float& distance) {
+    const auto radians = static_cast<float>(angle * M_PI / 180.0);
+    return SDL_FPoint{ start.x + distance * cos(radians), start.y + distance * sin(radians) };
+}
 
 inline constexpr double
 getAngle(const float& ax, const float& ay, const float& bx, const float& by) {

@@ -13,12 +13,6 @@ namespace Utility {
 std::vector<int>
 splitNumbers(int n);
 
-constexpr SDL_FPoint
-offsetAngle(const SDL_FPoint& start, const double& angle, const float& distance) {
-    const auto radians = static_cast<float>(angle * M_PI / 180.0);
-    return SDL_FPoint{ start.x + distance * cos(radians), start.y + distance * sin(radians) };
-}
-
 template<typename T>
 bool
 allEqual(T value) {
