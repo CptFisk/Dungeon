@@ -15,7 +15,7 @@ enum class SlotType {
 };
 
 struct Slot {
-    SlotType Type; // Item type
+    const SlotType Type; // Item type
     int16_t  Id;   // Item id
 };
 
