@@ -43,6 +43,15 @@ enum Directions : uint8_t {
 };
 
 /**
+ * @brief Different game-modes, used to handle inputs and other actions
+ */
+enum class GameMode{
+    Menu,
+    Game,
+    Inventory
+};
+
+/**
  * @brief Returns a random direction
  * @return Type as enum
  */

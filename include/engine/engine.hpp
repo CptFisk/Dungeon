@@ -35,12 +35,12 @@ class Engine {
     [[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>&                             getEventList(); // Get the list of events
     [[maybe_unused]] std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEvents();    // Get the list of events
     [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
-
-    void terminate();
-    void click(); // Mouse click
+    GameMode getGameMode() const; // Return the current mode the game is operating in
+    void     terminate();
+    void     click(); // Mouse click
 #pragma region Player
-    void movePlayer(Directions direction);
-    void setPlayerAction(Objects::State action);
+    void            movePlayer(Directions direction);
+    void            setPlayerAction(Objects::State action);
     Player::Player& getPlayer();
 #pragma endregion
     void resetPlayerMomentum();
@@ -87,7 +87,7 @@ class Engine {
     bool              mRun;
     bool              mVisibleUI;
     Common::typeScale mScale;
-
+    GameMode          mGameMode; // Current operating mode
     struct {
         float X;
         float Y;

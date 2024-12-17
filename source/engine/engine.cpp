@@ -27,6 +27,7 @@ Engine::Engine()
   , mEvent{}
   , mMapCoordinate{}
   , mColour{}
+  , mGameMode(GameMode::Inventory)
   , mLuaManager(std::make_unique<Lua::LuaManager>()) {}
 
 Engine::~Engine() {
@@ -73,6 +74,11 @@ Engine::getEvents() {
 std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&
 Engine::getProcessing() {
     return mProcessing;
+}
+
+GameMode
+Engine::getGameMode() const {
+    return mGameMode;
 }
 
 void
@@ -195,8 +201,7 @@ Engine::mainLoop() {
         SDL_RenderCopy(pRenderer, player, nullptr, &playerPos);
 #endif
         auto d = inventory.getInventory();
-        SDL_FRect pos = {0,0,200,140};
-        SDL_RenderCopyF(pRenderer, d.Texture, d.Viewport,&pos);
+        SDL_RenderCopyF(pRenderer, d.Texture, d.Viewport,d.Position);
         present();
 
         auto ticks = mFPSTimer.getTicks();
