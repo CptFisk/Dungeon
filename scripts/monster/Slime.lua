@@ -20,8 +20,6 @@ function Interact(monster)
         else
             local angle = GetAngle(px,py, mx,my)
             local x,y = GetVector(angle, monster:GetVelocity())
-            print(x)
-            print(y)
             if(CheckObstacle(mx+x, my+y)) then
                 monster:MoveAngle(angle, monster:GetVelocity())
             end
