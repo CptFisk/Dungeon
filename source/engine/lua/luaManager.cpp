@@ -2,6 +2,8 @@
 #include <lua.hpp>
 #include <object/objects.hpp>
 #include <engine/lua/luaUtility.hpp>
+#include <engine/lua/luaPlayer.hpp>
+#include <engine/lua/luaProjectile.hpp>
 
 namespace Lua {
 
@@ -109,6 +111,11 @@ LuaManager::registerUtility() {
     lua_register(L, "GetAngle", utility_getAngle);
     lua_register(L, "CheckObstacle", utility_wallObstacle);
     lua_register(L, "GetVector", utility_getVector);
+}
+
+void
+LuaManager::registerPlayer() {
+    lua_register(L, "GetPlayerCenter", player_getCenter);
 }
 
 }

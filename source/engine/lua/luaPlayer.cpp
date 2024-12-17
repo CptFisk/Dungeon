@@ -1,12 +1,13 @@
-#include <engine/lua/luaManager.hpp>
 #include <engine/lua/luaPlayer.hpp>
 
+int
+player_getCenter(lua_State* L){
 
-namespace Lua{
+    extern Engine::Engine engine;
+    auto center = engine.getPlayer().getPlayerCenter();
 
-void
-LuaManager::registerPlayer() {
-    lua_register(L, "GetPlayerCenter", player_getCenter);
-}
+    lua_pushnumber(L, center.x);
+    lua_pushnumber(L, center.y);
 
+    return 2;
 }
