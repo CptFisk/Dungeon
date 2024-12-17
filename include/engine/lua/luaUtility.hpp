@@ -1,6 +1,5 @@
 #pragma once
 #include <lua.hpp>
-#include <utility/trigonometry.hpp>
 
 int utility_getDistance(lua_State* L);
 int utility_getAngle(lua_State* L);

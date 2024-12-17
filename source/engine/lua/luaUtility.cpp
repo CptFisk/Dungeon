@@ -1,5 +1,7 @@
 #include <engine/lua/luaUtility.hpp>
 #include <engine/engine.hpp>
+#include <utility/trigonometry.hpp>
+
 int
 utility_getDistance(lua_State* L) {
     // Position 1
