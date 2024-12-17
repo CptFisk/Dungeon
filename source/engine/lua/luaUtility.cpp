@@ -29,6 +29,22 @@ utility_getAngle(lua_State* L) {
 }
 
 int
+utility_getAngleDistance(lua_State* L) {
+    if (!lua_isnumber(L, 1) || !lua_isnumber(L, 2) || !lua_isnumber(L, 3) || lua_isnumber(L, 4)) {
+        luaL_error(L, "4 floating numbers is needed");
+        lua_pushnil(L);
+        return 0;
+    }
+    const auto startX   = FLOAT(luaL_checknumber(L, 1));
+    const auto startY   = FLOAT(luaL_checknumber(L, 2));
+    const auto distance = FLOAT(luaL_checknumber(L, 4));
+    const auto pos      = Utility::offsetAngle(SDL_FPoint{ startX, startY }, luaL_checknumber(L, 3), distance);
+    lua_pushnumber(L,pos.x);
+    lua_pushnumber(L,pos.y);
+    return 2;
+}
+
+int
 utility_wallObstacle(lua_State* L) {
     if (!lua_isnumber(L, 1) || !lua_isnumber(L, 2)) {
         luaL_error(L, "2 floating number is needed");

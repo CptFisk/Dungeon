@@ -109,6 +109,7 @@ void
 LuaManager::registerUtility() {
     lua_register(L, "GetDistance", utility_getDistance);
     lua_register(L, "GetAngle", utility_getAngle);
+    lua_register(L, "GetAngleDistance", utility_getAngleDistance);
     lua_register(L, "CheckObstacle", utility_wallObstacle);
     lua_register(L, "GetVector", utility_getVector);
 }
