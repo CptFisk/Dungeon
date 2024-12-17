@@ -1,5 +1,5 @@
-#include <engine/lua/luaUtility.hpp>
 #include <engine/engine.hpp>
+#include <engine/lua/luaUtility.hpp>
 #include <utility/trigonometry.hpp>
 
 int
@@ -30,31 +30,31 @@ utility_getAngle(lua_State* L) {
 
 int
 utility_wallObstacle(lua_State* L) {
-    if(!lua_isnumber(L, 1) || !lua_isnumber(L,2)){
+    if (!lua_isnumber(L, 1) || !lua_isnumber(L, 2)) {
         luaL_error(L, "2 floating number is needed");
         lua_pushnil(L);
+    } else {
+        const auto            x = static_cast<float>(luaL_checknumber(L, 1));
+        const auto            y = static_cast<float>(luaL_checknumber(L, 2));
+        extern Engine::Engine engine;
+        lua_pushboolean(L, engine.wallCheck(x, y, WALL_OBSTACLE));
     }
-    const auto x = static_cast<float>(luaL_checknumber(L, 1));
-    const auto y = static_cast<float>(luaL_checknumber(L, 2));
-    extern Engine::Engine engine;
-    lua_pushboolean(L,engine.wallCheck(x, y,WALL_OBSTACLE));
     return 1;
 }
 
 int
-utility_getVector(lua_State* L){
-    if(!lua_isnumber(L, 1) || !lua_isnumber(L,2)){
+utility_getVector(lua_State* L) {
+    if (!lua_isnumber(L, 1) || !lua_isnumber(L, 2)) {
         luaL_error(L, "2 floating number is needed");
         lua_pushnil(L);
         return 1;
     }
 
-    const auto angle = static_cast<float>(luaL_checknumber(L, 1));
+    const auto angle    = static_cast<float>(luaL_checknumber(L, 1));
     const auto velocity = static_cast<float>(luaL_checknumber(L, 2));
 
     const auto pos = Utility::calculateVector(angle, velocity);
     lua_pushnumber(L, pos.x);
     lua_pushnumber(L, pos.y);
     return 2;
-
 }

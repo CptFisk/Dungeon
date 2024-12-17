@@ -48,19 +48,14 @@ class Engine {
     void interact();
     void setDarkness(const unsigned int& v);
 #pragma region LUA functions
+    /**
+     * @brief Check for collision against a wall or similar object
+     * @param x In-game coordinate
+     * @param y In-game coordinate
+     * @param mask See global.hpp for mask settings
+     * @return True if movement is possilbe
+     */
     bool wallCheck(const float& x, const float& y, const long unsigned int& mask);
-#pragma endregion
-    SDL_Event mEvent;
-
-  protected:
-    std::mutex mMutex;
-    void       present();
-    void       units();
-    void       projectiles();
-
-    void drawProjectiles();
-    void drawFloatingText();
-    void drawLevel(Common::typeSegmentData& data, const int& currentLayer);
     /**
      * @brief Spawns a new particle
      * @param friendly False if it can hurt the player, otherwise true
@@ -80,6 +75,19 @@ class Engine {
                           const int&                 duration,
                           const float&               velocity,
                           const int&                 damage);
+#pragma endregion
+    SDL_Event mEvent;
+
+  protected:
+    std::mutex mMutex;
+    void       present();
+    void       units();
+    void       projectiles();
+
+    void drawProjectiles();
+    void drawFloatingText();
+    void drawLevel(Common::typeSegmentData& data, const int& currentLayer);
+
 
     void        drawDarkness();
     std::thread spawnInterrupt(const long& time); // Spawn a thread

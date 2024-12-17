@@ -25,6 +25,7 @@ class LuaManager {
     void registerMonster();
     void registerObjectState();
     void registerUtility();
+    void registerProjectile();
 
     lua_State* L;
 };

@@ -15,7 +15,7 @@ LuaManager::LuaManager() {
     registerObjectState();
     registerUtility();
     registerMonster();
-
+    registerProjectile();
 }
 
 LuaManager::~LuaManager() {
@@ -116,6 +116,11 @@ LuaManager::registerUtility() {
 void
 LuaManager::registerPlayer() {
     lua_register(L, "GetPlayerCenter", player_getCenter);
+}
+
+void
+LuaManager::registerProjectile(){
+    lua_register(L, "ProjectileEnemy", projectile_spawnEnemy);
 }
 
 }
