@@ -203,8 +203,10 @@ Engine::mainLoop() {
                 drawFloatingText();
             } break;
             case GameMode::Inventory: {
-                auto inventory = mInventory->getInventory();
-                SDL_RenderCopyF(pRenderer, inventory.Texture, inventory.Viewport, inventory.Position);
+                for(auto data :  mInventory->getInventory()){
+                    SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
+                }
+
             } break;
         }
         /*
