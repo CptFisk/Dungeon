@@ -1,8 +1,9 @@
 #include "engine/loading.hpp"
-#include <items/inventory.hpp>
+
 #include <common/handlers.hpp>
 #include <engine/debug/fps.hpp>
 #include <engine/engine.hpp>
+#include <items/inventory.hpp>
 #include <utility/file.hpp>
 #include <utility/math.hpp>
 #include <utility/textures.hpp>
@@ -88,13 +89,22 @@ Engine::terminate() {
 
 void
 Engine::click() {
-    const auto click = SDL_FPoint{ FLOAT(mActionManager->mouseX) + (mPerspective->mOffset.x / -1.0f),
-                                   FLOAT(mActionManager->mouseY) + (mPerspective->mOffset.y / -1.0f) };
-    const auto angle = Utility::getAngle(click, mPlayer->getPlayerCenter());
-    mPlayerEnergy -= 3; // Reduce energy
+    switch (mGameMode) {
+        case GameMode::Game: {
+            const auto click = SDL_FPoint{ FLOAT(mActionManager->mouseX) + (mPerspective->mOffset.x / -1.0f),
+                                           FLOAT(mActionManager->mouseY) + (mPerspective->mOffset.y / -1.0f) };
+            const auto angle = Utility::getAngle(click, mPlayer->getPlayerCenter());
+            mPlayerEnergy -= 3; // Reduce energy
 
-    createProjectile(
-      true, GET_ANIMATED("Fireball"), nullptr, Utility::offsetAngle(mPlayer->getPlayerCenter(), angle, 0), angle, 200, 0.75f, 10);
+            createProjectile(
+              true, GET_ANIMATED("Fireball"), nullptr, Utility::offsetAngle(mPlayer->getPlayerCenter(), angle, 0), angle, 200, 0.75f, 10);
+        } break;
+        case GameMode::Inventory:
+            mInventory->selectItemMouse(FLOAT(mActionManager->mouseX), FLOAT(mActionManager->mouseY));
+            break;
+        case GameMode::Menu:;
+            break;
+    }
 }
 
 void
@@ -133,7 +143,6 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
-    Items::Inventory inventory(mScale, GET_USERINTERFACE("Inventory"), GET_USERINTERFACE("Selector"));
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
     while (mRun) {
@@ -163,45 +172,59 @@ Engine::mainLoop() {
             handler(timer.getTicks());
             timer.start();
         }
+#pragma region Game events
+        // Call all monster and nps
+        monsterActions();
+        units();
+        projectiles();
+#pragma endregion
+#pragma region Common draws
         // Apply background color
         SDL_SetRenderDrawColor(pRenderer, mColour.BackgroundRed, mColour.BackgroundGreen, mColour.BackgroundBlue, SDL_ALPHA_OPAQUE);
         drawLevel(mSegments.Bottom, mSegments.CurrentLayerBottom);
-        // Show interaction box during debug
 
-        // Display interaction area
-        mPerspective->render(GET_GENERATED("0000FF")->getTexture(), nullptr, mPlayer->getInteractionArea());
-        // Display player center
-        SDL_FRect middle{ mPlayer->getPlayerCenter().x, mPlayer->getPlayerCenter().y, 1.0f, 1.0f };
-        mPerspective->render(GET_GENERATED("A349A4")->getTexture(), nullptr, &middle);
-
-        monsterActions();
-        units();                                                              // Call all monster and§
-        mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition); // Draw our cute hero
-        projectiles();
+        // Draw our cute hero
+        mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition);
         drawProjectiles();
+        // Draw top layer
         drawLevel(mSegments.Top, mSegments.CurrentLayerTop);
+        // Apply darkness
         drawDarkness();
-        // Positions
-        drawFloatingText();
-
+        // Draw lightning
         drawLevel(mSegments.Lightning, mSegments.CurrentLayerLightning);
-        for (auto drawData : mHealth->getIndicator()) {
-            SDL_RenderCopyF(pRenderer, drawData.Texture, drawData.Viewport, drawData.Position);
-        }
+#pragma endregion
 
-#ifdef DEBUG_MODE
-        auto fpsPos = SDL_Rect{ 10, 10, 0, 0 };
-        auto fps    = mGraphics->getSentence("8bit16", "FPS " + std::to_string(Debug::getFPS()));
-        SDL_QueryTexture(fps, nullptr, nullptr, &fpsPos.w, &fpsPos.h);
-        SDL_RenderCopy(pRenderer, fps, nullptr, &fpsPos);
-        auto playerPos = SDL_Rect{ 10, 15 + fpsPos.h, 0, 0 };
-        auto p         = mPlayer->getPlayerCoordinates();
-        auto player    = mGraphics->getSentence("8bit16", std::to_string(p.x) + " " + std::to_string(p.y));
-        SDL_QueryTexture(player, nullptr, nullptr, &playerPos.w, &playerPos.h);
-        SDL_RenderCopy(pRenderer, player, nullptr, &playerPos);
-#endif
-        auto d = inventory.getInventory();
-        SDL_RenderCopyF(pRenderer, d.Texture, d.Viewport,d.Position);
+        switch (mGameMode) {
+            case GameMode::Game: {
+                for (auto drawData : mHealth->getIndicator()) {
+                    SDL_RenderCopyF(pRenderer, drawData.Texture, drawData.Viewport, drawData.Position);
+                }
+                // Positions
+                drawFloatingText();
+            } break;
+            case GameMode::Inventory: {
+                auto inventory = mInventory->getInventory();
+                SDL_RenderCopyF(pRenderer, inventory.Texture, inventory.Viewport, inventory.Position);
+            } break;
+        }
+        /*
+    #ifdef DEBUG_MODE
+            // Display interaction area
+            mPerspective->render(GET_GENERATED("0000FF")->getTexture(), nullptr, mPlayer->getInteractionArea());
+            // Display player center
+            SDL_FRect middle{ mPlayer->getPlayerCenter().x, mPlayer->getPlayerCenter().y, 1.0f, 1.0f };
+            mPerspective->render(GET_GENERATED("A349A4")->getTexture(), nullptr, &middle);
+            auto fpsPos = SDL_Rect{ 10, 10, 0, 0 };
+            auto fps    = mGraphics->getSentence("8bit16", "FPS " + std::to_string(Debug::getFPS()));
+            SDL_QueryTexture(fps, nullptr, nullptr, &fpsPos.w, &fpsPos.h);
+            SDL_RenderCopy(pRenderer, fps, nullptr, &fpsPos);
+            auto playerPos = SDL_Rect{ 10, 15 + fpsPos.h, 0, 0 };
+            auto p         = mPlayer->getPlayerCoordinates();
+            auto player    = mGraphics->getSentence("8bit16", std::to_string(p.x) + " " + std::to_string(p.y));
+            SDL_QueryTexture(player, nullptr, nullptr, &playerPos.w, &playerPos.h);
+            SDL_RenderCopy(pRenderer, player, nullptr, &playerPos);
+    #endif
+         */
         present();
 
         auto ticks = mFPSTimer.getTicks();

@@ -6,6 +6,7 @@
 #include <engine/lua/luaManager.hpp>
 #include <graphics/floatingText.hpp>
 #include <graphics/graphics.hpp>
+#include <items/inventory.hpp>
 #include <list>
 #include <memory>
 #include <monster/include.hpp>
@@ -102,6 +103,7 @@ class Engine {
     std::unique_ptr<LoadingScreen>       mLoadingScreen;
     std::unique_ptr<UI::Textbox>         mTextbox;
     std::unique_ptr<Lua::LuaManager>     mLuaManager;
+    std::unique_ptr<Items::Inventory>    mInventory;
 
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;
