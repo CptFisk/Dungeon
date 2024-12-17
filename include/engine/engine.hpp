@@ -32,11 +32,14 @@ class Engine {
     void mainLoop();
 
     Common::ActionManager& getActionManager();
+    Graphics::Graphics& getGraphics();
 
     [[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>&                             getEventList(); // Get the list of events
     [[maybe_unused]] std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEvents();    // Get the list of events
     [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
-    GameMode getGameMode() const; // Return the current mode the game is operating in
+    [[maybe_unused]] GameMode getGameMode() const; // Return the current mode the game is operating in
+
+
     void     terminate();
     void     click(); // Mouse click
 #pragma region Player

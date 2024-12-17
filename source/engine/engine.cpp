@@ -62,6 +62,11 @@ Engine::getActionManager() {
     return *mActionManager;
 }
 
+Graphics::Graphics&
+Engine::getGraphics(){
+    return *mGraphics;
+}
+
 std::list<std::function<bool(SDL_Event*)>>&
 Engine::getEventList() {
     return mEventWatcher;
@@ -77,7 +82,7 @@ Engine::getProcessing() {
     return mProcessing;
 }
 
-GameMode
+[[maybe_unused]] GameMode
 Engine::getGameMode() const {
     return mGameMode;
 }
