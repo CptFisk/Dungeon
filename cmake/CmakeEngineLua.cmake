@@ -6,4 +6,5 @@ SET(
         ${CMAKE_SOURCE_DIR}/source/engine/lua/luaMonster.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/lua/luaUtility.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/lua/luaPlayer.cpp
+        ${CMAKE_SOURCE_DIR}/source/engine/lua/luaProjectile.cpp
 )
