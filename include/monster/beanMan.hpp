@@ -9,7 +9,6 @@ class BeanMan : public BaseMonster {
             const float&                                                            height,
             const int&                                                              health,
             const float&                                                            velocity,
-            SDL_FPoint&                                                             playerCenter,
             std::function<bool(const SDL_FPoint&, const double& angle, int& delay)> projectiles);
     ~BeanMan() override;
 

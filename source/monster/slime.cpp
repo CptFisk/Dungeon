@@ -5,9 +5,9 @@ namespace Monster {
 Slime::Slime(const int&                                                         health,
              const float&                                                       velocity,
              const float&                                                       radius,
-             SDL_FPoint&                                                        playerCenter)
+             const std::string& name)
   : mRadius(radius)
-  , BaseMonster(health, velocity, "Slime", playerCenter) {}
+  , BaseMonster(health, velocity, name) {}
 
 Slime::~Slime() {}
 

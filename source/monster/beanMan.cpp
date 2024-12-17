@@ -7,14 +7,13 @@ BeanMan::BeanMan(const float&                                                   
                  const float&                                                            height,
                  const int&                                                              health,
                  const float&                                                            velocity,
-                 SDL_FPoint&                                                             playerCenter,
                  std::function<bool(const SDL_FPoint&, const double& angle, int& delay)> projectiles)
   : mMonsterWidth(width)
   , mMonsterHeight(height)
   , mReload(0)
   , mDelay(0)
   , fcProjectiles(projectiles)
-  , BaseMonster(health, velocity, "BeanMan",playerCenter) {}
+  , BaseMonster(health, velocity, "BeanMan") {}
 
 BeanMan::~BeanMan() = default;
 

@@ -5,7 +5,7 @@
 namespace Monster {
 class CaveCrawler : public BaseMonster {
   public:
-    CaveCrawler(const int& health, const float& velocity, SDL_FPoint& playerCenter);
+    CaveCrawler(const int& health, const float& velocity);
     ~CaveCrawler() override;
 
     [[nodiscard]] BaseMonster* spawn(const float& x, const float& y) const override;

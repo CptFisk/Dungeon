@@ -12,8 +12,7 @@ class BaseMonster {
   public:
     BaseMonster(const int&                                                          health,
                 const float&                                                        velocity,
-                const std::string&                                                  lua,
-                SDL_FPoint&                                                         playerCenter);
+                const std::string&                                                  lua);
     BaseMonster(const BaseMonster& other);
     virtual ~BaseMonster();
 
@@ -107,7 +106,6 @@ class BaseMonster {
     SDL_FRect    mMonsterPosition; // Drawing area of the monster
     SDL_Texture* pCurrentTexture;  // Reference to the current texture
     SDL_Rect*    pCurrentViewport; // Reference to the current viewport
-    SDL_FPoint&  mPlayerCenter;    // Reference to the center of the player (used for targeting etc.)
 
     void updateReferences();
 

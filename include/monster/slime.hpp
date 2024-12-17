@@ -7,7 +7,7 @@ namespace Monster {
  */
 class Slime : public BaseMonster {
   public:
-    Slime(const int& health, const float& velocity, const float& radius, SDL_FPoint& playerCenter, const std::string& name);
+    Slime(const int& health, const float& velocity, const float& radius,const std::string& name);
     ~Slime();
 
     [[nodiscard]] BaseMonster* spawn(const float& x, const float& y) const override;

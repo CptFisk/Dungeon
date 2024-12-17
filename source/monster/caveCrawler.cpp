@@ -2,9 +2,8 @@
 #include <monster/caveCrawler.hpp>
 namespace Monster {
 CaveCrawler::CaveCrawler(const int&                                                         health,
-                         const float&                                                       velocity,
-                         SDL_FPoint&                                                        playerCenter)
-  : BaseMonster(health, velocity, "CaveCrawler", playerCenter) {}
+                         const float&                                                       velocity)
+  : BaseMonster(health, velocity, "CaveCrawler") {}
 
 CaveCrawler::~CaveCrawler() = default;
 

@@ -3,8 +3,7 @@
 namespace Monster {
 BaseMonster::BaseMonster(const int&                                                          health,
                          const float&                                                        velocity,
-                         const std::string&                                                  lua,
-                         SDL_FPoint&                                                         playerCenter)
+                         const std::string&                                                  lua)
   : luaFile(lua + ".lua")
   , mInflictDamage(true)
   , mHealth(health)
@@ -12,7 +11,6 @@ BaseMonster::BaseMonster(const int&                                             
   , mTicks(0)
   , pCurrentTexture(nullptr)
   , pCurrentViewport(nullptr)
-  , mPlayerCenter(playerCenter)
   , mState(Objects::IDLE)
   , mDirection(SOUTH)
   , DEATH_ANIMATION(20) {}
@@ -28,7 +26,6 @@ BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   , mInflictDamage(false)
   , pCurrentTexture(other.pCurrentTexture)
   , pCurrentViewport(other.pCurrentViewport)
-  , mPlayerCenter(other.mPlayerCenter)
   , mTicks(0)
   , DEATH_ANIMATION(20) {}
 
