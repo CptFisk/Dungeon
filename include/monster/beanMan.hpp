@@ -9,7 +9,8 @@ class BeanMan : public BaseMonster {
             const float&                                                            height,
             const int&                                                              health,
             const float&                                                            velocity,
-            std::function<bool(const SDL_FPoint&, const double& angle, int& delay)> projectiles);
+            const std::string& name,
+            std::optional<std::unordered_map<std::string, std::any>> defaults = std::nullopt);
     ~BeanMan() override;
 
     [[nodiscard]] BaseMonster* spawn(const float& x, const float& y) const override;
