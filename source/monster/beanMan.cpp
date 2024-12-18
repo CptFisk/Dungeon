@@ -8,7 +8,7 @@ BeanMan::BeanMan(const float&                                                   
                  const int&                                                              health,
                  const float&                                                            velocity,
                  const std::string& name,
-                 std::optional<std::unordered_map<std::string, std::any>> defaults)
+                 const std::optional<std::unordered_map<std::string, std::any>>& defaults)
   : mMonsterWidth(width)
   , mMonsterHeight(height)
   , mReload(0)

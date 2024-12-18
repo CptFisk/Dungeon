@@ -13,7 +13,7 @@ class BaseMonster {
     BaseMonster(const int&                                               health,
                 const float&                                             velocity,
                 const std::string&                                       lua,
-                std::optional<std::unordered_map<std::string, std::any>> defaults = std::nullopt);
+                const std::optional<std::unordered_map<std::string, std::any>>& defaults = std::nullopt);
     BaseMonster(const BaseMonster& other);
     virtual ~BaseMonster();
 

@@ -4,7 +4,7 @@ namespace Monster {
 BaseMonster::BaseMonster(const int&                                       health,
                          const float&                                     velocity,
                          const std::string&                               lua,
-                         std::optional<std::unordered_map<std::string, std::any>> defaults)
+                         const std::optional<std::unordered_map<std::string, std::any>>& defaults)
   : luaFile(lua + ".lua")
   , mInflictDamage(true)
   , mHealth(health)

@@ -4,7 +4,7 @@ namespace Monster {
 CaveCrawler::CaveCrawler(const int&                                                         health,
                          const float&                                                       velocity,
                          const std::string& name,
-                         std::optional<std::unordered_map<std::string, std::any>> defaults)
+                         const std::optional<std::unordered_map<std::string, std::any>>& defaults)
   : BaseMonster(health, velocity, name) {}
 
 CaveCrawler::~CaveCrawler() = default;
