@@ -1,11 +1,15 @@
 #include <monster/monster.hpp>
 #include <utility/trigonometry.hpp>
 namespace Monster {
-BaseMonster::BaseMonster(const int& health, const float& velocity, const std::string& lua)
+BaseMonster::BaseMonster(const int&                                       health,
+                         const float&                                     velocity,
+                         const std::string&                               lua,
+                         std::optional<std::unordered_map<std::string, std::any>> defaults)
   : luaFile(lua + ".lua")
   , mInflictDamage(true)
   , mHealth(health)
   , mVelocity(velocity)
+  , mRetains(defaults.value_or(std::unordered_map<std::string, std::any>()))
   , mTicks(0)
   , pCurrentTexture(nullptr)
   , pCurrentViewport(nullptr)

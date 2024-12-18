@@ -10,9 +10,10 @@ namespace Monster {
 
 class BaseMonster {
   public:
-    BaseMonster(const int&                                                          health,
-                const float&                                                        velocity,
-                const std::string&                                                  lua);
+    BaseMonster(const int&                                               health,
+                const float&                                             velocity,
+                const std::string&                                       lua,
+                std::optional<std::unordered_map<std::string, std::any>> defaults = std::nullopt);
     BaseMonster(const BaseMonster& other);
     virtual ~BaseMonster();
 
@@ -86,6 +87,7 @@ class BaseMonster {
      * @brief Virtual function used to do special attack patterns
      */
     virtual void attack() = 0;
+
   private:
   protected:
     std::string luaFile; // Name of the lua file that will be executed
