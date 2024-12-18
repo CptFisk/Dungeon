@@ -138,6 +138,8 @@ monster_getRetain(lua_State* L) {
     // Convert value
     if (value->type() == typeid(int))
         lua_pushinteger(L, std::any_cast<int>(retained));
+    else if(value->type() == typeid(float))
+        lua_pushnumber(L, std::any_cast<float>(retained));
     else if (value->type() == typeid(double))
         lua_pushnumber(L, std::any_cast<double>(retained));
     else if (value->type() == typeid(std::string))
