@@ -34,6 +34,7 @@ BeanMan::spawn(const float& x, const float& y) const {
     obj->mMonsterCenter.x   = xPos + (mMonsterWidth / 2.0f);
     obj->mMonsterCenter.y   = yPos + (mMonsterHeight / 2.0f);
     obj->luaFile = this->luaFile;
+    obj->mRetains           = mRetains;
     return obj;
 }
 /*
