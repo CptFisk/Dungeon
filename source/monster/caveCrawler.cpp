@@ -5,7 +5,7 @@ CaveCrawler::CaveCrawler(const int&                                             
                          const float&                                                       velocity,
                          const std::string& name,
                          const std::optional<std::unordered_map<std::string, std::any>>& defaults)
-  : BaseMonster(health, velocity, name) {}
+  : BaseMonster(health, velocity, name, defaults) {}
 
 CaveCrawler::~CaveCrawler() = default;
 
