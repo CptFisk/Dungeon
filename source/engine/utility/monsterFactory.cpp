@@ -108,7 +108,7 @@ Engine::createMonsters() {
                                return true;
                            });
     */
-    mMonsters[Monster::Type::BEAN_MAN] = new Monster::BeanMan(12, 13, 110, 0.2f, "BeanManFlower");
+    mMonsters[Monster::Type::BEAN_MAN_FLOWER] = new Monster::BeanMan(12, 13, 110, 0.2f, "BeanManFlower");
     mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("BeanManFlowerNorth"));
     mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("BeanManFlowerEast"));
     mMonsters[Monster::Type::BEAN_MAN_FLOWER]->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, GET_ANIMATED("BeanManFlowerSouth"));
