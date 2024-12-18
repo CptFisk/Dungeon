@@ -1,9 +1,7 @@
 #include <monster/monster.hpp>
 #include <utility/trigonometry.hpp>
 namespace Monster {
-BaseMonster::BaseMonster(const int&                                                          health,
-                         const float&                                                        velocity,
-                         const std::string&                                                  lua)
+BaseMonster::BaseMonster(const int& health, const float& velocity, const std::string& lua)
   : luaFile(lua + ".lua")
   , mInflictDamage(true)
   , mHealth(health)
@@ -76,12 +74,15 @@ BaseMonster::setDirection(Directions direction) {
 
 void
 BaseMonster::setPosition(const float& x, const float& y) {
-    auto _x            = x - (mMonsterPosition.w / 2.0f);
-    auto _y            = y - (mMonsterPosition.h / 2.0f);
+    const auto w  = (mMonsterPosition.w / 2.0f);
+    const auto h  = (mMonsterPosition.h / 2.0f);
+    auto       _x = x - w;
+    auto       _y = y - h;
+
     mMonsterPosition.x = _x;
     mMonsterPosition.y = _y;
-    mMonsterCenter.x   = _x;
-    mMonsterCenter.y   = _y;
+    mMonsterCenter.x   = _x + w;
+    mMonsterCenter.y   = _y + h;
 }
 
 void
@@ -94,8 +95,8 @@ BaseMonster::movePosition(const float& x, const float& y) {
 
 void
 BaseMonster::moveAngle(const double& angle, std::optional<float> velocity) {
-    const auto& speed = velocity.has_value() ? velocity.value() : mVelocity;
-    const auto position = Utility::calculateVector(angle, mVelocity);
+    const auto& speed    = velocity.has_value() ? velocity.value() : mVelocity;
+    const auto  position = Utility::calculateVector(angle, mVelocity);
     movePosition(position.x, position.y);
 }
 
@@ -141,11 +142,10 @@ BaseMonster::setRetain(const std::string& param, const std::any& value) {
 
 std::optional<std::any>
 BaseMonster::getRetain(const std::string& param) {
-    if(mRetains.find(param) != mRetains.end())
+    if (mRetains.find(param) != mRetains.end())
         return mRetains[param];
     return std::nullopt;
 }
-
 
 void
 BaseMonster::updateReferences() {
