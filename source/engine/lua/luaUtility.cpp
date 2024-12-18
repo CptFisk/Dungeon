@@ -30,7 +30,11 @@ utility_getAngle(lua_State* L) {
 
 int
 utility_getAngleDistance(lua_State* L) {
-    if (!lua_isnumber(L, 1) || !lua_isnumber(L, 2) || !lua_isnumber(L, 3) || lua_isnumber(L, 4)) {
+    if (!lua_isnumber(L, 1) || !lua_isnumber(L, 2) || !lua_isnumber(L, 3) || !lua_isnumber(L, 4)) {
+        const auto x1 = luaL_checknumber(L, 1);
+        const auto x2 = luaL_checknumber(L, 2);
+        const auto x3 = luaL_checknumber(L, 3);
+        const auto x4 = luaL_checknumber(L, 4);
         luaL_error(L, "4 floating numbers is needed");
         lua_pushnil(L);
         return 0;
