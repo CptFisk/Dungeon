@@ -1,16 +1,18 @@
 #include <engine/lua/luaManager.hpp>
-#include <lua.hpp>
-#include <object/objects.hpp>
-#include <engine/lua/luaUtility.hpp>
 #include <engine/lua/luaPlayer.hpp>
 #include <engine/lua/luaProjectile.hpp>
+#include <engine/lua/luaUtility.hpp>
+#include <lua.hpp>
+#include <object/objects.hpp>
 
 namespace Lua {
 
 LuaManager::LuaManager() {
     L = luaL_newstate();
     luaopen_base(L);
+    lua_setglobal(L, "_G"); // Register the base library in the global namespace
     luaopen_math(L);
+    lua_setglobal(L, "math"); // Register the math library in the global namespace
 
     registerPlayer();
     registerObjectState();
@@ -121,7 +123,7 @@ LuaManager::registerPlayer() {
 }
 
 void
-LuaManager::registerProjectile(){
+LuaManager::registerProjectile() {
     lua_register(L, "ProjectileEnemy", projectile_spawnEnemy);
 }
 
