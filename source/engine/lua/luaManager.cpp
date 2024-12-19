@@ -10,6 +10,7 @@ namespace Lua {
 LuaManager::LuaManager() {
     L = luaL_newstate();
     luaopen_base(L);
+    luaopen_math(L);
 
     registerPlayer();
     registerObjectState();
