@@ -56,7 +56,7 @@ class Engine {
      * @param x In-game coordinate
      * @param y In-game coordinate
      * @param mask See global.hpp for mask settings
-     * @return True if movement is possilbe
+     * @return True if movement is possible
      */
     bool wallCheck(const float& x, const float& y, const long unsigned int& mask);
     /**
