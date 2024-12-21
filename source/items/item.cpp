@@ -2,10 +2,11 @@
 
 namespace Items {
 
-Item::Item(Graphics::Texture* texture, const Items::SlotType& slot, const int16_t& id)
+Item::Item(Graphics::Texture* texture, const Items::SlotType& slot, const int16_t& id, const Stats::Stats stats)
   : mTexture(texture)
   , mSlot(slot)
-  , mId(id) {}
+  , mId(id)
+  , mStats(stats) {}
 
 SDL_Texture*
 Item::getTexture() {
