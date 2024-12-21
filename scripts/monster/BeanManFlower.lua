@@ -35,5 +35,8 @@ function Interact(monster)
         for i = 0, 10 do
             ProjectileEnemy("PurpleBall", "", x, y, i * 20, 50, 0.75, 10)
         end
+        monster:SetRetain("Reload", 100)
+        monster:SetState(ObjectState.IDLE)
     end
+    monster:SetRetain("Reload", math.max(0, monster:GetRetain("Reload") - 1))
 end

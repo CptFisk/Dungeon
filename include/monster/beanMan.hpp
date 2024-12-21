@@ -17,13 +17,10 @@ class BeanMan : public BaseMonster {
     void                       attack() override;
 
   protected:
-    // SDL_FPoint wobbleMovement(const double& angle, const float& velocity);
   private:
     const float mMonsterWidth;
     const float mMonsterHeight;
 
-    int mReload;
-    int mDelay; // Used in projectile function
 
     std::function<bool(const SDL_FPoint&, const double& angle, int& delay)> fcProjectiles;
 };
