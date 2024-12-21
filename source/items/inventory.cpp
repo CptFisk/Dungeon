@@ -5,47 +5,49 @@ namespace Items {
 Inventory::Inventory(Common::typeScale& scale, Graphics::UserInterfaceTexture* inventory, Graphics::UserInterfaceTexture* selector)
   : // Graphical bindings
   mScale(scale)
-  , mSelectorPositions{}
+  , mTopLeft{}
+  , mSlotPosition{}
   , mInventory(inventory)
   , mInventoryDrawData(inventory->getTexture(), nullptr, new SDL_FRect (0.0f, 0.0f,0.0f,0.0f))
   , mSelector(selector)
   , mSelectorDrawData(selector->getTexture(), nullptr)
-  , mSelected(7)
+  , mSelected(6)
+  , mSelectorVisible(false)
   , mSlots{ // Character
-            Slot{ SlotType::Amulet, 0 },
-            Slot{ SlotType::Head, 0 },
-            Slot{ SlotType::Left, 0 },
-            Slot{ SlotType::Chest, 0 },
-            Slot{ SlotType::Right, 0 },
-            Slot{ SlotType::Boots, 0 },
+            Slot(SlotType::Amulet),
+            Slot( SlotType::Head),
+            Slot( SlotType::Left),
+            Slot( SlotType::Chest),
+            Slot( SlotType::Right),
+            Slot( SlotType::Boots),
             // Bag
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
-            Slot{ SlotType::Bag, 0 },
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
+            Slot( SlotType::Bag),
             // Spells
-            Slot{ SlotType::Spell, 0 },
-            Slot{ SlotType::Spell, 0 },
-            Slot{ SlotType::Spell, 0 },
-            Slot{ SlotType::Spell, 0 },
-            Slot{ SlotType::Spell, 0 },
-            Slot{ SlotType::Spell, 0 },
-            Slot{ SlotType::Spell, 0 },
-            Slot{ SlotType::Spell, 0 }
+            Slot( SlotType::Spell),
+            Slot( SlotType::Spell),
+            Slot( SlotType::Spell),
+            Slot( SlotType::Spell),
+            Slot( SlotType::Spell),
+            Slot( SlotType::Spell),
+            Slot( SlotType::Spell),
+            Slot( SlotType::Spell)
   },
-  mSelectorDefaultPositions{
+  mSlotDefaultPosition{
             // Equipment
             SDL_FPoint{ 20, 20 },
             SDL_FPoint{ 40, 20 },
@@ -80,9 +82,9 @@ Inventory::Inventory(Common::typeScale& scale, Graphics::UserInterfaceTexture* i
             SDL_FPoint {140,120},
             SDL_FPoint {160,120}
   } {
-    // Selecting first position in bag
-    mSelectorDrawData.Position = &mSelectorPositions.at(7);
     calculatePositions();
+    // Selecting first position in bag
+    mSelectorDrawData.Position = &mSlotPosition.at(mSelected);
 }
 
 Inventory::~Inventory() {
@@ -90,22 +92,71 @@ Inventory::~Inventory() {
     delete mInventoryDrawData.Position;
 }
 
-std::array<Graphics::typeDrawData, 2>
+std::vector<Graphics::typeDrawData>
 Inventory::getInventory() {
-    return { mInventoryDrawData, mSelectorDrawData };
+    // Start with the background
+    std::vector<Graphics::typeDrawData> data = { mInventoryDrawData };
+    int                                 pos  = 0;
+    for (auto& slot : mSlots) {
+        if (slot.Item != nullptr) {
+            data.emplace_back(slot.Item->getTexture(), nullptr, &mSlotPosition.at(pos));
+        }
+        pos++;
+    }
+    if (mSelectorVisible)
+        data.push_back(mSelectorDrawData); // Final item
+    return data;
 }
 
 void
 Inventory::selectItemMouse(const float& x, const float& y) {
     const auto point = SDL_FPoint{ x, y };
     uint8_t    index = {};
-    for (const auto& position : mSelectorPositions) {
+    for (const auto& position : mSlotPosition) {
         if (Utility::isOverlapping(point, position)) {
-            mSelectorDrawData.Position = &mSelectorPositions.at(index);
+            if(swap(mSelected, index) && mSelected != index){
+                mSelectorVisible = false;
+            }else{
+                mSelectorVisible = true;
+            }
+            mSelectorDrawData.Position = &mSlotPosition.at(index);
+            mSelected                  = index;
             break;
         }
         index++;
     }
+}
+
+void
+Inventory::addItem(Items::Item*& item) {
+    const int     startIndex = 6;
+    constexpr int endIndex   = startIndex + 16;
+    for (int i = startIndex; i < endIndex; i++) {
+        if (mSlots[i].Item == nullptr) {
+            mSlots[i].Item = item;
+            break;
+        }
+    }
+}
+
+bool
+Inventory::swap(const int& index1, const int& index2) {
+    auto& item1 = mSlots.at(index1);
+    auto& item2 = mSlots.at(index2);
+    if (item1.Item == nullptr)
+        return false;
+    // Can we even move item1 to item 2
+    if (item1.Item->getSlotType() == item2.Type || item2.Type == Items::SlotType::Bag) {
+        if (item2.Item != nullptr) {
+            mSlots.at(index2).Item = item1.Item;
+            mSlots.at(index1).Item = item2.Item;
+        } else {
+            mSlots.at(index2).Item = item1.Item;
+            mSlots.at(index1).Item = nullptr;
+        }
+        return true;
+    }
+    return false;
 }
 
 void
@@ -123,11 +174,11 @@ Inventory::calculatePositions() {
     mInventoryDrawData.Position->w = mInventory->getWidthF();
     mInventoryDrawData.Position->h = mInventory->getHeightF();
     // Assign positions
-    for (auto i = 0; i < mSelectorDefaultPositions.size(); i++) {
-        mSelectorPositions.at(i).x = mTopLeft.x + mSelectorDefaultPositions.at(i).x;
-        mSelectorPositions.at(i).y = mTopLeft.y + mSelectorDefaultPositions.at(i).y;
-        mSelectorPositions.at(i).w = mSelector->getWidthF();
-        mSelectorPositions.at(i).h = mSelector->getHeightF();
+    for (auto i = 0; i < mSlotDefaultPosition.size(); i++) {
+        mSlotPosition.at(i).x = mTopLeft.x + mSlotDefaultPosition.at(i).x;
+        mSlotPosition.at(i).y = mTopLeft.y + mSlotDefaultPosition.at(i).y;
+        mSlotPosition.at(i).w = mSelector->getWidthF();
+        mSlotPosition.at(i).h = mSelector->getHeightF();
     }
 }
 }

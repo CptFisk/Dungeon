@@ -6,6 +6,7 @@ void
 Engine::createItems() {
     auto graphic                    = GET_BASE("GoldAmulet");
     mItems[Items::Id::GoldenAmulet] = new Items::Item(graphic, Items::SlotType::Amulet, static_cast<int>(Items::Id::GoldenAmulet));
+    mInventory->addItem(mItems[Items::Id::GoldenAmulet]);
 }
 
 }

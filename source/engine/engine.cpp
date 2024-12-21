@@ -28,7 +28,7 @@ Engine::Engine()
   , mEvent{}
   , mMapCoordinate{}
   , mColour{}
-  , mGameMode(GameMode::Game)
+  , mGameMode(GameMode::Inventory)
   , mLuaManager(std::make_unique<Lua::LuaManager>()) {}
 
 Engine::~Engine() {
