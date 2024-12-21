@@ -16,7 +16,9 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/engine/utility/npcFactory.cpp
         ${CMAKE_SOURCE_DIR}/source/engine/utility/darkness.cpp
 
+        ${CMAKE_SOURCE_DIR}/source/items/itemFactory.cpp
         ${CMAKE_SOURCE_DIR}/source/items/inventory.cpp
+        ${CMAKE_SOURCE_DIR}/source/items/item.cpp
 
         ${CMAKE_SOURCE_DIR}/source/player/player.cpp
         ${CMAKE_SOURCE_DIR}/source/player/indicator.cpp
