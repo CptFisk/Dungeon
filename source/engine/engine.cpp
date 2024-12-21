@@ -44,7 +44,9 @@ Engine::~Engine() {
     }
     for (auto& [name, monster] : mMonsters)
         delete monster; // Kill the baby
-
+    //Clear items
+    for(auto& [id, item] : mItems)
+        delete item;
     // Clear projectiles
     for (auto& projectile : mProjectiles) {
         delete projectile;
