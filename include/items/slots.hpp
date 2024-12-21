@@ -14,9 +14,4 @@ enum class SlotType {
     Spell
 };
 
-struct Slot {
-    const SlotType Type; // Item type
-    int16_t  Id;   // Item id
-};
-
 }
