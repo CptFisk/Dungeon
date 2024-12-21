@@ -74,6 +74,7 @@ Engine::startup() {
 
     //Setting up inventory
     mInventory = std::make_unique<Items::Inventory>(mScale, GET_USERINTERFACE("Inventory"), GET_USERINTERFACE("Selector"));
+    createItems();
 
     mParticles = std::make_shared<Objects::Particle>(GET_GENERATED("FAE2C3")->getTexture(), 100, 0.5f, 0.5f);
     // Update all graphics
