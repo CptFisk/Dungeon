@@ -4,7 +4,7 @@
 #include <vector>
 
 namespace Graphics {
-/***
+/**
  * @brief Used when Object is of type BASE_TEXTURE
  */
 struct typeBaseTextureJSON {
