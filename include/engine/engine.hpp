@@ -7,6 +7,8 @@
 #include <graphics/floatingText.hpp>
 #include <graphics/graphics.hpp>
 #include <items/inventory.hpp>
+#include <items/definition.hpp>
+#include <items/item.hpp>
 #include <list>
 #include <memory>
 #include <monster/include.hpp>
@@ -142,6 +144,13 @@ class Engine {
     int           mPlayerMaxHealth;
     int           mPlayerEnergy;
 
+#pragma region Items
+    /**
+     * @brief Function that is used to populate @ref mItems
+     */
+    void createItems();
+    std::unordered_map<Items::Id, Items::Item*> mItems;
+#pragma endregion
 #pragma region Monsters
     /**
      * @brief Function that is used to populate @ref mMonsters
