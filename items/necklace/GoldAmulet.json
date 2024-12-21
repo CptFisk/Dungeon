@@ -1,7 +1,10 @@
 {
-  "Data" : {
-    "Id" : 1,
-    "Graphic" : "GoldAmulet",
-    "Intelligence" : 5
+  "Data": {
+    "Id": 1,
+    "Graphic": "GoldAmulet",
+    "Slot": "Amulet",
+    "Stats": {
+      "Intelligence": 5
+    }
   }
 }
