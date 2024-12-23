@@ -19,6 +19,34 @@ struct Stats {
       , Dexterity(0)
       , Intelligence(0)
       , Luck(0) {}
+
+    Stats(const int& vit, const int& stamina, const int& str, const int& dex, const int& intelligence, const int& luck)
+      : Vitality(vit)
+      , Stamina(stamina)
+      , Strength(str)
+      , Dexterity(dex)
+      , Intelligence(intelligence)
+      , Luck(luck) {};
+
+    // Addition operator overload
+    Stats operator+(const Stats& a) const {
+        return Stats(a.Vitality + Vitality,
+                     a.Stamina + Stamina,
+                     a.Strength + Strength,
+                     a.Dexterity + Dexterity,
+                     a.Intelligence + Intelligence,
+                     a.Luck + Luck);
+    };
+
+    // Addition operator overload
+    Stats operator-(const Stats& a) const {
+        return Stats(Vitality - a.Vitality,
+                     Stamina - a.Stamina,
+                     Strength - Strength,
+                     Dexterity - Dexterity,
+                     Intelligence - Intelligence,
+                     Luck - Luck);
+    };
 };
 
 inline void
@@ -70,5 +98,4 @@ from_json(const nlohmann::json& nlohmann_json_j, Stats& nlohmann_json_t) {
         nlohmann_json_t.Luck = 0;
     }
 }
-
 }
