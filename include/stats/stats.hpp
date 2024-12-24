@@ -28,6 +28,16 @@ struct Stats {
       , Intelligence(intelligence)
       , Luck(luck) {};
 
+    Stats& operator+=(const Stats& a){
+        this->Vitality += a.Vitality;
+        this->Stamina += a.Stamina;
+        this->Strength += a.Strength;
+        this->Dexterity += a.Dexterity;
+        this->Intelligence += a.Intelligence;
+        this->Luck += a.Luck;
+        return *this;
+    }
+
     // Addition operator overload
     Stats operator+(const Stats& a) const {
         return Stats(a.Vitality + Vitality,
@@ -36,7 +46,7 @@ struct Stats {
                      a.Dexterity + Dexterity,
                      a.Intelligence + Intelligence,
                      a.Luck + Luck);
-    };
+    }
 
     // Addition operator overload
     Stats operator-(const Stats& a) const {
@@ -46,7 +56,7 @@ struct Stats {
                      Dexterity - Dexterity,
                      Intelligence - Intelligence,
                      Luck - Luck);
-    };
+    }
 };
 
 inline void
