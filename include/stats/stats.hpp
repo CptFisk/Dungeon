@@ -40,22 +40,22 @@ struct Stats {
 
     // Addition operator overload
     Stats operator+(const Stats& a) const {
-        return Stats(a.Vitality + Vitality,
+        return {a.Vitality + Vitality,
                      a.Stamina + Stamina,
                      a.Strength + Strength,
                      a.Dexterity + Dexterity,
                      a.Intelligence + Intelligence,
-                     a.Luck + Luck);
+                     a.Luck + Luck};
     }
 
     // Addition operator overload
     Stats operator-(const Stats& a) const {
-        return Stats(Vitality - a.Vitality,
+        return {Vitality - a.Vitality,
                      Stamina - a.Stamina,
                      Strength - Strength,
                      Dexterity - Dexterity,
                      Intelligence - Intelligence,
-                     Luck - Luck);
+                     Luck - Luck};
     }
 };
 
