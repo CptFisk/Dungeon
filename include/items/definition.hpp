@@ -4,7 +4,7 @@ namespace Items{
 
 enum class Id{
     GoldenAmulet = 1,
-    BasicStaff = 30
+    BasicStaff = 20
 };
 
 }
