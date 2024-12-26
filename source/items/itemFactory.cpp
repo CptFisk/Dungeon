@@ -1,10 +1,9 @@
 #include <engine/engine.hpp>
-#include <graphics/types/texture.hpp>
+#include <error.hpp>
+#include <iostream>
+#include <items/jsonItems.hpp>
 #include <nlohmann/json.hpp>
 #include <utility/file.hpp>
-#include <iostream>
-#include <error.hpp>
-#include <items/jsonItems.hpp>
 
 namespace Engine {
 void
@@ -17,16 +16,25 @@ Engine::createItems() {
         // Load all the files
         for (const auto& file : files) {
             const auto content = Utility::getFileContent(file.string());
-            try{
+            try {
                 const auto item = nlohmann::json::parse(content)[nlohmann::json::json_pointer("/Data")].get<Items::typeItemJSON>();
                 ASSERT_WITH_MESSAGE(mItems.find(static_cast<Items::Id>(item.Id)) != mItems.end(), "Item exist");
-                //To avoid casting over and over
+                // To avoid casting over and over
                 const auto id = static_cast<Items::Id>(item.Id);
-                mItems[id] = new Items::Item(GET_BASE(item.Graphic), item.Slot, static_cast<int16_t>(item.Id), item.Stats);
-            }catch(const std::exception& e){
+                switch (item.Slot) {
+                    case Items::SlotType::Right:
+                    case Items::SlotType::Left:
+                        mItems[id] =
+                          new Items::Item(GET_BASE(item.Graphic), item.Slot, item.Description, static_cast<int16_t>(item.Id), item.Stats);
+                        break;
+                    default:
+                        mItems[id] =
+                          new Items::Item(GET_BASE(item.Graphic), item.Slot, item.Description, static_cast<int16_t>(item.Id), item.Stats);
+                }
+
+            } catch (const std::exception& e) {
                 ASSERT_WITH_MESSAGE(false, e.what());
             }
-
         }
     }
     mInventory->addItem(mItems[Items::Id::GoldenAmulet]);
