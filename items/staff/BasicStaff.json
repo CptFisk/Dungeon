@@ -1,7 +1,7 @@
 {
   "Data": {
-    "Id": 1,
-    "Graphic": "GoldAmulet",
+    "Id": 20,
+    "Graphic": "BasicStaff",
     "Slot": "Left",
     "Stats": {
       "Intelligence": 7
