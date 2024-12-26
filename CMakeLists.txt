@@ -59,6 +59,7 @@ if(BUILD_GAME)
             ${CMAKE_SOURCE_DIR}/rsrc/items
             ${CMAKE_SOURCE_DIR}/rsrc/monster
             ${CMAKE_SOURCE_DIR}/rsrc/player
+            ${CMAKE_SOURCE_DIR}/rsrc/projectiles
             ${CMAKE_SOURCE_DIR}/rsrc/spells
             ${CMAKE_SOURCE_DIR}/rsrc/ui
     )
