@@ -54,7 +54,7 @@ struct Stats {
                      Stamina - a.Stamina,
                      Strength - Strength,
                      Dexterity - Dexterity,
-                     Intelligence - Intelligence,
+                 Intelligence - Intelligence,
                      Luck - Luck};
     }
 };
