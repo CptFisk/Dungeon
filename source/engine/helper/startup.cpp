@@ -60,10 +60,16 @@ Engine::startup() {
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::EAST, GET_ANIMATED("HumanIdleEast"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, GET_ANIMATED("HumanIdleSouth"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Directions::WEST, GET_ANIMATED("HumanIdleWest"));
+
     mPlayer->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("HumanMovingNorth"));
     mPlayer->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("HumanMovingEast"));
     mPlayer->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, GET_ANIMATED("HumanMovingSouth"));
     mPlayer->addAnimatedTexture(Objects::MOVE, Directions::WEST, GET_ANIMATED("HumanMovingWest"));
+
+    mPlayer->addAnimatedTexture(Objects::DEAD, Directions::NORTH, GET_ANIMATED("HumanDead"));
+    mPlayer->addAnimatedTexture(Objects::DEAD, Directions::EAST, GET_ANIMATED("HumanDead"));
+    mPlayer->addAnimatedTexture(Objects::DEAD, Directions::SOUTH, GET_ANIMATED("HumanDead"));
+    mPlayer->addAnimatedTexture(Objects::DEAD, Directions::WEST, GET_ANIMATED("HumanDead"));
 
     mPlayer->setDirection(SOUTH);
     mPlayer->setAction(Objects::State::IDLE);

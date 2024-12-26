@@ -9,7 +9,7 @@
         "Name": "HumanIdleSouth",
         "Column": 1,
         "Row": 1,
-        "Length": 3,
+        "Length": 4,
         "Ticks": 15,
         "Width": 12,
         "Height": 18
@@ -18,7 +18,7 @@
         "Name": "HumanIdleWest",
         "Column": 1,
         "Row": 2,
-        "Length": 3,
+        "Length": 4,
         "Ticks": 15,
         "Width": 12,
         "Height": 18
@@ -27,7 +27,7 @@
         "Name": "HumanIdleEast",
         "Column": 1,
         "Row": 3,
-        "Length": 3,
+        "Length": 4,
         "Ticks": 15,
         "Width": 12,
         "Height": 18
@@ -36,7 +36,7 @@
         "Name": "HumanIdleNorth",
         "Column": 1,
         "Row": 4,
-        "Length": 3,
+        "Length": 4,
         "Ticks": 15,
         "Width": 12,
         "Height": 18

@@ -1,0 +1,19 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/player/WomanDead.png",
+    "Objects": [
+      {
+        "Name": "HumanDead",
+        "Column": 1,
+        "Row": 1,
+        "Length": 3,
+        "Ticks": 15,
+        "Width": 12,
+        "Height": 18
+      }
+    ]
+  }
+}
