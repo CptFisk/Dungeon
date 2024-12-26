@@ -1,0 +1,46 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/player/WomanWalk.png",
+    "Objects": [
+      {
+        "Name": "HumanMovingSouth",
+        "Column": 1,
+        "Row": 1,
+        "Length": 3,
+        "Ticks": 15,
+        "Width": 12,
+        "Height": 18
+      },
+      {
+        "Name": "HumanMovingWest",
+        "Column": 1,
+        "Row": 2,
+        "Length": 3,
+        "Ticks": 15,
+        "Width": 12,
+        "Height": 18
+      },
+      {
+        "Name": "HumanMovingEast",
+        "Column": 1,
+        "Row": 3,
+        "Length": 3,
+        "Ticks": 15,
+        "Width": 12,
+        "Height": 18
+      },
+      {
+        "Name": "HumanMovingNorth",
+        "Column": 1,
+        "Row": 4,
+        "Length": 3,
+        "Ticks": 15,
+        "Width": 12,
+        "Height": 18
+      }
+    ]
+  }
+}
