@@ -3,6 +3,7 @@
 #include <lua.hpp>
 #include <monster/monster.hpp>
 #include <string>
+#include <unordered_map>
 namespace Lua {
 
 class LuaManager {
@@ -14,9 +15,9 @@ class LuaManager {
 
     void createMonsterMetaTable(Monster::BaseMonster*& monster) const;
 
-    bool        executeScript(const std::string& script) const;
-    bool        callFunction(const std::string& func);
-    std::string executeString(const std::string& code);
+    bool                         executeScript(const std::string& script);
+    [[maybe_unused]] bool        callFunction(const std::string& func);
+    [[maybe_unused]] std::string executeString(const std::string& code);
 
   protected:
   private:
@@ -27,6 +28,7 @@ class LuaManager {
     void registerUtility();
     void registerProjectile();
 
-    lua_State* L;
+    lua_State*                                   L;
+    std::unordered_map<size_t, std::string> mScripts; // Store lua file data so we dont need to re-read them
 };
 }

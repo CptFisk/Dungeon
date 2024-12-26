@@ -4,7 +4,7 @@
 #include <engine/lua/luaUtility.hpp>
 #include <lua.hpp>
 #include <object/objects.hpp>
-
+#include <utility/file.hpp>
 namespace Lua {
 
 LuaManager::LuaManager() {
@@ -38,8 +38,18 @@ LuaManager::createMonsterMetaTable(Monster::BaseMonster*& monster) const {
 }
 
 bool
-LuaManager::executeScript(const std::string& script) const {
-    if (luaL_dofile(L, script.c_str())) {
+LuaManager::executeScript(const std::string& script) {
+    // So we dont read the file all the times
+    const auto  hash = std::hash<std::string>{}(script);
+    std::string content;
+    if (mScripts.find(hash) != mScripts.end())
+        content = mScripts.at(hash);
+    else {
+        auto loaded    = Utility::getFileContent(script);
+        mScripts[hash] = loaded;
+        content        = loaded;
+    }
+    if (luaL_dostring(L, content.c_str())) {
         std::cerr << "Error: " << lua_tostring(L, -1) << std::endl;
         lua_pop(L, 1);
         return false;
