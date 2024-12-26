@@ -68,6 +68,7 @@ if(BUILD_GAME)
             ${CMAKE_SOURCE_DIR}/levels
             ${CMAKE_SOURCE_DIR}/scripts
             ${CMAKE_SOURCE_DIR}/items
+            ${CMAKE_SOURCE_DIR}/spells
     )
 endif()
 
