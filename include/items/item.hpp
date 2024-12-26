@@ -4,12 +4,12 @@
 #include <graphics/types/texture.hpp>
 #include <items/slots.hpp>
 #include <stats/stats.hpp>
-
+#include <string>
 namespace Items {
 
 class Item {
   public:
-    Item(Graphics::Texture* texture, const SlotType& slot, const int16_t& id, const Stats::Stats stats);
+    Item(Graphics::Texture* texture, const SlotType& slot, const std::string& desc, const int16_t& id, const Stats::Stats& stats);
     /**
      * @return Return the graphics linked to the items
      */
@@ -18,6 +18,10 @@ class Item {
      * @return Return the slot the item belongs to
      */
     [[nodiscard]] SlotType getSlotType() const;
+    /**
+     * @return Return the stats linked to the item
+     */
+    [[nodiscard]] Stats::Stats getStats() const;
 
   protected:
   private:
@@ -25,6 +29,7 @@ class Item {
     const SlotType     mSlot;    // Slot that its bound to
     const int16_t      mId;      // Item id, should be unique
     const Stats::Stats mStats;
+    const std::string  mDescription; // Item description
 };
 
 }

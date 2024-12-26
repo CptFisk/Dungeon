@@ -2,9 +2,10 @@
 
 namespace Items {
 
-Item::Item(Graphics::Texture* texture, const Items::SlotType& slot, const int16_t& id, const Stats::Stats stats)
+Item::Item(Graphics::Texture* texture, const Items::SlotType& slot, const std::string& desc, const int16_t& id, const Stats::Stats& stats)
   : mTexture(texture)
   , mSlot(slot)
+  , mDescription(desc)
   , mId(id)
   , mStats(stats) {}
 
@@ -16,6 +17,11 @@ Item::getTexture() {
 SlotType
 Item::getSlotType() const {
     return mSlot;
+}
+
+Stats::Stats
+Item::getStats() const {
+    return mStats;
 }
 
 }
