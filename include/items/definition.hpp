@@ -3,7 +3,8 @@
 namespace Items{
 
 enum class Id{
-    GoldenAmulet = 1
+    GoldenAmulet = 1,
+    BasicStaff = 30
 };
 
 }

@@ -32,7 +32,10 @@ class Inventory {
      *@brief Add a item to the inventory, it will by default be stored in the first available slot
      */
     void addItem(Item*& item);
-
+    /**
+     * @return Return the extra sstats of all items carried by the player
+     */
+    Stats::Stats getStats();
   protected:
     void calculatePositions();                       // Used to calulcate positions for all graphical elements
     bool swap(const int& index1, const int& index2); // Swap 2 items in the inventory

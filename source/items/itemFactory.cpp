@@ -22,7 +22,7 @@ Engine::createItems() {
                 ASSERT_WITH_MESSAGE(mItems.find(static_cast<Items::Id>(item.Id)) != mItems.end(), "Item exist");
                 //To avoid casting over and over
                 const auto id = static_cast<Items::Id>(item.Id);
-                mItems[id] = new Items::Item(GET_BASE(item.Graphic), item.Slot, item.Id, item.Stats);
+                mItems[id] = new Items::Item(GET_BASE(item.Graphic), item.Slot, static_cast<uint16_t>(item.Id), item.Stats);
             }catch(const std::exception& e){
                 ASSERT_WITH_MESSAGE(false, e.what());
             }
@@ -30,6 +30,7 @@ Engine::createItems() {
         }
     }
     mInventory->addItem(mItems[Items::Id::GoldenAmulet]);
+    mInventory->addItem(mItems[Items::Id::BasicStaff]);
 }
 
 }
