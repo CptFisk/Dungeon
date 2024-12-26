@@ -2,6 +2,7 @@
 #include <error.hpp>
 #include <iostream>
 #include <items/jsonItems.hpp>
+#include <items/weapon.hpp>
 #include <nlohmann/json.hpp>
 #include <utility/file.hpp>
 
@@ -24,8 +25,9 @@ Engine::createItems() {
                 switch (item.Slot) {
                     case Items::SlotType::Right:
                     case Items::SlotType::Left:
+                        ASSERT_WITH_MESSAGE(!item.Weapon.has_value(), "Weapon need a type");
                         mItems[id] =
-                          new Items::Item(GET_BASE(item.Graphic), item.Slot, item.Description, static_cast<int16_t>(item.Id), item.Stats);
+                          new Items::Weapon(GET_BASE(item.Graphic), item.Slot, item.Weapon.value(), item.Description, static_cast<int16_t>(item.Id), item.Stats);
                         break;
                     default:
                         mItems[id] =
