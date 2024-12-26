@@ -1,5 +1,6 @@
 #include <items/inventory.hpp>
 #include <utility/textures.hpp>
+#include <error.hpp>
 namespace Items {
 
 Inventory::Inventory(Common::typeScale& scale, Graphics::UserInterfaceTexture* inventory, Graphics::UserInterfaceTexture* selector)
@@ -114,7 +115,7 @@ Inventory::selectItemMouse(const float& x, const float& y) {
     uint8_t    index = {};
     for (const auto& position : mSlotPosition) {
         if (Utility::isOverlapping(point, position)) {
-            if(swap(mSelected, index) && mSelected != index){
+            if(swap(mSelectorVisible, mSelected, index)){
                 mSelectorVisible = false;
             }else{
                 mSelectorVisible = true;
@@ -129,6 +130,7 @@ Inventory::selectItemMouse(const float& x, const float& y) {
 
 void
 Inventory::addItem(Items::Item*& item) {
+    ASSERT_WITH_MESSAGE(item == nullptr, "Item is nullptr");
     const int     startIndex = 6;
     constexpr int endIndex   = startIndex + 16;
     for (int i = startIndex; i < endIndex; i++) {
@@ -150,10 +152,10 @@ Inventory::getStats() {
 }
 
 bool
-Inventory::swap(const int& index1, const int& index2) {
-    auto& item1 = mSlots.at(index1);
-    auto& item2 = mSlots.at(index2);
-    if (item1.Item == nullptr)
+Inventory::swap(const bool& enabled, const int& index1, const int& index2) {
+    auto item1 = mSlots.at(index1);
+    auto item2 = mSlots.at(index2);
+    if (item1.Item == nullptr || index1 == index2 || !enabled)
         return false;
     // Can we even move item1 to item 2
     if (item1.Item->getSlotType() == item2.Type || item2.Type == Items::SlotType::Bag) {

@@ -36,9 +36,10 @@ class Inventory {
      * @return Return the extra sstats of all items carried by the player
      */
     Stats::Stats getStats();
+
   protected:
-    void calculatePositions();                       // Used to calulcate positions for all graphical elements
-    bool swap(const int& index1, const int& index2); // Swap 2 items in the inventory
+    void calculatePositions();                                            // Used to calulcate positions for all graphical elements
+    bool swap(const bool& enabled, const int& index1, const int& index2); // Swap 2 items in the inventory
   private:
     SDL_FPoint           mTopLeft; // Top left coordinate of inventory, used to calculate offsets
     uint8_t              mSelected;
