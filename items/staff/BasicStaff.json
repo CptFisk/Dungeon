@@ -2,9 +2,9 @@
   "Data": {
     "Id": 1,
     "Graphic": "GoldAmulet",
-    "Slot": "Amulet",
+    "Slot": "Left",
     "Stats": {
-      "Luck": 5
+      "Intelligence": 7
     }
   }
 }
