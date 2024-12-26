@@ -3,6 +3,7 @@
     "Id": 20,
     "Graphic": "BasicStaff",
     "Slot": "Left",
+    "Weapon": "Staff",
     "Stats": {
       "Intelligence": 7
     }
