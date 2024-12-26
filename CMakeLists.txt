@@ -47,18 +47,39 @@ message(STATUS "SDL_Image 2 folder: ${SDL2_image_SOURCE_DIR}")
 message(STATUS "ImGui folder: ${imgui_SOURCE_DIR}")
 
 
-file(
-        GLOB RSRC
-        ${CMAKE_SOURCE_DIR}/rsrc
-        ${CMAKE_SOURCE_DIR}/levels
-        ${CMAKE_SOURCE_DIR}/scripts
-        ${CMAKE_SOURCE_DIR}/items
-)
+#Move different files based on build-tye
+if(BUILD_GAME)
+    file(
+            GLOB Graphics
+            ${CMAKE_SOURCE_DIR}/rsrc/animals
+            ${CMAKE_SOURCE_DIR}/rsrc/effects
+            ${CMAKE_SOURCE_DIR}/rsrc/font
+            ${CMAKE_SOURCE_DIR}/rsrc/generated
+            ${CMAKE_SOURCE_DIR}/rsrc/icons
+            ${CMAKE_SOURCE_DIR}/rsrc/items
+            ${CMAKE_SOURCE_DIR}/rsrc/monster
+            ${CMAKE_SOURCE_DIR}/rsrc/player
+            ${CMAKE_SOURCE_DIR}/rsrc/spells
+            ${CMAKE_SOURCE_DIR}/rsrc/ui
+    )
+    file(
+            GLOB Mics
+            ${CMAKE_SOURCE_DIR}/levels
+            ${CMAKE_SOURCE_DIR}/scripts
+            ${CMAKE_SOURCE_DIR}/items
+    )
+endif()
+
 
 file(
-        COPY ${RSRC}
-        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
+        COPY ${Graphics}
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/rsrc
 )
+file(
+        COPY ${Mics}
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/
+)
+
 
 configure_file(cmake.hpp.in cmake.hpp @ONLY)
 
