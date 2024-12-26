@@ -139,6 +139,16 @@ Inventory::addItem(Items::Item*& item) {
     }
 }
 
+Stats::Stats
+Inventory::getStats() {
+    Stats::Stats stats = {};
+    for(auto i = 0; i < 6; i++){
+        if(mSlots[i].Item != nullptr)
+            stats += mSlots[i].Item->getStats();
+    }
+    return stats;
+}
+
 bool
 Inventory::swap(const int& index1, const int& index2) {
     auto& item1 = mSlots.at(index1);
