@@ -1,5 +1,3 @@
-#include <cmake.hpp>
-#include <common/initializer/imgui.hpp>
 #include <common/initializer/initializer.hpp>
 #include <common/initializer/sdl.hpp>
 #include <common/initializer/sdlTTF.hpp>
@@ -8,6 +6,7 @@ namespace Engine {
 void
 Engine::startup() {
     // Starting interrupts
+    //mThreads.push_back(spawnInterrupt(0));
     mThreads.push_back(spawnInterrupt(10));
     mThreads.push_back(spawnInterrupt(100));
     mThreads.push_back(spawnInterrupt(500));
@@ -78,11 +77,12 @@ Engine::startup() {
     pPlayerView     = mPlayer->getTextureViewport();
     pPlayerPosition = mPlayer->getTexturePosition();
 
-    //Setting up inventory
+    // Setting up inventory
     mInventory = std::make_unique<Items::Inventory>(mScale, GET_USERINTERFACE("Inventory"), GET_USERINTERFACE("Selector"));
     createItems();
 
     mParticles = std::make_shared<Objects::Particle>(GET_GENERATED("FAE2C3")->getTexture(), 100, 0.5f, 0.5f);
+    //mInterrupts[0]->addFunction([&]() { monsterActions(); });
     // Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
     mInterrupts[10]->addFunction([&]() {
