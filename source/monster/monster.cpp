@@ -120,7 +120,7 @@ BaseMonster::getPosition() {
 }
 
 SDL_FPoint
-BaseMonster::getCenter() {
+BaseMonster::getCenter() const{
     return mMonsterCenter;
 }
 

@@ -66,7 +66,7 @@ class BaseMonster {
      * @brief Return the monster center position
      * @return
      */
-    SDL_FPoint getCenter();
+    SDL_FPoint getCenter() const;
     /**
      * @brief Return the monsters current state
      */
