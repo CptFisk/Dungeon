@@ -12,4 +12,12 @@ functions_equal(std::function<T(U...)> a, std::function<T(U...)> b) {
 
     return (*pa) == (*pb);
 }
+
+template <typename T, typename Getter>
+void sortBy(std::vector<T>& vec, Getter getter) {
+    std::sort(vec.begin(), vec.end(), [getter](const T& a, const T& b) {
+        return getter(a) < getter(b);
+    });
+}
+
 }
