@@ -10,9 +10,9 @@ namespace Monster {
 
 class BaseMonster {
   public:
-    BaseMonster(const int&                                               health,
-                const float&                                             velocity,
-                const std::string&                                       lua,
+    BaseMonster(const int&                                                      health,
+                const float&                                                    velocity,
+                const std::string&                                              lua,
                 const std::optional<std::unordered_map<std::string, std::any>>& defaults = std::nullopt);
     BaseMonster(const BaseMonster& other);
     virtual ~BaseMonster();
@@ -22,6 +22,10 @@ class BaseMonster {
      * @brief Deal damage to the monster.
      * @param damage
      */
+
+    void setPlayerDistance(const float& dist);
+    [[nodiscard]]float getPlayerDistance() const;
+
     void damageMonster(const int& damage);
     /**
      * @brief Return the status of mInflictDamage
@@ -108,6 +112,8 @@ class BaseMonster {
     SDL_FRect    mMonsterPosition; // Drawing area of the monster
     SDL_Texture* pCurrentTexture;  // Reference to the current texture
     SDL_Rect*    pCurrentViewport; // Reference to the current viewport
+
+    float mPlayerDistance; // Distance to the player
 
     void updateReferences();
 

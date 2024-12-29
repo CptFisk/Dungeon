@@ -34,6 +34,16 @@ BaseMonster::BaseMonster(const Monster::BaseMonster& other)
 BaseMonster::~BaseMonster() = default;
 
 void
+BaseMonster::setPlayerDistance(const float& dist) {
+    mPlayerDistance = dist;
+}
+
+float
+BaseMonster::getPlayerDistance() const {
+    return mPlayerDistance;
+}
+
+void
 BaseMonster::damageMonster(const int& damage) {
     mHealth -= damage;
     if (mHealth < 0) {
