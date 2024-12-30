@@ -115,11 +115,16 @@ Engine::click() {
 }
 
 void
-Engine::movePlayer(Orientation direction) {
+Engine::movePlayer(Direction direction) {
+    //Get angle from mouse
+    const auto angle = Utility::getAngle(mActionManager->mouseX, mActionManager->mouseY, mPlayer->getPlayerCenter());
+    std::cout << angle << std::endl;
+    /*
     if (movement(mPlayer->getPlayerCenter(), direction))
         mPerspective->move(direction, mPlayer->move(direction));
     else
         mPlayer->setDirection(direction); // At least change direction
+    */
 }
 
 void

@@ -6,7 +6,7 @@ namespace Engine {
 void
 Engine::startup() {
     // Starting interrupts
-    //mThreads.push_back(spawnInterrupt(0));
+    // mThreads.push_back(spawnInterrupt(0));
     mThreads.push_back(spawnInterrupt(10));
     mThreads.push_back(spawnInterrupt(100));
     mThreads.push_back(spawnInterrupt(500));
@@ -18,7 +18,7 @@ Engine::startup() {
 
     Common::calculateGameScale(mScale, pWindow);
     SDL_RenderSetScale(pRenderer, static_cast<int>(mScale.selectedScale), static_cast<int>(mScale.selectedScale));
-    mActionManager = std::make_unique<Common::ActionManager>(pRenderer, mScale);
+    mActionManager = std::make_unique<Common::ActionManager>(pRenderer, mScale, offset.X, offset.Y);
 
     // Generate graphics
     mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
@@ -82,8 +82,8 @@ Engine::startup() {
     createItems();
 
     mParticles = std::make_shared<Objects::Particle>(GET_GENERATED("FAE2C3")->getTexture(), 100, 0.5f, 0.5f);
-    //mInterrupts[0]->addFunction([&]() { monsterActions(); });
-    // Update all graphics
+    // mInterrupts[0]->addFunction([&]() { monsterActions(); });
+    //  Update all graphics
     mInterrupts[10]->addFunction([&]() { mGraphics->updateAnimatedTexture(); });
     mInterrupts[10]->addFunction([&]() {
         {

@@ -45,7 +45,7 @@ class Engine {
     void     terminate();
     void     click(); // Mouse click
 #pragma region Player
-    void            movePlayer(Orientation direction);
+    void            movePlayer(Direction direction);
     void            setPlayerAction(Objects::State action);
     Player::Player& getPlayer();
 #pragma endregion

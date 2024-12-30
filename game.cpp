@@ -13,10 +13,10 @@ main(int argc, char* argv[]) {
     ImGui::CreateContext();
 
     engine.startup();
-    engine.getActionManager().registerKeyboardAction("PlayerNorth", SDLK_w);
-    engine.getActionManager().registerKeyboardAction("PlayerEast", SDLK_d);
-    engine.getActionManager().registerKeyboardAction("PlayerSouth", SDLK_s);
-    engine.getActionManager().registerKeyboardAction("PlayerWest", SDLK_a);
+    engine.getActionManager().registerKeyboardAction("PlayerForward", SDLK_w);
+    engine.getActionManager().registerKeyboardAction("PlayerRight", SDLK_d);
+    engine.getActionManager().registerKeyboardAction("PlayerBackward", SDLK_s);
+    engine.getActionManager().registerKeyboardAction("PlayerLeft", SDLK_a);
     engine.getActionManager().registerKeyboardAction("Interact", SDLK_SPACE);
     engine.getActionManager().registerKeyboardAction("Exit", SDLK_ESCAPE);
     engine.getActionManager().registerMouseAction("Click", SDL_BUTTON_LEFT);
@@ -39,40 +39,40 @@ main(int argc, char* argv[]) {
 
     Common::queueProcessHandler(
       [&](Uint32) {
-          if (engine.getActionManager().isActionPressed("PlayerNorth")) {
-              engine.movePlayer(North);
+          if (engine.getActionManager().isActionPressed("PlayerForward")) {
+              engine.movePlayer(Forward);
           }
       },
       engine.getProcessing());
 
     Common::queueProcessHandler(
       [&](Uint32) {
-          if (engine.getActionManager().isActionPressed("PlayerEast")) {
-              engine.movePlayer(East);
+          if (engine.getActionManager().isActionPressed("PlayerRight")) {
+              engine.movePlayer(Right);
           }
       },
       engine.getProcessing());
 
     Common::queueProcessHandler(
       [&](Uint32) {
-          if (engine.getActionManager().isActionPressed("PlayerSouth")) {
-              engine.movePlayer(South);
+          if (engine.getActionManager().isActionPressed("PlayerBackward")) {
+              engine.movePlayer(Backward);
           }
       },
       engine.getProcessing());
 
     Common::queueProcessHandler(
       [&](Uint32) {
-          if (engine.getActionManager().isActionPressed("PlayerWest")) {
-              engine.movePlayer(West);
+          if (engine.getActionManager().isActionPressed("PlayerLeft")) {
+              engine.movePlayer(Left);
           }
       },
       engine.getProcessing());
 
     Common::queueProcessHandler(
       [&](Uint32) {
-          if (!engine.getActionManager().isActionPressed("PlayerNorth") && !engine.getActionManager().isActionPressed("PlayerEast") &&
-              !engine.getActionManager().isActionPressed("PlayerSouth") && !engine.getActionManager().isActionPressed("PlayerWest")) {
+          if (!engine.getActionManager().isActionPressed("PlayerForward") && !engine.getActionManager().isActionPressed("PlayerRight") &&
+              !engine.getActionManager().isActionPressed("PlayerBackward") && !engine.getActionManager().isActionPressed("PlayerLeft")) {
               engine.setPlayerAction(Objects::State::IDLE);
               engine.resetPlayerMomentum();
           }

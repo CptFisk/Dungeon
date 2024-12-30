@@ -21,9 +21,9 @@ calculateVector(const double& angle, const float& velocity) {
  * @return The angle as double
  */
 inline constexpr double
-getAngle(const SDL_FPoint& a, const SDL_FPoint& b) {
-    const auto dx = a.x - b.x;
-    const auto dy = a.y - b.y;
+getAngle(const float& ax, const float& ay, const SDL_FPoint& b) {
+    const auto dx = ax - b.x;
+    const auto dy = ay - b.y;
 
     const auto angleRadians = atan2(dy, dx);
     auto       angleDegrees = angleRadians * 180 / M_PI;
@@ -33,6 +33,12 @@ getAngle(const SDL_FPoint& a, const SDL_FPoint& b) {
         angleDegrees += 360;
     return angleDegrees;
 }
+
+inline constexpr double
+getAngle(const SDL_FPoint& a, const SDL_FPoint& b) {
+    return getAngle(a.x, a.y, b);
+}
+
 /**
  * @brief Calculate a new position against a start position with a angle and distance
  * @param start Start position
@@ -64,6 +70,5 @@ getDistance(const SDL_FPoint& a, const SDL_FPoint& b) {
     const auto dy = a.y - b.y;
     return (sqrt(dx * dx + dy * dy)) / 16.0f;
 }
-
 
 }
