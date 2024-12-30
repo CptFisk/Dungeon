@@ -9,6 +9,7 @@
 #include <utility/bits.hpp>
 #include <utility/math.hpp>
 #include <utility/textures.hpp>
+#include <utility/trigonometry.hpp>
 
 namespace Engine {
 
@@ -133,6 +134,44 @@ Engine::wallCheck(const float& x, const float& y, const long unsigned int& mask)
         return false;
     if (Utility::isAnyBitSet(levelObjects[index.value()], std::bitset<8>(mask)))
         return false;
+    return true;
+}
+
+bool
+Engine::movement(const SDL_FPoint& other,const SDL_FPoint& vector, const double& angle) {
+    auto pos = Utility::addFPoint(other, vector);
+    if (pos.x < 0 || pos.y < 0)
+        return false; // No need to evaluate more
+    auto playerX = INT(pos.x / 16.0f);
+    auto playerY = INT(pos.y / 16.0f);
+
+    const auto index = Common::getIndex(playerX, playerY, MAP_WIDTH);
+    if (!index.has_value())
+        return false;
+    if ((levelObjects[index.value()].test(Common::TileType::WALL) || levelObjects[index.value()].test(Common::TileType::OBSTACLE)))
+        return false;
+    auto it = warp.find(index.value());
+    if (it != warp.end()) {
+        auto       object = it->second;
+        const auto level  = object->getLevel();
+        if (level != mMapCoordinate) {
+            const auto destination = object->getDestination(); // Need to store before swapping map
+            loadLevel(object->getLevel().toString() + ".lvl");
+            mPlayer->spawn(destination);
+            mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
+        } else {
+            std::cout << "Swap level" << std::endl;
+        }
+        return false;
+    }
+    /*
+    for (const auto& door : doors) {
+        if (!door->isPassable()) {
+            if (Utility::isColliding(other, door->getPosition(), direction))
+                return false;
+        }
+    }
+     */
     return true;
 }
 
