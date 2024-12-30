@@ -5,9 +5,9 @@
 #include <engine/engine.hpp>
 #include <items/inventory.hpp>
 #include <utility/file.hpp>
-#include <utility/math.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
+#include <utility/functions.hpp>
 
 namespace Engine {
 
@@ -28,7 +28,7 @@ Engine::Engine()
   , mEvent{}
   , mMapCoordinate{}
   , mColour{}
-  , mGameMode(GameMode::Inventory)
+  , mGameMode(GameMode::Game)
   , mLuaManager(std::make_unique<Lua::LuaManager>()) {}
 
 Engine::~Engine() {
@@ -151,8 +151,19 @@ Engine::interact() {
 void
 Engine::mainLoop() {
     mPlayer->spawn(9, 119);
+
+
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
+    SDL_FRect pos = {20,20, 19,9};
+    auto sweep = GET_ANIMATED("AttackSweepSouth");
     while (mRun) {
+        //Sort monster list
+        for(auto& monster : mActiveMonsters)
+            monster->setPlayerDistance(Utility::getDistance(mPlayer->getPlayerCenter(), monster->getCenter()));
+        Utility::sortBy(mActiveMonsters, [&](const Monster::BaseMonster* monster) {
+            return monster->getPlayerDistance();
+        });
+
         mFPSTimer.start();
         SDL_SetRenderTarget(pRenderer, nullptr);
         SDL_RenderClear(pRenderer);
@@ -193,6 +204,7 @@ Engine::mainLoop() {
 
         // Draw our cute hero
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition);
+        SDL_RenderCopyF(pRenderer, sweep->getTexture(), sweep->getAnimatedViewport(), &pos);
         drawProjectiles();
         // Draw top layer
         drawLevel(mSegments.Top, mSegments.CurrentLayerTop);
@@ -236,10 +248,6 @@ Engine::mainLoop() {
     #endif
          */
         present();
-
-        auto ticks = mFPSTimer.getTicks();
-        if (ticks < 1000.0 / 60.0)
-            SDL_Delay((1000 / 60.0) - ticks);
     }
 }
 
@@ -291,6 +299,8 @@ Engine::monsterActions() {
 
     auto state = mLuaManager->getState();
     for (auto& monster : mActiveMonsters) {
+        if(monster->getPlayerDistance() > 20.0f)
+            break;
         const auto lua = monster->getLuaFile();
 
         mLuaManager->executeScript("scripts/monster/" + lua);

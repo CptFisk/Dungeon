@@ -1,0 +1,19 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/effects/AttackSweep.png",
+    "Objects": [
+      {
+        "Name": "AttackSweepSouth",
+        "Column": 1,
+        "Row": 1,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 19,
+        "Height": 9
+      }
+    ]
+  }
+}
