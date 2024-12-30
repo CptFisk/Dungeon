@@ -27,7 +27,7 @@ class Inventory {
      * @param x
      * @param y
      */
-    void selectItemMouse(const float& x, const float& y);
+    void selectItemMouse(const SDL_FPoint& point);
     /**
      *@brief Add a item to the inventory, it will by default be stored in the first available slot
      */

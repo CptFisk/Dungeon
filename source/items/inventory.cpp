@@ -110,8 +110,7 @@ Inventory::getInventory() {
 }
 
 void
-Inventory::selectItemMouse(const float& x, const float& y) {
-    const auto point = SDL_FPoint{ x, y };
+Inventory::selectItemMouse(const SDL_FPoint& point) {
     uint8_t    index = {};
     for (const auto& position : mSlotPosition) {
         if (Utility::isOverlapping(point, position)) {
