@@ -14,9 +14,9 @@
 [[maybe_unused]] const int     MAP_WIDTH     = 128;
 [[maybe_unused]] const int     SEGMENT_SIZE  = 128;
 [[maybe_unused]] constexpr int MAP_SIZE      = MAP_WIDTH * MAP_WIDTH;
-[[maybe_unused]] const int     BLOCKS_WIDTH  = 24;
-[[maybe_unused]] const int     BLOCKS_HEIGHT = 18;
-[[maybe_unused]] const int     PIXEL_SIZE    = 16;
+[[maybe_unused]] const int     BLOCKS_WIDTH  = 24;  //Number of squares in x-direction
+[[maybe_unused]] const int     BLOCKS_HEIGHT = 18;  //Number of squares in y-direction
+[[maybe_unused]] const int     PIXEL_SIZE    = 16;  //Size of each block
 
 #pragma region Bitmask
 [[maybe_unused]] const int LIGHT_ANIMATION_FRAMES = 7; // Constant for how many frames a light-effect exist of
