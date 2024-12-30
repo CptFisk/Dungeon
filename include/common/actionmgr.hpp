@@ -25,15 +25,13 @@ class ActionManager {
     bool isActionFalling(const std::string& name);
 
     bool eventHandler(SDL_Event* event);
-    int  mouseX; // Mouse X coordinate
-    int  mouseY; // Mouse Y coordinate
 
-    [[maybe_unused]] SDL_Point getMouseAbsolute() const;
-    [[maybe_unused]] int getMouseAbsoluteX() const;
-    [[maybe_unused]] int getMouseAbsoluteY() const;
-    [[maybe_unused]] SDL_Point getMouseRelative() const;
-    [[maybe_unused]] int getMouseRelativeX() const;
-    [[maybe_unused]] int getMouseRelativeY() const;
+    [[maybe_unused]][[nodiscard]] SDL_Point getMouseAbsolute() const;
+    [[maybe_unused]][[nodiscard]] int getMouseAbsoluteX() const;
+    [[maybe_unused]][[nodiscard]] int getMouseAbsoluteY() const;
+    [[maybe_unused]][[nodiscard]] SDL_Point getMouseRelative() const;
+    [[maybe_unused]][[nodiscard]] int getMouseRelativeX() const;
+    [[maybe_unused]][[nodiscard]] int getMouseRelativeY() const;
 
   protected:
   private:

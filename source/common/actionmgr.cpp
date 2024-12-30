@@ -5,9 +5,7 @@
 namespace Common {
 
 ActionManager::ActionManager(SDL_Renderer*& renderer, Common::typeScale& scale, float& offsetX, float& offsetY)
-  : mouseX(0.0f)
-  , mouseY(0.0f)
-  , pRenderer(renderer)
+  : pRenderer(renderer)
   , mScale(scale)
   , mOffsetX(offsetX)
   , mOffsetY(offsetY) {}
@@ -28,7 +26,7 @@ ActionManager::eventHandler(SDL_Event* event) {
         case SDL_MOUSEMOTION:
 #ifdef GAME_MODE
             mAbsoluteMouse = { INT(FLOAT(event->button.x) / mScale.selectedScale), INT(FLOAT(event->button.y) / mScale.selectedScale) };
-            mRelativeMouse = { mAbsoluteMouse.x + INT(mOffsetX), mAbsoluteMouse.y + INT(mOffsetY) };
+            mRelativeMouse = { mAbsoluteMouse.x + std::abs(INT(mOffsetX)), mAbsoluteMouse.y + std::abs(INT(mOffsetY)) };
 #endif
 #ifdef EDITOR_MODE
             mouseX = event->button.x;

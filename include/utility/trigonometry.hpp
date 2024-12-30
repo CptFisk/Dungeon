@@ -2,6 +2,8 @@
 #include <SDL.h>
 #include <cmath>
 #include <utility>
+#include <utility/sdl.hpp>
+
 namespace Utility {
 /***
  * @brief Calculate the new position based on angle and velocity
@@ -21,9 +23,9 @@ calculateVector(const double& angle, const float& velocity) {
  * @return The angle as double
  */
 inline constexpr double
-getAngle(const float& ax, const float& ay, const SDL_FPoint& b) {
-    const auto dx = ax - b.x;
-    const auto dy = ay - b.y;
+getAngle(const SDL_FPoint& a, const SDL_FPoint& b) {
+    const auto dx = a.x - b.x;
+    const auto dy = a.y - b.y;
 
     const auto angleRadians = atan2(dy, dx);
     auto       angleDegrees = angleRadians * 180 / M_PI;
@@ -35,9 +37,11 @@ getAngle(const float& ax, const float& ay, const SDL_FPoint& b) {
 }
 
 inline constexpr double
-getAngle(const SDL_FPoint& a, const SDL_FPoint& b) {
-    return getAngle(a.x, a.y, b);
+getAngle(const SDL_Point &a, const SDL_FPoint& b) {
+    return getAngle(PointToFPoint(a), b);
 }
+
+
 
 /**
  * @brief Calculate a new position against a start position with a angle and distance

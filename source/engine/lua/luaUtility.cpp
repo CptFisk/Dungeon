@@ -20,10 +20,13 @@ utility_getAngle(lua_State* L) {
     // Position 1
     const auto x1 = static_cast<float>(luaL_checknumber(L, 1));
     const auto y1 = static_cast<float>(luaL_checknumber(L, 2));
+
     // Position 2
-    const auto x2     = static_cast<float>(luaL_checknumber(L, 3));
-    const auto y2     = static_cast<float>(luaL_checknumber(L, 4));
-    const auto result = Utility::getAngle({ x1, y1 }, { x2, y2 });
+    const auto       x2     = static_cast<float>(luaL_checknumber(L, 3));
+    const auto       y2     = static_cast<float>(luaL_checknumber(L, 4));
+    const SDL_FPoint x      = { x1, y1 };
+    const SDL_FPoint y      = { x2, y2 };
+    const auto       result = Utility::getAngle(x, y);
     lua_pushnumber(L, result);
     return 1;
 }
@@ -43,8 +46,8 @@ utility_getAngleDistance(lua_State* L) {
     const auto startY   = FLOAT(luaL_checknumber(L, 2));
     const auto distance = FLOAT(luaL_checknumber(L, 4));
     const auto pos      = Utility::offsetAngle(SDL_FPoint{ startX, startY }, luaL_checknumber(L, 3), distance);
-    lua_pushnumber(L,pos.x);
-    lua_pushnumber(L,pos.y);
+    lua_pushnumber(L, pos.x);
+    lua_pushnumber(L, pos.y);
     return 2;
 }
 
