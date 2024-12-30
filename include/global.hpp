@@ -34,16 +34,18 @@
 #pragma endregion
 
 enum Orientation : uint8_t {
-    North                       = 1 << 0,
-    East                        = 1 << 1,
-    South                       = 1 << 2,
-    West                        = 1 << 3,
+    North                      = 1 << 0,
+    East                       = 1 << 1,
+    South                      = 1 << 2,
+    West                       = 1 << 3,
     NorthEast [[maybe_unused]] = North | East,
     NorthWest [[maybe_unused]] = North | West,
     SouthEast [[maybe_unused]] = South | East,
     SouthWest [[maybe_unused]] = South | West,
-    All [[maybe_unused]]        = North | East | South | West
+    All [[maybe_unused]]       = North | East | South | West
 };
+
+enum Direction : uint8_t { Forward = 1 << 0, Backward = 1 << 1, Right = 1 << 2, Left = 1 << 3 };
 
 /**
  * @brief Different game-modes, used to handle inputs and other actions
