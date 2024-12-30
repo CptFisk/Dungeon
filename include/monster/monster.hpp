@@ -34,10 +34,10 @@ class BaseMonster {
     [[maybe_unused]] [[nodiscard]] bool inflictDamage() const;
     [[nodiscard]] std::string           getLuaFile() const;
 
-    void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
+    void addAnimatedTexture(Objects::State action, Orientation direction, Graphics::AnimatedTexture* texture);
 
     [[maybe_unused]] void setState(Objects::State state);
-    [[maybe_unused]] void setDirection(Directions direction);
+    [[maybe_unused]] void setDirection(Orientation direction);
 
     Graphics::typeDrawData getMonster();
     /**
@@ -103,9 +103,9 @@ class BaseMonster {
     int  mHealth;        // Monster health
 
     Objects::State mState;     // What are we doing
-    Directions     mDirection; // The direction we are facing
+    Orientation    mDirection; // The direction we are facing
 
-    std::map<std::pair<Objects::State, Directions>, Graphics::AnimatedTexture*> mTextures;
+    std::map<std::pair<Objects::State, Orientation>, Graphics::AnimatedTexture*> mTextures;
 
     // Pointer that SDL_Render refer to
     SDL_FPoint   mMonsterCenter;   // Center of the monster

@@ -40,7 +40,7 @@ main(int argc, char* argv[]) {
     Common::queueProcessHandler(
       [&](Uint32) {
           if (engine.getActionManager().isActionPressed("PlayerNorth")) {
-              engine.movePlayer(NORTH);
+              engine.movePlayer(North);
           }
       },
       engine.getProcessing());
@@ -48,7 +48,7 @@ main(int argc, char* argv[]) {
     Common::queueProcessHandler(
       [&](Uint32) {
           if (engine.getActionManager().isActionPressed("PlayerEast")) {
-              engine.movePlayer(EAST);
+              engine.movePlayer(East);
           }
       },
       engine.getProcessing());
@@ -56,7 +56,7 @@ main(int argc, char* argv[]) {
     Common::queueProcessHandler(
       [&](Uint32) {
           if (engine.getActionManager().isActionPressed("PlayerSouth")) {
-              engine.movePlayer(SOUTH);
+              engine.movePlayer(South);
           }
       },
       engine.getProcessing());
@@ -64,7 +64,7 @@ main(int argc, char* argv[]) {
     Common::queueProcessHandler(
       [&](Uint32) {
           if (engine.getActionManager().isActionPressed("PlayerWest")) {
-              engine.movePlayer(WEST);
+              engine.movePlayer(West);
           }
       },
       engine.getProcessing());

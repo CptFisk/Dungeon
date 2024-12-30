@@ -8,23 +8,23 @@ Player::Player()
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)
   , mAction(Objects::IDLE)
-  , mDirection(SOUTH)
+  , mDirection(South)
   , mMomentum(0.0f) {}
 
 Player::~Player() = default;
 
 void
-Player::spawn(const std::pair<uint8_t, uint8_t>& pos, const Directions& direction) {
+Player::spawn(const std::pair<uint8_t, uint8_t>& pos, const Orientation& direction) {
     spawn(pos.first, pos.second, direction);
 }
 
 void
-Player::spawn(const Common::type2DMapCoordinate& pos, const Directions& direction) {
+Player::spawn(const Common::type2DMapCoordinate& pos, const Orientation& direction) {
     spawn(pos.X, pos.Y);
 }
 
 void
-Player::spawn(const uint8_t& x, const uint8_t& y, const Directions& direction) {
+Player::spawn(const uint8_t& x, const uint8_t& y, const Orientation& direction) {
     const float _x = std::max((static_cast<float>(x) * 16.0f), 0.0f); // We reduce by 16 because position is top left corner
     const float _y = std::max((static_cast<float>(y) * 16.0f), 0.0f);
 
@@ -67,7 +67,7 @@ Player::getTextureViewport() {
 }
 
 void
-Player::addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture) {
+Player::addAnimatedTexture(Objects::State action, Orientation direction, Graphics::AnimatedTexture* texture) {
     mTextures[{ action, direction }] = texture;
     if (mCurrentTexture == nullptr || mCurrentViewport == nullptr) {
         mCurrentTexture  = texture->getTexture();
@@ -84,28 +84,28 @@ Player::updateReferences() {
 void
 Player::updateInteraction() {
     switch (mDirection) {
-        case NORTH:
+        case North:
             // Move the interaction box to our top
             mInteraction.x = mTexturePosition.x;
             mInteraction.y = mTexturePosition.y - 8.0f;
             mInteraction.h = 8.0f;
             mInteraction.w = 12.0f;
             break;
-        case EAST:
+        case East:
             // Move the interaction box to our right
             mInteraction.x = mTexturePosition.x + 12.0f;
             mInteraction.y = mTexturePosition.y;
             mInteraction.h = 18.0f;
             mInteraction.w = 8.0f;
             break;
-        case SOUTH:
+        case South:
             // Move the interaction box to our bottom
             mInteraction.x = mTexturePosition.x;
             mInteraction.y = mTexturePosition.y + 18.0f;
             mInteraction.h = 8.0f;
             mInteraction.w = 12.0f;
             break;
-        case WEST:
+        case West:
             // Move the interaction box to our left
             mInteraction.x = mTexturePosition.x - 8.0f;
             mInteraction.y = mTexturePosition.y;
@@ -118,7 +118,7 @@ Player::updateInteraction() {
 }
 
 void
-Player::updatePosition(const float& x, const float& y, const Directions& direction) {
+Player::updatePosition(const float& x, const float& y, const Orientation& direction) {
     mTexturePosition.x += x;
     mTexturePosition.y += y;
     mPlayerCenter.x += x;
@@ -133,7 +133,7 @@ Player::setAction(Objects::State action) {
 }
 
 void
-Player::setDirection(Directions direction) {
+Player::setDirection(Orientation direction) {
     mDirection = direction;
     updateReferences();
     updateInteraction();
@@ -145,22 +145,22 @@ Player::resetMomentum() {
 }
 
 float
-Player::move(Directions direction) {
+Player::move(Orientation direction) {
     mMomentum = 1.0f;
     switch (direction) {
-        case NORTH:
-            updatePosition(0.0f, -mMomentum, NORTH);
+        case North:
+            updatePosition(0.0f, -mMomentum, North);
             break;
-        case EAST:
-            updatePosition(mMomentum, 0.0f, EAST);
+        case East:
+            updatePosition(mMomentum, 0.0f, East);
             break;
-        case SOUTH:
-            updatePosition(0.0f, mMomentum, SOUTH);
+        case South:
+            updatePosition(0.0f, mMomentum, South);
             break;
-        case WEST:
-            updatePosition(-mMomentum, 0.0f, WEST);
+        case West:
+            updatePosition(-mMomentum, 0.0f, West);
             break;
-        case ALL:
+        case All:
         default:
             break;
     }

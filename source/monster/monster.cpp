@@ -14,7 +14,7 @@ BaseMonster::BaseMonster(const int&                                       health
   , pCurrentTexture(nullptr)
   , pCurrentViewport(nullptr)
   , mState(Objects::IDLE)
-  , mDirection(SOUTH)
+  , mDirection(South)
   , DEATH_ANIMATION(20) {}
 
 BaseMonster::BaseMonster(const Monster::BaseMonster& other)
@@ -24,7 +24,7 @@ BaseMonster::BaseMonster(const Monster::BaseMonster& other)
   , mTextures(other.mTextures)
   , mMonsterPosition(other.mMonsterPosition)
   , mMonsterCenter(other.mMonsterCenter)
-  , mDirection(SOUTH)
+  , mDirection(South)
   , mInflictDamage(false)
   , pCurrentTexture(other.pCurrentTexture)
   , pCurrentViewport(other.pCurrentViewport)
@@ -63,17 +63,17 @@ BaseMonster::getLuaFile() const {
 }
 
 void
-BaseMonster::addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture) {
+BaseMonster::addAnimatedTexture(Objects::State action, Orientation direction, Graphics::AnimatedTexture* texture) {
     if (pCurrentTexture == nullptr || pCurrentViewport == nullptr) {
         pCurrentTexture  = texture->getTexture();
         pCurrentViewport = texture->getAnimatedViewport();
     }
 
-    if (direction == Directions::ALL) {
-        mTextures[{ action, NORTH }] = texture;
-        mTextures[{ action, EAST }]  = texture;
-        mTextures[{ action, SOUTH }] = texture;
-        mTextures[{ action, WEST }]  = texture;
+    if (direction == Orientation::All) {
+        mTextures[{ action, North }] = texture;
+        mTextures[{ action, East }]  = texture;
+        mTextures[{ action, South }] = texture;
+        mTextures[{ action, West }]  = texture;
         return;
     }
 
@@ -81,7 +81,7 @@ BaseMonster::addAnimatedTexture(Objects::State action, Directions direction, Gra
 }
 
 void
-BaseMonster::setDirection(Directions direction) {
+BaseMonster::setDirection(Orientation direction) {
     mDirection = direction;
     updateReferences();
 }

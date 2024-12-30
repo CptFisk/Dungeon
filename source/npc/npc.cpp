@@ -8,7 +8,7 @@ BaseNPC::BaseNPC(const float& width, const float& height, std::function<bool(con
   , mNPCHeight(height)
   , fCheckWalls(checkWalls)
   , mState(Objects::IDLE)
-  , mDirection(SOUTH)
+  , mDirection(South)
   , pCurrentTexture(nullptr)
   , pCurrentViewport(nullptr) {}
 
@@ -26,17 +26,17 @@ BaseNPC::BaseNPC(const NPC::BaseNPC& other)
 BaseNPC::~BaseNPC() = default;
 
 void
-BaseNPC::addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture) {
+BaseNPC::addAnimatedTexture(Objects::State action, Orientation direction, Graphics::AnimatedTexture* texture) {
     if (pCurrentTexture == nullptr || pCurrentViewport == nullptr) {
         pCurrentTexture  = texture->getTexture();
         pCurrentViewport = texture->getAnimatedViewport();
     }
 
-    if (direction == Directions::ALL) {
-        mTextures[{ action, NORTH }] = texture;
-        mTextures[{ action, EAST }]  = texture;
-        mTextures[{ action, SOUTH }] = texture;
-        mTextures[{ action, WEST }]  = texture;
+    if (direction == Orientation::All) {
+        mTextures[{ action, North }] = texture;
+        mTextures[{ action, East }]  = texture;
+        mTextures[{ action, South }] = texture;
+        mTextures[{ action, West }]  = texture;
         return;
     }
 
@@ -44,7 +44,7 @@ BaseNPC::addAnimatedTexture(Objects::State action, Directions direction, Graphic
 }
 
 void
-BaseNPC::setDirection(Directions direction) {
+BaseNPC::setDirection(Orientation direction) {
     mDirection = direction;
     updateReferences();
 }

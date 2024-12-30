@@ -24,27 +24,27 @@ class Player {
      * @param x X-coordinate
      * @param y Y-Coordinate
      */
-    void spawn(const uint8_t& x, const uint8_t& y, const Directions& direction = Directions::NORTH);
-    void spawn(const std::pair<uint8_t, uint8_t>& pos, const Directions& direction = Directions::NORTH);
-    void spawn(const Common::type2DMapCoordinate& pos, const Directions& direction = Directions::NORTH);
+    void spawn(const uint8_t& x, const uint8_t& y, const Orientation& direction = Orientation::North);
+    void spawn(const std::pair<uint8_t, uint8_t>& pos, const Orientation& direction = Orientation::North);
+    void spawn(const Common::type2DMapCoordinate& pos, const Orientation& direction = Orientation::North);
 
-    void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
+    void addAnimatedTexture(Objects::State action, Orientation direction, Graphics::AnimatedTexture* texture);
 
     void setAction(Objects::State action);
-    void setDirection(Directions direction);
+    void setDirection(Orientation direction);
     void resetMomentum();
 
-    float move(Directions direction);
+    float move(Orientation direction);
 
   private:
     Objects::State mAction;    // What are we doing
-    Directions     mDirection; // The direction we are facing
+    Orientation    mDirection; // The direction we are facing
     void           updateReferences();
     void           updateInteraction();                                                         // Update interaction box
-    void           updatePosition(const float& x, const float& y, const Directions& direction); // Update all data related to positioning
+    void           updatePosition(const float& x, const float& y, const Orientation& direction); // Update all data related to positioning
 
   protected:
-    std::map<std::pair<Objects::State, Directions>, Graphics::AnimatedTexture*> mTextures;
+    std::map<std::pair<Objects::State, Orientation>, Graphics::AnimatedTexture*> mTextures;
 
     float mMomentum;
     // Pointer that SDL_Render refer to

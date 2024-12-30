@@ -115,7 +115,7 @@ Engine::click() {
 }
 
 void
-Engine::movePlayer(Directions direction) {
+Engine::movePlayer(Orientation direction) {
     if (movement(mPlayer->getPlayerCenter(), direction))
         mPerspective->move(direction, mPlayer->move(direction));
     else

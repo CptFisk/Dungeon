@@ -203,7 +203,7 @@ Editor::mainLoop() {
 }
 
 void
-Editor::move(Directions direction) {
+Editor::move(Orientation direction) {
     mPerspective->move(direction, 10.0);
 }
 

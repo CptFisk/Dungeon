@@ -55,22 +55,22 @@ Engine::startup() {
     std::make_unique<Player::Indicator>(mVisibleUI, mPlayerEnergy, 16.0f, pRenderer, GET_ANIMATED("Bolt"), GET_NUMBER("NumberWhite"));
   */
     // Binding player data
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::NORTH, GET_ANIMATED("HumanIdleNorth"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::EAST, GET_ANIMATED("HumanIdleEast"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::SOUTH, GET_ANIMATED("HumanIdleSouth"));
-    mPlayer->addAnimatedTexture(Objects::IDLE, Directions::WEST, GET_ANIMATED("HumanIdleWest"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::North, GET_ANIMATED("HumanIdleNorth"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::East, GET_ANIMATED("HumanIdleEast"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::South, GET_ANIMATED("HumanIdleSouth"));
+    mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::West, GET_ANIMATED("HumanIdleWest"));
 
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::NORTH, GET_ANIMATED("HumanMovingNorth"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::EAST, GET_ANIMATED("HumanMovingEast"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::SOUTH, GET_ANIMATED("HumanMovingSouth"));
-    mPlayer->addAnimatedTexture(Objects::MOVE, Directions::WEST, GET_ANIMATED("HumanMovingWest"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Orientation::North, GET_ANIMATED("HumanMovingNorth"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Orientation::East, GET_ANIMATED("HumanMovingEast"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Orientation::South, GET_ANIMATED("HumanMovingSouth"));
+    mPlayer->addAnimatedTexture(Objects::MOVE, Orientation::West, GET_ANIMATED("HumanMovingWest"));
 
-    mPlayer->addAnimatedTexture(Objects::DEAD, Directions::NORTH, GET_ANIMATED("HumanDead"));
-    mPlayer->addAnimatedTexture(Objects::DEAD, Directions::EAST, GET_ANIMATED("HumanDead"));
-    mPlayer->addAnimatedTexture(Objects::DEAD, Directions::SOUTH, GET_ANIMATED("HumanDead"));
-    mPlayer->addAnimatedTexture(Objects::DEAD, Directions::WEST, GET_ANIMATED("HumanDead"));
+    mPlayer->addAnimatedTexture(Objects::DEAD, Orientation::North, GET_ANIMATED("HumanDead"));
+    mPlayer->addAnimatedTexture(Objects::DEAD, Orientation::East, GET_ANIMATED("HumanDead"));
+    mPlayer->addAnimatedTexture(Objects::DEAD, Orientation::South, GET_ANIMATED("HumanDead"));
+    mPlayer->addAnimatedTexture(Objects::DEAD, Orientation::West, GET_ANIMATED("HumanDead"));
 
-    mPlayer->setDirection(SOUTH);
+    mPlayer->setDirection(South);
     mPlayer->setAction(Objects::State::IDLE);
 
     pPlayerTexture  = mPlayer->getTexture();

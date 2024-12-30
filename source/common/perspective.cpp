@@ -45,21 +45,21 @@ Perspective::renderRotated(SDL_Texture* texture, const SDL_Rect* viewport, SDL_F
 
 #ifdef GAME_MODE
 void
-Perspective::move(Directions direction, const float& velocity) {
+Perspective::move(Orientation direction, const float& velocity) {
     switch (direction) {
-        case NORTH:
+        case North:
             if (mOffset.y < 0)
                 mOffset.y += velocity;
             break;
-        case EAST:
+        case East:
             if (mOffset.x <= 0 && mPlayerCenter.x > halfX)
                 mOffset.x -= velocity;
             break;
-        case SOUTH:
+        case South:
             if (mOffset.y <= 0 && mPlayerCenter.y > halfY)
                 mOffset.y -= velocity;
             break;
-        case WEST:
+        case West:
             if (mOffset.x < 0)
                 mOffset.x += velocity;
             break;

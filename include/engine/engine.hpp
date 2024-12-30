@@ -45,7 +45,7 @@ class Engine {
     void     terminate();
     void     click(); // Mouse click
 #pragma region Player
-    void            movePlayer(Directions direction);
+    void            movePlayer(Orientation direction);
     void            setPlayerAction(Objects::State action);
     Player::Player& getPlayer();
 #pragma endregion
@@ -188,8 +188,8 @@ class Engine {
      * @param other Object to check with
      * @return true = movement allowed
      */
-    bool movement(const SDL_FRect& other, const Directions& direction);
-    bool movement(const SDL_FPoint& other, const Directions& direction);
+    bool movement(const SDL_FRect& other, const Orientation& direction);
+    bool movement(const SDL_FPoint& other, const Orientation& direction);
     bool wallCheck(const SDL_FPoint& other, const float& x, const float& y, const long unsigned int& mask, bool playerCheck);
 
     // Load a level

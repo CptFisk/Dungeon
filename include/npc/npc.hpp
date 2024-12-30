@@ -13,10 +13,10 @@ class BaseNPC {
 
     [[nodiscard]] virtual BaseNPC* spawn(const float& x, const float& y) const = 0;
 
-    void addAnimatedTexture(Objects::State action, Directions direction, Graphics::AnimatedTexture* texture);
+    void addAnimatedTexture(Objects::State action, Orientation direction, Graphics::AnimatedTexture* texture);
 
     [[maybe_unused]] void setAction(Objects::State action);
-    [[maybe_unused]] void setDirection(Directions direction);
+    [[maybe_unused]] void setDirection(Orientation direction);
     void                  updatePosition(const float& x, const float& y);
 
     virtual void interact() = 0;
@@ -32,9 +32,9 @@ class BaseNPC {
     const float mNPCHeight;
 
     Objects::State mState;     // What are we doing
-    Directions     mDirection; // The direction we are facing
+    Orientation    mDirection; // The direction we are facing
 
-    std::map<std::pair<Objects::State, Directions>, Graphics::AnimatedTexture*> mTextures;
+    std::map<std::pair<Objects::State, Orientation>, Graphics::AnimatedTexture*> mTextures;
 
     // Pointer that SDL_Render refer to
     SDL_FPoint   mNPCCenter;       // Center of the monster

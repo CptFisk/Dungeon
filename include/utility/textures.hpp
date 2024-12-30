@@ -30,7 +30,7 @@ isOverlapping(const SDL_FPoint& obj1, const SDL_FRect& obj2);
  * @return
  */
 bool
-isColliding(const SDL_FRect& rect1, const SDL_FRect& rect2, Directions direction);
+isColliding(const SDL_FRect& rect1, const SDL_FRect& rect2, Orientation direction);
 
 /**
  * @brief Return true if 2 SDL_FRect is next to each other and have the same proportions

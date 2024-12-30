@@ -32,19 +32,19 @@ Cow::interact() {
             float y          = 0.0f;
             do {
                 switch (dir) {
-                    case NORTH:
+                    case North:
                         y = -2.0f;
                         x = 0.0f;
                         break;
-                    case EAST:
+                    case East:
                         x = 2.0f;
                         y = 0.0f;
                         break;
-                    case SOUTH:
+                    case South:
                         y = 2.0f;
                         x = 0.0f;
                         break;
-                    case WEST:
+                    case West:
                         x = -2.0f;
                         y = 0.0f;
                         break;
@@ -55,16 +55,16 @@ Cow::interact() {
                 // Randomize a new direction
                 while (fCheckWalls(tempCenter, x, y)) {
                     switch (dir) {
-                        case NORTH:
+                        case North:
                             tempCenter.y -= 2.0f;
                             break;
-                        case EAST:
+                        case East:
                             tempCenter.x += 2.0f;
                             break;
-                        case SOUTH:
+                        case South:
                             tempCenter.y += 2.0f;
                             break;
-                        case WEST:
+                        case West:
                             tempCenter.x -= 2.0f;
                             break;
                         default:
@@ -87,25 +87,25 @@ Cow::interact() {
 
         case Objects::MOVE:
             switch (mDirection) {
-                case NORTH:
+                case North:
                     if (fCheckWalls(mNPCCenter, 0, -mVelocity))
                         updatePosition(0.0f, -mVelocity);
                     else
                         mState = Objects::IDLE;
                     break;
-                case EAST:
+                case East:
                     if (fCheckWalls(mNPCCenter, mVelocity, 0.0f))
                         updatePosition(mVelocity, 0.0f);
                     else
                         mState = Objects::IDLE;
                     break;
-                case SOUTH:
+                case South:
                     if (fCheckWalls(mNPCCenter, 0.0f, mVelocity))
                         updatePosition(0.0f, mVelocity);
                     else
                         mState = Objects::IDLE;
                     break;
-                case WEST:
+                case West:
                     if (fCheckWalls(mNPCCenter, -mVelocity, 0.0f))
                         updatePosition(-mVelocity, 0.0f);
                     else

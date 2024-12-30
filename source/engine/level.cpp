@@ -91,7 +91,7 @@ Engine::loadLevel(const std::string& filename) {
         if (Utility::isAnyBitSet(tile, std::bitset<32>(NPC_BITS))) {
             auto npcId = static_cast<NPC::Type>(Utility::getBitValue<32, int>(tile, 18, 23));
             mActiveNPCs.push_back(mNPCs[npcId]->spawn(x, y));
-            mActiveNPCs.back()->setDirection(NORTH);
+            mActiveNPCs.back()->setDirection(North);
         }
         pos++;
     }
@@ -137,29 +137,29 @@ Engine::wallCheck(const float& x, const float& y, const long unsigned int& mask)
 }
 
 bool
-Engine::movement(const SDL_FPoint& other, const Directions& direction) {
+Engine::movement(const SDL_FPoint& other, const Orientation& direction) {
     return movement(SDL_FRect{other.x, other.y, 1.0f, 1.0f}, direction);
 }
 
 bool
-Engine::movement(const SDL_FRect& other, const Directions& direction) {
+Engine::movement(const SDL_FRect& other, const Orientation& direction) {
     auto pos = other;
 
     const float threshold = 1.0f;
     switch (direction) {
-        case NORTH:
+        case North:
             pos.y -= threshold;
             break;
-        case EAST:
+        case East:
             pos.x += threshold;
             break;
-        case SOUTH:
+        case South:
             pos.y += threshold;
             break;
-        case WEST:
+        case West:
             pos.x -= threshold;
             break;
-        case ALL:
+        case All:
         default:
             break;
     }

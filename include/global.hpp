@@ -33,16 +33,16 @@
 [[maybe_unused]] const unsigned long int WALL_OBSTACLE_NPC = 0x4C;
 #pragma endregion
 
-enum Directions : uint8_t {
-    NORTH                       = 1 << 0,
-    EAST                        = 1 << 1,
-    SOUTH                       = 1 << 2,
-    WEST                        = 1 << 3,
-    NORTH_EAST [[maybe_unused]] = NORTH | EAST,
-    NORTH_WEST [[maybe_unused]] = NORTH | WEST,
-    SOUTH_EAST [[maybe_unused]] = SOUTH | EAST,
-    SOUTH_WEST [[maybe_unused]] = SOUTH | WEST,
-    ALL [[maybe_unused]]        = NORTH | EAST | SOUTH | WEST
+enum Orientation : uint8_t {
+    North                       = 1 << 0,
+    East                        = 1 << 1,
+    South                       = 1 << 2,
+    West                        = 1 << 3,
+    NorthEast [[maybe_unused]] = North | East,
+    NorthWest [[maybe_unused]] = North | West,
+    SouthEast [[maybe_unused]] = South | East,
+    SouthWest [[maybe_unused]] = South | West,
+    All [[maybe_unused]]        = North | East | South | West
 };
 
 /**
@@ -54,7 +54,7 @@ enum class GameMode { Menu, Game, Inventory };
  * @brief Returns a random direction
  * @return Type as enum
  */
-inline Directions
+inline Orientation
 getRandomDirection() {
     std::random_device              rd;
     std::mt19937                    gen(rd());
@@ -62,14 +62,14 @@ getRandomDirection() {
 
     switch (dist(gen)) {
         case 0:
-            return NORTH;
+            return North;
         case 1:
-            return WEST;
+            return West;
         case 2:
-            return SOUTH;
+            return South;
         case 3:
-            return EAST;
+            return East;
     }
 
-    return NORTH;
+    return North;
 }
