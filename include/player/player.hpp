@@ -34,8 +34,7 @@ class Player {
     void setDirection(Orientation direction);
     void resetMomentum();
 
-    float move(Orientation direction);
-
+    void move(const SDL_FPoint& vector);
   private:
     Objects::State mAction;    // What are we doing
     Orientation    mDirection; // The direction we are facing

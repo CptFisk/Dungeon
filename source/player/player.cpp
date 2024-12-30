@@ -144,31 +144,14 @@ Player::resetMomentum() {
     mMomentum = 0.1f;
 }
 
-float
-Player::move(Orientation direction) {
-    mMomentum = 1.0f;
-    switch (direction) {
-        case North:
-            updatePosition(0.0f, -mMomentum, North);
-            break;
-        case East:
-            updatePosition(mMomentum, 0.0f, East);
-            break;
-        case South:
-            updatePosition(0.0f, mMomentum, South);
-            break;
-        case West:
-            updatePosition(-mMomentum, 0.0f, West);
-            break;
-        case All:
-        default:
-            break;
-    }
+void
+Player::move(const SDL_FPoint& vector) {
+    updatePosition(vector.x, vector.y, South);
     mAction    = Objects::MOVE;
-    mDirection = direction;
+    mDirection = South;
     updateReferences();
     updateInteraction();
-    return mMomentum;
+
 }
 
 }
