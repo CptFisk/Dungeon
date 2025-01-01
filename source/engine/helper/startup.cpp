@@ -70,12 +70,18 @@ Engine::startup() {
     mPlayer->addAnimatedTexture(Objects::DEAD, Orientation::South, GET_ANIMATED("HumanDead"));
     mPlayer->addAnimatedTexture(Objects::DEAD, Orientation::West, GET_ANIMATED("HumanDead"));
 
+    mPlayer->addSweepTexture(Orientation::North, GET_ANIMATED("AttackSweepNorth"));
+    mPlayer->addSweepTexture(Orientation::South, GET_ANIMATED("AttackSweepSouth"));
+    mPlayer->addSweepTexture(Orientation::East, GET_ANIMATED("AttackSweepEast"));
+    mPlayer->addSweepTexture(Orientation::West, GET_ANIMATED("AttackSweepWest"));
+
     mPlayer->setDirection(South);
     mPlayer->setAction(Objects::State::IDLE);
 
     pPlayerTexture  = mPlayer->getTexture();
     pPlayerView     = mPlayer->getTextureViewport();
     pPlayerPosition = mPlayer->getTexturePosition();
+    pPlayerAction   = mPlayer->getAction();
 
     // Setting up inventory
     mInventory = std::make_unique<Items::Inventory>(mScale, GET_USERINTERFACE("Inventory"), GET_USERINTERFACE("Selector"));
