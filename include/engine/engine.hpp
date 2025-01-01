@@ -6,8 +6,8 @@
 #include <engine/lua/luaManager.hpp>
 #include <graphics/floatingText.hpp>
 #include <graphics/graphics.hpp>
-#include <items/inventory.hpp>
 #include <items/definition.hpp>
+#include <items/inventory.hpp>
 #include <items/item.hpp>
 #include <list>
 #include <memory>
@@ -34,16 +34,15 @@ class Engine {
     void mainLoop();
 
     Common::ActionManager& getActionManager();
-    Graphics::Graphics& getGraphics();
+    Graphics::Graphics&    getGraphics();
 
     [[maybe_unused]] std::list<std::function<bool(SDL_Event*)>>&                             getEventList(); // Get the list of events
     [[maybe_unused]] std::unordered_map<Uint32, std::list<std::function<bool(SDL_Event*)>>>& getEvents();    // Get the list of events
     [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
     [[maybe_unused]] GameMode getGameMode() const; // Return the current mode the game is operating in
 
-
-    void     terminate();
-    void     click(); // Mouse click
+    void terminate();
+    void click(); // Mouse click
 #pragma region Player
     void            movePlayer(Direction direction);
     void            setPlayerAction(Objects::State action);
@@ -92,7 +91,6 @@ class Engine {
     void drawProjectiles();
     void drawFloatingText();
     void drawLevel(Common::typeSegmentData& data, const int& currentLayer);
-
 
     void        drawDarkness();
     std::thread spawnInterrupt(const long& time); // Spawn a thread
@@ -148,7 +146,7 @@ class Engine {
     /**
      * @brief Function that is used to populate @ref mItems
      */
-    void createItems();
+    void                                        createItems();
     std::unordered_map<Items::Id, Items::Item*> mItems;
 #pragma endregion
 #pragma region Monsters
@@ -188,6 +186,7 @@ class Engine {
      * @param other Object to check with
      * @return true = movement allowed
      */
+    bool movement(const SDL_FPoint& other, const SDL_FPoint& vector, const double& angle);
     bool movement(const SDL_FRect& other, const Orientation& direction);
     bool movement(const SDL_FPoint& other, const Orientation& direction);
     bool wallCheck(const SDL_FPoint& other, const float& x, const float& y, const long unsigned int& mask, bool playerCheck);

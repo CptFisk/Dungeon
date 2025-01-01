@@ -9,7 +9,8 @@ Perspective::Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY
   , mPlayerCenter(playerCenter)
   , mScale(scale)
   , halfX{}
-  , halfY{} {
+  , halfMinY{}
+  , halfMaxY{} {
     updateScale();
 }
 #endif
@@ -23,8 +24,9 @@ Perspective::Perspective(SDL_Renderer*& renderer, float& offsetX, float& offsetY
 
 void
 Perspective::updateScale() {
-    halfX = (BLOCKS_WIDTH * PIXEL_SIZE * mScale.factorX) / 2.0f;
-    halfY = (BLOCKS_HEIGHT * PIXEL_SIZE * mScale.factorY) / 2.0f;
+    halfX    = (BLOCKS_WIDTH * PIXEL_SIZE * mScale.factorX) / 2.0f;
+    halfMinY = (BLOCKS_HEIGHT * PIXEL_SIZE * mScale.factorY) / 2.0f;
+    halfMaxY = (MAP_WIDTH * PIXEL_SIZE) - ((mScale.windowHeightF /mScale.selectedScale)/ 2.0f);
 }
 
 void
@@ -45,6 +47,15 @@ Perspective::renderRotated(SDL_Texture* texture, const SDL_Rect* viewport, SDL_F
 
 #ifdef GAME_MODE
 void
+Perspective::move(const SDL_FPoint& vector) {
+    if (mOffset.y <= 0 && mPlayerCenter.y < halfMaxY)
+        mOffset.y += vector.y;
+    if (mOffset.x <= 0 && mPlayerCenter.x > halfX)
+        mOffset.x += vector.x;
+}
+
+/*
+void
 Perspective::move(Orientation direction, const float& velocity) {
     switch (direction) {
         case North:
@@ -56,7 +67,7 @@ Perspective::move(Orientation direction, const float& velocity) {
                 mOffset.x -= velocity;
             break;
         case South:
-            if (mOffset.y <= 0 && mPlayerCenter.y > halfY)
+            if (mOffset.y <= 0 && mPlayerCenter.y > halfMaxY)
                 mOffset.y -= velocity;
             break;
         case West:
@@ -67,6 +78,7 @@ Perspective::move(Orientation direction, const float& velocity) {
             break;
     }
 }
+*/
 #endif
 #ifdef EDITOR_MODE
 void

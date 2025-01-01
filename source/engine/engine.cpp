@@ -5,9 +5,10 @@
 #include <engine/engine.hpp>
 #include <items/inventory.hpp>
 #include <utility/file.hpp>
+#include <utility/functions.hpp>
+#include <utility/sdl.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
-#include <utility/functions.hpp>
 
 namespace Engine {
 
@@ -44,8 +45,8 @@ Engine::~Engine() {
     }
     for (auto& [name, monster] : mMonsters)
         delete monster; // Kill the baby
-    //Clear items
-    for(auto& [id, item] : mItems)
+    // Clear items
+    for (auto& [id, item] : mItems)
         delete item;
     // Clear projectiles
     for (auto& projectile : mProjectiles) {
@@ -65,7 +66,7 @@ Engine::getActionManager() {
 }
 
 Graphics::Graphics&
-Engine::getGraphics(){
+Engine::getGraphics() {
     return *mGraphics;
 }
 
@@ -98,8 +99,7 @@ void
 Engine::click() {
     switch (mGameMode) {
         case GameMode::Game: {
-            const auto click = SDL_FPoint{ FLOAT(mActionManager->mouseX) + (mPerspective->mOffset.x / -1.0f),
-                                           FLOAT(mActionManager->mouseY) + (mPerspective->mOffset.y / -1.0f) };
+            const auto click = Utility::PointToFPoint(mActionManager->getMouseRelative());
             const auto angle = Utility::getAngle(click, mPlayer->getPlayerCenter());
             mPlayerEnergy -= 3; // Reduce energy
 
@@ -107,7 +107,7 @@ Engine::click() {
               true, GET_ANIMATED("Fireball"), nullptr, Utility::offsetAngle(mPlayer->getPlayerCenter(), angle, 0), angle, 200, 0.75f, 10);
         } break;
         case GameMode::Inventory:
-            mInventory->selectItemMouse(FLOAT(mActionManager->mouseX), FLOAT(mActionManager->mouseY));
+            mInventory->selectItemMouse(Utility::PointToFPoint(mActionManager->getMouseAbsolute()));
             break;
         case GameMode::Menu:;
             break;
@@ -116,9 +116,30 @@ Engine::click() {
 
 void
 Engine::movePlayer(Direction direction) {
-    //Get angle from mouse
-    const auto angle = Utility::getAngle(mActionManager->mouseX, mActionManager->mouseY, mPlayer->getPlayerCenter());
-    std::cout << angle << std::endl;
+    float angleOffset = {};
+    switch (direction) {
+        case Right:
+            angleOffset = 90;
+            break;
+        case Backward:
+            angleOffset = 180;
+            break;
+        case Left:
+            angleOffset = 270;
+            break;
+        default:
+            break;
+    }
+    /*
+     * Get angle from mouse position. 0 degree is right, 90 down, 180 left and 270 up
+     */
+    const auto angle  = Utility::getAngle(mActionManager->getMouseRelative(), mPlayer->getPlayerCenter()) + angleOffset;
+    const auto vector = Utility::calculateVector(angle, 1.0f);
+    const SDL_FPoint invVector = { vector.x / -1.0f, vector.y / -1.0f };
+    //if (movement(mPlayer->getPlayerCenter(), vector, angle)) {
+        mPlayer->move(vector);
+        mPerspective->move(invVector);
+    ///}
     /*
     if (movement(mPlayer->getPlayerCenter(), direction))
         mPerspective->move(direction, mPlayer->move(direction));
@@ -157,17 +178,14 @@ void
 Engine::mainLoop() {
     mPlayer->spawn(9, 119);
 
-
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
-    SDL_FRect pos = {20,20, 19,9};
-    auto sweep = GET_ANIMATED("AttackSweepSouth");
+    SDL_FRect pos   = { 20, 20, 19, 9 };
+    auto      sweep = GET_ANIMATED("AttackSweepSouth");
     while (mRun) {
-        //Sort monster list
-        for(auto& monster : mActiveMonsters)
+        // Sort monster list
+        for (auto& monster : mActiveMonsters)
             monster->setPlayerDistance(Utility::getDistance(mPlayer->getPlayerCenter(), monster->getCenter()));
-        Utility::sortBy(mActiveMonsters, [&](const Monster::BaseMonster* monster) {
-            return monster->getPlayerDistance();
-        });
+        Utility::sortBy(mActiveMonsters, [&](const Monster::BaseMonster* monster) { return monster->getPlayerDistance(); });
 
         mFPSTimer.start();
         SDL_SetRenderTarget(pRenderer, nullptr);
@@ -228,7 +246,7 @@ Engine::mainLoop() {
                 drawFloatingText();
             } break;
             case GameMode::Inventory: {
-                for(auto data :  mInventory->getInventory()){
+                for (auto data : mInventory->getInventory()) {
                     SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
                 }
 
@@ -304,7 +322,7 @@ Engine::monsterActions() {
 
     auto state = mLuaManager->getState();
     for (auto& monster : mActiveMonsters) {
-        if(monster->getPlayerDistance() > 20.0f)
+        if (monster->getPlayerDistance() > 20.0f)
             break;
         const auto lua = monster->getLuaFile();
 
