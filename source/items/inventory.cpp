@@ -1,6 +1,8 @@
 #include <items/inventory.hpp>
 #include <utility/textures.hpp>
+#include <items/weapon.hpp>
 #include <error.hpp>
+
 namespace Items {
 
 Inventory::Inventory(Common::typeScale& scale, Graphics::UserInterfaceTexture* inventory, Graphics::UserInterfaceTexture* selector)
@@ -168,6 +170,26 @@ Inventory::swap(const bool& enabled, const int& index1, const int& index2) {
         return true;
     }
     return false;
+}
+
+WeaponType
+Inventory::getWeapon(const int& index) {
+    if(mSlots.at(index).Item == nullptr)
+        return WeaponType::None;
+    auto weapon = dynamic_cast<Weapon*>(mSlots.at(index).Item);
+    return weapon->getWeaponType();
+}
+
+WeaponType
+Inventory::getLeftWeapon(){
+    //Slot 2 = left, 4 = right
+    return getWeapon(2);
+}
+
+WeaponType
+Inventory::getRightWeapon() {
+    //Slot 2 = left, 4 = right
+    return getWeapon(4);
 }
 
 void

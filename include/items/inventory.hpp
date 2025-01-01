@@ -5,6 +5,7 @@
 #include <graphics/types/userInterfaceTexture.hpp>
 #include <items/item.hpp>
 #include <items/slots.hpp>
+#include <items/weaponType.hpp>
 namespace Items {
 
 class Inventory {
@@ -36,10 +37,20 @@ class Inventory {
      * @return Return the extra stats of all items carried by the player
      */
     Stats::Stats getStats();
+    /**
+     * @return Return the left hand weapon type
+     */
+    WeaponType getLeftWeapon();
+    /**
+     * @return Return the right hand weapon type
+     */
+    WeaponType getRightWeapon();
+
 
   protected:
     void calculatePositions();                                            // Used to calulcate positions for all graphical elements
     bool swap(const bool& enabled, const int& index1, const int& index2); // Swap 2 items in the inventory
+    WeaponType getWeapon(const int& index);
   private:
     SDL_FPoint           mTopLeft; // Top left coordinate of inventory, used to calculate offsets
     uint8_t              mSelected;
