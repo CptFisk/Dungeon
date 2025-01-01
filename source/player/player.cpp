@@ -1,5 +1,6 @@
 #include <error.hpp>
 #include <player/player.hpp>
+
 namespace Player {
 Player::Player()
   : mTexturePosition{ 0.0f, 0.0f, 12.0f, 18.0f }
@@ -9,11 +10,17 @@ Player::Player()
   , mCurrentViewport(nullptr)
   , mSweepTexture(nullptr)
   , mSweepViewport(nullptr)
+  , mAttacking(false)
   , mAction(Objects::IDLE)
   , mDirection(South)
-  , mMomentum(0.0f) {}
+  , mMomentum(0.0f) {
 
-Player::~Player() = default;
+}
+
+Player::~Player() {
+    if (mAttackThread.joinable())
+        mAttackThread.join();
+}
 
 void
 Player::spawn(const std::pair<uint8_t, uint8_t>& pos, const Orientation& orientation) {
@@ -100,10 +107,9 @@ Player::addSweepTexture(const Orientation& orientation, Graphics::AnimatedTextur
 
 void
 Player::updateReferences() {
-    if (mAction != Objects::ATTACK) {
-        mCurrentTexture  = mTextures[{ mAction, mDirection }]->getTexture();
-        mCurrentViewport = mTextures[{ mAction, mDirection }]->getAnimatedViewport();
-    }
+    mCurrentTexture  = mTextures[{ mAction, mDirection }]->getTexture();
+    mCurrentViewport = mTextures[{ mAction, mDirection }]->getAnimatedViewport();
+
     mSweepTexture  = mSweeps[mDirection]->getTexture();
     mSweepViewport = mSweeps[mDirection]->getAnimatedViewport();
 }
@@ -154,14 +160,23 @@ Player::updatePosition(const float& x, const float& y, const Orientation& direct
 }
 
 void
-Player::setAction(Objects::State action) {
-    switch(action){
-        case Objects::ATTACK:
-            mSweeps[mDirection]->runCycles(1);
-            break;
-        default:
-            break;
+Player::doAttack() {
+    if (!mAttacking) {
+        if (mAttackThread.joinable())
+            mAttackThread.join();
+        mAttackThread = std::thread([&]() {
+            mAttacking = true;
+            const auto ticks = mSweeps[mDirection]->getTicks();
+            for (auto& [direction, animation] : mSweeps)
+                animation->runCycles(1);
+            std::this_thread::sleep_for(std::chrono::milliseconds(10 * ticks));
+            mAttacking = false;
+        });
     }
+}
+
+void
+Player::setAction(Objects::State action) {
     mAction = action;
     updateReferences();
 }

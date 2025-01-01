@@ -5,6 +5,7 @@
 #include <graphics/types/animatedTexture.hpp>
 #include <map>
 #include <object/objects.hpp>
+#include <thread>
 #include <utility>
 
 namespace Player {
@@ -44,6 +45,8 @@ class Player {
      */
     void addSweepTexture(const Orientation& orientation, Graphics::AnimatedTexture* texture);
 
+    // Start player attack animation
+    void                                doAttack();
     void                                setAction(Objects::State action);
     [[nodiscard]] const Objects::State* getAction();
 
@@ -53,6 +56,7 @@ class Player {
     void move(const SDL_FPoint& vector, const Orientation& orientation);
 
   private:
+    bool           mAttacking; // The player is currently attacking
     Objects::State mAction;    // What are we doing
     Orientation    mDirection; // The direction we are facing
     void           updateReferences();
@@ -63,6 +67,9 @@ class Player {
     std::map<std::pair<Objects::State, Orientation>, Graphics::AnimatedTexture*> mTextures;
     std::map<Orientation, Graphics::AnimatedTexture*>                            mSweeps; // Attack animations
     float                                                                        mMomentum;
+
+    std::thread mAttackThread; // Handle the attack animation and frame handling
+
     // Pointer that SDL_Render refer to
     SDL_FRect    mTexturePosition;
     SDL_Texture* mCurrentTexture;
