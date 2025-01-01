@@ -5,10 +5,10 @@
 #include <items/inventory.hpp>
 #include <utility/file.hpp>
 #include <utility/functions.hpp>
+#include <utility/orientation.hpp>
 #include <utility/sdl.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
-#include <utility/orientation.hpp>
 namespace Engine {
 
 Engine::Engine()
@@ -18,6 +18,7 @@ Engine::Engine()
   , pWindow(nullptr)
   , pRenderer(nullptr)
   , pDarkness(nullptr)
+  , pPlayerAction(nullptr)
   , mScale{}
   , mRun(true)
   , mVisibleUI(true)
@@ -95,15 +96,45 @@ Engine::terminate() {
 }
 
 void
+Engine::inventory() {
+    switch (mGameMode) {
+        case GameMode::Game:
+            mGameMode = GameMode::Inventory;
+            break;
+        case GameMode::Inventory:
+            mGameMode = GameMode::Game;
+            break;
+        default:
+            break;
+    }
+}
+
+void
+Engine::back() {
+    switch (mGameMode) {
+        case GameMode::Game:
+            terminate();
+            break;
+        case GameMode::Inventory:
+            mGameMode = GameMode::Game;
+            break;
+        default:
+            break;
+    }
+}
+
+void
 Engine::click() {
     switch (mGameMode) {
         case GameMode::Game: {
             const auto click = Utility::PointToFPoint(mActionManager->getMouseRelative());
             const auto angle = Utility::getAngle(click, mPlayer->getPlayerCenter());
-            mPlayerEnergy -= 3; // Reduce energy
-            mPlayer->setAction(Objects::ATTACK);
+            if (mInventory->getLeftWeapon() != Items::WeaponType::None)
+                mPlayer->doAttack(Utility::getOrientation(angle));
+            /*
             createProjectile(
               true, GET_ANIMATED("Fireball"), nullptr, Utility::offsetAngle(mPlayer->getPlayerCenter(), angle, 0), angle, 200, 0.75f, 10);
+              */
         } break;
         case GameMode::Inventory:
             mInventory->selectItemMouse(Utility::PointToFPoint(mActionManager->getMouseAbsolute()));
@@ -132,13 +163,13 @@ Engine::movePlayer(Direction direction) {
     /*
      * Get angle from mouse position. 0 degree is right, 90 down, 180 left and 270 up
      */
-    const auto angle  = Utility::getAngle(mActionManager->getMouseRelative(), mPlayer->getPlayerCenter()) + angleOffset;
-    const auto vector = Utility::calculateVector(angle, 1.0f);
-    const auto orientation = Utility::getOrientation(angle);
-    const SDL_FPoint invVector = { vector.x / -1.0f, vector.y / -1.0f };
-    //if (movement(mPlayer->getPlayerCenter(), vector, angle)) {
-        mPlayer->move(vector, orientation);
-        mPerspective->move(invVector);
+    const auto       angle       = Utility::getAngle(mActionManager->getMouseRelative(), mPlayer->getPlayerCenter()) + angleOffset;
+    const auto       vector      = Utility::calculateVector(angle, 1.0f);
+    const auto       orientation = Utility::getOrientation(angle);
+    const SDL_FPoint invVector   = { vector.x / -1.0f, vector.y / -1.0f };
+    // if (movement(mPlayer->getPlayerCenter(), vector, angle)) {
+    mPlayer->move(vector, orientation);
+    mPerspective->move(invVector);
     ///}
     /*
     if (movement(mPlayer->getPlayerCenter(), direction))
@@ -226,7 +257,8 @@ Engine::mainLoop() {
 
         // Draw our cute hero
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition);
-        mPerspective->render(mPlayer->getSweepTexture(), mPlayer->getSweepViewport(), mPlayer->getInteractionArea());
+        if (mPlayer->isAttacking())
+            mPerspective->render(mPlayer->getSweepTexture(), mPlayer->getSweepViewport(), mPlayer->getInteractionArea());
         drawProjectiles();
         // Draw top layer
         drawLevel(mSegments.Top, mSegments.CurrentLayerTop);

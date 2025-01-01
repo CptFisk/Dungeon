@@ -41,8 +41,9 @@ class Engine {
     [[maybe_unused]] std::list<std::tuple<std::function<void(int)>, Utility::Timer>>&        getProcessing();
     [[maybe_unused]] GameMode getGameMode() const; // Return the current mode the game is operating in
 
-    void terminate();
-    void click(); // Mouse click
+    void click();     // Mouse click
+    void inventory(); // Toggle inventory
+    void back();      // Used to close current view, or terminate
 #pragma region Player
     void            movePlayer(Direction direction);
     void            setPlayerAction(Objects::State action);
@@ -81,6 +82,7 @@ class Engine {
                           const int&                 damage);
 #pragma endregion
     SDL_Event mEvent;
+    void      terminate();
 
   protected:
     std::mutex mMutex;

@@ -17,14 +17,15 @@ main(int argc, char* argv[]) {
     engine.getActionManager().registerKeyboardAction("PlayerRight", SDLK_d);
     engine.getActionManager().registerKeyboardAction("PlayerBackward", SDLK_s);
     engine.getActionManager().registerKeyboardAction("PlayerLeft", SDLK_a);
+    engine.getActionManager().registerKeyboardAction("Inventory", SDLK_e);
     engine.getActionManager().registerKeyboardAction("Interact", SDLK_SPACE);
-    engine.getActionManager().registerKeyboardAction("Exit", SDLK_ESCAPE);
+    engine.getActionManager().registerKeyboardAction("Back", SDLK_ESCAPE);
     engine.getActionManager().registerMouseAction("Click", SDL_BUTTON_LEFT);
 
     Common::queueProcessHandler(
       [&](Uint32) {
-          if (engine.getActionManager().isActionRising("Exit")) {
-              engine.terminate();
+          if (engine.getActionManager().isActionRising("Back")) {
+              engine.back();
           }
       },
       engine.getProcessing());
@@ -33,6 +34,14 @@ main(int argc, char* argv[]) {
       [&](Uint32) {
           if (engine.getActionManager().isActionRising("Interact")) {
               engine.interact();
+          }
+      },
+      engine.getProcessing());
+
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (engine.getActionManager().isActionRising("Inventory")) {
+              engine.inventory();
           }
       },
       engine.getProcessing());
