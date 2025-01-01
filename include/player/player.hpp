@@ -28,10 +28,23 @@ class Player {
     void spawn(const std::pair<uint8_t, uint8_t>& pos, const Orientation& orientation = Orientation::North);
     void spawn(const Common::type2DMapCoordinate& pos, const Orientation& orientation = Orientation::North);
 
+    /**
+     * @brief Add a animation texture to the action list.
+     * @param action Idle, moving, dead, attack and so on
+     * @param orientation Direction the player is facing
+     * @param texture Texture to be added
+     */
     void addAnimatedTexture(Objects::State action, Orientation orientation, Graphics::AnimatedTexture* texture);
+    /**
+     * @brief Add a sweeping animation that can be added in the correct direction when the player is attacking
+     * @param orientation North, East, South, West
+     * @param texture Sweeping texture
+     */
     void addSweepTexture(const Orientation& orientation, Graphics::AnimatedTexture* texture);
 
-    void setAction(Objects::State action);
+    void                                setAction(Objects::State action);
+    [[nodiscard]] const Objects::State* getAction();
+
     void setDirection(Orientation direction);
     void resetMomentum();
 

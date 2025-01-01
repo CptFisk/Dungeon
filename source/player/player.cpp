@@ -139,6 +139,11 @@ Player::setAction(Objects::State action) {
     updateReferences();
 }
 
+const Objects::State*
+Player::getAction(){
+    return &mAction;
+}
+
 void
 Player::setDirection(Orientation direction) {
     mDirection = direction;
