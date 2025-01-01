@@ -12,7 +12,38 @@
         "Length": 3,
         "Ticks": 10,
         "Width": 19,
-        "Height": 9
+        "Height": 9,
+        "Paused" : true
+      },
+      {
+        "Name": "AttackSweepNorth",
+        "Column": 1,
+        "Row": 2,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 19,
+        "Height": 9,
+        "Paused" : true
+      },
+      {
+        "Name": "AttackSweepEast",
+        "Column": 1,
+        "Row": 2,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 19,
+        "Height": 9,
+        "Paused" : true
+      },
+      {
+        "Name": "AttackSweepWest",
+        "Column": 1,
+        "Row": 3,
+        "Length": 3,
+        "Ticks": 10,
+        "Width": 19,
+        "Height": 9,
+        "Paused" : true
       }
     ]
   }
