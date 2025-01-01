@@ -322,18 +322,19 @@ Engine::projectiles() {
         (*it)->move(); // Move it
         // Check monster for collision
         if ((*it)->getFriendly()) {
-            for (auto it2 = mActiveMonsters.begin(); it2 != mActiveMonsters.end();) {
-                if (Utility::isOverlapping((*it)->getProjectileCenter(), *(*it2)->getPosition())) {
+            const auto monsterEnd = mActiveMonsters.begin() + mMonsterIndex;
+            for (auto monsterIt = mActiveMonsters.begin(); monsterIt != monsterEnd;) {
+                if (Utility::isOverlapping((*it)->getProjectileCenter(), *(*monsterIt)->getPosition())) {
                     const auto damage = (*it)->getDamage();
                     delete *it;                  // Free memory
                     it = mProjectiles.erase(it); // Move iterator
-                    (*it2)->damageMonster(damage);
+                    (*monsterIt)->damageMonster(damage);
                     mFloatingText.push_back(
-                      new Graphics::FloatingTexture(*(*it2)->getPosition(), nullptr, GET_GENERATED("000000")->getTexture(), 3000));
+                      new Graphics::FloatingTexture(*(*monsterIt)->getPosition(), nullptr, GET_GENERATED("000000")->getTexture(), 3000));
                     removed = true;
                     break;
                 } else
-                    ++it2;
+                    ++monsterIt;
             }
         } else {
             if (Utility::isOverlapping((*it)->getProjectileCenter(), *mPlayer->getTexturePosition())) {
