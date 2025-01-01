@@ -217,6 +217,15 @@ Engine::mainLoop() {
             monster->setPlayerDistance(Utility::getDistance(mPlayer->getPlayerCenter(), monster->getCenter()));
         Utility::sortBy(mActiveMonsters, [&](const Monster::BaseMonster* monster) { return monster->getPlayerDistance(); });
 
+        mMonsterIndex = mActiveMonsters.size(); //Start value
+        //Finding the threshold for monster that is close to the player
+        for(auto i = 0; i < mActiveMonsters.size(); i++){
+            if(mActiveMonsters[i]->getPlayerDistance() > 20.0f){
+                mMonsterIndex = i;
+                break;
+            }
+        }
+
         mFPSTimer.start();
         SDL_SetRenderTarget(pRenderer, nullptr);
         SDL_RenderClear(pRenderer);
@@ -352,21 +361,17 @@ void
 Engine::monsterActions() {
 
     auto state = mLuaManager->getState();
-    for (auto& monster : mActiveMonsters) {
-        if (monster->getPlayerDistance() > 20.0f)
-            break;
-        const auto lua = monster->getLuaFile();
-
+    for(auto i = 0; i < mMonsterIndex; i++){
+        const auto lua = mActiveMonsters[i]->getLuaFile();
         mLuaManager->executeScript("scripts/monster/" + lua);
-
         lua_getglobal(state, "Interact");
-        mLuaManager->createMonsterMetaTable(monster);
+        mLuaManager->createMonsterMetaTable(mActiveMonsters[i]);
 
         if (lua_pcall(state, 1, 0, 0) != LUA_OK) {
             std::cerr << "Error: " << lua_tostring(state, -1) << std::endl;
             lua_pop(state, 1); // Remove error message from stack
         }
-        const auto& data = monster->getMonster();
+        const auto& data = mActiveMonsters[i]->getMonster();
         mPerspective->render(data.Texture, data.Viewport, data.Position);
     }
 }

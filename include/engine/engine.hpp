@@ -167,6 +167,10 @@ class Engine {
      * @brief Map that contains all ACTIVE units that is alive on the map, this vector should be cleared once a map is reloaded.
      */
     std::vector<Monster::BaseMonster*> mActiveMonsters;
+    /**
+     * @brief Highest value that we need to loop inside @ref mActiveMonsters
+     */
+    size_t mMonsterIndex;
 #pragma endregion
 #pragma region NPC
     /**
