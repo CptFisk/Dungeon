@@ -134,13 +134,15 @@ class Engine {
     std::vector<std::thread>                               mThreads;
     std::map<long int, std::shared_ptr<Common::Interrupt>> mInterrupts;
     std::thread                                            mLoading;
-    // References to the player
-    SDL_Texture** pPlayerTexture;
-    SDL_Rect**    pPlayerView;
-    SDL_FRect*    pPlayerPosition;
-    int           mPlayerHealth;
-    int           mPlayerMaxHealth;
-    int           mPlayerEnergy;
+#pragma region Player
+    SDL_Texture*          pPlayerTexture;
+    SDL_Rect*             pPlayerView;
+    SDL_FRect*            pPlayerPosition;
+    const Objects::State* pPlayerAction;
+    int                   mPlayerHealth;
+    int                   mPlayerMaxHealth;
+    int                   mPlayerEnergy;
+#pragma endregion
 
 #pragma region Items
     /**
