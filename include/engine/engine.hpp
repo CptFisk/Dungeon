@@ -89,6 +89,10 @@ class Engine {
     void       present();
     void       units();
     void       projectiles();
+    /**
+     * @brief Function used to handle meele attacks
+     */
+    void       meleeAttack();
 
     void drawProjectiles();
     void drawFloatingText();

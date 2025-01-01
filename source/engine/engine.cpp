@@ -269,6 +269,7 @@ Engine::mainLoop() {
         if (mPlayer->isAttacking())
             mPerspective->render(mPlayer->getSweepTexture(), mPlayer->getSweepViewport(), mPlayer->getInteractionArea());
         drawProjectiles();
+        meleeAttack();  //Handle melee attack
         // Draw top layer
         drawLevel(mSegments.Top, mSegments.CurrentLayerTop);
         // Apply darkness
@@ -316,7 +317,6 @@ Engine::mainLoop() {
 
 void
 Engine::projectiles() {
-
     for (auto it = mProjectiles.begin(); it != mProjectiles.end();) {
         bool removed = false;
         (*it)->move(); // Move it
@@ -329,8 +329,6 @@ Engine::projectiles() {
                     delete *it;                  // Free memory
                     it = mProjectiles.erase(it); // Move iterator
                     (*monsterIt)->damageMonster(damage);
-                    mFloatingText.push_back(
-                      new Graphics::FloatingTexture(*(*monsterIt)->getPosition(), nullptr, GET_GENERATED("000000")->getTexture(), 3000));
                     removed = true;
                     break;
                 } else
@@ -355,6 +353,24 @@ Engine::projectiles() {
                 ++it;
             }
         }
+    }
+}
+
+void
+Engine::meleeAttack() {
+    //If we dont attack, simply return
+    if(!mPlayer->isAttacking())
+        return;
+
+    const auto itEnd = mActiveMonsters.begin() + mMonsterIndex;
+    const auto area = *mPlayer->getInteractionArea();
+    for(auto it = mActiveMonsters.begin(); it != itEnd;){
+        auto& monster = (*it);
+        if(Utility::isOverlapping(monster->getCenter(),area)){
+            monster->damageMonster(100);
+            break;
+        }else
+            ++it;
     }
 }
 
