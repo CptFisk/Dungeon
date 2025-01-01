@@ -33,7 +33,7 @@ class Inventory {
      */
     void addItem(Item*& item);
     /**
-     * @return Return the extra sstats of all items carried by the player
+     * @return Return the extra stats of all items carried by the player
      */
     Stats::Stats getStats();
 
