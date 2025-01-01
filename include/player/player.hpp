@@ -45,8 +45,15 @@ class Player {
      */
     void addSweepTexture(const Orientation& orientation, Graphics::AnimatedTexture* texture);
 
-    // Start player attack animation
-    void                                doAttack();
+    /**
+     * @brief Start a attack animation for the player
+     * @param orientation Direction player should be facing
+     */
+    void doAttack(const Orientation& orientation);
+    /**
+     * @return True if player is attacking
+     */
+    bool                                isAttacking() const;
     void                                setAction(Objects::State action);
     [[nodiscard]] const Objects::State* getAction();
 

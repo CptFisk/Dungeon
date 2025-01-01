@@ -160,19 +160,25 @@ Player::updatePosition(const float& x, const float& y, const Orientation& direct
 }
 
 void
-Player::doAttack() {
+Player::doAttack(const Orientation& orientation) {
     if (!mAttacking) {
         if (mAttackThread.joinable())
             mAttackThread.join();
         mAttackThread = std::thread([&]() {
+            mDirection = orientation;
             mAttacking = true;
-            const auto ticks = mSweeps[mDirection]->getTicks();
+            const auto ticks = mSweeps[mDirection]->getTicks() * mSweeps[mDirection]->getViewports().size();
             for (auto& [direction, animation] : mSweeps)
                 animation->runCycles(1);
             std::this_thread::sleep_for(std::chrono::milliseconds(10 * ticks));
             mAttacking = false;
         });
     }
+}
+
+bool
+Player::isAttacking() const {
+    return mAttacking;
 }
 
 void
