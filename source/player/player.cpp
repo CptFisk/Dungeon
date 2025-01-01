@@ -1,9 +1,9 @@
 #include <player/player.hpp>
-
+#include <error.hpp>
 namespace Player {
 Player::Player()
   : mTexturePosition{ 0.0f, 0.0f, 12.0f, 18.0f }
-  , mInteraction({0.0f, 0.0f, 12.0f, 18.0f})
+  , mInteraction({ 0.0f, 0.0f, 19.0f, 9.0f })
   , mPlayerCenter{}
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)
@@ -14,17 +14,17 @@ Player::Player()
 Player::~Player() = default;
 
 void
-Player::spawn(const std::pair<uint8_t, uint8_t>& pos, const Orientation& direction) {
-    spawn(pos.first, pos.second, direction);
+Player::spawn(const std::pair<uint8_t, uint8_t>& pos, const Orientation& orientation) {
+    spawn(pos.first, pos.second, orientation);
 }
 
 void
-Player::spawn(const Common::type2DMapCoordinate& pos, const Orientation& direction) {
-    spawn(pos.X, pos.Y);
+Player::spawn(const Common::type2DMapCoordinate& pos, const Orientation& orientation) {
+    spawn(pos.X, pos.Y, orientation);
 }
 
 void
-Player::spawn(const uint8_t& x, const uint8_t& y, const Orientation& direction) {
+Player::spawn(const uint8_t& x, const uint8_t& y, const Orientation& orientation) {
     const float _x = std::max((static_cast<float>(x) * 16.0f), 0.0f); // We reduce by 16 because position is top left corner
     const float _y = std::max((static_cast<float>(y) * 16.0f), 0.0f);
 
@@ -32,7 +32,7 @@ Player::spawn(const uint8_t& x, const uint8_t& y, const Orientation& direction) 
     mTexturePosition.y = _y;
     mPlayerCenter.x    = _x + 6.0f; // Offset to make dot in center of player
     mPlayerCenter.y    = _y + 8.5f; // Offset to make dot in center of player
-    mDirection         = direction;
+    mDirection         = orientation;
     updateInteraction();
 }
 
@@ -67,12 +67,19 @@ Player::getTextureViewport() {
 }
 
 void
-Player::addAnimatedTexture(Objects::State action, Orientation direction, Graphics::AnimatedTexture* texture) {
-    mTextures[{ action, direction }] = texture;
+Player::addAnimatedTexture(Objects::State action, Orientation orientation, Graphics::AnimatedTexture* texture) {
+    ASSERT_WITH_MESSAGE(mTextures.find({action, orientation}) != mTextures.end(), "Texture already loaded");
+    mTextures[{ action, orientation }] = texture;
     if (mCurrentTexture == nullptr || mCurrentViewport == nullptr) {
         mCurrentTexture  = texture->getTexture();
         mCurrentViewport = texture->getAnimatedViewport();
     }
+}
+
+void
+Player::addSweepTexture(const Orientation& orientation, Graphics::AnimatedTexture* texture) {
+    ASSERT_WITH_MESSAGE(mSweeps.find(orientation) != mSweeps.end(), "Texture already loaded");
+    mSweeps[orientation] = texture;
 }
 
 void
@@ -86,31 +93,31 @@ Player::updateInteraction() {
     switch (mDirection) {
         case North:
             // Move the interaction box to our top
-            mInteraction.x = mTexturePosition.x;
-            mInteraction.y = mTexturePosition.y - 8.0f;
-            mInteraction.h = 8.0f;
-            mInteraction.w = 12.0f;
+            mInteraction.x = mTexturePosition.x - 4.0f;
+            mInteraction.y = mTexturePosition.y - 9.0f;
+            mInteraction.h = 9.0f;
+            mInteraction.w = 19.0f;
             break;
         case East:
             // Move the interaction box to our right
             mInteraction.x = mTexturePosition.x + 12.0f;
             mInteraction.y = mTexturePosition.y;
-            mInteraction.h = 18.0f;
-            mInteraction.w = 8.0f;
+            mInteraction.h = 19.0f;
+            mInteraction.w = 9.0f;
             break;
         case South:
             // Move the interaction box to our bottom
-            mInteraction.x = mTexturePosition.x;
+            mInteraction.x = mTexturePosition.x - 4.0f;
             mInteraction.y = mTexturePosition.y + 18.0f;
-            mInteraction.h = 8.0f;
-            mInteraction.w = 12.0f;
+            mInteraction.h = 9.0f;
+            mInteraction.w = 19.0f;
             break;
         case West:
             // Move the interaction box to our left
-            mInteraction.x = mTexturePosition.x - 8.0f;
+            mInteraction.x = mTexturePosition.x - 9.0f;
             mInteraction.y = mTexturePosition.y;
-            mInteraction.h = 18.0f;
-            mInteraction.w = 8.0f;
+            mInteraction.h = 19.0f;
+            mInteraction.w = 9.0f;
             break;
         default:
             break;
@@ -145,13 +152,12 @@ Player::resetMomentum() {
 }
 
 void
-Player::move(const SDL_FPoint& vector) {
-    updatePosition(vector.x, vector.y, South);
+Player::move(const SDL_FPoint& vector, const Orientation& orientation) {
+    updatePosition(vector.x, vector.y, orientation);
     mAction    = Objects::MOVE;
-    mDirection = South;
+    mDirection = orientation;
     updateReferences();
     updateInteraction();
-
 }
 
 }
