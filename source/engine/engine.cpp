@@ -359,7 +359,6 @@ Engine::projectiles() {
 
 void
 Engine::monsterActions() {
-
     auto state = mLuaManager->getState();
     for(auto i = 0; i < mMonsterIndex; i++){
         const auto lua = mActiveMonsters[i]->getLuaFile();
