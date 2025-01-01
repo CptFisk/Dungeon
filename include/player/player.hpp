@@ -51,6 +51,12 @@ class Player {
     SDL_Texture* mCurrentTexture;
     SDL_Rect*    mCurrentViewport;
     SDL_FPoint   mPlayerCenter;
-    SDL_FRect    mInteraction; // Small box in front of the player that is used to determine if we interact with an object
+    /**
+     * @brief Small box that is used as a interaction area for opening doors, talk to npc and also melee attacks.
+     * @details The box is of dimensions:
+     * @details North/South: 8 height 12 width
+     * @details East/West: 18 height 8 width
+     */
+    SDL_FRect    mInteraction;
 };
 }
