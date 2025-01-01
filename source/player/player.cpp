@@ -56,9 +56,9 @@ Player::getInteractionArea() {
     return &mInteraction;
 }
 
-SDL_Texture**
+SDL_Texture*
 Player::getTexture() {
-    return &mCurrentTexture;
+    return mCurrentTexture;
 }
 
 SDL_Rect**

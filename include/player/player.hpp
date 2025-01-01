@@ -13,7 +13,7 @@ class Player {
     Player();
     ~Player();
 
-    [[nodiscard]] SDL_Texture** getTexture();
+    [[nodiscard]] SDL_Texture* getTexture();
     [[nodiscard]] SDL_Rect**    getTextureViewport();
     [[nodiscard]] SDL_FRect*    getTexturePosition();
     [[nodiscard]] SDL_FPoint&   getPlayerCenter();
