@@ -12,8 +12,9 @@ class Weapon : public Item {
            const std::string&  desc,
            const int16_t&      id,
            const Stats::Stats& stats);
-    ~Weapon();
-    WeaponType getWeaponType() const;
+
+    ~Weapon() = default;
+    [[nodiscard]] WeaponType getWeaponType() const;
 
   protected:
   private:

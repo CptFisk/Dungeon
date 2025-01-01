@@ -9,4 +9,9 @@ Weapon::Weapon(Graphics::Texture*     texture,
                const Stats::Stats&    stats)
   : mType(type)
   , Item(texture, slot, desc, id, stats) {}
+
+WeaponType
+Weapon::getWeaponType() const{
+    return mType;
+}
 }
