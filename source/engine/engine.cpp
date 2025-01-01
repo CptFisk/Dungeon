@@ -1,7 +1,6 @@
 #include "engine/loading.hpp"
 
 #include <common/handlers.hpp>
-#include <engine/debug/fps.hpp>
 #include <engine/engine.hpp>
 #include <items/inventory.hpp>
 #include <utility/file.hpp>
@@ -9,7 +8,7 @@
 #include <utility/sdl.hpp>
 #include <utility/textures.hpp>
 #include <utility/trigonometry.hpp>
-
+#include <utility/orientation.hpp>
 namespace Engine {
 
 Engine::Engine()
@@ -102,7 +101,7 @@ Engine::click() {
             const auto click = Utility::PointToFPoint(mActionManager->getMouseRelative());
             const auto angle = Utility::getAngle(click, mPlayer->getPlayerCenter());
             mPlayerEnergy -= 3; // Reduce energy
-
+            mPlayer->setAction(Objects::ATTACK);
             createProjectile(
               true, GET_ANIMATED("Fireball"), nullptr, Utility::offsetAngle(mPlayer->getPlayerCenter(), angle, 0), angle, 200, 0.75f, 10);
         } break;
@@ -135,9 +134,10 @@ Engine::movePlayer(Direction direction) {
      */
     const auto angle  = Utility::getAngle(mActionManager->getMouseRelative(), mPlayer->getPlayerCenter()) + angleOffset;
     const auto vector = Utility::calculateVector(angle, 1.0f);
+    const auto orientation = Utility::getOrientation(angle);
     const SDL_FPoint invVector = { vector.x / -1.0f, vector.y / -1.0f };
     //if (movement(mPlayer->getPlayerCenter(), vector, angle)) {
-        mPlayer->move(vector);
+        mPlayer->move(vector, orientation);
         mPerspective->move(invVector);
     ///}
     /*
@@ -179,8 +179,7 @@ Engine::mainLoop() {
     mPlayer->spawn(9, 119);
 
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
-    SDL_FRect pos   = { 20, 20, 19, 9 };
-    auto      sweep = GET_ANIMATED("AttackSweepSouth");
+
     while (mRun) {
         // Sort monster list
         for (auto& monster : mActiveMonsters)
@@ -227,7 +226,7 @@ Engine::mainLoop() {
 
         // Draw our cute hero
         mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition);
-        SDL_RenderCopyF(pRenderer, sweep->getTexture(), sweep->getAnimatedViewport(), &pos);
+        mPerspective->render(mPlayer->getSweepTexture(), mPlayer->getSweepViewport(), mPlayer->getInteractionArea());
         drawProjectiles();
         // Draw top layer
         drawLevel(mSegments.Top, mSegments.CurrentLayerTop);

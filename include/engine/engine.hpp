@@ -135,8 +135,8 @@ class Engine {
     std::map<long int, std::shared_ptr<Common::Interrupt>> mInterrupts;
     std::thread                                            mLoading;
 #pragma region Player
-    SDL_Texture*          pPlayerTexture;
-    SDL_Rect*             pPlayerView;
+    SDL_Texture**         pPlayerTexture;
+    SDL_Rect**            pPlayerView;
     SDL_FRect*            pPlayerPosition;
     const Objects::State* pPlayerAction;
     int                   mPlayerHealth;

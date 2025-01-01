@@ -13,12 +13,14 @@ class Player {
     Player();
     ~Player();
 
-    [[nodiscard]] SDL_Texture* getTexture();
-    [[nodiscard]] SDL_Rect**    getTextureViewport();
-    [[nodiscard]] SDL_FRect*    getTexturePosition();
-    [[nodiscard]] SDL_FPoint&   getPlayerCenter();
-    [[nodiscard]] SDL_Point     getPlayerCoordinates() const;
-    [[nodiscard]] SDL_FRect*    getInteractionArea();
+    [[nodiscard]] SDL_Texture**              getTexture();         // Return a reference to the current player texture
+    [[nodiscard]] SDL_Rect**                 getTextureViewport(); // Return a reference to the current player viewport
+    [[nodiscard]] SDL_FRect*                 getTexturePosition(); // Return a reference to the current player position
+    [[nodiscard]] SDL_Texture*               getSweepTexture();    // Return a reference to the current sweep texture
+    [[nodiscard]] SDL_Rect*                  getSweepViewport();   // Return a reference to the current sweep viewport
+    [[nodiscard]] SDL_FPoint&                getPlayerCenter();
+    [[maybe_unused]] [[nodiscard]] SDL_Point getPlayerCoordinates() const;
+    [[nodiscard]] SDL_FRect*                 getInteractionArea();
     /**
      * @brief Move the player to a specific grid coordinate
      * @param x X-coordinate
@@ -66,6 +68,8 @@ class Player {
     SDL_Texture* mCurrentTexture;
     SDL_Rect*    mCurrentViewport;
     SDL_FPoint   mPlayerCenter;
+    SDL_Texture* mSweepTexture;
+    SDL_Rect*    mSweepViewport;
     /**
      * @brief Small box that is used as a interaction area for opening doors, talk to npc and also melee attacks.
      * @details The box is of dimensions:

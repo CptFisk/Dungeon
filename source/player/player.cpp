@@ -1,5 +1,5 @@
-#include <player/player.hpp>
 #include <error.hpp>
+#include <player/player.hpp>
 namespace Player {
 Player::Player()
   : mTexturePosition{ 0.0f, 0.0f, 12.0f, 18.0f }
@@ -7,6 +7,8 @@ Player::Player()
   , mPlayerCenter{}
   , mCurrentTexture(nullptr)
   , mCurrentViewport(nullptr)
+  , mSweepTexture(nullptr)
+  , mSweepViewport(nullptr)
   , mAction(Objects::IDLE)
   , mDirection(South)
   , mMomentum(0.0f) {}
@@ -56,9 +58,9 @@ Player::getInteractionArea() {
     return &mInteraction;
 }
 
-SDL_Texture*
+SDL_Texture**
 Player::getTexture() {
-    return mCurrentTexture;
+    return &mCurrentTexture;
 }
 
 SDL_Rect**
@@ -66,9 +68,19 @@ Player::getTextureViewport() {
     return &mCurrentViewport;
 }
 
+SDL_Texture*
+Player::getSweepTexture() {
+    return mSweepTexture;
+}
+
+SDL_Rect*
+Player::getSweepViewport() {
+    return mSweepViewport;
+}
+
 void
 Player::addAnimatedTexture(Objects::State action, Orientation orientation, Graphics::AnimatedTexture* texture) {
-    ASSERT_WITH_MESSAGE(mTextures.find({action, orientation}) != mTextures.end(), "Texture already loaded");
+    ASSERT_WITH_MESSAGE(mTextures.find({ action, orientation }) != mTextures.end(), "Texture already loaded");
     mTextures[{ action, orientation }] = texture;
     if (mCurrentTexture == nullptr || mCurrentViewport == nullptr) {
         mCurrentTexture  = texture->getTexture();
@@ -80,12 +92,20 @@ void
 Player::addSweepTexture(const Orientation& orientation, Graphics::AnimatedTexture* texture) {
     ASSERT_WITH_MESSAGE(mSweeps.find(orientation) != mSweeps.end(), "Texture already loaded");
     mSweeps[orientation] = texture;
+    if (mSweepTexture == nullptr || mSweepViewport == nullptr) {
+        mSweepTexture  = texture->getTexture();
+        mSweepViewport = texture->getAnimatedViewport();
+    }
 }
 
 void
 Player::updateReferences() {
-    mCurrentTexture  = mTextures[{ mAction, mDirection }]->getTexture();
-    mCurrentViewport = mTextures[{ mAction, mDirection }]->getAnimatedViewport();
+    if (mAction != Objects::ATTACK) {
+        mCurrentTexture  = mTextures[{ mAction, mDirection }]->getTexture();
+        mCurrentViewport = mTextures[{ mAction, mDirection }]->getAnimatedViewport();
+    }
+    mSweepTexture  = mSweeps[mDirection]->getTexture();
+    mSweepViewport = mSweeps[mDirection]->getAnimatedViewport();
 }
 
 void
@@ -135,12 +155,19 @@ Player::updatePosition(const float& x, const float& y, const Orientation& direct
 
 void
 Player::setAction(Objects::State action) {
+    switch(action){
+        case Objects::ATTACK:
+            mSweeps[mDirection]->runCycles(1);
+            break;
+        default:
+            break;
+    }
     mAction = action;
     updateReferences();
 }
 
 const Objects::State*
-Player::getAction(){
+Player::getAction() {
     return &mAction;
 }
 
