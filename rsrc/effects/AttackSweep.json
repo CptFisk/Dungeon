@@ -31,8 +31,8 @@
         "Row": 2,
         "Length": 3,
         "Ticks": 10,
-        "Width": 19,
-        "Height": 9,
+        "Width": 9,
+        "Height": 19,
         "Paused" : true
       },
       {
@@ -41,8 +41,8 @@
         "Row": 3,
         "Length": 3,
         "Ticks": 10,
-        "Width": 19,
-        "Height": 9,
+        "Width": 9,
+        "Height": 19,
         "Paused" : true
       }
     ]
