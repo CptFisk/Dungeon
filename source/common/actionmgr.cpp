@@ -1,4 +1,3 @@
-#include <cmake.hpp>
 #include <common/actionmgr.hpp>
 #include <global.hpp>
 
@@ -8,7 +7,9 @@ ActionManager::ActionManager(SDL_Renderer*& renderer, Common::typeScale& scale, 
   : pRenderer(renderer)
   , mScale(scale)
   , mOffsetX(offsetX)
-  , mOffsetY(offsetY) {}
+  , mOffsetY(offsetY)
+  , mMouseX{}
+  , mMouseY{} {}
 
 void
 ActionManager::registerKeyboardAction(const std::string& name, SDL_Keycode key) {
@@ -24,14 +25,8 @@ bool
 ActionManager::eventHandler(SDL_Event* event) {
     switch (event->type) {
         case SDL_MOUSEMOTION:
-#ifdef GAME_MODE
-            mAbsoluteMouse = { INT(FLOAT(event->button.x) / mScale.selectedScale), INT(FLOAT(event->button.y) / mScale.selectedScale) };
-            mRelativeMouse = { mAbsoluteMouse.x + std::abs(INT(mOffsetX)), mAbsoluteMouse.y + std::abs(INT(mOffsetY)) };
-#endif
-#ifdef EDITOR_MODE
-            mouseX = event->button.x;
-            mouseY = event->button.y;
-#endif
+            mMouseX = event->motion.x;
+            mMouseY = event->motion.y;
             break;
         case SDL_KEYDOWN:
             for (auto& [name, key] : mKeyboard) {
@@ -87,32 +82,33 @@ ActionManager::isActionFalling(const std::string& name) {
 
 SDL_Point
 ActionManager::getMouseAbsolute() const {
-    return mAbsoluteMouse;
+    return SDL_Point{ INT(FLOAT(mMouseX) / mScale.selectedScale), INT(FLOAT(mMouseY) / mScale.selectedScale) };
 }
 
 int
 ActionManager::getMouseAbsoluteX() const {
-    return mAbsoluteMouse.x;
+    return INT(FLOAT(mMouseX) / mScale.selectedScale);
 }
 
 int
 ActionManager::getMouseAbsoluteY() const {
-    return mAbsoluteMouse.y;
+    return INT(FLOAT(mMouseY) / mScale.selectedScale);
 }
 
 SDL_Point
 ActionManager::getMouseRelative() const {
-    return mRelativeMouse;
+    return SDL_Point{ INT(FLOAT(mMouseX) / mScale.selectedScale) + std::abs(INT(mOffsetX)),
+                      INT(FLOAT(mMouseY) / mScale.selectedScale) + std::abs(INT(mOffsetY)) };
 }
 
 int
 ActionManager::getMouseRelativeX() const {
-    return mRelativeMouse.x;
+    return INT(FLOAT(mMouseX) / mScale.selectedScale) + std::abs(INT(mOffsetX));
 }
 
 int
 ActionManager::getMouseRelativeY() const {
-    return mRelativeMouse.y;
+    return INT(FLOAT(mMouseY) / mScale.selectedScale) + std::abs(INT(mOffsetY));
 }
 
 }

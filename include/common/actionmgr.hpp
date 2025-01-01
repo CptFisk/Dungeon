@@ -18,26 +18,27 @@ class ActionManager {
     void registerKeyboardAction(const std::string& name, SDL_Keycode key);
     void registerMouseAction(const std::string& name, Uint8 button);
 
-    bool isActionPressed(const std::string& name);
-    bool isActionReleased(const std::string& name);
+    [[maybe_unused]] [[nodiscard]] bool isActionPressed(const std::string& name);
+    [[maybe_unused]] [[nodiscard]] bool isActionReleased(const std::string& name);
 
-    bool isActionRising(const std::string& name);
-    bool isActionFalling(const std::string& name);
+    [[maybe_unused]] [[nodiscard]] bool isActionRising(const std::string& name);
+    [[maybe_unused]] [[nodiscard]] bool isActionFalling(const std::string& name);
 
-    bool eventHandler(SDL_Event* event);
+    [[maybe_unused]] [[nodiscard]] bool eventHandler(SDL_Event* event);
 
-    [[maybe_unused]][[nodiscard]] SDL_Point getMouseAbsolute() const;
-    [[maybe_unused]][[nodiscard]] int getMouseAbsoluteX() const;
-    [[maybe_unused]][[nodiscard]] int getMouseAbsoluteY() const;
-    [[maybe_unused]][[nodiscard]] SDL_Point getMouseRelative() const;
-    [[maybe_unused]][[nodiscard]] int getMouseRelativeX() const;
-    [[maybe_unused]][[nodiscard]] int getMouseRelativeY() const;
+    [[maybe_unused]] [[nodiscard]] SDL_Point getMouseAbsolute() const;
+    [[maybe_unused]] [[nodiscard]] int       getMouseAbsoluteX() const;
+    [[maybe_unused]] [[nodiscard]] int       getMouseAbsoluteY() const;
+    [[maybe_unused]] [[nodiscard]] SDL_Point getMouseRelative() const;
+    [[maybe_unused]] [[nodiscard]] int       getMouseRelativeX() const;
+    [[maybe_unused]] [[nodiscard]] int       getMouseRelativeY() const;
 
   protected:
   private:
-    float& mOffsetX;    //Offset from perspective
-    float& mOffsetY;    //Offset from perspective
-
+    float&                             mOffsetX;  // Offset from perspective
+    float&                             mOffsetY;  // Offset from perspective
+    int                                mMouseX;   // Mouse X position
+    int                                mMouseY;   // Mouse Y position
     std::map<std::string, SDL_Keycode> mKeyboard; // Key bindings
     std::map<std::string, Uint8>       mMouse;    // Mouse binding
 
@@ -47,8 +48,5 @@ class ActionManager {
 
     SDL_Renderer*&     pRenderer;
     Common::typeScale& mScale;
-
-    SDL_Point mRelativeMouse;
-    SDL_Point mAbsoluteMouse;
 };
 }
