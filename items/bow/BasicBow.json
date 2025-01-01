@@ -1,0 +1,11 @@
+{
+  "Data": {
+    "Id": 40,
+    "Graphic": "BasicBow",
+    "Slot": "Left",
+    "Weapon": "Bow",
+    "Stats": {
+      "Dexterity": 4
+    }
+  }
+}

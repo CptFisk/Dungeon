@@ -41,6 +41,7 @@ Engine::createItems() {
     }
     mInventory->addItem(mItems[Items::Id::GoldenAmulet]);
     mInventory->addItem(mItems[Items::Id::BasicStaff]);
+    mInventory->addItem(mItems[Items::Id::BasicBow]);
 }
 
 }
