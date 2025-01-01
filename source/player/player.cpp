@@ -162,10 +162,12 @@ Player::updatePosition(const float& x, const float& y, const Orientation& direct
 void
 Player::doAttack(const Orientation& orientation) {
     if (!mAttacking) {
+        mDirection = orientation;
+        updateReferences();
+        updateInteraction();
         if (mAttackThread.joinable())
             mAttackThread.join();
         mAttackThread = std::thread([&]() {
-            mDirection = orientation;
             mAttacking = true;
             const auto ticks = mSweeps[mDirection]->getTicks() * mSweeps[mDirection]->getViewports().size();
             for (auto& [direction, animation] : mSweeps)
@@ -174,6 +176,7 @@ Player::doAttack(const Orientation& orientation) {
             mAttacking = false;
         });
     }
+
 }
 
 bool
