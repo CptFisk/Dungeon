@@ -13,6 +13,7 @@ class Item {
     /**
      * @return Return the graphics linked to the items
      */
+    virtual ~Item() = default;
     SDL_Texture* getTexture();
     /**
      * @return Return the slot the item belongs to
