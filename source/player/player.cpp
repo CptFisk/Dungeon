@@ -13,9 +13,7 @@ Player::Player()
   , mAttacking(false)
   , mAction(Objects::IDLE)
   , mDirection(South)
-  , mMomentum(0.0f) {
-
-}
+  , mMomentum(0.0f) {}
 
 Player::~Player() {
     if (mAttackThread.joinable())
@@ -165,22 +163,29 @@ Player::doAttack(const Orientation& orientation) {
         mDirection = orientation;
         updateReferences();
         updateInteraction();
+        std::lock_guard<std::mutex> lock(mAttackMutex);
         if (mAttackThread.joinable())
             mAttackThread.join();
-        mAttackThread = std::thread([&]() {
-            mAttacking = true;
+        mAttackThread = std::thread([this]() {
+            {
+                std::lock_guard<std::mutex> lock(mAttackMutex);
+                mAttacking = true;
+            }
             const auto ticks = mSweeps[mDirection]->getTicks() * mSweeps[mDirection]->getViewports().size();
             for (auto& [direction, animation] : mSweeps)
                 animation->runCycles(1);
             std::this_thread::sleep_for(std::chrono::milliseconds(10 * ticks));
-            mAttacking = false;
+            {
+                std::lock_guard<std::mutex> lock(mAttackMutex);
+                mAttacking = false;
+            }
         });
     }
-
 }
 
 bool
-Player::isAttacking() const {
+Player::isAttacking() {
+    std::lock_guard<std::mutex> lock(mAttackMutex);
     return mAttacking;
 }
 

@@ -4,6 +4,7 @@
 #include <global.hpp>
 #include <graphics/types/animatedTexture.hpp>
 #include <map>
+#include <mutex>
 #include <object/objects.hpp>
 #include <thread>
 #include <utility>
@@ -53,7 +54,7 @@ class Player {
     /**
      * @return True if player is attacking
      */
-    bool                                isAttacking() const;
+    bool                                isAttacking();
     void                                setAction(Objects::State action);
     [[nodiscard]] const Objects::State* getAction();
 
@@ -76,6 +77,7 @@ class Player {
     float                                                                        mMomentum;
 
     std::thread mAttackThread; // Handle the attack animation and frame handling
+    std::mutex  mAttackMutex;  // Mutex to protect sweep
 
     // Pointer that SDL_Render refer to
     SDL_FRect    mTexturePosition;
