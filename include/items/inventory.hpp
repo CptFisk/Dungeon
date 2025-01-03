@@ -19,7 +19,10 @@ class Inventory {
     };
 
   public:
-    Inventory(Common::typeScale& scale, Graphics::UserInterfaceTexture* inventory, Graphics::UserInterfaceTexture* selector);
+    Inventory(Common::typeScale&              scale,
+              Graphics::UserInterfaceTexture* inventory,
+              Graphics::UserInterfaceTexture* selector,
+              Graphics::Texture*&             userinterface);
     ~Inventory();
 
     std::vector<Graphics::typeDrawData> getInventory();
@@ -46,11 +49,11 @@ class Inventory {
      */
     WeaponType getRightWeapon();
 
-
   protected:
-    void calculatePositions();                                            // Used to calulcate positions for all graphical elements
-    bool swap(const bool& enabled, const int& index1, const int& index2); // Swap 2 items in the inventory
+    void       calculatePositions();                                            // Used to calulcate positions for all graphical elements
+    bool       swap(const bool& enabled, const int& index1, const int& index2); // Swap 2 items in the inventory
     WeaponType getWeapon(const int& index);
+
   private:
     SDL_FPoint           mTopLeft; // Top left coordinate of inventory, used to calculate offsets
     uint8_t              mSelected;
@@ -66,5 +69,6 @@ class Inventory {
     const std::array<SDL_FPoint, 30> mSlotDefaultPosition; // Base offsets of all positions
     std::array<SDL_FRect, 30>        mSlotPosition;        // Positions based on resolution
     Common::typeScale                mScale;
+    Graphics::Texture*&              pUserInterface; // A reference to the userinterface icon.
 };
 }

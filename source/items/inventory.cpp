@@ -1,11 +1,11 @@
-#include <items/inventory.hpp>
-#include <utility/textures.hpp>
-#include <items/weapon.hpp>
 #include <error.hpp>
+#include <items/inventory.hpp>
+#include <items/weapon.hpp>
+#include <utility/textures.hpp>
 
 namespace Items {
 
-Inventory::Inventory(Common::typeScale& scale, Graphics::UserInterfaceTexture* inventory, Graphics::UserInterfaceTexture* selector)
+Inventory::Inventory(Common::typeScale& scale, Graphics::UserInterfaceTexture* inventory, Graphics::UserInterfaceTexture* selector, Graphics::Texture*& userinterface)
   : // Graphical bindings
   mScale(scale)
   , mTopLeft{}
@@ -16,6 +16,7 @@ Inventory::Inventory(Common::typeScale& scale, Graphics::UserInterfaceTexture* i
   , mSelectorDrawData(selector->getTexture(), nullptr)
   , mSelected(6)
   , mSelectorVisible(false)
+  , pUserInterface(userinterface)
   , mSlots{ // Character
             Slot(SlotType::Amulet),
             Slot( SlotType::Head),
@@ -113,12 +114,12 @@ Inventory::getInventory() {
 
 void
 Inventory::selectItemMouse(const SDL_FPoint& point) {
-    uint8_t    index = {};
+    uint8_t index = {};
     for (const auto& position : mSlotPosition) {
         if (Utility::isOverlapping(point, position)) {
-            if(swap(mSelectorVisible, mSelected, index)){
+            if (swap(mSelectorVisible, mSelected, index)) {
                 mSelectorVisible = false;
-            }else{
+            } else {
                 mSelectorVisible = true;
             }
             mSelectorDrawData.Position = &mSlotPosition.at(index);
@@ -145,8 +146,8 @@ Inventory::addItem(Items::Item*& item) {
 Stats::Stats
 Inventory::getStats() {
     Stats::Stats stats = {};
-    for(auto i = 0; i < 6; i++){
-        if(mSlots[i].Item != nullptr)
+    for (auto i = 0; i < 6; i++) {
+        if (mSlots[i].Item != nullptr)
             stats += mSlots[i].Item->getStats();
     }
     return stats;
@@ -174,21 +175,21 @@ Inventory::swap(const bool& enabled, const int& index1, const int& index2) {
 
 WeaponType
 Inventory::getWeapon(const int& index) {
-    if(mSlots.at(index).Item == nullptr)
+    if (mSlots.at(index).Item == nullptr)
         return WeaponType::None;
     auto weapon = dynamic_cast<Weapon*>(mSlots.at(index).Item);
     return weapon->getWeaponType();
 }
 
 WeaponType
-Inventory::getLeftWeapon(){
-    //Slot 2 = left, 4 = right
+Inventory::getLeftWeapon() {
+    // Slot 2 = left, 4 = right
     return getWeapon(2);
 }
 
 WeaponType
 Inventory::getRightWeapon() {
-    //Slot 2 = left, 4 = right
+    // Slot 2 = left, 4 = right
     return getWeapon(4);
 }
 
