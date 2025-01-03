@@ -1,5 +1,5 @@
 #include <player/userInterface.hpp>
-
+#include <utility/scale.hpp>
 namespace Player {
 UserInterface::UserInterface(Graphics::UserInterfaceTexture* currentHotkey,
                              Graphics::AnimatedTexture*      red,
@@ -33,19 +33,23 @@ UserInterface::getIcon() {
     return pIconTexture;
 }
 
+float
+UserInterface::calculateLength(const int& points){
+    const auto value = std::min(points, 50);
+    return static_cast<float>(Utility::Scale(value, 0, 50, 50, 130));
+}
+
 void
 UserInterface::updateInterface() {
     mHotkeyPosition.x = pCurrentHotkey->getMarginLeftF();
     mHotkeyPosition.y = pCurrentHotkey->getMarginTopF();
     mHotkeyPosition.w = pCurrentHotkey->getWidthF();
     mHotkeyPosition.h = pCurrentHotkey->getHeightF();
-    //Use same positions as icon
-    mIconPosition = mHotkeyPosition;
 
     // Red bar
     mRed.mBarPosition.x = mHotkeyPosition.x + mHotkeyPosition.w + 5.0f;
     mRed.mBarPosition.y = mHotkeyPosition.y + 2.0f;
-    mRed.mBarPosition.w = 100.0f;
+    mRed.mBarPosition.w = calculateLength(32);
     mRed.mBarPosition.h = 2.0f;
 
     // Red bar background
@@ -57,7 +61,7 @@ UserInterface::updateInterface() {
     // Green bar
     mGreen.mBarPosition.x = mRed.mBarPosition.x;
     mGreen.mBarPosition.y = mRed.mBarPosition.y + 5.0f;
-    mGreen.mBarPosition.w = 100.0f;
+    mGreen.mBarPosition.w = calculateLength(15);
     mGreen.mBarPosition.h = 2.0f;
 
     // Green bar background

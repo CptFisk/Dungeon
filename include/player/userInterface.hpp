@@ -39,6 +39,12 @@ class UserInterface {
           , mBarPosition{}
           , mBackgroundPosition{} {}
     };
+    /**
+     * @brief Calculate the length for a given bar, based on the max points
+     * @param points Number of points spend on that attribute
+     * @return Value to be used as width for graphic
+     */
+    [[nodiscard]] static float calculateLength(const int& points);
 
   private:
     Graphics::UserInterfaceTexture* pCurrentHotkey;
@@ -49,7 +55,6 @@ class UserInterface {
 
     Graphics::GeneratedTexture* pBackground;
     SDL_FRect                   mHotkeyPosition;
-    SDL_FRect                   mIconPosition; // Position for icon
 
     const std::vector<Graphics::typeDrawData> mDrawData;
 };
