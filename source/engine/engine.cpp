@@ -167,10 +167,10 @@ Engine::movePlayer(Direction direction) {
     const auto       vector      = Utility::calculateVector(angle, 1.0f);
     const auto       orientation = Utility::getOrientation(angle);
     const SDL_FPoint invVector   = { vector.x / -1.0f, vector.y / -1.0f };
-    // if (movement(mPlayer->getPlayerCenter(), vector, angle)) {
-    mPlayer->move(vector, orientation);
-    mPerspective->move(invVector);
-    ///}
+    if (movement(mPlayer->getPlayerCenter(), vector, angle)) {
+        mPlayer->move(vector, orientation);
+        mPerspective->move(invVector);
+    }
     /*
     if (movement(mPlayer->getPlayerCenter(), direction))
         mPerspective->move(direction, mPlayer->move(direction));
@@ -208,19 +208,20 @@ Engine::interact() {
 void
 Engine::mainLoop() {
     mPlayer->spawn(9, 119);
-
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
+    auto      red = GET_ANIMATED("GradientRed");
+    SDL_FRect pos = { 40, 40, 100, 100 };
     while (mRun) {
         // Sort monster list
         for (auto& monster : mActiveMonsters)
             monster->setPlayerDistance(Utility::getDistance(mPlayer->getPlayerCenter(), monster->getCenter()));
         Utility::sortBy(mActiveMonsters, [&](const Monster::BaseMonster* monster) { return monster->getPlayerDistance(); });
 
-        mMonsterIndex = mActiveMonsters.size(); //Start value
-        //Finding the threshold for monster that is close to the player
-        for(auto i = 0; i < mActiveMonsters.size(); i++){
-            if(mActiveMonsters[i]->getPlayerDistance() > 20.0f){
+        mMonsterIndex = mActiveMonsters.size(); // Start value
+        // Finding the threshold for monster that is close to the player
+        for (auto i = 0; i < mActiveMonsters.size(); i++) {
+            if (mActiveMonsters[i]->getPlayerDistance() > 20.0f) {
                 mMonsterIndex = i;
                 break;
             }
@@ -269,7 +270,7 @@ Engine::mainLoop() {
         if (mPlayer->isAttacking())
             mPerspective->render(mPlayer->getSweepTexture(), mPlayer->getSweepViewport(), mPlayer->getInteractionArea());
         drawProjectiles();
-        meleeAttack();  //Handle melee attack
+        meleeAttack(); // Handle melee attack
         // Draw top layer
         drawLevel(mSegments.Top, mSegments.CurrentLayerTop);
         // Apply darkness
@@ -280,11 +281,10 @@ Engine::mainLoop() {
 
         switch (mGameMode) {
             case GameMode::Game: {
-                for (auto drawData : mHealth->getIndicator()) {
-                    SDL_RenderCopyF(pRenderer, drawData.Texture, drawData.Viewport, drawData.Position);
-                }
-                // Positions
-                drawFloatingText();
+                for (auto data : mUserInterface->getUserInterface())
+                    SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
+                  // Positions
+                  drawFloatingText();
             } break;
             case GameMode::Inventory: {
                 for (auto data : mInventory->getInventory()) {
@@ -293,24 +293,7 @@ Engine::mainLoop() {
 
             } break;
         }
-        /*
-    #ifdef DEBUG_MODE
-            // Display interaction area
-            mPerspective->render(GET_GENERATED("0000FF")->getTexture(), nullptr, mPlayer->getInteractionArea());
-            // Display player center
-            SDL_FRect middle{ mPlayer->getPlayerCenter().x, mPlayer->getPlayerCenter().y, 1.0f, 1.0f };
-            mPerspective->render(GET_GENERATED("A349A4")->getTexture(), nullptr, &middle);
-            auto fpsPos = SDL_Rect{ 10, 10, 0, 0 };
-            auto fps    = mGraphics->getSentence("8bit16", "FPS " + std::to_string(Debug::getFPS()));
-            SDL_QueryTexture(fps, nullptr, nullptr, &fpsPos.w, &fpsPos.h);
-            SDL_RenderCopy(pRenderer, fps, nullptr, &fpsPos);
-            auto playerPos = SDL_Rect{ 10, 15 + fpsPos.h, 0, 0 };
-            auto p         = mPlayer->getPlayerCoordinates();
-            auto player    = mGraphics->getSentence("8bit16", std::to_string(p.x) + " " + std::to_string(p.y));
-            SDL_QueryTexture(player, nullptr, nullptr, &playerPos.w, &playerPos.h);
-            SDL_RenderCopy(pRenderer, player, nullptr, &playerPos);
-    #endif
-         */
+
         present();
     }
 }
@@ -339,7 +322,7 @@ Engine::projectiles() {
                 if ((mPlayerHealth -= (*it)->getDamage()) <= 0) {
                     std::cout << "Player died " << std::endl;
                 }
-                mHealth->updateIndicator();       // Update health bar
+                // mHealth->updateIndicator();       // Update health bar
                 delete *it;                       // Free memory
                 it      = mProjectiles.erase(it); // Move iterator
                 removed = true;
@@ -358,26 +341,26 @@ Engine::projectiles() {
 
 void
 Engine::meleeAttack() {
-    //If we dont attack, simply return
-    if(!mPlayer->isAttacking())
+    // If we dont attack, simply return
+    if (!mPlayer->isAttacking())
         return;
 
     const auto itEnd = mActiveMonsters.begin() + mMonsterIndex;
-    const auto area = *mPlayer->getInteractionArea();
-    for(auto it = mActiveMonsters.begin(); it != itEnd;){
+    const auto area  = *mPlayer->getInteractionArea();
+    for (auto it = mActiveMonsters.begin(); it != itEnd;) {
         auto& monster = (*it);
-        if(Utility::isOverlapping(monster->getCenter(),area)){
+        if (Utility::isOverlapping(monster->getCenter(), area)) {
             monster->damageMonster(100);
             break;
-        }else
-            ++it;
+        }
+        ++it;
     }
 }
 
 void
 Engine::monsterActions() {
     auto state = mLuaManager->getState();
-    for(auto i = 0; i < mMonsterIndex; i++){
+    for (auto i = 0; i < mMonsterIndex; i++) {
         const auto lua = mActiveMonsters[i]->getLuaFile();
         mLuaManager->executeScript("scripts/monster/" + lua);
         lua_getglobal(state, "Interact");

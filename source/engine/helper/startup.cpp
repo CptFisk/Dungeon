@@ -48,12 +48,11 @@ Engine::startup() {
                           GET_USERINTERFACE("TextboxLargeEnd"));
     mTextbox->generateBoxes();
 
-    mHealth = std::make_unique<Player::Indicator>(
-      mPlayerHealth, mPlayerMaxHealth, mScale, GET_USERINTERFACE("HealthBase"), GET_USERINTERFACE("HealthRed"));
-    /*
-  mEnergy =
-    std::make_unique<Player::Indicator>(mVisibleUI, mPlayerEnergy, 16.0f, pRenderer, GET_ANIMATED("Bolt"), GET_NUMBER("NumberWhite"));
-  */
+    mUserInterface = std::make_unique<Player::UserInterface>(GET_USERINTERFACE("CurrentHotkey"),
+                                                             GET_ANIMATED("GradientRed"),
+                                                             GET_ANIMATED("GradientGreen"),
+                                                             GET_ANIMATED("GradientYellow"),
+                                                             GET_GENERATED("282828"));
     // Binding player data
     mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::North, GET_ANIMATED("HumanIdleNorth"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::East, GET_ANIMATED("HumanIdleEast"));
@@ -84,7 +83,8 @@ Engine::startup() {
     pPlayerAction   = mPlayer->getAction();
 
     // Setting up inventory
-    mInventory = std::make_unique<Items::Inventory>(mScale, GET_USERINTERFACE("Inventory"), GET_USERINTERFACE("Selector"));
+    mInventory =
+      std::make_unique<Items::Inventory>(mScale, GET_USERINTERFACE("Inventory"), GET_USERINTERFACE("Selector"), mUserInterface->getIcon());
     createItems();
 
     mParticles = std::make_shared<Objects::Particle>(GET_GENERATED("FAE2C3")->getTexture(), 100, 0.5f, 0.5f);

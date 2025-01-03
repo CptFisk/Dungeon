@@ -15,8 +15,8 @@
 #include <mutex>
 #include <npc/include.hpp>
 #include <object/include.hpp>
-#include <player/indicator.hpp>
 #include <player/player.hpp>
+#include <player/userInterface.hpp>
 #include <set>
 #include <string>
 #include <thread>
@@ -92,7 +92,7 @@ class Engine {
     /**
      * @brief Function used to handle meele attacks
      */
-    void       meleeAttack();
+    void meleeAttack();
 
     void drawProjectiles();
     void drawFloatingText();
@@ -111,16 +111,15 @@ class Engine {
         float Y;
     } offset;
 
-    Common::InitHandler                  mInitHandler;
-    std::shared_ptr<Player::Player>      mPlayer;
-    std::shared_ptr<Graphics::Graphics>  mGraphics;
-    std::unique_ptr<Player::Indicator>   mHealth;
-    std::unique_ptr<Player::Indicator>   mEnergy;
-    std::unique_ptr<Common::Perspective> mPerspective;
-    std::unique_ptr<LoadingScreen>       mLoadingScreen;
-    std::unique_ptr<UI::Textbox>         mTextbox;
-    std::unique_ptr<Lua::LuaManager>     mLuaManager;
-    std::unique_ptr<Items::Inventory>    mInventory;
+    Common::InitHandler                    mInitHandler;
+    std::shared_ptr<Player::Player>        mPlayer;
+    std::shared_ptr<Graphics::Graphics>    mGraphics;
+    std::unique_ptr<Player::UserInterface> mUserInterface; // Handle player userinterface
+    std::unique_ptr<Common::Perspective>   mPerspective;
+    std::unique_ptr<LoadingScreen>         mLoadingScreen;
+    std::unique_ptr<UI::Textbox>           mTextbox;
+    std::unique_ptr<Lua::LuaManager>       mLuaManager;
+    std::unique_ptr<Items::Inventory>      mInventory;
 
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;
