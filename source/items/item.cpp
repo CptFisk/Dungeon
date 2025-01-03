@@ -24,4 +24,9 @@ Item::getStats() const {
     return mStats;
 }
 
+int16_t
+Item::getId() const {
+    return mId;
+}
+
 }

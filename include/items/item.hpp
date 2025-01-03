@@ -23,6 +23,10 @@ class Item {
      * @return Return the stats linked to the item
      */
     [[nodiscard]] Stats::Stats getStats() const;
+    /**
+     * @return The item Id (should always be unique)
+     */
+    [[nodiscard]] int16_t getId() const;
 
   protected:
   private:
