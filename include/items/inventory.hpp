@@ -37,17 +37,21 @@ class Inventory {
      */
     void addItem(Item*& item);
     /**
+     * @brief Calculate all the extra attribute-points earned by items
+     */
+    void calculateStats();
+    /**
      * @return Return the extra stats of all items carried by the player
      */
-    Stats::Stats getStats();
+    [[nodiscard]] Stats::Stats& getItemStats();
     /**
      * @return Return the left hand weapon type
      */
-    WeaponType getLeftWeapon();
+    [[nodiscard]] WeaponType getLeftWeapon();
     /**
      * @return Return the right hand weapon type
      */
-    WeaponType getRightWeapon();
+    [[nodiscard]] WeaponType getRightWeapon();
 
   protected:
     void       calculatePositions();                                            // Used to calulcate positions for all graphical elements
@@ -70,5 +74,7 @@ class Inventory {
     std::array<SDL_FRect, 30>        mSlotPosition;        // Positions based on resolution
     Common::typeScale                mScale;
     Graphics::Texture*&              pUserInterface; // A reference to the userinterface icon.
+
+    Stats::Stats mItemStats; //Hold the attribute points for all items the player is carrying
 };
 }

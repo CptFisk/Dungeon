@@ -17,6 +17,7 @@ Inventory::Inventory(Common::typeScale& scale, Graphics::UserInterfaceTexture* i
   , mSelected(6)
   , mSelectorVisible(false)
   , pUserInterface(userinterface)
+  , mItemStats{}
   , mSlots{ // Character
             Slot(SlotType::Amulet),
             Slot( SlotType::Head),
@@ -143,14 +144,18 @@ Inventory::addItem(Items::Item*& item) {
     }
 }
 
-Stats::Stats
-Inventory::getStats() {
-    Stats::Stats stats = {};
+void
+Inventory::calculateStats() {
+    mItemStats = {}; // Make it zero
     for (auto i = 0; i < 6; i++) {
         if (mSlots[i].Item != nullptr)
-            stats += mSlots[i].Item->getStats();
+            mItemStats += mSlots[i].Item->getStats();
     }
-    return stats;
+}
+
+Stats::Stats&
+Inventory::getItemStats() {
+    mItemStats;
 }
 
 bool
