@@ -22,7 +22,6 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/items/weapon.cpp
 
         ${CMAKE_SOURCE_DIR}/source/player/player.cpp
-        ${CMAKE_SOURCE_DIR}/source/player/indicator.cpp
         ${CMAKE_SOURCE_DIR}/source/player/userInterface.cpp
 
         ${CMAKE_SOURCE_DIR}/source/object/projectile.cpp
