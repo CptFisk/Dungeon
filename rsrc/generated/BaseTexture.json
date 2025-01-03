@@ -133,6 +133,19 @@
         "Blue1": 205,
         "Blue2": 0,
         "Alpha": 80
+      },
+      {
+        "Name": "282828",
+        "Shape": "Square",
+        "Width": 1,
+        "Height": 1,
+        "Red1": 28,
+        "Red2": 0,
+        "Green1": 28,
+        "Green2": 0,
+        "Blue1": 28,
+        "Blue2": 0,
+        "Alpha": 0
       }
     ]
   }
