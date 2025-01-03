@@ -3,6 +3,7 @@
 #include <graphics/types/drawData.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <graphics/types/userInterfaceTexture.hpp>
+#include <stats/stats.hpp>
 #include <vector>
 
 namespace Player {
@@ -13,7 +14,8 @@ class UserInterface {
                   Graphics::AnimatedTexture*      red,
                   Graphics::AnimatedTexture*      green,
                   Graphics::AnimatedTexture*      yellow,
-                  Graphics::GeneratedTexture*     background);
+                  Graphics::GeneratedTexture*     background,
+                  Stats::Stats& stats);
     ~UserInterface() = default;
 
     [[nodiscard]] std::vector<Graphics::typeDrawData> getUserInterface() const;
@@ -47,6 +49,7 @@ class UserInterface {
     [[nodiscard]] static float calculateLength(const int& points);
 
   private:
+    Stats::Stats&                   mPlayerStats;   //Reference to the player stats
     Graphics::UserInterfaceTexture* pCurrentHotkey;
     Graphics::Texture*              pIconTexture;
     StatusBar                       mRed;    // Health

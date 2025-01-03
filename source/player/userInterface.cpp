@@ -5,13 +5,15 @@ UserInterface::UserInterface(Graphics::UserInterfaceTexture* currentHotkey,
                              Graphics::AnimatedTexture*      red,
                              Graphics::AnimatedTexture*      green,
                              Graphics::AnimatedTexture*      yellow,
-                             Graphics::GeneratedTexture*     background)
+                             Graphics::GeneratedTexture*     background,
+                             Stats::Stats&                   stats)
   : pCurrentHotkey(currentHotkey)
   , mRed{ red }
   , mGreen{ green }
   , mYellow{ yellow }
   , pBackground(background)
   , mHotkeyPosition{}
+  , mPlayerStats(stats)
   , mDrawData{ { pCurrentHotkey->getTexture(), nullptr, &mHotkeyPosition },
                { pBackground->getTexture(), nullptr, &mRed.mBackgroundPosition },
                { pBackground->getTexture(), nullptr, &mGreen.mBackgroundPosition },
@@ -34,7 +36,7 @@ UserInterface::getIcon() {
 }
 
 float
-UserInterface::calculateLength(const int& points){
+UserInterface::calculateLength(const int& points) {
     const auto value = std::min(points, 50);
     return static_cast<float>(Utility::Scale(value, 0, 50, 50, 130));
 }
@@ -46,41 +48,41 @@ UserInterface::updateInterface() {
     mHotkeyPosition.w = pCurrentHotkey->getWidthF();
     mHotkeyPosition.h = pCurrentHotkey->getHeightF();
 
-    // Red bar
-    mRed.mBarPosition.x = mHotkeyPosition.x + mHotkeyPosition.w + 5.0f;
-    mRed.mBarPosition.y = mHotkeyPosition.y + 2.0f;
-    mRed.mBarPosition.w = calculateLength(32);
-    mRed.mBarPosition.h = 2.0f;
-
     // Red bar background
-    mRed.mBackgroundPosition.x = mRed.mBarPosition.x - 1.0f;
-    mRed.mBackgroundPosition.y = mRed.mBarPosition.y - 1.0f;
-    mRed.mBackgroundPosition.w = mRed.mBarPosition.w + 2.0f;
-    mRed.mBackgroundPosition.h = mRed.mBarPosition.h + 2.0f;
-
-    // Green bar
-    mGreen.mBarPosition.x = mRed.mBarPosition.x;
-    mGreen.mBarPosition.y = mRed.mBarPosition.y + 5.0f;
-    mGreen.mBarPosition.w = calculateLength(15);
-    mGreen.mBarPosition.h = 2.0f;
+    mRed.mBackgroundPosition.x = mHotkeyPosition.x + mHotkeyPosition.w + 4;
+    mRed.mBackgroundPosition.y = mHotkeyPosition.y + 1.0f;
+    mRed.mBackgroundPosition.w = calculateLength(mPlayerStats.Vitality);
+    mRed.mBackgroundPosition.h = 4.0f;
 
     // Green bar background
-    mGreen.mBackgroundPosition.x = mGreen.mBarPosition.x - 1.0f;
-    mGreen.mBackgroundPosition.y = mGreen.mBarPosition.y - 1.0f;
-    mGreen.mBackgroundPosition.w = mGreen.mBarPosition.w + 2.0f;
-    mGreen.mBackgroundPosition.h = mGreen.mBarPosition.h + 2.0f;
-
-    // Yellow bar
-    mYellow.mBarPosition.x = mGreen.mBarPosition.x;
-    mYellow.mBarPosition.y = mGreen.mBarPosition.y + 5.0f;
-    mYellow.mBarPosition.w = 50.0f;
-    mYellow.mBarPosition.h = 2.0f;
+    mGreen.mBackgroundPosition.x = mRed.mBackgroundPosition.x;
+    mGreen.mBackgroundPosition.y = mRed.mBackgroundPosition.y + 5.0f;
+    mGreen.mBackgroundPosition.w = calculateLength(mPlayerStats.Stamina);
+    mGreen.mBackgroundPosition.h = 4.0f;
 
     // Yellow bar background
-    mYellow.mBackgroundPosition.x = mYellow.mBarPosition.x - 1.0f;
-    mYellow.mBackgroundPosition.y = mYellow.mBarPosition.y - 1.0f;
-    mYellow.mBackgroundPosition.w = mYellow.mBarPosition.w + 2.0f;
-    mYellow.mBackgroundPosition.h = mYellow.mBarPosition.h + 2.0f;
+    mYellow.mBackgroundPosition.x = mGreen.mBackgroundPosition.x;
+    mYellow.mBackgroundPosition.y = mGreen.mBackgroundPosition.y + 5.0f;
+    mYellow.mBackgroundPosition.w = 50.0f;
+    mYellow.mBackgroundPosition.h = 4.0f;
+
+    // Red bar
+    mRed.mBarPosition.x = mRed.mBackgroundPosition.x + 1.0f;
+    mRed.mBarPosition.y = mRed.mBackgroundPosition.y + 1.0f;
+    mRed.mBarPosition.w = 10.0f;
+    mRed.mBarPosition.h = 2.0f;
+
+    // Green bar
+    mGreen.mBarPosition.x = mGreen.mBackgroundPosition.x + 1.0f;
+    mGreen.mBarPosition.y = mGreen.mBackgroundPosition.y + 1.0f;
+    mGreen.mBarPosition.w = 10.0f;
+    mGreen.mBarPosition.h = 2.0f;
+
+    // Yellow bar
+    mYellow.mBarPosition.x = mYellow.mBackgroundPosition.x + 1.0f;
+    mYellow.mBarPosition.y = mYellow.mBackgroundPosition.y + 1.0f;
+    mYellow.mBarPosition.w = 50.0f;
+    mYellow.mBarPosition.h = 2.0f;
 }
 
 void
