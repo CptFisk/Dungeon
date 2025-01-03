@@ -135,15 +135,15 @@
         "Alpha": 80
       },
       {
-        "Name": "282828",
+        "Name": "404040",
         "Shape": "Square",
         "Width": 1,
         "Height": 1,
-        "Red1": 28,
+        "Red1": 40,
         "Red2": 0,
-        "Green1": 28,
+        "Green1": 40,
         "Green2": 0,
-        "Blue1": 28,
+        "Blue1": 40,
         "Blue2": 0,
         "Alpha": 100
       }

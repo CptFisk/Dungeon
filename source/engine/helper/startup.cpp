@@ -52,7 +52,7 @@ Engine::startup() {
                                                              GET_ANIMATED("GradientRed"),
                                                              GET_ANIMATED("GradientGreen"),
                                                              GET_ANIMATED("GradientYellow"),
-                                                             GET_GENERATED("282828"));
+                                                             GET_GENERATED("404040"));
     // Binding player data
     mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::North, GET_ANIMATED("HumanIdleNorth"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::East, GET_ANIMATED("HumanIdleEast"));
