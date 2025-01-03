@@ -63,7 +63,7 @@ UserInterface::updateInterface() {
     // Yellow bar background
     mYellow.mBackgroundPosition.x = mGreen.mBackgroundPosition.x;
     mYellow.mBackgroundPosition.y = mGreen.mBackgroundPosition.y + 5.0f;
-    mYellow.mBackgroundPosition.w = 50.0f;
+    mYellow.mBackgroundPosition.w = 52.0f;
     mYellow.mBackgroundPosition.h = 4.0f;
 
     // Red bar

@@ -7,7 +7,10 @@
 #include <vector>
 
 namespace Player {
-
+/**
+ * @brief Handle all the visible elements of the userinterface
+ * @details Handle the display of current selected item, health, stamina and luck-bar.
+ */
 class UserInterface {
   public:
     UserInterface(Graphics::UserInterfaceTexture* currentHotkey,
