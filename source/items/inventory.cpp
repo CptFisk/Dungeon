@@ -87,7 +87,7 @@ Inventory::Inventory(Common::typeScale& scale, Graphics::UserInterfaceTexture* i
             SDL_FPoint {140,120},
             SDL_FPoint {160,120}
   } {
-    calculatePositions();
+    updateInventory();
     // Selecting first position in bag
     mSelectorDrawData.Position = &mSlotPosition.at(mSelected);
 }
@@ -240,7 +240,7 @@ Inventory::getSlotId(const Items::SlotType& slot) {
 }
 
 void
-Inventory::calculatePositions() {
+Inventory::updateInventory() {
     // The idea is to first center the inventory element on the screen.
     const auto screenCenterX = (mScale.windowWidthF / mScale.selectedScale) / 2.0f;
     const auto screenCenterY = (mScale.windowHeightF / mScale.selectedScale) / 2.0f;

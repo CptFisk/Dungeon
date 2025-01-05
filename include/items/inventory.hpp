@@ -24,7 +24,13 @@ class Inventory {
               Graphics::UserInterfaceTexture* selector,
               Graphics::Texture*&             userinterface);
     ~Inventory();
-
+    /**
+     * @brief Calculate all positions for the elements (based on screen resolution)
+     */
+    void updateInventory();
+    /**
+     * @return Return all the draw data related to inventory
+     */
     std::vector<Graphics::typeDrawData> getInventory();
     /**
      * @brief Using the mouse to click on a specific square.
@@ -60,7 +66,7 @@ class Inventory {
     [[nodiscard]] WeaponType getRightWeapon();
 
   protected:
-    void       calculatePositions();                                            // Used to calulcate positions for all graphical elements
+
     bool       swap(const bool& enabled, const int& index1, const int& index2); // Swap 2 items in the inventory
     WeaponType getWeapon(const int& index);
     /**
