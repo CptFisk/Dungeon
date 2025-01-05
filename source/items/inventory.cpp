@@ -144,6 +144,27 @@ Inventory::addItem(Items::Item*& item) {
     }
 }
 
+bool
+Inventory::equipItem(const uint16_t& itemId) {
+    Item* item = nullptr;
+    // Bag index
+    const int     startIndex = 6;
+    constexpr int endIndex   = startIndex + 16;
+    int           position   = {}; // If we find the item, this is the position
+    for (int i = startIndex; i < endIndex; i++) {
+        if (mSlots[i].Item && mSlots[i].Item->getId() == itemId) {
+            item     = mSlots[i].Item;
+            position = i;
+            break;
+        }
+    }
+    // Item was not found
+    if (!item)
+        return false;
+    // Check what slot we shall equip in
+    return swap(true, position, getSlotId(item->getSlotType()));
+}
+
 void
 Inventory::calculateStats() {
     mItemStats = {}; // Make it zero
@@ -196,6 +217,26 @@ WeaponType
 Inventory::getRightWeapon() {
     // Slot 2 = left, 4 = right
     return getWeapon(4);
+}
+
+int
+Inventory::getSlotId(const Items::SlotType& slot) {
+    switch (slot) {
+        case SlotType::Amulet:
+            return 0;
+        case SlotType::Head:
+            return 1;
+        case SlotType::Left:
+            return 2;
+        case SlotType::Chest:
+            return 3;
+        case SlotType::Right:
+            return 4;
+        case SlotType::Boots:
+            return 5;
+        default:
+            return 7; // Bag
+    }
 }
 
 void

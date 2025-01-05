@@ -26,8 +26,12 @@ Engine::createItems() {
                     case Items::SlotType::Right:
                     case Items::SlotType::Left:
                         ASSERT_WITH_MESSAGE(!item.Weapon.has_value(), "Weapon need a type");
-                        mItems[id] =
-                          new Items::Weapon(GET_BASE(item.Graphic), item.Slot, item.Weapon.value(), item.Description, static_cast<int16_t>(item.Id), item.Stats);
+                        mItems[id] = new Items::Weapon(GET_BASE(item.Graphic),
+                                                       item.Slot,
+                                                       item.Weapon.value(),
+                                                       item.Description,
+                                                       static_cast<int16_t>(item.Id),
+                                                       item.Stats);
                         break;
                     default:
                         mItems[id] =
@@ -42,6 +46,9 @@ Engine::createItems() {
     mInventory->addItem(mItems[Items::Id::GoldenAmulet]);
     mInventory->addItem(mItems[Items::Id::BasicStaff]);
     mInventory->addItem(mItems[Items::Id::BasicBow]);
+
+    mInventory->equipItem(static_cast<int16_t>(Items::Id::BasicBow));
+    mInventory->equipItem(static_cast<int16_t>(Items::Id::BasicStaff));
 }
 
 }

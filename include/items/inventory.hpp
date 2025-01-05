@@ -37,6 +37,12 @@ class Inventory {
      */
     void addItem(Item*& item);
     /**
+     * @brief Try to equip a item in the correct slot
+     * @param itemId
+     * @return True if item was found and equipped
+     */
+    bool equipItem(const uint16_t& itemId);
+    /**
      * @brief Calculate all the extra attribute-points earned by items
      */
     void calculateStats();
@@ -57,6 +63,10 @@ class Inventory {
     void       calculatePositions();                                            // Used to calulcate positions for all graphical elements
     bool       swap(const bool& enabled, const int& index1, const int& index2); // Swap 2 items in the inventory
     WeaponType getWeapon(const int& index);
+    /**
+     * @return Return the slot number that can be used in @ref mSlots
+     */
+    static int getSlotId(const SlotType& slot);
 
   private:
     SDL_FPoint           mTopLeft; // Top left coordinate of inventory, used to calculate offsets
@@ -75,6 +85,6 @@ class Inventory {
     Common::typeScale                mScale;
     Graphics::Texture*&              pUserInterface; // A reference to the userinterface icon.
 
-    Stats::Stats mItemStats; //Hold the attribute points for all items the player is carrying
+    Stats::Stats mItemStats; // Hold the attribute points for all items the player is carrying
 };
 }
