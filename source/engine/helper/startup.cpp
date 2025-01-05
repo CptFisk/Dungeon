@@ -48,12 +48,9 @@ Engine::startup() {
                           GET_USERINTERFACE("TextboxLargeEnd"));
     mTextbox->generateBoxes();
 
-    mUserInterface = std::make_unique<Player::UserInterface>(GET_USERINTERFACE("CurrentHotkey"),
-                                                             GET_ANIMATED("GradientRed"),
-                                                             GET_ANIMATED("GradientGreen"),
-                                                             GET_ANIMATED("GradientYellow"),
-                                                             GET_GENERATED("282828"));
     // Binding player data
+    mPlayerStats = std::make_unique<Player::PlayerStats>(mInventory->getItemStats());
+
     mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::North, GET_ANIMATED("HumanIdleNorth"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::East, GET_ANIMATED("HumanIdleEast"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::South, GET_ANIMATED("HumanIdleSouth"));
@@ -81,6 +78,13 @@ Engine::startup() {
     pPlayerView     = mPlayer->getTextureViewport();
     pPlayerPosition = mPlayer->getTexturePosition();
     pPlayerAction   = mPlayer->getAction();
+
+    mUserInterface = std::make_unique<Player::UserInterface>(GET_USERINTERFACE("CurrentHotkey"),
+                                                             GET_ANIMATED("GradientRed"),
+                                                             GET_ANIMATED("GradientGreen"),
+                                                             GET_ANIMATED("GradientYellow"),
+                                                             GET_GENERATED("282828"),
+                                                             mPlayerStats->getTotalStats());
 
     // Setting up inventory
     mInventory =
