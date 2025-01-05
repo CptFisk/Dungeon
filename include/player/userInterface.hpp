@@ -18,8 +18,8 @@ class UserInterface {
                   Graphics::AnimatedTexture*      green,
                   Graphics::AnimatedTexture*      yellow,
                   Graphics::GeneratedTexture*     background,
-                  Stats::Stats& stats);
-    ~UserInterface() = default;
+                  Stats::Stats&                   stats);
+    ~UserInterface();
 
     [[nodiscard]] std::vector<Graphics::typeDrawData> getUserInterface() const;
     // Calculate new positions
@@ -34,16 +34,6 @@ class UserInterface {
     Graphics::Texture*& getIcon();
 
   protected:
-    struct StatusBar {
-        Graphics::AnimatedTexture* pTexture;            // Animated bar
-        SDL_FRect                  mBackgroundPosition; // Background position, gray area
-        SDL_FRect                  mBarPosition;        // Animated bar position
-
-        explicit StatusBar(Graphics::AnimatedTexture* texture)
-          : pTexture(texture)
-          , mBarPosition{}
-          , mBackgroundPosition{} {}
-    };
     /**
      * @brief Calculate the length for a given bar, based on the max points
      * @param points Number of points spend on that attribute
@@ -52,15 +42,14 @@ class UserInterface {
     [[nodiscard]] static float calculateLength(const int& points);
 
   private:
-    Stats::Stats&                   mPlayerStats;   //Reference to the player stats
+    Stats::Stats&                   mPlayerStats; // Reference to the player stats
     Graphics::UserInterfaceTexture* pCurrentHotkey;
     Graphics::Texture*              pIconTexture;
-    StatusBar                       mRed;    // Health
-    StatusBar                       mGreen;  // Stamina
-    StatusBar                       mYellow; // Luck meter
+    Graphics::AnimatedTexture*      pRed;    // Health
+    Graphics::AnimatedTexture*      pGreen;  // Stamina
+    Graphics::AnimatedTexture*      pYellow; // Luck meter
 
     Graphics::GeneratedTexture* pBackground;
-    SDL_FRect                   mHotkeyPosition;
 
     const std::vector<Graphics::typeDrawData> mDrawData;
 };

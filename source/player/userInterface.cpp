@@ -8,21 +8,27 @@ UserInterface::UserInterface(Graphics::UserInterfaceTexture* currentHotkey,
                              Graphics::GeneratedTexture*     background,
                              Stats::Stats&                   stats)
   : pCurrentHotkey(currentHotkey)
-  , mRed{ red }
-  , mGreen{ green }
-  , mYellow{ yellow }
+  , pRed{ red }
+  , pGreen{ green }
+  , pYellow{ yellow }
   , pBackground(background)
-  , mHotkeyPosition{}
   , mPlayerStats(stats)
-  , mDrawData{ { pCurrentHotkey->getTexture(), nullptr, &mHotkeyPosition },
-               { pBackground->getTexture(), nullptr, &mRed.mBackgroundPosition },
-               { pBackground->getTexture(), nullptr, &mGreen.mBackgroundPosition },
-               { pBackground->getTexture(), nullptr, &mYellow.mBackgroundPosition },
+  , mDrawData{ { pCurrentHotkey->getTexture(), nullptr, new SDL_FRect{} },
+               { pBackground->getTexture(), nullptr, new SDL_FRect{} },
+               { pBackground->getTexture(), nullptr, new SDL_FRect{} },
+               { pBackground->getTexture(), nullptr, new SDL_FRect{} },
 
-               { mRed.pTexture->getTexture(), mRed.pTexture->getAnimatedViewport(), &mRed.mBarPosition },
-               { mGreen.pTexture->getTexture(), mGreen.pTexture->getAnimatedViewport(), &mGreen.mBarPosition },
-               { mYellow.pTexture->getTexture(), mYellow.pTexture->getAnimatedViewport(), &mYellow.mBarPosition } } {
+               { pRed->getTexture(), pRed->getAnimatedViewport(), new SDL_FRect{} },
+               { pGreen->getTexture(), pGreen->getAnimatedViewport(), new SDL_FRect{} },
+               { pYellow->getTexture(), pYellow->getAnimatedViewport(), new SDL_FRect{} } } {
     updateInterface();
+}
+
+UserInterface::~UserInterface() {
+    // Cleaning
+    for (auto data : mDrawData) {
+        delete data.Position;
+    }
 }
 
 std::vector<Graphics::typeDrawData>
@@ -43,46 +49,53 @@ UserInterface::calculateLength(const int& points) {
 
 void
 UserInterface::updateInterface() {
-    mHotkeyPosition.x = pCurrentHotkey->getMarginLeftF();
-    mHotkeyPosition.y = pCurrentHotkey->getMarginTopF();
-    mHotkeyPosition.w = pCurrentHotkey->getWidthF();
-    mHotkeyPosition.h = pCurrentHotkey->getHeightF();
+    auto& hotkeyPosition = mDrawData.front().Position;
+    hotkeyPosition->x    = pCurrentHotkey->getMarginLeftF();
+    hotkeyPosition->y    = pCurrentHotkey->getMarginTopF();
+    hotkeyPosition->w    = pCurrentHotkey->getWidthF();
+    hotkeyPosition->h    = pCurrentHotkey->getHeightF();
 
     // Red bar background
-    mRed.mBackgroundPosition.x = mHotkeyPosition.x + mHotkeyPosition.w + 4;
-    mRed.mBackgroundPosition.y = mHotkeyPosition.y + 1.0f;
-    mRed.mBackgroundPosition.w = calculateLength(mPlayerStats.Vitality);
-    mRed.mBackgroundPosition.h = 4.0f;
+    auto& redBg = mDrawData.at(1).Position;
+    redBg->x    = hotkeyPosition->x + hotkeyPosition->w + 4;
+    redBg->y    = hotkeyPosition->y + 1.0f;
+    redBg->w    = calculateLength(mPlayerStats.Vitality);
+    redBg->h    = 4.0f;
 
     // Green bar background
-    mGreen.mBackgroundPosition.x = mRed.mBackgroundPosition.x;
-    mGreen.mBackgroundPosition.y = mRed.mBackgroundPosition.y + 5.0f;
-    mGreen.mBackgroundPosition.w = calculateLength(mPlayerStats.Stamina);
-    mGreen.mBackgroundPosition.h = 4.0f;
+    auto& greenBg = mDrawData.at(2).Position;
+    greenBg->x    = redBg->x;
+    greenBg->y    = redBg->y + 5.0f;
+    greenBg->w    = calculateLength(mPlayerStats.Stamina);
+    greenBg->h    = 4.0f;
 
     // Yellow bar background
-    mYellow.mBackgroundPosition.x = mGreen.mBackgroundPosition.x;
-    mYellow.mBackgroundPosition.y = mGreen.mBackgroundPosition.y + 5.0f;
-    mYellow.mBackgroundPosition.w = 52.0f;
-    mYellow.mBackgroundPosition.h = 4.0f;
+    auto& yellowBg = mDrawData.at(3).Position;
+    yellowBg->x    = greenBg->x;
+    yellowBg->y    = greenBg->y + 5.0f;
+    yellowBg->w    = 52.0f;
+    yellowBg->h    = 4.0f;
 
     // Red bar
-    mRed.mBarPosition.x = mRed.mBackgroundPosition.x + 1.0f;
-    mRed.mBarPosition.y = mRed.mBackgroundPosition.y + 1.0f;
-    mRed.mBarPosition.w = 10.0f;
-    mRed.mBarPosition.h = 2.0f;
+    auto& redBar = mDrawData.at(4).Position;
+    redBar->x    = redBg->x + 1.0f;
+    redBar->y    = redBg->y + 1.0f;
+    redBar->w    = 10.0f;
+    redBar->h    = 2.0f;
 
     // Green bar
-    mGreen.mBarPosition.x = mGreen.mBackgroundPosition.x + 1.0f;
-    mGreen.mBarPosition.y = mGreen.mBackgroundPosition.y + 1.0f;
-    mGreen.mBarPosition.w = 10.0f;
-    mGreen.mBarPosition.h = 2.0f;
+    auto& greenBar = mDrawData.at(4).Position;
+    greenBar->x    = greenBg->x + 1.0f;
+    greenBar->y    = greenBg->y + 1.0f;
+    greenBar->w    = 10.0f;
+    greenBar->h    = 2.0f;
 
     // Yellow bar
-    mYellow.mBarPosition.x = mYellow.mBackgroundPosition.x + 1.0f;
-    mYellow.mBarPosition.y = mYellow.mBackgroundPosition.y + 1.0f;
-    mYellow.mBarPosition.w = 50.0f;
-    mYellow.mBarPosition.h = 2.0f;
+    auto& yellowBar = mDrawData.at(5).Position;
+    yellowBar->x    = yellowBg->x + 1.0f;
+    yellowBar->y    = yellowBg->y + 1.0f;
+    yellowBar->w    = 50.0f;
+    yellowBar->h    = 2.0f;
 }
 
 void
