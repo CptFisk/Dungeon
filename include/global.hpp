@@ -10,6 +10,9 @@
 #define UINT8_STRING(x) std::to_string(static_cast<int>(x))
 #define STRING_UINT8(x) static_cast<uint8_t>(std::stoi(x))
 
+//Default font
+const std::string DEFAULT_FONT("8bit16");
+
 // Map size
 [[maybe_unused]] const int     MAP_WIDTH     = 128;
 [[maybe_unused]] const int     SEGMENT_SIZE  = 128;

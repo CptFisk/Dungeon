@@ -22,8 +22,8 @@
 #define GET_GENERATED(VAR)     (dynamic_cast<Graphics::GeneratedTexture*>(mGraphics->getTexture(VAR)))
 #define GET_LIGHTNING(VAR)     (dynamic_cast<Graphics::LightningTexture*>(mGraphics->getTexture(VAR)))
 #define GET_USERINTERFACE(VAR) (dynamic_cast<Graphics::UserInterfaceTexture*>(mGraphics->getTexture(VAR)))
-#define GET_FONT_TTF(VAR)      (mGraphics->getFont(VAR))
-#define GET_FONT(VAR)          (dynamic_cast<Graphics::FontTexture*>(mGraphics->getTexture(VAR)))
+#define GET_TTF_SENTENCE_BLACK(VAR) mGraphics->getSentence(DEFAULT_FONT, VAR, SDL_Color{0,0,0,255})
+#define GET_TTF(VAR) (mGraphics->getTTFFont(VAR))
 
 namespace Graphics {
 
@@ -34,7 +34,7 @@ class Graphics {
     void init();
 
     Texture*     getTexture(const std::string& name);
-    SDL_Texture* getSentence(const std::string& font, const std::string& sentence);
+    SDL_Texture* getSentence(const std::string& font, const std::string& sentence, const SDL_Color& color);
     /**
      * @brief Add a new texture to the list, the functions handles different types and bind them with corresponding functions
      * @param name Name of texture

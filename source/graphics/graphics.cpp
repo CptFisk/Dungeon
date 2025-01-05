@@ -42,9 +42,9 @@ Graphics::getTexture(const std::string& name) {
 }
 
 SDL_Texture*
-Graphics::getSentence(const std::string& name, const std::string& sentence) {
+Graphics::getSentence(const std::string& name, const std::string& sentence, const SDL_Color& color) {
     ASSERT_WITH_MESSAGE(mFontsTTF.find(name) == mFontsTTF.end(), "Font dont exist")
-    return mFontsTTF[name]->generateSentence(sentence);
+    return mFontsTTF[name]->generateSentence(sentence, color);
 }
 
 void

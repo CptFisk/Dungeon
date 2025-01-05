@@ -15,7 +15,7 @@ class FontTTF {
      * @colour Colour of text, default is black {0,0,0,255}
      * @return SDL_Texture*&
      */
-    [[nodiscard]] SDL_Texture*& generateSentence(const std::string& sentence, SDL_Color colour = { 0, 0, 0, 255 });
+    [[nodiscard]] SDL_Texture*& generateSentence(const std::string& sentence, SDL_Color colour);
     /**
      * @brief Get text dimensions
      * @param w
