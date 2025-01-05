@@ -10,9 +10,9 @@ Inventory::Inventory(Common::typeScale& scale, Graphics::UserInterfaceTexture* i
   mScale(scale)
   , mTopLeft{}
   , mSlotPosition{}
-  , mInventory(inventory)
+  , pInventory(inventory)
   , mInventoryDrawData(inventory->getTexture(), nullptr, new SDL_FRect (0.0f, 0.0f,0.0f,0.0f))
-  , mSelector(selector)
+  , pSelector(selector)
   , mSelectorDrawData(selector->getTexture(), nullptr)
   , mSelected(6)
   , mSelectorVisible(false)
@@ -244,21 +244,21 @@ Inventory::updateInventory() {
     // The idea is to first center the inventory element on the screen.
     const auto screenCenterX = (mScale.windowWidthF / mScale.selectedScale) / 2.0f;
     const auto screenCenterY = (mScale.windowHeightF / mScale.selectedScale) / 2.0f;
-    const auto uiCenterX     = mInventory->getWidthF() / 2.0f;
-    const auto uiCenterY     = mInventory->getHeightF() / 2.0f;
+    const auto uiCenterX     = pInventory->getWidthF() / 2.0f;
+    const auto uiCenterY     = pInventory->getHeightF() / 2.0f;
     mTopLeft.x               = screenCenterX - uiCenterX; // Used to assign selector positions
     mTopLeft.y               = screenCenterY - uiCenterY;
     // Calculations
     mInventoryDrawData.Position->x = screenCenterX - uiCenterX;
     mInventoryDrawData.Position->y = screenCenterY - uiCenterY;
-    mInventoryDrawData.Position->w = mInventory->getWidthF();
-    mInventoryDrawData.Position->h = mInventory->getHeightF();
+    mInventoryDrawData.Position->w = pInventory->getWidthF();
+    mInventoryDrawData.Position->h = pInventory->getHeightF();
     // Assign positions
     for (auto i = 0; i < mSlotDefaultPosition.size(); i++) {
         mSlotPosition.at(i).x = mTopLeft.x + mSlotDefaultPosition.at(i).x;
         mSlotPosition.at(i).y = mTopLeft.y + mSlotDefaultPosition.at(i).y;
-        mSlotPosition.at(i).w = mSelector->getWidthF();
-        mSlotPosition.at(i).h = mSelector->getHeightF();
+        mSlotPosition.at(i).w = pSelector->getWidthF();
+        mSlotPosition.at(i).h = pSelector->getHeightF();
     }
 }
 }

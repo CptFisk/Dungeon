@@ -80,8 +80,8 @@ class Inventory {
     bool                 mSelectorVisible;
     std::array<Slot, 30> mSlots;
     // Graphics
-    Graphics::UserInterfaceTexture* mInventory;
-    Graphics::UserInterfaceTexture* mSelector;
+    Graphics::UserInterfaceTexture* pInventory;
+    Graphics::UserInterfaceTexture* pSelector;
     // Draw data
     Graphics::typeDrawData mInventoryDrawData;
     Graphics::typeDrawData mSelectorDrawData;
