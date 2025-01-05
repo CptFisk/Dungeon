@@ -23,9 +23,6 @@ Engine::Engine()
   , mRun(true)
   , mVisibleUI(true)
   , mLevelLoaded(false)
-  , mPlayerHealth(100)
-  , mPlayerMaxHealth(100)
-  , mPlayerEnergy(50)
   , mEvent{}
   , mMapCoordinate{}
   , mColour{}
@@ -319,9 +316,11 @@ Engine::projectiles() {
             }
         } else {
             if (Utility::isOverlapping((*it)->getProjectileCenter(), *mPlayer->getTexturePosition())) {
+                /*
                 if ((mPlayerHealth -= (*it)->getDamage()) <= 0) {
                     std::cout << "Player died " << std::endl;
                 }
+                 */
                 // mHealth->updateIndicator();       // Update health bar
                 delete *it;                       // Free memory
                 it      = mProjectiles.erase(it); // Move iterator
