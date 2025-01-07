@@ -5,29 +5,17 @@
 #include <graphics/types/userInterfaceTexture.hpp>
 #include <items/item.hpp>
 #include <items/slots.hpp>
+#include <items/slot.hpp>
 #include <items/weaponType.hpp>
 namespace Items {
 
 class Inventory {
-
-    struct Slot {
-        const SlotType Type; // Item type
-        Item*          Item; // Pointer to item
-        explicit Slot(const SlotType type)
-          : Type(type)
-          , Item(nullptr) {}
-    };
-
   public:
     Inventory(Common::typeScale&              scale,
               Graphics::UserInterfaceTexture* inventory,
               Graphics::UserInterfaceTexture* selector,
               Graphics::Texture*&             userinterface);
     ~Inventory();
-    /**
-     * @brief Calculate all positions for the elements (based on screen resolution)
-     */
-    void updateInventory();
     /**
      * @return Return all the draw data related to inventory
      */
@@ -78,7 +66,7 @@ class Inventory {
     SDL_FPoint           mTopLeft; // Top left coordinate of inventory, used to calculate offsets
     uint8_t              mSelected;
     bool                 mSelectorVisible;
-    std::array<Slot, 30> mSlots;
+    std::array<Slot, 30> mItems;
     // Graphics
     Graphics::UserInterfaceTexture* pInventory;
     Graphics::UserInterfaceTexture* pSelector;
@@ -86,7 +74,6 @@ class Inventory {
     Graphics::typeDrawData mInventoryDrawData;
     Graphics::typeDrawData mSelectorDrawData;
     // Positions
-    const std::array<SDL_FPoint, 30> mSlotDefaultPosition; // Base offsets of all positions
     std::array<SDL_FRect, 30>        mSlotPosition;        // Positions based on resolution
     Common::typeScale                mScale;
     Graphics::Texture*&              pUserInterface; // A reference to the userinterface icon.

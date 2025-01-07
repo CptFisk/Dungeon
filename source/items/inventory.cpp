@@ -5,91 +5,57 @@
 
 namespace Items {
 
-Inventory::Inventory(Common::typeScale& scale, Graphics::UserInterfaceTexture* inventory, Graphics::UserInterfaceTexture* selector, Graphics::Texture*& userinterface)
+Inventory::Inventory(Common::typeScale&              scale,
+                     Graphics::UserInterfaceTexture* inventory,
+                     Graphics::UserInterfaceTexture* selector,
+                     Graphics::Texture*&             userinterface)
   : // Graphical bindings
   mScale(scale)
   , mTopLeft{}
   , mSlotPosition{}
   , pInventory(inventory)
-  , mInventoryDrawData(inventory->getTexture(), nullptr, new SDL_FRect (0.0f, 0.0f,0.0f,0.0f))
+  , mInventoryDrawData(inventory->getTexture(), nullptr, new SDL_FRect(0.0f, 0.0f, 0.0f, 0.0f))
   , pSelector(selector)
   , mSelectorDrawData(selector->getTexture(), nullptr)
   , mSelected(6)
   , mSelectorVisible(false)
   , pUserInterface(userinterface)
   , mItemStats{}
-  , mSlots{ // Character
+  , mItems{ // Character
             Slot(SlotType::Amulet),
-            Slot( SlotType::Head),
-            Slot( SlotType::Left),
-            Slot( SlotType::Chest),
-            Slot( SlotType::Right),
-            Slot( SlotType::Boots),
+            Slot(SlotType::Head),
+            Slot(SlotType::Left),
+            Slot(SlotType::Chest),
+            Slot(SlotType::Right),
+            Slot(SlotType::Boots),
             // Bag
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
-            Slot( SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
+            Slot(SlotType::Bag),
             // Spells
-            Slot( SlotType::Spell),
-            Slot( SlotType::Spell),
-            Slot( SlotType::Spell),
-            Slot( SlotType::Spell),
-            Slot( SlotType::Spell),
-            Slot( SlotType::Spell),
-            Slot( SlotType::Spell),
-            Slot( SlotType::Spell)
-  },
-  mSlotDefaultPosition{
-            // Equipment
-            SDL_FPoint{ 20, 20 },
-            SDL_FPoint{ 40, 20 },
-            SDL_FPoint{ 20, 40 },
-            SDL_FPoint{ 40, 40 },
-            SDL_FPoint{ 60, 40 },
-            SDL_FPoint{ 40, 60 },
-            //Bags
-            SDL_FPoint{ 100, 20 },
-            SDL_FPoint{ 120, 20 },
-            SDL_FPoint{ 140, 20},
-            SDL_FPoint{ 160, 20 },
-            SDL_FPoint{ 100, 40 },
-            SDL_FPoint{ 120, 40 },
-            SDL_FPoint{ 140, 40},
-            SDL_FPoint{ 160, 40 },
-            SDL_FPoint{ 100, 60 },
-            SDL_FPoint{ 120, 60 },
-            SDL_FPoint{ 140, 60},
-            SDL_FPoint{ 160, 60 },
-            SDL_FPoint{ 100, 80 },
-            SDL_FPoint{ 120, 80 },
-            SDL_FPoint{ 140, 80},
-            SDL_FPoint{ 160, 80 },
-            //Spells
-            SDL_FPoint {20,120},
-            SDL_FPoint {40,120},
-            SDL_FPoint {60,120},
-            SDL_FPoint {80,120},
-            SDL_FPoint {100,120},
-            SDL_FPoint {120,120},
-            SDL_FPoint {140,120},
-            SDL_FPoint {160,120}
+            Slot(SlotType::Spell),
+            Slot(SlotType::Spell),
+            Slot(SlotType::Spell),
+            Slot(SlotType::Spell),
+            Slot(SlotType::Spell),
+            Slot(SlotType::Spell),
+            Slot(SlotType::Spell),
+            Slot(SlotType::Spell)
   } {
-    updateInventory();
-    // Selecting first position in bag
-    mSelectorDrawData.Position = &mSlotPosition.at(mSelected);
+
 }
 
 Inventory::~Inventory() {
@@ -102,7 +68,7 @@ Inventory::getInventory() {
     // Start with the background
     std::vector<Graphics::typeDrawData> data = { mInventoryDrawData };
     int                                 pos  = 0;
-    for (auto& slot : mSlots) {
+    for (auto& slot : mItems) {
         if (slot.Item != nullptr) {
             data.emplace_back(slot.Item->getTexture(), nullptr, &mSlotPosition.at(pos));
         }
@@ -137,8 +103,8 @@ Inventory::addItem(Items::Item*& item) {
     const int     startIndex = 6;
     constexpr int endIndex   = startIndex + 16;
     for (int i = startIndex; i < endIndex; i++) {
-        if (mSlots[i].Item == nullptr) {
-            mSlots[i].Item = item;
+        if (mItems[i].Item == nullptr) {
+            mItems[i].Item = item;
             break;
         }
     }
@@ -152,8 +118,8 @@ Inventory::equipItem(const uint16_t& itemId) {
     constexpr int endIndex   = startIndex + 16;
     int           position   = {}; // If we find the item, this is the position
     for (int i = startIndex; i < endIndex; i++) {
-        if (mSlots[i].Item && mSlots[i].Item->getId() == itemId) {
-            item     = mSlots[i].Item;
+        if (mItems[i].Item && mItems[i].Item->getId() == itemId) {
+            item     = mItems[i].Item;
             position = i;
             break;
         }
@@ -169,8 +135,8 @@ void
 Inventory::calculateStats() {
     mItemStats = {}; // Make it zero
     for (auto i = 0; i < 6; i++) {
-        if (mSlots[i].Item != nullptr)
-            mItemStats += mSlots[i].Item->getStats();
+        if (mItems[i].Item != nullptr)
+            mItemStats += mItems[i].Item->getStats();
     }
 }
 
@@ -181,18 +147,18 @@ Inventory::getItemStats() {
 
 bool
 Inventory::swap(const bool& enabled, const int& index1, const int& index2) {
-    auto item1 = mSlots.at(index1);
-    auto item2 = mSlots.at(index2);
+    auto item1 = mItems.at(index1);
+    auto item2 = mItems.at(index2);
     if (item1.Item == nullptr || index1 == index2 || !enabled)
         return false;
     // Can we even move item1 to item 2
     if (item1.Item->getSlotType() == item2.Type || item2.Type == Items::SlotType::Bag) {
         if (item2.Item != nullptr) {
-            mSlots.at(index2).Item = item1.Item;
-            mSlots.at(index1).Item = item2.Item;
+            mItems.at(index2).Item = item1.Item;
+            mItems.at(index1).Item = item2.Item;
         } else {
-            mSlots.at(index2).Item = item1.Item;
-            mSlots.at(index1).Item = nullptr;
+            mItems.at(index2).Item = item1.Item;
+            mItems.at(index1).Item = nullptr;
         }
         return true;
     }
@@ -201,9 +167,9 @@ Inventory::swap(const bool& enabled, const int& index1, const int& index2) {
 
 WeaponType
 Inventory::getWeapon(const int& index) {
-    if (mSlots.at(index).Item == nullptr)
+    if (mItems.at(index).Item == nullptr)
         return WeaponType::None;
-    auto weapon = dynamic_cast<Weapon*>(mSlots.at(index).Item);
+    auto weapon = dynamic_cast<Weapon*>(mItems.at(index).Item);
     return weapon->getWeaponType();
 }
 
@@ -238,7 +204,7 @@ Inventory::getSlotId(const Items::SlotType& slot) {
             return 7; // Bag
     }
 }
-
+/*
 void
 Inventory::updateInventory() {
     // The idea is to first center the inventory element on the screen.
@@ -261,4 +227,5 @@ Inventory::updateInventory() {
         mSlotPosition.at(i).h = pSelector->getHeightF();
     }
 }
+*/
 }
