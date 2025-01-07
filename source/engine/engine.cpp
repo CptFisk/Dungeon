@@ -204,11 +204,15 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
+    auto t = GET_TTF_SENTENCE_BLACK("Hello world");
+    int  w, h;
+    SDL_QueryTexture(t, nullptr, nullptr, &w, &h);
+    printf("%i %i\n", w,h);
+    SDL_FRect pos = { 50.0, 50.0, FLOAT(w), FLOAT(h) };
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
-    auto      red = GET_ANIMATED("GradientRed");
-    SDL_FRect pos = { 40, 40, 100, 100 };
+
     while (mRun) {
         // Sort monster list
         for (auto& monster : mActiveMonsters)
@@ -278,10 +282,10 @@ Engine::mainLoop() {
 
         switch (mGameMode) {
             case GameMode::Game: {
-                for (auto data : mUserInterface->getUserInterface())
+                for (auto data : mUserInterface->getIndicators())
                     SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
-                  // Positions
-                  drawFloatingText();
+                // Positions
+                drawFloatingText();
             } break;
             case GameMode::Inventory: {
                 for (auto data : mInventory->getInventory()) {
@@ -290,7 +294,9 @@ Engine::mainLoop() {
 
             } break;
         }
-
+        for(auto data : mPlayerStats->getStats()){
+            SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
+        }
         present();
     }
 }

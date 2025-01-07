@@ -1,4 +1,5 @@
 #pragma once
+#include <common/scale.hpp>
 #include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/drawData.hpp>
 #include <graphics/types/generatedTexture.hpp>
@@ -6,14 +7,15 @@
 #include <stats/stats.hpp>
 #include <vector>
 
-namespace Player {
+namespace Engine::UI {
 /**
  * @brief Handle all the visible elements of the userinterface
  * @details Handle the display of current selected item, health, stamina and luck-bar.
  */
 class UserInterface {
   public:
-    UserInterface(Graphics::UserInterfaceTexture* currentHotkey,
+    UserInterface(Common::typeScale&              scale,
+                  Graphics::UserInterfaceTexture* currentHotkey,
                   Graphics::AnimatedTexture*      red,
                   Graphics::AnimatedTexture*      green,
                   Graphics::AnimatedTexture*      yellow,
@@ -21,9 +23,11 @@ class UserInterface {
                   Stats::Stats&                   stats);
     ~UserInterface();
 
-    [[nodiscard]] std::vector<Graphics::typeDrawData> getUserInterface() const;
-    // Calculate new positions
-    void updateInterface();
+    [[nodiscard]] std::vector<Graphics::typeDrawData> getIndicators() const;
+    /**
+     *@brief Calculate new positions related to the UserInterface, this include the bars and selected item
+     */
+    void updateIndicators();
     /**
      * @brief Calculate values for gradients
      */
@@ -40,9 +44,14 @@ class UserInterface {
      * @return Value to be used as width for graphic
      */
     [[nodiscard]] static float calculateLength(const int& points);
+    std::pair<int, int>        calculateCenter();
 
   private:
-    Stats::Stats&                   mPlayerStats; // Reference to the player stats
+    // Global variables
+    Stats::Stats&      mPlayerStats; // Reference to the player stats
+    Common::typeScale& mScale;       // Current resolution scale
+
+#pragma region Indicators
     Graphics::UserInterfaceTexture* pCurrentHotkey;
     Graphics::Texture*              pIconTexture;
     Graphics::AnimatedTexture*      pRed;    // Health
@@ -51,7 +60,8 @@ class UserInterface {
 
     Graphics::GeneratedTexture* pBackground;
 
-    const std::vector<Graphics::typeDrawData> mDrawData;
+    const std::vector<Graphics::typeDrawData> mIndicatorsDrawData;
+#pragma endregion
 };
 
 }

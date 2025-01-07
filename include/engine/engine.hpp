@@ -17,7 +17,7 @@
 #include <object/include.hpp>
 #include <player/player.hpp>
 #include <player/stats.hpp>
-#include <player/userInterface.hpp>
+#include <ui/userInterface.hpp>
 #include <set>
 #include <string>
 #include <thread>
@@ -115,7 +115,11 @@ class Engine {
     Common::InitHandler                    mInitHandler;
     std::shared_ptr<Player::Player>        mPlayer;
     std::shared_ptr<Graphics::Graphics>    mGraphics;
-    std::unique_ptr<Player::UserInterface> mUserInterface; // Handle player userinterface
+    /**
+     * @brief Handle the visibility of all elements in the game
+     */
+    std::unique_ptr<UI::UserInterface> mUserInterface;
+
     std::unique_ptr<Common::Perspective>   mPerspective;
     std::unique_ptr<LoadingScreen>         mLoadingScreen;
     std::unique_ptr<UI::Textbox>           mTextbox;

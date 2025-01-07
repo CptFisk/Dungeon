@@ -23,7 +23,11 @@ add_executable(
 
         ${CMAKE_SOURCE_DIR}/source/player/player.cpp
         ${CMAKE_SOURCE_DIR}/source/player/stats.cpp
-        ${CMAKE_SOURCE_DIR}/source/player/userInterface.cpp
+
+        #Base for all user interfaces
+        ${CMAKE_SOURCE_DIR}/source/ui/userInterface.cpp
+        ${CMAKE_SOURCE_DIR}/source/ui/indicators.cpp
+        ${CMAKE_SOURCE_DIR}/source/ui/inventory.cpp
 
         ${CMAKE_SOURCE_DIR}/source/object/projectile.cpp
         ${CMAKE_SOURCE_DIR}/source/object/particle.cpp
