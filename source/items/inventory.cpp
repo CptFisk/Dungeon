@@ -7,8 +7,7 @@ namespace Items {
 
 Inventory::Inventory(Common::typeScale&              scale,
                      Graphics::UserInterfaceTexture* inventory,
-                     Graphics::UserInterfaceTexture* selector,
-                     Graphics::Texture*&             userinterface)
+                     Graphics::UserInterfaceTexture* selector)
   : // Graphical bindings
   mScale(scale)
   , mTopLeft{}
@@ -19,9 +18,8 @@ Inventory::Inventory(Common::typeScale&              scale,
   , mSelectorDrawData(selector->getTexture(), nullptr)
   , mSelected(6)
   , mSelectorVisible(false)
-  , pUserInterface(userinterface)
   , mItemStats{}
-  , mItems{ // Character
+  , mSlots{ // Character
             Slot(SlotType::Amulet),
             Slot(SlotType::Head),
             Slot(SlotType::Left),
@@ -58,25 +56,14 @@ Inventory::Inventory(Common::typeScale&              scale,
 
 }
 
+std::array<Slot, 30>&
+Inventory::getSlots() {
+    return mSlots;
+}
+
 Inventory::~Inventory() {
     // Clear pointer created in draw data
     delete mInventoryDrawData.Position;
-}
-
-std::vector<Graphics::typeDrawData>
-Inventory::getInventory() {
-    // Start with the background
-    std::vector<Graphics::typeDrawData> data = { mInventoryDrawData };
-    int                                 pos  = 0;
-    for (auto& slot : mItems) {
-        if (slot.Item != nullptr) {
-            data.emplace_back(slot.Item->getTexture(), nullptr, &mSlotPosition.at(pos));
-        }
-        pos++;
-    }
-    if (mSelectorVisible)
-        data.push_back(mSelectorDrawData); // Final item
-    return data;
 }
 
 void
@@ -103,8 +90,8 @@ Inventory::addItem(Items::Item*& item) {
     const int     startIndex = 6;
     constexpr int endIndex   = startIndex + 16;
     for (int i = startIndex; i < endIndex; i++) {
-        if (mItems[i].Item == nullptr) {
-            mItems[i].Item = item;
+        if (mSlots[i].Item == nullptr) {
+            mSlots[i].Item = item;
             break;
         }
     }
@@ -118,8 +105,8 @@ Inventory::equipItem(const uint16_t& itemId) {
     constexpr int endIndex   = startIndex + 16;
     int           position   = {}; // If we find the item, this is the position
     for (int i = startIndex; i < endIndex; i++) {
-        if (mItems[i].Item && mItems[i].Item->getId() == itemId) {
-            item     = mItems[i].Item;
+        if (mSlots[i].Item && mSlots[i].Item->getId() == itemId) {
+            item     = mSlots[i].Item;
             position = i;
             break;
         }
@@ -135,8 +122,8 @@ void
 Inventory::calculateStats() {
     mItemStats = {}; // Make it zero
     for (auto i = 0; i < 6; i++) {
-        if (mItems[i].Item != nullptr)
-            mItemStats += mItems[i].Item->getStats();
+        if (mSlots[i].Item != nullptr)
+            mItemStats += mSlots[i].Item->getStats();
     }
 }
 
@@ -147,18 +134,18 @@ Inventory::getItemStats() {
 
 bool
 Inventory::swap(const bool& enabled, const int& index1, const int& index2) {
-    auto item1 = mItems.at(index1);
-    auto item2 = mItems.at(index2);
+    auto item1 = mSlots.at(index1);
+    auto item2 = mSlots.at(index2);
     if (item1.Item == nullptr || index1 == index2 || !enabled)
         return false;
     // Can we even move item1 to item 2
     if (item1.Item->getSlotType() == item2.Type || item2.Type == Items::SlotType::Bag) {
         if (item2.Item != nullptr) {
-            mItems.at(index2).Item = item1.Item;
-            mItems.at(index1).Item = item2.Item;
+            mSlots.at(index2).Item = item1.Item;
+            mSlots.at(index1).Item = item2.Item;
         } else {
-            mItems.at(index2).Item = item1.Item;
-            mItems.at(index1).Item = nullptr;
+            mSlots.at(index2).Item = item1.Item;
+            mSlots.at(index1).Item = nullptr;
         }
         return true;
     }
@@ -167,9 +154,9 @@ Inventory::swap(const bool& enabled, const int& index1, const int& index2) {
 
 WeaponType
 Inventory::getWeapon(const int& index) {
-    if (mItems.at(index).Item == nullptr)
+    if (mSlots.at(index).Item == nullptr)
         return WeaponType::None;
-    auto weapon = dynamic_cast<Weapon*>(mItems.at(index).Item);
+    auto weapon = dynamic_cast<Weapon*>(mSlots.at(index).Item);
     return weapon->getWeaponType();
 }
 
