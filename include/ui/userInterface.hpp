@@ -1,9 +1,11 @@
 #pragma once
+#include <array>
 #include <common/scale.hpp>
 #include <graphics/types/animatedTexture.hpp>
 #include <graphics/types/drawData.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <graphics/types/userInterfaceTexture.hpp>
+#include <items/slot.hpp>
 #include <stats/stats.hpp>
 #include <vector>
 
@@ -14,7 +16,12 @@ namespace Engine::UI {
  */
 class UserInterface {
   public:
-    UserInterface(Common::typeScale&              scale,
+    UserInterface(Common::typeScale& scale,
+                  // Related to inventory
+                  std::array<Items::Slot, 30>& slots,
+                  Graphics::UserInterfaceTexture* inventory,
+                  Graphics::UserInterfaceTexture* selector,
+                  // Related to indicators
                   Graphics::UserInterfaceTexture* currentHotkey,
                   Graphics::AnimatedTexture*      red,
                   Graphics::AnimatedTexture*      green,
@@ -24,10 +31,12 @@ class UserInterface {
     ~UserInterface();
 
     [[nodiscard]] std::vector<Graphics::typeDrawData> getIndicators() const;
+    [[nodiscard]] std::vector<Graphics::typeDrawData> getInventory();
     /**
-     *@brief Calculate new positions related to the UserInterface, this include the bars and selected item
+     *@brief Calcualte new positions for all graphical elements based on resolution
      */
     void updateIndicators();
+    void updateInventory();
     /**
      * @brief Calculate values for gradients
      */
@@ -43,8 +52,8 @@ class UserInterface {
      * @param points Number of points spend on that attribute
      * @return Value to be used as width for graphic
      */
-    [[nodiscard]] static float calculateLength(const int& points);
-    std::pair<int, int>        calculateCenter();
+    [[nodiscard]] static float            calculateLength(const int& points);
+    [[nodiscard]] std::pair<float, float> calculateCenter() const;
 
   private:
     // Global variables
@@ -61,6 +70,20 @@ class UserInterface {
     Graphics::GeneratedTexture* pBackground;
 
     const std::vector<Graphics::typeDrawData> mIndicatorsDrawData;
+#pragma endregion
+#pragma region Inventory
+    // Graphical items
+    Graphics::UserInterfaceTexture* pInventory;
+    Graphics::UserInterfaceTexture* pSelector;
+    // Draw data
+    Graphics::typeDrawData mInventoryDrawData;
+    Graphics::typeDrawData mSelectorDrawData;
+    // Positions
+    const std::array<SDL_FPoint, 30> mInventoryDefaultPosition; // Base offsets of all positions
+    std::array<SDL_FRect, 30>        mInventoryPositions;       // Positions based on resolution
+
+    std::array<Items::Slot, 30>& mSlots;                        // Reference to the items
+
 #pragma endregion
 };
 
