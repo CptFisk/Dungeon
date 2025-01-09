@@ -10,10 +10,10 @@ UserInterface::getIndicators() const {
 void
 UserInterface::updateIndicators() {
     auto& hotkeyPosition = mIndicatorsDrawData.front().Position;
-    hotkeyPosition->x    = pCurrentHotkey->getMarginLeftF();
-    hotkeyPosition->y    = pCurrentHotkey->getMarginTopF();
-    hotkeyPosition->w    = pCurrentHotkey->getWidthF();
-    hotkeyPosition->h    = pCurrentHotkey->getHeightF();
+    hotkeyPosition->x    = pIndicatorBackground->getMarginLeftF();
+    hotkeyPosition->y    = pIndicatorBackground->getMarginTopF();
+    hotkeyPosition->w    = pIndicatorBackground->getWidthF();
+    hotkeyPosition->h    = pIndicatorBackground->getHeightF();
 
     // Red bar background
     auto& redBg = mIndicatorsDrawData.at(1).Position;

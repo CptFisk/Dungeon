@@ -21,8 +21,8 @@ class UserInterface {
                   SDL_Renderer*&                      renderer,
                   Common::typeScale&                  scale,
                   // Related to inventory
-                  std::array<Items::Slot, 30>&    slots,
-                  Stats::Stats&                   stats);
+                  std::array<Items::Slot, 30>& slots,
+                  Stats::Stats&                stats);
     ~UserInterface();
 
     [[nodiscard]] std::vector<Graphics::typeDrawData> getIndicators() const;
@@ -32,6 +32,7 @@ class UserInterface {
      */
     void updateIndicators();
     void updateInventory();
+    void updateStats();
     /**
      * @brief Calculate values for gradients
      */
@@ -71,29 +72,27 @@ class UserInterface {
     std::shared_ptr<Graphics::Graphics> mGraphics;
 
 #pragma region Indicators
-    Graphics::UserInterfaceTexture* pCurrentHotkey;
-    Graphics::Texture*              pIconTexture;
-    Graphics::AnimatedTexture*      pRed;    // Health
-    Graphics::AnimatedTexture*      pGreen;  // Stamina
-    Graphics::AnimatedTexture*      pYellow; // Luck meter
-
-    Graphics::GeneratedTexture* pBackground;
-
+    Graphics::UserInterfaceTexture*           pIndicatorBackground;
+    Graphics::Texture*                        pIndicatorIcon;
+    Graphics::AnimatedTexture*                pIndicatorRed;    // Health
+    Graphics::AnimatedTexture*                pIndicatorGreen;  // Stamina
+    Graphics::AnimatedTexture*                pIndicatorYellow; // Luck meter
+    Graphics::GeneratedTexture*               pIndicatorBarBackground;
     const std::vector<Graphics::typeDrawData> mIndicatorsDrawData;
 #pragma endregion
 #pragma region Inventory
     // Graphical items
-    Graphics::UserInterfaceTexture* pInventory;
-    Graphics::UserInterfaceTexture* pSelector;
+    Graphics::UserInterfaceTexture* pInventoryBackground;
+    Graphics::UserInterfaceTexture* pInventorySelector;
     // Draw data
-    Graphics::typeDrawData mInventoryDrawData;
-    Graphics::typeDrawData mSelectorDrawData;
+    Graphics::typeDrawData mInventoryBackgroundDrawData;
+    Graphics::typeDrawData mInventorySelectorDrawData;
     // Positions
     const std::array<SDL_FPoint, 30> mInventoryDefaultPosition; // Base offsets of all positions
     std::array<SDL_FRect, 30>        mInventoryPositions;       // Positions based on resolution
 
-    std::array<Items::Slot, 30>& mSlots; // Reference to the items
-    bool                         mSelectorVisible;
+    std::array<Items::Slot, 30>& mInventorySlots; // Reference to the items
+    bool                         mInventorySelectorVisible;
 #pragma endregion
 #pragma region Stats
 

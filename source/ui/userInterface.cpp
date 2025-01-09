@@ -13,18 +13,18 @@ UserInterface::UserInterface(std::shared_ptr<Graphics::Graphics> graphics,
   ,mScale(scale)
   ,mGraphics(graphics)
   //Inventory
-  ,pInventory(GET_USERINTERFACE("Inventory"))
-  ,pSelector(GET_USERINTERFACE("Selector"))
-  , mSlots(slots)
-  ,mSelectorVisible(false)
-  ,mInventoryDrawData(pInventory->getTexture(), nullptr, new SDL_FRect(0.0f, 0.0f, 0.0f, 0.0f))
-  ,mSelectorDrawData(pSelector->getTexture(), nullptr)
+  ,pInventoryBackground(GET_USERINTERFACE("Inventory"))
+  ,pInventorySelector(GET_USERINTERFACE("Selector"))
+  , mInventorySlots(slots)
+  ,mInventorySelectorVisible(false)
+  ,mInventoryBackgroundDrawData(pInventoryBackground->getTexture(), nullptr, new SDL_FRect(0.0f, 0.0f, 0.0f, 0.0f))
+  ,mInventorySelectorDrawData(pInventorySelector->getTexture(), nullptr)
   //Indicators
-  , pCurrentHotkey(GET_USERINTERFACE("CurrentHotkey"))
-  , pRed{ GET_ANIMATED("GradientRed") }
-  , pGreen{ GET_ANIMATED("GradientGreen") }
-  , pYellow{ GET_ANIMATED("GradientYellow")}
-  , pBackground(GET_GENERATED("282828"))
+  , pIndicatorBackground(GET_USERINTERFACE("CurrentHotkey"))
+  , pIndicatorRed{ GET_ANIMATED("GradientRed") }
+  , pIndicatorGreen{ GET_ANIMATED("GradientGreen") }
+  , pIndicatorYellow{ GET_ANIMATED("GradientYellow")}
+  , pIndicatorBarBackground(GET_GENERATED("282828"))
   , mPlayerStats(stats),
   mInventoryDefaultPosition{ // Equipment
                         SDL_FPoint{ 20, 20 },
@@ -60,16 +60,17 @@ UserInterface::UserInterface(std::shared_ptr<Graphics::Graphics> graphics,
                         SDL_FPoint {140,120},
                         SDL_FPoint {160,120}
   }
-  , mIndicatorsDrawData{ { pCurrentHotkey->getTexture(), nullptr, new SDL_FRect{} },
-                        { pBackground->getTexture(), nullptr, new SDL_FRect{} },
-                        { pBackground->getTexture(), nullptr, new SDL_FRect{} },
-                        { pBackground->getTexture(), nullptr, new SDL_FRect{} },
+  , mIndicatorsDrawData{ { pIndicatorBackground->getTexture(), nullptr, new SDL_FRect{} },
+                        { pIndicatorBarBackground->getTexture(), nullptr, new SDL_FRect{} },
+                        { pIndicatorBarBackground->getTexture(), nullptr, new SDL_FRect{} },
+                        { pIndicatorBarBackground->getTexture(), nullptr, new SDL_FRect{} },
 
-                        { pRed->getTexture(), pRed->getAnimatedViewport(), new SDL_FRect{} },
-                        { pGreen->getTexture(), pGreen->getAnimatedViewport(), new SDL_FRect{} },
-                        { pYellow->getTexture(), pYellow->getAnimatedViewport(), new SDL_FRect{} } } {
+                        { pIndicatorRed->getTexture(), pIndicatorRed->getAnimatedViewport(), new SDL_FRect{} },
+                        { pIndicatorGreen->getTexture(), pIndicatorGreen->getAnimatedViewport(), new SDL_FRect{} },
+                        { pIndicatorYellow->getTexture(), pIndicatorYellow->getAnimatedViewport(), new SDL_FRect{} } } {
     updateInventory();
     updateIndicators();
+    updateStats();
 }
 
 UserInterface::~UserInterface() {
@@ -77,12 +78,12 @@ UserInterface::~UserInterface() {
     for (auto data : mIndicatorsDrawData) {
         delete data.Position;
     }
-    delete mInventoryDrawData.Position;
+    delete mInventoryBackgroundDrawData.Position;
 }
 
 Graphics::Texture*&
 UserInterface::getIcon() {
-    return pIconTexture;
+    return pIndicatorIcon;
 }
 
 std::pair<float, float>

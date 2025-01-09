@@ -4,16 +4,16 @@ namespace Engine::UI {
 
 std::vector<Graphics::typeDrawData>
 UserInterface::getInventory() {
-    std::vector<Graphics::typeDrawData> data = { mInventoryDrawData };
+    std::vector<Graphics::typeDrawData> data = { mInventoryBackgroundDrawData };
     int                                 pos  = 0;
-    for (auto& slot : mSlots) {
+    for (auto& slot : mInventorySlots) {
         if (slot.Item != nullptr) {
             data.emplace_back(slot.Item->getTexture(), nullptr, &mInventoryPositions.at(pos));
         }
         pos++;
     }
-    if (mSelectorVisible)
-        data.push_back(mSelectorDrawData); // Final item
+    if (mInventorySelectorVisible)
+        data.push_back(mInventorySelectorDrawData); // Final item
     return data;
 }
 
@@ -22,7 +22,7 @@ UserInterface::selectItemMouse(const SDL_FPoint& point) {
     uint8_t index = {};
     for (const auto& position : mInventoryPositions) {
         if (Utility::isOverlapping(point, position)) {
-            mSelectorDrawData.Position = &mInventoryPositions.at(index);
+            mInventorySelectorDrawData.Position = &mInventoryPositions.at(index);
             return index;
         }
         index++;
@@ -32,27 +32,27 @@ UserInterface::selectItemMouse(const SDL_FPoint& point) {
 
 bool&
 UserInterface::getSelectorVisible() {
-    return mSelectorVisible;
+    return mInventorySelectorVisible;
 }
 
 void
 UserInterface::updateInventory() {
     const auto [x, y]    = calculateCenter();
-    const auto uiCenterX = pInventory->getWidthF() / 2.0f;
-    const auto uiCenterY = pInventory->getHeightF() / 2.0f;
+    const auto uiCenterX = pInventoryBackground->getWidthF() / 2.0f;
+    const auto uiCenterY = pInventoryBackground->getHeightF() / 2.0f;
     // Calculate top left position
     const auto topLeft = SDL_FPoint{ x - uiCenterX, y - uiCenterY };
     // Calculations
-    mInventoryDrawData.Position->x = topLeft.x;
-    mInventoryDrawData.Position->y = topLeft.y;
-    mInventoryDrawData.Position->w = pInventory->getWidthF();
-    mInventoryDrawData.Position->h = pInventory->getHeightF();
+    mInventoryBackgroundDrawData.Position->x = topLeft.x;
+    mInventoryBackgroundDrawData.Position->y = topLeft.y;
+    mInventoryBackgroundDrawData.Position->w = pInventoryBackground->getWidthF();
+    mInventoryBackgroundDrawData.Position->h = pInventoryBackground->getHeightF();
     // Assign positions
     for (auto i = 0; i < mInventoryPositions.size(); i++) {
         mInventoryPositions.at(i).x = topLeft.x + mInventoryDefaultPosition.at(i).x;
         mInventoryPositions.at(i).y = topLeft.y + mInventoryDefaultPosition.at(i).y;
-        mInventoryPositions.at(i).w = pSelector->getWidthF();
-        mInventoryPositions.at(i).h = pSelector->getHeightF();
+        mInventoryPositions.at(i).w = pInventorySelector->getWidthF();
+        mInventoryPositions.at(i).h = pInventorySelector->getHeightF();
     }
 }
 
