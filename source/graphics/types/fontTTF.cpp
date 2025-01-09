@@ -10,7 +10,8 @@ FontTTF::FontTTF(SDL_Renderer* renderer, TTF_Font* font, const std::string& name
 
 FontTTF::~FontTTF() {
     clear();
-    TTF_CloseFont(pFont);
+    if(pFont)
+        TTF_CloseFont(pFont);
 }
 
 SDL_Texture*&
