@@ -5,6 +5,7 @@
 #include <graphics/types/drawData.hpp>
 #include <graphics/types/generatedTexture.hpp>
 #include <graphics/types/userInterfaceTexture.hpp>
+#include <graphicsForward.hpp>
 #include <items/slot.hpp>
 #include <stats/stats.hpp>
 #include <vector>
@@ -16,17 +17,11 @@ namespace Engine::UI {
  */
 class UserInterface {
   public:
-    UserInterface(Common::typeScale& scale,
+    UserInterface(std::shared_ptr<Graphics::Graphics> graphics,
+                  SDL_Renderer*&                      renderer,
+                  Common::typeScale&                  scale,
                   // Related to inventory
                   std::array<Items::Slot, 30>&    slots,
-                  Graphics::UserInterfaceTexture* inventory,
-                  Graphics::UserInterfaceTexture* selector,
-                  // Related to indicators
-                  Graphics::UserInterfaceTexture* currentHotkey,
-                  Graphics::AnimatedTexture*      red,
-                  Graphics::AnimatedTexture*      green,
-                  Graphics::AnimatedTexture*      yellow,
-                  Graphics::GeneratedTexture*     background,
                   Stats::Stats&                   stats);
     ~UserInterface();
 
@@ -54,7 +49,7 @@ class UserInterface {
     /**
      * @return Return a reference to @ref mSelectorVisible, this is used in items/inventory.cpp
      */
-    [[nodiscard]] bool&                  getSelectorVisible();
+    [[nodiscard]] bool& getSelectorVisible();
 
   protected:
     /**
@@ -69,6 +64,11 @@ class UserInterface {
     // Global variables
     Stats::Stats&      mPlayerStats; // Reference to the player stats
     Common::typeScale& mScale;       // Current resolution scale
+    SDL_Renderer*      pRenderer;    // Reference to the renderer, used when generating the new background
+    /**
+     * @brief Reference to the graphics handler, this is to avoid massive parameters on the constructors
+     */
+    std::shared_ptr<Graphics::Graphics> mGraphics;
 
 #pragma region Indicators
     Graphics::UserInterfaceTexture* pCurrentHotkey;
@@ -94,6 +94,9 @@ class UserInterface {
 
     std::array<Items::Slot, 30>& mSlots; // Reference to the items
     bool                         mSelectorVisible;
+#pragma endregion
+#pragma region Stats
+
 #pragma endregion
 };
 

@@ -84,15 +84,10 @@ Engine::startup() {
     mInventory = std::make_unique<Items::Inventory>();
     createItems();
 
-    mUserInterface = std::make_unique<UI::UserInterface>(mScale,
+    mUserInterface = std::make_unique<UI::UserInterface>(mGraphics,
+                                                         pRenderer,
+                                                         mScale,
                                                          mInventory->getSlots(),
-                                                         GET_USERINTERFACE("Inventory"),
-                                                         GET_USERINTERFACE("Selector"),
-                                                         GET_USERINTERFACE("CurrentHotkey"),
-                                                         GET_ANIMATED("GradientRed"),
-                                                         GET_ANIMATED("GradientGreen"),
-                                                         GET_ANIMATED("GradientYellow"),
-                                                         GET_GENERATED("282828"),
                                                          mPlayerStats->getTotalStats());
 
     mParticles = std::make_shared<Objects::Particle>(GET_GENERATED("FAE2C3")->getTexture(), 100, 0.5f, 0.5f);
