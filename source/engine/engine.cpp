@@ -133,8 +133,12 @@ Engine::click() {
               true, GET_ANIMATED("Fireball"), nullptr, Utility::offsetAngle(mPlayer->getPlayerCenter(), angle, 0), angle, 200, 0.75f, 10);
               */
         } break;
-        case GameMode::Inventory:
-            mInventory->selectItemMouse(Utility::PointToFPoint(mActionManager->getMouseAbsolute()));
+        case GameMode::Inventory: {
+            const auto& index = mUserInterface->selectItemMouse(Utility::PointToFPoint(mActionManager->getMouseAbsolute()));
+            if(index.has_value()){
+                mInventory->selectItemMouse(index.value(), mUserInterface->getSelectorVisible());
+            }
+        }
             break;
         case GameMode::Menu:;
             break;
@@ -288,7 +292,7 @@ Engine::mainLoop() {
                 drawFloatingText();
             } break;
             case GameMode::Inventory: {
-                for (auto data : mInventory->getInventory()) {
+                for (auto data : mUserInterface->getInventory()) {
                     SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
                 }
 

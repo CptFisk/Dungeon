@@ -11,8 +11,8 @@ namespace Items {
 
 class Inventory {
   public:
-    Inventory(Common::typeScale& scale, Graphics::UserInterfaceTexture* inventory, Graphics::UserInterfaceTexture* selector);
-    ~Inventory();
+    Inventory();
+    ~Inventory() = default;
 
     [[nodiscard]] std::array<Slot, 30>& getSlots();
     /**
@@ -20,7 +20,7 @@ class Inventory {
      * @param x
      * @param y
      */
-    void selectItemMouse(const SDL_FPoint& point);
+    void selectItemMouse(const uint8_t& index, bool& selectorVisible);
     /**
      *@brief Add a item to the inventory, it will by default be stored in the first available slot
      */
@@ -49,7 +49,14 @@ class Inventory {
     [[nodiscard]] WeaponType getRightWeapon();
 
   protected:
-    bool       swap(const bool& enabled, const int& index1, const int& index2); // Swap 2 items in the inventory
+    /**
+     * @brief Swap the position of 2 items in the inventory
+     * @param enabled Swapping is enabled
+     * @param index1 Index of first item
+     * @param index2 Index of second item
+     * @return True is swapping was successful
+     */
+    bool       swap(const bool& enabled, const int& index1, const int& index2);
     WeaponType getWeapon(const int& index);
     /**
      * @return Return the slot number that can be used in @ref mSlots
@@ -57,20 +64,8 @@ class Inventory {
     static int getSlotId(const SlotType& slot);
 
   private:
-    SDL_FPoint           mTopLeft; // Top left coordinate of inventory, used to calculate offsets
     uint8_t              mSelected;
-    bool                 mSelectorVisible;
     std::array<Slot, 30> mSlots;
-    // Graphics
-    Graphics::UserInterfaceTexture* pInventory;
-    Graphics::UserInterfaceTexture* pSelector;
-    // Draw data
-    Graphics::typeDrawData mInventoryDrawData;
-    Graphics::typeDrawData mSelectorDrawData;
-    // Positions
-    std::array<SDL_FRect, 30> mSlotPosition; // Positions based on resolution
-    Common::typeScale         mScale;
-
     Stats::Stats mItemStats; // Hold the attribute points for all items the player is carrying
 };
 }

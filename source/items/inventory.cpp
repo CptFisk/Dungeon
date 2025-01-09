@@ -5,19 +5,8 @@
 
 namespace Items {
 
-Inventory::Inventory(Common::typeScale&              scale,
-                     Graphics::UserInterfaceTexture* inventory,
-                     Graphics::UserInterfaceTexture* selector)
-  : // Graphical bindings
-  mScale(scale)
-  , mTopLeft{}
-  , mSlotPosition{}
-  , pInventory(inventory)
-  , mInventoryDrawData(inventory->getTexture(), nullptr, new SDL_FRect(0.0f, 0.0f, 0.0f, 0.0f))
-  , pSelector(selector)
-  , mSelectorDrawData(selector->getTexture(), nullptr)
-  , mSelected(6)
-  , mSelectorVisible(false)
+Inventory::Inventory()
+  : mSelected(6)
   , mItemStats{}
   , mSlots{ // Character
             Slot(SlotType::Amulet),
@@ -52,36 +41,21 @@ Inventory::Inventory(Common::typeScale&              scale,
             Slot(SlotType::Spell),
             Slot(SlotType::Spell),
             Slot(SlotType::Spell)
-  } {
-
-}
+  } {}
 
 std::array<Slot, 30>&
 Inventory::getSlots() {
     return mSlots;
 }
 
-Inventory::~Inventory() {
-    // Clear pointer created in draw data
-    delete mInventoryDrawData.Position;
-}
-
 void
-Inventory::selectItemMouse(const SDL_FPoint& point) {
-    uint8_t index = {};
-    for (const auto& position : mSlotPosition) {
-        if (Utility::isOverlapping(point, position)) {
-            if (swap(mSelectorVisible, mSelected, index)) {
-                mSelectorVisible = false;
-            } else {
-                mSelectorVisible = true;
-            }
-            mSelectorDrawData.Position = &mSlotPosition.at(index);
-            mSelected                  = index;
-            break;
-        }
-        index++;
+Inventory::selectItemMouse(const uint8_t& index, bool& selectorVisible) {
+    if (swap(selectorVisible, mSelected, index)) {
+        selectorVisible = false;
+    } else {
+        selectorVisible = true;
     }
+    mSelected = index;
 }
 
 void
@@ -129,7 +103,7 @@ Inventory::calculateStats() {
 
 Stats::Stats&
 Inventory::getItemStats() {
-    mItemStats;
+    return mItemStats;
 }
 
 bool

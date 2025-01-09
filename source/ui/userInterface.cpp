@@ -20,7 +20,9 @@ UserInterface::UserInterface(Common::typeScale&              scale,
   , pInventory(inventory)
   ,pSelector(selector)
   , mSlots(slots)
-      ,mInventoryDrawData(inventory->getTexture(), nullptr, new SDL_FRect(0.0f, 0.0f, 0.0f, 0.0f))
+  ,mSelectorVisible(false)
+  ,mInventoryDrawData(inventory->getTexture(), nullptr, new SDL_FRect(0.0f, 0.0f, 0.0f, 0.0f))
+  ,mSelectorDrawData(selector->getTexture(), nullptr)
   //Indicators
   , pCurrentHotkey(currentHotkey)
   , pRed{ red }

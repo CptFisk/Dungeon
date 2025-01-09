@@ -1,6 +1,6 @@
 #include <ui/userInterface.hpp>
-
-namespace Engine::UI{
+#include <utility/textures.hpp>
+namespace Engine::UI {
 
 std::vector<Graphics::typeDrawData>
 UserInterface::getInventory() {
@@ -12,18 +12,36 @@ UserInterface::getInventory() {
         }
         pos++;
     }
-    //if (mSelectorVisible)
+    if (mSelectorVisible)
         data.push_back(mSelectorDrawData); // Final item
     return data;
 }
 
+std::optional<uint8_t>
+UserInterface::selectItemMouse(const SDL_FPoint& point) {
+    uint8_t index = {};
+    for (const auto& position : mInventoryPositions) {
+        if (Utility::isOverlapping(point, position)) {
+            mSelectorDrawData.Position = &mInventoryPositions.at(index);
+            return index;
+        }
+        index++;
+    }
+    return std::nullopt;
+}
+
+bool&
+UserInterface::getSelectorVisible() {
+    return mSelectorVisible;
+}
+
 void
 UserInterface::updateInventory() {
-    const auto [x,y] = calculateCenter();
-    const auto uiCenterX     = pInventory->getWidthF() / 2.0f;
-    const auto uiCenterY     = pInventory->getHeightF() / 2.0f;
-    //Calculate top left position
-    const auto  topLeft = SDL_FPoint{x - uiCenterX, y -uiCenterY};
+    const auto [x, y]    = calculateCenter();
+    const auto uiCenterX = pInventory->getWidthF() / 2.0f;
+    const auto uiCenterY = pInventory->getHeightF() / 2.0f;
+    // Calculate top left position
+    const auto topLeft = SDL_FPoint{ x - uiCenterX, y - uiCenterY };
     // Calculations
     mInventoryDrawData.Position->x = topLeft.x;
     mInventoryDrawData.Position->y = topLeft.y;

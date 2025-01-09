@@ -49,7 +49,8 @@ Engine::startup() {
     mTextbox->generateBoxes();
 
     // Binding player data
-    mPlayerStats = std::make_unique<Player::PlayerStats>(mInventory->getItemStats());
+    mPlayerStats =
+      std::make_unique<Player::PlayerStats>(mInventory->getItemStats(), pRenderer, GET_USERINTERFACE("Stats"), GET_TTF(DEFAULT_FONT));
 
     mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::North, GET_ANIMATED("HumanIdleNorth"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::East, GET_ANIMATED("HumanIdleEast"));
@@ -79,17 +80,20 @@ Engine::startup() {
     pPlayerPosition = mPlayer->getTexturePosition();
     pPlayerAction   = mPlayer->getAction();
 
-    mUserInterface = std::make_unique<Player::UserInterface>(GET_USERINTERFACE("CurrentHotkey"),
-                                                             GET_ANIMATED("GradientRed"),
-                                                             GET_ANIMATED("GradientGreen"),
-                                                             GET_ANIMATED("GradientYellow"),
-                                                             GET_GENERATED("282828"),
-                                                             mPlayerStats->getTotalStats());
-
     // Setting up inventory
-    mInventory =
-      std::make_unique<Items::Inventory>(mScale, GET_USERINTERFACE("Inventory"), GET_USERINTERFACE("Selector"), mUserInterface->getIcon());
+    mInventory = std::make_unique<Items::Inventory>();
     createItems();
+
+    mUserInterface = std::make_unique<UI::UserInterface>(mScale,
+                                                         mInventory->getSlots(),
+                                                         GET_USERINTERFACE("Inventory"),
+                                                         GET_USERINTERFACE("Selector"),
+                                                         GET_USERINTERFACE("CurrentHotkey"),
+                                                         GET_ANIMATED("GradientRed"),
+                                                         GET_ANIMATED("GradientGreen"),
+                                                         GET_ANIMATED("GradientYellow"),
+                                                         GET_GENERATED("282828"),
+                                                         mPlayerStats->getTotalStats());
 
     mParticles = std::make_shared<Objects::Particle>(GET_GENERATED("FAE2C3")->getTexture(), 100, 0.5f, 0.5f);
     // mInterrupts[0]->addFunction([&]() { monsterActions(); });

@@ -18,7 +18,7 @@ class UserInterface {
   public:
     UserInterface(Common::typeScale& scale,
                   // Related to inventory
-                  std::array<Items::Slot, 30>& slots,
+                  std::array<Items::Slot, 30>&    slots,
                   Graphics::UserInterfaceTexture* inventory,
                   Graphics::UserInterfaceTexture* selector,
                   // Related to indicators
@@ -33,7 +33,7 @@ class UserInterface {
     [[nodiscard]] std::vector<Graphics::typeDrawData> getIndicators() const;
     [[nodiscard]] std::vector<Graphics::typeDrawData> getInventory();
     /**
-     *@brief Calcualte new positions for all graphical elements based on resolution
+     *@brief Calculate new positions for all graphical elements based on resolution
      */
     void updateIndicators();
     void updateInventory();
@@ -45,6 +45,16 @@ class UserInterface {
      * @return Returns a reference the to icon so the inventory can change it
      */
     Graphics::Texture*& getIcon();
+    /**
+     * @brief Select a item in the inventory with the mouse
+     * @param point Position of the mouse on the screen
+     * @retrun The index that the user clicked on. If user clicked out of screen no index is returned
+     */
+    [[nodiscard]] std::optional<uint8_t> selectItemMouse(const SDL_FPoint& point);
+    /**
+     * @return Return a reference to @ref mSelectorVisible, this is used in items/inventory.cpp
+     */
+    [[nodiscard]] bool&                  getSelectorVisible();
 
   protected:
     /**
@@ -82,8 +92,8 @@ class UserInterface {
     const std::array<SDL_FPoint, 30> mInventoryDefaultPosition; // Base offsets of all positions
     std::array<SDL_FRect, 30>        mInventoryPositions;       // Positions based on resolution
 
-    std::array<Items::Slot, 30>& mSlots;                        // Reference to the items
-
+    std::array<Items::Slot, 30>& mSlots; // Reference to the items
+    bool                         mSelectorVisible;
 #pragma endregion
 };
 
