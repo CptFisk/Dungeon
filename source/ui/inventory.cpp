@@ -36,7 +36,7 @@ UserInterface::getSelectorVisible() {
 }
 
 void
-UserInterface::updateInventory() {
+UserInterface::calculateInventory() {
     const auto [x, y]    = calculateCenter();
     const auto uiCenterX = pInventoryBackground->getWidthF() / 2.0f;
     const auto uiCenterY = pInventoryBackground->getHeightF() / 2.0f;

@@ -31,9 +31,9 @@ class UserInterface {
     /**
      *@brief Calculate new positions for all graphical elements based on resolution
      */
-    void updateIndicators();
-    void updateInventory();
-    void updateStats();
+    void calculateIndicators();
+    void calculateInventory();
+    void calculateAttributes();
     /**
      * @brief Calculate values for gradients
      */
@@ -97,6 +97,7 @@ class UserInterface {
 #pragma endregion
 #pragma region Attributes
     SDL_Texture* pAttributesBackground;
+    SDL_Texture* pAttributeWithStats;    // Background used when stats have been added over background
     int          mAttributesLongestName; // The length in pixels of the longest attribute name, used to calculate positions
 #pragma endregion
 };

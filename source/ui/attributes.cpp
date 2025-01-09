@@ -5,7 +5,7 @@
 namespace Engine::UI {
 
 void
-UserInterface::updateStats() {
+UserInterface::calculateAttributes() {
     // First we clear the current UI if its already created
     if (pAttributesBackground)
         SDL_DestroyTexture(pAttributesBackground);
@@ -26,6 +26,7 @@ UserInterface::updateStats() {
     int                            row     = {};
     const int                      spacing = 4.0f;
     SDL_FRect                      pos{ 20.0f, 20.0f, 0, 0 };
+    //Drawing all the texts
     const std::vector<std::string> attributes = { "Vitality", "Stamina", "Strength", "Dexterity", "Intelligence", "Luck" };
     for (const auto& attribute : attributes) {
         // Generate the text
@@ -39,7 +40,6 @@ UserInterface::updateStats() {
         mAttributesLongestName = std::max(mAttributesLongestName, w);   //Store longest name
         row++;
     }
-
     // Reset renderer
     ASSERT_WITH_MESSAGE(SDL_SetRenderTarget(pRenderer, nullptr) != 0, SDL_GetError());
 }

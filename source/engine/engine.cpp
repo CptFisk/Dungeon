@@ -294,7 +294,7 @@ Engine::mainLoop() {
 
             } break;
         }
-        for(auto data : mPlayerStats->getStats()){
+        for(auto data : mUserInterface->getAttributes()){
             SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
         }
         present();

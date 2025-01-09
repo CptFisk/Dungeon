@@ -70,10 +70,11 @@ UserInterface::UserInterface(std::shared_ptr<Graphics::Graphics> graphics,
                         { pIndicatorYellow->getTexture(), pIndicatorYellow->getAnimatedViewport(), new SDL_FRect{} } }
     //Attributes
   ,pAttributesBackground(nullptr)
+  , pAttributeWithStats(nullptr)
   ,mAttributesLongestName{}{
-    updateInventory();
-    updateIndicators();
-    updateStats();
+    calculateInventory();
+    calculateIndicators();
+    calculateAttributes();
 }
 
 UserInterface::~UserInterface() {

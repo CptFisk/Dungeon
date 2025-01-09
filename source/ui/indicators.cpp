@@ -8,7 +8,7 @@ UserInterface::getIndicators() const {
 }
 
 void
-UserInterface::updateIndicators() {
+UserInterface::calculateIndicators() {
     auto& hotkeyPosition = mIndicatorsDrawData.front().Position;
     hotkeyPosition->x    = pIndicatorBackground->getMarginLeftF();
     hotkeyPosition->y    = pIndicatorBackground->getMarginTopF();
