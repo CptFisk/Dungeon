@@ -28,7 +28,7 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/ui/userInterface.cpp
         ${CMAKE_SOURCE_DIR}/source/ui/indicators.cpp
         ${CMAKE_SOURCE_DIR}/source/ui/inventory.cpp
-        ${CMAKE_SOURCE_DIR}/source/ui/stats.cpp
+        ${CMAKE_SOURCE_DIR}/source/ui/attributes.cpp
 
         ${CMAKE_SOURCE_DIR}/source/object/projectile.cpp
         ${CMAKE_SOURCE_DIR}/source/object/particle.cpp

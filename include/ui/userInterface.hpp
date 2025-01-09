@@ -27,6 +27,7 @@ class UserInterface {
 
     [[nodiscard]] std::vector<Graphics::typeDrawData> getIndicators() const;
     [[nodiscard]] std::vector<Graphics::typeDrawData> getInventory();
+    [[nodiscard]] std::vector<Graphics::typeDrawData> getAttributes();
     /**
      *@brief Calculate new positions for all graphical elements based on resolution
      */
@@ -94,8 +95,9 @@ class UserInterface {
     std::array<Items::Slot, 30>& mInventorySlots; // Reference to the items
     bool                         mInventorySelectorVisible;
 #pragma endregion
-#pragma region Stats
-
+#pragma region Attributes
+    SDL_Texture* pAttributesBackground;
+    int          mAttributesLongestName; // The length in pixels of the longest attribute name, used to calculate positions
 #pragma endregion
 };
 
