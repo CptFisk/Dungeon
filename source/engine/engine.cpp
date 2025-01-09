@@ -53,6 +53,7 @@ Engine::~Engine() {
     for (auto& texture : mFloatingText) {
         delete texture;
     }
+    mUserInterface.reset();
     mGraphics.reset(); // Kill graphics
     mInitHandler.shutdown();
 }
@@ -208,11 +209,6 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
-    auto t = GET_TTF_SENTENCE_BLACK("Hello world");
-    int  w, h;
-    SDL_QueryTexture(t, nullptr, nullptr, &w, &h);
-    printf("%i %i\n", w,h);
-    SDL_FRect pos = { 50.0, 50.0, FLOAT(w), FLOAT(h) };
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
 
