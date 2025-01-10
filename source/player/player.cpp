@@ -68,9 +68,9 @@ Player::getTexture() {
     return mCurrentTexture;
 }
 
-SDL_Rect**
+SDL_Rect*&
 Player::getTextureViewport() {
-    return &mCurrentViewport;
+    return mCurrentViewport;
 }
 
 SDL_Texture*

@@ -22,7 +22,7 @@ Engine::Engine()
   , mPlayer(std::make_shared<Player::Player>())
   , pPlayerPosition(nullptr)
   , pPlayerTexture(mPlayer->getTexture())
-  , pPlayerView(nullptr)
+  , pPlayerView(mPlayer->getTextureViewport())
   , pDarkness(nullptr)
   , pPlayerAction(nullptr)
   , mScale{}
