@@ -63,9 +63,6 @@ Engine::startup() {
     mPlayer->setDirection(South);
     mPlayer->setAction(Objects::State::IDLE);
 
-    pPlayerTexture  = mPlayer->getTexture();
-    pPlayerView     = mPlayer->getTextureViewport();
-    pPlayerPosition = mPlayer->getTexturePosition();
     pPlayerAction   = mPlayer->getAction();
 
     // Setting up inventory

@@ -17,7 +17,7 @@ class Player {
 
     [[nodiscard]] SDL_Texture*&              getTexture();         // Return a reference to the current player texture
     [[nodiscard]] SDL_Rect*&                 getTextureViewport(); // Return a reference to the current player viewport
-    [[nodiscard]] SDL_FRect*                 getTexturePosition(); // Return a reference to the current player position
+    [[nodiscard]] SDL_FRect&                 getTexturePosition(); // Return a reference to the current player position
     [[nodiscard]] SDL_Texture*               getSweepTexture();    // Return a reference to the current sweep texture
     [[nodiscard]] SDL_Rect*                  getSweepViewport();   // Return a reference to the current sweep viewport
     [[nodiscard]] SDL_FPoint&                getPlayerCenter();

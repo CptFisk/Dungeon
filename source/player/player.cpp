@@ -43,9 +43,9 @@ Player::spawn(const uint8_t& x, const uint8_t& y, const Orientation& orientation
     updateInteraction();
 }
 
-SDL_FRect*
+SDL_FRect&
 Player::getTexturePosition() {
-    return &mTexturePosition;
+    return mTexturePosition;
 }
 
 SDL_FPoint&

@@ -147,7 +147,7 @@ class Engine {
 #pragma region Player
     SDL_Texture*&                        pPlayerTexture;
     SDL_Rect*&                           pPlayerView;
-    SDL_FRect*                           pPlayerPosition;
+    SDL_FRect&                           pPlayerPosition;
     std::unique_ptr<Player::PlayerStats> mPlayerStats;
     const Objects::State*                pPlayerAction;
 
