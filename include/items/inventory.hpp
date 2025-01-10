@@ -17,10 +17,9 @@ class Inventory {
     [[nodiscard]] std::array<Slot, 30>& getSlots();
     /**
      * @brief Using the mouse to click on a specific square.
-     * @param x
-     * @param y
+     * @return True if graphics should be re-calcualted
      */
-    void selectItemMouse(const uint8_t& index, bool& selectorVisible);
+    [[nodiscard]] bool selectItem(const uint8_t& index, bool& selectorVisible);
     /**
      *@brief Add a item to the inventory, it will by default be stored in the first available slot
      */
@@ -66,6 +65,6 @@ class Inventory {
   private:
     uint8_t              mSelected;
     std::array<Slot, 30> mSlots;
-    Stats::Stats mItemStats; // Hold the attribute points for all items the player is carrying
+    Stats::Stats         mItemStats; // Hold the attribute points for all items the player is carrying
 };
 }

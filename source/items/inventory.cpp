@@ -48,14 +48,18 @@ Inventory::getSlots() {
     return mSlots;
 }
 
-void
-Inventory::selectItemMouse(const uint8_t& index, bool& selectorVisible) {
+bool
+Inventory::selectItem(const uint8_t& index, bool& selectorVisible) {
+    bool update = false;
     if (swap(selectorVisible, mSelected, index)) {
         selectorVisible = false;
+        update = true;
+        calculateStats();
     } else {
         selectorVisible = true;
     }
     mSelected = index;
+    return update;
 }
 
 void
