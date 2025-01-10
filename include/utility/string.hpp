@@ -1,9 +1,23 @@
 #pragma once
 #include <cctype>
-#include <string>
 #include <regex>
+#include <string>
 
 namespace Utility {
+
+/**
+ * @brief Add spaces to the left side of a string up to a desired length
+ * @param input Original string
+ * @param length The total length that the string shall achieve
+ * @return New string with paddings
+ */
+std::string
+padLeft(const std::string& input, size_t length) {
+    if(input.length() >= length)
+        return input;
+    auto toAdd = length - input.length();
+    return std::string(toAdd, ' ') + input;
+}
 
 /**
  * @brief Check if a character is equal to a-Z or A-Z.
@@ -47,7 +61,7 @@ charValue(const char& c) {
  * @param s string to be checked
  */
 bool
-isCharacter(const std::string& s){
+isCharacter(const std::string& s) {
     std::regex pattern("^[a-zA-Z ]*$");
     return std::regex_match(s, pattern) ? true : false;
 }
@@ -58,7 +72,7 @@ isCharacter(const std::string& s){
  * @param s string to be checked
  */
 bool
-isNumber(const std::string& s){
+isNumber(const std::string& s) {
     std::regex pattern("^[0-9]*$");
     return std::regex_match(s, pattern) ? true : false;
 }
