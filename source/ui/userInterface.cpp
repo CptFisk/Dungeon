@@ -8,10 +8,13 @@ UserInterface::UserInterface(std::shared_ptr<Graphics::Graphics> graphics,
                              Common::typeScale& scale,
                              //Related to inventory
                              std::array<Items::Slot, 30>& slots,
-                             Stats::Stats&                   stats)
+                             Stats::Stats&                   playerStats,
+                             Stats::Stats& itemStats)
   : pRenderer(renderer)
   ,mScale(scale)
   ,mGraphics(graphics)
+  , mPlayerStats(playerStats)
+  , mItemStats(itemStats)
   //Inventory
   ,pInventoryBackground(GET_USERINTERFACE("Inventory"))
   ,pInventorySelector(GET_USERINTERFACE("Selector"))
@@ -59,7 +62,6 @@ UserInterface::UserInterface(std::shared_ptr<Graphics::Graphics> graphics,
   , pIndicatorGreen{ GET_ANIMATED("GradientGreen") }
   , pIndicatorYellow{ GET_ANIMATED("GradientYellow")}
   , pIndicatorBarBackground(GET_GENERATED("282828"))
-  , mPlayerStats(stats)
   , mIndicatorsDrawData{ { pIndicatorBackground->getTexture(), nullptr, new SDL_FRect{} },
                         { pIndicatorBarBackground->getTexture(), nullptr, new SDL_FRect{} },
                         { pIndicatorBarBackground->getTexture(), nullptr, new SDL_FRect{} },
@@ -71,6 +73,7 @@ UserInterface::UserInterface(std::shared_ptr<Graphics::Graphics> graphics,
     //Attributes
   ,pAttributesBackground(nullptr)
   , pAttributeWithStats(nullptr)
+  ,mAttributesBackgroundDrawData{nullptr, nullptr, new SDL_FRect {}}
   ,mAttributesLongestName{}{
     calculateInventory();
     calculateIndicators();
@@ -83,6 +86,7 @@ UserInterface::~UserInterface() {
         delete data.Position;
     }
     delete mInventoryBackgroundDrawData.Position;
+    delete mAttributesBackgroundDrawData.Position;
     SDL_DestroyTexture(pAttributesBackground);
 }
 

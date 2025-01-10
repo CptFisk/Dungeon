@@ -22,7 +22,8 @@ class UserInterface {
                   Common::typeScale&                  scale,
                   // Related to inventory
                   std::array<Items::Slot, 30>& slots,
-                  Stats::Stats&                stats);
+                  Stats::Stats&                playerStats,
+                  Stats::Stats&                itemStats);
     ~UserInterface();
 
     [[nodiscard]] std::vector<Graphics::typeDrawData> getIndicators() const;
@@ -34,6 +35,10 @@ class UserInterface {
     void calculateIndicators();
     void calculateInventory();
     void calculateAttributes();
+    /**
+     * @brief Generate a new graphic for the attribute page with new values for the stats
+     */
+    void updateAttributes();
     /**
      * @brief Calculate values for gradients
      */
@@ -65,6 +70,7 @@ class UserInterface {
   private:
     // Global variables
     Stats::Stats&      mPlayerStats; // Reference to the player stats
+    Stats::Stats&      mItemStats;   // Stats received from items
     Common::typeScale& mScale;       // Current resolution scale
     SDL_Renderer*      pRenderer;    // Reference to the renderer, used when generating the new background
     /**
@@ -99,6 +105,8 @@ class UserInterface {
     SDL_Texture* pAttributesBackground;
     SDL_Texture* pAttributeWithStats;    // Background used when stats have been added over background
     int          mAttributesLongestName; // The length in pixels of the longest attribute name, used to calculate positions
+    // Draw data
+    Graphics::typeDrawData mAttributesBackgroundDrawData;
 #pragma endregion
 };
 
