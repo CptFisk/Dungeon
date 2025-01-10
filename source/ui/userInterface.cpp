@@ -72,12 +72,14 @@ UserInterface::UserInterface(std::shared_ptr<Graphics::Graphics> graphics,
                         { pIndicatorYellow->getTexture(), pIndicatorYellow->getAnimatedViewport(), new SDL_FRect{} } }
     //Attributes
   ,pAttributesBackground(nullptr)
-  , pAttributeWithStats(nullptr)
-  ,mAttributesBackgroundDrawData{nullptr, nullptr, new SDL_FRect {}}
+  , pAttributesValues(nullptr)
+ , mAttributesDrawData{{ nullptr, nullptr, new SDL_FRect{} },
+                         { nullptr, nullptr, new SDL_FRect{} }}
   ,mAttributesLongestName{}{
     calculateInventory();
     calculateIndicators();
     calculateAttributes();
+    updateAttributes();
 }
 
 UserInterface::~UserInterface() {
@@ -86,8 +88,10 @@ UserInterface::~UserInterface() {
         delete data.Position;
     }
     delete mInventoryBackgroundDrawData.Position;
-    delete mAttributesBackgroundDrawData.Position;
+    for(auto& data : mAttributesDrawData)
+        delete data.Position;
     SDL_DestroyTexture(pAttributesBackground);
+    SDL_DestroyTexture(pAttributesValues);
 }
 
 Graphics::Texture*&

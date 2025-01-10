@@ -28,7 +28,7 @@ class UserInterface {
 
     [[nodiscard]] std::vector<Graphics::typeDrawData> getIndicators() const;
     [[nodiscard]] std::vector<Graphics::typeDrawData> getInventory();
-    [[nodiscard]] std::vector<Graphics::typeDrawData> getAttributes();
+    [[nodiscard]] std::vector<Graphics::typeDrawData> getAttributes() const;
     /**
      *@brief Calculate new positions for all graphical elements based on resolution
      */
@@ -103,10 +103,10 @@ class UserInterface {
 #pragma endregion
 #pragma region Attributes
     SDL_Texture* pAttributesBackground;
-    SDL_Texture* pAttributeWithStats;    // Background used when stats have been added over background
+    SDL_Texture* pAttributesValues;    // Background used when stats have been added over background
     int          mAttributesLongestName; // The length in pixels of the longest attribute name, used to calculate positions
     // Draw data
-    Graphics::typeDrawData mAttributesBackgroundDrawData;
+    std::vector<Graphics::typeDrawData> mAttributesDrawData;
 #pragma endregion
 };
 
