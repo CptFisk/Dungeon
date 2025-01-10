@@ -1,6 +1,8 @@
 #include "engine/loading.hpp"
 
 #include <common/handlers.hpp>
+#include <common/initializer/sdl.hpp>
+#include <common/initializer/sdlTTF.hpp>
 #include <engine/engine.hpp>
 #include <items/inventory.hpp>
 #include <utility/file.hpp>
@@ -12,11 +14,12 @@
 namespace Engine {
 
 Engine::Engine()
-  : pPlayerPosition(nullptr)
+  : mInitHandler(std::vector<std::shared_ptr<Common::Initializer>>{
+      std::make_shared<Common::SDLInitializer>(pWindow, pRenderer, 1920, 1080, false, "Vera adventure"),
+      std::make_shared<Common::SDLTTFInitializer>() })
+  , pPlayerPosition(nullptr)
   , pPlayerTexture(nullptr)
   , pPlayerView(nullptr)
-  , pWindow(nullptr)
-  , pRenderer(nullptr)
   , pDarkness(nullptr)
   , pPlayerAction(nullptr)
   , mScale{}
@@ -136,11 +139,10 @@ Engine::click() {
         } break;
         case GameMode::Inventory: {
             const auto& index = mUserInterface->selectItemMouse(Utility::PointToFPoint(mActionManager->getMouseAbsolute()));
-            if(index.has_value()){
+            if (index.has_value()) {
                 mInventory->selectItemMouse(index.value(), mUserInterface->getSelectorVisible());
             }
-        }
-            break;
+        } break;
         case GameMode::Menu:;
             break;
     }
@@ -211,7 +213,6 @@ void
 Engine::mainLoop() {
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
-
 
     while (mRun) {
         // Sort monster list
@@ -294,7 +295,7 @@ Engine::mainLoop() {
 
             } break;
         }
-        for(auto data : mUserInterface->getAttributes()){
+        for (auto data : mUserInterface->getAttributes()) {
             SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
         }
         present();

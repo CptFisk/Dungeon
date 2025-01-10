@@ -6,15 +6,10 @@ namespace Engine {
 void
 Engine::startup() {
     // Starting interrupts
-    // mThreads.push_back(spawnInterrupt(0));
     mThreads.push_back(spawnInterrupt(10));
     mThreads.push_back(spawnInterrupt(100));
     mThreads.push_back(spawnInterrupt(500));
-    // 1280 960
-    mInitHandler.addInitializer(std::make_shared<Common::SDLInitializer>(pWindow, pRenderer, 1920, 1080, false, "Vera adventure"));
-    mInitHandler.addInitializer(std::make_shared<Common::SDLTTFInitializer>());
-    mInitHandler.startup();
-    // 1920 1080
+
 
     Common::calculateGameScale(mScale, pWindow);
     SDL_RenderSetScale(pRenderer, static_cast<int>(mScale.selectedScale), static_cast<int>(mScale.selectedScale));
@@ -88,7 +83,8 @@ Engine::startup() {
                                                          pRenderer,
                                                          mScale,
                                                          mInventory->getSlots(),
-                                                         mPlayerStats->getTotalStats());
+                                                         mPlayerStats->getTotalStats(),
+                                                         mInventory->getItemStats());
 
     mParticles = std::make_shared<Objects::Particle>(GET_GENERATED("FAE2C3")->getTexture(), 100, 0.5f, 0.5f);
     // mInterrupts[0]->addFunction([&]() { monsterActions(); });
