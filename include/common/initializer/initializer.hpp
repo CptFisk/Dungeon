@@ -17,6 +17,7 @@ class Initializer {
 
 class InitHandler {
   public:
+    explicit InitHandler(std::vector<std::shared_ptr<Initializer>> initializers);
     void addInitializer(std::shared_ptr<Initializer> init);
     void startup();
     void shutdown();
