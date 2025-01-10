@@ -21,7 +21,7 @@ Engine::Engine()
   , mGraphics(std::make_shared<Graphics::Graphics>(pRenderer))
   , mPlayer(std::make_shared<Player::Player>())
   , pPlayerPosition(nullptr)
-  , pPlayerTexture(nullptr)
+  , pPlayerTexture(mPlayer->getTexture())
   , pPlayerView(nullptr)
   , pDarkness(nullptr)
   , pPlayerAction(nullptr)
@@ -272,7 +272,7 @@ Engine::mainLoop() {
         units();
 
         // Draw our cute hero
-        mPerspective->render(*pPlayerTexture, *pPlayerView, pPlayerPosition);
+        mPerspective->render(pPlayerTexture, *pPlayerView, pPlayerPosition);
         if (mPlayer->isAttacking())
             mPerspective->render(mPlayer->getSweepTexture(), mPlayer->getSweepViewport(), mPlayer->getInteractionArea());
         drawProjectiles();

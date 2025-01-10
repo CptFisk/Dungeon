@@ -17,11 +17,11 @@
 #include <object/include.hpp>
 #include <player/player.hpp>
 #include <player/stats.hpp>
-#include <ui/userInterface.hpp>
 #include <set>
 #include <string>
 #include <thread>
 #include <ui/textbox.hpp>
+#include <ui/userInterface.hpp>
 #include <utility/timer.hpp>
 #include <utility>
 
@@ -112,19 +112,19 @@ class Engine {
         float Y;
     } offset;
 
-    Common::InitHandler                    mInitHandler;
-    std::shared_ptr<Player::Player>        mPlayer;
-    std::shared_ptr<Graphics::Graphics>    mGraphics;
+    Common::InitHandler                 mInitHandler;
+    std::shared_ptr<Player::Player>     mPlayer;
+    std::shared_ptr<Graphics::Graphics> mGraphics;
     /**
      * @brief Handle the visibility of all elements in the game
      */
     std::unique_ptr<UI::UserInterface> mUserInterface;
 
-    std::unique_ptr<Common::Perspective>   mPerspective;
-    std::unique_ptr<LoadingScreen>         mLoadingScreen;
-    std::unique_ptr<UI::Textbox>           mTextbox;
-    std::unique_ptr<Lua::LuaManager>       mLuaManager;
-    std::unique_ptr<Items::Inventory>      mInventory;
+    std::unique_ptr<Common::Perspective> mPerspective;
+    std::unique_ptr<LoadingScreen>       mLoadingScreen;
+    std::unique_ptr<UI::Textbox>         mTextbox;
+    std::unique_ptr<Lua::LuaManager>     mLuaManager;
+    std::unique_ptr<Items::Inventory>    mInventory;
 
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;
@@ -145,7 +145,7 @@ class Engine {
     std::map<long int, std::shared_ptr<Common::Interrupt>> mInterrupts;
     std::thread                                            mLoading;
 #pragma region Player
-    SDL_Texture**                        pPlayerTexture;
+    SDL_Texture*&                        pPlayerTexture;
     SDL_Rect**                           pPlayerView;
     SDL_FRect*                           pPlayerPosition;
     std::unique_ptr<Player::PlayerStats> mPlayerStats;
