@@ -20,6 +20,20 @@ padLeft(const std::string& input, size_t length) {
 }
 
 /**
+ * @brief Add spaces to the right side of a string up to a desired length
+ * @param input Original string
+ * @param length The total length that the string shall achieve
+ * @return New string with paddings
+ */
+std::string
+padRight(const std::string& input, size_t length) {
+    if(input.length() >= length)
+        return input;
+    auto toAdd = length - input.length();
+    return input + std::string(toAdd, ' ');
+}
+
+/**
  * @brief Check if a character is equal to a-Z or A-Z.
  * @param c Character to check
  * @return true
