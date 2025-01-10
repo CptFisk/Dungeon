@@ -120,7 +120,7 @@ Engine::wallCheck(const SDL_FPoint& other, const float& x, const float& y, const
 
     if (Utility::isAnyBitSet(levelObjects[index.value()], std::bitset<8>(mask)))
         return false;
-    if(playerCheck && Utility::isOverlapping(other, *pPlayerPosition))
+    if(playerCheck && Utility::isOverlapping(other, pPlayerPosition))
         return false;
     return true;
 }
@@ -158,7 +158,7 @@ Engine::movement(const SDL_FPoint& other,const SDL_FPoint& vector, const double&
             const auto destination = object->getDestination(); // Need to store before swapping map
             loadLevel(object->getLevel().toString() + ".lvl");
             mPlayer->spawn(destination);
-            mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
+            mPerspective->center(pPlayerPosition.x + 8.0f, pPlayerPosition.y + 8.0f);
         } else {
             std::cout << "Swap level" << std::endl;
         }
@@ -220,7 +220,7 @@ Engine::movement(const SDL_FRect& other, const Orientation& direction) {
             const auto destination = object->getDestination(); // Need to store before swapping map
             loadLevel(object->getLevel().toString() + ".lvl");
             mPlayer->spawn(destination);
-            mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
+            mPerspective->center(pPlayerPosition.x + 8.0f, pPlayerPosition.y + 8.0f);
         } else {
             std::cout << "Swap level" << std::endl;
         }

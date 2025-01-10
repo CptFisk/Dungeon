@@ -326,7 +326,7 @@ Engine::projectiles() {
                     ++monsterIt;
             }
         } else {
-            if (Utility::isOverlapping((*it)->getProjectileCenter(), *mPlayer->getTexturePosition())) {
+            if (Utility::isOverlapping((*it)->getProjectileCenter(), mPlayer->getTexturePosition())) {
                 /*
                 if ((mPlayerHealth -= (*it)->getDamage()) <= 0) {
                     std::cout << "Player died " << std::endl;
