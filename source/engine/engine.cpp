@@ -216,7 +216,7 @@ Engine::interact() {
 void
 Engine::mainLoop() {
     mPlayer->spawn(9, 119);
-    mPerspective->center(pPlayerPosition->x + 8.0f, pPlayerPosition->y + 8.0f);
+    mPerspective->center(pPlayerPosition.x + 8.0f, pPlayerPosition.y + 8.0f);
 
     while (mRun) {
         // Sort monster list
