@@ -143,7 +143,8 @@ Engine::click() {
         case GameMode::Inventory: {
             const auto& index = mUserInterface->selectItemMouse(Utility::PointToFPoint(mActionManager->getMouseAbsolute()));
             if (index.has_value()) {
-                mInventory->selectItemMouse(index.value(), mUserInterface->getSelectorVisible());
+                if(mInventory->selectItem(index.value(), mUserInterface->getSelectorVisible()))
+                    mUserInterface->updateAttributes();
             }
         } break;
         case GameMode::Menu:;
