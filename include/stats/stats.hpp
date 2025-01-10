@@ -28,6 +28,20 @@ struct Stats {
       , Intelligence(intelligence)
       , Luck(luck) {};
 
+    struct Iterator{
+        int* ptr;
+        explicit Iterator(int* p) : ptr(p){}
+        int& operator*() {return *ptr;}
+        Iterator& operator++(){
+            ++ptr;
+            return *this;
+        }
+        bool operator!=(const Iterator& other) const{return ptr != other.ptr;}
+    };
+
+    Iterator begin(){return Iterator(&Vitality);}
+    Iterator end(){return Iterator(&Luck + 1);}
+
     Stats& operator+=(const Stats& a){
         this->Vitality += a.Vitality;
         this->Stamina += a.Stamina;
