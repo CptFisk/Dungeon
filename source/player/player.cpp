@@ -13,7 +13,8 @@ Player::Player()
   , mAttacking(false)
   , mAction(Objects::IDLE)
   , mDirection(South)
-  , mMomentum(0.0f) {}
+  , mMomentum(0.0f)
+  , mExperience{} {}
 
 Player::~Player() {
     if (mAttackThread.joinable())

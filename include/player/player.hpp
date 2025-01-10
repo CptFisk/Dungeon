@@ -70,6 +70,7 @@ class Player {
     void           updateReferences();
     void           updateInteraction();                                                          // Update interaction box
     void           updatePosition(const float& x, const float& y, const Orientation& direction); // Update all data related to positioning
+    long int       mExperience;                                                                  // Player experience
 
   protected:
     std::map<std::pair<Objects::State, Orientation>, Graphics::AnimatedTexture*> mTextures;
