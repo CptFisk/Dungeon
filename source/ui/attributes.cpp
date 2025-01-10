@@ -27,19 +27,19 @@ UserInterface::calculateAttributes() {
     int       w, h; // Commonly used
     int       row     = {};
     const int spacing = 4.0f;
-    SDL_FRect pos{ 20.0f, 20.0f, 0, 0 };
+    SDL_FRect pos{ 30.0f, 20.0f, 0, 0 };
     // Drawing all the texts
     const std::vector<std::string> attributes = { "Vitality", "Stamina", "Strength", "Dexterity", "Intelligence", "Luck" };
     for (const auto& attribute : attributes) {
         // Generate the text
-        auto text = font->generateSentence(attribute, SDL_Color{ 0, 0, 0, 255 });
+        auto text = font->generateSentence(attribute, SDL_Color{ 224, 224, 224, 255 });
         ASSERT_WITH_MESSAGE(SDL_QueryTexture(text, nullptr, nullptr, &w, &h) != 0, SDL_GetError());
         if (row != 0)
             pos.y += static_cast<float>(spacing + h); // First row shall be placed at start position
         pos.w = static_cast<float>(w);
         pos.h = static_cast<float>(h);
         SDL_RenderCopyF(pRenderer, text, nullptr, &pos);
-        mAttributesLongestName = std::max(mAttributesLongestName, w + 20); // Store longest name
+        mAttributesLongestName = std::max(mAttributesLongestName, w + 30); // Store longest name
         row++;
     }
     // Reset renderer
@@ -87,7 +87,7 @@ UserInterface::updateAttributes() {
         const auto itemStat   = Utility::padRight(std::to_string(mItemStats.at(i)), 2);
         const auto result     = std::string().append(playerStat).append(" / ").append(itemStat);
 
-        auto text = font->generateSentence(result, SDL_Color{ 0, 0, 0, 255 });
+        auto text = font->generateSentence(result, SDL_Color{ 224, 224, 224, 255 });
         ASSERT_WITH_MESSAGE(SDL_QueryTexture(text, nullptr, nullptr, &w, &h) != 0, SDL_GetError());
         if (i != 0)
             pos.y += static_cast<float>(spacing + h); // First row shall be placed at start position
