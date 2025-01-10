@@ -31,7 +31,7 @@ struct Stats {
     struct Iterator{
         int* ptr;
         explicit Iterator(int* p) : ptr(p){}
-        int& operator*() {return *ptr;}
+        int& operator*() const {return *ptr;}
         Iterator& operator++(){
             ++ptr;
             return *this;
@@ -41,7 +41,12 @@ struct Stats {
 
     Iterator begin(){return Iterator(&Vitality);}
     Iterator end(){return Iterator(&Luck + 1);}
-
+    int& at(std::size_t index){
+        if(index >= 6){
+            throw std::out_of_range("Index dont exist");
+        }
+        return *(&Vitality + index);
+    }
     Stats& operator+=(const Stats& a){
         this->Vitality += a.Vitality;
         this->Stamina += a.Stamina;
