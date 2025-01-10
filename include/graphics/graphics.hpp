@@ -31,7 +31,6 @@ class Graphics {
   public:
     explicit Graphics(SDL_Renderer* renderer);
     ~Graphics();
-    void init();
 
     Texture*     getTexture(const std::string& name);
     SDL_Texture* getSentence(const std::string& font, const std::string& sentence, const SDL_Color& color);

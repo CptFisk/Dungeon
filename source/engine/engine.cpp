@@ -17,6 +17,9 @@ Engine::Engine()
   : mInitHandler(std::vector<std::shared_ptr<Common::Initializer>>{
       std::make_shared<Common::SDLInitializer>(pWindow, pRenderer, 1920, 1080, false, "Vera adventure"),
       std::make_shared<Common::SDLTTFInitializer>() })
+  , mActionManager(std::make_unique<Common::ActionManager>(pRenderer, mScale, offset.X, offset.Y))
+  , mGraphics(std::make_shared<Graphics::Graphics>(pRenderer))
+  , mPlayer(std::make_shared<Player::Player>())
   , pPlayerPosition(nullptr)
   , pPlayerTexture(nullptr)
   , pPlayerView(nullptr)

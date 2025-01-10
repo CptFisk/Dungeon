@@ -3,7 +3,9 @@
 #include <set>
 namespace Graphics {
 Graphics::Graphics(SDL_Renderer* renderer)
-  : pRenderer(renderer) {}
+  : pRenderer(renderer) {
+    loadGraphics("rsrc");
+}
 
 void
 Graphics::updateAnimatedTexture() {
@@ -28,11 +30,6 @@ Graphics::~Graphics() {
     }
     for(auto& [name, data] : mFontsTTF)
         delete data;
-}
-
-void
-Graphics::init() {
-    loadGraphics("rsrc");
 }
 
 Texture*

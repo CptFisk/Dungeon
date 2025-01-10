@@ -10,16 +10,9 @@ Engine::startup() {
     mThreads.push_back(spawnInterrupt(100));
     mThreads.push_back(spawnInterrupt(500));
 
-
     Common::calculateGameScale(mScale, pWindow);
     SDL_RenderSetScale(pRenderer, static_cast<int>(mScale.selectedScale), static_cast<int>(mScale.selectedScale));
-    mActionManager = std::make_unique<Common::ActionManager>(pRenderer, mScale, offset.X, offset.Y);
 
-    // Generate graphics
-    mGraphics = std::make_shared<Graphics::Graphics>(pRenderer);
-    mGraphics->init();
-
-    mPlayer = std::make_shared<Player::Player>();
     // Generate all monster data
     createMonsters();
     createNPC();
