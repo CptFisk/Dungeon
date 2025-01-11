@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <random>
+#include <SDL.h>
 
 // Casting macros
 #define UINT8(x)        static_cast<uint8_t>(x)
