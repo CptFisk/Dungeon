@@ -53,7 +53,7 @@ enum Direction : uint8_t { Forward = 1 << 0, Backward = 1 << 1, Right = 1 << 2, 
 /**
  * @brief Different game-modes, used to handle inputs and other actions
  */
-enum class GameMode { Menu, Game, Inventory };
+enum class GameMode { Menu, Game, Inventory, Attributes };
 
 /**
  * @brief Returns a random direction

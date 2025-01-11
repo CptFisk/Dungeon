@@ -34,9 +34,7 @@ Engine::Engine()
   , pPlayerAction(nullptr)
   , mScale{}
   , mRun(true)
-  , mVisibleUI(true)
   , mLevelLoaded(false)
-  , mEvent{}
   , mMapCoordinate{}
   , mColour{}
   , mGameMode(GameMode::Game)
@@ -107,15 +105,22 @@ Engine::terminate() {
 }
 
 void
-Engine::inventory() {
+Engine::changeMode(const GameMode& mode) {
     switch (mGameMode) {
         case GameMode::Game:
-            mGameMode = GameMode::Inventory;
+            mGameMode = mode;
             break;
         case GameMode::Inventory:
-            mGameMode = GameMode::Game;
+            if (mode == GameMode::Inventory)
+                mGameMode = GameMode::Game;
+            else
+                mGameMode = mode;
             break;
-        default:
+        case GameMode::Attributes:
+            if (mode == GameMode::Attributes)
+                mGameMode = GameMode::Game;
+            else
+                mGameMode = mode;
             break;
     }
 }
@@ -293,21 +298,22 @@ Engine::mainLoop() {
 #pragma endregion
 
         switch (mGameMode) {
-            case GameMode::Game: {
+            case GameMode::Game:
                 for (auto data : mUserInterface->getIndicators())
                     SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
                 // Positions
                 drawFloatingText();
-            } break;
-            case GameMode::Inventory: {
+                break;
+            case GameMode::Inventory:
                 for (auto data : mUserInterface->getInventory()) {
                     SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
                 }
-
-            } break;
-        }
-        for (auto data : mUserInterface->getAttributes()) {
-            SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
+                break;
+            case GameMode::Attributes:
+                for (auto data : mUserInterface->getAttributes()) {
+                    SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
+                }
+                break;
         }
         present();
     }

@@ -42,7 +42,7 @@ class Engine {
     [[maybe_unused]] GameMode getGameMode() const; // Return the current mode the game is operating in
 
     void click();     // Mouse click
-    void inventory(); // Toggle inventory
+    void changeMode(const GameMode& mode);
     void back();      // Used to close current view, or terminate
 #pragma region Player
     void            movePlayer(Direction direction);
@@ -90,7 +90,7 @@ class Engine {
     void       units();
     void       projectiles();
     /**
-     * @brief Function used to handle meele attacks
+     * @brief Function used to handle melee attacks
      */
     void meleeAttack();
 
@@ -103,7 +103,6 @@ class Engine {
 
   private:
     bool              mRun;
-    bool              mVisibleUI;
     Common::typeScale mScale;
     GameMode          mGameMode; // Current operating mode
     struct {

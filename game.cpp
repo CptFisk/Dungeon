@@ -4,6 +4,7 @@
 #include <engine/engine.hpp>
 #include <imgui.h>
 #include <iostream>
+#include <global.hpp>
 
 Engine::Engine engine;
 
@@ -18,6 +19,7 @@ main(int argc, char* argv[]) {
     engine.getActionManager().registerKeyboardAction("PlayerBackward", SDLK_s);
     engine.getActionManager().registerKeyboardAction("PlayerLeft", SDLK_a);
     engine.getActionManager().registerKeyboardAction("Inventory", SDLK_e);
+    engine.getActionManager().registerKeyboardAction("Attributes", SDLK_a);
     engine.getActionManager().registerKeyboardAction("Interact", SDLK_SPACE);
     engine.getActionManager().registerKeyboardAction("Back", SDLK_ESCAPE);
     engine.getActionManager().registerMouseAction("Click", SDL_BUTTON_LEFT);
@@ -41,7 +43,15 @@ main(int argc, char* argv[]) {
     Common::queueProcessHandler(
       [&](Uint32) {
           if (engine.getActionManager().isActionRising("Inventory")) {
-              engine.inventory();
+              engine.changeMode(GameMode::Inventory);
+          }
+      },
+      engine.getProcessing());
+
+    Common::queueProcessHandler(
+      [&](Uint32) {
+          if (engine.getActionManager().isActionRising("Attributes")) {
+              engine.changeMode(GameMode::Attributes);
           }
       },
       engine.getProcessing());
