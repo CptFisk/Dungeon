@@ -6,6 +6,7 @@
 #include <map>
 #include <mutex>
 #include <object/objects.hpp>
+#include <stats/stats.hpp>
 #include <thread>
 #include <utility>
 
@@ -15,7 +16,7 @@ class Player {
     Player();
     ~Player();
 
-    [[nodiscard]] SDL_Texture*&              getTexture();         // Return a reference to the current player texture
+    [[nodiscard]] SDL_Texture*&              getTexture() const;   // Return a reference to the current player texture
     [[nodiscard]] SDL_Rect*&                 getTextureViewport(); // Return a reference to the current player viewport
     [[nodiscard]] SDL_FRect&                 getTexturePosition(); // Return a reference to the current player position
     [[nodiscard]] SDL_Texture*               getSweepTexture();    // Return a reference to the current sweep texture
@@ -23,6 +24,7 @@ class Player {
     [[nodiscard]] SDL_FPoint&                getPlayerCenter();
     [[maybe_unused]] [[nodiscard]] SDL_Point getPlayerCoordinates() const;
     [[nodiscard]] SDL_FRect*                 getInteractionArea();
+    [[nodiscard]] Stats::Stats&              getPlayerStats(); // Return a reference to the player stats
     /**
      * @brief Move the player to a specific grid coordinate
      * @param x X-coordinate
@@ -71,6 +73,7 @@ class Player {
     void           updateInteraction();                                                          // Update interaction box
     void           updatePosition(const float& x, const float& y, const Orientation& direction); // Update all data related to positioning
     long int       mExperience;                                                                  // Player experience
+    Stats::Stats   mStats;                                                                       // Player stats
 
   protected:
     std::map<std::pair<Objects::State, Orientation>, Graphics::AnimatedTexture*> mTextures;

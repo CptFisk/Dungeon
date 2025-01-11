@@ -36,10 +36,6 @@ Engine::startup() {
                           GET_USERINTERFACE("TextboxLargeEnd"));
     mTextbox->generateBoxes();
 
-    // Binding player data
-    mPlayerStats =
-      std::make_unique<Player::PlayerStats>(mInventory->getItemStats(), pRenderer, GET_USERINTERFACE("Stats"), GET_TTF(DEFAULT_FONT));
-
     mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::North, GET_ANIMATED("HumanIdleNorth"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::East, GET_ANIMATED("HumanIdleEast"));
     mPlayer->addAnimatedTexture(Objects::IDLE, Orientation::South, GET_ANIMATED("HumanIdleSouth"));
@@ -64,16 +60,13 @@ Engine::startup() {
     mPlayer->setAction(Objects::State::IDLE);
 
     pPlayerAction   = mPlayer->getAction();
-
-    // Setting up inventory
-    mInventory = std::make_unique<Items::Inventory>();
     createItems();
 
     mUserInterface = std::make_unique<UI::UserInterface>(mGraphics,
                                                          pRenderer,
                                                          mScale,
                                                          mInventory->getSlots(),
-                                                         mPlayerStats->getTotalStats(),
+                                                         mPlayer->getPlayerStats(),
                                                          mInventory->getItemStats());
 
     mParticles = std::make_shared<Objects::Particle>(GET_GENERATED("FAE2C3")->getTexture(), 100, 0.5f, 0.5f);

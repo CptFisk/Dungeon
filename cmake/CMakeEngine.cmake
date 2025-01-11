@@ -22,7 +22,6 @@ add_executable(
         ${CMAKE_SOURCE_DIR}/source/items/weapon.cpp
 
         ${CMAKE_SOURCE_DIR}/source/player/player.cpp
-        ${CMAKE_SOURCE_DIR}/source/player/stats.cpp
 
         #Base for all user interfaces
         ${CMAKE_SOURCE_DIR}/source/ui/userInterface.cpp

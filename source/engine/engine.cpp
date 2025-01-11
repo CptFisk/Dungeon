@@ -23,6 +23,7 @@ Engine::Engine()
   , pPlayerPosition(mPlayer->getTexturePosition())
   , pPlayerTexture(mPlayer->getTexture())
   , pPlayerView(mPlayer->getTextureViewport())
+  , mInventory(std::make_unique<Items::Inventory>())
   , pDarkness(nullptr)
   , pPlayerAction(nullptr)
   , mScale{}

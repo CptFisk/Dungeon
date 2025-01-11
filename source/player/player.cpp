@@ -14,7 +14,8 @@ Player::Player()
   , mAction(Objects::IDLE)
   , mDirection(South)
   , mMomentum(0.0f)
-  , mExperience{} {}
+  , mExperience{}
+  , mStats{ 1, 1, 1, 1, 1, 1 } {}
 
 Player::~Player() {
     if (mAttackThread.joinable())
@@ -64,8 +65,13 @@ Player::getInteractionArea() {
     return &mInteraction;
 }
 
+Stats::Stats&
+Player::getPlayerStats(){
+    return mStats;
+}
+
 SDL_Texture*&
-Player::getTexture() {
+Player::getTexture() const{
     return mCurrentTexture;
 }
 

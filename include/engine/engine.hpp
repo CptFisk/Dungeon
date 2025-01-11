@@ -16,7 +16,6 @@
 #include <npc/include.hpp>
 #include <object/include.hpp>
 #include <player/player.hpp>
-#include <player/stats.hpp>
 #include <set>
 #include <string>
 #include <thread>
@@ -145,11 +144,10 @@ class Engine {
     std::map<long int, std::shared_ptr<Common::Interrupt>> mInterrupts;
     std::thread                                            mLoading;
 #pragma region Player
-    SDL_Texture*&                        pPlayerTexture;
-    SDL_Rect*&                           pPlayerView;
-    SDL_FRect&                           pPlayerPosition;
-    std::unique_ptr<Player::PlayerStats> mPlayerStats;
-    const Objects::State*                pPlayerAction;
+    SDL_Texture*&         pPlayerTexture;
+    SDL_Rect*&            pPlayerView;
+    SDL_FRect&            pPlayerPosition;
+    const Objects::State* pPlayerAction;
 
 #pragma endregion
 
