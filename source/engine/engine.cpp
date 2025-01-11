@@ -27,6 +27,7 @@ Engine::Engine()
   , mUserInterface(std::make_unique<UI::UserInterface>(mGraphics,
                                                        pRenderer,
                                                        mScale,
+                                                       mPlayer->getSoulCount(),
                                                        mInventory->getSlots(),
                                                        mPlayer->getPlayerStats(),
                                                        mInventory->getItemStats()))
@@ -227,6 +228,8 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
+    auto      t   = GET_ANIMATED("Soul");
+    SDL_FRect pos = { 16, 16, 16, 16 };
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition.x + 8.0f, pPlayerPosition.y + 8.0f);
 
@@ -315,6 +318,7 @@ Engine::mainLoop() {
                 }
                 break;
         }
+        SDL_RenderCopyF(pRenderer, t->getTexture(), t->getAnimatedViewport(), &pos);
         present();
     }
 }
