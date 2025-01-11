@@ -71,7 +71,7 @@ Player::getPlayerStats(){
 }
 
 SDL_Texture*&
-Player::getTexture() const{
+Player::getTexture(){
     return mCurrentTexture;
 }
 
