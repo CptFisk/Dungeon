@@ -1,0 +1,19 @@
+{
+  "Header": {
+    "Type": "AnimatedTexture"
+  },
+  "Data": {
+    "File": "rsrc/ui/Soul.png",
+    "Objects": [
+      {
+        "Name": "Soul",
+        "Column": 1,
+        "Row": 1,
+        "Length": 32,
+        "Ticks": 10,
+        "Width": 16,
+        "Height": 16
+      }
+    ]
+  }
+}
