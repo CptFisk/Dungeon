@@ -7,9 +7,10 @@ namespace Monster {
  */
 class Slime : public BaseMonster {
   public:
-    Slime(const int&                                               health,
-          const float&                                             velocity,
-          const std::string&                                       name,
+    Slime(const int&                                                      health,
+          const float&                                                    velocity,
+          const int&                                                      experience,
+          const std::string&                                              name,
           const std::optional<std::unordered_map<std::string, std::any>>& defaults = std::nullopt);
     ~Slime();
 

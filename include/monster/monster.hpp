@@ -12,6 +12,7 @@ class BaseMonster {
   public:
     BaseMonster(const int&                                                      health,
                 const float&                                                    velocity,
+                const int&                                                      experience,
                 const std::string&                                              lua,
                 const std::optional<std::unordered_map<std::string, std::any>>& defaults = std::nullopt);
     BaseMonster(const BaseMonster& other);
@@ -23,8 +24,9 @@ class BaseMonster {
      * @param damage
      */
 
-    void setPlayerDistance(const float& dist);
-    [[nodiscard]]float getPlayerDistance() const;
+    void                setPlayerDistance(const float& dist);
+    [[nodiscard]] float getPlayerDistance() const;
+    [[nodiscard]] int   getExperience() const;
 
     void damageMonster(const int& damage);
     /**
@@ -101,6 +103,7 @@ class BaseMonster {
 
     bool mInflictDamage; // Monster can inflict damage
     int  mHealth;        // Monster health
+    int  mExperience;    // Reward for killing the beast
 
     Objects::State mState;     // What are we doing
     Orientation    mDirection; // The direction we are facing

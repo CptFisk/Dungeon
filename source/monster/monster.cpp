@@ -1,14 +1,16 @@
 #include <monster/monster.hpp>
 #include <utility/trigonometry.hpp>
 namespace Monster {
-BaseMonster::BaseMonster(const int&                                       health,
-                         const float&                                     velocity,
-                         const std::string&                               lua,
+BaseMonster::BaseMonster(const int&                                                      health,
+                         const float&                                                    velocity,
+                         const int&                                                      experience,
+                         const std::string&                                              lua,
                          const std::optional<std::unordered_map<std::string, std::any>>& defaults)
   : luaFile(lua + ".lua")
   , mInflictDamage(true)
   , mHealth(health)
   , mVelocity(velocity)
+  , mExperience(experience)
   , mRetains(defaults.value_or(std::unordered_map<std::string, std::any>()))
   , mTicks(0)
   , pCurrentTexture(nullptr)
@@ -41,6 +43,11 @@ BaseMonster::setPlayerDistance(const float& dist) {
 float
 BaseMonster::getPlayerDistance() const {
     return mPlayerDistance;
+}
+
+int
+BaseMonster::getExperience() const{
+    return mExperience;
 }
 
 void
@@ -130,7 +137,7 @@ BaseMonster::getPosition() {
 }
 
 SDL_FPoint
-BaseMonster::getCenter() const{
+BaseMonster::getCenter() const {
     return mMonsterCenter;
 }
 

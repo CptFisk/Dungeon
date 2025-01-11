@@ -4,9 +4,10 @@
 namespace Monster {
 Slime::Slime(const int&                                                      health,
              const float&                                                    velocity,
+             const int&                                                      experience,
              const std::string&                                              name,
              const std::optional<std::unordered_map<std::string, std::any>>& defaults)
-  : BaseMonster(health, velocity, name, defaults) {}
+  : BaseMonster(health, velocity, experience, name, defaults) {}
 
 Slime::~Slime() {}
 
@@ -26,6 +27,7 @@ Slime::spawn(const float& x, const float& y) const {
     obj->mMonsterCenter.x   = xPos + (MONSTER_WIDTH / 2.0f);
     obj->mMonsterCenter.y   = yPos + (MONSTER_HEIGHT / 2.0f);
     obj->luaFile            = this->luaFile;
+    obj->mExperience        = this->mExperience;
     obj->mRetains           = mRetains;
     return obj;
 }

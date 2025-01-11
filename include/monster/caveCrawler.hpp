@@ -5,9 +5,10 @@
 namespace Monster {
 class CaveCrawler : public BaseMonster {
   public:
-    CaveCrawler(const int&                                               health,
-                const float&                                             velocity,
-                const std::string&                                       name,
+    CaveCrawler(const int&                                                      health,
+                const float&                                                    velocity,
+                const int&                                                      experience,
+                const std::string&                                              name,
                 const std::optional<std::unordered_map<std::string, std::any>>& defaults = std::nullopt);
     ~CaveCrawler() override;
 
