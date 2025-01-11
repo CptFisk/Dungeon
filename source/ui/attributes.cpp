@@ -1,6 +1,7 @@
 #include <error.hpp>
 #include <graphics/graphics.hpp>
 #include <ui/userInterface.hpp>
+#include <global.hpp>
 #include <utility/string.hpp>
 namespace Engine::UI {
 
@@ -32,7 +33,7 @@ UserInterface::calculateAttributes() {
     const std::vector<std::string> attributes = { "Vitality", "Stamina", "Strength", "Dexterity", "Intelligence", "Luck" };
     for (const auto& attribute : attributes) {
         // Generate the text
-        auto text = font->generateSentence(attribute, SDL_Color{ 224, 224, 224, 255 });
+        auto text = font->generateSentence(attribute, LIGHT_FONT);
         ASSERT_WITH_MESSAGE(SDL_QueryTexture(text, nullptr, nullptr, &w, &h) != 0, SDL_GetError());
         if (row != 0)
             pos.y += static_cast<float>(spacing + h); // First row shall be placed at start position
@@ -87,7 +88,7 @@ UserInterface::updateAttributes() {
         const auto itemStat   = Utility::padRight(std::to_string(mItemStats.at(i)), 2);
         const auto result     = std::string().append(playerStat).append(" / ").append(itemStat);
 
-        auto text = font->generateSentence(result, SDL_Color{ 224, 224, 224, 255 });
+        auto text = font->generateSentence(result, LIGHT_FONT);
         ASSERT_WITH_MESSAGE(SDL_QueryTexture(text, nullptr, nullptr, &w, &h) != 0, SDL_GetError());
         if (i != 0)
             pos.y += static_cast<float>(spacing + h); // First row shall be placed at start position

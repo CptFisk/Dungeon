@@ -12,7 +12,7 @@
 
 //Default font
 const std::string DEFAULT_FONT("8bit16");
-
+const SDL_Color LIGHT_FONT{ 224, 224, 224, 255 };
 // Map size
 [[maybe_unused]] const int     MAP_WIDTH     = 128;
 [[maybe_unused]] const int     SEGMENT_SIZE  = 128;
