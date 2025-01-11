@@ -114,16 +114,15 @@ class Engine {
     Common::InitHandler                 mInitHandler;
     std::shared_ptr<Player::Player>     mPlayer;
     std::shared_ptr<Graphics::Graphics> mGraphics;
-    /**
-     * @brief Handle the visibility of all elements in the game
-     */
-    std::unique_ptr<UI::UserInterface> mUserInterface;
-
     std::unique_ptr<Common::Perspective> mPerspective;
     std::unique_ptr<LoadingScreen>       mLoadingScreen;
     std::unique_ptr<UI::Textbox>         mTextbox;
     std::unique_ptr<Lua::LuaManager>     mLuaManager;
     std::unique_ptr<Items::Inventory>    mInventory;
+    /**
+     * @brief Handle the visibility of all elements in the game
+     */
+    std::unique_ptr<UI::UserInterface> mUserInterface;
 
     // Events
     std::unique_ptr<Common::ActionManager>                                 mActionManager;

@@ -17,7 +17,7 @@ class Inventory {
     [[nodiscard]] std::array<Slot, 30>& getSlots();
     /**
      * @brief Using the mouse to click on a specific square.
-     * @return True if graphics should be re-calcualted
+     * @return True if graphics should be re-calculated
      */
     [[nodiscard]] bool selectItem(const uint8_t& index, bool& selectorVisible);
     /**

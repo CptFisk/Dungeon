@@ -24,6 +24,12 @@ Engine::Engine()
   , pPlayerTexture(mPlayer->getTexture())
   , pPlayerView(mPlayer->getTextureViewport())
   , mInventory(std::make_unique<Items::Inventory>())
+  , mUserInterface(std::make_unique<UI::UserInterface>(mGraphics,
+                                                       pRenderer,
+                                                       mScale,
+                                                       mInventory->getSlots(),
+                                                       mPlayer->getPlayerStats(),
+                                                       mInventory->getItemStats()))
   , pDarkness(nullptr)
   , pPlayerAction(nullptr)
   , mScale{}
@@ -144,7 +150,7 @@ Engine::click() {
         case GameMode::Inventory: {
             const auto& index = mUserInterface->selectItemMouse(Utility::PointToFPoint(mActionManager->getMouseAbsolute()));
             if (index.has_value()) {
-                if(mInventory->selectItem(index.value(), mUserInterface->getSelectorVisible()))
+                if (mInventory->selectItem(index.value(), mUserInterface->getSelectorVisible()))
                     mUserInterface->updateAttributes();
             }
         } break;

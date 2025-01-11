@@ -13,6 +13,12 @@ Engine::startup() {
     Common::calculateGameScale(mScale, pWindow);
     SDL_RenderSetScale(pRenderer, static_cast<int>(mScale.selectedScale), static_cast<int>(mScale.selectedScale));
 
+    //Userinterface stuff
+    mUserInterface->calculateInventory();
+    mUserInterface->calculateIndicators();
+    mUserInterface->calculateAttributes();
+    mUserInterface->updateAttributes();
+
     // Generate all monster data
     createMonsters();
     createNPC();
@@ -61,14 +67,6 @@ Engine::startup() {
 
     pPlayerAction   = mPlayer->getAction();
     createItems();
-
-    mUserInterface = std::make_unique<UI::UserInterface>(mGraphics,
-                                                         pRenderer,
-                                                         mScale,
-                                                         mInventory->getSlots(),
-                                                         mPlayer->getPlayerStats(),
-                                                         mInventory->getItemStats());
-
     mParticles = std::make_shared<Objects::Particle>(GET_GENERATED("FAE2C3")->getTexture(), 100, 0.5f, 0.5f);
     // mInterrupts[0]->addFunction([&]() { monsterActions(); });
     //  Update all graphics

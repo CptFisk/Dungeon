@@ -76,10 +76,6 @@ UserInterface::UserInterface(std::shared_ptr<Graphics::Graphics> graphics,
  , mAttributesDrawData{{ nullptr, nullptr, new SDL_FRect{} },
                          { nullptr, nullptr, new SDL_FRect{} }}
   ,mAttributesLongestName{}{
-    calculateInventory();
-    calculateIndicators();
-    calculateAttributes();
-    updateAttributes();
 }
 
 UserInterface::~UserInterface() {

@@ -1,7 +1,6 @@
 #include <error.hpp>
 #include <items/inventory.hpp>
 #include <items/weapon.hpp>
-#include <utility/textures.hpp>
 
 namespace Items {
 
@@ -53,7 +52,7 @@ Inventory::selectItem(const uint8_t& index, bool& selectorVisible) {
     bool update = false;
     if (swap(selectorVisible, mSelected, index)) {
         selectorVisible = false;
-        update = true;
+        update          = true;
         calculateStats();
     } else {
         selectorVisible = true;
