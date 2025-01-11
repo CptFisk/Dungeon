@@ -66,12 +66,17 @@ Player::getInteractionArea() {
 }
 
 Stats::Stats&
-Player::getPlayerStats(){
+Player::getPlayerStats() {
     return mStats;
 }
 
+long unsigned int&
+Player::getSoulCount() {
+    return mExperience;
+}
+
 SDL_Texture*&
-Player::getTexture(){
+Player::getTexture() {
     return mCurrentTexture;
 }
 
