@@ -228,8 +228,6 @@ Engine::interact() {
 
 void
 Engine::mainLoop() {
-    auto      t   = GET_ANIMATED("Soul");
-    SDL_FRect pos = { 16, 16, 16, 16 };
     mPlayer->spawn(9, 119);
     mPerspective->center(pPlayerPosition.x + 8.0f, pPlayerPosition.y + 8.0f);
 
@@ -304,6 +302,8 @@ Engine::mainLoop() {
             case GameMode::Game:
                 for (auto data : mUserInterface->getIndicators())
                     SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
+                for (auto data : mUserInterface->getSoul())
+                    SDL_RenderCopyF(pRenderer, data.Texture, data.Viewport, data.Position);
                 // Positions
                 drawFloatingText();
                 break;
@@ -318,7 +318,6 @@ Engine::mainLoop() {
                 }
                 break;
         }
-        SDL_RenderCopyF(pRenderer, t->getTexture(), t->getAnimatedViewport(), &pos);
         present();
     }
 }

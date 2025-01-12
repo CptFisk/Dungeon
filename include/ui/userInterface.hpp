@@ -20,6 +20,8 @@ class UserInterface {
     UserInterface(std::shared_ptr<Graphics::Graphics> graphics,
                   SDL_Renderer*&                      renderer,
                   Common::typeScale&                  scale,
+                  // Related to soul
+                  long unsigned int& soul,
                   // Related to inventory
                   std::array<Items::Slot, 30>& slots,
                   Stats::Stats&                playerStats,
@@ -29,12 +31,14 @@ class UserInterface {
     [[nodiscard]] std::vector<Graphics::typeDrawData> getIndicators() const;
     [[nodiscard]] std::vector<Graphics::typeDrawData> getInventory();
     [[nodiscard]] std::vector<Graphics::typeDrawData> getAttributes() const;
+    [[nodiscard]] std::vector<Graphics::typeDrawData> getSoul() const;
     /**
      *@brief Calculate new positions for all graphical elements based on resolution
      */
     void calculateIndicators();
     void calculateInventory();
     void calculateAttributes();
+    void calculateSoul();
     /**
      * @brief Generate a new graphic for the attribute page with new values for the stats
      */
@@ -42,6 +46,7 @@ class UserInterface {
     /**
      * @brief Calculate values for gradients
      */
+    void updateSoul();
     void updateBars();
     /**
      * @return Returns a reference the to icon so the inventory can change it
@@ -103,10 +108,14 @@ class UserInterface {
 #pragma endregion
 #pragma region Attributes
     SDL_Texture* pAttributesBackground;
-    SDL_Texture* pAttributesValues;    // Background used when stats have been added over background
+    SDL_Texture* pAttributesValues;      // Background used when stats have been added over background
     int          mAttributesLongestName; // The length in pixels of the longest attribute name, used to calculate positions
     // Draw data
     std::vector<Graphics::typeDrawData> mAttributesDrawData;
+#pragma endregion
+#pragma Soul count
+    long unsigned int&                  mSoulCount; // Reference to the total amount of souls gathered
+    std::vector<Graphics::typeDrawData> mSoulDrawData;
 #pragma endregion
 };
 

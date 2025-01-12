@@ -17,7 +17,9 @@ Engine::startup() {
     mUserInterface->calculateInventory();
     mUserInterface->calculateIndicators();
     mUserInterface->calculateAttributes();
+    mUserInterface->calculateSoul();
     mUserInterface->updateAttributes();
+    mUserInterface->updateSoul();
 
     // Generate all monster data
     createMonsters();

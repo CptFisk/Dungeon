@@ -4,79 +4,78 @@
 namespace Engine::UI {
 
 UserInterface::UserInterface(std::shared_ptr<Graphics::Graphics> graphics,
-                             SDL_Renderer*& renderer,
-                             Common::typeScale& scale,
-                             //Related to inventory
+                             SDL_Renderer*&                      renderer,
+                             Common::typeScale&                  scale,
+                             // Related to soul
+                             long unsigned int& soul,
+                             // Related to inventory
                              std::array<Items::Slot, 30>& slots,
-                             Stats::Stats&                   playerStats,
-                             Stats::Stats& itemStats)
+                             Stats::Stats&                playerStats,
+                             Stats::Stats&                itemStats)
   : pRenderer(renderer)
-  ,mScale(scale)
-  ,mGraphics(graphics)
+  , mScale(scale)
+  , mGraphics(graphics)
+  // Related to soul
+  , mSoulCount(soul)
   , mPlayerStats(playerStats)
   , mItemStats(itemStats)
-  //Inventory
-  ,pInventoryBackground(GET_USERINTERFACE("Inventory"))
-  ,pInventorySelector(GET_USERINTERFACE("Selector"))
-  , mInventorySlots(slots)
-  ,mInventorySelectorVisible(false)
-  ,mInventoryBackgroundDrawData(pInventoryBackground->getTexture(), nullptr, new SDL_FRect(0.0f, 0.0f, 0.0f, 0.0f))
-  ,mInventorySelectorDrawData(pInventorySelector->getTexture(), nullptr)
-  ,mInventoryDefaultPosition{ // Equipment
+  , mSoulDrawData {
+    { GET_ANIMATED("Soul")->getTexture(), GET_ANIMATED("Soul")->getAnimatedViewport(), new SDL_FRect{}},
+    { nullptr, nullptr, new SDL_FRect{}}} // Inventory
+    ,
+      pInventoryBackground(GET_USERINTERFACE("Inventory")), pInventorySelector(GET_USERINTERFACE("Selector")), mInventorySlots(slots),
+      mInventorySelectorVisible(false),
+      mInventoryBackgroundDrawData(pInventoryBackground->getTexture(), nullptr, new SDL_FRect(0.0f, 0.0f, 0.0f, 0.0f)),
+      mInventorySelectorDrawData(pInventorySelector->getTexture(), nullptr),
+      mInventoryDefaultPosition{ // Equipment
                                  SDL_FPoint{ 20, 20 },
                                  SDL_FPoint{ 40, 20 },
                                  SDL_FPoint{ 20, 40 },
                                  SDL_FPoint{ 40, 40 },
                                  SDL_FPoint{ 60, 40 },
                                  SDL_FPoint{ 40, 60 },
-                                 //Bags
+                                 // Bags
                                  SDL_FPoint{ 100, 20 },
                                  SDL_FPoint{ 120, 20 },
-                                 SDL_FPoint{ 140, 20},
+                                 SDL_FPoint{ 140, 20 },
                                  SDL_FPoint{ 160, 20 },
                                  SDL_FPoint{ 100, 40 },
                                  SDL_FPoint{ 120, 40 },
-                                 SDL_FPoint{ 140, 40},
+                                 SDL_FPoint{ 140, 40 },
                                  SDL_FPoint{ 160, 40 },
                                  SDL_FPoint{ 100, 60 },
                                  SDL_FPoint{ 120, 60 },
-                                 SDL_FPoint{ 140, 60},
+                                 SDL_FPoint{ 140, 60 },
                                  SDL_FPoint{ 160, 60 },
                                  SDL_FPoint{ 100, 80 },
                                  SDL_FPoint{ 120, 80 },
-                                 SDL_FPoint{ 140, 80},
+                                 SDL_FPoint{ 140, 80 },
                                  SDL_FPoint{ 160, 80 },
-                                 //Spells
-                                 SDL_FPoint {20,120},
-                                 SDL_FPoint {40,120},
-                                 SDL_FPoint {60,120},
-                                 SDL_FPoint {80,120},
-                                 SDL_FPoint {100,120},
-                                 SDL_FPoint {120,120},
-                                 SDL_FPoint {140,120},
-                                 SDL_FPoint {160,120}
-      }
-  //Indicators
-  , pIndicatorBackground(GET_USERINTERFACE("CurrentHotkey"))
-  , pIndicatorRed{ GET_ANIMATED("GradientRed") }
-  , pIndicatorGreen{ GET_ANIMATED("GradientGreen") }
-  , pIndicatorYellow{ GET_ANIMATED("GradientYellow")}
-  , pIndicatorBarBackground(GET_GENERATED("282828"))
-  , mIndicatorsDrawData{ { pIndicatorBackground->getTexture(), nullptr, new SDL_FRect{} },
-                        { pIndicatorBarBackground->getTexture(), nullptr, new SDL_FRect{} },
-                        { pIndicatorBarBackground->getTexture(), nullptr, new SDL_FRect{} },
-                        { pIndicatorBarBackground->getTexture(), nullptr, new SDL_FRect{} },
+                                 // Spells
+                                 SDL_FPoint{ 20, 120 },
+                                 SDL_FPoint{ 40, 120 },
+                                 SDL_FPoint{ 60, 120 },
+                                 SDL_FPoint{ 80, 120 },
+                                 SDL_FPoint{ 100, 120 },
+                                 SDL_FPoint{ 120, 120 },
+                                 SDL_FPoint{ 140, 120 },
+                                 SDL_FPoint{ 160, 120 }
+      } // Indicators
+    ,
+      pIndicatorBackground(GET_USERINTERFACE("CurrentHotkey")), pIndicatorRed{ GET_ANIMATED("GradientRed") },
+      pIndicatorGreen{ GET_ANIMATED("GradientGreen") }, pIndicatorYellow{ GET_ANIMATED("GradientYellow") },
+      pIndicatorBarBackground(GET_GENERATED("282828")),
+      mIndicatorsDrawData{ { pIndicatorBackground->getTexture(), nullptr, new SDL_FRect{} },
+                           { pIndicatorBarBackground->getTexture(), nullptr, new SDL_FRect{} },
+                           { pIndicatorBarBackground->getTexture(), nullptr, new SDL_FRect{} },
+                           { pIndicatorBarBackground->getTexture(), nullptr, new SDL_FRect{} },
 
-                        { pIndicatorRed->getTexture(), pIndicatorRed->getAnimatedViewport(), new SDL_FRect{} },
-                        { pIndicatorGreen->getTexture(), pIndicatorGreen->getAnimatedViewport(), new SDL_FRect{} },
-                        { pIndicatorYellow->getTexture(), pIndicatorYellow->getAnimatedViewport(), new SDL_FRect{} } }
-    //Attributes
-  ,pAttributesBackground(nullptr)
-  , pAttributesValues(nullptr)
- , mAttributesDrawData{{ nullptr, nullptr, new SDL_FRect{} },
-                         { nullptr, nullptr, new SDL_FRect{} }}
-  ,mAttributesLongestName{}{
-}
+                           { pIndicatorRed->getTexture(), pIndicatorRed->getAnimatedViewport(), new SDL_FRect{} },
+                           { pIndicatorGreen->getTexture(), pIndicatorGreen->getAnimatedViewport(), new SDL_FRect{} },
+                           { pIndicatorYellow->getTexture(), pIndicatorYellow->getAnimatedViewport(), new SDL_FRect{} } } // Attributes
+    ,
+      pAttributesBackground(nullptr), pAttributesValues(nullptr),
+      mAttributesDrawData{ { nullptr, nullptr, new SDL_FRect{} }, { nullptr, nullptr, new SDL_FRect{} } }, mAttributesLongestName{} {}
 
 UserInterface::~UserInterface() {
     // Cleaning
@@ -84,7 +83,9 @@ UserInterface::~UserInterface() {
         delete data.Position;
     }
     delete mInventoryBackgroundDrawData.Position;
-    for(auto& data : mAttributesDrawData)
+    for (auto& data : mAttributesDrawData)
+        delete data.Position;
+    for (auto& data : mSoulDrawData)
         delete data.Position;
     SDL_DestroyTexture(pAttributesBackground);
     SDL_DestroyTexture(pAttributesValues);
@@ -107,5 +108,4 @@ UserInterface::calculateLength(const int& points) {
     const auto value = std::min(points, 50);
     return static_cast<float>(Utility::Scale(value, 0, 50, 50, 130));
 }
-
 }
