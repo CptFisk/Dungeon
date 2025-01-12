@@ -25,7 +25,7 @@ Engine::startup() {
     createMonsters();
     createNPC();
 
-    loadLevel("555.lvl");
+    loadLevel("555");
     SDL_RenderClear(pRenderer);
 
     mTextbox = std::make_unique<UI::Textbox>(pRenderer, mScale);

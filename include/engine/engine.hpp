@@ -222,9 +222,6 @@ class Engine {
     Common::type3DMapCoordinate mMapCoordinate;
     Common::typeColour          mColour;
 
-    std::vector<std::string> mOnLoad;
-    std::vector<std::string> mOnExit;
-
     bool         mLevelLoaded;
     std::string  mFilename; // Name of the current loaded map
     SDL_Texture* pDarkness;

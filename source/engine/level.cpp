@@ -19,15 +19,13 @@ Engine::loadLevel(const std::string& filename) {
     if (mLevelLoaded)
         clearLoadedLevel();
     const auto start = std::chrono::high_resolution_clock::now();
-    auto       data  = File::readEngineData("levels/" + filename, pRenderer);
+    auto       data  = File::readEngineData("levels/" + filename + ".lvl", pRenderer);
     const auto time  = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start);
     std::cout << "Loading time: " << time.count() << " ms" << std::endl;
     mMapCoordinate = data.Header.MapCoordinate;
-    mOnExit        = data.Header.OnExit;
+    mFilename      = filename;
 
     mColour = data.Header.Colour;
-    mOnLoad = data.Header.OnLoad;
-    mOnLoad = data.Header.OnExit;
 
     mSegments.Bottom.Layers      = data.Layers.Bottom;
     mSegments.Bottom.Position    = SDL_FRect{ 0, 0, 2048, 2048 };
@@ -99,10 +97,14 @@ Engine::loadLevel(const std::string& filename) {
 
     mLevelLoaded = true;
     // Run all startup functions
-    for (const auto& name : data.Header.OnLoad) {
-        auto function = getExternalFunction(name);
-        ASSERT_WITH_MESSAGE(!function, "Function: " << name << " could not load")
-        function();
+
+    auto state = mLuaManager->getState();
+    mLuaManager->executeScript("scripts/level/" + filename + ".lua");
+    lua_getglobal(state, "Startup");
+
+    if (lua_pcall(state, 0, 0, 0) != LUA_OK) {
+        std::cerr << "Error: " << lua_tostring(state, -1) << std::endl;
+        lua_pop(state, 1); // Remove error message from stack
     }
 }
 
@@ -120,17 +122,17 @@ Engine::wallCheck(const SDL_FPoint& other, const float& x, const float& y, const
 
     if (Utility::isAnyBitSet(levelObjects[index.value()], std::bitset<8>(mask)))
         return false;
-    if(playerCheck && Utility::isOverlapping(other, pPlayerPosition))
+    if (playerCheck && Utility::isOverlapping(other, pPlayerPosition))
         return false;
     return true;
 }
 
 bool
 Engine::wallCheck(const float& x, const float& y, const long unsigned int& mask) {
-    auto posX = static_cast<int>(x);
-    auto posY = static_cast<int>(y);
+    auto       posX  = static_cast<int>(x);
+    auto       posY  = static_cast<int>(y);
     const auto index = Common::getIndex(posX / 16, posY / 16, MAP_WIDTH);
-    if(!index.has_value())
+    if (!index.has_value())
         return false;
     if (Utility::isAnyBitSet(levelObjects[index.value()], std::bitset<8>(mask)))
         return false;
@@ -138,7 +140,7 @@ Engine::wallCheck(const float& x, const float& y, const long unsigned int& mask)
 }
 
 bool
-Engine::movement(const SDL_FPoint& other,const SDL_FPoint& vector, const double& angle) {
+Engine::movement(const SDL_FPoint& other, const SDL_FPoint& vector, const double& angle) {
     auto pos = Utility::addFPoint(other, vector);
     if (pos.x < 0 || pos.y < 0)
         return false; // No need to evaluate more
@@ -177,7 +179,7 @@ Engine::movement(const SDL_FPoint& other,const SDL_FPoint& vector, const double&
 
 bool
 Engine::movement(const SDL_FPoint& other, const Orientation& direction) {
-    return movement(SDL_FRect{other.x, other.y, 1.0f, 1.0f}, direction);
+    return movement(SDL_FRect{ other.x, other.y, 1.0f, 1.0f }, direction);
 }
 
 bool
@@ -239,12 +241,13 @@ Engine::movement(const SDL_FRect& other, const Orientation& direction) {
 void
 Engine::clearLoadedLevel() {
     // Run functions on unLoad
-    for (const auto& name : mOnExit) {
-        auto function = getExternalFunction(name);
-        if (function)
-            function();
-        else
-            std::cerr << "Function: " << name << " could not be found" << std::endl;
+    auto state = mLuaManager->getState();
+    mLuaManager->executeScript("scripts/level/" + mFilename + ".lua");
+    lua_getglobal(state, "Shutdown");
+
+    if (lua_pcall(state, 0, 0, 0) != LUA_OK) {
+        std::cerr << "Error: " << lua_tostring(state, -1) << std::endl;
+        lua_pop(state, 1); // Remove error message from stack
     }
     // Kill and remove all cute monsters
     for (auto monster : mActiveMonsters)
