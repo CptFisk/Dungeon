@@ -35,7 +35,7 @@ class UserInterface {
     /**
      *@brief Calculate new positions for all graphical elements based on resolution
      */
-    void calculateIndicators();
+    void calculateIndicators() const;
     void calculateInventory();
     void calculateAttributes();
     void calculateSoul();

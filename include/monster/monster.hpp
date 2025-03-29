@@ -28,7 +28,12 @@ class BaseMonster {
     [[nodiscard]] float getPlayerDistance() const;
     [[nodiscard]] int   getExperience() const;
 
-    void damageMonster(const int& damage);
+    /**
+     * @brief Damage the monster
+     * @param damage Damage to apply
+     * @return Return true if the blow was fatal
+     */
+    bool damageMonster(const int& damage);
     /**
      * @brief Return the status of mInflictDamage
      * @return True means that the monster can hurt you

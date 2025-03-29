@@ -50,13 +50,17 @@ BaseMonster::getExperience() const{
     return mExperience;
 }
 
-void
+bool
 BaseMonster::damageMonster(const int& damage) {
-    mHealth -= damage;
-    if (mHealth < 0) {
+    auto newHealth = mHealth - damage;
+    if (newHealth < 0 || mState == Objects::DYING) {
+        mHealth = 0;
         mState = Objects::DYING;
         updateReferences();
+        return true;
     }
+    mHealth = newHealth;
+    return false;
 }
 
 bool
